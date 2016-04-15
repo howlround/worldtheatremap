@@ -1,3 +1,7 @@
 node_modules/
 
+# Chimp debug files
+.screenshots/
+
+# OSX files
 .DS_Store

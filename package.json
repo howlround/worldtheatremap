@@ -12,7 +12,12 @@
     "react-dom": "^15.0.1"
   },
   "devDependencies": {
+    "breakpoint-sass": "^2.7.0",
     "chimp": "^0.33.1",
-    "shrinkwrap": "^0.4.0"
+    "grunt": "^1.0.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-sass": "^1.1.0",
+    "shrinkwrap": "^0.4.0",
+    "susy": "^2.2.12"
   }
 }

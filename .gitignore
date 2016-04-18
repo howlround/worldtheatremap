@@ -6,3 +6,6 @@ npm-debug.log
 
 # OSX files
 .DS_Store
+
+# Compiled CSS
+client/css

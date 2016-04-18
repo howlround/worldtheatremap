@@ -2,6 +2,14 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
+    sass_globbing: {
+      app: {
+        files: {
+          'client/scss/_variables.scss': 'client/scss/variables/*.scss'
+        }
+      }
+    },
+
     sass: {
       app: {
         files: [{
@@ -21,8 +29,8 @@ module.exports = function(grunt) {
 
     watch: {
       sass: {
-        files: ['scss/{,*/}*.{scss,sass}'],
-        tasks: ['sass']
+        files: ['client/scss/**/*'],
+        tasks: ['sass_globbing', 'sass']
       },
       options: {
         spawn: false
@@ -32,8 +40,9 @@ module.exports = function(grunt) {
 
   // Loads Grunt Tasks
   grunt.loadNpmTasks('grunt-sass');
+  grunt.loadNpmTasks('grunt-sass-globbing');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task(s).
-  grunt.registerTask('default', ['sass', 'watch']);
+  grunt.registerTask('default', ['sass_globbing', 'sass', 'watch']);
 };

@@ -4,7 +4,6 @@ Feature: Search the Web
   I want to search the web
   So I can find information
 
-  @watch
   Scenario: Search for Xolv.io
     Given I have visited the home page
-    Then I should see "Hide Completed Tasks"
+    Then the ".hide-completed" element should contain "Hide Completed Tasks"

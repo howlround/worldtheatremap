@@ -3,7 +3,4 @@
 
 // Control the order of the partials
 @import "variables";
-
-.container {
-  @include container;
-}
+@import "base";

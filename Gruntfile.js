@@ -5,7 +5,8 @@ module.exports = function(grunt) {
     sass_globbing: {
       app: {
         files: {
-          'client/scss/_variables.scss': 'client/scss/variables/*.scss'
+          'client/scss/_variables.scss': 'client/scss/variables/*.scss',
+          'client/scss/_base.scss': 'client/scss/base/*.scss',
         }
       }
     },

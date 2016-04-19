@@ -1,0 +1,15 @@
+.container {
+  @include container;
+
+  @include breakpoint($narrow) {
+    @include container($narrow-width);
+  }
+
+  @include breakpoint($normal) {
+    @include container($normal-width);
+  }
+
+  @include breakpoint($wide) {
+    @include container($wide-width);
+  }
+}

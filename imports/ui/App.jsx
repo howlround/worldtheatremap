@@ -58,7 +58,7 @@ class App extends Component {
     return (
       <div className="container">
         <header>
-          <h1>Todo List ({this.props.incompleteCount})</h1>
+          <h1>Irondale Center</h1>
 
           <label className="hide-completed">
             <input
@@ -85,7 +85,7 @@ class App extends Component {
 
         </header>
 
-        <ul>
+        <ul className="block">
           {this.renderTasks()}
         </ul>
       </div>
@@ -95,7 +95,6 @@ class App extends Component {
 
 App.propTypes = {
   tasks: PropTypes.array.isRequired,
-  incompleteCount: PropTypes.number.isRequired,
   currentUser: PropTypes.object,
 }
 
@@ -104,7 +103,6 @@ export default createContainer(() => {
 
   return {
     tasks: Tasks.find({}, { sort: { createdAt: -1 } }).fetch(),
-    incompleteCount: Tasks.find({ checked: { $ne: true } }).count(),
     currentUser: Meteor.user(),
   }
 }, App);

@@ -1,4 +1,3 @@
-
 module.exports = function() {
   this.Given(/^I am am logged in$/, function () {
     client.waitForExist('#login-sign-in-link');
@@ -32,6 +31,14 @@ module.exports = function() {
     const completedText = browser.getTitle();
 
     expect(client.getText(element)).toEqual(text);
+  });
+
+  this.Given(/^a task with the following fields:$/, function (table) {
+    const data = table.rowsHash();
+    const tasks = server.execute((data) => {
+      const {Tasks} = require('/imports/api/tasks');
+      return Tasks.insert(data);
+    }, data);
   });
 
   this.Before(function () {

@@ -1,9 +1,17 @@
-Feature: Search the Web
+@watch
+Feature: View organization profiles
 
-  As a human
-  I want to search the web
+  As a user
+  I want to see organization profiles
   So I can find information
 
-  Scenario: Search for Xolv.io
-    Given I have visited the home page
-    Then the ".hide-completed" element should contain "Hide Completed Tasks"
+  Background:
+    Given I am on the home page
+
+  Scenario: As a user viewing an organization profile page I want to see information about that organization
+    And I am an anonymous user
+    And I am am logged in
+    And a task with the following fields:
+      | text | Add test profilz |
+    When I go to the profile page for "Irondale Center"
+    Then the ".profile-name" element should contain "Irondale Center"

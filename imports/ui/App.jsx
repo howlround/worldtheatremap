@@ -58,7 +58,7 @@ class App extends Component {
     return (
       <div className="container">
         <header>
-          <h1>Irondale Center</h1>
+          <h1 className="profile-name">Irondale Center</h1>
 
           <label className="hide-completed">
             <input

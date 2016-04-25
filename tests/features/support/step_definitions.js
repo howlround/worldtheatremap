@@ -23,7 +23,9 @@ module.exports = function() {
 
   this.When(/^I go to the profile page for "([^"]*)"$/, function (name) {
     // Look up the profile with this name
-    //
+
+    // Check if we are on the correct page
+    expect(client.getText('.page-title')).toEqual(name);
   });
 
   this.Then(/^the "([^"]*)" element should contain "([^"]*)"$/, function (element, text) {

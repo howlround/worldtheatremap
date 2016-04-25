@@ -1,60 +1,44 @@
 import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
+import { createContainer } from 'meteor/react-meteor-data';
 import classnames from 'classnames';
+
+import { Profiles } from '../api/profiles.js';
 
 // Profile component - represents a single todo item
 export default class Profile extends Component {
-  toggleChecked() {
-    // Set the checked property to the opposite of its current value
-    Meteor.call('profiles.setChecked', this.props.profile._id, !this.props.profile.checked);
+  constructor(props) {
+    super(props);
   }
 
   deleteThisProfile() {
     Meteor.call('profiles.remove', this.props.profile._id);
   }
 
-  togglePrivate() {
-    Meteor.call('profiles.setPrivate', this.props.profile._id, ! this.props.profile.private);
-  }
-
   render() {
-    // Give profiles a different className when they are checked off,
-    // so that we can style them nicely in CSS
-    const profileClassName = classnames({
-      checked: this.props.profile.checked,
-      private: this.props.profile.private,
-    });
+    const { profile } = this.props;
+    console.log(profile);
 
     return (
-      <li className={profileClassName}>
-        <button className="delete" onClick={this.deleteThisProfile.bind(this)}>
-          &times;
-        </button>
-
-        <input
-          type="checkbox"
-          readOnly
-          checked={this.props.profile.checked}
-          onClick={this.toggleChecked.bind(this)}
-        />
-
-        { this.props.showPrivateButton ? (
-          <button className="toggle-private" onClick={this.togglePrivate.bind(this)}>
-            { this.props.profile.private ? 'Private' : 'Public' }
-          </button>
-        ) : '' }
-
+      <article>
+        {this.props.params.id}
+        <h1 className="profile-name">Title: {this.props.profile.name}</h1>
         <span className="text">
-          <strong>{this.props.profile.username}</strong>: {this.props.profile.name}
+          <strong>{this.props.profile.username}</strong>
         </span>
-      </li>
+      </article>
     );
   }
 }
 
+// export default createContainer(() => {
+//   Meteor.subscribe('profiles');
+
+//   return {
+//     profile: Profiles.find({"name": "Favorite place theatre"}, { sort: { createdAt: -1 } }).fetch(),
+//   }
+// }, Profile);
+
 Profile.propTypes = {
-  // This component gets the profile to display through a React prop.
-  // We can use propTypes to indicate it is required
-  profile: PropTypes.object.isRequired,
-  showPrivateButton: React.PropTypes.bool.isRequired,
+  profile: PropTypes.array.isRequired,
 };

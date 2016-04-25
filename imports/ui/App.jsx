@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
+import { Router, Route, IndexRoute, Link, hashHistory } from 'react-router'
 
 import { Profiles } from '../api/profiles.js';
 
@@ -13,9 +14,9 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      hideCompleted: false,
-    };
+    // this.state = {
+    //   hideCompleted: false,
+    // };
   }
 
   handleSubmit(event) {
@@ -29,46 +30,11 @@ class App extends Component {
     ReactDOM.findDOMNode(this.refs.textInput).value = '';
   }
 
-  toggleHideCompleted() {
-    this.setState({
-      hideCompleted: !this.state.hideCompleted,
-    });
-  }
-
-  renderProfiles() {
-    let filteredProfiles = this.props.profiles;
-    if (this.state.hideCompleted) {
-      filteredProfiles = filteredProfiles.filter(profile => !profile.checked);
-    }
-    return filteredProfiles.map((profile) => {
-      const currentUserId = this.props.currentUser && this.props.currentUser._id;
-      const showPrivateButton = profile.owner === currentUserId;
-
-      return (
-        <Profile
-          key={profile._id}
-          profile={profile}
-          showPrivateButton={showPrivateButton}
-        />
-      );
-    });
-  }
-
   render() {
     return (
       <div className="container">
         <header>
-          <h1 className="profile-name">Irondale Center</h1>
-
-          <label className="hide-completed">
-            <input
-              type="checkbox"
-              readOnly
-              checked={this.state.hideCompleted}
-              onClick={this.toggleHideCompleted.bind(this)}
-            />
-            Hide Completed Profiles
-          </label>
+          <li><Link to="/about">About</Link></li>
 
           <AccountsUIWrapper />
 
@@ -85,9 +51,9 @@ class App extends Component {
 
         </header>
 
-        <ul className="block">
-          {this.renderProfiles()}
-        </ul>
+        <div className="content">
+          {this.props.children}
+        </div>
       </div>
     );
   }

@@ -9,7 +9,7 @@ Feature: View organization profiles
     Given I am on the home page
 
   Scenario: As a user viewing an organization profile page I want to see information about that organization
-    And a task with the following fields:
-      | text | Add test profilz |
-    When I go to the profile page for "Irondale Center"
-    Then the ".profile-name" element should contain "Irondale Center"
+    And a profile with the following fields:
+      | name | Favorite place theatre |
+    When I go to the profile page for "Favorite place theatre"
+    Then the ".profile-name" element should contain "Favorite place theatre"

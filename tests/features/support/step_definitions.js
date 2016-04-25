@@ -33,7 +33,7 @@ module.exports = function() {
     expect(client.getText(element)).toEqual(text);
   });
 
-  this.Given(/^a task with the following fields:$/, function (table) {
+  this.Given(/^a profile with the following fields:$/, function (table) {
     // Set up a user to be the owner of the insert
     Random = require('meteor-random');
     const userObject = {
@@ -41,21 +41,23 @@ module.exports = function() {
       email: Random.id(5) + '@' + Random.id(8) + '.com',
       password: Random.id(5),
     }
+
     server.execute((userObject) => {
       const { Accounts } = require('meteor/accounts-base');
       try{
         Accounts.createUser(userObject);
       }catch(e){}
     }, userObject);
+
     server.call('login', {
       user: {username: userObject.username},
       password: userObject.password
     }, userObject);
 
     const data = table.rowsHash();
-    const tasks = server.execute((data) => {
+    server.execute((data) => {
       const { Meteor } = require('meteor/meteor');
-      Meteor.call('tasks.insert', data.text);
+      Meteor.call('profiles.insert', data);
     }, data);
   });
 
@@ -65,5 +67,5 @@ module.exports = function() {
     server.execute(function () {
       Package['xolvio:cleaner'].resetDatabase();
     });
-  })
+  });
 }

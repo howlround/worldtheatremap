@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
-import { Tasks } from '../api/tasks.js';
+import { Profiles } from '../api/profiles.js';
 
-import Task from './Task.jsx';
+import Profile from './Profile.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 
 // App component - represents the whole app
@@ -23,7 +23,7 @@ class App extends Component {
 
     const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
 
-    Meteor.call('tasks.insert', text);
+    Meteor.call('profiles.insert', text);
 
     // Clear form
     ReactDOM.findDOMNode(this.refs.textInput).value = '';
@@ -35,19 +35,19 @@ class App extends Component {
     });
   }
 
-  renderTasks() {
-    let filteredTasks = this.props.tasks;
+  renderProfiles() {
+    let filteredProfiles = this.props.profiles;
     if (this.state.hideCompleted) {
-      filteredTasks = filteredTasks.filter(task => !task.checked);
+      filteredProfiles = filteredProfiles.filter(profile => !profile.checked);
     }
-    return filteredTasks.map((task) => {
+    return filteredProfiles.map((profile) => {
       const currentUserId = this.props.currentUser && this.props.currentUser._id;
-      const showPrivateButton = task.owner === currentUserId;
+      const showPrivateButton = profile.owner === currentUserId;
 
       return (
-        <Task
-          key={task._id}
-          task={task}
+        <Profile
+          key={profile._id}
+          profile={profile}
           showPrivateButton={showPrivateButton}
         />
       );
@@ -67,17 +67,17 @@ class App extends Component {
               checked={this.state.hideCompleted}
               onClick={this.toggleHideCompleted.bind(this)}
             />
-            Hide Completed Tasks
+            Hide Completed Profiles
           </label>
 
           <AccountsUIWrapper />
 
           { this.props.currentUser ?
-            <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
+            <form className="new-profile" onSubmit={this.handleSubmit.bind(this)} >
               <input
                 type="text"
                 ref="textInput"
-                placeholder="Type to add new tasks"
+                placeholder="Type to add new profiles"
               />
             </form> : ''
 
@@ -86,7 +86,7 @@ class App extends Component {
         </header>
 
         <ul className="block">
-          {this.renderTasks()}
+          {this.renderProfiles()}
         </ul>
       </div>
     );
@@ -94,15 +94,15 @@ class App extends Component {
 }
 
 App.propTypes = {
-  tasks: PropTypes.array.isRequired,
+  profiles: PropTypes.array.isRequired,
   currentUser: PropTypes.object,
 }
 
 export default createContainer(() => {
-  Meteor.subscribe('tasks');
+  Meteor.subscribe('profiles');
 
   return {
-    tasks: Tasks.find({}, { sort: { createdAt: -1 } }).fetch(),
+    profiles: Profiles.find({}, { sort: { createdAt: -1 } }).fetch(),
     currentUser: Meteor.user(),
   }
 }, App);

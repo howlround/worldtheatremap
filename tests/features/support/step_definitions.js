@@ -34,10 +34,28 @@ module.exports = function() {
   });
 
   this.Given(/^a task with the following fields:$/, function (table) {
+    // Set up a user to be the owner of the insert
+    Random = require('meteor-random');
+    const userObject = {
+      username: Random.id(),
+      email: Random.id(5) + '@' + Random.id(8) + '.com',
+      password: Random.id(5),
+    }
+    server.execute((userObject) => {
+      const { Accounts } = require('meteor/accounts-base');
+      try{
+        Accounts.createUser(userObject);
+      }catch(e){}
+    }, userObject);
+    server.call('login', {
+      user: {username: userObject.username},
+      password: userObject.password
+    }, userObject);
+
     const data = table.rowsHash();
     const tasks = server.execute((data) => {
-      const {Tasks} = require('/imports/api/tasks');
-      return Tasks.insert(data);
+      const { Meteor } = require('meteor/meteor');
+      Meteor.call('tasks.insert', data.text);
     }, data);
   });
 

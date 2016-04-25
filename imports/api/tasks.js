@@ -22,7 +22,7 @@ Meteor.methods({
     check(text, String);
 
     // Logged in users
-    if (! Meteor.userId()) {
+    if (!Meteor.userId()) {
       throw new Meteor.Error('not-authorized');
     }
 

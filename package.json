@@ -1,4 +1,10 @@
 {
+  "name": "world-theatre-map",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mosswoodcreative/world-theatre-map"
+  },
   "scripts": {
     "pretest": "npm run lint --silent",
     "test": "meteor test --once --driver-package dispatch:mocha-phantomjs --port 3100",
@@ -18,10 +24,18 @@
     "react-router": "^2.0.0"
   },
   "devDependencies": {
+    "breakpoint-sass": "^2.7.0",
+    "chimp": "^0.33.1",
     "eslint": "^2.3.0",
     "eslint-config-airbnb": "^6.1.0",
     "eslint-plugin-meteor": "^3.0.1",
-    "eslint-plugin-react": "^4.0.0"
+    "eslint-plugin-react": "^4.0.0",
+    "grunt": "^1.0.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-sass": "^1.1.0",
+    "grunt-sass-globbing": "^1.5.1",
+    "shrinkwrap": "^0.4.0",
+    "susy": "^2.2.12"
   },
   "eslintConfig": {
     "parserOptions": {

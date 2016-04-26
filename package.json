@@ -1,26 +1,60 @@
 {
-  "name": "wtm",
-  "private": true,
   "scripts": {
-    "start": "meteor run"
+    "pretest": "npm run lint --silent",
+    "test": "meteor test --once --driver-package dispatch:mocha-phantomjs --port 3100",
+    "test-watch": "meteor test --driver-package practicalmeteor:mocha --port 3100",
+    "test-app-watch": "meteor test --full-app --driver-package practicalmeteor:mocha --port 3100",
+    "lint": "eslint .",
+    "chimp-watch": "chimp --ddp=http://localhost:3000 --watch --mocha --path=tests"
   },
   "dependencies": {
+    "autoprefixer": "^6.3.1",
     "classnames": "^2.2.3",
-    "meteor-node-stubs": "^0.2.3",
-    "react": "^15.0.1",
-    "react-addons-pure-render-mixin": "^15.0.1",
-    "react-dom": "^15.0.1",
-    "react-router": "^2.3.0"
+    "faker": "^3.0.1",
+    "react": "^15.0.0",
+    "react-addons-css-transition-group": "^15.0.0",
+    "react-addons-pure-render-mixin": "^15.0.0",
+    "react-dom": "^15.0.0",
+    "react-router": "^2.0.0"
   },
   "devDependencies": {
-    "breakpoint-sass": "^2.7.0",
-    "chimp": "^0.33.1",
-    "grunt": "^1.0.1",
-    "grunt-contrib-watch": "^1.0.0",
-    "grunt-sass": "^1.1.0",
-    "grunt-sass-globbing": "^1.5.1",
-    "meteor-random": "0.0.3",
-    "shrinkwrap": "^0.4.0",
-    "susy": "^2.2.12"
+    "eslint": "^2.3.0",
+    "eslint-config-airbnb": "^6.1.0",
+    "eslint-plugin-meteor": "^3.0.1",
+    "eslint-plugin-react": "^4.0.0"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module"
+    },
+    "plugins": [
+      "meteor"
+    ],
+    "extends": [
+      "airbnb",
+      "plugin:meteor/recommended"
+    ],
+    "rules": {
+      "meteor/eventmap-params": [
+        2,
+        {
+          "eventParamName": "event",
+          "templateInstanceParamName": "instance"
+        }
+      ],
+      "meteor/template-names": [
+        0
+      ]
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {
+        "browsers": [
+          "last 2 versions"
+        ]
+      }
+    }
   }
 }

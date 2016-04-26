@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 module.exports = function(grunt) {
 
   // Project configuration.
@@ -24,7 +26,7 @@ module.exports = function(grunt) {
       options: {
         sourceMap: true,
         outputStyle: 'nested',
-        imagePath: "../",
+        imagePath: '../',
       }
     },
 

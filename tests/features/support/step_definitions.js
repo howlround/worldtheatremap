@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 module.exports = function() {
   this.Given(/^I am am logged in$/, function () {
     client.waitForExist('#login-sign-in-link');

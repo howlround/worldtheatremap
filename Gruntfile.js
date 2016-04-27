@@ -9,6 +9,7 @@ module.exports = function(grunt) {
         files: {
           'client/scss/_variables.scss': 'client/scss/variables/*.scss',
           'client/scss/_base.scss': 'client/scss/base/*.scss',
+          'client/scss/_components.scss': 'client/scss/components/*.scss',
         }
       }
     },

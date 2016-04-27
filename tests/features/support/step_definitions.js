@@ -1,5 +1,4 @@
 /* eslint-disable */
-
 module.exports = function() {
   this.Given(/^I am am logged in$/, function () {
     client.waitForExist('#login-sign-in-link');
@@ -25,6 +24,15 @@ module.exports = function() {
 
   this.When(/^I go to the profile page for "([^"]*)"$/, function (name) {
     // Look up the profile with this name
+    const id = server.execute((name) => {
+      const { Meteor } = require('meteor/meteor');
+      const { Profiles } = require('/imports/api/profiles/profiles.js');
+      const profile = Profiles._collection.findOne({name: name});
+
+      return profile._id;
+    }, name);
+
+    browser.url('http://localhost:3000/profiles/' + id);
 
     // Check if we are on the correct page
     expect(client.getText('.page-title')).toEqual(name);
@@ -53,15 +61,11 @@ module.exports = function() {
       }catch(e){}
     }, userObject);
 
-    server.call('login', {
-      user: {username: userObject.username},
-      password: userObject.password
-    }, userObject);
-
     const data = table.rowsHash();
     server.execute((data) => {
       const { Meteor } = require('meteor/meteor');
-      Meteor.call('profiles.insert', data);
+      const { Factory } = require('meteor/factory');
+      Factory.create('profile', data);
     }, data);
   });
 

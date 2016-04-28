@@ -51,10 +51,10 @@ export const makePublic = new ValidatedMethod({
 
     const profile = Profiles.findOne(profileId);
 
-    if (!profile.editableBy(this.userId)) {
-      throw new Meteor.Error('profiles.makePublic.accessDenied',
-        'You don\'t have permission to edit this profile.');
-    }
+    // if (!profile.editableBy(this.userId)) {
+    //   throw new Meteor.Error('profiles.makePublic.accessDenied',
+    //     'You don\'t have permission to edit this profile.');
+    // }
 
     // XXX the security check above is not atomic, so in theory a race condition could
     // result in exposing private data
@@ -73,10 +73,10 @@ export const updateName = new ValidatedMethod({
   run({ profileId, newName }) {
     const profile = Profiles.findOne(profileId);
 
-    if (!profile.editableBy(this.userId)) {
-      throw new Meteor.Error('profiles.updateName.accessDenied',
-        'You don\'t have permission to edit this profile.');
-    }
+    // if (!profile.editableBy(this.userId)) {
+    //   throw new Meteor.Error('profiles.updateName.accessDenied',
+    //     'You don\'t have permission to edit this profile.');
+    // }
 
     // XXX the security check above is not atomic, so in theory a race condition could
     // result in exposing private data
@@ -93,10 +93,10 @@ export const remove = new ValidatedMethod({
   run({ profileId }) {
     const profile = Profiles.findOne(profileId);
 
-    if (!profile.editableBy(this.userId)) {
-      throw new Meteor.Error('profiles.remove.accessDenied',
-        'You don\'t have permission to remove this profile.');
-    }
+    // if (!profile.editableBy(this.userId)) {
+    //   throw new Meteor.Error('profiles.remove.accessDenied',
+    //     'You don\'t have permission to remove this profile.');
+    // }
 
     // XXX the security check above is not atomic, so in theory a race condition could
     // result in exposing private data

@@ -1,9 +1,12 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session'; // XXX: SESSION
+import { Link } from 'react-router';
+
 import { Profiles } from '../../api/profiles/profiles.js';
 import UserMenu from '../components/UserMenu.jsx';
 import Profile from '../components/Profile.jsx';
+
 import ConnectionNotification from '../components/ConnectionNotification.jsx';
 import Loading from '../components/Loading.jsx';
 
@@ -76,7 +79,17 @@ export default class App extends React.Component {
       <div id="container" className={menuOpen ? 'menu-open' : ''}>
         <section id="menu">
           <UserMenu user={user} logout={this.logout}/>
-          <Profile profiles={profiles}/>
+          {profiles.map(profile => (
+            <Link
+              to={`/profiles/${ profile._id }`}
+              key={profile._id}
+              title={profile.name}
+              className="list-todo"
+              activeClassName="active"
+            >
+              {profile.name}
+            </Link>
+          ))}
         </section>
         {showConnectionIssue && !connected
           ? <ConnectionNotification/>

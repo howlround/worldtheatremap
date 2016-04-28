@@ -22,37 +22,15 @@ export default class Profile extends React.Component {
   }
 
   render() {
-    const { profiles } = this.props;
+    const { profile } = this.props;
     return (
-      <div className="list-todos">
-        <a className="link-list-new" onClick={this.createNewProfile}>
-          <span className="icon-plus"></span>
-          New Profile
-        </a>
-        {profiles.map(list => (
-          <Link
-            to={`/profiles/${ list._id }`}
-            key={list._id}
-            title={list.name}
-            className="list-todo"
-            activeClassName="active"
-          >
-            {list.userId
-              ? <span className="icon-lock"></span>
-              : null}
-            {list.incompleteCount
-              ? <span className="count-list">{list.incompleteCount}</span>
-              : null}
-            {list.name}
-          </Link>
-        ))}
-      </div>
+      <h1 className="profile-name page-title">{profile.name}</h1>
     );
   }
 }
 
 Profile.propTypes = {
-  profiles: React.PropTypes.array,
+  profile: React.PropTypes.object,
 };
 
 Profile.contextTypes = {

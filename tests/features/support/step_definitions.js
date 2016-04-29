@@ -1,16 +1,17 @@
 /* eslint-disable */
 module.exports = function() {
-  this.Given(/^I am am logged in$/, function () {
-    client.waitForExist('#login-sign-in-link');
-    client.click('#login-sign-in-link');
-    client.click('#signup-link');
-    client.setValue('#login-username', 'letme1n3');
-    client.setValue('#login-password', 'letme1n');
-    client.setValue('#login-password-again', 'letme1n');
-    client.click('#login-buttons-password');
+  this.Given(/^I am logged in$/, function () {
+    browser.url('http://localhost:3000/join');
+    client.waitForExist('input[name="email"]');
+    client.setValue('input[name="email"]', 'reginold@worldtheatremap.org');
+    client.setValue('input[name="password"]', 'letme1n3');
+    client.setValue('input[name="confirm"]', 'letme1n3');
 
-    client.waitForExist('#login-name-link');
-    expect(client.getText('#login-name-link')).toEqual('letme1n3 ▾');
+    client.waitForExist('button[type="submit"]');
+    client.click('button[type="submit"]');
+
+    client.waitForText('.user-menu a', 'REGINOLD');
+    expect(client.getText('.user-menu a')).toEqual('REGINOLD');
   });
 
   this.Given(/^I am an anonymous user$/, function () {
@@ -20,6 +21,25 @@ module.exports = function() {
 
   this.Given(/^I am on the home page$/, function () {
     browser.url('http://localhost:3000');
+  });
+
+  this.When(/^I follow "([^"]*)"$/, function (element) {
+    client.waitForExist(element);
+    client.click(element);
+  });
+
+  this.When(/^I fill in "([^"]*)" with "([^"]*)"$/, function (element, text) {
+    client.waitForExist(element);
+    client.setValue(element, text);
+  });
+
+  this.When(/^I press "([^"]*)"$/, function (element) {
+    client.waitForExist(element);
+    client.click(element);
+  });
+
+  this.Then(/^I should not see "([^"]*)"$/, function (element) {
+    expect(client.isExisting(element)).toBe(false);
   });
 
   this.When(/^I go to the profile page for "([^"]*)"$/, function (name) {

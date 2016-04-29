@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { _ } from 'meteor/underscore';
 import { displayError } from '../helpers/errors.js';
 import {
@@ -10,7 +11,6 @@ export default class ProfileEdit extends React.Component {
   constructor(props) {
     super(props);
     this.throttledUpdate = _.throttle(value => {
-      console.log(value);
       if (value) {
         updateName.call({
           profileId: this.props.profile._id,
@@ -19,34 +19,35 @@ export default class ProfileEdit extends React.Component {
       }
     }, 300);
 
-    this.updateProfile = this.updateProfile.bind(this);
-    this.onFocus = this.onFocus.bind(this);
-    this.onBlur = this.onBlur.bind(this);
+    // this.updateProfile = this.updateProfile.bind(this);
+    // this.onFocus = this.onFocus.bind(this);
+    // this.onBlur = this.onBlur.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  onFocus() {
-    this.props.onEditingChange(this.props.profile._id, true);
-  }
+  handleSubmit(event) {
+    event.preventDefault();
 
-  onBlur(event) {
     this.props.onEditingChange(this.props.profile._id, false);
-    this.throttledUpdate(event.target.value);
-  }
-
-  updateProfile(event) {
-    // this.throttledUpdate(event.target.value);
+    this.throttledUpdate(ReactDOM.findDOMNode(this.refs.name).value.trim());
   }
 
   render() {
     const { profile } = this.props;
     return (
-      <input
-        type="text"
-        defaultValue={profile.name}
-        onFocus={this.onFocus}
-        onBlur={this.onBlur}
-        onChange={this.updateProfile}
-      />
+      <form className="new-post" onSubmit={this.handleSubmit.bind(this)} >
+        <input
+          type="text"
+          ref="name"
+          defaultValue={profile.name}
+          className="profile-name"
+        />
+        <input
+          type="submit"
+          value="Save"
+          className="edit-profile-save"
+        />
+      </form>
     );
   }
 }

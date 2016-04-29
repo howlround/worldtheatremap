@@ -32,10 +32,10 @@ export default class App extends React.Component {
 
   componentWillReceiveProps({ loading, children }) {
     // redirect / to a profile once profiles are ready
-    if (!loading && !children) {
-      const profile = Profiles.findOne();
-      this.context.router.replace(`/profiles/${ profile._id }`);
-    }
+    // if (!loading && !children) {
+    //   const profile = Profiles.findOne();
+    //   this.context.router.replace(`/profiles/${ profile._id }`);
+    // }
   }
 
   toggleMenu(menuOpen = !Session.get('menuOpen')) {
@@ -84,7 +84,7 @@ export default class App extends React.Component {
               to={`/profiles/${ profile._id }`}
               key={profile._id}
               title={profile.name}
-              className="list-todo"
+              className="profile-view"
               activeClassName="active"
             >
               {profile.name}

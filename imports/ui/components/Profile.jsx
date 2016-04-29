@@ -21,16 +21,35 @@ export default class Profile extends React.Component {
     router.push(`/profiles/${ listId }`);
   }
 
+  triggerEdit(event) {
+    event.preventDefault();
+
+    this.props.onEditingChange(this.props.profile._id, true);
+  }
+
   render() {
     const { profile } = this.props;
     return (
-      <h1 className="profile-name page-title">{profile.name}</h1>
+      <div>
+        <h1 className="profile-name page-title">{profile.name}</h1>
+        <Link
+          to={`/profiles/${ profile._id }`}
+          key={profile._id}
+          title={profile.name}
+          className="edit-profile"
+          activeClassName="active"
+          onClick={this.triggerEdit.bind(this)}
+        >
+          Edit
+        </Link>
+      </div>
     );
   }
 }
 
 Profile.propTypes = {
   profile: React.PropTypes.object,
+  onEditingChange: React.PropTypes.func,
 };
 
 Profile.contextTypes = {

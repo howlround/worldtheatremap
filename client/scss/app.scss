@@ -2,6 +2,7 @@
 @import "node_modules/breakpoint-sass/stylesheets/breakpoint";
 
 // Control the order of the partials
+@import "utilities";
 @import "variables";
 @import "base";
 @import "components";

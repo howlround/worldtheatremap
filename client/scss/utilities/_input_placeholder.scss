@@ -1,0 +1,28 @@
+@mixin input-placeholder {
+  @include with-each-prefix(css-placeholder, $input-placeholder-support-threshold) {
+    @if $current-prefix == -webkit {
+      &::-webkit-input-placeholder {
+        @content;
+      }
+    }
+    @else if $current-prefix == -moz {
+      // for Firefox 19 and below
+      @if support-legacy-browser("firefox", "4", "19", $threshold: $input-placeholder-support-threshold) {
+        &:-moz-placeholder {
+          @content;
+        }
+      }
+      // for Firefox 20 and above
+      &::-moz-placeholder {
+        @content;
+      }
+    }
+    @else if $current-prefix == -ms {
+      &:-ms-input-placeholder {
+        @content;
+      }
+    }
+  }
+
+  // This is not standardized yet so no official selector is generated.
+}

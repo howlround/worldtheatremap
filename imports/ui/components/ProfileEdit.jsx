@@ -35,7 +35,7 @@ export default class ProfileEdit extends React.Component {
   render() {
     const { profile } = this.props;
     return (
-      <form className="new-post" onSubmit={this.handleSubmit.bind(this)} >
+      <form className="edit-profile" onSubmit={this.handleSubmit.bind(this)} >
         <input
           type="text"
           ref="name"

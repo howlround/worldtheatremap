@@ -30,8 +30,10 @@ export default class Profile extends React.Component {
   render() {
     const { profile, user } = this.props;
     return (
-      <div>
-        <h1 className="profile-name page-title">{profile.name}</h1>
+      <article className="profile">
+        <h1 className="profile-name page-title">
+          {profile.name}
+        </h1>
         { user ?
           <Link
             to={`/profiles/${ profile._id }`}
@@ -44,7 +46,7 @@ export default class Profile extends React.Component {
             Edit
           </Link>
         : ''}
-      </div>
+      </article>
     );
   }
 }

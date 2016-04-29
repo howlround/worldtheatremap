@@ -35,20 +35,19 @@ export default class ProfilePage extends React.Component {
 
     return (
       <div className={profilePageClass}>
-        {/*<ProfileHeader profile={profile}/>*/}
-        {profile ?
-          <Profile
-            profile={profile}
-            user={user}
-            // editing={editing}
-            onEditingChange={this.onEditingChange}
-          /> : <NotFoundPage/>}
-
-        {profile && editing && user ?
-          <ProfileEdit
-            profile={profile}
-            onEditingChange={this.onEditingChange}
-          /> : ''}
+        {!profile ? <NotFoundPage/> :
+          editing && user ?
+            <ProfileEdit
+              profile={profile}
+              onEditingChange={this.onEditingChange}
+            /> :
+            <Profile
+              profile={profile}
+              user={user}
+              // editing={editing}
+              onEditingChange={this.onEditingChange}
+            />
+        }
       </div>
     );
   }

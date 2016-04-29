@@ -73,6 +73,7 @@ export default class App extends React.Component {
     // have transitions
     const clonedChildren = children && React.cloneElement(children, {
       key: location.pathname,
+      user,
     });
 
     return (

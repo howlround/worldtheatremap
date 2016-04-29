@@ -28,20 +28,22 @@ export default class Profile extends React.Component {
   }
 
   render() {
-    const { profile } = this.props;
+    const { profile, user } = this.props;
     return (
       <div>
         <h1 className="profile-name page-title">{profile.name}</h1>
-        <Link
-          to={`/profiles/${ profile._id }`}
-          key={profile._id}
-          title={profile.name}
-          className="edit-profile"
-          activeClassName="active"
-          onClick={this.triggerEdit.bind(this)}
-        >
-          Edit
-        </Link>
+        { user ?
+          <Link
+            to={`/profiles/${ profile._id }`}
+            key={profile._id}
+            title={profile.name}
+            className="edit-profile"
+            activeClassName="active"
+            onClick={this.triggerEdit.bind(this)}
+          >
+            Edit
+          </Link>
+        : ''}
       </div>
     );
   }
@@ -49,6 +51,7 @@ export default class Profile extends React.Component {
 
 Profile.propTypes = {
   profile: React.PropTypes.object,
+  user: React.PropTypes.object,
   onEditingChange: React.PropTypes.func,
 };
 

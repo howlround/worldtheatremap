@@ -1,49 +1,5 @@
 @import './utils.less';
 
-// Custom checkbox
-.checkbox {
-  display: inline-block;
-  height: 3rem;
-  position: relative;
-  vertical-align: middle;
-  width: 44px;
-
-  input[type="checkbox"] {
-    font-size: 1em;
-    visibility: hidden;
-
-    & + span:before {
-      .position(absolute, 50%, auto, auto, 50%, .85em, .85em);
-      transform: translate3d(-50%, -50%, 0);
-      background: transparent;
-      box-shadow: #abdfe3 0 0 0 1px inset;
-      content: '';
-      display: block;
-    }
-
-    &:checked + span:before {
-      box-shadow: none;
-      color: @color-medium-rare;
-
-      // Icon family from icon.lessimport
-      font-family: 'todos';
-    	speak: none;
-    	font-style: normal;
-    	font-weight: normal;
-    	font-variant: normal;
-    	text-transform: none;
-    	line-height: 1;
-
-    	// Better Font Rendering
-    	-webkit-font-smoothing: antialiased;
-    	-moz-osx-font-smoothing: grayscale;
-
-    	// Checkmark icon
-      content: "\e612";
-    }
-  }
-}
-
 // Input with an icon
 .input-symbol {
   display: inline-block;

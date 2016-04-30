@@ -3,3 +3,13 @@ input.profile-name {
 
   text-transform: inherit;
 }
+
+button.edit-profile-save {
+  width: 100%;
+  background-color: $red;
+  color: $white;
+  text-transform: uppercase;
+  margin-top: $spacing-unit * 4;
+  padding: $spacing-unit;
+  font-weight: 700;
+}

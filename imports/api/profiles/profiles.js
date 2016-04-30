@@ -36,7 +36,6 @@ Profiles.deny({
 
 Profiles.schema = new SimpleSchema({
   name: { type: String },
-  incompleteCount: { type: Number, defaultValue: 0 },
   userId: { type: String, regEx: SimpleSchema.RegEx.Id, optional: true },
 });
 
@@ -47,7 +46,6 @@ Profiles.attachSchema(Profiles.schema);
 // them here to keep them private to the server.
 Profiles.publicFields = {
   name: 1,
-  incompleteCount: 1,
   userId: 1,
 };
 

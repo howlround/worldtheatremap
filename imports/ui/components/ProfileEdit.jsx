@@ -6,15 +6,27 @@ import {
   updateName,
   remove,
 } from '../../api/profiles/methods.js';
+import t from 'tcomb-form';
+
+const Form = t.form.Form;
+
+const FormSchema = t.struct({
+  name: t.String,         // a required string
+})
 
 export default class ProfileEdit extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      profile: this.props.profile,
+    };
+
     this.throttledUpdate = _.throttle(value => {
       if (value) {
         updateName.call({
           profileId: this.props.profile._id,
-          newName: value,
+          name: value,
         }, displayError);
       }
     }, 300);
@@ -27,26 +39,39 @@ export default class ProfileEdit extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    const value = this.refs.form.getValue();
+    if (value) {
+      this.throttledUpdate(value.name);
+    }
 
     this.props.onEditingChange(this.props.profile._id, false);
-    this.throttledUpdate(ReactDOM.findDOMNode(this.refs.name).value.trim());
   }
 
   render() {
     const { profile } = this.props;
+    const formOptions = {
+      fields: {
+        name: {
+          attrs: {
+            className: 'profile-name'
+          }
+        }
+      }
+    };
+
     return (
       <form className="edit-profile" onSubmit={this.handleSubmit.bind(this)} >
-        <input
-          type="text"
-          ref="name"
-          defaultValue={profile.name}
-          className="profile-name"
+        <Form
+          ref="form"
+          type={FormSchema}
+          value={this.state.profile}
+          options={formOptions}
         />
-        <input
+
+        <button
           type="submit"
-          value="Save"
           className="edit-profile-save"
-        />
+        >Save</button>
       </form>
     );
   }

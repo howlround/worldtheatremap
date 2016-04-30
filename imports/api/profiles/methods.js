@@ -68,9 +68,9 @@ export const updateName = new ValidatedMethod({
   name: 'profiles.updateName',
   validate: new SimpleSchema({
     profileId: { type: String },
-    newName: { type: String },
+    name: { type: String },
   }).validator(),
-  run({ profileId, newName }) {
+  run({ profileId, name }) {
     const profile = Profiles.findOne(profileId);
 
     // if (!profile.editableBy(this.userId)) {
@@ -82,7 +82,7 @@ export const updateName = new ValidatedMethod({
     // result in exposing private data
 
     Profiles.update(profileId, {
-      $set: { name: newName },
+      $set: { name: name },
     });
   },
 });

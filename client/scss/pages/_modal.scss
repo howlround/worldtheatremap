@@ -11,6 +11,7 @@
 
   .page {
     margin: $spacing-unit;
+    padding: $spacing-unit * 4;
 
     @include breakpoint($narrow) {
       @include container($narrow-width);

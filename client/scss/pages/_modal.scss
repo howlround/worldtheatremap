@@ -1,0 +1,31 @@
+.overlay-background {
+  position: fixed;
+  background-color: $teal;
+  width: 100%;
+  height: 100%;
+  top: 0;
+
+  @include breakpoint($narrow) {
+    opacity: 0.8;
+  }
+
+  .page {
+    margin: $spacing-unit;
+
+    @include breakpoint($narrow) {
+      @include container($narrow-width);
+
+      margin-top: $spacing-unit * 8;
+    }
+
+    @include breakpoint($normal) {
+      @include container($normal-width);
+    }
+
+    @include breakpoint($wide) {
+      @include container($wide-width);
+    }
+  }
+}
+
+

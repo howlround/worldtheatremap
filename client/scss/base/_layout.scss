@@ -1,6 +1,5 @@
-#content-container,
-.user-menu,
-.list-todos {
+.page,
+.user-menu {
   @include container;
 
   @include breakpoint($narrow) {

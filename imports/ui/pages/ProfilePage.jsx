@@ -6,6 +6,7 @@ import Profile from '../components/Profile.jsx';
 import ProfileEdit from '../components/ProfileEdit.jsx';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
 import Message from '../components/Message.jsx';
+import Modal from '../components/Modal.jsx';
 
 export default class ProfilePage extends React.Component {
   constructor(props) {
@@ -33,23 +34,34 @@ export default class ProfilePage extends React.Component {
       editing,
     });
 
-    return (
-      <div className={profilePageClass}>
-        {!profile ? <NotFoundPage/> :
-          editing && user ?
+    if (!profile) {
+      return (
+        <NotFoundPage/>
+      );
+    }
+    else if (editing && user) {
+      return (
+        <Modal>
+          <div className={profilePageClass}>
             <ProfileEdit
               profile={profile}
               onEditingChange={this.onEditingChange}
-            /> :
-            <Profile
-              profile={profile}
-              user={user}
-              // editing={editing}
-              onEditingChange={this.onEditingChange}
             />
-        }
-      </div>
-    );
+          </div>
+        </Modal>
+      );
+    }
+    else {
+      return (
+        <div className={profilePageClass}>
+          <Profile
+            profile={profile}
+            user={user}
+            onEditingChange={this.onEditingChange}
+          />
+        </div>
+      );
+    }
   }
 }
 

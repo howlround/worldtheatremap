@@ -10,8 +10,8 @@ module.exports = function() {
     client.waitForExist('button[type="submit"]');
     client.click('button[type="submit"]');
 
-    client.waitForText('.user-menu a', 'REGINOLD');
-    expect(client.getText('.user-menu a')).toEqual('REGINOLD');
+    client.waitForExist('.icon-arrow-down');
+    expect(client.isExisting('.icon-arrow-down'));
   });
 
   this.Given(/^I am an anonymous user$/, function () {
@@ -55,14 +55,17 @@ module.exports = function() {
     browser.url('http://localhost:3000/profiles/' + id);
 
     // Check if we are on the correct page
-    expect(client.getText('.page-title')).toEqual(name);
+    // const processedName = RegExp('/' + name + '/i');
+    const processedName = RegExp(name, 'i');
+    expect(client.getText('.page-title')).toMatch(processedName);
   });
 
   this.Then(/^the "([^"]*)" element should contain "([^"]*)"$/, function (element, text) {
     browser.waitForText(element, text);
     const completedText = browser.getTitle();
+    const processedText = RegExp(text, 'i');
 
-    expect(client.getText(element)).toEqual(text);
+    expect(client.getText(element)).toMatch(processedText);
   });
 
   this.Given(/^a profile with the following fields:$/, function (table) {

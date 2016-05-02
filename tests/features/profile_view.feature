@@ -26,7 +26,7 @@ Feature: View organization profiles
   Scenario: Unafe html tags should not be allowed in the about field
     And a profile with the following fields:
       | name | Safe theatre |
-      | about | This paragraph is <script>not </script>safe |
+      | about | This paragraph is <script>not </script>at risk |
     When I go to the profile page for "Safe theatre"
-    Then the ".profile-about" element should not contain "This paragraph is safe"
-    And the ".profile-about" element should contain "This paragraph is <script>not </script>safe"
+    Then the ".profile-about" element should not contain "This paragraph is at risk"
+    And the ".profile-about" element should contain "This paragraph is <script>not </script>at risk"

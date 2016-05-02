@@ -3,8 +3,9 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { _ } from 'meteor/underscore';
+import t from 'tcomb-validation';
 
-import { Profiles } from './profiles.js';
+import { Profiles, profileSchema } from './profiles.js';
 
 const PROFILE_ID_ONLY = new SimpleSchema({
   profileId: { type: String },
@@ -66,11 +67,14 @@ export const makePublic = new ValidatedMethod({
 
 export const updateName = new ValidatedMethod({
   name: 'profiles.updateName',
-  validate: new SimpleSchema({
-    profileId: { type: String },
-    name: { type: String },
-  }).validator(),
-  run({ profileId, name }) {
+  validate({ newProfile }) {
+    const result = t.validate(newProfile, profileSchema);
+
+    if (!result.isValid()) {
+      throw new ValidationError(result.firstError());
+    }
+  },
+  run({ profileId, newProfile }) {
     const profile = Profiles.findOne(profileId);
 
     // if (!profile.editableBy(this.userId)) {
@@ -82,7 +86,7 @@ export const updateName = new ValidatedMethod({
     // result in exposing private data
 
     Profiles.update(profileId, {
-      $set: { name: name },
+      $set: newProfile,
     });
   },
 });

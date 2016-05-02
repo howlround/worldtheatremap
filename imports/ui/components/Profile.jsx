@@ -34,6 +34,9 @@ export default class Profile extends React.Component {
         <h1 className="profile-name page-title">
           {profile.name}
         </h1>
+        <div className="profile-about">
+          {profile.about}
+        </div>
         { user ?
           <Link
             to={`/profiles/${ profile._id }`}

@@ -22,7 +22,8 @@
     "react-addons-pure-render-mixin": "^15.0.0",
     "react-dom": "^15.0.0",
     "react-router": "^2.0.0",
-    "tcomb-form": "^0.9.3"
+    "tcomb-form": "^0.9.3",
+    "tcomb-validation": "^3.0.0"
   },
   "devDependencies": {
     "breakpoint-sass": "^2.7.0",

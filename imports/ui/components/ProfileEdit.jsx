@@ -6,13 +6,10 @@ import {
   updateName,
   remove,
 } from '../../api/profiles/methods.js';
+import { profileSchema } from '../../api/profiles/profiles.js';
 import t from 'tcomb-form';
 
 const Form = t.form.Form;
-
-const FormSchema = t.struct({
-  name: t.String,         // a required string
-})
 
 export default class ProfileEdit extends React.Component {
   constructor(props) {
@@ -22,11 +19,11 @@ export default class ProfileEdit extends React.Component {
       profile: this.props.profile,
     };
 
-    this.throttledUpdate = _.throttle(value => {
-      if (value) {
+    this.throttledUpdate = _.throttle(newProfile => {
+      if (newProfile) {
         updateName.call({
           profileId: this.props.profile._id,
-          name: value,
+          newProfile,
         }, displayError);
       }
     }, 300);
@@ -39,31 +36,46 @@ export default class ProfileEdit extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const value = this.refs.form.getValue();
-    if (value) {
-      this.throttledUpdate(value.name);
-    }
+    const newProfile = this.refs.form.getValue();
+    if (newProfile) {
+      this.throttledUpdate(newProfile);
 
-    this.props.onEditingChange(this.props.profile._id, false);
+      // Only change editing state if validation passed
+      this.props.onEditingChange(this.props.profile._id, false);
+    }
+    else {
+      console.log(this.refs.form.validate().firstError().message);
+    }
+  }
+
+  defaultOptions() {
+    return {
+      fields: {
+        name: {
+          attrs: {
+            className: 'profile-name-edit',
+          }
+        },
+        about: {
+          type: 'textarea',
+          attrs: {
+            rows: '10',
+            className: 'profile-about-edit'
+          }
+        },
+      },
+    };
   }
 
   render() {
     const { profile } = this.props;
-    const formOptions = {
-      fields: {
-        name: {
-          attrs: {
-            className: 'profile-name'
-          }
-        }
-      }
-    };
+    const formOptions = this.defaultOptions();
 
     return (
       <form className="edit-profile" onSubmit={this.handleSubmit.bind(this)} >
         <Form
           ref="form"
-          type={FormSchema}
+          type={profileSchema}
           value={this.state.profile}
           options={formOptions}
         />

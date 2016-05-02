@@ -1,7 +1,7 @@
 import { Mongo } from 'meteor/mongo';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Factory } from 'meteor/factory';
-// import { Todos } from '../todos/todos.js';
+import t from 'tcomb-validation';
 
 class ProfilesCollection extends Mongo.Collection {
   insert(profile, callback) {
@@ -34,8 +34,14 @@ Profiles.deny({
   remove() { return true; },
 });
 
+export const profileSchema = t.struct({
+  name: t.String,
+  about: t.maybe(t.String),
+});
+
 Profiles.schema = new SimpleSchema({
   name: { type: String },
+  about: { type: String, optional: true },
   userId: { type: String, regEx: SimpleSchema.RegEx.Id, optional: true },
 });
 
@@ -46,6 +52,7 @@ Profiles.attachSchema(Profiles.schema);
 // them here to keep them private to the server.
 Profiles.publicFields = {
   name: 1,
+  about: 1,
   userId: 1,
 };
 

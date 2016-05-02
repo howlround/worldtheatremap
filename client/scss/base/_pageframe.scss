@@ -3,7 +3,10 @@ body {
   color: $black;
 }
 
-.page {
-  background-color: $white;
-  border: solid 1px $dark-tan;
+#content-container {
+  margin: $spacing-unit;
+
+  @include breakpoint($narrow) {
+    margin: 0;
+  }
 }

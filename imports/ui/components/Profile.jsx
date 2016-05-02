@@ -29,26 +29,34 @@ export default class Profile extends React.Component {
 
   render() {
     const { profile, user } = this.props;
+    const editLink = user ?
+      <Link
+        to={`/profiles/${ profile._id }`}
+        key={profile._id}
+        title={profile.name}
+        className="edit-profile"
+        activeClassName="active"
+        onClick={this.triggerEdit.bind(this)}
+      >
+        Edit
+      </Link>
+    : '';
     return (
       <article className="profile">
-        <h1 className="profile-name page-title">
-          {profile.name}
-        </h1>
-        <div className="profile-about">
-          {profile.about}
+        <div className="profile-main-info">
+          <h1 className="profile-name page-title">
+            {profile.name}
+          </h1>
+          {editLink}
         </div>
-        { user ?
-          <Link
-            to={`/profiles/${ profile._id }`}
-            key={profile._id}
-            title={profile.name}
-            className="edit-profile"
-            activeClassName="active"
-            onClick={this.triggerEdit.bind(this)}
-          >
-            Edit
-          </Link>
-        : ''}
+        {profile.about ?
+          <div className="profile-about">
+            <h2>About</h2>
+            {/*<div dangerouslySetInnerHTML={{__html: profile.about}} />*/}
+            {profile.about}
+            {editLink}
+          </div> : ''
+        }
       </article>
     );
   }

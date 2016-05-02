@@ -1,0 +1,30 @@
+article.profile {
+  margin-top: $spacing-unit;
+
+  @include breakpoint($narrow) {
+    margin-top: $spacing-unit * 4;
+  }
+
+  .profile-main-info,
+  .profile-about {
+    background-color: $white;
+    border: solid 1px $dark-tan;
+    margin-bottom: $spacing-unit * 2;
+    padding: $spacing-unit;
+
+    @include breakpoint($narrow) {
+      position: relative;
+      padding: $spacing-unit * 3;
+    }
+  }
+}
+
+.edit-profile {
+  display: block;
+
+  @include breakpoint($narrow) {
+    position: absolute;
+    top: $spacing-unit * 3;
+    right: $spacing-unit * 3;
+  }
+}

@@ -72,7 +72,7 @@ export default class ProfileEdit extends React.Component {
     const formOptions = this.defaultOptions();
 
     return (
-      <form className="edit-profile" onSubmit={this.handleSubmit.bind(this)} >
+      <form className="profile-edit-form" onSubmit={this.handleSubmit.bind(this)} >
         <Form
           ref="form"
           type={profileSchema}

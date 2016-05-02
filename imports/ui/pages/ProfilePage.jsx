@@ -41,14 +41,15 @@ export default class ProfilePage extends React.Component {
     }
     else if (editing && user) {
       return (
-        <Modal>
+        <div className="overlay-wrapper">
+          <Modal/>
           <div className={profilePageClass}>
             <ProfileEdit
               profile={profile}
               onEditingChange={this.onEditingChange}
             />
           </div>
-        </Modal>
+        </div>
       );
     }
     else {

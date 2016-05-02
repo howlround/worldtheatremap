@@ -1,13 +1,13 @@
 input[type="text"],
 textarea {
   width: 100%;
+  padding: $spacing-unit;
+  border: 1px solid $dark-gray;
 }
 
 input[type="email"],
-input[type="password"],
-textarea {
-  padding: .75rem 0; //total height ~48
-  line-height: 1.5rem !important;
+input[type="password"] {
+  padding: $spacing-unit;
 
   // Style
   ::placeholder {
@@ -26,4 +26,8 @@ textarea {
 // Remove chrome/saf autofill yellow background
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 1000px $white inset;
+}
+
+.form-group {
+  margin-bottom: $spacing-unit * 2;
 }

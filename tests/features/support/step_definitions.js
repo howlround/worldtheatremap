@@ -42,30 +42,41 @@ module.exports = function() {
     expect(client.isExisting(element)).toBe(false);
   });
 
-  this.When(/^I go to the profile page for "([^"]*)"$/, function (name) {
+  this.When(/^I go to the profile page for "([^"]*)"$/, function (name, callback) {
     // Look up the profile with this name
-    const id = server.execute((name) => {
+    const profile = server.execute((name, callback) => {
       const { Meteor } = require('meteor/meteor');
       const { Profiles } = require('/imports/api/profiles/profiles.js');
       const profile = Profiles._collection.findOne({name: name});
 
-      return profile._id;
+      return profile;
     }, name);
 
-    browser.url('http://localhost:3000/profiles/' + id);
+    if (!profile) {
+      callback(new Error('No profile exists with the name ' + name));
+    }
+
+    browser.url('http://localhost:3000/profiles/' + profile._id);
 
     // Check if we are on the correct page
     // const processedName = RegExp('/' + name + '/i');
     const processedName = RegExp(name, 'i');
     expect(client.getText('.page-title')).toMatch(processedName);
+    callback();
   });
 
   this.Then(/^the "([^"]*)" element should contain "([^"]*)"$/, function (element, text) {
     browser.waitForText(element, text);
-    const completedText = browser.getTitle();
     const processedText = RegExp(text, 'i');
 
     expect(client.getText(element)).toMatch(processedText);
+  });
+
+  this.Then(/^the "([^"]*)" element should not contain "([^"]*)"$/, function (element, text) {
+    client.waitForExist(element);
+    const processedText = RegExp(text, 'i');
+
+    expect(client.getText(element)).not.toMatch(processedText);
   });
 
   this.Given(/^a profile with the following fields:$/, function (table) {

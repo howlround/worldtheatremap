@@ -12,7 +12,7 @@ Feature: Edit organization profiles
       | name | Favorite place theatre |
     When I go to the profile page for "Favorite place theatre"
     Then I should not see ".edit-profile"
-@focus
+
   Scenario: As a user editing an organization profile page I want to be able to update information about that organization
     And I am logged in
     And a profile with the following fields:

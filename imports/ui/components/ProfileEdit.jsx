@@ -36,16 +36,12 @@ export default class ProfileEdit extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.refs.form.validate();
     const newProfile = this.refs.form.getValue();
     if (newProfile) {
       this.throttledUpdate(newProfile);
 
       // Only change editing state if validation passed
       this.props.onEditingChange(this.props.profile._id, false);
-    }
-    else {
-      console.log(this.refs.form.validate().firstError().message);
     }
   }
 

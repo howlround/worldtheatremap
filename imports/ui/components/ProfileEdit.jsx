@@ -36,6 +36,7 @@ export default class ProfileEdit extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.refs.form.validate();
     const newProfile = this.refs.form.getValue();
     if (newProfile) {
       this.throttledUpdate(newProfile);
@@ -54,14 +55,15 @@ export default class ProfileEdit extends React.Component {
         name: {
           attrs: {
             className: 'profile-name-edit',
-          }
+          },
+          error: 'Name is required',
         },
         about: {
           type: 'textarea',
           attrs: {
             rows: '10',
-            className: 'profile-about-edit'
-          }
+            className: 'profile-about-edit',
+          },
         },
       },
     };

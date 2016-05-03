@@ -28,6 +28,25 @@ input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 1000px $white inset;
 }
 
+label {
+  font-weight: 700;
+}
+
 .form-group {
   margin-bottom: $spacing-unit * 2;
+}
+
+.has-error {
+  .error-block {
+    color: $red;
+    font-size: 0.8em;
+  }
+
+  label {
+    color: $red;
+  }
+
+  input[type="text"] {
+    border-color: $red;
+  }
 }

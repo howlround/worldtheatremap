@@ -1,3 +1,17 @@
-#menu {
+#header {
   background-color: $red;
+}
+
+.home {
+  color: $white;
+  font-size: 27px;
+  font-weight: 700;
+}
+
+.user-menu {
+  float: right;
+}
+
+.add-menu {
+  float: right;
 }

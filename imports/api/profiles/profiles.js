@@ -39,6 +39,26 @@ export const profileSchema = t.struct({
   about: t.maybe(t.String),
 });
 
+export const defaultFormOptions = () => {
+  return {
+    fields: {
+      name: {
+        attrs: {
+          className: 'profile-name-edit',
+        },
+        error: 'Name is required',
+      },
+      about: {
+        type: 'textarea',
+        attrs: {
+          rows: '10',
+          className: 'profile-about-edit',
+        },
+      },
+    },
+  };
+}
+
 Profiles.schema = new SimpleSchema({
   name: { type: String },
   about: { type: String, optional: true },

@@ -2,29 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { _ } from 'meteor/underscore';
 import { displayError } from '../helpers/errors.js';
-import {
-  updateName,
-  remove,
-} from '../../api/profiles/methods.js';
+import { insert } from '../../api/profiles/methods.js';
 import { profileSchema, defaultFormOptions } from '../../api/profiles/profiles.js';
 import t from 'tcomb-form';
 
 const Form = t.form.Form;
 
-export default class ProfileEdit extends React.Component {
+export default class ProfileAdd extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      profile: this.props.profile,
-    };
-
-    this.throttledUpdate = _.throttle(newProfile => {
+    this.throttledAdd = _.throttle(newProfile => {
       if (newProfile) {
-        updateName.call({
-          profileId: this.props.profile._id,
+        const newID = insert.call({
           newProfile,
         }, displayError);
+
+        return newID;
       }
     }, 300);
 
@@ -38,15 +32,14 @@ export default class ProfileEdit extends React.Component {
     event.preventDefault();
     const newProfile = this.refs.form.getValue();
     if (newProfile) {
-      this.throttledUpdate(newProfile);
+      const newID = this.throttledAdd(newProfile);
 
-      // Only change editing state if validation passed
-      this.props.onEditingChange(this.props.profile._id, false);
+      // Redirect
+      this.context.router.push(`/profiles/${ newID }`);
     }
   }
 
   render() {
-    const { profile } = this.props;
     const formOptions = defaultFormOptions();
 
     return (
@@ -54,7 +47,6 @@ export default class ProfileEdit extends React.Component {
         <Form
           ref="form"
           type={profileSchema}
-          value={this.state.profile}
           options={formOptions}
         />
 
@@ -67,11 +59,10 @@ export default class ProfileEdit extends React.Component {
   }
 }
 
-ProfileEdit.propTypes = {
-  profile: React.PropTypes.object,
-  onEditingChange: React.PropTypes.func,
-};
+// ProfileAdd.propTypes = {
+//   profile: React.PropTypes.object,
+// };
 
-ProfileEdit.contextTypes = {
+ProfileAdd.contextTypes = {
   router: React.PropTypes.object,
 };

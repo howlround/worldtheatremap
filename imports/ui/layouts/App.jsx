@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 
 import { Profiles } from '../../api/profiles/profiles.js';
 import UserMenu from '../components/UserMenu.jsx';
+import AddMenu from '../components/AddMenu.jsx';
 import Profile from '../components/Profile.jsx';
 
 import ConnectionNotification from '../components/ConnectionNotification.jsx';
@@ -55,6 +56,26 @@ export default class App extends React.Component {
     }
   }
 
+  renderHomePageContent() {
+    const { profiles } = this.props;
+
+    return (
+      profiles.map(profile => (
+        <li>
+          <Link
+            to={`/profiles/${ profile._id }`}
+            key={profile._id}
+            title={profile.name}
+            className="profile-view"
+            activeClassName="active"
+          >
+            {profile.name}
+          </Link>
+        </li>
+      ))
+    );
+  }
+
   render() {
     const { showConnectionIssue } = this.state;
     const {
@@ -78,20 +99,16 @@ export default class App extends React.Component {
 
     return (
       <div id="container" className={menuOpen ? 'menu-open' : ''}>
-        <section id="menu">
-          <UserMenu user={user} logout={this.logout}/>
-          {profiles.map(profile => (
+        <header id="header">
+          <section id="menu">
             <Link
-              to={`/profiles/${ profile._id }`}
-              key={profile._id}
-              title={profile.name}
-              className="profile-view"
-              activeClassName="active"
-            >
-              {profile.name}
-            </Link>
-          ))}
-        </section>
+              to="/"
+              className="home"
+            >World Theatre Map</Link>
+            <UserMenu user={user} logout={this.logout}/>
+            <AddMenu/>
+          </section>
+        </header>
         {showConnectionIssue && !connected
           ? <ConnectionNotification/>
           : null}
@@ -100,6 +117,13 @@ export default class App extends React.Component {
           {loading
             ? <Loading key="loading"/>
             : clonedChildren}
+          {!clonedChildren ?
+            <div className="page">
+              <ul>
+                {this.renderHomePageContent()}
+              </ul>
+            </div> : ''
+          }
         </div>
       </div>
     );

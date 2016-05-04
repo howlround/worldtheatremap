@@ -46,7 +46,7 @@ export default class SignInPage extends React.Component {
     const content = (
       <div className="wrapper-auth">
         <h1 className="title-auth">Sign In.</h1>
-        <p className="subtitle-auth" >Signing in allows you to view private lists</p>
+        <p className="subtitle-auth" >Signing in allows you to add and edit profiles and events</p>
         <form onSubmit={this.onSubmit}>
           <div className="list-errors">
             {errorMessages.map(msg => (
@@ -61,7 +61,7 @@ export default class SignInPage extends React.Component {
             <input type="password" name="password" ref="password" placeholder="Password"/>
             <span className="icon-lock" title="Password"></span>
           </div>
-          <button type="submit" className="btn-primary">Sign in</button>
+          <button type="submit">Sign in</button>
         </form>
       </div>
     );

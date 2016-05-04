@@ -11,14 +11,6 @@ const PROFILE_ID_ONLY = new SimpleSchema({
   profileId: { type: String },
 }).validator();
 
-export const insert = new ValidatedMethod({
-  name: 'profiles.insert',
-  validate: new SimpleSchema({}).validator(),
-  run() {
-    return Profiles.insert({});
-  },
-});
-
 export const makePrivate = new ValidatedMethod({
   name: 'profiles.makePrivate',
   validate: PROFILE_ID_ONLY,
@@ -62,6 +54,20 @@ export const makePublic = new ValidatedMethod({
     Profiles.update(profileId, {
       $unset: { userId: true },
     });
+  },
+});
+
+export const insert = new ValidatedMethod({
+  name: 'profiles.insert',
+  validate({ newProfile }) {
+    const result = t.validate(newProfile, profileSchema);
+
+    if (!result.isValid()) {
+      throw new ValidationError(result.firstError());
+    }
+  },
+  run({ newProfile }) {
+    return Profiles.insert(newProfile);
   },
 });
 

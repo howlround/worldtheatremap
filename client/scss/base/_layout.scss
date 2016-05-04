@@ -1,6 +1,8 @@
 .page,
-.user-menu {
+#menu {
   @include container;
+  margin-left: $spacing-unit;
+  margin-right: $spacing-unit;
 
   @include breakpoint($narrow) {
     @include container($narrow-width);

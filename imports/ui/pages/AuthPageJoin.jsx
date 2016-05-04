@@ -72,7 +72,7 @@ export default class JoinPage extends React.Component {
             <input type="password" name="confirm" ref="confirm" placeholder="Confirm Password"/>
             <span className="icon-lock" title="Confirm Password"></span>
           </div>
-          <button type="submit" className="btn-primary">Join Now</button>
+          <button type="submit">Join Now</button>
         </form>
       </div>
     );

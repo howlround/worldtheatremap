@@ -2,10 +2,15 @@
   background-color: $red;
 }
 
-.home {
+a.home {
   color: $white;
   font-size: 27px;
   font-weight: 700;
+  line-height: 2em;
+
+  &:hover {
+    color: $white;
+  }
 }
 
 .user-menu {

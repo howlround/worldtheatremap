@@ -1,0 +1,13 @@
+.wrapper-message {
+  text-align: center;
+  background-color: $light-teal;
+  padding: $spacing-unit * 2;
+
+  .title-message {
+    margin-bottom: .5em;
+  }
+
+  .subtitle-message {
+    font-size: 0.8em;
+  }
+}

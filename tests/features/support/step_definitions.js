@@ -28,6 +28,11 @@ module.exports = function() {
     client.click(element);
   });
 
+  this.Given(/^I click on "([^"]*)"$/, function (element) {
+    client.waitForExist(element);
+    client.click(element);
+  });
+
   this.When(/^I fill in "([^"]*)" with "([^"]*)"$/, function (element, text) {
     client.waitForExist(element);
     client.setValue(element, text);
@@ -36,6 +41,10 @@ module.exports = function() {
   this.When(/^I press "([^"]*)"$/, function (element) {
     client.waitForExist(element);
     client.click(element);
+  });
+
+  this.Then(/^I should see the "([^"]*)" element$/, function (element) {
+    expect(client.waitForExist(element));
   });
 
   this.Then(/^I should not see "([^"]*)"$/, function (element) {
@@ -66,7 +75,7 @@ module.exports = function() {
   });
 
   this.Then(/^the "([^"]*)" element should contain "([^"]*)"$/, function (element, text) {
-    browser.waitForText(element, text);
+    client.waitForExist(element, 2000);
     const processedText = RegExp(text, 'i');
 
     expect(client.getText(element)).toMatch(processedText);

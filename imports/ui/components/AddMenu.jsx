@@ -21,11 +21,11 @@ export default class AddMenu extends React.Component {
     const { addOpen } = this.state;
     return (
       <div className="add-menu">
-        <a href="#" className="btn-secondary" onClick={this.addToggle}>
+        <a href="#" className="add" onClick={this.addToggle}>
           + Add
         </a>
         {addOpen
-          ? <Link to="/profiles/add" className="btn-secondary">Profile</Link>
+          ? <Link to="/profiles/add" className="add-profile">Profile</Link>
           : null}
       </div>
     );

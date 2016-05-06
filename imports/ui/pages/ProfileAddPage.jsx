@@ -35,7 +35,10 @@ export default class ProfilePage extends React.Component {
     }
     else {
       return (
-        <AuthPageSignIn/>
+        <div className="page">
+          <Message title="Access denied" subtitle="You must sign in or reigster to add content."/>
+          <AuthPageSignIn/>
+        </div>
       );
     }
   }

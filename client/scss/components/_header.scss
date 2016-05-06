@@ -4,6 +4,7 @@
 
 a.home {
   color: $white;
+  background-color: $dark-red;
   font-size: 27px;
   font-weight: 700;
   line-height: 2em;
@@ -19,4 +20,15 @@ a.home {
 
 .add-menu {
   float: right;
+
+  a {
+    color: $white;
+    text-transform: uppercase;
+
+    &:hover,
+    &:focus {
+      background-color: $light-red;
+      color: $white;
+    }
+  }
 }

@@ -1,0 +1,24 @@
+.wrapper-auth {
+  .input-symbol {
+    width: 100%;
+  }
+
+  .list-errors {
+    .list-item {
+      @include title-caps;
+
+      color: $light-red;
+      font-size: .625em; // 10px
+      margin-bottom: 1px;
+      padding: .7rem;
+    }
+  }
+
+  .link-auth-alt {
+    margin-top: $spacing-unit * 4;
+    text-align: center;
+    width: 100%;
+    display: inline-block;
+    font-size: 0.8em;
+  }
+}

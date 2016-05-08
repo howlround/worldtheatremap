@@ -15,6 +15,10 @@ $narrow-width: 740px;
 $normal-width: 980px;
 $wide-width: 1220px;
 
+$narrow-auth-width: $narrow-width - 220px;
+$normal-auth-width: $normal-width - 290px;
+$wide-auth-width: $wide-width - 400px;
+
 $narrow: $narrow-width, 'no-query' true;
 $normal: $normal-width, 'no-query' true;
 $wide: $wide-width;

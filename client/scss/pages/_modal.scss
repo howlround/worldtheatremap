@@ -12,13 +12,13 @@
     position: relative;
     background-color: $light-gray;
     margin: $spacing-unit;
-    padding: $spacing-unit;
+    // padding: $spacing-unit;
 
     @include breakpoint($narrow) {
       @include container($narrow-width);
 
       border: none;
-      padding: $spacing-unit * 4;
+      // padding: $spacing-unit * 4;
       margin-top: $spacing-unit * -2;
       margin-bottom: $spacing-unit * -2;
     }
@@ -29,6 +29,14 @@
 
     @include breakpoint($wide) {
       @include container($wide-width);
+    }
+
+    .page-content {
+      padding: $spacing-unit;
+
+      @include breakpoint($narrow) {
+        padding: $spacing-unit * 4;
+      }
     }
   }
 }

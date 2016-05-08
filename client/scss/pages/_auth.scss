@@ -1,0 +1,13 @@
+.page.auth {
+  @include breakpoint($narrow) {
+    @include container($narrow-auth-width);
+  }
+
+  @include breakpoint($normal) {
+    @include container($normal-auth-width);
+  }
+
+  @include breakpoint($wide) {
+    @include container($wide-auth-width);
+  }
+}

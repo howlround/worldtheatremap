@@ -11,9 +11,8 @@ Feature: Create organization profiles
     And I click on ".add"
     And I click on ".add-profile"
     Then the "h1" element should contain "Sign in"
-    And the ".wrapper-message" element should contain "You must sign in or reigster to add content."
+    And the ".wrapper-message" element should contain "Sign in or register to participate in the World Theatre Map"
 
-  @focus
   Scenario: Users should shee all the fields on the add organization profile form
     And I am logged in
     And I click on ".add"

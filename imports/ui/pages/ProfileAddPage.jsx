@@ -7,7 +7,7 @@ import ProfileAdd from '../components/ProfileAdd.jsx';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
 import Message from '../components/Message.jsx';
 import Modal from '../components/Modal.jsx';
-import AuthPageSignIn from '../pages/AuthPageSignIn.jsx';
+import AuthSignIn from '../components/AuthSignIn.jsx';
 
 
 export default class ProfilePage extends React.Component {
@@ -35,9 +35,14 @@ export default class ProfilePage extends React.Component {
     }
     else {
       return (
-        <div className="page">
-          <Message title="Access denied" subtitle="You must sign in or reigster to add content."/>
-          <AuthPageSignIn/>
+        <div className="overlay-wrapper">
+          <Modal/>
+          <div className="page auth">
+            <Message title="Access denied" subtitle="Sign in or register to participate in the World Theatre Map"/>
+            <div className="page-content">
+              <AuthSignIn/>
+            </div>
+          </div>
         </div>
       );
     }

@@ -1,9 +1,8 @@
 import React from 'react';
-import AuthPage from './AuthPage.jsx';
 import { Link } from 'react-router';
 import { Accounts } from 'meteor/accounts-base';
 
-export default class JoinPage extends React.Component {
+export default class AuthJoin extends React.Component {
   constructor(props) {
     super(props);
     this.state = { errors: {} };
@@ -50,7 +49,7 @@ export default class JoinPage extends React.Component {
     const errorMessages = Object.keys(errors).map(key => errors[key]);
     const errorClass = key => errors[key] && 'error';
 
-    const content = (
+    return (
       <div className="wrapper-auth">
         <h1 className="title-auth">Join.</h1>
         <p className="subtitle-auth" >Joining allows you to make private lists</p>
@@ -74,15 +73,12 @@ export default class JoinPage extends React.Component {
           </div>
           <button type="submit">Join Now</button>
         </form>
+        <Link to="/signin" className="link-auth-alt">Have an account? Sign in</Link>
       </div>
     );
-
-    const link = <Link to="/signin" className="link-auth-alt">Have an account? Sign in</Link>;
-
-    return <AuthPage content={content} link={link}/>;
   }
 }
 
-JoinPage.contextTypes = {
+AuthJoin.contextTypes = {
   router: React.PropTypes.object,
 };

@@ -6,8 +6,8 @@ import AppContainer from '../../ui/containers/AppContainer.jsx';
 import ListContainer from '../../ui/containers/ListContainer.jsx';
 import ProfileAddContainer from '../../ui/containers/ProfileAddContainer.jsx';
 import ProfileContainer from '../../ui/containers/ProfileContainer.jsx';
-import AuthPageSignIn from '../../ui/pages/AuthPageSignIn.jsx';
-import AuthPageJoin from '../../ui/pages/AuthPageJoin.jsx';
+import AuthSignInPage from '../../ui/pages/AuthSignInPage.jsx';
+import AuthJoinPage from '../../ui/pages/AuthJoinPage.jsx';
 import NotFoundPage from '../../ui/pages/NotFoundPage.jsx';
 
 export const renderRoutes = () => (
@@ -16,8 +16,8 @@ export const renderRoutes = () => (
       <Route path="lists/:id" component={ListContainer}/>
       <Route path="profiles/add" component={ProfileAddContainer}/>
       <Route path="profiles/:id" component={ProfileContainer}/>
-      <Route path="signin" component={AuthPageSignIn}/>
-      <Route path="join" component={AuthPageJoin}/>
+      <Route path="signin" component={AuthSignInPage}/>
+      <Route path="join" component={AuthJoinPage}/>
       <Route path="*" component={NotFoundPage}/>
     </Route>
   </Router>

@@ -1,9 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
-import AuthPage from './AuthPage.jsx';
 import { Link } from 'react-router';
 
-export default class SignInPage extends React.Component {
+export default class AuthSignIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = { errors: {} };
@@ -43,16 +42,16 @@ export default class SignInPage extends React.Component {
     const errorMessages = Object.keys(errors).map(key => errors[key]);
     const errorClass = key => errors[key] && 'error';
 
-    const content = (
+    return (
       <div className="wrapper-auth">
         <h1 className="title-auth">Sign In.</h1>
         <p className="subtitle-auth" >Signing in allows you to add and edit profiles and events</p>
         <form onSubmit={this.onSubmit}>
-          <div className="list-errors">
+          <ul className="list-errors">
             {errorMessages.map(msg => (
-              <div className="list-item" key={msg}>{msg}</div>
+              <li className="list-item" key={msg}>{msg}</li>
             ))}
-          </div>
+          </ul>
           <div className={`input-symbol ${errorClass('email')}`}>
             <input type="email" name="email" ref="email" placeholder="Your Email"/>
             <span className="icon-email" title="Your Email"></span>
@@ -63,15 +62,12 @@ export default class SignInPage extends React.Component {
           </div>
           <button type="submit">Sign in</button>
         </form>
+        <Link to="/join" className="link-auth-alt">Need an account? Join Now.</Link>
       </div>
     );
-
-    const link = <Link to="/join" className="link-auth-alt">Need an account? Join Now.</Link>;
-
-    return <AuthPage content={content} link={link}/>;
   }
 }
 
-SignInPage.contextTypes = {
+AuthSignIn.contextTypes = {
   router: React.PropTypes.object,
 };

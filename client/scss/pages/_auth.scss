@@ -1,13 +1,27 @@
-.page.auth {
-  @include breakpoint($narrow) {
-    @include container($narrow-auth-width);
-  }
+.overlay-wrapper {
+  .page.auth {
+    padding: 0;
 
-  @include breakpoint($normal) {
-    @include container($normal-auth-width);
-  }
+    @include breakpoint($narrow) {
+      padding: 0;
 
-  @include breakpoint($wide) {
-    @include container($wide-auth-width);
+      @include container($narrow-auth-width);
+    }
+
+    @include breakpoint($normal) {
+      @include container($normal-auth-width);
+    }
+
+    @include breakpoint($wide) {
+      @include container($wide-auth-width);
+    }
+
+    .page-content {
+      padding: $spacing-unit;
+
+      @include breakpoint($narrow) {
+        padding: $spacing-unit * 4;
+      }
+    }
   }
 }

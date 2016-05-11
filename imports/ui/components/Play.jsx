@@ -47,6 +47,9 @@ export default class Play extends React.Component {
           <h1 className="play-name page-title">
             {play.name}
           </h1>
+          <div className="play-authorship">
+            by <span className="play-author">{play.author}</span>
+          </div>
           {editLink}
         </div>
         {play.about ?

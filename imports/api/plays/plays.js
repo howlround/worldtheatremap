@@ -36,6 +36,7 @@ Plays.deny({
 
 export const playSchema = t.struct({
   name: t.String,
+  author: t.String,
   about: t.maybe(t.String),
 });
 
@@ -45,6 +46,13 @@ export const defaultFormOptions = () => {
       name: {
         attrs: {
           className: 'play-name-edit',
+        },
+        error: 'Name is required',
+      },
+      author: {
+        label: 'Primary authorship',
+        attrs: {
+          className: 'play-author-edit',
         },
         error: 'Name is required',
       },
@@ -72,6 +80,7 @@ export const defaultFormOptions = () => {
 // them here to keep them private to the server.
 Plays.publicFields = {
   name: 1,
+  author: 1,
   about: 1,
   userId: 1,
 };

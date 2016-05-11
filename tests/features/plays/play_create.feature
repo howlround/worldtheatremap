@@ -18,15 +18,17 @@ Feature: Create plays
     And I click on ".add"
     When I click on ".add-play"
     Then I should see the ".play-name-edit" element
+    Then I should see the ".play-author-edit" element
     And I should see the ".play-about-edit" element
 
-@focus
   Scenario: Users should be able to create a play with all the fields
     And I am logged in
     And I click on ".add"
     When I click on ".add-play"
     And I fill in ".play-name-edit" with "Sofía"
+    And I fill in ".play-author-edit" with "No autocomplete author"
     And I fill in ".play-about-edit" with "Most popular name in Argentina"
     And I click on ".edit-play-save"
     Then the ".play-name" element should contain "Sofía"
+    Then the ".play-author" element should contain "No autocomplete author"
     And the ".play-about" element should contain "Most popular name in Argentina"

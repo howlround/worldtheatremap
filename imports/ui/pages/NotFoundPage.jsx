@@ -7,9 +7,7 @@ const NotFoundPage = () => (
     <nav>
       <MobileMenu/>
     </nav>
-    <div className="content-scrollable">
-      <Message title="Page not found"/>
-    </div>
+    <Message title="Page not found"/>
   </div>
 );
 

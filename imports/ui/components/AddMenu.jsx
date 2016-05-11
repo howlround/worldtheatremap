@@ -25,7 +25,11 @@ export default class AddMenu extends React.Component {
           + Add
         </a>
         {addOpen
-          ? <Link to="/profiles/add" className="add-profile">Profile</Link>
+          ?
+          <div className="add-options">
+            <Link to="/profiles/add" className="add-profile">Profile</Link>
+            <Link to="/plays/add" className="add-play">Play</Link>
+          </div>
           : null}
       </div>
     );

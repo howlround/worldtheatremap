@@ -56,20 +56,38 @@ export default class App extends React.Component {
     }
   }
 
-  renderHomePageContent() {
+  renderHomePageProfiles() {
     const { profiles } = this.props;
 
     return (
       profiles.map(profile => (
-        <li>
+        <li key={profile._id}>
           <Link
             to={`/profiles/${ profile._id }`}
-            key={profile._id}
             title={profile.name}
             className="profile-view"
             activeClassName="active"
           >
             {profile.name}
+          </Link>
+        </li>
+      ))
+    );
+  }
+
+  renderHomePagePlays() {
+    const { plays } = this.props;
+
+    return (
+      plays.map(play => (
+        <li key={play._id}>
+          <Link
+            to={`/plays/${ play._id }`}
+            title={play.name}
+            className="play-view"
+            activeClassName="active"
+          >
+            {play.name}
           </Link>
         </li>
       ))
@@ -120,7 +138,8 @@ export default class App extends React.Component {
           {!clonedChildren ?
             <div className="page">
               <ul>
-                {this.renderHomePageContent()}
+                {this.renderHomePageProfiles()}
+                {this.renderHomePagePlays()}
               </ul>
             </div> : ''
           }
@@ -136,6 +155,7 @@ App.propTypes = {
   loading: React.PropTypes.bool,     // subscription status
   menuOpen: React.PropTypes.bool,    // is side menu open?
   profiles: React.PropTypes.array,   // all profiles visible to the current user
+  plays: React.PropTypes.array,
   children: React.PropTypes.element, // matched child route component
   location: React.PropTypes.object,  // current router location
   params: React.PropTypes.object,    // parameters of the current route

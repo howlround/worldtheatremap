@@ -33,6 +33,9 @@ export default class AuthSignIn extends React.Component {
           errors: { none: err.reason },
         });
       }
+
+      // @TODO: If the path is /signin then redirect
+      // otherwise let the person stay where they were
       this.context.router.push('/');
     });
   }

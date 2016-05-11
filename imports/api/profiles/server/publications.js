@@ -5,9 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import { Profiles } from '../profiles.js';
 
 Meteor.publish('profiles.public', function profilesPublic() {
-  return Profiles.find({
-    userId: { $exists: false },
-  }, {
+  return Profiles.find({}, {
     fields: Profiles.publicFields,
   });
 });

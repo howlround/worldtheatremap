@@ -2,15 +2,15 @@ import React from 'react';
 import classnames from 'classnames';
 // import ListHeader from '../components/ListHeader.jsx';
 // import TodoItem from '../components/TodoItem.jsx';
-import Profile from '../components/Profile.jsx';
-import ProfileAdd from '../components/ProfileAdd.jsx';
+import Play from '../components/Play.jsx';
+import PlayAdd from '../components/PlayAdd.jsx';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
 import Message from '../components/Message.jsx';
 import Modal from '../components/Modal.jsx';
 import AuthSignIn from '../components/AuthSignIn.jsx';
 
 
-export default class ProfileAddPage extends React.Component {
+export default class PlayAddPage extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -20,7 +20,7 @@ export default class ProfileAddPage extends React.Component {
 
     const pageClass = classnames({
       'page': true,
-      'profiles-add': true,
+      'plays-add': true,
     });
 
     if (add && user) {
@@ -28,7 +28,7 @@ export default class ProfileAddPage extends React.Component {
         <div className="overlay-wrapper">
           <Modal/>
           <div className={pageClass}>
-            <ProfileAdd/>
+            <PlayAdd/>
           </div>
         </div>
       );
@@ -49,7 +49,7 @@ export default class ProfileAddPage extends React.Component {
   }
 }
 
-ProfileAddPage.propTypes = {
+PlayAddPage.propTypes = {
   add: React.PropTypes.bool,
   user: React.PropTypes.object,
 };

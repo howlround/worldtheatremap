@@ -6,12 +6,12 @@ RegExp.escape = function(str) {
 module.exports = function() {
   this.Given(/^I am logged in$/, function () {
     browser.url('http://localhost:3000/join');
-    client.waitForExist('input[name="email"]');
+    client.waitForExist('input[name="email"]', 2000);
     client.setValue('input[name="email"]', 'reginold@worldtheatremap.org');
     client.setValue('input[name="password"]', 'letme1n3');
     client.setValue('input[name="confirm"]', 'letme1n3');
 
-    client.waitForExist('button[type="submit"]');
+    client.waitForExist('button[type="submit"]', 2000);
     client.click('button[type="submit"]');
 
     client.waitForExist('.icon-arrow-down');

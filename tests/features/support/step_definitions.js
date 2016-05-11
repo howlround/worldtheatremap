@@ -1,4 +1,8 @@
 /* eslint-disable */
+RegExp.escape = function(str) {
+  return (str+'').replace(/[.?*+^$[\]\\(){}|-]/g, "\\$&");
+}
+
 module.exports = function() {
   this.Given(/^I am logged in$/, function () {
     browser.url('http://localhost:3000/join');
@@ -69,21 +73,21 @@ module.exports = function() {
 
     // Check if we are on the correct page
     // const processedName = RegExp('/' + name + '/i');
-    const processedName = RegExp(name, 'i');
+    const processedName = RegExp(RegExp.escape(name), 'i');
     expect(client.getText('.page-title')).toMatch(processedName);
     callback();
   });
 
   this.Then(/^the "([^"]*)" element should contain "([^"]*)"$/, function (element, text) {
     client.waitForExist(element, 2000);
-    const processedText = RegExp(text, 'i');
+    const processedText = RegExp(RegExp.escape(text), 'i');
 
     expect(client.getText(element)).toMatch(processedText);
   });
 
   this.Then(/^the "([^"]*)" element should not contain "([^"]*)"$/, function (element, text) {
     client.waitForExist(element);
-    const processedText = RegExp(text, 'i');
+    const processedText = RegExp(RegExp.escape(text), 'i');
 
     expect(client.getText(element)).not.toMatch(processedText);
   });

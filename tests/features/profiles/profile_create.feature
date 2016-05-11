@@ -13,9 +13,19 @@ Feature: Create organization profiles
     Then the "h1" element should contain "Sign in"
     And the ".wrapper-message" element should contain "Sign in or register to participate in the World Theatre Map"
 
-  Scenario: Users should shee all the fields on the add organization profile form
+  Scenario: Users should see all the fields on the add organization profile form
     And I am logged in
     And I click on ".add"
     When I click on ".add-profile"
     Then I should see the ".profile-name-edit" element
     And I should see the ".profile-about-edit" element
+
+  Scenario: Users should be able to create a profile with all the fields
+    And I am logged in
+    And I click on ".add"
+    When I click on ".add-profile"
+    And I fill in ".profile-name-edit" with "Fatima"
+    And I fill in ".profile-about-edit" with "Most popular name in Algeria (census, 2010)"
+    And I click on ".edit-profile-save"
+    Then the ".profile-name" element should contain "Fatima"
+    And the ".profile-about" element should contain "Most popular name in Algeria (census, 2010)"

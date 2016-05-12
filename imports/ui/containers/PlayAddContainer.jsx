@@ -6,6 +6,5 @@ export default createContainer(() => {
   const add = true;
   return {
     add,
-    // user,
   };
 }, PlayAddPage);

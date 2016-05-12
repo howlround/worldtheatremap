@@ -51,5 +51,4 @@ export default class PlayAddPage extends React.Component {
 
 PlayAddPage.propTypes = {
   add: React.PropTypes.bool,
-  user: React.PropTypes.object,
 };

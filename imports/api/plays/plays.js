@@ -1,6 +1,7 @@
 import { Mongo } from 'meteor/mongo';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Factory } from 'meteor/factory';
+import React from 'react';
 import t from 'tcomb-validation';
 
 class PlaysCollection extends Mongo.Collection {
@@ -37,6 +38,7 @@ Plays.deny({
 export const playSchema = t.struct({
   name: t.String,
   author: t.String,
+  authorID: t.String,
   about: t.maybe(t.String),
 });
 
@@ -54,7 +56,10 @@ export const defaultFormOptions = () => {
         attrs: {
           className: 'play-author-edit',
         },
-        error: 'Name is required',
+        error: 'Primary authorship is required',
+        config: {
+          addonAfter: <ul className="play-author-edit-results"></ul>
+        }
       },
       about: {
         type: 'textarea',

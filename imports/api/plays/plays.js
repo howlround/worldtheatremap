@@ -2,7 +2,8 @@ import { Mongo } from 'meteor/mongo';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Factory } from 'meteor/factory';
 import React from 'react';
-import t from 'tcomb-validation';
+import t from 'tcomb-form';
+import { Profiles } from '../profiles/profiles.js';
 
 class PlaysCollection extends Mongo.Collection {
   insert(play, callback) {
@@ -35,12 +36,31 @@ Plays.deny({
   remove() { return true; },
 });
 
+const playAuthor = t.struct({
+  name: t.String,
+  id: t.String,
+});
+
+export const playAuthorSchema = playAuthor;
+
+// @TODO: Refactor to look like this:
+// https://github.com/gcanti/tcomb-form/issues/311
+// Maybe that should be in playAuthor?
 export const playSchema = t.struct({
   name: t.String,
-  author: t.String,
-  authorID: t.String,
+  author: t.list(playAuthorSchema),
   about: t.maybe(t.String),
 });
+
+const authorLayout = (author) => {
+  return (
+    <div className="author-fields-group">
+      {author.inputs.name}
+      {author.inputs.id}
+      <ul className="play-author-edit-results"></ul>
+    </div>
+  );
+};
 
 export const defaultFormOptions = () => {
   return {
@@ -57,8 +77,22 @@ export const defaultFormOptions = () => {
           className: 'play-author-edit',
         },
         error: 'Primary authorship is required',
-        config: {
-          addonAfter: <ul className="play-author-edit-results"></ul>
+        item: {
+          template: authorLayout,
+          fields: {
+            name: {
+              auto: 'none',
+              attrs: {
+                autocomplete: 'off'
+              }
+            },
+            id: {
+              auto: 'none',
+              attrs: {
+                className: 'author-id-field'
+              }
+            }
+          }
         }
       },
       about: {

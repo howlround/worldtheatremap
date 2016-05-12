@@ -6,12 +6,17 @@ import { insert } from '../../api/plays/methods.js';
 import { playSchema, defaultFormOptions } from '../../api/plays/plays.js';
 import { Profiles } from '../../api/profiles/profiles.js';
 import t from 'tcomb-form';
+// import Select from 'react-select';
 
 const Form = t.form.Form;
 
 export default class PlayAdd extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      play: {}
+    };
 
     this.throttledAdd = _.throttle(newPlay => {
       if (newPlay) {
@@ -31,19 +36,28 @@ export default class PlayAdd extends React.Component {
   }
 
   onChange(value, path) {
-    if (path == "author") {
-      const search = value.author;
+    // @TODO: Merge with PlayEdit.jsx
+    if (path[0] == 'author' && path[2] == 'name') {
+      const search = value.author[path[1]].name;
+      const element = $('.form-group-author-' + path[1] + '-name').siblings('ul.play-author-edit-results');
 
       // Search for profiles and save to ul.play-author-edit-result
       if (search.length > 0) {
-        // const results = Profiles.find({name: { $regex: '.*' + search + '.*' }}).fetch();
         const regex = new RegExp('.*' + search + '.*', 'i');
-        // console.log(regex);
-        const results = Profiles.find({name: { $regex: regex }}).fetch();
-        $('ul.play-author-edit-results').html('');
+        const results = Profiles.find({name: { $regex: regex }}, {limit: 5}).fetch();
+
+        // Clear fields
+        element.html('');
+
         results.map(profile => {
-          $('<li></li>').html('<b>' + profile.name + '</b> (' + profile._id + ')').appendTo('ul.play-author-edit-results').click(() => {
-              console.log(profile.name);
+          element.append('<li><b>' + profile.name + '</b> (' + profile._id + ')</li>').find('li:last-child').click(() => {
+              const newValue = value;
+              newValue.author[path[1]].name = profile.name;
+              newValue.author[path[1]].id = profile._id;
+              this.setState({play: newValue});
+
+              // Clear fields
+              element.html('');
           });
         });
       }
@@ -56,6 +70,7 @@ export default class PlayAdd extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const newPlay = this.refs.form.getValue();
+    console.log(newPlay);
     if (newPlay) {
       const newID = this.throttledAdd(newPlay);
 
@@ -66,13 +81,23 @@ export default class PlayAdd extends React.Component {
 
   render() {
     const formOptions = defaultFormOptions();
+    // const allProfiles = Profiles.find({}).fetch();
+    // const profileOptions = {};
+    // allProfiles.map(profile => {
+    //   profileOptions[profile._id] = profile.name;
+    // });
+    // console.log(profileOptions);
+    // console.log(formOptions);
+    // // formOptions.fields.author.factory = t.form.Select;
+    // console.log(playSchema);
 
     return (
-      <form className="play-edit-form" onSubmit={this.handleSubmit.bind(this)} >
+      <form className="play-edit-form" onSubmit={this.handleSubmit.bind(this)} autocomplete="off" >
         <Form
           ref="form"
           type={playSchema}
           options={formOptions}
+          value={this.state.play}
           onChange={this.onChange}
         />
 

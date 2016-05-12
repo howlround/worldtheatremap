@@ -21,3 +21,11 @@ Meteor.publish('profiles.private', function profilesPrivate() {
     fields: Profiles.publicFields,
   });
 });
+
+// Meteor.publish('profiles.autocomplete', function profilesAutocomplete() {
+//   return Profiles.find({}, {
+//     fields: {
+//       name: true
+//     }
+//   });
+// });

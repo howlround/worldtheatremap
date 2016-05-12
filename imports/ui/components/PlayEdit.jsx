@@ -37,19 +37,27 @@ export default class PlayEdit extends React.Component {
   }
 
   onChange(value, path) {
-    if (path == "author") {
-      const search = value.author;
+    if (path[0] == 'author' && path[2] == 'name') {
+      const search = value.author[path[1]].name;
+      const element = $('.form-group-author-' + path[1] + '-name').siblings('ul.play-author-edit-results');
 
       // Search for profiles and save to ul.play-author-edit-result
       if (search.length > 0) {
-        // const results = Profiles.find({name: { $regex: '.*' + search + '.*' }}).fetch();
         const regex = new RegExp('.*' + search + '.*', 'i');
-        // console.log(regex);
-        const results = Profiles.find({name: { $regex: regex }}).fetch();
-        $('ul.play-author-edit-results').html('');
+        const results = Profiles.find({name: { $regex: regex }}, {limit: 5}).fetch();
+
+        // Clear fields
+        element.html('');
+
         results.map(profile => {
-          $('<li></li>').html('<b>' + profile.name + '</b> (' + profile._id + ')').appendTo('ul.play-author-edit-results').click(() => {
-              console.log(profile.name);
+          element.append('<li><b>' + profile.name + '</b> (' + profile._id + ')</li>').find('li:last-child').click(() => {
+              const newValue = value;
+              newValue.author[path[1]].name = profile.name;
+              newValue.author[path[1]].id = profile._id;
+              this.setState({play: newValue});
+
+              // Clear fields
+              element.html('');
           });
         });
       }

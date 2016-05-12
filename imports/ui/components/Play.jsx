@@ -29,6 +29,7 @@ export default class Play extends React.Component {
 
   render() {
     const { play, user } = this.props;
+
     const editLink = user ?
       <Link
         to={`/plays/${ play._id }`}
@@ -41,6 +42,11 @@ export default class Play extends React.Component {
         Edit
       </Link>
     : '';
+
+    const authors = play.author.map(author => {
+      return <Link to={`/profiles/${ author.id }`} key={author.id} className="play-author">{author.name}, </Link>
+    });
+
     return (
       <article className="play">
         <div className="play-main-info">
@@ -48,7 +54,7 @@ export default class Play extends React.Component {
             {play.name}
           </h1>
           <div className="play-authorship">
-            by <span className="play-author">{play.author}</span>
+            by {authors}
           </div>
           {editLink}
         </div>

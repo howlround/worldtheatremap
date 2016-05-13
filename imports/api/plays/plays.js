@@ -44,9 +44,10 @@ export const playAuthorSchema = t.struct({
 // @TODO: Refactor to look like this:
 // https://github.com/gcanti/tcomb-form/issues/311
 // Maybe that should be in playAuthor?
+const atLeastOne = arr => arr.length > 0
 export const playSchema = t.struct({
   name: t.String,
-  author: t.list(playAuthorSchema),
+  author: t.refinement(t.list(playAuthorSchema), atLeastOne),
   about: t.maybe(t.String),
 });
 
@@ -71,6 +72,7 @@ export const defaultFormOptions = () => {
       },
       author: {
         auto: 'none',
+        error: 'At least one author is required',
         label: 'Primary authorship',
         attrs: {
           className: 'play-author-edit',

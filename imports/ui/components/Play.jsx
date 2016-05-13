@@ -43,8 +43,16 @@ export default class Play extends React.Component {
       </Link>
     : '';
 
-    const authors = play.author.map(author => {
-      return <Link to={`/profiles/${ author.id }`} key={author.id} className="play-author">{author.name}, </Link>
+    // @TODO: Abstract this to a function or component to reduce duplication in PlayTeaser.jsx
+    const authors = play.author.map((author, index, array) => {
+      let seperator = ', ';
+      if (index == array.length - 1) {
+        seperator = '';
+      }
+      else if (index == array.length - 2) {
+        seperator = ' and ';
+      }
+      return <span key={author.id}><Link to={`/profiles/${ author.id }`} className="play-author">{author.name}</Link>{seperator}</span>
     });
 
     return (

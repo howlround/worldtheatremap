@@ -36,12 +36,10 @@ Plays.deny({
   remove() { return true; },
 });
 
-const playAuthor = t.struct({
+export const playAuthorSchema = t.struct({
   name: t.String,
   id: t.String,
 });
-
-export const playAuthorSchema = playAuthor;
 
 // @TODO: Refactor to look like this:
 // https://github.com/gcanti/tcomb-form/issues/311
@@ -72,24 +70,24 @@ export const defaultFormOptions = () => {
         error: 'Name is required',
       },
       author: {
+        auto: 'none',
         label: 'Primary authorship',
         attrs: {
           className: 'play-author-edit',
         },
-        error: 'Primary authorship is required',
         item: {
           template: authorLayout,
           fields: {
             name: {
-              auto: 'none',
+              error: 'Primary authorship is required',
               attrs: {
+                className: 'play-author-name-edit',
                 autocomplete: 'off'
               }
             },
             id: {
-              auto: 'none',
               attrs: {
-                className: 'author-id-field'
+                className: 'play-author-id-edit'
               }
             }
           }

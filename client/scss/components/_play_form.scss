@@ -2,6 +2,25 @@ button.edit-play-save {
   margin-top: $spacing-unit * 4;
 }
 
-.author-id-field {
+.play-author-id-edit {
   display: none;
+}
+
+.author-fields-group {
+  .form-group {
+    margin-bottom: 0;
+  }
+}
+
+ul.play-author-edit-results {
+  li {
+    cursor: pointer;
+    padding: $spacing-unit;
+    line-height: 1em;
+    background-color: $dark-tan;
+
+    &:hover {
+      background-color: $dark-gray;
+    }
+  }
 }

@@ -14,7 +14,7 @@ module.exports = function() {
     client.waitForExist('button[type="submit"]', 2000);
     client.click('button[type="submit"]');
 
-    client.waitForExist('.icon-arrow-down');
+    client.waitForExist('.icon-arrow-down', 2000);
     expect(client.isExisting('.icon-arrow-down'));
   });
 
@@ -122,5 +122,8 @@ module.exports = function() {
     server.execute(function () {
       Package['xolvio:cleaner'].resetDatabase();
     });
+
+    // Always start on the home page
+    browser.url('http://localhost:3000');
   });
 }

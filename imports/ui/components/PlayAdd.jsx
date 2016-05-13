@@ -43,23 +43,33 @@ export default class PlayAdd extends React.Component {
 
       // Search for profiles and save to ul.play-author-edit-result
       if (search.length > 0) {
+        // Clear any existing stored values
+        const clearValue = value;
+        clearValue.author[path[1]].id = '';
+        this.setState({play: clearValue});
+
         const regex = new RegExp('.*' + search + '.*', 'i');
         const results = Profiles.find({name: { $regex: regex }}, {limit: 5}).fetch();
 
         // Clear fields
         element.html('');
 
-        results.map(profile => {
-          element.append('<li><b>' + profile.name + '</b> (' + profile._id + ')</li>').find('li:last-child').click(() => {
-              const newValue = value;
-              newValue.author[path[1]].name = profile.name;
-              newValue.author[path[1]].id = profile._id;
-              this.setState({play: newValue});
+        if (results.length > 0) {
+          results.map(profile => {
+            element.append('<li><b>' + profile.name + '</b> (' + profile._id + ')</li>').find('li:last-child').click(() => {
+                const newValue = value;
+                newValue.author[path[1]].name = profile.name;
+                newValue.author[path[1]].id = profile._id;
+                this.setState({play: newValue});
 
-              // Clear fields
-              element.html('');
+                // Clear fields
+                element.html('');
+            });
           });
-        });
+        }
+        else {
+          // @TODO: Add new profile workflow
+        }
       }
       else {
         $('ul.play-author-edit-results').html('');
@@ -70,7 +80,6 @@ export default class PlayAdd extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const newPlay = this.refs.form.getValue();
-    console.log(newPlay);
     if (newPlay) {
       const newID = this.throttledAdd(newPlay);
 

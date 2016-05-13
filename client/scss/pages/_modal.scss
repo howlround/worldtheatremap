@@ -7,6 +7,20 @@
   opacity: 0.8;
 }
 
+.overlay-close {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  color: $white;
+  font-weight: bold;
+  font-size: 2em;
+
+  &:hover,
+  &:focus {
+    color: $black;
+  }
+}
+
 .overlay-wrapper {
   .page {
     position: relative;

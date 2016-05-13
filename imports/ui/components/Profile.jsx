@@ -22,23 +22,16 @@ export default class Profile extends React.Component {
     router.push(`/profiles/${ listId }`);
   }
 
-  triggerEdit(event) {
-    event.preventDefault();
-
-    this.props.onEditingChange(this.props.profile._id, true);
-  }
-
   render() {
     const { profile, user, plays } = this.props;
 
     const editLink = user ?
       <Link
-        to={`/profiles/${ profile._id }`}
+        to={`/profiles/${ profile._id }/edit`}
         key={profile._id}
         title={profile.name}
         className="edit-profile"
         activeClassName="active"
-        onClick={this.triggerEdit.bind(this)}
       >
         Edit
       </Link>

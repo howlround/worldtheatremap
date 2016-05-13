@@ -42,6 +42,8 @@ export default class ProfileEdit extends React.Component {
 
       // Only change editing state if validation passed
       this.props.onEditingChange(this.props.profile._id, false);
+      const { router } = this.context;
+      router.push(`/profiles/${ this.props.profile._id }`);
     }
   }
 

@@ -7,12 +7,13 @@ import ProfileEdit from '../components/ProfileEdit.jsx';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
 import Message from '../components/Message.jsx';
 import Modal from '../components/Modal.jsx';
+import { Link } from 'react-router';
 
 export default class ProfilePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      editing: null,
+      editing: this.props.editing ? this.props.profile._id : null
     };
     this.onEditingChange = this.onEditingChange.bind(this);
   }
@@ -43,6 +44,13 @@ export default class ProfilePage extends React.Component {
       return (
         <div className="overlay-wrapper">
           <Modal/>
+          <Link
+            to={`/profiles/${ profile._id }`}
+            title='close'
+            className="overlay-close"
+          >
+            &times;
+          </Link>
           <div className={profilePageClass}>
             <ProfileEdit
               profile={profile}
@@ -69,6 +77,7 @@ export default class ProfilePage extends React.Component {
 
 ProfilePage.propTypes = {
   profile: React.PropTypes.object,
+  editing: React.PropTypes.string,
   user: React.PropTypes.object,
   plays: React.PropTypes.array,
   // loading: React.PropTypes.bool,

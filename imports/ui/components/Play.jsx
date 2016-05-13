@@ -21,23 +21,16 @@ export default class Play extends React.Component {
     router.push(`/plays/${ listId }`);
   }
 
-  triggerEdit(event) {
-    event.preventDefault();
-
-    this.props.onEditingChange(this.props.play._id, true);
-  }
-
   render() {
     const { play, user } = this.props;
 
     const editLink = user ?
       <Link
-        to={`/plays/${ play._id }`}
+        to={`/plays/${ play._id }/edit`}
         key={play._id}
         title={play.name}
         className="edit-play"
         activeClassName="active"
-        onClick={this.triggerEdit.bind(this)}
       >
         Edit
       </Link>

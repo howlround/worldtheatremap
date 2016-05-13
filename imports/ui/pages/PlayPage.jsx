@@ -7,12 +7,13 @@ import PlayEdit from '../components/PlayEdit.jsx';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
 import Message from '../components/Message.jsx';
 import Modal from '../components/Modal.jsx';
+import { Link } from 'react-router';
 
 export default class PlayPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      editing: null,
+      editing: this.props.editing ? this.props.play._id : null
     };
     this.onEditingChange = this.onEditingChange.bind(this);
   }
@@ -49,6 +50,13 @@ export default class PlayPage extends React.Component {
               onEditingChange={this.onEditingChange}
             />
           </div>
+          <Link
+            to={`/plays/${ play._id }`}
+            title='Back'
+            className="overlay-close"
+          >
+            &times;
+          </Link>
         </div>
       );
     }
@@ -68,6 +76,7 @@ export default class PlayPage extends React.Component {
 
 PlayPage.propTypes = {
   play: React.PropTypes.object,
+  editing: React.PropTypes.string,
   user: React.PropTypes.object,
   // loading: React.PropTypes.bool,
   // playExists: React.PropTypes.bool,

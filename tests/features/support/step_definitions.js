@@ -38,7 +38,7 @@ module.exports = function() {
   });
 
   this.When(/^I fill in "([^"]*)" with "([^"]*)"$/, function (element, text) {
-    client.waitForExist(element);
+    client.waitForExist(element, 2000);
     client.setValue(element, text);
   });
 
@@ -48,7 +48,7 @@ module.exports = function() {
   });
 
   this.Then(/^I should see the "([^"]*)" element$/, function (element) {
-    expect(client.waitForExist(element));
+    expect(client.waitForExist(element, 2000));
   });
 
   this.Then(/^I should not see "([^"]*)"$/, function (element) {

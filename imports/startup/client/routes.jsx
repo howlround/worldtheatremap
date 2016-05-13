@@ -9,6 +9,7 @@ import PlayAddContainer from '../../ui/containers/PlayAddContainer.jsx';
 import ProfileContainer from '../../ui/containers/ProfileContainer.jsx';
 import ProfileEditContainer from '../../ui/containers/ProfileEditContainer.jsx';
 import PlayContainer from '../../ui/containers/PlayContainer.jsx';
+import PlayEditContainer from '../../ui/containers/PlayEditContainer.jsx';
 import AuthSignInPage from '../../ui/pages/AuthSignInPage.jsx';
 import AuthJoinPage from '../../ui/pages/AuthJoinPage.jsx';
 import NotFoundPage from '../../ui/pages/NotFoundPage.jsx';
@@ -22,6 +23,7 @@ export const renderRoutes = () => (
       <Route path="profiles/:id/edit" component={ProfileEditContainer}/>
       <Route path="plays/add" component={PlayAddContainer}/>
       <Route path="plays/:id" component={PlayContainer}/>
+      <Route path="plays/:id/edit" component={PlayEditContainer}/>
       <Route path="signin" component={AuthSignInPage}/>
       <Route path="join" component={AuthJoinPage}/>
       <Route path="*" component={NotFoundPage}/>

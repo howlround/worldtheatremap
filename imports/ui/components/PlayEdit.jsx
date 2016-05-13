@@ -86,6 +86,8 @@ export default class PlayEdit extends React.Component {
 
       // Only change editing state if validation passed
       this.props.onEditingChange(this.props.play._id, false);
+      const { router } = this.context;
+      router.push(`/plays/${ this.props.play._id }`);
     }
   }
 

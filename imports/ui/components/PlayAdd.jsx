@@ -15,7 +15,11 @@ export default class PlayAdd extends React.Component {
     super(props);
 
     this.state = {
-      play: {}
+      play: {
+        author: [
+          {}
+        ]
+      }
     };
 
     this.throttledAdd = _.throttle(newPlay => {

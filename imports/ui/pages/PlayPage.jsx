@@ -7,6 +7,7 @@ import PlayEdit from '../components/PlayEdit.jsx';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
 import Message from '../components/Message.jsx';
 import Modal from '../components/Modal.jsx';
+import AuthSignIn from '../components/AuthSignIn.jsx';
 import { Link } from 'react-router';
 
 export default class PlayPage extends React.Component {
@@ -59,6 +60,19 @@ export default class PlayPage extends React.Component {
           </Link>
         </div>
       );
+    }
+    else if (editing) {
+      return (
+        <div className="overlay-wrapper">
+          <Modal/>
+          <div className="page auth">
+            <Message title="Access denied" subtitle="Sign in or register to participate in the World Theatre Map"/>
+            <div className="page-content">
+              <AuthSignIn/>
+            </div>
+          </div>
+        </div>
+      )
     }
     else {
       return (

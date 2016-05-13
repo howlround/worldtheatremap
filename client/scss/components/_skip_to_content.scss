@@ -1,0 +1,22 @@
+.skip-to-content {
+  position: absolute;
+  overflow: hidden;
+  height: 1px; width: 1px;
+  margin: -1px; padding: 0; border: 0;
+  font-style: italic;
+  font-size: 0.8em;
+
+  &:focus,
+  &:hover {
+    text-align: center;
+    display: block;
+    overflow: visible;
+    height: auto;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    color: $white;
+    outline: none;
+  }
+}

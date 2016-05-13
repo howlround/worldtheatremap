@@ -44,19 +44,19 @@ export default class ProfilePage extends React.Component {
       return (
         <div className="overlay-wrapper">
           <Modal/>
-          <Link
-            to={`/profiles/${ profile._id }`}
-            title='close'
-            className="overlay-close"
-          >
-            &times;
-          </Link>
           <div className={profilePageClass}>
             <ProfileEdit
               profile={profile}
               onEditingChange={this.onEditingChange}
             />
           </div>
+          <Link
+            to={`/profiles/${ profile._id }`}
+            title='Back'
+            className="overlay-close"
+          >
+            &times;
+          </Link>
         </div>
       );
     }

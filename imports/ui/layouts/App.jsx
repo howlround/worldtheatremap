@@ -117,6 +117,7 @@ export default class App extends React.Component {
 
     return (
       <div id="container" className={menuOpen ? 'menu-open' : ''}>
+        <a className="skip-to-content" href="#content-container" tabindex="1">Skip to main content</a>
         <header id="header">
           <section id="menu">
             <Link

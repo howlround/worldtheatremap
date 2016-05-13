@@ -19,6 +19,35 @@ article.play {
   }
 }
 
+article.play-teaser {
+  border-top: 1px solid $light-teal;
+  padding: ($spacing-unit * 2) 0;
+
+  h3.play-name {
+    display: inline-block;
+    margin-right: $spacing-unit;
+    margin-bottom: $spacing-unit / 2;
+    margin-top: $spacing-unit / 2;
+    font-weight: 700;
+  }
+
+  .play-authorship {
+    display: inline-block;
+    color: $dark-gray;
+    margin-bottom: $spacing-unit / 2;
+    margin-top: $spacing-unit / 2;
+
+    a {
+      color: $dark-gray;
+
+      &:hover,
+      &:focus {
+        color: $black;
+      }
+    }
+  }
+}
+
 .edit-play {
   display: block;
 

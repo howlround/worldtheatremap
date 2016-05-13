@@ -5,8 +5,7 @@ article.profile {
     margin-top: $spacing-unit * 4;
   }
 
-  .profile-main-info,
-  .profile-about {
+  section {
     background-color: $white;
     border: solid 1px $dark-tan;
     margin-bottom: $spacing-unit * 2;
@@ -16,6 +15,13 @@ article.profile {
       position: relative;
       padding: $spacing-unit * 3;
     }
+  }
+}
+
+section.profile-plays {
+  ul {
+    border-bottom: 1px solid $light-teal;
+    padding-top: $spacing-unit * 2;
   }
 }
 

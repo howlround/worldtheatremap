@@ -36,14 +36,19 @@ label {
   margin-bottom: $spacing-unit * 2;
 }
 
+.alert {
+  color: $red;
+  font-size: 0.8em;
+
+  & + legend {
+    color: $red;
+  }
+}
+
 .has-error {
   .error-block {
     color: $red;
     font-size: 0.8em;
-  }
-
-  label {
-    color: $red;
   }
 
   input[type="text"] {

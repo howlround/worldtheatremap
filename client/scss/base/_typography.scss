@@ -8,3 +8,13 @@ h2 {
   text-transform: uppercase;
   font-size: 25px;
 }
+
+a {
+  color: $red;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: $dark-gray;
+  }
+}

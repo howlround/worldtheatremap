@@ -12,6 +12,6 @@ export default createContainer(({ params: { id } }) => {
     // loading,
     profile,
     // profileExists,
-    // todos: profileExists ? profile.todos().fetch() : [],
+    plays: profile.getPlays().fetch(),
   };
 }, ProfilePage);

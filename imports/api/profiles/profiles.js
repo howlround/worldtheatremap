@@ -2,6 +2,7 @@ import { Mongo } from 'meteor/mongo';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Factory } from 'meteor/factory';
 import t from 'tcomb-validation';
+import { Plays } from '../plays/plays.js';
 
 class ProfilesCollection extends Mongo.Collection {
   insert(profile, callback) {
@@ -78,23 +79,23 @@ Profiles.publicFields = {
 
 Factory.define('profile', Profiles, {});
 
-// Profiles.helpers({
-//   // A profile is considered to be private if it has a userId set
-//   isPrivate() {
-//     return !!this.userId;
-//   },
-//   isLastPublicProfile() {
-//     const publicProfileCount = Profiles.find({ userId: { $exists: false } }).count();
-//     return !this.isPrivate() && publicProfileCount === 1;
-//   },
-//   editableBy(userId) {
-//     if (!this.userId) {
-//       return true;
-//     }
+Profiles.helpers({
+  // // A profile is considered to be private if it has a userId set
+  // isPrivate() {
+  //   return !!this.userId;
+  // },
+  // isLastPublicProfile() {
+  //   const publicProfileCount = Profiles.find({ userId: { $exists: false } }).count();
+  //   return !this.isPrivate() && publicProfileCount === 1;
+  // },
+  // editableBy(userId) {
+  //   if (!this.userId) {
+  //     return true;
+  //   }
 
-//     return this.userId === userId;
-//   },
-//   todos() {
-//     return Todos.find({ profileId: this._id }, { sort: { createdAt: -1 } });
-//   },
-// });
+  //   return this.userId === userId;
+  // },
+  getPlays() {
+    return Plays.find({ "author.id": this._id });
+  },
+});

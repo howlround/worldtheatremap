@@ -4,9 +4,6 @@ Feature: Create plays
   I want to create new play
   So I can add information
 
-  Background:
-    Given I am on the home page
-
   Scenario: Anonymous users should see the add options but be directed to a login page with a message
     And I click on ".add"
     And I click on ".add-play"
@@ -40,7 +37,6 @@ Feature: Create plays
     And I click on ".add"
     When I click on ".add-play"
     And I fill in ".play-name-edit" with "Sofía"
-    And I click on ".btn-add"
     And I fill in ".play-author-name-edit" with "Favorite"
     Then the "ul.play-author-edit-results li" element should contain "My Favorite Playwright"
 
@@ -51,7 +47,6 @@ Feature: Create plays
     And I click on ".add"
     When I click on ".add-play"
     And I fill in ".play-name-edit" with "Sofía"
-    And I click on ".btn-add"
     And I fill in ".play-author-name-edit" with "Favorite"
     When I click on "ul.play-author-edit-results li"
     And I click on ".edit-play-save"

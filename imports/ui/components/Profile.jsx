@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { insert } from '../../api/profiles/methods.js';
+import PlayTeaser from '../components/PlayTeaser.jsx';
 
 export default class Profile extends React.Component {
   constructor(props) {
@@ -28,7 +29,8 @@ export default class Profile extends React.Component {
   }
 
   render() {
-    const { profile, user } = this.props;
+    const { profile, user, plays } = this.props;
+
     const editLink = user ?
       <Link
         to={`/profiles/${ profile._id }`}
@@ -41,21 +43,42 @@ export default class Profile extends React.Component {
         Edit
       </Link>
     : '';
+
+    let Plays;
+    if (plays && plays.length) {
+      Plays = plays.map(play => (
+        <li key={play._id}>
+          <PlayTeaser
+            play={play}
+          />
+        </li>
+      ));
+    }
+
     return (
       <article className="profile">
-        <div className="profile-main-info">
+        <section className="profile-main-info">
           <h1 className="profile-name page-title">
             {profile.name}
           </h1>
           {editLink}
-        </div>
+        </section>
         {profile.about ?
-          <div className="profile-about">
+          <section className="profile-about">
             <h2>About</h2>
             {/*<div dangerouslySetInnerHTML={{__html: profile.about}} />*/}
             {profile.about}
             {editLink}
-          </div> : ''
+          </section> : ''
+        }
+        {(plays && plays.length) ?
+          <section className="profile-plays">
+            <h2>Primary Authorship or Playwright</h2>
+            <ul>
+              {Plays}
+            </ul>
+          </section>
+          : ''
         }
       </article>
     );
@@ -65,6 +88,7 @@ export default class Profile extends React.Component {
 Profile.propTypes = {
   profile: React.PropTypes.object,
   user: React.PropTypes.object,
+  plays: React.PropTypes.array,
   onEditingChange: React.PropTypes.func,
 };
 

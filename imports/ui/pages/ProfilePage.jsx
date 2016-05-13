@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 // import ListHeader from '../components/ListHeader.jsx';
-// import TodoItem from '../components/TodoItem.jsx';
+// import PlayTeaser from '../components/PlayTeaser.jsx';
 import Profile from '../components/Profile.jsx';
 import ProfileEdit from '../components/ProfileEdit.jsx';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
@@ -25,7 +25,7 @@ export default class ProfilePage extends React.Component {
 
   render() {
     // const { profile, profileExists, loading } = this.props;
-    const { profile, user } = this.props;
+    const { profile, user, plays } = this.props;
     const { editing } = this.state;
 
     const profilePageClass = classnames({
@@ -58,6 +58,7 @@ export default class ProfilePage extends React.Component {
           <Profile
             profile={profile}
             user={user}
+            plays={plays}
             onEditingChange={this.onEditingChange}
           />
         </div>
@@ -69,6 +70,7 @@ export default class ProfilePage extends React.Component {
 ProfilePage.propTypes = {
   profile: React.PropTypes.object,
   user: React.PropTypes.object,
+  plays: React.PropTypes.array,
   // loading: React.PropTypes.bool,
   // profileExists: React.PropTypes.bool,
 };

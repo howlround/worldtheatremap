@@ -4,29 +4,51 @@ import { Link } from 'react-router';
 export default class UserMenu extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      open: false,
+    };
+    this.toggle = this.toggle.bind(this);
+    this.close = this.close.bind(this);
+  }
+
+  toggle(e) {
+    e.stopPropagation();
+    this.setState({
+      open: !this.state.open,
+    });
+  }
+
+  close(e) {
+    this.setState({
+      open: false,
+    });
   }
 
   renderLoggedIn() {
+    const { open } = this.state;
     const { user, logout } = this.props;
     const email = user.emails[0].address;
     const emailLocalPart = email.substring(0, email.indexOf('@'));
 
     return (
       <div className="user-menu menu-container menu-right">
-        <a href="#" className="add menu-parent" >
+        <a href="#" className="menu-parent" onClick={this.toggle}>
           {emailLocalPart}
         </a>
-        <div className="add-options menu-children">
-          <a href="#" onClick={logout}>Logout</a>
-        </div>
+        { open ?
+          <div className="menu-children">
+            <a href="#" onClick={logout}>Logout</a>
+          </div> : ''
+        }
       </div>
     );
   }
 
   renderLoggedOut() {
     return (
-      <div className="user-menu menu-container">
-        <Link to="/signin">Signup/In</Link>
+      <div className="user-menu menu-container menu-right">
+        <Link to="/signin" className="menu-parent" onClick={this.close}>Signup/In</Link>
       </div>
     );
   }

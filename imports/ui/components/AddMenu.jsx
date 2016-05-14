@@ -7,6 +7,7 @@ export default class AddMenu extends React.Component {
 
     this.state = {
       open: false,
+      forceCloseDropDown: this.props.forceCloseDropDown,
     };
     this.toggle = this.toggle.bind(this);
     this.close = this.close.bind(this);
@@ -15,6 +16,9 @@ export default class AddMenu extends React.Component {
 
   toggle(e) {
     e.stopPropagation();
+    if (!this.state.open) {
+      this.props.hideDropDown('UserMenu', true);
+    }
     this.setState({
       open: !this.state.open,
     });
@@ -32,11 +36,21 @@ export default class AddMenu extends React.Component {
     });
   }
 
+  componentWillReceiveProps() {
+    if (this.props.forceCloseDropDown.AddMenu) {
+      this.setState({
+        open: false,
+      });
+
+      this.props.hideDropDown('AddMenu', false);
+    }
+  }
+
   render() {
     const { open } = this.state;
     return (
       <div className="add-menu menu-container menu-right">
-        <a href="#" className="add menu-parent" onClick={this.toggle}>
+        <a href="#" className="add menu-parent" onClick={this.toggle} onBlur={this.close}>
           + Add
         </a>
         { open ?
@@ -49,3 +63,8 @@ export default class AddMenu extends React.Component {
     );
   }
 }
+
+AddMenu.propTypes = {
+  hideDropDown: React.PropTypes.func,
+  forceCloseDropDown: React.PropTypes.object,
+};

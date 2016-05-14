@@ -19,9 +19,11 @@ export default class App extends React.Component {
     this.state = {
       menuOpen: false,
       showConnectionIssue: false,
+      forceCloseDropDown: { AddMenu: false, UserMenu: false },
     };
     this.toggleMenu = this.toggleMenu.bind(this);
     this.logout = this.logout.bind(this);
+    this.hideDropDown = this.hideDropDown.bind(this);
   }
 
   componentDidMount() {
@@ -53,6 +55,15 @@ export default class App extends React.Component {
         const publicList = Profiles.findOne({ userId: { $exists: false } });
         this.context.router.push(`/profiles/${ publicList._id }`);
       }
+    }
+  }
+
+  hideDropDown(menu, value) {
+    if (menu == 'AddMenu') {
+      this.setState({ forceCloseDropDown: { AddMenu: value, UserMenu: false } });
+    }
+    else if (menu == 'UserMenu') {
+      this.setState({ forceCloseDropDown: { UserMenu: value, AddMenu: false } });
     }
   }
 
@@ -95,7 +106,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { showConnectionIssue } = this.state;
+    const { showConnectionIssue, forceCloseDropDown } = this.state;
     const {
       user,
       connected,
@@ -124,8 +135,8 @@ export default class App extends React.Component {
               to="/"
               className="home"
             >World Theatre Map</Link>
-            <UserMenu user={user} logout={this.logout}/>
-            <AddMenu/>
+            <UserMenu user={user} logout={this.logout} hideDropDown={this.hideDropDown} forceCloseDropDown={forceCloseDropDown}/>
+            <AddMenu hideDropDown={this.hideDropDown} forceCloseDropDown={forceCloseDropDown}/>
           </section>
         </header>
         {showConnectionIssue && !connected

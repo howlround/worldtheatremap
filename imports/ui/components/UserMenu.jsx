@@ -7,6 +7,7 @@ export default class UserMenu extends React.Component {
 
     this.state = {
       open: false,
+      forceCloseDropDown: this.props.forceCloseDropDown,
     };
     this.toggle = this.toggle.bind(this);
     this.close = this.close.bind(this);
@@ -14,6 +15,10 @@ export default class UserMenu extends React.Component {
 
   toggle(e) {
     e.stopPropagation();
+    if (!this.state.open) {
+      this.props.hideDropDown('AddMenu', true);
+    }
+
     this.setState({
       open: !this.state.open,
     });
@@ -33,7 +38,7 @@ export default class UserMenu extends React.Component {
 
     return (
       <div className="user-menu menu-container menu-right">
-        <a href="#" className="menu-parent" onClick={this.toggle}>
+        <a href="#" className="menu-parent" onClick={this.toggle} onBlur={this.close}>
           {emailLocalPart}
         </a>
         { open ?
@@ -53,6 +58,16 @@ export default class UserMenu extends React.Component {
     );
   }
 
+  componentWillReceiveProps() {
+    if (this.props.forceCloseDropDown.UserMenu) {
+      this.setState({
+        open: false,
+      });
+
+      this.props.hideDropDown('UserMenu', false);
+    }
+  }
+
   render() {
     return this.props.user
       ? this.renderLoggedIn()
@@ -63,4 +78,6 @@ export default class UserMenu extends React.Component {
 UserMenu.propTypes = {
   user: React.PropTypes.object,
   logout: React.PropTypes.func,
+  hideDropDown: React.PropTypes.func,
+  forceCloseDropDown: React.PropTypes.object,
 };

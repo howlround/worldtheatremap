@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { _ } from 'meteor/underscore';
 import { displayError } from '../helpers/errors.js';
 import {
-  updateName,
+  update,
   remove,
 } from '../../api/plays/methods.js';
 import { playSchema, defaultFormOptions } from '../../api/plays/plays.js';
@@ -22,7 +22,7 @@ export default class PlayEdit extends React.Component {
 
     this.throttledUpdate = _.throttle(newPlay => {
       if (newPlay) {
-        updateName.call({
+        update.call({
           playId: this.props.play._id,
           newPlay,
         }, displayError);

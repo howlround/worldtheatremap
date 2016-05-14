@@ -71,8 +71,8 @@ export const insert = new ValidatedMethod({
   },
 });
 
-export const updateName = new ValidatedMethod({
-  name: 'plays.updateName',
+export const update = new ValidatedMethod({
+  name: 'plays.update',
   validate({ newPlay }) {
     const result = t.validate(newPlay, playSchema);
 
@@ -84,7 +84,7 @@ export const updateName = new ValidatedMethod({
     const play = Plays.findOne(playId);
 
     // if (!play.editableBy(this.userId)) {
-    //   throw new Meteor.Error('plays.updateName.accessDenied',
+    //   throw new Meteor.Error('plays.update.accessDenied',
     //     'You don\'t have permission to edit this play.');
     // }
 
@@ -125,7 +125,7 @@ const PLAYS_METHODS = _.pluck([
   insert,
   makePublic,
   makePrivate,
-  updateName,
+  update,
   remove,
 ], 'name');
 

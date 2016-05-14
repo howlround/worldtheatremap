@@ -71,8 +71,8 @@ export const insert = new ValidatedMethod({
   },
 });
 
-export const updateName = new ValidatedMethod({
-  name: 'profiles.updateName',
+export const update = new ValidatedMethod({
+  name: 'profiles.update',
   validate({ newProfile }) {
     const result = t.validate(newProfile, profileSchema);
 
@@ -84,7 +84,7 @@ export const updateName = new ValidatedMethod({
     const profile = Profiles.findOne(profileId);
 
     // if (!profile.editableBy(this.userId)) {
-    //   throw new Meteor.Error('profiles.updateName.accessDenied',
+    //   throw new Meteor.Error('profiles.update.accessDenied',
     //     'You don\'t have permission to edit this profile.');
     // }
 
@@ -125,7 +125,7 @@ const PROFILES_METHODS = _.pluck([
   insert,
   makePublic,
   makePrivate,
-  updateName,
+  update,
   remove,
 ], 'name');
 

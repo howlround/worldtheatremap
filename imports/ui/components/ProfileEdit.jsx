@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { _ } from 'meteor/underscore';
 import { displayError } from '../helpers/errors.js';
 import {
-  updateName,
+  update,
   remove,
 } from '../../api/profiles/methods.js';
 import { profileSchema, defaultFormOptions } from '../../api/profiles/profiles.js';
@@ -21,10 +21,13 @@ export default class ProfileEdit extends React.Component {
 
     this.throttledUpdate = _.throttle(newProfile => {
       if (newProfile) {
-        updateName.call({
+        update.call({
           profileId: this.props.profile._id,
           newProfile,
         }, displayError);
+
+        // @TODO:Update this profile name in all plays and events
+        // http://stackoverflow.com/questions/10522347/mongodb-update-objects-in-a-documents-array-nested-updating
       }
     }, 300);
 

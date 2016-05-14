@@ -2,7 +2,7 @@
 
 // import { Factory } from 'meteor/factory';
 // import { Profiles } from './profiles.js';
-// import { insert, makePublic, makePrivate, updateName, remove } from './methods.js';
+// import { insert, makePublic, makePrivate, update, remove } from './methods.js';
 // import { Todos } from '../todos/todos.js';
 // import { PublicationCollector } from 'meteor/publication-collector';
 // import { chai, assert } from 'meteor/practicalmeteor:chai';
@@ -157,9 +157,9 @@
 //         });
 //       });
 
-//       describe('updateName', () => {
+//       describe('update', () => {
 //         it('changes the name, but not if you don\'t have permission', () => {
-//           updateName._execute({}, {
+//           update._execute({}, {
 //             profileId,
 //             newName: 'new name',
 //           });
@@ -170,7 +170,7 @@
 //           makePrivate._execute({ userId }, { profileId });
 
 //           // Works if the owner changes the name
-//           updateName._execute({ userId }, {
+//           update._execute({ userId }, {
 //             profileId,
 //             newName: 'new name 2',
 //           });
@@ -179,18 +179,18 @@
 
 //           // Throws if another user, or logged out user, tries to change the name
 //           assert.throws(() => {
-//             updateName._execute({ userId: Random.id() }, {
+//             update._execute({ userId: Random.id() }, {
 //               profileId,
 //               newName: 'new name 3',
 //             });
-//           }, Meteor.Error, /profiles.updateName.accessDenied/);
+//           }, Meteor.Error, /profiles.update.accessDenied/);
 
 //           assert.throws(() => {
-//             updateName._execute({}, {
+//             update._execute({}, {
 //               profileId,
 //               newName: 'new name 3',
 //             });
-//           }, Meteor.Error, /profiles.updateName.accessDenied/);
+//           }, Meteor.Error, /profiles.update.accessDenied/);
 
 //           // Confirm name didn't change
 //           assert.equal(Profiles.findOne(profileId).name, 'new name 2');

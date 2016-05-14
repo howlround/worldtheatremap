@@ -1,0 +1,79 @@
+.menu-container {
+    position: relative;
+    display: inline-block;
+
+    a.menu-parent {
+      line-height: $header-height;
+      font-weight: bold;
+      text-transform: uppercase;
+      display: block;
+      padding: 0 34px;
+      color: $white;
+
+      &:hover,
+      &:focus {
+        background-color: $dark-red;
+        color: $white;
+
+        & + .menu-children {
+          display: block;
+        }
+      }
+    }
+
+    &:hover,
+    &:focus {
+      a.menu-parent {
+        background-color: $dark-red;
+        color: $white;
+      }
+      .menu-children {
+        display: block;
+      }
+    }
+}
+
+.menu-children {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 4px 12px 0px rgba(0,0,0,0.4);
+    padding: 016px;
+    z-index: 1;
+
+    a {
+      display: block;
+      border-bottom: 1px solid $light-teal;
+      padding: 12px 0;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+}
+
+.menu-right {
+  .menu-children {
+    right: 0;
+  }
+}
+
+.user-menu {
+  display: none;
+
+  @include breakpoint($narrow) {
+    display: block;
+    float: right;
+    background-color: $light-red;
+  }
+}
+
+.add-menu {
+  display: none;
+
+  @include breakpoint($narrow) {
+    display: block;
+    float: right;
+  }
+}

@@ -1,34 +1,41 @@
 #header {
-  background-color: $red;
-}
+  background: $dark-red;
 
-a.home {
-  color: $white;
-  background-color: $dark-red;
-  font-size: 27px;
-  font-weight: 700;
-  line-height: 2em;
-
-  &:hover {
-    color: $white;
+  @include breakpoint($narrow) {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+30,2989d8+30,2989d8+30,7db9e8+100 */
+    background: -moz-linear-gradient(left,  $dark-red 0%, $dark-red 30%, $light-red 30%, $light-red 30%, $light-red 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  $dark-red 0%,$dark-red 30%,$light-red 30%,$light-red 30%,$light-red 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  $dark-red 0%,$dark-red 30%,$light-red 30%,$light-red 30%,$light-red 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   }
 }
 
-.user-menu {
-  float: right;
+section#menu {
+  @include breakpoint($narrow) {
+    background-color: $red;
+  }
 }
 
-.add-menu {
-  float: right;
+a.home {
+  display: block;
+  text-align: center;
+  color: $white;
+  font-size: 27px;
+  font-weight: 700;
+  line-height: $header-height;
 
-  a {
-    color: $white;
-    text-transform: uppercase;
+  @include breakpoint($narrow) {
+    text-align: inherit;
+    width: 330px;
+    float: left;
+    background-color: $dark-red;
+    border-right: 1px solid $dark-tan;
 
-    &:hover,
-    &:focus {
-      background-color: $light-red;
-      color: $white;
+    &:hover {
+      border-right: 1px solid $white;
     }
+  }
+
+  &:hover {
+    color: $white;
   }
 }

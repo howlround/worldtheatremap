@@ -20,7 +20,7 @@ a.home {
   text-align: center;
   color: $white;
   font-size: 27px;
-  font-weight: 700;
+  font-weight: 900;
   line-height: $header-height;
 
   @include breakpoint($narrow) {

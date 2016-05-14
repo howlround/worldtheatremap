@@ -50,7 +50,7 @@ export default class AddMenu extends React.Component {
     const { open } = this.state;
     return (
       <div className="add-menu menu-container menu-right">
-        <a href="#" className="add menu-parent" onClick={this.toggle} onBlur={this.close}>
+        <a href="#" className="add menu-parent" onClick={this.toggle}>
           + Add
         </a>
         { open ?

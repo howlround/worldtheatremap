@@ -11,6 +11,7 @@ export default class UserMenu extends React.Component {
     };
     this.toggle = this.toggle.bind(this);
     this.close = this.close.bind(this);
+    this.open = this.open.bind(this);
   }
 
   toggle(e) {
@@ -24,7 +25,14 @@ export default class UserMenu extends React.Component {
     });
   }
 
+  open(e) {
+    this.setState({
+      open: true,
+    });
+  }
+
   close(e) {
+    e.stopPropagation();
     this.setState({
       open: false,
     });
@@ -37,7 +45,7 @@ export default class UserMenu extends React.Component {
     const emailLocalPart = email.substring(0, email.indexOf('@'));
 
     return (
-      <div className="user-menu menu-container menu-right">
+      <div className="user-menu menu-container menu-right" onMouseEnter={this.open} onMouseLeave={this.close}>
         <a href="#" className="menu-parent" onClick={this.toggle}>
           {emailLocalPart}
         </a>

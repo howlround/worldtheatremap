@@ -73,7 +73,7 @@ function renderSuggestion(suggestion) {
 }
 
 // define the template only once
-function getTemplate(options) {
+function AutosuggestTemplate(options) {
   function renderInput(locals) {
     const value = locals.value || '' // react-autosuggest doesn't like null or undefined as value
     const inputProps = {
@@ -127,7 +127,7 @@ export const defaultFormOptions = () => {
           template: authorLayout,
           fields: {
             name: {
-              template: getTemplate({
+              template: AutosuggestTemplate({
                 getSuggestions,
                 getSuggestionValue,
                 renderSuggestion

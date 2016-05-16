@@ -49,7 +49,7 @@ export default class PlayAdd extends React.Component {
   }
 
   onChange(value, path) {
-    this.setState({ value })
+    this.setState({ play: value })
   }
 
   render() {
@@ -60,7 +60,7 @@ export default class PlayAdd extends React.Component {
           ref="form"
           type={playSchema}
           options={formOptions}
-          value={this.state.value}
+          value={this.state.play}
           onChange={this.onChange}
         />
         <div className="form-group">

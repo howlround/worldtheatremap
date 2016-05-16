@@ -4,11 +4,14 @@ Feature: List plays on the playwright profile
   I want to see all plays by a playwright
   So I can better understand what they do
 
+  Background:
+    Given I am on the home page
+
   Scenario: After creating a play that lists a profile as the primary author the play should display on that profile page
     And a profile with the following fields:
       | name | My Favorite Playwright |
     And I am logged in
-    And I click on ".add"
+    And I hover over ".add"
     When I click on ".add-play"
     And I fill in ".play-name-edit" with "A Play About Maryam"
     And I fill in ".play-about-edit" with "Most popular name in the Arab world (2015) (BabyCenter Arabia members)"

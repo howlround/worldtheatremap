@@ -4,15 +4,18 @@ Feature: Create plays
   I want to create new play
   So I can add information
 
+  Background:
+    Given I am on the home page
+
   Scenario: Anonymous users should see the add options but be directed to a login page with a message
-    And I click on ".add"
-    And I click on ".add-play"
+    And I hover over ".add"
+    When I click on ".add-play"
     Then the "h1" element should contain "Sign in"
     And the ".wrapper-message" element should contain "Sign in or register to participate in the World Theatre Map"
 
   Scenario: Users should see all the fields on the add play form
     And I am logged in
-    And I click on ".add"
+    And I hover over ".add"
     When I click on ".add-play"
     Then I should see the ".play-name-edit" element
     Then I should see the ".play-author-name-edit" element
@@ -22,7 +25,7 @@ Feature: Create plays
     And a profile with the following fields:
       | name | My Favorite Playwright |
     And I am logged in
-    And I click on ".add"
+    And I hover over ".add"
     When I click on ".add-play"
     And I fill in ".play-name-edit" with "Sofía"
     And I fill in ".play-author-name-edit" with "My Favorite Playwright"
@@ -37,7 +40,7 @@ Feature: Create plays
     And a profile with the following fields:
       | name | My Favorite Playwright |
     And I am logged in
-    And I click on ".add"
+    And I hover over ".add"
     When I click on ".add-play"
     And I fill in ".play-name-edit" with "Sofía"
     And I fill in ".play-author-name-edit" with "Favorite"
@@ -47,7 +50,7 @@ Feature: Create plays
     And a profile with the following fields:
       | name | My Favorite Playwright |
     And I am logged in
-    And I click on ".add"
+    And I hover over ".add"
     When I click on ".add-play"
     And I fill in ".play-name-edit" with "Sofía"
     And I fill in ".play-author-name-edit" with "Favorite"
@@ -60,7 +63,7 @@ Feature: Create plays
     And a profile with the following fields:
       | name | My Favorite Playwright |
     And I am logged in
-    And I click on ".add"
+    And I hover over ".add"
     When I click on ".add-play"
     And I fill in ".play-name-edit" with "Sofía"
     And I fill in ".play-author-name-edit" with "Favorite"
@@ -74,7 +77,7 @@ Feature: Create plays
     And a profile with the following fields:
       | name | The second best playwright |
     And I am logged in
-    And I click on ".add"
+    And I hover over ".add"
     When I click on ".add-play"
     And I fill in ".play-name-edit" with "Sofía"
     And I fill in ".play-author-name-edit" with "Favorite"
@@ -93,7 +96,7 @@ Feature: Create plays
     And a profile with the following fields:
       | name | The worst playwright |
     And I am logged in
-    And I click on ".add"
+    And I hover over ".add"
     When I click on ".add-play"
     And I fill in ".play-name-edit" with "Sofía"
     And I fill in ".play-author-name-edit" with "Favorite"

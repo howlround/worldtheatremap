@@ -14,8 +14,8 @@ module.exports = function() {
     client.waitForExist('button[type="submit"]', 2000);
     client.click('button[type="submit"]');
 
-    client.waitForExist('.icon-arrow-down', 2000);
-    expect(client.isExisting('.icon-arrow-down'));
+    // client.waitForExist('.user-menu .user-menu', 2000);
+    expect(client.waitForText('.user-menu .menu-parent', 'REGINOLD'));
   });
 
   this.Given(/^I am an anonymous user$/, function () {
@@ -33,8 +33,17 @@ module.exports = function() {
   });
 
   this.Given(/^I click on "([^"]*)"$/, function (element) {
-    client.waitForExist(element);
+    client.waitForExist(element, 2000);
     client.click(element);
+  });
+
+  this.Given(/^I hover over "([^"]*)"$/, function (element) {
+    client.waitForExist(element);
+    client.moveToObject(element);
+  });
+
+  this.Given(/^I go to the play add page$/, function () {
+    client.url('http://localhost:3000/plays/add');
   });
 
   this.When(/^I fill in "([^"]*)" with "([^"]*)"$/, function (element, text) {
@@ -122,8 +131,5 @@ module.exports = function() {
     server.execute(function () {
       Package['xolvio:cleaner'].resetDatabase();
     });
-
-    // Always start on the home page
-    browser.url('http://localhost:3000');
   });
 }

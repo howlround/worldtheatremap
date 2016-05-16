@@ -4,6 +4,7 @@ import { Factory } from 'meteor/factory';
 import React from 'react';
 import t from 'tcomb-form';
 import { Profiles } from '../profiles/profiles.js';
+import Autosuggest from 'react-autosuggest'
 
 class PlaysCollection extends Mongo.Collection {
   insert(play, callback) {
@@ -51,6 +52,51 @@ export const playSchema = t.struct({
   about: t.maybe(t.String),
 });
 
+function getSuggestions(value) {
+  const inputValue = value.trim().toLowerCase();
+  const inputLength = inputValue.length;
+
+  const regex = new RegExp('.*' + inputValue + '.*', 'i');
+  const results = Profiles.find({name: { $regex: regex }}, {limit: 5}).fetch();
+
+  return results;
+}
+
+function getSuggestionValue(suggestion) { // when suggestion selected, this function tells
+  return suggestion.name;                 // what should be the value of the input
+}
+
+function renderSuggestion(suggestion) {
+  return (
+    <span>{suggestion.name}</span>
+  )
+}
+
+// define the template only once
+function getTemplate(options) {
+  function renderInput(locals) {
+    const value = locals.value || '' // react-autosuggest doesn't like null or undefined as value
+    const inputProps = {
+      ...locals.attrs,
+      value: value,
+      onChange: (evt, { newValue }) => {
+        locals.onChange(newValue)
+      }
+    }
+    const suggestions = options.getSuggestions(value)
+    return (
+      <Autosuggest
+        suggestions={suggestions}
+        getSuggestionValue={options.getSuggestionValue}
+        renderSuggestion={options.renderSuggestion}
+        inputProps={inputProps}
+      />
+    )
+  }
+
+  return t.form.Form.templates.textbox.clone({ renderInput })
+}
+
 const authorLayout = (author) => {
   return (
     <div className="author-fields-group">
@@ -81,6 +127,11 @@ export const defaultFormOptions = () => {
           template: authorLayout,
           fields: {
             name: {
+              template: getTemplate({
+                getSuggestions,
+                getSuggestionValue,
+                renderSuggestion
+              }),
               error: 'Primary authorship is required',
               attrs: {
                 className: 'play-author-name-edit',

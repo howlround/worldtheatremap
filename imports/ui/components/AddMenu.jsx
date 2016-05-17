@@ -59,6 +59,7 @@ export default class AddMenu extends React.Component {
           <div className="add-options menu-children">
             <Link to="/profiles/add" className="add-profile" onClick={this.close}>Add Profile</Link>
             <Link to="/plays/add" className="add-play" onClick={this.close}>Add Play</Link>
+            <Link to="/events/add" className="add-event" onClick={this.close}>Add Event</Link>
           </div> : ''
         }
       </div>

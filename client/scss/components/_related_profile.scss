@@ -1,0 +1,32 @@
+.btn-remove,
+.btn-move-up,
+.btn-move-down,
+.btn-add {
+  font-family: 'todos';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  // Better Font Rendering
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.btn-remove:before {
+  content: "\e60c"; // .icon-close
+}
+
+.btn-move-up:before {
+  content: "\e623"; // .icon-arrow-up
+}
+
+.btn-move-down:before {
+  content: "\e626"; // .icon-arrow-down
+}
+
+.btn-add:before {
+  content: "\e60b";  // .icon-plus
+}

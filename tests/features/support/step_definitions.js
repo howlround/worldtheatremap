@@ -42,8 +42,8 @@ module.exports = function() {
     browser.moveToObject(element);
   });
 
-  this.Given(/^I go to the play add page$/, function () {
-    browser.url('http://localhost:3000/plays/add');
+  this.Given(/^I go to the "([^"]*)" add page$/, function (type) {
+    browser.url('http://localhost:3000/' + type + 's/add');
   });
 
   this.When(/^I fill in "([^"]*)" with "([^"]*)"$/, function (element, text) {
@@ -79,6 +79,29 @@ module.exports = function() {
     }
 
     browser.url('http://localhost:3000/profiles/' + profile._id);
+
+    // Check if we are on the correct page
+    // const processedName = RegExp('/' + name + '/i');
+    const processedName = RegExp(RegExp.escape(name), 'i');
+    expect(browser.getText('.page-title')).toMatch(processedName);
+    callback();
+  });
+
+  this.When(/^I go to the play page for "([^"]*)"$/, function (name, callback) {
+    // Look up the play with this name
+    const play = server.execute((name, callback) => {
+      const { Meteor } = require('meteor/meteor');
+      const { Plays } = require('/imports/api/plays/plays.js');
+      const play = Plays.findOne({name: name});
+
+      return play;
+    }, name);
+
+    if (!play) {
+      callback(new Error('No play exists with the name ' + name));
+    }
+
+    browser.url('http://localhost:3000/plays/' + play._id);
 
     // Check if we are on the correct page
     // const processedName = RegExp('/' + name + '/i');

@@ -9,3 +9,10 @@ Meteor.publish('events.public', function eventsPublic() {
     fields: Events.publicFields,
   });
 });
+
+Meteor.publish('events.byPlay', function eventsbyPlay(id) {
+  return Events.find({'play.id': id}, {
+    fields: Events.publicFields,
+    limit: 1,
+  });
+});

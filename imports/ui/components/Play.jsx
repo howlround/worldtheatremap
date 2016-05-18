@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { insert } from '../../api/plays/methods.js';
+import EventTeaser from '../components/EventTeaser.jsx';
 
 export default class Play extends React.Component {
   constructor(props) {
@@ -22,7 +23,7 @@ export default class Play extends React.Component {
   }
 
   render() {
-    const { play, user } = this.props;
+    const { play, user, eventsByPlay } = this.props;
 
     const editLink = user ?
       <Link
@@ -48,9 +49,20 @@ export default class Play extends React.Component {
       return <span key={author.id}><Link to={`/profiles/${ author.id }`} className="play-author">{author.name}</Link>{seperator}</span>
     });
 
+    let events;
+    if (eventsByPlay && eventsByPlay.length) {
+      events = eventsByPlay.map(event => (
+        <li key={event._id}>
+          <EventTeaser
+            event={event}
+          />
+        </li>
+      ));
+    }
+
     return (
       <article className="play">
-        <div className="play-main-info">
+        <section className="play-main-info">
           <h1 className="play-name page-title">
             {play.name}
           </h1>
@@ -58,14 +70,23 @@ export default class Play extends React.Component {
             by {authors}
           </div>
           {editLink}
-        </div>
+        </section>
         {play.about ?
-          <div className="play-about">
+          <section className="play-about">
             <h2>About</h2>
             {/*<div dangerouslySetInnerHTML={{__html: play.about}} />*/}
             {play.about}
             {editLink}
-          </div> : ''
+          </section> : ''
+        }
+        {(eventsByPlay && eventsByPlay.length) ?
+          <section className="play-events">
+            <h2>Show History</h2>
+            <ul>
+              {events}
+            </ul>
+          </section>
+          : ''
         }
       </article>
     );
@@ -74,6 +95,7 @@ export default class Play extends React.Component {
 
 Play.propTypes = {
   play: React.PropTypes.object,
+  eventsByPlay: React.PropTypes.array,
   user: React.PropTypes.object,
   onEditingChange: React.PropTypes.func,
 };

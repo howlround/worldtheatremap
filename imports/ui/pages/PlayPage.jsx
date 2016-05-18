@@ -27,7 +27,7 @@ export default class PlayPage extends React.Component {
 
   render() {
     // const { play, playExists, loading } = this.props;
-    const { play, user } = this.props;
+    const { play, user, eventsByPlay } = this.props;
     const { editing } = this.state;
 
     const playPageClass = classnames({
@@ -79,6 +79,7 @@ export default class PlayPage extends React.Component {
         <div className={playPageClass}>
           <Play
             play={play}
+            eventsByPlay={eventsByPlay}
             user={user}
             onEditingChange={this.onEditingChange}
           />
@@ -90,6 +91,7 @@ export default class PlayPage extends React.Component {
 
 PlayPage.propTypes = {
   play: React.PropTypes.object,
+  eventsByPlay: React.PropTypes.array,
   editing: React.PropTypes.string,
   user: React.PropTypes.object,
   // loading: React.PropTypes.bool,

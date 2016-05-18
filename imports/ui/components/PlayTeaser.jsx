@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-export default class Play extends React.Component {
+export default class PlayTeaser extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -36,10 +36,10 @@ export default class Play extends React.Component {
   }
 }
 
-Play.propTypes = {
+PlayTeaser.propTypes = {
   play: React.PropTypes.object,
 };
 
-Play.contextTypes = {
+PlayTeaser.contextTypes = {
   router: React.PropTypes.object,
 };

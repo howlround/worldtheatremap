@@ -6,21 +6,21 @@ RegExp.escape = function(str) {
 module.exports = function() {
   this.Given(/^I am logged in$/, function () {
     browser.url('http://localhost:3000/join');
-    client.waitForExist('input[name="email"]', 2000);
-    client.setValue('input[name="email"]', 'reginold@worldtheatremap.org');
-    client.setValue('input[name="password"]', 'letme1n3');
-    client.setValue('input[name="confirm"]', 'letme1n3');
+    browser.waitForExist('input[name="email"]', 2000);
+    browser.setValue('input[name="email"]', 'reginold@worldtheatremap.org');
+    browser.setValue('input[name="password"]', 'letme1n3');
+    browser.setValue('input[name="confirm"]', 'letme1n3');
 
-    client.waitForExist('button[type="submit"]', 2000);
-    client.click('button[type="submit"]');
+    browser.waitForExist('button[type="submit"]', 2000);
+    browser.click('button[type="submit"]');
+    browser.pause(100);
 
-    // client.waitForExist('.user-menu .user-menu', 2000);
-    expect(client.waitForText('.user-menu .menu-parent', 'REGINOLD'));
+    expect(browser.waitForText('.user-menu .menu-parent', 'REGINOLD'));
   });
 
   this.Given(/^I am an anonymous user$/, function () {
-    client.waitForExist('.login-link-text');
-    expect(client.getText('.login-link-text')).toEqual('Sign in ▾');
+    browser.waitForExist('.login-link-text');
+    expect(browser.getText('.login-link-text')).toEqual('Sign in ▾');
   });
 
   this.Given(/^I am on the home page$/, function () {
@@ -28,40 +28,40 @@ module.exports = function() {
   });
 
   this.When(/^I follow "([^"]*)"$/, function (element) {
-    client.waitForExist(element);
-    client.click(element);
+    browser.waitForExist(element);
+    browser.click(element);
   });
 
   this.Given(/^I click on "([^"]*)"$/, function (element) {
-    client.waitForExist(element, 2000);
-    client.click(element);
+    browser.waitForExist(element, 2000);
+    browser.click(element);
   });
 
   this.Given(/^I hover over "([^"]*)"$/, function (element) {
-    client.waitForExist(element);
-    client.moveToObject(element);
+    browser.waitForExist(element);
+    browser.moveToObject(element);
   });
 
   this.Given(/^I go to the play add page$/, function () {
-    client.url('http://localhost:3000/plays/add');
+    browser.url('http://localhost:3000/plays/add');
   });
 
   this.When(/^I fill in "([^"]*)" with "([^"]*)"$/, function (element, text) {
-    client.waitForExist(element, 2000);
-    client.setValue(element, text);
+    browser.waitForExist(element, 2000);
+    browser.setValue(element, text);
   });
 
   this.When(/^I press "([^"]*)"$/, function (element) {
-    client.waitForExist(element);
-    client.click(element);
+    browser.waitForExist(element);
+    browser.click(element);
   });
 
   this.Then(/^I should see the "([^"]*)" element$/, function (element) {
-    expect(client.waitForExist(element, 2000));
+    expect(browser.waitForExist(element, 2000));
   });
 
   this.Then(/^I should not see "([^"]*)"$/, function (element) {
-    expect(client.isExisting(element)).toBe(false);
+    expect(browser.isExisting(element)).toBe(false);
   });
 
   this.When(/^I go to the profile page for "([^"]*)"$/, function (name, callback) {
@@ -83,22 +83,22 @@ module.exports = function() {
     // Check if we are on the correct page
     // const processedName = RegExp('/' + name + '/i');
     const processedName = RegExp(RegExp.escape(name), 'i');
-    expect(client.getText('.page-title')).toMatch(processedName);
+    expect(browser.getText('.page-title')).toMatch(processedName);
     callback();
   });
 
   this.Then(/^the "([^"]*)" element should contain "([^"]*)"$/, function (element, text) {
-    client.waitForExist(element, 2000);
+    browser.waitForExist(element, 2000);
     const processedText = RegExp(RegExp.escape(text), 'i');
 
-    expect(client.getText(element)).toMatch(processedText);
+    expect(browser.getText(element)).toMatch(processedText);
   });
 
   this.Then(/^the "([^"]*)" element should not contain "([^"]*)"$/, function (element, text) {
-    client.waitForExist(element);
+    browser.waitForExist(element);
     const processedText = RegExp(RegExp.escape(text), 'i');
 
-    expect(client.getText(element)).not.toMatch(processedText);
+    expect(browser.getText(element)).not.toMatch(processedText);
   });
 
   this.Given(/^a profile with the following fields:$/, function (table) {
@@ -131,5 +131,6 @@ module.exports = function() {
     server.execute(function () {
       Package['xolvio:cleaner'].resetDatabase();
     });
+    browser.pause(100);
   });
 }

@@ -12,7 +12,7 @@ import ProfileAddContainer from '../../ui/containers/ProfileAddContainer.jsx';
 import ProfileEditContainer from '../../ui/containers/ProfileEditContainer.jsx';
 import EventContainer from '../../ui/containers/EventContainer.jsx';
 import EventAddContainer from '../../ui/containers/EventAddContainer.jsx';
-// import EventEditContainer from '../../ui/containers/EventEditContainer.jsx';
+import EventEditContainer from '../../ui/containers/EventEditContainer.jsx';
 import AuthSignInPage from '../../ui/pages/AuthSignInPage.jsx';
 import AuthJoinPage from '../../ui/pages/AuthJoinPage.jsx';
 import NotFoundPage from '../../ui/pages/NotFoundPage.jsx';
@@ -29,7 +29,7 @@ export const renderRoutes = () => (
       <Route path="plays/:id/edit" component={PlayEditContainer}/>
       <Route path="events/add" component={EventAddContainer}/>
       {<Route path="events/:id" component={EventContainer}/>}
-      {/*<Route path="events/:id/edit" component={EventEditContainer}/>*/}
+      <Route path="events/:id/edit" component={EventEditContainer}/>
       <Route path="signin" component={AuthSignInPage}/>
       <Route path="join" component={AuthJoinPage}/>
       <Route path="*" component={NotFoundPage}/>

@@ -19,7 +19,7 @@ Feature: Create events
     When I click on ".add-event"
     Then I should see the ".event-play-name-edit" element
     And I should see the ".event-about-edit" element
-@focus
+
   Scenario: Users should be able to create an event with all the fields
     And a profile with the following fields:
       | name | My Favorite Playwright |

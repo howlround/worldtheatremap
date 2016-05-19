@@ -30,7 +30,7 @@ export default class Profile extends React.Component {
         to={`/profiles/${ profile._id }/edit`}
         key={profile._id}
         title={profile.name}
-        className="edit-profile"
+        className="edit-link"
         activeClassName="active"
       >
         Edit
@@ -49,7 +49,7 @@ export default class Profile extends React.Component {
     }
 
     return (
-      <article className="profile">
+      <article className="profile full">
         <section className="profile-main-info">
           <h1 className="profile-name page-title">
             {profile.name}

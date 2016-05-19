@@ -30,7 +30,7 @@ export default class Play extends React.Component {
         to={`/plays/${ play._id }/edit`}
         key={play._id}
         title={play.name}
-        className="edit-play"
+        className="edit-link"
         activeClassName="active"
       >
         Edit
@@ -61,7 +61,7 @@ export default class Play extends React.Component {
     }
 
     return (
-      <article className="play">
+      <article className="play full">
         <section className="play-main-info">
           <h1 className="play-name page-title">
             {play.name}

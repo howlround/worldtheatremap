@@ -70,14 +70,14 @@ export default class Event extends React.Component {
 
   onChange(value, path) {
     // @TODO: Merge with PlayEdit.jsx
-    if (path[0] == 'profile' && path[2] == 'name') {
-      const search = value.profile[path[1]].name;
-      const resultsElement = $('.form-group-profile-' + path[1] + '-name').siblings('ul.autocomplete-results');
+    if (path[0] == 'profile' && path[1] == 'name') {
+      const search = value.profile.name;
+      const resultsElement = $('.form-group-profile-name').siblings('ul.autocomplete-results');
 
       if (search.length > 0) {
         // Clear any existing stored values
         const clearValue = value;
-        clearValue.profile[path[1]].id = '';
+        clearValue.profile.id = '';
         this.setState({participant: clearValue});
 
         const regex = new RegExp('.*' + search + '.*', 'i');
@@ -90,8 +90,8 @@ export default class Event extends React.Component {
           results.map(profile => {
             resultsElement.append('<li><b>' + profile.name + '</b> (' + profile._id + ')</li>').find('li:last-child').click(() => {
                 const newValue = value;
-                newValue.profile[path[1]].name = profile.name;
-                newValue.profile[path[1]].id = profile._id;
+                newValue.profile.name = profile.name;
+                newValue.profile.id = profile._id;
                 this.setState({participant: newValue});
 
                 // Clear fields

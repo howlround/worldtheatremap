@@ -41,7 +41,24 @@ export const relatedProfileSchema = t.struct({
   id: t.String,
 });
 
-const Roles = t.enums.of('Audi Chrysler Ford Renault Peugeot');
+const Roles = t.enums({
+  administrator: "Administrator",
+  show_producer: "Show Producer / Curator",
+  agent_manager: "Agent / Manager",
+  funder: "Funder",
+  media: "Journalist / Critic",
+  production_staff: "Production Staff (Stage Managers, Crew, etc.)",
+  tech_staff: "Technical Staff (Lighting, Set, etc.)",
+  designer: "Designers (Lights, Scenic, Props, Costumes, Video, Sound, etc.)",
+  performer: "Performer (Actors, Dancers, Musicians, etc)",
+  stage_director: "Stage Director",
+  playwright: "Playwright",
+  translator: "Translator",
+  dramaturg: "Dramaturg",
+  educator: "Educator / Scholar",
+  student: "Student",
+  composer: "Music Composer"
+});
 
 const atLeastOne = arr => arr.length > 0
 
@@ -50,14 +67,14 @@ const atLeastOne = arr => arr.length > 0
 // Maybe that should be in eventProfile?
 
 export const participantSchema = t.struct({
-  profile: t.refinement(t.list(relatedProfileSchema), atLeastOne),
-  role: t.list(Roles),
+  profile: relatedProfileSchema,
+  role: Roles,
   eventId: t.String,
 });
 
 export const participantFormSchema = t.struct({
-  profile: t.refinement(t.list(relatedProfileSchema), atLeastOne),
-  role: t.list(Roles),
+  profile: relatedProfileSchema,
+  role: Roles,
 });
 
 const profileLayout = (profile) => {
@@ -82,32 +99,31 @@ export const defaultFormOptions = () => {
         disableAdd: true,
         disableRemove: true,
         disableOrder: true,
-        item: {
-          template: profileLayout,
-          fields: {
-            name: {
-              // template: AutosuggestTemplate({
-              //   getSuggestions,
-              //   getSuggestionValue,
-              //   renderSuggestion,
-              //   onSuggestionSelected
-              // }),
-              error: 'Profile is required',
-              attrs: {
-                className: 'participant-profile-name-edit',
-                autocomplete: 'off'
-              }
-            },
-            id: {
-              attrs: {
-                className: 'participant-profile-id-edit'
-              }
+        template: profileLayout,
+        fields: {
+          name: {
+            // template: AutosuggestTemplate({
+            //   getSuggestions,
+            //   getSuggestionValue,
+            //   renderSuggestion,
+            //   onSuggestionSelected
+            // }),
+            error: 'Profile is required',
+            attrs: {
+              className: 'participant-profile-name-edit',
+              autocomplete: 'off'
+            }
+          },
+          id: {
+            attrs: {
+              className: 'participant-profile-id-edit'
             }
           }
         }
       },
       role: {
         factory: t.form.Select,
+        error: 'Role is required',
       },
     },
   };

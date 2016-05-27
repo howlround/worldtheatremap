@@ -194,7 +194,7 @@ export default class Event extends React.Component {
         }
         <section>
           <h2>12 Artists</h2>
-          { this.renderParticipantAdd() }
+          { user ? this.renderParticipantAdd() : '' }
           {/* Link to add a new event participant */}
           {/* List of event participants */}
         </section>

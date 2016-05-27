@@ -51,7 +51,7 @@ export default class UserMenu extends React.Component {
         </a>
         { open ?
           <div className="menu-children">
-            <a href="#" onClick={logout}>Logout</a>
+            <a href="#" className="menu-logout" onClick={logout}>Logout</a>
           </div> : ''
         }
       </div>

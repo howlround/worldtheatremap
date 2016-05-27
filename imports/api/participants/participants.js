@@ -124,6 +124,9 @@ export const defaultFormOptions = () => {
       role: {
         factory: t.form.Select,
         error: 'Role is required',
+        attrs: {
+          className: 'participant-role-edit',
+        }
       },
     },
   };

@@ -61,7 +61,6 @@ export const insert = new ValidatedMethod({
   name: 'participants.insert',
   validate({ newParticipant, eventId }) {
     newParticipant.eventId = eventId;
-    console.log(newParticipant);
     const result = t.validate(newParticipant, participantSchema);
 
     if (!result.isValid()) {

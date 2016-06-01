@@ -42,22 +42,22 @@ export const relatedProfileSchema = t.struct({
 });
 
 const Roles = t.enums({
-  administrator: "Administrator",
-  show_producer: "Show Producer / Curator",
-  agent_manager: "Agent / Manager",
-  funder: "Funder",
-  media: "Journalist / Critic",
-  production_staff: "Production Staff (Stage Managers, Crew, etc.)",
-  tech_staff: "Technical Staff (Lighting, Set, etc.)",
-  designer: "Designers (Lights, Scenic, Props, Costumes, Video, Sound, etc.)",
-  performer: "Performer (Actors, Dancers, Musicians, etc)",
-  stage_director: "Stage Director",
-  playwright: "Playwright",
-  translator: "Translator",
-  dramaturg: "Dramaturg",
-  educator: "Educator / Scholar",
-  student: "Student",
-  composer: "Music Composer"
+  "Administrator": "Administrator",
+  "Show Producer / Curator": "Show Producer / Curator",
+  "Agent / Manager": "Agent / Manager",
+  "Funder": "Funder",
+  "Journalist / Critic": "Journalist / Critic",
+  "Production Staff (Stage Managers, Crew, etc.)": "Production Staff (Stage Managers, Crew, etc.)",
+  "Technical Staff (Lighting, Set, etc.)": "Technical Staff (Lighting, Set, etc.)",
+  "Designers (Lights, Scenic, Props, Costumes, Video, Sound, etc.)": "Designers (Lights, Scenic, Props, Costumes, Video, Sound, etc.)",
+  "Performer (Actors, Dancers, Musicians, etc)": "Performer (Actors, Dancers, Musicians, etc)",
+  "Stage Director": "Stage Director",
+  "Playwright": "Playwright",
+  "Translator": "Translator",
+  "Dramaturg": "Dramaturg",
+  "Educator / Scholar": "Educator / Scholar",
+  "Student": "Student",
+  "Music Composer": "Music Composer",
 });
 
 const atLeastOne = arr => arr.length > 0

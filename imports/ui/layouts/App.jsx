@@ -51,7 +51,7 @@ export default class App extends React.Component {
     // if we are on a private profile, we'll need to go to a public one
     if (this.props.params.id) {
       const profile = Profiles.findOne(this.props.params.id);
-      if (profile.userId) {
+      if (typeof profile != 'undefined' && profile.userId) {
         const publicList = Profiles.findOne({ userId: { $exists: false } });
         this.context.router.push(`/profiles/${ publicList._id }`);
       }

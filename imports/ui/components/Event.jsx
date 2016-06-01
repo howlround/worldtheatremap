@@ -36,7 +36,6 @@ export default class Event extends React.Component {
     // this.createNewParticipant = this.createNewParticipant.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.renderParticipants = this.renderParticipants.bind(this);
     this.renderParticipantAdd = this.renderParticipantAdd.bind(this);
     this.renderParticipantEdit = this.renderParticipantEdit.bind(this);
   }
@@ -109,10 +108,6 @@ export default class Event extends React.Component {
     }
   }
 
-  renderParticipants() {
-
-  }
-
   renderParticipantAdd() {
     const formOptions = defaultFormOptions();
     const { participant } = this.state;
@@ -140,7 +135,7 @@ export default class Event extends React.Component {
   }
 
   render() {
-    const { event, user } = this.props;
+    const { event, user, participantsByEvent } = this.props;
 
     const editLink = user ?
       <Link
@@ -167,6 +162,23 @@ export default class Event extends React.Component {
     //   return <span key={author.id}><Link to={`/profiles/${ author.id }`} className="event-author">{author.name}</Link>{seperator}</span>
     // });
     const authors = '';
+
+    let participants;
+    if (participantsByEvent.length > 0) {
+      participants = participantsByEvent.map(participant => {
+        return <li key={participant._id} className="event-participant-list-item">
+          <h3 className="event-participant-name">
+            <Link
+              to={`/profiles/${ participant.profile.id }`}
+              title={participant.profile.name}
+            >
+              {participant.profile.name}
+            </Link>
+          </h3>
+          <div className="event-participant-role">{participant.role}</div>
+        </li>
+      })
+    }
 
     return (
       <article className="event full">
@@ -196,7 +208,9 @@ export default class Event extends React.Component {
           <h2>12 Artists</h2>
           { user ? this.renderParticipantAdd() : '' }
           {/* Link to add a new event participant */}
-          {/* List of event participants */}
+          <ul className="event-participant-list">
+            { participants }
+          </ul>
         </section>
       </article>
     );
@@ -207,6 +221,7 @@ Event.propTypes = {
   event: React.PropTypes.object,
   user: React.PropTypes.object,
   onEditingChange: React.PropTypes.func,
+  participantsByEvent: React.PropTypes.array,
 };
 
 Event.contextTypes = {

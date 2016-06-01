@@ -37,6 +37,11 @@ module.exports = function() {
     browser.click(element);
   });
 
+  this.Given(/^I select "([^"]*)" from "([^"]*)"$/, function (value, selector) {
+    browser.waitForExist(selector);
+    browser.selectByVisibleText(selector, value);
+  });
+
   this.Given(/^I hover over "([^"]*)"$/, function (element) {
     browser.waitForExist(element);
     browser.moveToObject(element);

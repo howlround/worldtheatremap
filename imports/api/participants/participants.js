@@ -136,8 +136,8 @@ export const defaultFormOptions = () => {
 // to the client. If we add secret properties to Participant objects, don't event
 // them here to keep them private to the server.
 Participants.publicFields = {
-  play: 1,
   profile: 1,
+  role: 1,
   eventId: 1
 };
 

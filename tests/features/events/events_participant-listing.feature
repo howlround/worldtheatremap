@@ -27,3 +27,17 @@ Feature: Participant listing on event pages
     And I go to the play page for "Sofia"
     And I click on ".event-name a"
     Then I should not see ".participant-profile-name-edit"
+
+  Scenario: Users should be see all events associated with an play
+    And a profile with the following fields:
+      | name | Il Regista |
+    And I go to the play page for "Sofia"
+    And I click on ".event-name a"
+    And I fill in ".participant-profile-name-edit" with "Il Regista"
+    And I click on ".autocomplete-results li"
+    And I select "Stage Director" from ".participant-role-edit"
+    And I click on ".edit-participant-save"
+    And I go to the play page for "Sofia"
+    And I click on ".event-name a"
+    Then the "event-participant-name" element should contain "Il Regista"
+    And the "event-participant-role" element should contain "Stage Director"

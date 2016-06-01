@@ -27,7 +27,7 @@ export default class EventPage extends React.Component {
 
   render() {
     // const { event, eventExists, loading } = this.props;
-    const { event, user } = this.props;
+    const { event, user, participantsByEvent } = this.props;
     const { editing } = this.state;
 
     const eventPageClass = classnames({
@@ -81,6 +81,7 @@ export default class EventPage extends React.Component {
             event={event}
             user={user}
             onEditingChange={this.onEditingChange}
+            participantsByEvent={participantsByEvent}
           />
         </div>
       );
@@ -92,6 +93,7 @@ EventPage.propTypes = {
   event: React.PropTypes.object,
   editing: React.PropTypes.string,
   user: React.PropTypes.object,
+  participantsByEvent: React.PropTypes.array,
   // loading: React.PropTypes.bool,
   // eventExists: React.PropTypes.bool,
 };

@@ -14,6 +14,7 @@ export default createContainer(() => {
   const profilesSubscribe = Meteor.subscribe('profiles.public');
   const playsSubscribe = Meteor.subscribe('plays.public');
   const eventsSubscribe = Meteor.subscribe('events.public');
+  // const participantsSubscribe = Meteor.subscribe('participants.public');
   return {
     user: Meteor.user(),
     loading: !(profilesSubscribe.ready() && playsSubscribe.ready()),

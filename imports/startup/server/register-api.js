@@ -12,6 +12,7 @@ import '../../api/events/server/publications.js';
 
 // Participants
 import '../../api/participants/methods.js';
+import '../../api/participants/server/publications.js';
 
 // Lists
 // import '../../api/lists/methods.js';

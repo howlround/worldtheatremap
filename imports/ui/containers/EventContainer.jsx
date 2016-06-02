@@ -7,7 +7,6 @@ import EventPage from '../pages/EventPage.jsx';
 export default createContainer(({ params: { id } }) => {
   const event = Events.findOne(id);
   const participantsByEvent = Meteor.subscribe('participants.byEvent', id);
-  const participantsByEventTest = Participants.find({'eventId': id}).fetch();
   return {
     event,
     participantsByEvent: Participants.find({'eventId': id}, {

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { _ } from 'meteor/underscore';
 import { insert } from '../../api/participants/methods.js';
+// import { updateRoles } from '../../api/profiles/methods.js';
 import { displayError } from '../helpers/errors.js';
 import { participantFormSchema, defaultFormOptions } from '../../api/participants/participants.js';
 import { Profiles } from '../../api/profiles/profiles.js';
@@ -23,11 +24,20 @@ export default class Event extends React.Component {
 
     this.throttledAdd = _.throttle(newParticipant => {
       if (newParticipant) {
+        // Create Participant record
         const eventId = this.props.event._id;
         const newID = insert.call({
           newParticipant,
           eventId,
         }, displayError);
+
+        // Update Profile record with role info
+        // @TODO: Make sure it doesn't overwrite bits that aren't set here on update
+        // @TODO: Use a new method that only operates on the showsByRole array
+        // updateRoles.call({
+        //   profileId: newParticipant.profile.id,
+        //   role: newParticipant.role,
+        // }, displayError);
 
         return newID;
       }

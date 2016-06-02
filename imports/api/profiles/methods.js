@@ -71,6 +71,23 @@ export const insert = new ValidatedMethod({
   },
 });
 
+// export const updateRoles = new ValidatedMethod({
+//   name: 'profiles.updateRoles',
+//   validate: new SimpleSchema({
+//     profileId: { type: String },
+//     role: { type: String },
+//   }).validator(),
+//   run({ profileId, role }) {
+//     const profile = Profiles.findOne(profileId);
+
+//     Profiles.update(profile._id, {
+//       $push: {
+//         roles: role
+//       },
+//     });
+//   },
+// });
+
 export const update = new ValidatedMethod({
   name: 'profiles.update',
   validate({ newProfile }) {

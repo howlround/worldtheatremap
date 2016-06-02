@@ -38,6 +38,7 @@ Profiles.deny({
 export const profileSchema = t.struct({
   name: t.String,
   about: t.maybe(t.String),
+  // roles: t.maybe(t.list(t.String)),
 });
 
 export const defaultFormOptions = () => {
@@ -60,13 +61,13 @@ export const defaultFormOptions = () => {
   };
 }
 
-Profiles.schema = new SimpleSchema({
-  name: { type: String },
-  about: { type: String, optional: true },
-  userId: { type: String, regEx: SimpleSchema.RegEx.Id, optional: true },
-});
+// Profiles.schema = new SimpleSchema({
+//   name: { type: String },
+//   about: { type: String, optional: true },
+//   roles: { type: Object, optional: true },
+// });
 
-Profiles.attachSchema(Profiles.schema);
+// Profiles.attachSchema(Profiles.schema);
 
 // This represents the keys from Profiles objects that should be published
 // to the client. If we add secret properties to Profile objects, don't profile
@@ -74,7 +75,7 @@ Profiles.attachSchema(Profiles.schema);
 Profiles.publicFields = {
   name: 1,
   about: 1,
-  userId: 1,
+  roles: 1,
 };
 
 Factory.define('profile', Profiles, {});

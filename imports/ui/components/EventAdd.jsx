@@ -37,7 +37,10 @@ export default class EventAdd extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const newEvent = this.refs.form.getValue();
+    const formValues = this.refs.form.getValue();
+    let newEvent = this.state.event;
+
+    newEvent.about = formValues.about;
     if (newEvent) {
       const newID = this.throttledAdd(newEvent);
 
@@ -66,11 +69,16 @@ export default class EventAdd extends React.Component {
         resultsElement.html('');
 
         if (results.length > 0) {
-          results.map(profile => {
-            resultsElement.append('<li><b>' + profile.name + '</b> (' + profile._id + ')</li>').find('li:last-child').click(() => {
+          results.map(show => {
+            resultsElement.append('<li><b>' + show.name + '</b> (' + show._id + ')</li>').find('li:last-child').click(() => {
                 const newValue = value;
-                newValue.play[path[1]].name = profile.name;
-                newValue.play[path[1]].id = profile._id;
+                // Set the show state to the selected show
+                newValue.play[path[1]] = show;
+                // We are using 'id' without the underscore later so
+                // manually specify that
+                newValue.play[path[1]].id = show._id;
+                newValue.play[path[1]]._id = null;
+
                 this.setState({event: newValue});
 
                 // Clear fields

@@ -3,6 +3,7 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Factory } from 'meteor/factory';
 import t from 'tcomb-validation';
 import { Plays } from '../plays/plays.js';
+import { Participants } from '../participants/participants.js';
 
 class ProfilesCollection extends Mongo.Collection {
   insert(profile, callback) {
@@ -98,5 +99,17 @@ Profiles.helpers({
   // },
   getPlays() {
     return Plays.find({ "author.id": this._id });
+  },
+
+  getRoles() {
+    // @TODO: This should be more specific (by user?)
+    const participantsSubscribe = Meteor.subscribe('participants.public');
+    let roles = new Array;
+    const participantRecords = Participants.find({ "profile.id": this._id }, { fields: { "role": true } }).map(record => {
+      if (!_.contains(roles, record.role)) {
+        roles.push(record.role);
+      }
+    });
+    return roles;
   },
 });

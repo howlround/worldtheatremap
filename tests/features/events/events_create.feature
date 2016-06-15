@@ -38,3 +38,21 @@ Feature: Create events
     And I click on ".edit-event-save"
     Then the "h1.page-title" element should contain "Sofia"
     And the ".event-about" element should contain "A workshop on spelling"
+
+  Scenario: Events should display the primary author for the related show
+    And a profile with the following fields:
+      | name | My Favorite Playwright |
+    And I am logged in
+    And I go to the "play" add page
+    And I fill in ".play-name-edit" with "Sofia"
+    And I fill in ".play-author-name-edit" with "My Favorite Playwright"
+    And I click on ".play-author-edit-results li"
+    And I fill in ".play-about-edit" with "Most popular name in Italy"
+    And I click on ".edit-play-save"
+    And I hover over ".add"
+    When I click on ".add-event"
+    And I fill in ".event-play-name-edit" with "Sofia"
+    And I click on ".event-play-edit-results li"
+    And I fill in ".event-about-edit" with "A workshop on spelling"
+    And I click on ".edit-event-save"
+    Then the ".event-authorship" element should contain "My Favorite Playwright"

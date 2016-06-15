@@ -13,5 +13,6 @@ export default createContainer(({ params: { id } }) => {
     profile,
     // profileExists,
     plays: profile.getPlays().fetch(),
+    roles: profile.getRoles(),
   };
 }, ProfilePage);

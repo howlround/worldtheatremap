@@ -161,17 +161,18 @@ export default class Event extends React.Component {
     : '';
 
     // @TODO: Abstract this to a function or component to reduce duplication in EventTeaser.jsx
-    // const authors = event.author.map((author, index, array) => {
-    //   let seperator = ', ';
-    //   if (index == array.length - 1) {
-    //     seperator = '';
-    //   }
-    //   else if (index == array.length - 2) {
-    //     seperator = ' and ';
-    //   }
-    //   return <span key={author.id}><Link to={`/profiles/${ author.id }`} className="event-author">{author.name}</Link>{seperator}</span>
-    // });
-    const authors = '';
+    // @TODO: Refactor event.play format to be a single play item
+    const authors = event.play[0].author.map((author, index, array) => {
+      let seperator = ', ';
+      if (index == array.length - 1) {
+        seperator = '';
+      }
+      else if (index == array.length - 2) {
+        seperator = ' and ';
+      }
+      return <span key={author.id}><Link to={`/profiles/${ author.id }`} className="event-author">{author.name}</Link>{seperator}</span>
+    });
+    // const authors = '';
 
     let participants;
     let participantsTitle = '0 Artists'

@@ -2,12 +2,14 @@ import React from 'react';
 import { Link } from 'react-router';
 import { insert } from '../../api/profiles/methods.js';
 import PlayTeaser from '../components/PlayTeaser.jsx';
+import ShowsByRole from '../components/ShowsByRole.jsx';
 
 export default class Profile extends React.Component {
   constructor(props) {
     super(props);
 
     this.createNewProfile = this.createNewProfile.bind(this);
+    this.renderShowsByRoles = this.renderShowsByRoles.bind(this);
   }
 
   createNewProfile() {
@@ -22,8 +24,17 @@ export default class Profile extends React.Component {
     router.push(`/profiles/${ listId }`);
   }
 
+  renderShowsByRoles() {
+    const { profile, roles } = this.props;
+
+    return (
+      roles.map(role => <ShowsByRole key={role} role={role} profile={profile} />)
+    );
+
+  }
+
   render() {
-    const { profile, user, plays } = this.props;
+    const { profile, user, plays, roles } = this.props;
 
     const editLink = user ?
       <Link
@@ -56,7 +67,7 @@ export default class Profile extends React.Component {
           </h1>
           {editLink}
         </section>
-        {profile.about ?
+        { profile.about ?
           <section className="profile-about">
             <h2>About</h2>
             {/*<div dangerouslySetInnerHTML={{__html: profile.about}} />*/}
@@ -64,7 +75,7 @@ export default class Profile extends React.Component {
             {editLink}
           </section> : ''
         }
-        {(plays && plays.length) ?
+        { (plays && plays.length) ?
           <section className="profile-plays">
             <h2>Primary Authorship or Playwright</h2>
             <ul>
@@ -73,6 +84,7 @@ export default class Profile extends React.Component {
           </section>
           : ''
         }
+        { roles ? this.renderShowsByRoles() : '' }
       </article>
     );
   }
@@ -82,6 +94,7 @@ Profile.propTypes = {
   profile: React.PropTypes.object,
   user: React.PropTypes.object,
   plays: React.PropTypes.array,
+  roles: React.PropTypes.array,
   onEditingChange: React.PropTypes.func,
 };
 

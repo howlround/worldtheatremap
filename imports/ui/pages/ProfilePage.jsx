@@ -27,7 +27,7 @@ export default class ProfilePage extends React.Component {
 
   render() {
     // const { profile, profileExists, loading } = this.props;
-    const { profile, user, plays } = this.props;
+    const { profile, user, plays, roles } = this.props;
     const { editing } = this.state;
 
     const profilePageClass = classnames({
@@ -81,6 +81,7 @@ export default class ProfilePage extends React.Component {
             profile={profile}
             user={user}
             plays={plays}
+            roles={roles}
             onEditingChange={this.onEditingChange}
           />
         </div>
@@ -94,6 +95,7 @@ ProfilePage.propTypes = {
   editing: React.PropTypes.string,
   user: React.PropTypes.object,
   plays: React.PropTypes.array,
+  roles: React.PropTypes.array,
   // loading: React.PropTypes.bool,
   // profileExists: React.PropTypes.bool,
 };

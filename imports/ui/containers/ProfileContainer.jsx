@@ -7,12 +7,14 @@ export default createContainer(({ params: { id } }) => {
   // const todosHandle = Meteor.subscribe('todos.inList', id);
   // const loading = !todosHandle.ready();
   const profile = Profiles.findOne(id);
+  const plays = profile ? profile.getPlays().fetch() : null;
+  const roles = profile ? profile.getRoles() : null;
   // const profileExists = !loading && !!profile;
   return {
     // loading,
     profile,
     // profileExists,
-    plays: profile.getPlays().fetch(),
-    roles: profile.getRoles(),
+    plays,
+    roles,
   };
 }, ProfilePage);

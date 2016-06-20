@@ -2,6 +2,7 @@ import { Mongo } from 'meteor/mongo';
 import { Factory } from 'meteor/factory';
 import React from 'react';
 import t from 'tcomb-form';
+import { eventSchema } from '../events/events.js';
 
 class ParticipantsCollection extends Mongo.Collection {
   insert(event, callback) {
@@ -69,7 +70,7 @@ const atLeastOne = arr => arr.length > 0
 export const participantSchema = t.struct({
   profile: relatedProfileSchema,
   role: Roles,
-  eventId: t.String,
+  event: eventSchema,
 });
 
 export const participantFormSchema = t.struct({
@@ -138,7 +139,7 @@ export const defaultFormOptions = () => {
 Participants.publicFields = {
   profile: 1,
   role: 1,
-  eventId: 1
+  event: 1
 };
 
 Factory.define('event', Participants, {});

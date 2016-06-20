@@ -9,7 +9,7 @@ export default createContainer(({ params: { id } }) => {
   const participantsByEvent = Meteor.subscribe('participants.byEvent', id);
   return {
     event,
-    participantsByEvent: Participants.find({'eventId': id}, {
+    participantsByEvent: Participants.find({'event._id': id}, {
       fields: Participants.publicFields,
     }).fetch(),
   };

@@ -76,8 +76,8 @@ export default class EventAdd extends React.Component {
                 newValue.play[path[1]] = show;
                 // We are using 'id' without the underscore later so
                 // manually specify that
+                // @TODO: Refactor to only use the _id
                 newValue.play[path[1]].id = show._id;
-                newValue.play[path[1]]._id = null;
 
                 this.setState({event: newValue});
 

@@ -25,10 +25,10 @@ export default class Event extends React.Component {
     this.throttledAdd = _.throttle(newParticipant => {
       if (newParticipant) {
         // Create Participant record
-        const eventId = this.props.event._id;
+        const event = this.props.event;
         const newID = insert.call({
           newParticipant,
-          eventId,
+          event,
         }, displayError);
 
         // Update Profile record with role info

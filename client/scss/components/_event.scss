@@ -1,0 +1,25 @@
+article.event {
+  .event-name {
+    a {
+      color: $dark-tan;
+
+      &:hover,
+      &:focus {
+        color: $dark-gray;
+      }
+    }
+  }
+
+  .event-authorship {
+    color: $dark-tan;
+
+    a {
+      color: $dark-tan;
+
+      &:hover,
+      &:focus {
+        color: $dark-gray;
+      }
+    }
+  }
+}

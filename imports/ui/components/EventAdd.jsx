@@ -41,6 +41,7 @@ export default class EventAdd extends React.Component {
     let newEvent = this.state.event;
 
     newEvent.about = formValues.about;
+    newEvent.eventType = formValues.eventType;
     if (newEvent) {
       const newID = this.throttledAdd(newEvent);
 

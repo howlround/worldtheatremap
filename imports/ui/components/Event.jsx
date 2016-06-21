@@ -198,7 +198,7 @@ export default class Event extends React.Component {
       <article className="event full">
         <section className="event-main-info">
           <h1 className="event-name page-title">
-            Event for <Link
+            <Link
               to={`/plays/${ event.play[0].id }`}
               title={event.play[0].name}
             >
@@ -207,6 +207,11 @@ export default class Event extends React.Component {
           </h1>
           <div className="event-authorship">
             by {authors}
+          </div>
+          <div className="event-info">
+            <h3 className="event-type">
+              {event.eventType}
+            </h3>
           </div>
           {editLink}
         </section>

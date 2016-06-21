@@ -43,6 +43,13 @@ Events.deny({
 //   id: t.String,
 // });
 
+const EventTypes = t.enums({
+  "Work-in-Progress": "Work-in-Progress",
+  "Performance": "Performance",
+  "HowlRound TV Livestream": "HowlRound TV Livestream",
+  "Twitter Chat": "Twitter Chat"
+});
+
 const atLeastOne = arr => arr.length > 0
 export const relatedPlaySchema = t.struct({
   name: t.String,
@@ -56,6 +63,7 @@ export const relatedPlaySchema = t.struct({
 const exactlyOne = arr => arr.length > 0
 export const eventSchema = t.struct({
   play: t.refinement(t.list(relatedPlaySchema), exactlyOne),
+  eventType: EventTypes,
   about: t.maybe(t.String),
 });
 
@@ -102,6 +110,11 @@ export const defaultFormOptions = () => {
           }
         }
       },
+      eventType: {
+        attrs: {
+          className: 'event-type-edit',
+        }
+      },
       about: {
         type: 'textarea',
         attrs: {
@@ -119,7 +132,7 @@ export const defaultFormOptions = () => {
 Events.publicFields = {
   play: 1,
   about: 1,
-  userId: 1,
+  eventType: 1,
 };
 
 Factory.define('event', Events, {});

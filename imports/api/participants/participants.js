@@ -44,14 +44,14 @@ export const relatedProfileSchema = t.struct({
 
 const Roles = t.enums({
   "Administrator": "Administrator",
-  "Show Producer / Curator": "Show Producer / Curator",
+  "Show Producer": "Show Producer",
   "Agent / Manager": "Agent / Manager",
   "Funder": "Funder",
   "Journalist / Critic": "Journalist / Critic",
-  "Production Staff (Stage Managers, Crew, etc.)": "Production Staff (Stage Managers, Crew, etc.)",
-  "Technical Staff (Lighting, Set, etc.)": "Technical Staff (Lighting, Set, etc.)",
-  "Designers (Lights, Scenic, Props, Costumes, Video, Sound, etc.)": "Designers (Lights, Scenic, Props, Costumes, Video, Sound, etc.)",
-  "Performer (Actors, Dancers, Musicians, etc)": "Performer (Actors, Dancers, Musicians, etc)",
+  "Production Staff": "Production Staff",
+  "Technical Staff": "Technical Staff",
+  "Designer": "Designer",
+  "Performer": "Performer",
   "Stage Director": "Stage Director",
   "Playwright": "Playwright",
   "Translator": "Translator",
@@ -59,6 +59,7 @@ const Roles = t.enums({
   "Educator / Scholar": "Educator / Scholar",
   "Student": "Student",
   "Music Composer": "Music Composer",
+  "Curator": "Curator"
 });
 
 const atLeastOne = arr => arr.length > 0

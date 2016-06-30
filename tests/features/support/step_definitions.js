@@ -18,6 +18,17 @@ module.exports = function() {
     expect(browser.waitForText('.user-menu .menu-parent', 'REGINOLD'));
   });
 
+  this.Given(/^I log in with the email "([^"]*)" and the password "([^"]*)"$/, function (email, password) {
+    browser.url('http://localhost:3000/signin');
+    browser.waitForExist('input[name="email"]', 2000);
+    browser.setValue('input[name="email"]', email);
+    browser.setValue('input[name="password"]', password);
+
+    browser.waitForExist('button[type="submit"]', 2000);
+    browser.click('button[type="submit"]');
+    browser.pause(100);
+  });
+
   this.Given(/^I am an anonymous user$/, function () {
     browser.waitForExist('.login-link-text');
     expect(browser.getText('.login-link-text')).toEqual('Sign in ▾');

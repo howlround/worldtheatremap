@@ -40,7 +40,9 @@ export default class AuthJoin extends React.Component {
           errors: { none: err.reason },
         });
       }
-      this.context.router.push('/');
+      else {
+        this.context.router.push('/');
+      }
     });
   }
 

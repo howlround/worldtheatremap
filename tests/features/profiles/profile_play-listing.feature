@@ -36,6 +36,7 @@ Feature: List plays on the playwright profile
     And I fill in ".event-play-name-edit" with "A Play About Maryam"
     And I click on ".event-play-edit-results li"
     And I fill in ".event-about-edit" with "A workshop on spelling"
+    And I select "Performance" from ".event-type-edit"
     And I click on ".edit-event-save"
     And a profile with the following fields:
       | name | Il Regista |

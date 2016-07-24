@@ -18,6 +18,7 @@ Feature: Participant listing on event pages
     And I go to the "event" add page
     And I fill in ".event-play-name-edit" with "Sofia"
     And I click on ".event-play-edit-results li"
+    And I select "Performance" from ".event-type-edit"
     And I fill in ".event-about-edit" with "A workshop on spelling"
     And I click on ".edit-event-save"
 

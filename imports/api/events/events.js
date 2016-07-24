@@ -111,6 +111,7 @@ export const defaultFormOptions = () => {
         }
       },
       eventType: {
+        error: 'Event type is required',
         attrs: {
           className: 'event-type-edit',
         }

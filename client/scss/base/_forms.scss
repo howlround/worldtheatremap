@@ -51,6 +51,15 @@ label {
     font-size: 0.8em;
   }
 
+  &.form-group-eventType {
+    border: 1px solid $red;
+    padding: $spacing-unit;
+
+    .error-block {
+      display: block;
+    }
+  }
+
   input[type="text"] {
     border-color: $red;
   }

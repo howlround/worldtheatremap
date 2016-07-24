@@ -34,3 +34,9 @@
 .form-group-profile-id {
   display: none;
 }
+
+// Hide additional related ID fields
+.form-group-profile-id,
+.form-group-play-0-id {
+  display: none;
+}

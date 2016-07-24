@@ -32,8 +32,13 @@ export default class EventEdit extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const newEvent = this.refs.form.getValue();
-    if (newEvent) {
+    const formValues = this.refs.form.getValue();
+    let newEvent = this.state.event;
+
+    if (newEvent && formValues) {
+      newEvent.about = formValues.about;
+      newEvent.eventType = formValues.eventType;
+
       this.throttledUpdate(newEvent);
 
       // Only change editing state if validation passed
@@ -63,11 +68,16 @@ export default class EventEdit extends React.Component {
         resultsElement.html('');
 
         if (results.length > 0) {
-          results.map(profile => {
-            resultsElement.append('<li><b>' + profile.name + '</b> (' + profile._id + ')</li>').find('li:last-child').click(() => {
+          results.map(show => {
+            resultsElement.append('<li><b>' + show.name + '</b> (' + show._id + ')</li>').find('li:last-child').click(() => {
                 const newValue = value;
-                newValue.play[path[1]].name = profile.name;
-                newValue.play[path[1]].id = profile._id;
+                // Set the show state to the selected show
+                newValue.play[path[1]] = show;
+                // We are using 'id' without the underscore later so
+                // manually specify that
+                // @TODO: Refactor to only use the _id
+                newValue.play[path[1]].id = show._id;
+
                 this.setState({event: newValue});
 
                 // Clear fields

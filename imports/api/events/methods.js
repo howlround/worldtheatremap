@@ -84,6 +84,11 @@ export const update = new ValidatedMethod({
   run({ eventId, newEvent }) {
     const event = Events.findOne(eventId);
 
+    // Not allowed to update the _id
+    if (newEvent._id) {
+      delete newEvent._id;
+    }
+
     // if (!event.editableBy(this.userId)) {
     //   throw new Meteor.Error('events.update.accessDenied',
     //     'You don\'t have permission to edit this event.');

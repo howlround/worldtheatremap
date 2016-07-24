@@ -42,7 +42,7 @@ Feature: Participant listing on event pages
     And I click on ".event-name a"
     Then the ".event-participant-name" element should contain "Il Regista"
     And the ".event-participant-role" element should contain "Stage Director"
-@focus
+
   Scenario: Number of participants should be displayed on the event page
     And a profile with the following fields:
       | name | Il Regista |

@@ -175,7 +175,7 @@ export default class Event extends React.Component {
     // const authors = '';
 
     let participants;
-    let participantsTitle = '0 Artists'
+    let participantsTitle = '0 People'
     if (participantsByEvent.length > 0) {
       participants = participantsByEvent.map(participant => {
         return <li key={participant._id} className="event-participant-list-item">
@@ -191,7 +191,7 @@ export default class Event extends React.Component {
         </li>
       });
 
-      participantsTitle = participantsByEvent.length == 1 ? participantsByEvent.length + ' Artist' : participantsByEvent.length + ' Artists';
+      participantsTitle = participantsByEvent.length == 1 ? participantsByEvent.length + ' Person' : participantsByEvent.length + ' People';
     }
 
     return (

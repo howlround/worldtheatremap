@@ -42,7 +42,7 @@ Feature: Participant listing on event pages
     And I click on ".event-name a"
     Then the ".event-participant-name" element should contain "Il Regista"
     And the ".event-participant-role" element should contain "Stage Director"
-
+@focus
   Scenario: Number of participants should be displayed on the event page
     And a profile with the following fields:
       | name | Il Regista |
@@ -54,5 +54,5 @@ Feature: Participant listing on event pages
     And I click on ".edit-participant-save"
     And I go to the play page for "Sofia"
     And I click on ".event-name a"
-    Then the ".event-participants h2" element should contain "1 Artist"
-    And the ".event-participants h2" element should not contain "1 Artists"
+    Then the ".event-participants h2" element should contain "1 Person"
+    And the ".event-participants h2" element should not contain "1 People"

@@ -24,7 +24,7 @@ Feature: Participant listing on event pages
 
   Scenario: Add participant form should only display for logged in users
     And I hover over ".user-menu"
-    And I click on ".menu-logout"
+    And I am logged out
     And I go to the play page for "Sofia"
     And I click on ".event-name a"
     Then I should not see ".participant-profile-name-edit"

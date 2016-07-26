@@ -18,6 +18,15 @@ module.exports = function() {
     expect(browser.waitForText('.user-menu .menu-parent', 'REGINOLD'));
   });
 
+  this.Given(/^I am logged out$/, function () {
+    browser.waitForExist('.menu-logout', 2000);
+    browser.click('.menu-logout');
+
+    browser.pause(100);
+
+    expect(browser.waitForText('.user-menu .menu-parent', 'SIGNUP/IN'));
+  });
+
   this.Given(/^I log in with the email "([^"]*)" and the password "([^"]*)"$/, function (email, password) {
     browser.url('http://localhost:3000/signin');
     browser.waitForExist('input[name="email"]', 2000);

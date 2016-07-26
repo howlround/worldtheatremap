@@ -24,4 +24,4 @@ Feature: Events listing on play pages
     And I select "Performance" from ".event-type-edit"
     And I click on ".edit-event-save"
     When I go to the play page for "Sofia"
-    Then the "article.event-teaser" element should contain "A workshop on spelling"
+    Then the "article.event-teaser" element should contain "Performance"

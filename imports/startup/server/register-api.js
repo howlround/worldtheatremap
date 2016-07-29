@@ -14,6 +14,10 @@ import '../../api/events/server/publications.js';
 import '../../api/participants/methods.js';
 import '../../api/participants/server/publications.js';
 
+// Related Records
+import '../../api/relatedRecords/methods.js';
+import '../../api/relatedRecords/server/publications.js';
+
 // Lists
 // import '../../api/lists/methods.js';
 // import '../../api/lists/server/publications.js';

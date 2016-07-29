@@ -3,10 +3,11 @@ import { Factory } from 'meteor/factory';
 import React from 'react';
 import t from 'tcomb-form';
 import { eventSchema } from '../events/events.js';
+import { RelatedRecords } from '../relatedRecords/relatedRecords.js';
 
 class ParticipantsCollection extends Mongo.Collection {
-  insert(event, callback) {
-    const ourParticipant = event;
+  insert(ourParticipant, callback) {
+    // const ourParticipant = event;
     // if (!ourParticipant.name) {
     //   let nextLetter = 'A';
     //   ourParticipant.name = `Play ${nextLetter}`;
@@ -18,7 +19,13 @@ class ParticipantsCollection extends Mongo.Collection {
     //   }
     // }
 
-    // @TODO: Save author information to event
+    // Update the relatedRecords collection
+    // - Try running it after the insert to speed things up
+    // - But running it first means you don't have to exclude it later
+    RelatedRecords.reconcile({
+      eventId: ourParticipant.event._id,
+      profileId: ourParticipant.profile.id
+    });
 
     return super.insert(ourParticipant, callback);
   }

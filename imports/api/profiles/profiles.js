@@ -4,6 +4,7 @@ import { Factory } from 'meteor/factory';
 import t from 'tcomb-validation';
 import { Plays } from '../plays/plays.js';
 import { Participants } from '../participants/participants.js';
+import { RelatedRecords } from '../relatedRecords/relatedRecords.js';
 
 class ProfilesCollection extends Mongo.Collection {
   insert(profile, callback) {
@@ -112,4 +113,11 @@ Profiles.helpers({
     });
     return roles;
   },
+
+  getConnections() {
+    const connections = Meteor.subscribe('relatedRecords.byProfile', this._id);
+    const relatedProfiles = RelatedRecords.find({"profiles": this._id}).fetch();
+
+    return relatedProfiles;
+  }
 });

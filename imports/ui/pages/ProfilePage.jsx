@@ -17,12 +17,23 @@ export default class ProfilePage extends React.Component {
       editing: this.props.editing ? this.props.profile._id : null
     };
     this.onEditingChange = this.onEditingChange.bind(this);
+    this.renderRelatedProfiles = this.renderRelatedProfiles.bind(this);
   }
 
   onEditingChange(id, editing) {
     this.setState({
       editing: editing ? id : null,
     });
+  }
+
+  renderRelatedProfiles() {
+    const { connections } = this.props;
+
+    return (
+      connections.map(relatedRecord => {
+        console.log(relatedRecord);
+      })
+    );
   }
 
   render() {
@@ -84,7 +95,9 @@ export default class ProfilePage extends React.Component {
             roles={roles}
             onEditingChange={this.onEditingChange}
           />
+          { this.renderRelatedProfiles() }
         </div>
+
       );
     }
   }
@@ -96,6 +109,7 @@ ProfilePage.propTypes = {
   user: React.PropTypes.object,
   plays: React.PropTypes.array,
   roles: React.PropTypes.array,
+  connections: React.PropTypes.array,
   // loading: React.PropTypes.bool,
   // profileExists: React.PropTypes.bool,
 };

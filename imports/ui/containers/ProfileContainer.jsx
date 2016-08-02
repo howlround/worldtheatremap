@@ -9,6 +9,7 @@ export default createContainer(({ params: { id } }) => {
   const profile = Profiles.findOne(id);
   const plays = profile ? profile.getPlays().fetch() : null;
   const roles = profile ? profile.getRoles() : null;
+  const connections = profile ? profile.getConnections() : null;
   // const profileExists = !loading && !!profile;
   return {
     // loading,
@@ -16,5 +17,6 @@ export default createContainer(({ params: { id } }) => {
     // profileExists,
     plays,
     roles,
+    connections,
   };
 }, ProfilePage);

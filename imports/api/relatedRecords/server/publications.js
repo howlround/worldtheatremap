@@ -17,7 +17,7 @@ import { RelatedRecords } from '../relatedRecords.js';
 // });
 
 Meteor.publish('relatedRecords.byProfile', function relatedRecordsbyProfile(id) {
-  return RelatedRecords.find({'profile.id': id}, {
+  return RelatedRecords.find({'profiles': id}, {
     fields: RelatedRecords.publicFields,
   });
 });

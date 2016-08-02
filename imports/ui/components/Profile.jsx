@@ -30,7 +30,6 @@ export default class Profile extends React.Component {
     return (
       roles.map(role => <ShowsByRole key={role} role={role} profile={profile} />)
     );
-
   }
 
   render() {

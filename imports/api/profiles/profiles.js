@@ -116,8 +116,24 @@ Profiles.helpers({
 
   getConnections() {
     const connections = Meteor.subscribe('relatedRecords.byProfile', this._id);
-    const relatedProfiles = RelatedRecords.find({"profiles": this._id}).fetch();
+    let profileIds = new Array
+    const relatedProfiles = RelatedRecords.find({"profiles": this._id}).map(relatedRecord => {
+      for (var i = relatedRecord.profiles.length - 1; i >= 0; i--) {
+        if (relatedRecord.profiles[i] == this._id) {
+          continue;
+        }
+        else {
+          profileIds.push(relatedRecord.profiles[i]);
+        }
+      }
+    });
 
-    return relatedProfiles;
+    // Subscribe to this group of profiles
+    const connectedProfilesSub = Meteor.subscribe('profiles.byId', profileIds);
+
+    // Return array of profile objects instead of just the ids
+    return Profiles.find({ '_id': { $in: profileIds } }, {
+      fields: Profiles.publicFields,
+    }).fetch();
   }
 });

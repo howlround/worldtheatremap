@@ -27,18 +27,22 @@ export default class ProfilePage extends React.Component {
   }
 
   renderRelatedProfiles() {
-    const { connections } = this.props;
+    const { connections, profile } = this.props;
 
-    return (
-      connections.map(relatedRecord => {
-        console.log(relatedRecord);
-      })
-    );
+    let relatedProfiles = connections.map(profile => {
+      return <li key={profile._id}><Link
+            to={`/profiles/${ profile._id }`}
+          >
+            {profile.name}
+          </Link></li>;
+    });
+
+    return <ul className="related-profiles">{relatedProfiles}</ul>;
   }
 
   render() {
     // const { profile, profileExists, loading } = this.props;
-    const { profile, user, plays, roles } = this.props;
+    const { profile, user, plays, roles, connections } = this.props;
     const { editing } = this.state;
 
     const profilePageClass = classnames({
@@ -95,6 +99,7 @@ export default class ProfilePage extends React.Component {
             roles={roles}
             onEditingChange={this.onEditingChange}
           />
+          <h2>Related People</h2>
           { this.renderRelatedProfiles() }
         </div>
 

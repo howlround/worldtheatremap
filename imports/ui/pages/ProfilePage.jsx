@@ -99,10 +99,16 @@ export default class ProfilePage extends React.Component {
             roles={roles}
             onEditingChange={this.onEditingChange}
           />
-          <h2>Related People</h2>
-          { this.renderRelatedProfiles() }
+          { connections.length > 0 ?
+            <aside className="sidebar">
+              <section>
+                <h2>Related People</h2>
+                <div className="content">
+                  { this.renderRelatedProfiles() }
+                </div>
+              </section>
+            </aside> : '' }
         </div>
-
       );
     }
   }

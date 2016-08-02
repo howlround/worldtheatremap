@@ -1,0 +1,5 @@
+aside {
+  @include breakpoint($narrow) {
+    @include span(last 3 of 8);
+  }
+}

@@ -1,0 +1,20 @@
+.sidebar {
+  section {
+    background-color: $white;
+    border: solid 1px $dark-tan;
+    margin-bottom: $spacing-unit * 2;
+
+    h2 {
+      font-size: 16px;
+      text-transform: uppercase;
+      color: $white;
+      background-color: $teal;
+      padding: $spacing-unit;
+      line-height: 1em;
+    }
+
+    .content {
+      padding: $spacing-unit;
+    }
+  }
+}

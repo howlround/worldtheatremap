@@ -1,8 +1,6 @@
 article.full {
-  margin-top: $spacing-unit;
-
   @include breakpoint($narrow) {
-    margin-top: $spacing-unit * 4;
+    @include span(5 of 8);
   }
 
   section {
@@ -26,5 +24,4 @@ article.full {
       right: $spacing-unit * 3;
     }
   }
-
 }

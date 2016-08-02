@@ -1,0 +1,7 @@
+.page {
+  margin-top: $spacing-unit;
+
+  @include breakpoint($narrow) {
+    margin-top: $spacing-unit * 4;
+  }
+}

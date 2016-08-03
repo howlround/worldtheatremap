@@ -19,6 +19,8 @@ Feature: Create organization profiles
     When I click on ".add-profile"
     Then I should see the ".profile-name-edit" element
     And I should see the ".profile-about-edit" element
+    And I should see the ".profile-agent-edit" element
+    And I should see the ".profile-phone-edit" element
 
   Scenario: Users should be able to create a profile with all the fields
     And I am logged in
@@ -26,6 +28,10 @@ Feature: Create organization profiles
     When I click on ".add-profile"
     And I fill in ".profile-name-edit" with "Fatima"
     And I fill in ".profile-about-edit" with "Most popular name in Algeria (census, 2010)"
+    And I fill in ".profile-agent-edit" with "Secret Agent"
+    And I fill in ".profile-phone-edit" with "(212) 903-1170"
     And I click on ".edit-profile-save"
     Then the ".profile-name" element should contain "Fatima"
     And the ".profile-about" element should contain "Most popular name in Algeria (census, 2010)"
+    And the ".profile-agent" element should contain "Secret Agent"
+    And the ".profile-phone" element should contain "(212) 903-1170"

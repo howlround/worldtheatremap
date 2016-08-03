@@ -40,6 +40,8 @@ Profiles.deny({
 export const profileSchema = t.struct({
   name: t.String,
   about: t.maybe(t.String),
+  agent: t.maybe(t.String),
+  phone: t.maybe(t.String),
   // roles: t.maybe(t.list(t.String)),
 });
 
@@ -57,6 +59,16 @@ export const defaultFormOptions = () => {
         attrs: {
           rows: '10',
           className: 'profile-about-edit',
+        },
+      },
+      agent: {
+        attrs: {
+          className: 'profile-agent-edit',
+        },
+      },
+      phone: {
+        attrs: {
+          className: 'profile-phone-edit',
         },
       },
     },
@@ -77,6 +89,8 @@ export const defaultFormOptions = () => {
 Profiles.publicFields = {
   name: 1,
   about: 1,
+  agent: 1,
+  phone: 1,
   roles: 1,
 };
 

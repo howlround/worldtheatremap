@@ -6,20 +6,7 @@ import { Participants } from '../participants/participants.js';
 
 class RelatedRecordsCollection extends Mongo.Collection {
   insert(ourRelatedRecord, callback) {
-    // const ourRelatedRecord = ourRelatedRecord;
-
-    // if (!ourRelatedRecord.name) {
-    //   let nextLetter = 'A';
-    //   ourRelatedRecord.name = `Play ${nextLetter}`;
-
-    //   while (!!this.findOne({ name: ourRelatedRecord.name })) {
-    //     // not going to be too smart here, can go past Z
-    //     nextLetter = String.fromCharCode(nextLetter.charCodeAt(0) + 1);
-    //     ourRelatedRecord.name = `Play ${nextLetter}`;
-    //   }
-    // }
-
-    // @TODO: Save author information to event
+    // @TODO: Save author information to event (?)
 
     return super.insert(ourRelatedRecord, callback);
   }
@@ -29,26 +16,14 @@ class RelatedRecordsCollection extends Mongo.Collection {
   }
   reconcile(reconcileRelatedRecord) {
     // Get all participants for this event
-    // For each other participant:
-    //    - if there is an existing record: (aka they have worked together)
-    //      - if this event is already in the list (aka already worked together on this event)
-    //        - do nothing
-    //      - else : add this event to the events list (aka worked together before on a different event)
-    //    - else: create a relatedRecord and add this event to the events list (aka never worked together before)
-
-
-    // Get all participants for this event
     const allParticipants = Participants.find({'event._id': reconcileRelatedRecord.eventId}, {
       fields: Participants.publicFields,
     }).fetch();
 
     allParticipants.map(otherParticipant => {
-      // @TODO: Handle a single user having multiple roles
 
       // if there is an existing record: (aka they have worked together)
-      const existing = super.findOne({
-        profiles: [reconcileRelatedRecord.profileId, otherParticipant.profile.id],
-      });
+      const existing = super.findOne( { $and: [ { profiles: { $in: [ reconcileRelatedRecord.profileId ] } }, { profiles: { $in: [ otherParticipant.profile.id ] } } ] } );
 
       if (existing) {
         // @TODO: if this event is not already in the list
@@ -56,6 +31,7 @@ class RelatedRecordsCollection extends Mongo.Collection {
         // add this event to the events list
         // (meaning they have worked together before on a different event)
         // and increment the count field
+        // @TODO: Handle a single user having multiple roles on the same event
       }
       else {
         // create a relatedRecord and add this event to the events list (aka never worked together before)

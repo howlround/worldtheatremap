@@ -42,9 +42,7 @@ Feature: Related profiles on profile pages
     When I go to the profile page for "Il Regista"
     Then the ".related-profiles" element should contain "Il Curatore"
 
-  Scenario: If a profile is listed on an event twice it should not produce duplicates on other profiles related block
   Scenario: Update after deleting a participant from an event
-  Scenario: Having multiple roles on a single event does not make profiles more related
   Scenario: Being related by multiple events should make profiles more related
   Scenario: After deleting one profile from an event it should not be related to the other profile any more
   Scenario: If a profile is listed on an event twice and one of the roles is removed they should still be related to other profiles on the event

@@ -50,15 +50,15 @@ export default class EventEdit extends React.Component {
 
   onChange(value, path) {
     // @TODO: Merge with EventEdit.jsx
-    if (path[0] == 'play' && path[2] == 'name') {
-      const search = value.play[path[1]].name;
-      const resultsElement = $('.form-group-play-' + path[1] + '-name').siblings('ul.event-play-edit-results');
+    if (path[0] == 'play' && path[1] == 'name') {
+      const search = value.play.name;
+      const resultsElement = $('.form-group-play-name').siblings('ul.event-play-edit-results');
 
       // Search for profiles and save to ul.event-play-edit-result
       if (search.length > 0) {
         // Clear any existing stored values
         const clearValue = value;
-        clearValue.play[path[1]].id = '';
+        clearValue.play.id = '';
         this.setState({event: clearValue});
 
         const regex = new RegExp('.*' + search + '.*', 'i');
@@ -72,11 +72,11 @@ export default class EventEdit extends React.Component {
             resultsElement.append('<li><b>' + show.name + '</b> (' + show._id + ')</li>').find('li:last-child').click(() => {
                 const newValue = value;
                 // Set the show state to the selected show
-                newValue.play[path[1]] = show;
+                newValue.play = show;
                 // We are using 'id' without the underscore later so
                 // manually specify that
                 // @TODO: Refactor to only use the _id
-                newValue.play[path[1]].id = show._id;
+                newValue.play.id = show._id;
 
                 this.setState({event: newValue});
 

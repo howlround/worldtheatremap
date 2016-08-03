@@ -60,9 +60,8 @@ export const relatedPlaySchema = t.struct({
 // @TODO: Refactor to look like this:
 // https://github.com/gcanti/tcomb-form/issues/311
 // Maybe that should be in eventProfile?
-const exactlyOne = arr => arr.length > 0
 export const eventSchema = t.struct({
-  play: t.refinement(t.list(relatedPlaySchema), exactlyOne),
+  play: relatedPlaySchema,
   eventType: EventTypes,
   about: t.maybe(t.String),
 });
@@ -86,26 +85,18 @@ export const defaultFormOptions = () => {
         attrs: {
           className: 'event-play-edit',
         },
-        item: {
-          template: relatedPlayLayout,
-          fields: {
-            name: {
-              // template: AutosuggestTemplate({
-              //   getSuggestions,
-              //   getSuggestionValue,
-              //   renderSuggestion,
-              //   onSuggestionSelected
-              // }),
-              error: 'Primary authorship is required',
-              attrs: {
-                className: 'event-play-name-edit',
-                autocomplete: 'off'
-              }
-            },
-            id: {
-              attrs: {
-                className: 'event-play-id-edit'
-              }
+        template: relatedPlayLayout,
+        fields: {
+          name: {
+            error: 'Primary authorship is required',
+            attrs: {
+              className: 'event-play-name-edit',
+              autocomplete: 'off'
+            }
+          },
+          id: {
+            attrs: {
+              className: 'event-play-id-edit'
             }
           }
         }

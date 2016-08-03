@@ -21,9 +21,9 @@ export default class ShowsByRole extends React.Component {
     let Shows;
     if (participantByProfileByRole && participantByProfileByRole.length) {
       Shows = participantByProfileByRole.map(participantRecord => (
-        <li key={participantRecord.event.play[0].id}>
+        <li key={participantRecord.event.play.id}>
           <PlayTeaser
-            play={participantRecord.event.play[0]}
+            play={participantRecord.event.play}
           />
         </li>
       ));

@@ -162,7 +162,7 @@ export default class Event extends React.Component {
 
     // @TODO: Abstract this to a function or component to reduce duplication in EventTeaser.jsx
     // @TODO: Refactor event.play format to be a single play item
-    const authors = event.play[0].author.map((author, index, array) => {
+    const authors = event.play.author.map((author, index, array) => {
       let seperator = ', ';
       if (index == array.length - 1) {
         seperator = '';
@@ -199,10 +199,10 @@ export default class Event extends React.Component {
         <section className="event-main-info">
           <h1 className="event-name page-title">
             <Link
-              to={`/plays/${ event.play[0].id }`}
-              title={event.play[0].name}
+              to={`/plays/${ event.play.id }`}
+              title={event.play.name}
             >
-              {event.play[0].name}
+              {event.play.name}
             </Link>
           </h1>
           <div className="event-authorship">

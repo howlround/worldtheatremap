@@ -16,9 +16,15 @@ class RelatedRecordsCollection extends Mongo.Collection {
   }
   reconcile(reconcileRelatedRecord) {
     // Get all participants for this event
-    const allParticipants = Participants.find({'event._id': reconcileRelatedRecord.eventId}, {
+    const allParticipants = Participants.find({'event._id': reconcileRelatedRecord.event._id}, {
       fields: Participants.publicFields,
     }).fetch();
+
+    // Add the show authors into the allParticipants array
+    reconcileRelatedRecord.event.play.author.map(author => {
+      const addAuthor = { profile: author };
+      allParticipants.push(addAuthor);
+    });
 
     allParticipants.map(otherParticipant => {
 
@@ -41,7 +47,7 @@ class RelatedRecordsCollection extends Mongo.Collection {
             otherParticipant.profile.id
           ],
           events: [
-            reconcileRelatedRecord.eventId
+            reconcileRelatedRecord.event._id
           ],
           count: 1
         }

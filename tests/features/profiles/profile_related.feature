@@ -42,6 +42,10 @@ Feature: Related profiles on profile pages
     When I go to the profile page for "Il Regista"
     Then the ".related-profiles" element should contain "Il Curatore"
 
+  Scenario: Primary authors should be listed as related profiles
+    When I go to the profile page for "Il Regista"
+    Then the ".related-profiles" element should contain "My Favorite Playwright"
+
   Scenario: Update after deleting a participant from an event
   Scenario: Being related by multiple events should make profiles more related
   Scenario: After deleting one profile from an event it should not be related to the other profile any more

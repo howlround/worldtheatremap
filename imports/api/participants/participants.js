@@ -23,7 +23,7 @@ class ParticipantsCollection extends Mongo.Collection {
     // - Try running it after the insert to speed things up
     // - But running it first means you don't have to exclude it later
     RelatedRecords.reconcile({
-      eventId: ourParticipant.event._id,
+      event: ourParticipant.event,
       profileId: ourParticipant.profile.id
     });
 

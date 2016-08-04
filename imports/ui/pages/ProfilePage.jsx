@@ -4,6 +4,7 @@ import classnames from 'classnames';
 // import PlayTeaser from '../components/PlayTeaser.jsx';
 import Profile from '../components/Profile.jsx';
 import ProfileEdit from '../components/ProfileEdit.jsx';
+import ProfileContact from '../components/ProfileContact.jsx';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
 import Message from '../components/Message.jsx';
 import Modal from '../components/Modal.jsx';
@@ -99,15 +100,16 @@ export default class ProfilePage extends React.Component {
             roles={roles}
             onEditingChange={this.onEditingChange}
           />
-          { connections.length > 0 ?
-            <aside className="sidebar">
+          <aside className="sidebar">
+            <ProfileContact profile={profile} />
+            { connections.length > 0 ?
               <section>
                 <h2>Related People</h2>
                 <div className="content">
                   { this.renderRelatedProfiles() }
                 </div>
-              </section>
-            </aside> : '' }
+              </section> : '' }
+            </aside>
         </div>
       );
     }

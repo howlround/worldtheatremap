@@ -40,7 +40,14 @@ Profiles.deny({
 export const profileSchema = t.struct({
   name: t.String,
   about: t.maybe(t.String),
-  // roles: t.maybe(t.list(t.String)),
+  agent: t.maybe(t.String),
+  phone: t.maybe(t.String),
+  email: t.maybe(t.String),
+  website: t.maybe(t.String),
+  facebook: t.maybe(t.String),
+  twitter: t.maybe(t.String),
+  instagram: t.maybe(t.String),
+  googlePlus: t.maybe(t.String),
 });
 
 export const defaultFormOptions = () => {
@@ -57,6 +64,46 @@ export const defaultFormOptions = () => {
         attrs: {
           rows: '10',
           className: 'profile-about-edit',
+        },
+      },
+      agent: {
+        attrs: {
+          className: 'profile-agent-edit',
+        },
+      },
+      phone: {
+        attrs: {
+          className: 'profile-phone-edit',
+        },
+      },
+      email: {
+        attrs: {
+          className: 'profile-email-edit',
+        },
+      },
+      website: {
+        attrs: {
+          className: 'profile-website-edit',
+        },
+      },
+      facebook: {
+        attrs: {
+          className: 'profile-facebook-edit',
+        },
+      },
+      twitter: {
+        attrs: {
+          className: 'profile-twitter-edit',
+        },
+      },
+      instagram: {
+        attrs: {
+          className: 'profile-instagram-edit',
+        },
+      },
+      googlePlus: {
+        attrs: {
+          className: 'profile-google-plus-edit',
         },
       },
     },
@@ -77,6 +124,14 @@ export const defaultFormOptions = () => {
 Profiles.publicFields = {
   name: 1,
   about: 1,
+  agent: 1,
+  phone: 1,
+  email: 1,
+  website: 1,
+  facebook: 1,
+  twitter: 1,
+  instagram: 1,
+  googlePlus: 1,
   roles: 1,
 };
 

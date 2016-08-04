@@ -51,7 +51,6 @@ export default class EventAdd extends React.Component {
 
   onChange(value, path) {
     // @TODO: Merge with EventEdit.jsx
-    console.log(path);
     if (path[0] == 'play' && path[1] == 'name') {
       const search = value.play.name;
       const resultsElement = $('.form-group-play-name').siblings('ul.event-play-edit-results');

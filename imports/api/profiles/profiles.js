@@ -42,7 +42,12 @@ export const profileSchema = t.struct({
   about: t.maybe(t.String),
   agent: t.maybe(t.String),
   phone: t.maybe(t.String),
-  // roles: t.maybe(t.list(t.String)),
+  email: t.maybe(t.String),
+  website: t.maybe(t.String),
+  facebook: t.maybe(t.String),
+  twitter: t.maybe(t.String),
+  instagram: t.maybe(t.String),
+  googlePlus: t.maybe(t.String),
 });
 
 export const defaultFormOptions = () => {
@@ -71,6 +76,36 @@ export const defaultFormOptions = () => {
           className: 'profile-phone-edit',
         },
       },
+      email: {
+        attrs: {
+          className: 'profile-email-edit',
+        },
+      },
+      website: {
+        attrs: {
+          className: 'profile-website-edit',
+        },
+      },
+      facebook: {
+        attrs: {
+          className: 'profile-facebook-edit',
+        },
+      },
+      twitter: {
+        attrs: {
+          className: 'profile-twitter-edit',
+        },
+      },
+      instagram: {
+        attrs: {
+          className: 'profile-instagram-edit',
+        },
+      },
+      googlePlus: {
+        attrs: {
+          className: 'profile-google-plus-edit',
+        },
+      },
     },
   };
 }
@@ -91,6 +126,12 @@ Profiles.publicFields = {
   about: 1,
   agent: 1,
   phone: 1,
+  email: 1,
+  website: 1,
+  facebook: 1,
+  twitter: 1,
+  instagram: 1,
+  googlePlus: 1,
   roles: 1,
 };
 

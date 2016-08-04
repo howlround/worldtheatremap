@@ -7,10 +7,10 @@ export default class FieldWrapper extends React.Component {
   }
 
   render() {
-    const { label, content } = this.props;
+    const { label, content, className } = this.props;
 
     return (
-      <div>
+      <div className={className}>
         <label>{ label } </label>{ content }
       </div>
     );
@@ -20,4 +20,5 @@ export default class FieldWrapper extends React.Component {
 FieldWrapper.propTypes = {
   label: React.PropTypes.string,
   content: React.PropTypes.string,
+  className: React.PropTypes.string,
 };

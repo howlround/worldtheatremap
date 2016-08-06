@@ -1,4 +1,11 @@
 .sidebar {
+  font-size: 14px;
+
+  label {
+    font-family: $oswald-font-stack;
+    color: $dark-gray;
+  }
+
   section {
     background-color: $white;
     border: solid 1px $dark-tan;

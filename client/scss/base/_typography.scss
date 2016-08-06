@@ -1,12 +1,25 @@
+body {
+  font-family: $base-font-stack;
+  font-style: 400;
+  color: $black;
+  font-size: 16px; //this sets the baseline so we can use multiples of 4 & (r)ems
+}
+
 h1 {
   font-size: 40px;
   text-transform: uppercase;
 }
 
 h2 {
+  font-family: $oswald-font-stack;
   color: $teal;
   text-transform: uppercase;
   font-size: 25px;
+}
+
+h3 {
+  font-weight: bold;
+  font-size: 19px;
 }
 
 a {
@@ -15,6 +28,6 @@ a {
 
   &:hover,
   &:focus {
-    color: $dark-gray;
+    color: $gray;
   }
 }

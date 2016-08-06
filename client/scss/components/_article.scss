@@ -17,6 +17,7 @@ article.full {
 
   .edit-link {
     display: block;
+    font-size: 13px;
 
     @include breakpoint($narrow) {
       position: absolute;

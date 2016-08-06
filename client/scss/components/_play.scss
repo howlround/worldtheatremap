@@ -4,7 +4,7 @@ article.play-teaser {
 
   h3.play-name {
     display: inline-block;
-    margin-right: $spacing-unit;
+    margin-right: 6px;
     margin-bottom: $spacing-unit / 2;
     margin-top: $spacing-unit / 2;
     font-weight: 700;
@@ -12,12 +12,12 @@ article.play-teaser {
 
   .play-authorship {
     display: inline-block;
-    color: $dark-gray;
+    color: $gray;
     margin-bottom: $spacing-unit / 2;
     margin-top: $spacing-unit / 2;
 
     a {
-      color: $dark-gray;
+      color: $gray;
 
       &:hover,
       &:focus {

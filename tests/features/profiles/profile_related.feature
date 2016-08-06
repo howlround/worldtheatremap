@@ -12,12 +12,12 @@ Feature: Related profiles on profile pages
     And I go to the "play" add page
     And I fill in ".play-name-edit" with "Sofia"
     And I fill in ".play-author-name-edit" with "My Favorite Playwright"
-    And I click on ".play-author-edit-results li"
+    And I click on ".autocomplete-results li"
     And I fill in ".play-about-edit" with "Most popular name in Italy"
     And I click on ".edit-play-save"
     And I go to the "event" add page
     And I fill in ".event-play-name-edit" with "Sofia"
-    And I click on ".event-play-edit-results li"
+    And I click on ".autocomplete-results li"
     And I select "Performance" from ".event-type-edit"
     And I fill in ".event-about-edit" with "A workshop on spelling"
     And I click on ".edit-event-save"
@@ -46,7 +46,7 @@ Feature: Related profiles on profile pages
     When I go to the profile page for "Il Regista"
     Then the ".related-profiles" element should contain "My Favorite Playwright"
 
-  Scenario: Update after deleting a participant from an event
-  Scenario: Being related by multiple events should make profiles more related
-  Scenario: After deleting one profile from an event it should not be related to the other profile any more
-  Scenario: If a profile is listed on an event twice and one of the roles is removed they should still be related to other profiles on the event
+  # Scenario: Update after deleting a participant from an event
+  # Scenario: Being related by multiple events should make profiles more related
+  # Scenario: After deleting one profile from an event it should not be related to the other profile any more
+  # Scenario: If a profile is listed on an event twice and one of the roles is removed they should still be related to other profiles on the event

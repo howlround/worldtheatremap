@@ -13,3 +13,6 @@ import './register-api.js';
 
 // Ensure indexes
 import './mongo-index.js';
+
+// Browser policy
+import './browser-policy.js';

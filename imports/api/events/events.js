@@ -68,10 +68,10 @@ export const eventSchema = t.struct({
 
 const relatedPlayLayout = (play) => {
   return (
-    <div className="play-fields-group">
+    <div className="play-fields-group autocomplete-group">
       {play.inputs.name}
       {play.inputs.id}
-      <ul className="event-play-edit-results"></ul>
+      <ul className="autocomplete-results"></ul>
     </div>
   );
 };
@@ -91,7 +91,8 @@ export const defaultFormOptions = () => {
             error: 'Primary authorship is required',
             attrs: {
               className: 'event-play-name-edit',
-              autocomplete: 'off'
+              autoComplete: 'off',
+              placeholder: 'Show name',
             }
           },
           id: {

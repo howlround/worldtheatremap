@@ -23,3 +23,30 @@ article.event {
     }
   }
 }
+
+section.play-events {
+  ul {
+    border-bottom: 1px solid $light-teal;
+    padding-top: $spacing-unit * 2;
+  }
+}
+
+article.event-teaser {
+  border-top: 1px solid $light-teal;
+  padding: ($spacing-unit * 2) 0;
+}
+
+ul.event-participant-list {
+  padding-top: $spacing-unit * 2;
+}
+
+.event-participant-list-item {
+  padding: $spacing-unit 0;
+
+  .event-participant-role {
+    text-transform: uppercase;
+    font-size: 13px;
+    color: $dark-gray;
+    margin-top: 6px;
+  }
+}

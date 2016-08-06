@@ -50,7 +50,7 @@ export default class PlayAdd extends React.Component {
     // @TODO: Merge with PlayEdit.jsx
     if (path[0] == 'author' && path[2] == 'name') {
       const search = value.author[path[1]].name;
-      const resultsElement = $('.form-group-author-' + path[1] + '-name').siblings('ul.play-author-edit-results');
+      const resultsElement = $('.form-group-author-' + path[1] + '-name').siblings('ul.autocomplete-results');
 
       // Search for profiles and save to ul.play-author-edit-result
       if (search.length > 0) {
@@ -83,7 +83,7 @@ export default class PlayAdd extends React.Component {
         }
       }
       else {
-        $('ul.play-author-edit-results').html('');
+        $('ul.autocomplete-results').html('');
       }
     }
   }
@@ -91,7 +91,7 @@ export default class PlayAdd extends React.Component {
   render() {
     const formOptions = defaultFormOptions();
     return (
-      <form className="play-edit-form" onSubmit={this.handleSubmit.bind(this)} autocomplete="off" >
+      <form className="play-edit-form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off" >
         <Form
           ref="form"
           type={playSchema}

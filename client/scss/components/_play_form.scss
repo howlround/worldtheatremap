@@ -17,16 +17,3 @@ button.edit-play-save {
     margin-bottom: 0;
   }
 }
-
-ul.play-author-edit-results {
-  li {
-    cursor: pointer;
-    padding: $spacing-unit;
-    line-height: 1em;
-    background-color: $dark-tan;
-
-    &:hover {
-      background-color: $gray;
-    }
-  }
-}

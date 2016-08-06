@@ -103,10 +103,10 @@ export const playSchema = t.struct({
 
 const authorLayout = (author) => {
   return (
-    <div className="author-fields-group">
+    <div className="author-fields-group autocomplete-group">
       {author.inputs.name}
       {author.inputs.id}
-      <ul className="play-author-edit-results"></ul>
+      <ul className="autocomplete-results"></ul>
     </div>
   );
 };
@@ -140,7 +140,7 @@ export const defaultFormOptions = () => {
               error: 'Primary authorship is required',
               attrs: {
                 className: 'play-author-name-edit',
-                autocomplete: 'off'
+                autoComplete: 'off'
               }
             },
             id: {

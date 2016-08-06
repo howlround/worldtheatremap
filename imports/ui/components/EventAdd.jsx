@@ -53,7 +53,7 @@ export default class EventAdd extends React.Component {
     // @TODO: Merge with EventEdit.jsx
     if (path[0] == 'play' && path[1] == 'name') {
       const search = value.play.name;
-      const resultsElement = $('.form-group-play-name').siblings('ul.event-play-edit-results');
+      const resultsElement = $('.form-group-play-name').siblings('ul.autocomplete-results');
 
       // Search for profiles and save to ul.event-play-edit-result
       if (search.length > 0) {
@@ -91,7 +91,7 @@ export default class EventAdd extends React.Component {
         }
       }
       else {
-        $('ul.event-play-edit-results').html('');
+        $('ul.autocomplete-results').html('');
       }
     }
   }
@@ -99,7 +99,7 @@ export default class EventAdd extends React.Component {
   render() {
     const formOptions = defaultFormOptions();
     return (
-      <form className="event-edit-form" onSubmit={this.handleSubmit.bind(this)} autocomplete="off" >
+      <form className="event-edit-form" onSubmit={this.handleSubmit.bind(this)} >
         <Form
           ref="form"
           type={eventSchema}

@@ -88,7 +88,7 @@ export const participantFormSchema = t.struct({
 
 const profileLayout = (profile) => {
   return (
-    <div className="profile-fields-group">
+    <div className="profile-fields-group autocomplete-group">
       {profile.inputs.name}
       {profile.inputs.id}
       <ul className="autocomplete-results"></ul>
@@ -120,7 +120,8 @@ export const defaultFormOptions = () => {
             error: 'Profile is required',
             attrs: {
               className: 'participant-profile-name-edit',
-              autocomplete: 'off'
+              autoComplete: 'off',
+              placeholder: 'Profile name',
             }
           },
           id: {

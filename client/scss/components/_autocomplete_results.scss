@@ -1,0 +1,20 @@
+ul.autocomplete-results {
+  li {
+    cursor: pointer;
+    padding: $spacing-unit;
+    line-height: 1em;
+    background-color: $dark-tan;
+
+    &:hover {
+      background-color: $gray;
+    }
+  }
+}
+
+.autocomplete-group {
+  margin-bottom: $spacing-unit * 2;
+
+  .form-group {
+    margin-bottom: 0;
+  }
+}

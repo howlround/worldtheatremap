@@ -48,6 +48,7 @@ export const profileSchema = t.struct({
   twitter: t.maybe(t.String),
   instagram: t.maybe(t.String),
   googlePlus: t.maybe(t.String),
+  foundingYear: t.maybe(t.String),
 });
 
 export const defaultFormOptions = () => {
@@ -106,6 +107,12 @@ export const defaultFormOptions = () => {
           className: 'profile-google-plus-edit',
         },
       },
+      foundingYear: {
+        attrs: {
+          className: 'profile-founding-year-edit',
+        },
+        help: 'If this profile is referencing an organization, what year was it founded?'
+      },
     },
   };
 }
@@ -132,6 +139,7 @@ Profiles.publicFields = {
   twitter: 1,
   instagram: 1,
   googlePlus: 1,
+  foundingYear: 1,
   roles: 1,
 };
 

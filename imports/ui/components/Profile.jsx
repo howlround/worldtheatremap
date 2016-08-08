@@ -60,10 +60,14 @@ export default class Profile extends React.Component {
 
     return (
       <article className="profile full">
-        <section className="profile-main-info">
+        <section>
           <h1 className="profile-name page-title">
             {profile.name}
           </h1>
+          <div className="profile-main-info">
+            { profile.foundingYear ?
+              <div className="profile-founding-year">Founded { profile.foundingYear }</div> : '' }
+          </div>
           {editLink}
         </section>
         { profile.about ?

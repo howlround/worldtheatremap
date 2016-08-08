@@ -27,6 +27,7 @@ Feature: Create organization profiles
     And I fill in ".profile-twitter-edit" with "@fatima"
     And I fill in ".profile-instagram-edit" with "fatima33"
     And I fill in ".profile-google-plus-edit" with "fatima33"
+    And I fill in ".profile-founding-year-edit" with "1979"
     And I click on ".edit-profile-save"
     Then the ".profile-name" element should contain "Fatima"
     And the ".profile-about" element should contain "Most popular name in Algeria (census, 2010)"
@@ -38,3 +39,4 @@ Feature: Create organization profiles
     And the ".profile-twitter" element should contain "@fatima"
     And the ".profile-instagram" element should contain "fatima33"
     And the ".profile-google-plus" element should contain "fatima33"
+    And the ".profile-founding-year" element should contain "1979"

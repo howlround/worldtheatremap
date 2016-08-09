@@ -58,15 +58,53 @@ export default class Profile extends React.Component {
       ));
     }
 
+    const interests = profile.interests.map((interest, index, array) => {
+      let seperator = ', ';
+      if (index == array.length - 1) {
+        seperator = '';
+      }
+      else if (index == array.length - 2) {
+        if (array.length > 2) {
+          seperator = ', and ';
+        }
+        else {
+          seperator = ' and ';
+        }
+      }
+      return <span key={interest}>{interest}{seperator}</span>
+    });
+
+    let orgTypes = profile.orgTypes.map((orgType, index, array) => {
+      let seperator = ', ';
+      if (index == array.length - 1) {
+        seperator = '';
+      }
+      else if (index == array.length - 2) {
+        if (array.length > 2) {
+          seperator = ', and ';
+        }
+        else {
+          seperator = ' and ';
+        }
+      }
+      return <span key={orgType}>{orgType}{seperator}</span>
+    });
+
     return (
       <article className="profile full">
         <section>
           <h1 className="profile-name page-title">
             {profile.name}
           </h1>
-          <div className="profile-main-info">
+          { typeof locationBlock != 'undefined' ?
+              <div className="profile-location">{ locationBlock }</div> : '' }
+          <div className="profile-metadata">
+            { profile.orgTypes ?
+              <div className="profile-organization-types">{ orgTypes }</div> : '' }
             { profile.foundingYear ?
               <div className="profile-founding-year">Founded { profile.foundingYear }</div> : '' }
+            { profile.interests ?
+              <div className="profile-interests">{ interests }</div> : '' }
           </div>
           {editLink}
         </section>

@@ -1,7 +1,7 @@
 import { Mongo } from 'meteor/mongo';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Factory } from 'meteor/factory';
-import t from 'tcomb-validation';
+import t from 'tcomb-form';
 import { Plays } from '../plays/plays.js';
 import { Participants } from '../participants/participants.js';
 import { RelatedRecords } from '../relatedRecords/relatedRecords.js';
@@ -37,6 +37,18 @@ Profiles.deny({
   remove() { return true; },
 });
 
+const Interests = t.enums({
+  "Musicals": "Musicals",
+  "New Work": "New Work",
+  "Latina/o": "Latina/o",
+});
+
+const OrgTypes = t.enums({
+  "Producing Organization": "Producing Organization",
+  "University": "University",
+  "Development": "Development",
+});
+
 export const profileSchema = t.struct({
   name: t.String,
   about: t.maybe(t.String),
@@ -49,6 +61,8 @@ export const profileSchema = t.struct({
   instagram: t.maybe(t.String),
   googlePlus: t.maybe(t.String),
   foundingYear: t.maybe(t.String),
+  interests: t.maybe(t.list(Interests)),
+  orgTypes: t.maybe(t.list(OrgTypes)),
 });
 
 export const defaultFormOptions = () => {
@@ -113,6 +127,18 @@ export const defaultFormOptions = () => {
         },
         help: 'If this profile is referencing an organization, what year was it founded?'
       },
+      interests: {
+        factory: t.form.Select,
+        attrs: {
+          className: 'profile-interests-edit',
+        },
+      },
+      orgTypes: {
+        factory: t.form.Select,
+        attrs: {
+          className: 'profile-organization-types-edit',
+        },
+      },
     },
   };
 }
@@ -140,6 +166,8 @@ Profiles.publicFields = {
   instagram: 1,
   googlePlus: 1,
   foundingYear: 1,
+  interests: 1,
+  orgTypes: 1,
   roles: 1,
 };
 

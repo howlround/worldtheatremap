@@ -5,7 +5,20 @@ section.profile-plays {
   }
 }
 
-.profile-main-info {
+h1.profile-name {
+  margin-bottom: $spacing-unit;
+}
+
+.profile-location {
+  margin-bottom: $spacing-unit * 2;
+}
+
+.profile-metadata {
   font-size: 13px;
   color: $medium-gray;
+
+  .profile-interests {
+    margin-top: $spacing-unit * 2;
+    color: $gray;
+  }
 }

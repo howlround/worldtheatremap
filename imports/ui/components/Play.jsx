@@ -44,7 +44,12 @@ export default class Play extends React.Component {
         seperator = '';
       }
       else if (index == array.length - 2) {
-        seperator = ' and ';
+        if (array.length > 2) {
+          seperator = ', and ';
+        }
+        else {
+          seperator = ' and ';
+        }
       }
       return <span key={author.id}><Link to={`/profiles/${ author.id }`} className="play-author">{author.name}</Link>{seperator}</span>
     });

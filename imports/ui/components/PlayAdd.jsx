@@ -4,6 +4,7 @@ import { _ } from 'meteor/underscore';
 import { displayError } from '../helpers/errors.js';
 import { insert } from '../../api/plays/methods.js';
 import { playSchema, defaultFormOptions } from '../../api/plays/plays.js';
+import { insert as insertProfile } from '../../api/profiles/methods.js';
 import { Profiles } from '../../api/profiles/profiles.js';
 import t from 'tcomb-form';
 
@@ -25,6 +26,16 @@ export default class PlayAdd extends React.Component {
       if (newPlay) {
         const newID = insert.call({
           newPlay,
+        }, displayError);
+
+        return newID;
+      }
+    }, 300);
+
+    this.throttledAddProfile = _.throttle(newProfile => {
+      if (newProfile) {
+        const newID = insertProfile.call({
+          newProfile,
         }, displayError);
 
         return newID;
@@ -80,6 +91,22 @@ export default class PlayAdd extends React.Component {
         }
         else {
           // @TODO: Add new profile workflow
+          resultsElement.append('<li>Add Profile for <b>' + search + '</b>?</li>').find('li:last-child').click(() => {
+            // Build a new profile object
+            const newProfile = {
+              name: search,
+            }
+            // Save profile to DB
+            const newProfileID = this.throttledAddProfile(newProfile);
+            // Save the new profile to the new play state
+            const newValue = value;
+            newValue.author[path[1]].name = search;
+            newValue.author[path[1]].id = newProfileID;
+            this.setState({play: newValue});
+
+            // Clear fields
+            resultsElement.html('');
+          });
         }
       }
       else {

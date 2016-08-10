@@ -58,7 +58,7 @@ export default class Profile extends React.Component {
       ));
     }
 
-    const interests = profile.interests.map((interest, index, array) => {
+    const interests = (profile.interests) ? profile.interests.map((interest, index, array) => {
       let seperator = ', ';
       if (index == array.length - 1) {
         seperator = '';
@@ -72,9 +72,9 @@ export default class Profile extends React.Component {
         }
       }
       return <span key={interest}>{interest}{seperator}</span>
-    });
+    }) : false;
 
-    let orgTypes = profile.orgTypes.map((orgType, index, array) => {
+    let orgTypes = (profile.orgTypes) ? profile.orgTypes.map((orgType, index, array) => {
       let seperator = ', ';
       if (index == array.length - 1) {
         seperator = '';
@@ -88,7 +88,7 @@ export default class Profile extends React.Component {
         }
       }
       return <span key={orgType}>{orgType}{seperator}</span>
-    });
+    }) : false;
 
     return (
       <article className="profile full">

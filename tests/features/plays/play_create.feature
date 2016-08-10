@@ -108,4 +108,4 @@ Feature: Create plays
     And I fill in ".form-group-author-2-name .play-author-name-edit" with "worst"
     And I click on "ul.autocomplete-results li"
     And I click on ".edit-play-save"
-    Then the ".play-authorship" element should contain "My Favorite Playwright, The second best playwright and The worst playwright"
+    Then the ".play-authorship" element should contain "My Favorite Playwright, The second best playwright, and The worst playwright"

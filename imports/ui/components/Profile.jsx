@@ -13,6 +13,7 @@ export default class Profile extends React.Component {
     this.state = {
       progress: 0,
       uploading: false,
+      newImageLoaded: false,
     };
 
     this.renderShowsByRoles = this.renderShowsByRoles.bind(this);
@@ -22,6 +23,9 @@ export default class Profile extends React.Component {
 
   onDrop(files) {
     const { profile } = this.props;
+
+    this.setState({ newImageLoaded: false});
+
     //Upload file using Slingshot Directive
     let uploader = new Slingshot.Upload( "myFileUploads");
 
@@ -31,7 +35,7 @@ export default class Profile extends React.Component {
       if ( error ) {
         this.setState({ progress: 0}); //reset progress state
       } else {
-        // @TODO: Save the image url string to the profile
+        // Save the image url string to the profile
         const newImage = {
           profileId: profile._id,
           image: url
@@ -39,6 +43,8 @@ export default class Profile extends React.Component {
         updateImage.call(
           newImage
         , displayError);
+
+        this.setState({ newImageLoaded: true});
       }
     });
 
@@ -67,20 +73,29 @@ export default class Profile extends React.Component {
   }
 
   renderPhotoAndUploader() {
-    const { progress, uploading } = this.state;
+    const { progress, uploading, newImageLoaded } = this.state;
     const { profile, user } = this.props;
 
-    return (
-      <div className="profile-image-wrapper">
-        <Dropzone onDrop={this.onDrop}>
-          { profile.image ?
-            <img className="profile-image" width="200px" height="200px" src={ profile.image } />
-            : <div>Try dropping some files here, or click to select files to upload.</div> }
-        </Dropzone>
-        { uploading ?
-          <div className="profile-image-uploading">Uploading: { progress }% Complete</div> : '' }
-      </div>
-    );
+    if (Meteor.user()) {
+      return (
+        <div className="profile-image-wrapper">
+          <Dropzone onDrop={this.onDrop}>
+            { profile.image ?
+              <img className="profile-image" width="200px" height="200px" src={ profile.image } />
+              : <div>Try dropping some files here, or click to select files to upload.</div> }
+          </Dropzone>
+          { uploading ?
+            <div className="profile-image-uploading">Uploading: { progress }% Complete</div> : '' }
+          { (uploading == false && progress == 100 && newImageLoaded == false) ?
+            <div className="profile-image-uploading">Almost done...</div> : '' }
+        </div>
+      );
+    }
+    else if (profile.image) {
+      return (
+        <img className="profile-image" width="200px" height="200px" src={ profile.image } />
+      );
+    }
   }
 
   render() {

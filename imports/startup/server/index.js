@@ -16,3 +16,6 @@ import './mongo-index.js';
 
 // Browser policy
 import './browser-policy.js';
+
+// Browser policy
+import './file-restrictions.js';

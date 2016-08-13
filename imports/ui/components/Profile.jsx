@@ -1,6 +1,8 @@
 import React from 'react';
+import Dropzone from 'react-dropzone';
 import { Link } from 'react-router';
-import { insert } from '../../api/profiles/methods.js';
+import { displayError } from '../helpers/errors.js';
+import { updateImage } from '../../api/profiles/methods.js';
 import PlayTeaser from '../components/PlayTeaser.jsx';
 import ShowsByRole from '../components/ShowsByRole.jsx';
 
@@ -8,20 +10,52 @@ export default class Profile extends React.Component {
   constructor(props) {
     super(props);
 
-    this.createNewProfile = this.createNewProfile.bind(this);
+    this.state = {
+      progress: 0,
+      uploading: false,
+    };
+
     this.renderShowsByRoles = this.renderShowsByRoles.bind(this);
+    this.renderPhotoAndUploader = this.renderPhotoAndUploader.bind(this);
+    this.onDrop = this.onDrop.bind(this);
   }
 
-  createNewProfile() {
-    const { router } = this.context;
-    const listId = insert.call((err) => {
-      if (err) {
-        router.push('/');
-        /* eslint-disable no-alert */
-        alert('Could not create list.');
+  onDrop(files) {
+    const { profile } = this.props;
+    //Upload file using Slingshot Directive
+    let uploader = new Slingshot.Upload( "myFileUploads");
+
+    uploader.send( files[0], ( error, url ) => {
+
+      computation.stop(); //Stop progress tracking on upload finish
+      if ( error ) {
+        this.setState({ progress: 0}); //reset progress state
+      } else {
+        // @TODO: Save the image url string to the profile
+        const newImage = {
+          profileId: profile._id,
+          image: url
+        }
+        updateImage.call(
+          newImage
+        , displayError);
       }
     });
-    router.push(`/profiles/${ listId }`);
+
+    //Track Progress
+    let computation = Tracker.autorun(() => {
+      if(!isNaN(uploader.progress())) {
+        const progressNumber = Math.floor(uploader.progress() * 100);
+        this.setState({ progress: progressNumber });
+
+        if (progressNumber > 0 && progressNumber < 100) {
+          this.setState({ uploading: true });
+        }
+        else {
+          this.setState({ uploading: false });
+        }
+      }
+    });
   }
 
   renderShowsByRoles() {
@@ -29,6 +63,23 @@ export default class Profile extends React.Component {
 
     return (
       roles.map(role => <ShowsByRole key={role} role={role} profile={profile} />)
+    );
+  }
+
+  renderPhotoAndUploader() {
+    const { progress, uploading } = this.state;
+    const { profile, user } = this.props;
+
+    return (
+      <div className="profile-image-wrapper">
+        <Dropzone onDrop={this.onDrop}>
+          { profile.image ?
+            <img className="profile-image" width="200px" height="200px" src={ profile.image } />
+            : <div>Try dropping some files here, or click to select files to upload.</div> }
+        </Dropzone>
+        { uploading ?
+          <div className="profile-image-uploading">Uploading: { progress }% Complete</div> : '' }
+      </div>
     );
   }
 
@@ -93,6 +144,8 @@ export default class Profile extends React.Component {
     return (
       <article className="profile full">
         <section>
+
+          { this.renderPhotoAndUploader() }
           <h1 className="profile-name page-title">
             {profile.name}
           </h1>

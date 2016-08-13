@@ -71,22 +71,22 @@ export const insert = new ValidatedMethod({
   },
 });
 
-// export const updateRoles = new ValidatedMethod({
-//   name: 'profiles.updateRoles',
-//   validate: new SimpleSchema({
-//     profileId: { type: String },
-//     role: { type: String },
-//   }).validator(),
-//   run({ profileId, role }) {
-//     const profile = Profiles.findOne(profileId);
+export const updateImage = new ValidatedMethod({
+  name: 'profiles.updateImage',
+  validate: new SimpleSchema({
+    profileId: { type: String },
+    image: { type: String },
+  }).validator(),
+  run({ profileId, image }) {
+    const profile = Profiles.findOne(profileId);
 
-//     Profiles.update(profile._id, {
-//       $push: {
-//         roles: role
-//       },
-//     });
-//   },
-// });
+    Profiles.update(profile._id, {
+      $set: {
+        image: image,
+      },
+    });
+  },
+});
 
 export const update = new ValidatedMethod({
   name: 'profiles.update',

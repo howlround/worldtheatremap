@@ -76,6 +76,11 @@ module.exports = function() {
     browser.setValue(element, text);
   });
 
+  this.When(/^I choose the "([^"]*)" file for the "([^"]*)" field$/, function (fileName, fieldInput) {
+    browser.waitForExist(fieldInput, 2000);
+    client.chooseFile(fieldInput, process.cwd() + '/tests/files/' + fileName);
+  });
+
   this.When(/^I press "([^"]*)"$/, function (element) {
     browser.waitForExist(element);
     browser.click(element);
@@ -85,8 +90,16 @@ module.exports = function() {
     expect(browser.waitForExist(element, 2000));
   });
 
+  this.Then(/^I should wait and see the "([^"]*)" element$/, function (element) {
+    expect(browser.waitForExist(element, 10000));
+  });
+
   this.Then(/^I should not see "([^"]*)"$/, function (element) {
     expect(browser.isExisting(element)).toBe(false);
+  });
+
+  this.Then(/^I should wait until "([^"]*)" is not visible$/, function (element) {
+    client.waitForVisible(element, 20000, true);
   });
 
   this.When(/^I go to the profile page for "([^"]*)"$/, function (name, callback) {
@@ -147,6 +160,13 @@ module.exports = function() {
     const processedText = RegExp(RegExp.escape(text), 'i');
 
     expect(browser.getText(element)).not.toMatch(processedText);
+  });
+
+  this.Then(/^the "([^"]*)" element should contain the image "([^"]*)"$/, function (element, filename) {
+    browser.waitForExist(element, 10000);
+
+    const processedText = RegExp(RegExp.escape(filename), 'i');
+    expect(client.getAttribute(element, "src")).toMatch(processedText);
   });
 
   this.Given(/^a profile with the following fields:$/, function (table) {

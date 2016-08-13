@@ -44,3 +44,14 @@ Feature: Create organization profiles
     And the ".profile-founding-year" element should contain "1979"
     And the ".profile-interests" element should contain "Musicals"
     And the ".profile-organization-types" element should contain "Producing Organization"
+
+  @chromeOnly
+  Scenario: Users should be able to upload an image to their profile
+    And I am logged in
+    And a profile with the following fields:
+      | name | Photogenic playwright |
+    When I go to the profile page for "Photogenic playwright"
+    And I choose the "sharks_med.jpg" file for the ".profile-image-wrapper input" field
+    And I should wait and see the ".profile-image-uploading" element
+    And I should wait until ".profile-image-uploading" is not visible
+    Then the ".profile-image" element should contain the image "sharks_med.jpg"

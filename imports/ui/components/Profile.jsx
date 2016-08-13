@@ -80,8 +80,8 @@ export default class Profile extends React.Component {
       return (
         <div className="profile-image-wrapper">
           <Dropzone onDrop={this.onDrop}>
-            { profile.image ?
-              <img className="profile-image" width="200px" height="200px" src={ profile.image } />
+            { profile.imageWide ?
+              <img className="profile-image" width="200px" height="200px" src={ profile.imageWide } />
               : <div>Try dropping some files here, or click to select files to upload.</div> }
           </Dropzone>
           { uploading ?
@@ -91,9 +91,9 @@ export default class Profile extends React.Component {
         </div>
       );
     }
-    else if (profile.image) {
+    else if (profile.imageWide) {
       return (
-        <img className="profile-image" width="200px" height="200px" src={ profile.image } />
+        <img className="profile-image" width="200px" height="200px" src={ profile.imageWide } />
       );
     }
   }

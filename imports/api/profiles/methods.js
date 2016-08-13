@@ -79,10 +79,12 @@ export const updateImage = new ValidatedMethod({
   }).validator(),
   run({ profileId, image }) {
     const profile = Profiles.findOne(profileId);
+    const imageWide = image.replace('https://wtm-dev-images', 'https://wtm-dev-images-resized');
 
     Profiles.update(profile._id, {
       $set: {
-        image: image,
+        image,
+        imageWide,
       },
     });
   },

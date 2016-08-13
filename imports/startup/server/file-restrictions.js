@@ -1,11 +1,11 @@
 Meteor.startup( () => {
   Slingshot.fileRestrictions("myFileUploads", {
-    allowedFileTypes: ["image/png", "image/jpeg", "image/gif"],
+    allowedFileTypes: ["image/png", "image/jpeg", "image/jpg", "image/gif"],
     maxSize: 10 * 1024 * 1024 // 10 MB (use null for unlimited).
   });
 
   Slingshot.createDirective("myFileUploads", Slingshot.S3Storage, {
-    bucket: "wtmstagingimages",
+    bucket: "wtm-dev-images",
 
     acl: "public-read",
 

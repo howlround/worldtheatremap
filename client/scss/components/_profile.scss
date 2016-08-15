@@ -13,6 +13,7 @@ section.profile-plays {
 
 h1.profile-name {
   margin-bottom: $spacing-unit;
+  word-break: break-word;
 }
 
 .profile-location {
@@ -30,14 +31,22 @@ h1.profile-name {
 }
 
 .profile-content-wrapper {
-  @include breakpoint($narrow) {
+  float: left;
+  width: 100%;
+
+  @include breakpoint($normal) {
     float: left;
+    width: 603px - 30px - 30px - 200px - 2px - ($spacing-unit * 2);
+  }
+
+  @include breakpoint($wide) {
+    width: 750px - 30px - 30px - 200px - 2px - ($spacing-unit * 2);
   }
 }
 
 .profile-image-wrapper {
   float: left;
-  margin-right: $spacing-unit;
+  margin-right: $spacing-unit * 2;
   width: 200px;
 }
 

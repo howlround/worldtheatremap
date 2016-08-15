@@ -38,16 +38,22 @@ export default class Profile extends React.Component {
         this.setState({ progress: 0}); //reset progress state
         this.setState({ uploadError: true });
       } else {
-        // Save the image url string to the profile
-        const newImage = {
-          profileId: profile._id,
-          image: url
-        }
-        updateImage.call(
-          newImage
-        , displayError);
+        // Wait one second to give the Lambda script time to resize
+        setTimeout(() => {
+          // Save the image url string to the profile
+          const newImage = {
+            profileId: profile._id,
+            image: url
+          }
+          updateImage.call(
+            newImage
+          , displayError);
 
-        this.setState({ newImageLoaded: true});
+          setTimeout(() => {
+            // Wait another second before removing the message
+            this.setState({ newImageLoaded: true});
+          }, 2000);
+        }, 1000);
       }
     });
 

@@ -1,6 +1,5 @@
 node_modules/
-settings.json
-settings-dev.json
+settings-wtm*.json
 
 # Debug files
 .screenshots/

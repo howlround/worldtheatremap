@@ -29,7 +29,7 @@ Feature: Participant listing on event pages
     And I click on ".event-name a"
     Then I should not see ".participant-profile-name-edit"
 
-  Scenario: Users should be see all events associated with an play
+  Scenario: Users should be see all participants associated with an event
     And a profile with the following fields:
       | name | Il Regista |
     And I go to the play page for "Sofia"

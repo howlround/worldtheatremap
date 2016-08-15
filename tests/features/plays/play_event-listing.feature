@@ -7,7 +7,7 @@ Feature: Events listing on play pages
   Background:
     Given I am on the home page
 
-  Scenario: Users should be see all events associated with an play
+  Scenario: Users should be see all events associated with a play
     And a profile with the following fields:
       | name | My Favorite Playwright |
     And I am logged in

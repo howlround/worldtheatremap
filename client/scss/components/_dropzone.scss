@@ -1,0 +1,54 @@
+.dropzone-target {
+  width: 200px;
+  height: 200px;
+  position: relative;
+
+  &:hover,
+  &.dropzone-target-active {
+    cursor: pointer;
+  }
+
+  &.empty-image {
+    border: 1px dashed $red;
+
+    &:hover,
+    &.dropzone-target-active {
+      border-style: solid;
+      border-color: $gray;
+      cursor: pointer;
+
+      .dropzone-help-text {
+        color: $gray;
+      }
+    }
+  }
+
+  &.existing-image {
+    &:hover,
+    &.dropzone-target-active {
+      .dropzone-help-text {
+        display: block;
+      }
+    }
+
+    .dropzone-help-text {
+      display: none;
+      text-align: right;
+      font-weight: bold;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      font-size: .75em;
+      margin: 0;
+      padding: $spacing-unit;
+      background-color: $background-red;
+      opacity: 0.75;
+    }
+  }
+}
+
+.dropzone-help-text {
+  margin: $spacing-unit * 2;
+  text-align: center;
+  color: $red;
+}

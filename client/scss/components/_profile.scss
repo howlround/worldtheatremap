@@ -1,3 +1,9 @@
+article.profile {
+  section {
+    overflow: auto;
+  }
+}
+
 section.profile-plays {
   ul {
     border-bottom: 1px solid $light-teal;
@@ -20,5 +26,27 @@ h1.profile-name {
   .profile-interests {
     margin-top: $spacing-unit * 2;
     color: $gray;
+  }
+}
+
+.profile-content-wrapper {
+  @include breakpoint($narrow) {
+    float: left;
+  }
+}
+
+.profile-image-wrapper {
+  float: left;
+  margin-right: $spacing-unit;
+  width: 200px;
+}
+
+.profile-image-uploading {
+  @include title-caps;
+
+  font-size: .625em; // 10px
+
+  &.error {
+    color: $light-red;
   }
 }

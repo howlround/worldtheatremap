@@ -1,5 +1,6 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
+import classNames from 'classnames';
 import { Link } from 'react-router';
 import { displayError } from '../helpers/errors.js';
 import { updateImage } from '../../api/profiles/methods.js';
@@ -13,6 +14,7 @@ export default class Profile extends React.Component {
     this.state = {
       progress: 0,
       uploading: false,
+      uploadError: false,
       newImageLoaded: false,
     };
 
@@ -34,6 +36,7 @@ export default class Profile extends React.Component {
       computation.stop(); //Stop progress tracking on upload finish
       if ( error ) {
         this.setState({ progress: 0}); //reset progress state
+        this.setState({ uploadError: true });
       } else {
         // Save the image url string to the profile
         const newImage = {
@@ -73,27 +76,37 @@ export default class Profile extends React.Component {
   }
 
   renderPhotoAndUploader() {
-    const { progress, uploading, newImageLoaded } = this.state;
+    const { progress, uploading, newImageLoaded, uploadError } = this.state;
     const { profile, user } = this.props;
+    const DropzoneStyleOverride = {};
+    const targetClasses = classNames('dropzone-target', {
+      'existing-image': profile.imageWide,
+      'empty-image': !profile.imageWide
+    });
 
     if (Meteor.user()) {
       return (
         <div className="profile-image-wrapper">
-          <Dropzone onDrop={this.onDrop}>
+          <Dropzone onDrop={this.onDrop} style={DropzoneStyleOverride} className={targetClasses} activeClassName="dropzone-target-active">
             { profile.imageWide ?
               <img className="profile-image" width="200px" height="200px" src={ profile.imageWide } />
-              : <div>Try dropping some files here, or click to select files to upload.</div> }
+              : '' }
+            <div className="dropzone-help-text">To upload a new photo click or drag a photo here.</div>
           </Dropzone>
           { uploading ?
-            <div className="profile-image-uploading">Uploading: { progress }% Complete</div> : '' }
-          { (uploading == false && progress == 100 && newImageLoaded == false) ?
+            <div className="profile-image-uploading">Uploading: { progress }%</div> : '' }
+          { (uploading == false && progress == 100 && newImageLoaded == false && uploadError == false) ?
             <div className="profile-image-uploading">Almost done...</div> : '' }
+          { (uploadError == true) ?
+            <div className="profile-image-uploading error">There was an error, please try again</div> : '' }
         </div>
       );
     }
     else if (profile.imageWide) {
       return (
-        <img className="profile-image" width="200px" height="200px" src={ profile.imageWide } />
+        <div className="profile-image-wrapper">
+          <img className="profile-image" width="200px" height="200px" src={ profile.imageWide } />
+        </div>
       );
     }
   }
@@ -161,18 +174,20 @@ export default class Profile extends React.Component {
         <section>
 
           { this.renderPhotoAndUploader() }
-          <h1 className="profile-name page-title">
-            {profile.name}
-          </h1>
-          { typeof locationBlock != 'undefined' ?
-              <div className="profile-location">{ locationBlock }</div> : '' }
-          <div className="profile-metadata">
-            { profile.orgTypes ?
-              <div className="profile-organization-types">{ orgTypes }</div> : '' }
-            { profile.foundingYear ?
-              <div className="profile-founding-year">Founded { profile.foundingYear }</div> : '' }
-            { profile.interests ?
-              <div className="profile-interests">{ interests }</div> : '' }
+          <div className="profile-content-wrapper">
+            <h1 className="profile-name page-title">
+              {profile.name}
+            </h1>
+            { typeof locationBlock != 'undefined' ?
+                <div className="profile-location">{ locationBlock }</div> : '' }
+            <div className="profile-metadata">
+              { profile.orgTypes ?
+                <div className="profile-organization-types">{ orgTypes }</div> : '' }
+              { profile.foundingYear ?
+                <div className="profile-founding-year">Founded { profile.foundingYear }</div> : '' }
+              { profile.interests ?
+                <div className="profile-interests">{ interests }</div> : '' }
+            </div>
           </div>
           {editLink}
         </section>

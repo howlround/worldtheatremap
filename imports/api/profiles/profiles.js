@@ -139,8 +139,6 @@ const OrgTypes = t.enums({
 export const profileSchema = t.struct({
   name: t.String,
   about: t.maybe(t.String),
-  image: t.maybe(t.String),
-  imageWide: t.maybe(t.String),
   agent: t.maybe(t.String),
   phone: t.maybe(t.String),
   email: t.maybe(t.String),
@@ -169,12 +167,6 @@ export const defaultFormOptions = () => {
           rows: '10',
           className: 'profile-about-edit',
         },
-      },
-      image: {
-        attrs: {
-          className: 'profile-image-path-edit',
-        },
-        error: 'something went wrong',
       },
       agent: {
         attrs: {

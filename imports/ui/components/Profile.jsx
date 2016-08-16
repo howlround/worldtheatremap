@@ -175,6 +175,12 @@ export default class Profile extends React.Component {
       return <span key={orgType}>{orgType}{seperator}</span>
     }) : false;
 
+    const location = [profile.locality, profile.administrativeArea].filter(function (val) {return val;}).join(', ');
+    const locationBlock = <div className="profile-location">
+      { location ? <div>{ location }</div> : '' }
+      { profile.country ? <div className="profile-country">{ profile.country }</div> : '' }
+    </div>
+
     return (
       <article className="profile full">
         <section>

@@ -9,16 +9,8 @@ import { RelatedRecords } from '../relatedRecords/relatedRecords.js';
 class ProfilesCollection extends Mongo.Collection {
   insert(profile, callback) {
     const ourProfile = profile;
-    if (!ourProfile.name) {
-      let nextLetter = 'A';
-      ourProfile.name = `Profile ${nextLetter}`;
-
-      while (!!this.findOne({ name: ourProfile.name })) {
-        // not going to be too smart here, can go past Z
-        nextLetter = String.fromCharCode(nextLetter.charCodeAt(0) + 1);
-        ourProfile.name = `Profile ${nextLetter}`;
-      }
-    }
+    // Do any preprocessing here
+    // @TODO: Strip out null values and empty objects?
 
     return super.insert(ourProfile, callback);
   }
@@ -139,6 +131,10 @@ const OrgTypes = t.enums({
 export const profileSchema = t.struct({
   name: t.String,
   about: t.maybe(t.String),
+  locality: t.maybe(t.String), // City
+  administrativeArea: t.maybe(t.String), // Province, Region, State
+  country: t.maybe(t.String),
+  postalCode: t.maybe(t.String),
   agent: t.maybe(t.String),
   phone: t.maybe(t.String),
   email: t.maybe(t.String),
@@ -150,12 +146,14 @@ export const profileSchema = t.struct({
   foundingYear: t.maybe(t.String),
   interests: t.maybe(t.list(Interests)),
   orgTypes: t.maybe(t.list(OrgTypes)),
+  country: t.maybe(t.String),
 });
 
 export const defaultFormOptions = () => {
   return {
     fields: {
       name: {
+        label: 'Profile name (required)',
         attrs: {
           className: 'profile-name-edit',
         },
@@ -166,6 +164,28 @@ export const defaultFormOptions = () => {
         attrs: {
           rows: '10',
           className: 'profile-about-edit',
+        },
+      },
+      locality: {
+        label: 'City (optional)',
+        attrs: {
+          className: 'profile-locality-edit',
+        },
+      },
+      administrativeArea: {
+        label: 'Province, Region, or State (optional)',
+        attrs: {
+          className: 'profile-administrative-area-edit',
+        },
+      },
+      country: {
+        attrs: {
+          className: 'profile-country-edit',
+        },
+      },
+      postalCode: {
+        attrs: {
+          className: 'profile-postal-code-edit',
         },
       },
       agent: {
@@ -245,6 +265,9 @@ Profiles.publicFields = {
   name: 1,
   about: 1,
   image: 1,
+  locality: 1,
+  administrativeArea: 1,
+  country: 1,
   imageWide: 1,
   agent: 1,
   phone: 1,

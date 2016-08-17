@@ -92,7 +92,7 @@ export default class ProfilePage extends React.Component {
       };
 
       queue()
-        .defer(json, "http://localhost:3000/world-110m.json")
+        .defer(json, "/world-110m.json")
         .await(globeReady);
 
       function globeReady(error, world) {

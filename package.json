@@ -16,6 +16,8 @@
   "dependencies": {
     "autoprefixer": "^6.3.1",
     "classnames": "^2.2.3",
+    "d3": "^4.2.2",
+    "d3-queue": "^3.0.2",
     "faker": "^3.0.1",
     "react": "^15.0.0",
     "react-addons-css-transition-group": "^15.0.0",
@@ -25,7 +27,8 @@
     "react-dropzone": "^3.5.3",
     "react-router": "^2.0.0",
     "tcomb-form": "^0.9.3",
-    "tcomb-validation": "^3.0.0"
+    "tcomb-validation": "^3.0.0",
+    "topojson": "^1.6.26"
   },
   "devDependencies": {
     "breakpoint-sass": "^2.7.0",

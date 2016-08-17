@@ -30,8 +30,7 @@ Feature: Create events
     And I click on ".autocomplete-results li"
     And I fill in ".play-about-edit" with "Most popular name in Italy"
     And I click on ".edit-play-save"
-    And I hover over ".add"
-    When I click on ".add-event"
+    When I go to the "event" add page
     And I fill in ".event-play-name-edit" with "Sofia"
     And I click on ".autocomplete-results li"
     And I select "Performance" from ".event-type-edit"

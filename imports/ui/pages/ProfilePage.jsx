@@ -1,7 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
-// import ListHeader from '../components/ListHeader.jsx';
-// import PlayTeaser from '../components/PlayTeaser.jsx';
+import { select, queue, json } from 'd3';
+import topojson from 'topojson';
+import { geoOrthographic, geoGraticule, geoPath, geoCentroid, geoInterpolate } from 'd3-geo';
 import Profile from '../components/Profile.jsx';
 import ProfileEdit from '../components/ProfileEdit.jsx';
 import ProfileContact from '../components/ProfileContact.jsx';
@@ -19,6 +20,7 @@ export default class ProfilePage extends React.Component {
     };
     this.onEditingChange = this.onEditingChange.bind(this);
     this.renderRelatedProfiles = this.renderRelatedProfiles.bind(this);
+    this.initializeD3Globe = this.initializeD3Globe.bind(this);
   }
 
   onEditingChange(id, editing) {
@@ -39,6 +41,138 @@ export default class ProfilePage extends React.Component {
     });
 
     return <ul className="related-profiles">{relatedProfiles}</ul>;
+  }
+
+  componentDidMount() {
+    this.initializeD3Globe();
+  }
+
+  componentDidUpdate() {
+    this.initializeD3Globe();
+  }
+
+  initializeD3Globe() {
+    const { profile, editing } = this.props;
+    /* d3 setup */
+    // Original example: https://bl.ocks.org/mbostock/4183330
+    if (!editing && profile.lat && profile.lon) {
+      const containerWidth = 200;
+      const conatinerHeight = 200;
+      const diameter = 196;
+
+      const projection = geoOrthographic()
+        .translate([diameter / 2 + 2, diameter / 2 + 2])
+        .scale(diameter / 2)
+        .clipAngle(90)
+        .precision(0.6);
+
+      const graticule = geoGraticule();
+
+      $('#canvas').remove();
+      const canvas = select("#globe").append("canvas").attr('id', 'canvas')
+        .attr("width", containerWidth)
+        .attr("height", conatinerHeight);
+
+      let c = canvas.node().getContext("2d");
+
+      let path = geoPath()
+        .projection(projection)
+        .context(c);
+
+      const profileLocation = {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            profile.lon,
+            profile.lat
+          ]
+        }
+      };
+
+      queue()
+        .defer(json, "http://localhost:3000/world-110m.json")
+        .await(globeReady);
+
+      function globeReady(error, world) {
+        if (error) {
+          return;
+        }
+
+        const globe = {type: "Sphere"};
+        const grid = graticule();
+        const land = topojson.feature(world, world.objects.land);
+        var borders = topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; });
+
+        // Set rotation
+        const p = geoCentroid(profileLocation);
+        const r = geoInterpolate(projection.rotate(), [-p[0]-15, -p[1]+30]);
+
+        projection.rotate(r(1)).clipAngle(90);
+        c.clearRect(0, 0, containerWidth, conatinerHeight);
+
+        // Globe background
+        c.fillStyle = "#fff8f5";
+        c.beginPath();
+        path(globe);
+        c.fill();
+
+        // Background Continents
+        projection.clipAngle(180);
+        c.fillStyle = "#77d0c9";
+        c.strokeStyle = "#77d0c9";
+        c.lineWidth = .5;
+        c.beginPath();
+        path(land);
+        c.stroke();
+        c.fill();
+
+        // Background Grid
+        projection.clipAngle(180);
+        // c.strokeStyle = "#deffff";
+        c.strokeStyle = "#68d3c84";
+        c.lineWidth = .25;
+        c.beginPath();
+        path(grid);
+        c.stroke();
+
+        // Foreground Grid
+        projection.clipAngle(90);
+        // c.strokeStyle = "#ffffff";
+        c.strokeStyle = "#68d3c8";
+        c.lineWidth = 0.75;
+        c.beginPath();
+        path(grid);
+        c.stroke();
+
+        // Continents
+        projection.clipAngle(90);
+        c.fillStyle = "#50b2aa";
+        c.beginPath();
+        path(land);
+        c.fill();
+
+        // Foreground borders
+        c.strokeStyle = "#50b2aa";
+        c.lineWidth = .5;
+        c.beginPath();
+        path(borders);
+        c.stroke();
+
+        // Dot
+        c.fillStyle = "#ef4606";
+        c.beginPath();
+        path(profileLocation);
+        c.fill();
+
+        // Globe outline
+        c.strokeStyle = "#20A09";
+        c.lineWidth = 2;
+        c.beginPath();
+        path(globe);
+        c.stroke();
+      }
+    }
   }
 
   render() {
@@ -101,6 +235,12 @@ export default class ProfilePage extends React.Component {
             onEditingChange={this.onEditingChange}
           />
           <aside className="sidebar">
+            { (profile.lat && profile.lon) ?
+              <section className="profile-globe">
+                <h2>Location</h2>
+                <div id="globe"></div>
+              </section> : ''
+            }
             <ProfileContact profile={profile} />
             { connections.length > 0 ?
               <section>

@@ -47,7 +47,8 @@ export default class ProfilePage extends React.Component {
     this.initializeD3Globe();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.profile.lat && prevProps.profile.lon && (prevProps.profile.lat !== this.props.profile.lat || prevProps.profile.lon !== this.props.profile.lon))
     this.initializeD3Globe();
   }
 

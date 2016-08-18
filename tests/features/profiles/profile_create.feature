@@ -53,5 +53,5 @@ Feature: Create organization profiles
     When I go to the profile page for "Photogenic playwright"
     And I choose the "sharks_med.jpg" file for the ".profile-image-wrapper input" field
     And I should wait and see the ".profile-image-uploading" element
-    And I should wait until ".profile-image-uploading" is not visible
+    And I should wait extra long until ".profile-image-uploading" is not visible
     Then the ".profile-image" element should contain the image "sharks_med.jpg"

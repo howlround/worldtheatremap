@@ -98,8 +98,8 @@ module.exports = function() {
     expect(browser.isExisting(element)).toBe(false);
   });
 
-  this.Then(/^I should wait until "([^"]*)" is not visible$/, function (element) {
-    client.waitForVisible(element, 20000, true);
+  this.Then(/^I should wait extra long until "([^"]*)" is not visible$/, function (element) {
+    client.waitForVisible(element, 40000, true);
   });
 
   this.When(/^I go to the profile page for "([^"]*)"$/, function (name, callback) {
@@ -163,7 +163,7 @@ module.exports = function() {
   });
 
   this.Then(/^the "([^"]*)" element should contain the image "([^"]*)"$/, function (element, filename) {
-    browser.waitForExist(element, 10000);
+    browser.waitForExist(element, 20000);
 
     const processedText = RegExp(RegExp.escape(filename), 'i');
     expect(client.getAttribute(element, "src")).toMatch(processedText);

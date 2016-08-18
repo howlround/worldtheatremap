@@ -16,11 +16,59 @@ export default class Profile extends React.Component {
       uploading: false,
       uploadError: false,
       newImageLoaded: false,
+      uploadAttempts: 0,
     };
 
     this.renderShowsByRoles = this.renderShowsByRoles.bind(this);
     this.renderPhotoAndUploader = this.renderPhotoAndUploader.bind(this);
+    this.checkResizedImage = this.checkResizedImage.bind(this);
     this.onDrop = this.onDrop.bind(this);
+  }
+
+  checkResizedImage(src) {
+    const { profile } = this.props;
+    const { uploadAttempts } = this.state;
+
+    const originalSrc = src;
+    const resizedImageSrc = src.replace('https://wtm-dev-images', 'https://wtm-dev-images-resized');
+
+    const cycleTime = 1000;
+
+    let img = new Image();
+    img.onload = function() {
+      // code to set the src on success
+      const newImage = {
+        profileId: profile._id,
+        image: originalSrc
+      }
+      updateImage.call(
+        newImage
+      , displayError);
+
+      // Reset the upload counter in case the user tries again
+      this.setState({ uploadAttempts: 0 });
+
+      // Remove the Almost done... message
+      this.setState({ newImageLoaded: true});
+    };
+
+    img.onload = img.onload.bind(this);
+    img.onerror = function() {
+      const nextAttempt = uploadAttempts + 1;
+      this.setState({ uploadAttempts: nextAttempt });
+      // doesn't exist or error loading
+      if (uploadAttempts < 10) {
+        setTimeout(() => {
+          this.checkResizedImage(originalSrc);
+        }, cycleTime, originalSrc);
+      }
+      else {
+        this.setState({ uploadError: true });
+      }
+    };
+    img.onerror = img.onerror.bind(this);
+
+    img.src = resizedImageSrc; // fires off loading of image
   }
 
   onDrop(files) {
@@ -38,22 +86,8 @@ export default class Profile extends React.Component {
         this.setState({ progress: 0}); //reset progress state
         this.setState({ uploadError: true });
       } else {
-        // Wait one second to give the Lambda script time to resize
-        setTimeout(() => {
-          // Save the image url string to the profile
-          const newImage = {
-            profileId: profile._id,
-            image: url
-          }
-          updateImage.call(
-            newImage
-          , displayError);
-
-          setTimeout(() => {
-            // Wait another second before removing the message
-            this.setState({ newImageLoaded: true});
-          }, 2000);
-        }, 1000);
+        // Wait until the Lambda script has finished resizing
+        this.checkResizedImage(url);
       }
     });
 

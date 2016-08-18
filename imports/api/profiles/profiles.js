@@ -141,10 +141,7 @@ export const profileSchema = t.struct({
   phone: t.maybe(t.String),
   email: t.maybe(t.String),
   website: t.maybe(t.String),
-  facebook: t.maybe(t.String),
-  twitter: t.maybe(t.String),
-  instagram: t.maybe(t.String),
-  googlePlus: t.maybe(t.String),
+  social: t.maybe(t.String),
   foundingYear: t.maybe(t.String),
   interests: t.maybe(t.list(Interests)),
   orgTypes: t.maybe(t.list(OrgTypes)),
@@ -210,25 +207,13 @@ export const defaultFormOptions = () => {
           className: 'profile-website-edit',
         },
       },
-      facebook: {
+      social: {
+        type: 'textarea',
         attrs: {
-          className: 'profile-facebook-edit',
+          rows: '10',
+          className: 'profile-social-edit',
         },
-      },
-      twitter: {
-        attrs: {
-          className: 'profile-twitter-edit',
-        },
-      },
-      instagram: {
-        attrs: {
-          className: 'profile-instagram-edit',
-        },
-      },
-      googlePlus: {
-        attrs: {
-          className: 'profile-google-plus-edit',
-        },
+        help: 'Add a label and a link. Put each link on a new line. For example: Facebook: https://www.facebook.com/myprofile',
       },
       foundingYear: {
         attrs: {
@@ -277,10 +262,7 @@ Profiles.publicFields = {
   phone: 1,
   email: 1,
   website: 1,
-  facebook: 1,
-  twitter: 1,
-  instagram: 1,
-  googlePlus: 1,
+  social: 1,
   foundingYear: 1,
   interests: 1,
   orgTypes: 1,

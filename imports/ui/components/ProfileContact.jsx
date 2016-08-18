@@ -20,14 +20,7 @@ export default class ProfileContact extends React.Component {
       profileContactArray.push(profile.website);
     }
 
-    if (profile.facebook || profile.twitter || profile.instagram || profile.googlePlus) {
-      profileSocialArray.push(profile.facebook);
-      profileSocialArray.push(profile.twitter);
-      profileSocialArray.push(profile.instagram);
-      profileSocialArray.push(profile.googlePlus);
-    }
-
-    if (profileContactArray.length > 0 || profileSocialArray.length > 0) {
+    if (profileContactArray.length > 0 || profile.social) {
       return (
         <section>
           <h2>Contact Info</h2>
@@ -39,10 +32,7 @@ export default class ProfileContact extends React.Component {
           </div>
 
           <div className="content">
-            { profile.facebook ? <FieldWrapper label={`Facebook`} content={profile.facebook} className={`profile-facebook`} /> : '' }
-            { profile.twitter ? <FieldWrapper label={`Twitter`} content={profile.twitter} className={`profile-twitter`} /> : '' }
-            { profile.instagram ? <FieldWrapper label={`Instagram`} content={profile.instagram} className={`profile-instagram`} /> : '' }
-            { profile.googlePlus ? <FieldWrapper label={`Google Plus`} content={profile.googlePlus} className={`profile-google-plus`} /> : '' }
+            { profile.social ? <FieldWrapper content={profile.social} className={`profile-social`} /> : '' }
           </div>
         </section>
       );

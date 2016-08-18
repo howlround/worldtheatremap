@@ -1,3 +1,4 @@
+@focus
 Feature: Participant listing on event pages
 
   As a user
@@ -54,5 +55,5 @@ Feature: Participant listing on event pages
     And I click on ".edit-participant-save"
     And I go to the play page for "Sofia"
     And I click on ".event-name a"
-    Then the ".event-participants h2" element should contain "1 Person"
-    And the ".event-participants h2" element should not contain "1 People"
+    Then the ".event-participants h2" element should contain "1 Participant"
+    And the ".event-participants h2" element should not contain "1 Participants"

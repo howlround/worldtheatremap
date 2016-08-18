@@ -1,4 +1,3 @@
-@focus
 Feature: Participant listing on event pages
 
   As a user
@@ -37,7 +36,7 @@ Feature: Participant listing on event pages
     And I click on ".event-name a"
     And I fill in ".participant-profile-name-edit" with "Il Regista"
     And I click on ".autocomplete-results li"
-    And I select "Stage Director" from ".participant-role-edit"
+    And I fill in ".participant-role-edit" with "Stage Director"
     And I click on ".edit-participant-save"
     And I go to the play page for "Sofia"
     And I click on ".event-name a"
@@ -51,7 +50,7 @@ Feature: Participant listing on event pages
     And I click on ".event-name a"
     And I fill in ".participant-profile-name-edit" with "Il Regista"
     And I click on ".autocomplete-results li"
-    And I select "Stage Director" from ".participant-role-edit"
+    And I fill in ".participant-role-edit" with "Stage Director"
     And I click on ".edit-participant-save"
     And I go to the play page for "Sofia"
     And I click on ".event-name a"

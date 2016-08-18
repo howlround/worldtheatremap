@@ -27,7 +27,7 @@ Feature: Related profiles on profile pages
     And I click on ".event-name a"
     And I fill in ".participant-profile-name-edit" with "Il Regista"
     And I click on ".autocomplete-results li"
-    And I select "Stage Director" from ".participant-role-edit"
+    And I fill in ".participant-role-edit" with "Stage Director"
     And I click on ".edit-participant-save"
     And a profile with the following fields:
       | name | Il Curatore |
@@ -35,7 +35,7 @@ Feature: Related profiles on profile pages
     And I click on ".event-name a"
     And I fill in ".participant-profile-name-edit" with "Il Curatore"
     And I click on ".autocomplete-results li"
-    And I select "Curator" from ".participant-role-edit"
+    And I fill in ".participant-role-edit" with "Curator"
     And I click on ".edit-participant-save"
 
   Scenario: As a user viewing a profile I should see other profiles they are related to

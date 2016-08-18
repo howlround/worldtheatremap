@@ -44,7 +44,7 @@ Feature: List plays on the playwright profile
     And I click on ".event-name a"
     And I fill in ".participant-profile-name-edit" with "Il Regista"
     And I click on ".autocomplete-results li"
-    And I select "Stage Director" from ".participant-role-edit"
+    And I fill in ".participant-role-edit" with "Stage Director"
     And I click on ".edit-participant-save"
     When I go to the profile page for "Il Regista"
     Then the "article.play-teaser" element should contain "A Play About Maryam"

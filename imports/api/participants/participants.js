@@ -49,25 +49,26 @@ export const relatedProfileSchema = t.struct({
   id: t.String,
 });
 
-const Roles = t.enums({
-  "Administrator": "Administrator",
-  "Show Producer": "Show Producer",
-  "Agent / Manager": "Agent / Manager",
-  "Funder": "Funder",
-  "Journalist / Critic": "Journalist / Critic",
-  "Production Staff": "Production Staff",
-  "Technical Staff": "Technical Staff",
-  "Designer": "Designer",
-  "Performer": "Performer",
-  "Stage Director": "Stage Director",
-  "Playwright": "Playwright",
-  "Translator": "Translator",
-  "Dramaturg": "Dramaturg",
-  "Educator / Scholar": "Educator / Scholar",
-  "Student": "Student",
-  "Music Composer": "Music Composer",
-  "Curator": "Curator"
-});
+// @TODO: Move this to profiles
+// const Roles = t.enums({
+//   "Administrator": "Administrator",
+//   "Show Producer": "Show Producer",
+//   "Agent / Manager": "Agent / Manager",
+//   "Funder": "Funder",
+//   "Journalist / Critic": "Journalist / Critic",
+//   "Production Staff": "Production Staff",
+//   "Technical Staff": "Technical Staff",
+//   "Designer": "Designer",
+//   "Performer": "Performer",
+//   "Stage Director": "Stage Director",
+//   "Playwright": "Playwright",
+//   "Translator": "Translator",
+//   "Dramaturg": "Dramaturg",
+//   "Educator / Scholar": "Educator / Scholar",
+//   "Student": "Student",
+//   "Music Composer": "Music Composer",
+//   "Curator": "Curator"
+// });
 
 const atLeastOne = arr => arr.length > 0
 
@@ -77,13 +78,13 @@ const atLeastOne = arr => arr.length > 0
 
 export const participantSchema = t.struct({
   profile: relatedProfileSchema,
-  role: Roles,
+  role: t.String,
   event: eventSchema,
 });
 
 export const participantFormSchema = t.struct({
   profile: relatedProfileSchema,
-  role: Roles,
+  role: t.String,
 });
 
 const profileLayout = (profile) => {
@@ -132,10 +133,10 @@ export const defaultFormOptions = () => {
         }
       },
       role: {
-        factory: t.form.Select,
         error: 'Role is required',
         attrs: {
           className: 'participant-role-edit',
+          placeholder: 'Enter the role you played. Create seperate entries for each role.'
         }
       },
     },

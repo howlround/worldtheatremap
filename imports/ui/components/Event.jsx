@@ -124,6 +124,7 @@ export default class Event extends React.Component {
 
     return (
       <form className="participant-edit-form" onSubmit={this.handleSubmit.bind(this)} >
+        <h3>Add a New Participant</h3>
         <Form
           ref="form"
           type={participantFormSchema}
@@ -225,12 +226,11 @@ export default class Event extends React.Component {
         }
         { user || participants ?
           <section className="event-participants">
-              <h2>{participantsTitle}</h2>
-            { user ? this.renderParticipantAdd() : '' }
-            {/* Link to add a new event participant */}
+            <h2>{participantsTitle}</h2>
             <ul className="event-participant-list">
               { participants }
             </ul>
+            { user ? this.renderParticipantAdd() : '' }
           </section> : ''
         }
       </article>

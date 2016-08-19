@@ -8,8 +8,7 @@ Feature: Create organization profiles
     Given I am on the home page
 
   Scenario: Anonymous users should see the add options but be directed to a login page with a message
-    And I hover over ".add"
-    And I click on ".add-profile"
+    When I go to the "profile" add page
     Then the "h1" element should contain "Sign in"
     And the ".wrapper-message" element should contain "Sign in or register to participate in the World Theatre Map"
 
@@ -17,6 +16,7 @@ Feature: Create organization profiles
     And I am logged in
     When I go to the "profile" add page
     And I fill in ".profile-name-edit" with "Fatima"
+    And I select "Individual" from the ".profile-type-edit" combobox
     And I fill in ".profile-about-edit" with "Most popular name in Algeria (census, 2010)"
     And I fill in ".profile-agent-edit" with "Secret Agent"
     And I fill in ".profile-locality-edit" with "Algiers"
@@ -48,7 +48,7 @@ Feature: Create organization profiles
     And the ".profile-roles" element should contain "Stage Director"
 
   @chromeOnly
-  Scenario: Users should be able to upload an image to their profile
+  Scenario: Users should be able to upload an image to their profile (FAILS IN PHANTOMJS)
     And I am logged in
     And a profile with the following fields:
       | name | Photogenic playwright |

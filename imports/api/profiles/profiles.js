@@ -36,6 +36,29 @@ Profiles.deny({
   remove() { return true; },
 });
 
+const ProfileType = [
+  {value: "Individual", label: "Individual"},
+  {value: "Organization", label: "Organization"},
+];
+
+const ProfileTypeTags = t.form.Form.templates.select.clone({
+  renderSelect: (locals) => {
+    function onChange(options) {
+      const values = (options || []).map(({value}) => value)
+      locals.onChange(values)
+    }
+    return <ReactSelect multi options={ProfileType} value={locals.value} onChange={onChange} className="profile-type-edit" />
+  }
+});
+
+class ReactSelectProfileTypeFactory extends t.form.Component {
+  getTemplate() {
+    return ProfileTypeTags;
+  }
+}
+
+ReactSelectProfileTypeFactory.transformer = t.form.List.transformer;
+
 const Interests = [
   { value: "Accessibility", label: "Accessibility" },
   { value: "Adaptation", label: "Adaptation" },
@@ -118,7 +141,7 @@ const Interests = [
   { value: "Translations/Adaptations", label: "Translations/Adaptations" },
   { value: "Video Games", label: "Video Games" },
   { value: "Women", label: "Women" },
-  { value: "Young Audiences", label: "Young Audiences" }
+  { value: "Young Audiences", label: "Young Audiences" },
 ];
 
 const interestsTags = t.form.Form.templates.select.clone({
@@ -150,7 +173,7 @@ const OrgTypes = [
   { value: "Resource Centre / Researcher", label: "Resource Centre / Researcher" },
   { value: "Performing Company", label: "Performing Company" },
   { value: "Venue", label: "Venue" },
-  { value: "Other", label: "Other" }
+  { value: "Other", label: "Other" },
 ];
 
 const orgTypesTags = t.form.Form.templates.select.clone({
@@ -188,7 +211,7 @@ const Roles = [
   { value: "Educator / Scholar", label: "Educator / Scholar" },
   { value: "Student", label: "Student" },
   { value: "Music Composer", label: "Music Composer" },
-  { value: "Curator", label: "Curator" }
+  { value: "Curator", label: "Curator" },
 ];
 
 const rolesTags = t.form.Form.templates.select.clone({
@@ -210,8 +233,9 @@ class ReactSelectRolesFactory extends t.form.Component {
 ReactSelectRolesFactory.transformer = t.form.List.transformer;
 
 export const profileSchema = t.struct({
-  name: t.String,
+  name: t.String, // Required
   about: t.maybe(t.String),
+  profileType: t.list(t.String), // Required
   locality: t.maybe(t.String), // City
   administrativeArea: t.maybe(t.String), // Province, Region, State
   country: t.maybe(t.String),
@@ -245,6 +269,10 @@ export const defaultFormOptions = () => {
           rows: '10',
           className: 'profile-about-edit',
         },
+      },
+      profileType: {
+        factory: ReactSelectProfileTypeFactory,
+        help: 'Is this profile representing an individual or an organization? Can be both if applicable. '
       },
       locality: {
         label: 'City (optional)',
@@ -304,21 +332,12 @@ export const defaultFormOptions = () => {
       },
       interests: {
         factory: ReactSelectInterestsFactory,
-        attrs: {
-          className: 'profile-interests-edit',
-        },
       },
       orgTypes: {
         factory: ReactSelectOrgTypesFactory,
-        attrs: {
-          className: 'profile-organization-types-edit',
-        },
       },
       selfDefinedRoles: {
         factory: ReactSelectRolesFactory,
-        attrs: {
-          className: 'profile-roles-edit',
-        },
       },
     },
   };
@@ -338,6 +357,7 @@ export const defaultFormOptions = () => {
 Profiles.publicFields = {
   name: 1,
   about: 1,
+  profileType: 1,
   image: 1,
   locality: 1,
   administrativeArea: 1,

@@ -54,7 +54,7 @@ export default class AuthJoin extends React.Component {
     return (
       <div className="wrapper-auth">
         <h1 className="title-auth">Join.</h1>
-        <p className="subtitle-auth" >Joining allows you to make private lists</p>
+        <p className="subtitle-auth" >Joining allows you to add and edit profiles and events</p>
         <form onSubmit={this.onSubmit}>
           <div className="list-errors">
             {errorMessages.map(msg => (

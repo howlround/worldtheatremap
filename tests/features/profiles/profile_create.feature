@@ -15,8 +15,7 @@ Feature: Create organization profiles
 
   Scenario: Users should be able to create a profile with all the fields
     And I am logged in
-    And I hover over ".add"
-    When I click on ".add-profile"
+    When I go to the "profile" add page
     And I fill in ".profile-name-edit" with "Fatima"
     And I fill in ".profile-about-edit" with "Most popular name in Algeria (census, 2010)"
     And I fill in ".profile-agent-edit" with "Secret Agent"
@@ -31,7 +30,7 @@ Feature: Create organization profiles
     And I fill in ".profile-founding-year-edit" with "1979"
     And I select "Musicals" from ".profile-interests-edit"
     And I select "Producer" from ".profile-organization-types-edit"
-    And I select "Stage Director" from ".profile-roles-edit"
+    And I select "Stage Director" from the ".profile-roles-edit" combobox
     And I click on ".edit-profile-save"
     Then the ".profile-name" element should contain "Fatima"
     And the ".profile-about" element should contain "Most popular name in Algeria (census, 2010)"

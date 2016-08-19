@@ -26,6 +26,7 @@
     "react-dom": "^15.0.0",
     "react-dropzone": "^3.5.3",
     "react-router": "^2.0.0",
+    "react-select": "^1.0.0-beta14",
     "tcomb-form": "^0.9.3",
     "tcomb-validation": "^3.0.0",
     "topojson": "^1.6.26"

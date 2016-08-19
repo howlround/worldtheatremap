@@ -62,6 +62,12 @@ module.exports = function() {
     browser.selectByVisibleText(selector, value);
   });
 
+  this.When(/^I select "([^"]*)" from the "([^"]*)" combobox$/, function (value, selector) {
+      browser.waitForExist(selector);
+      browser.setValue(selector + ' input', value);
+      browser.click('.Select-option');
+    });
+
   this.Given(/^I hover over "([^"]*)"$/, function (element) {
     browser.waitForExist(element);
     browser.moveToObject(element);

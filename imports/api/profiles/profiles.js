@@ -1,7 +1,14 @@
+// Meteor
 import { Mongo } from 'meteor/mongo';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Factory } from 'meteor/factory';
+
+// Forms
+import React from 'react';
 import t from 'tcomb-form';
+import ReactSelect from 'react-select';
+
+// Collections
 import { Plays } from '../plays/plays.js';
 import { Participants } from '../participants/participants.js';
 import { RelatedRecords } from '../relatedRecords/relatedRecords.js';
@@ -128,25 +135,43 @@ const OrgTypes = t.enums({
   "Other": "Other",
 });
 
-const Roles = t.enums({
-  "Administrator": "Administrator",
-  "Show Producer": "Show Producer",
-  "Agent / Manager": "Agent / Manager",
-  "Funder": "Funder",
-  "Journalist / Critic": "Journalist / Critic",
-  "Production Staff": "Production Staff",
-  "Technical Staff": "Technical Staff",
-  "Designer": "Designer",
-  "Performer": "Performer",
-  "Stage Director": "Stage Director",
-  "Playwright": "Playwright",
-  "Translator": "Translator",
-  "Dramaturg": "Dramaturg",
-  "Educator / Scholar": "Educator / Scholar",
-  "Student": "Student",
-  "Music Composer": "Music Composer",
-  "Curator": "Curator"
+const Roles = [
+  { value: "Administrator", label: "Administrator" },
+  { value: "Show Producer", label: "Show Producer" },
+  { value: "Agent / Manager", label: "Agent / Manager" },
+  { value: "Funder", label: "Funder" },
+  { value: "Journalist / Critic", label: "Journalist / Critic" },
+  { value: "Production Staff", label: "Production Staff" },
+  { value: "Technical Staff", label: "Technical Staff" },
+  { value: "Designer", label: "Designer" },
+  { value: "Performer", label: "Performer" },
+  { value: "Stage Director", label: "Stage Director" },
+  { value: "Playwright", label: "Playwright" },
+  { value: "Translator", label: "Translator" },
+  { value: "Dramaturg", label: "Dramaturg" },
+  { value: "Educator / Scholar", label: "Educator / Scholar" },
+  { value: "Student", label: "Student" },
+  { value: "Music Composer", label: "Music Composer" },
+  { value: "Curator", label: "Curator" }
+];
+
+const rolesTags = t.form.Form.templates.select.clone({
+  renderSelect: (locals) => {
+    function onChange(options) {
+      const values = (options || []).map(({value}) => value)
+      locals.onChange(values)
+    }
+    return <ReactSelect multi options={Roles} value={locals.value} onChange={onChange} className="profile-roles-edit" />
+  }
 });
+
+class ReactSelectFactory extends t.form.Component {
+  getTemplate() {
+    return rolesTags;
+  }
+}
+
+ReactSelectFactory.transformer = t.form.List.transformer
 
 export const profileSchema = t.struct({
   name: t.String,
@@ -165,7 +190,7 @@ export const profileSchema = t.struct({
   foundingYear: t.maybe(t.String),
   interests: t.maybe(t.list(Interests)),
   orgTypes: t.maybe(t.list(OrgTypes)),
-  selfDefinedRoles: t.maybe(t.list(Roles)),
+  selfDefinedRoles: t.maybe(t.list(t.String)),
 });
 
 export const defaultFormOptions = () => {
@@ -254,7 +279,7 @@ export const defaultFormOptions = () => {
         },
       },
       selfDefinedRoles: {
-        factory: t.form.Select,
+        factory: ReactSelectFactory,
         attrs: {
           className: 'profile-roles-edit',
         },

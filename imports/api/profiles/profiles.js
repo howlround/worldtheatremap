@@ -128,6 +128,26 @@ const OrgTypes = t.enums({
   "Other": "Other",
 });
 
+const Roles = t.enums({
+  "Administrator": "Administrator",
+  "Show Producer": "Show Producer",
+  "Agent / Manager": "Agent / Manager",
+  "Funder": "Funder",
+  "Journalist / Critic": "Journalist / Critic",
+  "Production Staff": "Production Staff",
+  "Technical Staff": "Technical Staff",
+  "Designer": "Designer",
+  "Performer": "Performer",
+  "Stage Director": "Stage Director",
+  "Playwright": "Playwright",
+  "Translator": "Translator",
+  "Dramaturg": "Dramaturg",
+  "Educator / Scholar": "Educator / Scholar",
+  "Student": "Student",
+  "Music Composer": "Music Composer",
+  "Curator": "Curator"
+});
+
 export const profileSchema = t.struct({
   name: t.String,
   about: t.maybe(t.String),
@@ -145,7 +165,7 @@ export const profileSchema = t.struct({
   foundingYear: t.maybe(t.String),
   interests: t.maybe(t.list(Interests)),
   orgTypes: t.maybe(t.list(OrgTypes)),
-  country: t.maybe(t.String),
+  selfDefinedRoles: t.maybe(t.list(Roles)),
 });
 
 export const defaultFormOptions = () => {
@@ -233,6 +253,12 @@ export const defaultFormOptions = () => {
           className: 'profile-organization-types-edit',
         },
       },
+      selfDefinedRoles: {
+        factory: t.form.Select,
+        attrs: {
+          className: 'profile-roles-edit',
+        },
+      },
     },
   };
 }
@@ -266,7 +292,7 @@ Profiles.publicFields = {
   foundingYear: 1,
   interests: 1,
   orgTypes: 1,
-  roles: 1,
+  selfDefinedRoles: 1,
 };
 
 Factory.define('profile', Profiles, {});

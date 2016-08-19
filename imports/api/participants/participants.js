@@ -49,27 +49,6 @@ export const relatedProfileSchema = t.struct({
   id: t.String,
 });
 
-// @TODO: Move this to profiles
-// const Roles = t.enums({
-//   "Administrator": "Administrator",
-//   "Show Producer": "Show Producer",
-//   "Agent / Manager": "Agent / Manager",
-//   "Funder": "Funder",
-//   "Journalist / Critic": "Journalist / Critic",
-//   "Production Staff": "Production Staff",
-//   "Technical Staff": "Technical Staff",
-//   "Designer": "Designer",
-//   "Performer": "Performer",
-//   "Stage Director": "Stage Director",
-//   "Playwright": "Playwright",
-//   "Translator": "Translator",
-//   "Dramaturg": "Dramaturg",
-//   "Educator / Scholar": "Educator / Scholar",
-//   "Student": "Student",
-//   "Music Composer": "Music Composer",
-//   "Curator": "Curator"
-// });
-
 const atLeastOne = arr => arr.length > 0
 
 // @TODO: Refactor to look like this:

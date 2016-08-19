@@ -31,6 +31,7 @@ Feature: Create organization profiles
     And I fill in ".profile-founding-year-edit" with "1979"
     And I select "Musicals" from ".profile-interests-edit"
     And I select "Producer" from ".profile-organization-types-edit"
+    And I select "Stage Director" from ".profile-roles-edit"
     And I click on ".edit-profile-save"
     Then the ".profile-name" element should contain "Fatima"
     And the ".profile-about" element should contain "Most popular name in Algeria (census, 2010)"
@@ -44,6 +45,7 @@ Feature: Create organization profiles
     And the ".profile-founding-year" element should contain "1979"
     And the ".profile-interests" element should contain "Musicals"
     And the ".profile-organization-types" element should contain "Producer"
+    And the ".profile-roles" element should contain "Stage Director"
 
   @chromeOnly
   Scenario: Users should be able to upload an image to their profile

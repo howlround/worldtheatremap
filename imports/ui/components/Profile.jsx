@@ -209,6 +209,22 @@ export default class Profile extends React.Component {
       return <span key={orgType}>{orgType}{seperator}</span>
     }) : false;
 
+    let selfDefinedRoles = (profile.selfDefinedRoles) ? profile.selfDefinedRoles.map((selfDefinedRole, index, array) => {
+      let seperator = ', ';
+      if (index == array.length - 1) {
+        seperator = '';
+      }
+      else if (index == array.length - 2) {
+        if (array.length > 2) {
+          seperator = ', and ';
+        }
+        else {
+          seperator = ' and ';
+        }
+      }
+      return <span key={selfDefinedRole}>{selfDefinedRole}{seperator}</span>
+    }) : false;
+
     const cityState = [profile.locality, profile.administrativeArea].filter(function (val) {return val;}).join(', ');
     const locationBlock = <div className="profile-location">
       { cityState ? <div>{ cityState }</div> : '' }
@@ -227,12 +243,14 @@ export default class Profile extends React.Component {
             { typeof locationBlock != 'undefined' ?
                 <div className="profile-location">{ locationBlock }</div> : '' }
             <div className="profile-metadata">
+              { profile.selfDefinedRoles ?
+                <div className="profile-roles" title="Roles">{ selfDefinedRoles }</div> : '' }
               { profile.orgTypes ?
-                <div className="profile-organization-types">{ orgTypes }</div> : '' }
+                <div className="profile-organization-types" title="Organization Type">{ orgTypes }</div> : '' }
               { profile.foundingYear ?
                 <div className="profile-founding-year">Founded { profile.foundingYear }</div> : '' }
               { profile.interests ?
-                <div className="profile-interests">{ interests }</div> : '' }
+                <div className="profile-interests" title="Interests">{ interests }</div> : '' }
             </div>
           </div>
           {editLink}

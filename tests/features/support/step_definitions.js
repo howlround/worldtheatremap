@@ -63,10 +63,14 @@ module.exports = function() {
   });
 
   this.When(/^I select "([^"]*)" from the "([^"]*)" combobox$/, function (value, selector) {
-      browser.waitForExist(selector);
-      browser.setValue(selector + ' input', value);
-      browser.click('.Select-option');
-    });
+    browser.waitForExist(selector);
+    browser.setValue(selector + ' input', value);
+    browser.click('.Select-option');
+  });
+
+  this.When(/^I press the "([^"]*)" key$/, function (value) {
+    client.keys(value);
+  });
 
   this.Given(/^I hover over "([^"]*)"$/, function (element) {
     browser.waitForExist(element);

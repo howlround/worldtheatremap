@@ -28,9 +28,10 @@ Feature: Create organization profiles
     And I fill in ".profile-website-edit" with "cc.cc"
     And I fill in ".profile-social-edit" with "Facebook: facebook.com/fatima"
     And I fill in ".profile-founding-year-edit" with "1979"
-    And I select "Musicals" from ".profile-interests-edit"
-    And I select "Producer" from ".profile-organization-types-edit"
+    And I select "Musicals" from the ".profile-interests-edit" combobox
+    And I select "Producer" from the ".profile-organization-types-edit" combobox
     And I select "Stage Director" from the ".profile-roles-edit" combobox
+    And I press the "ESCAPE" key
     And I click on ".edit-profile-save"
     Then the ".profile-name" element should contain "Fatima"
     And the ".profile-about" element should contain "Most popular name in Algeria (census, 2010)"

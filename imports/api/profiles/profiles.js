@@ -36,104 +36,140 @@ Profiles.deny({
   remove() { return true; },
 });
 
-const Interests = t.enums({
-  "Accessibility": "Accessibility",
-  "Adaptation": "Adaptation",
-  "African-American": "African-American",
-  "African-Diaspora": "African-Diaspora",
-  "Asian American": "Asian American",
-  "Asian-American": "Asian-American",
-  "Asian-Diaspora": "Asian-Diaspora",
-  "Black Theatre": "Black Theatre",
-  "Burlesque": "Burlesque",
-  "Circus": "Circus",
-  "Classical": "Classical",
-  "Climate Change": "Climate Change",
-  "Contemporary": "Contemporary",
-  "Creative Placemaking": "Creative Placemaking",
-  "Criticism": "Criticism",
-  "Cross-cultural Exchange": "Cross-cultural Exchange",
-  "Dance": "Dance",
-  "Deaf": "Deaf",
-  "Design": "Design",
-  "Devised": "Devised",
-  "Directing": "Directing",
-  "Disabilities": "Disabilities",
-  "Disability": "Disability",
-  "Diversity and Inclusion": "Diversity and Inclusion",
-  "Documentary Theatre": "Documentary Theatre",
-  "Eco Theatre": "Eco Theatre",
-  "Ensemble": "Ensemble",
-  "Experimental": "Experimental",
-  "Gay/Lesbian": "Gay/Lesbian",
-  "Geek Theatre": "Geek Theatre",
-  "Gender Politics": "Gender Politics",
-  "Hip Hop Theatre": "Hip Hop Theatre",
-  "Immersive Theatre": "Immersive Theatre",
-  "Improvisation": "Improvisation",
-  "Indigenous": "Indigenous",
-  "International": "International",
-  "Jewish Theatre": "Jewish Theatre",
-  "Latina/o Theatre Commons": "Latina/o Theatre Commons",
-  "Latino-American": "Latino-American",
-  "Literary Management": "Literary Management",
-  "Multicultural": "Multicultural",
-  "Multidisciplinary": "Multidisciplinary",
-  "Music": "Music",
-  "Musical Theatre": "Musical Theatre",
-  "Musicals": "Musicals",
-  "New Work": "New Work",
-  "Object Theatre/Puppetry": "Object Theatre/Puppetry",
-  "Opera": "Opera",
-  "Performance Art": "Performance Art",
-  "Philanthropy/Funding": "Philanthropy/Funding",
-  "physical theatre": "physical theatre",
-  "Playwright Residencies": "Playwright Residencies",
-  "Playwriting": "Playwriting",
-  "Poetry": "Poetry",
-  "Political/Social": "Political/Social",
-  "Process": "Process",
-  "Producing": "Producing",
-  "Puppetry": "Puppetry",
-  "Queer Theatre": "Queer Theatre",
-  "Race": "Race",
-  "Religion/Spirituality": "Religion/Spirituality",
-  "Rural Theatre": "Rural Theatre",
-  "Senior Theatre": "Senior Theatre",
-  "Shakespeare": "Shakespeare",
-  "Site-specific": "Site-specific",
-  "Social Justice": "Social Justice",
-  "Social Media": "Social Media",
-  "Sound Design": "Sound Design",
-  "Sports": "Sports",
-  "Stage Combat": "Stage Combat",
-  "Stage Management": "Stage Management",
-  "Student/Youth": "Student/Youth",
-  "Technology": "Technology",
-  "Theatre Education/Training": "Theatre Education/Training",
-  "Theatre for Young Audiences": "Theatre for Young Audiences",
-  "Theatre History": "Theatre History",
-  "Touring": "Touring",
-  "Transgender": "Transgender",
-  "Translations/Adaptations": "Translations/Adaptations",
-  "Video Games": "Video Games",
-  "Women": "Women",
-  "Young Audiences": "Young Audiences",
+const Interests = [
+  { value: "Accessibility", label: "Accessibility" },
+  { value: "Adaptation", label: "Adaptation" },
+  { value: "African-American", label: "African-American" },
+  { value: "African-Diaspora", label: "African-Diaspora" },
+  { value: "Asian American", label: "Asian American" },
+  { value: "Asian-American", label: "Asian-American" },
+  { value: "Asian-Diaspora", label: "Asian-Diaspora" },
+  { value: "Black Theatre", label: "Black Theatre" },
+  { value: "Burlesque", label: "Burlesque" },
+  { value: "Circus", label: "Circus" },
+  { value: "Classical", label: "Classical" },
+  { value: "Climate Change", label: "Climate Change" },
+  { value: "Contemporary", label: "Contemporary" },
+  { value: "Creative Placemaking", label: "Creative Placemaking" },
+  { value: "Criticism", label: "Criticism" },
+  { value: "Cross-cultural Exchange", label: "Cross-cultural Exchange" },
+  { value: "Dance", label: "Dance" },
+  { value: "Deaf", label: "Deaf" },
+  { value: "Design", label: "Design" },
+  { value: "Devised", label: "Devised" },
+  { value: "Directing", label: "Directing" },
+  { value: "Disabilities", label: "Disabilities" },
+  { value: "Disability", label: "Disability" },
+  { value: "Diversity and Inclusion", label: "Diversity and Inclusion" },
+  { value: "Documentary Theatre", label: "Documentary Theatre" },
+  { value: "Eco Theatre", label: "Eco Theatre" },
+  { value: "Ensemble", label: "Ensemble" },
+  { value: "Experimental", label: "Experimental" },
+  { value: "Gay/Lesbian", label: "Gay/Lesbian" },
+  { value: "Geek Theatre", label: "Geek Theatre" },
+  { value: "Gender Politics", label: "Gender Politics" },
+  { value: "Hip Hop Theatre", label: "Hip Hop Theatre" },
+  { value: "Immersive Theatre", label: "Immersive Theatre" },
+  { value: "Improvisation", label: "Improvisation" },
+  { value: "Indigenous", label: "Indigenous" },
+  { value: "International", label: "International" },
+  { value: "Jewish Theatre", label: "Jewish Theatre" },
+  { value: "Latina/o Theatre Commons", label: "Latina/o Theatre Commons" },
+  { value: "Latino-American", label: "Latino-American" },
+  { value: "Literary Management", label: "Literary Management" },
+  { value: "Multicultural", label: "Multicultural" },
+  { value: "Multidisciplinary", label: "Multidisciplinary" },
+  { value: "Music", label: "Music" },
+  { value: "Musical Theatre", label: "Musical Theatre" },
+  { value: "Musicals", label: "Musicals" },
+  { value: "New Work", label: "New Work" },
+  { value: "Object Theatre/Puppetry", label: "Object Theatre/Puppetry" },
+  { value: "Opera", label: "Opera" },
+  { value: "Performance Art", label: "Performance Art" },
+  { value: "Philanthropy/Funding", label: "Philanthropy/Funding" },
+  { value: "physical theatre", label: "physical theatre" },
+  { value: "Playwright Residencies", label: "Playwright Residencies" },
+  { value: "Playwriting", label: "Playwriting" },
+  { value: "Poetry", label: "Poetry" },
+  { value: "Political/Social", label: "Political/Social" },
+  { value: "Process", label: "Process" },
+  { value: "Producing", label: "Producing" },
+  { value: "Puppetry", label: "Puppetry" },
+  { value: "Queer Theatre", label: "Queer Theatre" },
+  { value: "Race", label: "Race" },
+  { value: "Religion/Spirituality", label: "Religion/Spirituality" },
+  { value: "Rural Theatre", label: "Rural Theatre" },
+  { value: "Senior Theatre", label: "Senior Theatre" },
+  { value: "Shakespeare", label: "Shakespeare" },
+  { value: "Site-specific", label: "Site-specific" },
+  { value: "Social Justice", label: "Social Justice" },
+  { value: "Social Media", label: "Social Media" },
+  { value: "Sound Design", label: "Sound Design" },
+  { value: "Sports", label: "Sports" },
+  { value: "Stage Combat", label: "Stage Combat" },
+  { value: "Stage Management", label: "Stage Management" },
+  { value: "Student/Youth", label: "Student/Youth" },
+  { value: "Technology", label: "Technology" },
+  { value: "Theatre Education/Training", label: "Theatre Education/Training" },
+  { value: "Theatre for Young Audiences", label: "Theatre for Young Audiences" },
+  { value: "Theatre History", label: "Theatre History" },
+  { value: "Touring", label: "Touring" },
+  { value: "Transgender", label: "Transgender" },
+  { value: "Translations/Adaptations", label: "Translations/Adaptations" },
+  { value: "Video Games", label: "Video Games" },
+  { value: "Women", label: "Women" },
+  { value: "Young Audiences", label: "Young Audiences" }
+];
+
+const interestsTags = t.form.Form.templates.select.clone({
+  renderSelect: (locals) => {
+    function onChange(options) {
+      const values = (options || []).map(({value}) => value)
+      locals.onChange(values)
+    }
+    return <ReactSelect multi options={Interests} value={locals.value} onChange={onChange} className="profile-interests-edit" />
+  }
 });
 
-const OrgTypes = t.enums({
-  "Development / Residency Organization": "Development / Residency Organization",
-  "Festival / Presenting": "Festival / Presenting",
-  "Cultural / Sociocultural Service": "Cultural / Sociocultural Service",
-  "Producer": "Producer",
-  "Network / Association / Union": "Network / Association / Union",
-  "School / University / Training Organization": "School / University / Training Organization",
-  "Funder / Supporting / Grant-giving Institution": "Funder / Supporting / Grant-giving Institution",
-  "Resource Centre / Researcher": "Resource Centre / Researcher",
-  "Performing Company": "Performing Company",
-  "Venue": "Venue",
-  "Other": "Other",
+class ReactSelectInterestsFactory extends t.form.Component {
+  getTemplate() {
+    return interestsTags;
+  }
+}
+
+ReactSelectInterestsFactory.transformer = t.form.List.transformer;
+
+const OrgTypes = [
+  { value: "Development / Residency Organization", label: "Development / Residency Organization" },
+  { value: "Festival / Presenting", label: "Festival / Presenting" },
+  { value: "Cultural / Sociocultural Service", label: "Cultural / Sociocultural Service" },
+  { value: "Producer", label: "Producer" },
+  { value: "Network / Association / Union", label: "Network / Association / Union" },
+  { value: "School / University / Training Organization", label: "School / University / Training Organization" },
+  { value: "Funder / Supporting / Grant-giving Institution", label: "Funder / Supporting / Grant-giving Institution" },
+  { value: "Resource Centre / Researcher", label: "Resource Centre / Researcher" },
+  { value: "Performing Company", label: "Performing Company" },
+  { value: "Venue", label: "Venue" },
+  { value: "Other", label: "Other" }
+];
+
+const orgTypesTags = t.form.Form.templates.select.clone({
+  renderSelect: (locals) => {
+    function onChange(options) {
+      const values = (options || []).map(({value}) => value)
+      locals.onChange(values)
+    }
+    return <ReactSelect multi options={OrgTypes} value={locals.value} onChange={onChange} className="profile-organization-types-edit" />
+  }
 });
+
+class ReactSelectOrgTypesFactory extends t.form.Component {
+  getTemplate() {
+    return orgTypesTags;
+  }
+}
+
+ReactSelectOrgTypesFactory.transformer = t.form.List.transformer;
 
 const Roles = [
   { value: "Administrator", label: "Administrator" },
@@ -165,13 +201,13 @@ const rolesTags = t.form.Form.templates.select.clone({
   }
 });
 
-class ReactSelectFactory extends t.form.Component {
+class ReactSelectRolesFactory extends t.form.Component {
   getTemplate() {
     return rolesTags;
   }
 }
 
-ReactSelectFactory.transformer = t.form.List.transformer
+ReactSelectRolesFactory.transformer = t.form.List.transformer;
 
 export const profileSchema = t.struct({
   name: t.String,
@@ -188,8 +224,8 @@ export const profileSchema = t.struct({
   website: t.maybe(t.String),
   social: t.maybe(t.String),
   foundingYear: t.maybe(t.String),
-  interests: t.maybe(t.list(Interests)),
-  orgTypes: t.maybe(t.list(OrgTypes)),
+  interests: t.maybe(t.list(t.String)),
+  orgTypes: t.maybe(t.list(t.String)),
   selfDefinedRoles: t.maybe(t.list(t.String)),
 });
 
@@ -267,19 +303,19 @@ export const defaultFormOptions = () => {
         help: 'If this profile is referencing an organization, what year was it founded?'
       },
       interests: {
-        factory: t.form.Select,
+        factory: ReactSelectInterestsFactory,
         attrs: {
           className: 'profile-interests-edit',
         },
       },
       orgTypes: {
-        factory: t.form.Select,
+        factory: ReactSelectOrgTypesFactory,
         attrs: {
           className: 'profile-organization-types-edit',
         },
       },
       selfDefinedRoles: {
-        factory: ReactSelectFactory,
+        factory: ReactSelectRolesFactory,
         attrs: {
           className: 'profile-roles-edit',
         },

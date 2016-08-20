@@ -236,7 +236,7 @@ ReactSelectRolesFactory.transformer = t.form.List.transformer;
 export const profileSchema = t.struct({
   name: t.String, // Required
   about: t.maybe(t.String),
-  profileType: t.list(t.String), // Required
+  profileType: t.maybe(t.list(t.String)), // Required
   locality: t.maybe(t.String), // City
   administrativeArea: t.maybe(t.String), // Province, Region, State
   country: t.maybe(t.String),

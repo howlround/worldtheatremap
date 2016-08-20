@@ -135,21 +135,21 @@ module.exports = function() {
     callback();
   });
 
-  this.When(/^I go to the play page for "([^"]*)"$/, function (name, callback) {
-    // Look up the play with this name
-    const play = server.execute((name, callback) => {
+  this.When(/^I go to the show page for "([^"]*)"$/, function (name, callback) {
+    // Look up the show with this name
+    const show = server.execute((name, callback) => {
       const { Meteor } = require('meteor/meteor');
-      const { Plays } = require('/imports/api/plays/plays.js');
-      const play = Plays.findOne({name: name});
+      const { Shows } = require('/imports/api/shows/shows.js');
+      const show = Shows.findOne({name: name});
 
-      return play;
+      return show;
     }, name);
 
-    if (!play) {
-      callback(new Error('No play exists with the name ' + name));
+    if (!show) {
+      callback(new Error('No show exists with the name ' + name));
     }
 
-    browser.url('http://localhost:3000/plays/' + play._id);
+    browser.url('http://localhost:3000/shows/' + show._id);
 
     // Check if we are on the correct page
     // const processedName = RegExp('/' + name + '/i');

@@ -1,14 +1,14 @@
-.play-edit-form {
+.show-edit-form {
   legend {
     @extend label;
   }
 }
 
-button.edit-play-save {
+button.edit-show-save {
   margin-top: $spacing-unit * 4;
 }
 
-.play-author-id-edit {
+.show-author-id-edit {
   display: none;
 }
 

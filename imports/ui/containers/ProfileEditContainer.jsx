@@ -12,6 +12,6 @@ export default createContainer(({ params: { id } }) => {
     // loading,
     profile,
     editing: profile._id,
-    plays: [],
+    shows: [],
   };
 }, ProfilePage);

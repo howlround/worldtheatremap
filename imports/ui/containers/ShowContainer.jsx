@@ -1,16 +1,16 @@
 import { Meteor } from 'meteor/meteor';
-import { Plays } from '../../api/plays/plays.js';
+import { Shows } from '../../api/shows/shows.js';
 import { Events } from '../../api/events/events.js';
 import { createContainer } from 'meteor/react-meteor-data';
-import PlayPage from '../pages/PlayPage.jsx';
+import ShowPage from '../pages/ShowPage.jsx';
 
 export default createContainer(({ params: { id } }) => {
-  const play = Plays.findOne(id);
-  const eventsByPlay = Meteor.subscribe('events.byPlay', id);
+  const show = Shows.findOne(id);
+  const eventsByShow = Meteor.subscribe('events.byShow', id);
   return {
-    play,
-    eventsByPlay: Events.find({'play.id': id}, {
+    show,
+    eventsByShow: Events.find({'show.id': id}, {
       fields: Events.publicFields,
     }).fetch(),
   };
-}, PlayPage);
+}, ShowPage);

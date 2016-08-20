@@ -67,7 +67,7 @@ export const insert = new ValidatedMethod({
     }
   },
   run({ newEvent }) {
-    // @TODO: Put entire Play object in
+    // @TODO: Put entire Show object in
     return Events.insert(newEvent);
   },
 });

@@ -86,19 +86,19 @@ export default class App extends React.Component {
     );
   }
 
-  renderHomePagePlays() {
-    const { plays } = this.props;
+  renderHomePageShows() {
+    const { shows } = this.props;
 
     return (
-      plays.map(play => (
-        <li key={play._id}>
+      shows.map(show => (
+        <li key={show._id}>
           <Link
-            to={`/plays/${ play._id }`}
-            title={play.name}
-            className="play-view"
+            to={`/shows/${ show._id }`}
+            title={show.name}
+            className="show-view"
             activeClassName="active"
           >
-            {play.name}
+            {show.name}
           </Link>
         </li>
       ))
@@ -151,7 +151,7 @@ export default class App extends React.Component {
             <div className="page">
               <ul>
                 {this.renderHomePageProfiles()}
-                {this.renderHomePagePlays()}
+                {this.renderHomePageShows()}
               </ul>
             </div> : ''
           }
@@ -167,7 +167,7 @@ App.propTypes = {
   loading: React.PropTypes.bool,     // subscription status
   menuOpen: React.PropTypes.bool,    // is side menu open?
   profiles: React.PropTypes.array,   // all profiles visible to the current user
-  plays: React.PropTypes.array,
+  shows: React.PropTypes.array,
   children: React.PropTypes.element, // matched child route component
   location: React.PropTypes.object,  // current router location
   params: React.PropTypes.object,    // parameters of the current route

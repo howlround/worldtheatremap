@@ -10,12 +10,12 @@ class EventsCollection extends Mongo.Collection {
     const ourEvent = event;
     // if (!ourEvent.name) {
     //   let nextLetter = 'A';
-    //   ourEvent.name = `Play ${nextLetter}`;
+    //   ourEvent.name = `Show ${nextLetter}`;
 
     //   while (!!this.findOne({ name: ourEvent.name })) {
     //     // not going to be too smart here, can go past Z
     //     nextLetter = String.fromCharCode(nextLetter.charCodeAt(0) + 1);
-    //     ourEvent.name = `Play ${nextLetter}`;
+    //     ourEvent.name = `Show ${nextLetter}`;
     //   }
     // }
 
@@ -51,7 +51,7 @@ const EventTypes = t.enums({
 });
 
 const atLeastOne = arr => arr.length > 0
-export const relatedPlaySchema = t.struct({
+export const relatedShowSchema = t.struct({
   name: t.String,
   id: t.String,
   // author: t.refinement(t.list(relatedProfileSchema), atLeastOne),
@@ -61,16 +61,16 @@ export const relatedPlaySchema = t.struct({
 // https://github.com/gcanti/tcomb-form/issues/311
 // Maybe that should be in eventProfile?
 export const eventSchema = t.struct({
-  play: relatedPlaySchema,
+  show: relatedShowSchema,
   eventType: EventTypes,
   about: t.maybe(t.String),
 });
 
-const relatedPlayLayout = (play) => {
+const relatedShowLayout = (show) => {
   return (
-    <div className="play-fields-group autocomplete-group">
-      {play.inputs.name}
-      {play.inputs.id}
+    <div className="show-fields-group autocomplete-group">
+      {show.inputs.name}
+      {show.inputs.id}
       <ul className="autocomplete-results"></ul>
     </div>
   );
@@ -79,25 +79,25 @@ const relatedPlayLayout = (play) => {
 export const defaultFormOptions = () => {
   return {
     fields: {
-      play: {
+      show: {
         auto: 'none',
-        error: 'Play is required',
+        error: 'Show is required',
         attrs: {
-          className: 'event-play-edit',
+          className: 'event-show-edit',
         },
-        template: relatedPlayLayout,
+        template: relatedShowLayout,
         fields: {
           name: {
             error: 'Primary authorship is required',
             attrs: {
-              className: 'event-play-name-edit',
+              className: 'event-show-name-edit',
               autoComplete: 'off',
               placeholder: 'Show name',
             }
           },
           id: {
             attrs: {
-              className: 'event-play-id-edit'
+              className: 'event-show-id-edit'
             }
           }
         }
@@ -123,7 +123,7 @@ export const defaultFormOptions = () => {
 // to the client. If we add secret properties to Event objects, don't event
 // them here to keep them private to the server.
 Events.publicFields = {
-  play: 1,
+  show: 1,
   about: 1,
   eventType: 1,
 };

@@ -21,7 +21,7 @@ class RelatedRecordsCollection extends Mongo.Collection {
     }).fetch();
 
     // Add the show authors into the allParticipants array
-    reconcileRelatedRecord.event.play.author.map(author => {
+    reconcileRelatedRecord.event.show.author.map(author => {
       const addAuthor = { profile: author };
       allParticipants.push(addAuthor);
     });

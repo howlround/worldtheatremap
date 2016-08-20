@@ -2,15 +2,15 @@ import React from 'react';
 import classnames from 'classnames';
 // import ListHeader from '../components/ListHeader.jsx';
 // import TodoItem from '../components/TodoItem.jsx';
-import Play from '../components/Play.jsx';
-import PlayAdd from '../components/PlayAdd.jsx';
+import Show from '../components/Show.jsx';
+import ShowAdd from '../components/ShowAdd.jsx';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
 import Message from '../components/Message.jsx';
 import Modal from '../components/Modal.jsx';
 import AuthSignIn from '../components/AuthSignIn.jsx';
 
 
-export default class PlayAddPage extends React.Component {
+export default class ShowAddPage extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -20,7 +20,7 @@ export default class PlayAddPage extends React.Component {
 
     const pageClass = classnames({
       'page': true,
-      'plays-add': true,
+      'shows-add': true,
     });
 
     if (add && user) {
@@ -28,7 +28,7 @@ export default class PlayAddPage extends React.Component {
         <div className="overlay-wrapper">
           <Modal/>
           <div className={pageClass}>
-            <PlayAdd/>
+            <ShowAdd/>
           </div>
         </div>
       );
@@ -49,6 +49,6 @@ export default class PlayAddPage extends React.Component {
   }
 }
 
-PlayAddPage.propTypes = {
+ShowAddPage.propTypes = {
   add: React.PropTypes.bool,
 };

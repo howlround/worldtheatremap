@@ -4,7 +4,7 @@ import { _ } from 'meteor/underscore';
 import { displayError } from '../helpers/errors.js';
 import { insert, update } from '../../api/events/methods.js';
 import { eventSchema, defaultFormOptions } from '../../api/events/events.js';
-import { Plays } from '../../api/plays/plays.js';
+import { Shows } from '../../api/shows/shows.js';
 import t from 'tcomb-form';
 
 const Form = t.form.Form;
@@ -50,19 +50,19 @@ export default class EventEdit extends React.Component {
 
   onChange(value, path) {
     // @TODO: Merge with EventEdit.jsx
-    if (path[0] == 'play' && path[1] == 'name') {
-      const search = value.play.name;
-      const resultsElement = $('.form-group-play-name').siblings('ul.autocomplete-results');
+    if (path[0] == 'show' && path[1] == 'name') {
+      const search = value.show.name;
+      const resultsElement = $('.form-group-show-name').siblings('ul.autocomplete-results');
 
-      // Search for profiles and save to ul.event-play-edit-result
+      // Search for profiles and save to ul.event-show-edit-result
       if (search.length > 0) {
         // Clear any existing stored values
         const clearValue = value;
-        clearValue.play.id = '';
+        clearValue.show.id = '';
         this.setState({event: clearValue});
 
         const regex = new RegExp('.*' + search + '.*', 'i');
-        const results = Plays.find({name: { $regex: regex }}, {limit: 5}).fetch();
+        const results = Shows.find({name: { $regex: regex }}, {limit: 5}).fetch();
 
         // Clear fields
         resultsElement.html('');
@@ -72,11 +72,11 @@ export default class EventEdit extends React.Component {
             resultsElement.append('<li><b>' + show.name + '</b> (' + show._id + ')</li>').find('li:last-child').click(() => {
                 const newValue = value;
                 // Set the show state to the selected show
-                newValue.play = show;
+                newValue.show = show;
                 // We are using 'id' without the underscore later so
                 // manually specify that
                 // @TODO: Refactor to only use the _id
-                newValue.play.id = show._id;
+                newValue.show.id = show._id;
 
                 this.setState({event: newValue});
 

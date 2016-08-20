@@ -9,7 +9,7 @@ import t from 'tcomb-form';
 import ReactSelect from 'react-select';
 
 // Collections
-import { Plays } from '../plays/plays.js';
+import { Shows } from '../shows/shows.js';
 import { Participants } from '../participants/participants.js';
 import { RelatedRecords } from '../relatedRecords/relatedRecords.js';
 
@@ -36,6 +36,7 @@ Profiles.deny({
   remove() { return true; },
 });
 
+// React Select integration: https://github.com/gcanti/tcomb-form/issues/249
 const ProfileType = [
   {value: "Individual", label: "Individual"},
   {value: "Organization", label: "Organization"},
@@ -394,8 +395,8 @@ Profiles.helpers({
 
   //   return this.userId === userId;
   // },
-  getPlays() {
-    return Plays.find({ "author.id": this._id });
+  getShows() {
+    return Shows.find({ "author.id": this._id });
   },
 
   getRoles() {

@@ -6,49 +6,49 @@ import t from 'tcomb-form';
 import { Profiles } from '../profiles/profiles.js';
 // import Autosuggest from 'react-autosuggest'
 
-class PlaysCollection extends Mongo.Collection {
-  insert(play, callback) {
-    const ourPlay = play;
-    if (!ourPlay.name) {
+class ShowsCollection extends Mongo.Collection {
+  insert(show, callback) {
+    const ourShow = show;
+    if (!ourShow.name) {
       let nextLetter = 'A';
-      ourPlay.name = `Play ${nextLetter}`;
+      ourShow.name = `Show ${nextLetter}`;
 
-      while (!!this.findOne({ name: ourPlay.name })) {
+      while (!!this.findOne({ name: ourShow.name })) {
         // not going to be too smart here, can go past Z
         nextLetter = String.fromCharCode(nextLetter.charCodeAt(0) + 1);
-        ourPlay.name = `Play ${nextLetter}`;
+        ourShow.name = `Show ${nextLetter}`;
       }
     }
 
-    return super.insert(ourPlay, callback);
+    return super.insert(ourShow, callback);
   }
   remove(selector, callback) {
-    Plays.remove({ playId: selector });
+    Shows.remove({ showId: selector });
     return super.remove(selector, callback);
   }
 }
 
-export const Plays = new PlaysCollection('Plays');
+export const Shows = new ShowsCollection('Shows');
 
 // Deny all client-side updates since we will be using methods to manage this collection
-Plays.deny({
+Shows.deny({
   insert() { return true; },
   update() { return true; },
   remove() { return true; },
 });
 
-export const playAuthorSchema = t.struct({
+export const showAuthorSchema = t.struct({
   name: t.String,
   id: t.String,
 });
 
 // @TODO: Refactor to look like this:
 // https://github.com/gcanti/tcomb-form/issues/311
-// Maybe that should be in playAuthor?
+// Maybe that should be in showAuthor?
 const atLeastOne = arr => arr.length > 0
-export const playSchema = t.struct({
+export const showSchema = t.struct({
   name: t.String,
-  author: t.refinement(t.list(playAuthorSchema), atLeastOne),
+  author: t.refinement(t.list(showAuthorSchema), atLeastOne),
   about: t.maybe(t.String),
 });
 
@@ -116,7 +116,7 @@ export const defaultFormOptions = () => {
     fields: {
       name: {
         attrs: {
-          className: 'play-name-edit',
+          className: 'show-name-edit',
         },
         error: 'Name is required',
       },
@@ -125,7 +125,7 @@ export const defaultFormOptions = () => {
         error: 'At least one author is required',
         label: 'Primary authorship',
         attrs: {
-          className: 'play-author-edit',
+          className: 'show-author-edit',
         },
         item: {
           template: authorLayout,
@@ -139,13 +139,13 @@ export const defaultFormOptions = () => {
               // }),
               error: 'Primary authorship is required',
               attrs: {
-                className: 'play-author-name-edit',
+                className: 'show-author-name-edit',
                 autoComplete: 'off'
               }
             },
             id: {
               attrs: {
-                className: 'play-author-id-edit'
+                className: 'show-author-id-edit'
               }
             }
           }
@@ -155,41 +155,41 @@ export const defaultFormOptions = () => {
         type: 'textarea',
         attrs: {
           rows: '10',
-          className: 'play-about-edit',
+          className: 'show-about-edit',
         },
       },
     },
   };
 }
 
-// Plays.schema = new SimpleSchema({
+// Shows.schema = new SimpleSchema({
 //   name: { type: String },
 //   about: { type: String, optional: true },
 //   userId: { type: String, regEx: SimpleSchema.RegEx.Id, optional: true },
 // });
 
-// Plays.attachSchema(Plays.schema);
+// Shows.attachSchema(Shows.schema);
 
-// This represents the keys from Plays objects that should be published
-// to the client. If we add secret properties to Play objects, don't play
+// This represents the keys from Shows objects that should be published
+// to the client. If we add secret properties to Show objects, don't show
 // them here to keep them private to the server.
-Plays.publicFields = {
+Shows.publicFields = {
   name: 1,
   author: 1,
   about: 1,
   userId: 1,
 };
 
-Factory.define('play', Plays, {});
+Factory.define('show', Shows, {});
 
-// Plays.helpers({
-//   // A play is considered to be private if it has a userId set
+// Shows.helpers({
+//   // A show is considered to be private if it has a userId set
 //   isPrivate() {
 //     return !!this.userId;
 //   },
-//   isLastPublicPlay() {
-//     const publicPlayCount = Plays.find({ userId: { $exists: false } }).count();
-//     return !this.isPrivate() && publicPlayCount === 1;
+//   isLastPublicShow() {
+//     const publicShowCount = Shows.find({ userId: { $exists: false } }).count();
+//     return !this.isPrivate() && publicShowCount === 1;
 //   },
 //   editableBy(userId) {
 //     if (!this.userId) {
@@ -199,6 +199,6 @@ Factory.define('play', Plays, {});
 //     return this.userId === userId;
 //   },
 //   todos() {
-//     return Todos.find({ playId: this._id }, { sort: { createdAt: -1 } });
+//     return Todos.find({ showId: this._id }, { sort: { createdAt: -1 } });
 //   },
 // });

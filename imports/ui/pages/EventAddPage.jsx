@@ -18,7 +18,7 @@ export default class EventAddPage extends React.Component {
 
     const pageClass = classnames({
       'page': true,
-      'plays-add': true,
+      'shows-add': true,
     });
 
     if (add && user) {

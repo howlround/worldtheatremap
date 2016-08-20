@@ -4,9 +4,9 @@ import { Router, Route, browserHistory } from 'react-router';
 // route components
 import AppContainer from '../../ui/containers/AppContainer.jsx';
 import ListContainer from '../../ui/containers/ListContainer.jsx';
-import PlayAddContainer from '../../ui/containers/PlayAddContainer.jsx';
-import PlayContainer from '../../ui/containers/PlayContainer.jsx';
-import PlayEditContainer from '../../ui/containers/PlayEditContainer.jsx';
+import ShowAddContainer from '../../ui/containers/ShowAddContainer.jsx';
+import ShowContainer from '../../ui/containers/ShowContainer.jsx';
+import ShowEditContainer from '../../ui/containers/ShowEditContainer.jsx';
 import ProfileContainer from '../../ui/containers/ProfileContainer.jsx';
 import ProfileAddContainer from '../../ui/containers/ProfileAddContainer.jsx';
 import ProfileEditContainer from '../../ui/containers/ProfileEditContainer.jsx';
@@ -24,9 +24,9 @@ export const renderRoutes = () => (
       <Route path="profiles/add" component={ProfileAddContainer}/>
       <Route path="profiles/:id" component={ProfileContainer}/>
       <Route path="profiles/:id/edit" component={ProfileEditContainer}/>
-      <Route path="plays/add" component={PlayAddContainer}/>
-      <Route path="plays/:id" component={PlayContainer}/>
-      <Route path="plays/:id/edit" component={PlayEditContainer}/>
+      <Route path="shows/add" component={ShowAddContainer}/>
+      <Route path="shows/:id" component={ShowContainer}/>
+      <Route path="shows/:id/edit" component={ShowEditContainer}/>
       <Route path="events/add" component={EventAddContainer}/>
       {<Route path="events/:id" component={EventContainer}/>}
       <Route path="events/:id/edit" component={EventEditContainer}/>

@@ -17,21 +17,21 @@ Feature: Create events
     And I am logged in
     And I hover over ".add"
     When I click on ".add-event"
-    Then I should see the ".event-play-name-edit" element
+    Then I should see the ".event-show-name-edit" element
     And I should see the ".event-about-edit" element
 
   Scenario: Users should be able to create an event with all the fields
     And a profile with the following fields:
       | name | My Favorite Playwright |
     And I am logged in
-    And I go to the "play" add page
-    And I fill in ".play-name-edit" with "Sofia"
-    And I fill in ".play-author-name-edit" with "My Favorite Playwright"
+    And I go to the "show" add page
+    And I fill in ".show-name-edit" with "Sofia"
+    And I fill in ".show-author-name-edit" with "My Favorite Playwright"
     And I click on ".autocomplete-results li"
-    And I fill in ".play-about-edit" with "Most popular name in Italy"
-    And I click on ".edit-play-save"
+    And I fill in ".show-about-edit" with "Most popular name in Italy"
+    And I click on ".edit-show-save"
     When I go to the "event" add page
-    And I fill in ".event-play-name-edit" with "Sofia"
+    And I fill in ".event-show-name-edit" with "Sofia"
     And I click on ".autocomplete-results li"
     And I select "Performance" from ".event-type-edit"
     And I fill in ".event-about-edit" with "A workshop on spelling"
@@ -43,15 +43,15 @@ Feature: Create events
     And a profile with the following fields:
       | name | My Favorite Playwright |
     And I am logged in
-    And I go to the "play" add page
-    And I fill in ".play-name-edit" with "Sofia"
-    And I fill in ".play-author-name-edit" with "My Favorite Playwright"
+    And I go to the "show" add page
+    And I fill in ".show-name-edit" with "Sofia"
+    And I fill in ".show-author-name-edit" with "My Favorite Playwright"
     And I click on ".autocomplete-results li"
-    And I fill in ".play-about-edit" with "Most popular name in Italy"
-    And I click on ".edit-play-save"
+    And I fill in ".show-about-edit" with "Most popular name in Italy"
+    And I click on ".edit-show-save"
     And I hover over ".add"
     When I click on ".add-event"
-    And I fill in ".event-play-name-edit" with "Sofia"
+    And I fill in ".event-show-name-edit" with "Sofia"
     And I click on ".autocomplete-results li"
     And I select "Performance" from ".event-type-edit"
     And I fill in ".event-about-edit" with "A workshop on spelling"
@@ -64,15 +64,15 @@ Feature: Create events
     And a profile with the following fields:
       | name | My Favorite Playwright |
     And I am logged in
-    And I go to the "play" add page
-    And I fill in ".play-name-edit" with "Sofia"
-    And I fill in ".play-author-name-edit" with "My Favorite Playwright"
+    And I go to the "show" add page
+    And I fill in ".show-name-edit" with "Sofia"
+    And I fill in ".show-author-name-edit" with "My Favorite Playwright"
     And I click on ".autocomplete-results li"
-    And I fill in ".play-about-edit" with "Most popular name in Italy"
-    And I click on ".edit-play-save"
+    And I fill in ".show-about-edit" with "Most popular name in Italy"
+    And I click on ".edit-show-save"
     And I hover over ".add"
     When I click on ".add-event"
-    And I fill in ".event-play-name-edit" with "Sofia"
+    And I fill in ".event-show-name-edit" with "Sofia"
     And I click on ".autocomplete-results li"
     And I fill in ".event-about-edit" with "A workshop on spelling"
     And I click on ".edit-event-save"

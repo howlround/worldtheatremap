@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { Participants } from '../../api/participants/participants.js';
-import PlayTeaser from '../components/PlayTeaser.jsx';
+import ShowTeaser from '../components/ShowTeaser.jsx';
 
 export default class ShowsByRole extends React.Component {
   constructor(props) {
@@ -21,16 +21,16 @@ export default class ShowsByRole extends React.Component {
     let Shows;
     if (participantByProfileByRole && participantByProfileByRole.length) {
       Shows = participantByProfileByRole.map(participantRecord => (
-        <li key={participantRecord.event.play.id}>
-          <PlayTeaser
-            play={participantRecord.event.play}
+        <li key={participantRecord.event.show.id}>
+          <ShowTeaser
+            show={participantRecord.event.show}
           />
         </li>
       ));
     }
 
     return (
-      <section className="shows-by-role profile-plays">
+      <section className="shows-by-role profile-shows">
         <h2>{role}</h2>
         <ul>
           {Shows}

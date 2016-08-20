@@ -2,9 +2,9 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import classNames from 'classnames';
 import { Link } from 'react-router';
-import { displayError } from '../helpers/errors.js';
+import { disshowError } from '../helpers/errors.js';
 import { updateImage } from '../../api/profiles/methods.js';
-import PlayTeaser from '../components/PlayTeaser.jsx';
+import ShowTeaser from '../components/ShowTeaser.jsx';
 import ShowsByRole from '../components/ShowsByRole.jsx';
 
 export default class Profile extends React.Component {
@@ -43,7 +43,7 @@ export default class Profile extends React.Component {
       }
       updateImage.call(
         newImage
-      , displayError);
+      , disshowError);
 
       // Reset the upload counter in case the user tries again
       this.setState({ uploadAttempts: 0 });
@@ -152,7 +152,7 @@ export default class Profile extends React.Component {
   }
 
   render() {
-    const { profile, user, plays, roles } = this.props;
+    const { profile, user, shows, roles } = this.props;
 
     const editLink = user ?
       <Link
@@ -166,12 +166,12 @@ export default class Profile extends React.Component {
       </Link>
     : '';
 
-    let Plays;
-    if (plays && plays.length) {
-      Plays = plays.map(play => (
-        <li key={play._id}>
-          <PlayTeaser
-            play={play}
+    let Shows;
+    if (shows && shows.length) {
+      Shows = shows.map(show => (
+        <li key={show._id}>
+          <ShowTeaser
+            show={show}
           />
         </li>
       ));
@@ -263,11 +263,11 @@ export default class Profile extends React.Component {
             {editLink}
           </section> : ''
         }
-        { (plays && plays.length) ?
-          <section className="profile-plays">
+        { (shows && shows.length) ?
+          <section className="profile-shows">
             <h2>Primary Authorship or Playwright</h2>
             <ul>
-              {Plays}
+              {Shows}
             </ul>
           </section>
           : ''
@@ -281,7 +281,7 @@ export default class Profile extends React.Component {
 Profile.propTypes = {
   profile: React.PropTypes.object,
   user: React.PropTypes.object,
-  plays: React.PropTypes.array,
+  shows: React.PropTypes.array,
   roles: React.PropTypes.array,
   onEditingChange: React.PropTypes.func,
 };

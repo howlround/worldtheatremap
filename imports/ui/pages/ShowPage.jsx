@@ -2,19 +2,19 @@ import React from 'react';
 import classnames from 'classnames';
 // import ListHeader from '../components/ListHeader.jsx';
 // import TodoItem from '../components/TodoItem.jsx';
-import Play from '../components/Play.jsx';
-import PlayEdit from '../components/PlayEdit.jsx';
+import Show from '../components/Show.jsx';
+import ShowEdit from '../components/ShowEdit.jsx';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
 import Message from '../components/Message.jsx';
 import Modal from '../components/Modal.jsx';
 import AuthSignIn from '../components/AuthSignIn.jsx';
 import { Link } from 'react-router';
 
-export default class PlayPage extends React.Component {
+export default class ShowPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      editing: this.props.editing ? this.props.play._id : null
+      editing: this.props.editing ? this.props.show._id : null
     };
     this.onEditingChange = this.onEditingChange.bind(this);
   }
@@ -26,17 +26,17 @@ export default class PlayPage extends React.Component {
   }
 
   render() {
-    // const { play, playExists, loading } = this.props;
-    const { play, user, eventsByPlay } = this.props;
+    // const { show, showExists, loading } = this.props;
+    const { show, user, eventsByShow } = this.props;
     const { editing } = this.state;
 
-    const playPageClass = classnames({
+    const showPageClass = classnames({
       'page': true,
-      'plays-show': true,
+      'shows-show': true,
       editing,
     });
 
-    if (!play) {
+    if (!show) {
       return (
         <NotFoundPage/>
       );
@@ -45,14 +45,14 @@ export default class PlayPage extends React.Component {
       return (
         <div className="overlay-wrapper">
           <Modal/>
-          <div className={playPageClass}>
-            <PlayEdit
-              play={play}
+          <div className={showPageClass}>
+            <ShowEdit
+              show={show}
               onEditingChange={this.onEditingChange}
             />
           </div>
           <Link
-            to={`/plays/${ play._id }`}
+            to={`/shows/${ show._id }`}
             title='Back'
             className="overlay-close"
           >
@@ -76,10 +76,10 @@ export default class PlayPage extends React.Component {
     }
     else {
       return (
-        <div className={playPageClass}>
-          <Play
-            play={play}
-            eventsByPlay={eventsByPlay}
+        <div className={showPageClass}>
+          <Show
+            show={show}
+            eventsByShow={eventsByShow}
             user={user}
             onEditingChange={this.onEditingChange}
           />
@@ -89,11 +89,11 @@ export default class PlayPage extends React.Component {
   }
 }
 
-PlayPage.propTypes = {
-  play: React.PropTypes.object,
-  eventsByPlay: React.PropTypes.array,
+ShowPage.propTypes = {
+  show: React.PropTypes.object,
+  eventsByShow: React.PropTypes.array,
   editing: React.PropTypes.string,
   user: React.PropTypes.object,
   // loading: React.PropTypes.bool,
-  // playExists: React.PropTypes.bool,
+  // showExists: React.PropTypes.bool,
 };

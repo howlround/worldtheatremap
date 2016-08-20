@@ -9,21 +9,21 @@ Feature: Related profiles on profile pages
     And a profile with the following fields:
       | name | My Favorite Playwright |
     And I am logged in
-    And I go to the "play" add page
-    And I fill in ".play-name-edit" with "Sofia"
-    And I fill in ".play-author-name-edit" with "My Favorite Playwright"
+    And I go to the "show" add page
+    And I fill in ".show-name-edit" with "Sofia"
+    And I fill in ".show-author-name-edit" with "My Favorite Playwright"
     And I click on ".autocomplete-results li"
-    And I fill in ".play-about-edit" with "Most popular name in Italy"
-    And I click on ".edit-play-save"
+    And I fill in ".show-about-edit" with "Most popular name in Italy"
+    And I click on ".edit-show-save"
     And I go to the "event" add page
-    And I fill in ".event-play-name-edit" with "Sofia"
+    And I fill in ".event-show-name-edit" with "Sofia"
     And I click on ".autocomplete-results li"
     And I select "Performance" from ".event-type-edit"
     And I fill in ".event-about-edit" with "A workshop on spelling"
     And I click on ".edit-event-save"
     And a profile with the following fields:
       | name | Il Regista |
-    And I go to the play page for "Sofia"
+    And I go to the show page for "Sofia"
     And I click on ".event-name a"
     And I fill in ".participant-profile-name-edit" with "Il Regista"
     And I click on ".autocomplete-results li"
@@ -31,7 +31,7 @@ Feature: Related profiles on profile pages
     And I click on ".edit-participant-save"
     And a profile with the following fields:
       | name | Il Curatore |
-    And I go to the play page for "Sofia"
+    And I go to the show page for "Sofia"
     And I click on ".event-name a"
     And I fill in ".participant-profile-name-edit" with "Il Curatore"
     And I click on ".autocomplete-results li"

@@ -1,8 +1,8 @@
-article.play-teaser {
+article.show-teaser {
   border-top: 1px solid $light-teal;
   padding: ($spacing-unit * 2) 0;
 
-  h3.play-name {
+  h3.show-name {
     display: inline-block;
     margin-right: 6px;
     margin-bottom: $spacing-unit / 2;
@@ -10,7 +10,7 @@ article.play-teaser {
     font-weight: 700;
   }
 
-  .play-authorship {
+  .show-authorship {
     display: inline-block;
     color: $gray;
     margin-bottom: $spacing-unit / 2;

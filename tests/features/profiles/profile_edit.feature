@@ -26,4 +26,4 @@ Feature: Edit organization profiles
     Then the ".profile-name" element should contain "Favorite place theatER"
     And the ".profile-about" element should contain "I really really like going there"
 
-  # Scenario: After updating a profile name the new name should show up on plays if this profile is listed as a primary author
+  # Scenario: After updating a profile name the new name should show up on shows if this profile is listed as a primary author

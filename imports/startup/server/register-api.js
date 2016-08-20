@@ -2,9 +2,9 @@
 import '../../api/profiles/methods.js';
 import '../../api/profiles/server/publications.js';
 
-// Plays
-import '../../api/plays/methods.js';
-import '../../api/plays/server/publications.js';
+// Shows
+import '../../api/shows/methods.js';
+import '../../api/shows/server/publications.js';
 
 // Events
 import '../../api/events/methods.js';

@@ -78,7 +78,7 @@ export default class Event extends React.Component {
   }
 
   onChange(value, path) {
-    // @TODO: Merge with PlayEdit.jsx
+    // @TODO: Merge with ShowEdit.jsx
     if (path[0] == 'profile' && path[1] == 'name') {
       const search = value.profile.name;
       const resultsElement = $('.form-group-profile-name').siblings('ul.autocomplete-results');
@@ -162,8 +162,8 @@ export default class Event extends React.Component {
     : '';
 
     // @TODO: Abstract this to a function or component to reduce duplication in EventTeaser.jsx
-    // @TODO: Refactor event.play format to be a single play item
-    const authors = event.play.author.map((author, index, array) => {
+    // @TODO: Refactor event.show format to be a single show item
+    const authors = event.show.author.map((author, index, array) => {
       let seperator = ', ';
       if (index == array.length - 1) {
         seperator = '';
@@ -200,10 +200,10 @@ export default class Event extends React.Component {
         <section className="event-main-info">
           <h1 className="event-name page-title">
             <Link
-              to={`/plays/${ event.play.id }`}
-              title={event.play.name}
+              to={`/shows/${ event.show.id }`}
+              title={event.show.name}
             >
-              {event.play.name}
+              {event.show.name}
             </Link>
           </h1>
           <div className="event-authorship">

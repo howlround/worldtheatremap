@@ -2,30 +2,30 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { _ } from 'meteor/underscore';
 import { displayError } from '../helpers/errors.js';
-import { insert } from '../../api/plays/methods.js';
-import { playSchema, defaultFormOptions } from '../../api/plays/plays.js';
+import { insert } from '../../api/shows/methods.js';
+import { showSchema, defaultFormOptions } from '../../api/shows/shows.js';
 import { insert as insertProfile } from '../../api/profiles/methods.js';
 import { Profiles } from '../../api/profiles/profiles.js';
 import t from 'tcomb-form';
 
 const Form = t.form.Form;
 
-export default class PlayAdd extends React.Component {
+export default class ShowAdd extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      play: {
+      show: {
         author: [
           {}
         ]
       }
     };
 
-    this.throttledAdd = _.throttle(newPlay => {
-      if (newPlay) {
+    this.throttledAdd = _.throttle(newShow => {
+      if (newShow) {
         const newID = insert.call({
-          newPlay,
+          newShow,
         }, displayError);
 
         return newID;
@@ -48,27 +48,27 @@ export default class PlayAdd extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const newPlay = this.refs.form.getValue();
-    if (newPlay) {
-      const newID = this.throttledAdd(newPlay);
+    const newShow = this.refs.form.getValue();
+    if (newShow) {
+      const newID = this.throttledAdd(newShow);
 
       // Redirect
-      this.context.router.push(`/plays/${ newID }`);
+      this.context.router.push(`/shows/${ newID }`);
     }
   }
 
   onChange(value, path) {
-    // @TODO: Merge with PlayEdit.jsx
+    // @TODO: Merge with ShowEdit.jsx
     if (path[0] == 'author' && path[2] == 'name') {
       const search = value.author[path[1]].name;
       const resultsElement = $('.form-group-author-' + path[1] + '-name').siblings('ul.autocomplete-results');
 
-      // Search for profiles and save to ul.play-author-edit-result
+      // Search for profiles and save to ul.show-author-edit-result
       if (search.length > 0) {
         // Clear any existing stored values
         const clearValue = value;
         clearValue.author[path[1]].id = '';
-        this.setState({play: clearValue});
+        this.setState({show: clearValue});
 
         const regex = new RegExp('.*' + search + '.*', 'i');
         const results = Profiles.find({name: { $regex: regex }}, {limit: 5}).fetch();
@@ -82,7 +82,7 @@ export default class PlayAdd extends React.Component {
                 const newValue = value;
                 newValue.author[path[1]].name = profile.name;
                 newValue.author[path[1]].id = profile._id;
-                this.setState({play: newValue});
+                this.setState({show: newValue});
 
                 // Clear fields
                 resultsElement.html('');
@@ -98,11 +98,11 @@ export default class PlayAdd extends React.Component {
             }
             // Save profile to DB
             const newProfileID = this.throttledAddProfile(newProfile);
-            // Save the new profile to the new play state
+            // Save the new profile to the new show state
             const newValue = value;
             newValue.author[path[1]].name = search;
             newValue.author[path[1]].id = newProfileID;
-            this.setState({play: newValue});
+            this.setState({show: newValue});
 
             // Clear fields
             resultsElement.html('');
@@ -118,18 +118,18 @@ export default class PlayAdd extends React.Component {
   render() {
     const formOptions = defaultFormOptions();
     return (
-      <form className="play-edit-form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off" >
+      <form className="show-edit-form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off" >
         <Form
           ref="form"
-          type={playSchema}
+          type={showSchema}
           options={formOptions}
-          value={this.state.play}
+          value={this.state.show}
           onChange={this.onChange}
         />
         <div className="form-group">
           <button
             type="submit"
-            className="edit-play-save">
+            className="edit-show-save">
             Save
           </button>
         </div>
@@ -138,10 +138,10 @@ export default class PlayAdd extends React.Component {
   }
 }
 
-// PlayAdd.propTypes = {
-//   play: React.PropTypes.object,
+// ShowAdd.propTypes = {
+//   show: React.PropTypes.object,
 // };
 
-PlayAdd.contextTypes = {
+ShowAdd.contextTypes = {
   router: React.PropTypes.object,
 };

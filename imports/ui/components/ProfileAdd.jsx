@@ -43,17 +43,18 @@ export default class ProfileAdd extends React.Component {
   }
 
   initGoogleMap() {
+    // @TODO: Find a way to unify with ProfileEdit.jsx
     if (GoogleMaps.loaded()) {
       if ($('.form-group-lat.find-pin-processed').length == 0) {
         // $('.form-group-lat').hide();
         // $('.form-group-lon').hide();
-        let initMapLocation = [0, 0];
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
-        }
-        function showPosition(position) {
-          initMapLocation = [ position.coords.latitude, position.coords.longitude ];
-        }
+        let initMapLocation = [ 0, 0 ];
+        // if (navigator.geolocation) {
+        //     navigator.geolocation.getCurrentPosition(showPosition);
+        // }
+        // function showPosition(position) {
+        //   initMapLocation = [ position.coords.latitude, position.coords.longitude ];
+        // }
 
         $('<div></div>').addClass('form-group profile-geographic-location-edit').insertBefore('.form-group-lat');
         $('<div></div>').addClass('find-pin-map').prependTo('.profile-geographic-location-edit').width('100%').height('300px');

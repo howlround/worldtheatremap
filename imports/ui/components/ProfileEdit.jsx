@@ -15,9 +15,7 @@ export default class ProfileEdit extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      profile: this.props.profile,
-    };
+    this.state = this.props.profile;
 
     this.throttledUpdate = _.throttle(newProfile => {
       if (newProfile) {
@@ -34,11 +32,91 @@ export default class ProfileEdit extends React.Component {
     // this.updateProfile = this.updateProfile.bind(this);
     // this.onFocus = this.onFocus.bind(this);
     // this.onBlur = this.onBlur.bind(this);
+    this.initGoogleMap = this.initGoogleMap.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
+  }
+
+  componentWillReceiveProps() {
+    this.setState(this.props.profile);
+  }
+
+  componentDidMount() {
+    this.initGoogleMap();
+  }
+
+  componentDidUpdate() {
+    this.initGoogleMap();
+  }
+
+  initGoogleMap() {
+    // @TODO: Find a way to unify with ProfileAdd.jsx
+    if (GoogleMaps.loaded()) {
+      if ($('.form-group-lat.find-pin-processed').length == 0) {
+        // $('.form-group-lat').hide();
+        // $('.form-group-lon').hide();
+        let initMapLocation = [ 0, 0 ];
+        let initMapZoom = 2;
+        if (this.state.lat && this.state.lon) {
+          initMapLocation = [ this.state.lat, this.state.lon ];
+          initMapZoom = 8;
+        }
+        // else if (navigator.geolocation) {
+        //     navigator.geolocation.getCurrentPosition(showPosition);
+        // }
+        // function showPosition(position) {
+        //   initMapLocation = [ position.coords.latitude, position.coords.longitude ];
+        // }
+
+        $('<div></div>').addClass('form-group profile-geographic-location-edit').insertBefore('.form-group-lat');
+        $('<div></div>').addClass('find-pin-map').prependTo('.profile-geographic-location-edit').width('100%').height('300px');
+        $('<input></input>').addClass('find-pin').attr({'type': 'text'}).prependTo('.profile-geographic-location-edit').geocomplete({
+          map: ".find-pin-map",
+          details: "form ",
+          detailsAttribute: "data-geo",
+          markerOptions: {
+            draggable: true
+          },
+          mapOptions: {
+            zoom: initMapZoom
+          },
+          location: initMapLocation
+        });
+        $('<label></label>').text('Set Map Pin (optional)').prependTo('.profile-geographic-location-edit');
+
+        $('.find-pin').bind("geocode:dragged", (event, latLng) => {
+          let updatedProfile = _.extend({}, this.state);
+          const newLat = latLng.lat();
+          const newLon = latLng.lng();
+          updatedProfile.lat = newLat.toString();
+          updatedProfile.lon = newLon.toString();
+          this.setState(updatedProfile);
+        });
+
+        $('.find-pin').bind("geocode:result", (event, result) => {
+          let updatedProfile = _.extend({}, this.state);
+          const newLat = result.geometry.location.lat();
+          const newLon = result.geometry.location.lng();
+          updatedProfile.lat = newLat.toString();
+          updatedProfile.lon = newLon.toString();
+          this.setState(updatedProfile);
+        });
+
+        $('.find-pin').trigger("geocode");
+
+        // Don't process again
+        $('.form-group-lat').addClass('find-pin-processed');
+      }
+    }
+  }
+
+  onChange(value) {
+    this.setState(value);
   }
 
   handleSubmit(event) {
     event.preventDefault();
+
     const newProfile = this.refs.form.getValue();
     if (newProfile) {
       this.throttledUpdate(newProfile);
@@ -59,8 +137,9 @@ export default class ProfileEdit extends React.Component {
         <Form
           ref="form"
           type={profileSchema}
-          value={this.state.profile}
           options={formOptions}
+          onChange={this.onChange}
+          value={this.state}
         />
 
         <button
@@ -75,6 +154,7 @@ export default class ProfileEdit extends React.Component {
 ProfileEdit.propTypes = {
   profile: React.PropTypes.object,
   onEditingChange: React.PropTypes.func,
+  googpleMapsReady: React.PropTypes.bool,
 };
 
 ProfileEdit.contextTypes = {

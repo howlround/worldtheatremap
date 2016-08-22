@@ -237,13 +237,14 @@ export const profileSchema = t.struct({
   name: t.String, // Required
   about: t.maybe(t.String),
   profileType: t.maybe(t.list(t.String)), // Required
+  streetAddress: t.maybe(t.String),
   locality: t.maybe(t.String), // City
   administrativeArea: t.maybe(t.String), // Province, Region, State
   country: t.maybe(t.String),
   postalCode: t.maybe(t.String),
-  agent: t.maybe(t.String),
   lat: t.maybe(t.String),
   lon: t.maybe(t.String),
+  agent: t.maybe(t.String),
   phone: t.maybe(t.String),
   email: t.maybe(t.String),
   website: t.maybe(t.String),
@@ -275,27 +276,47 @@ export const defaultFormOptions = () => {
         factory: ReactSelectProfileTypeFactory,
         help: 'Is this profile representing an individual or an organization? Can be both if applicable. '
       },
+      streetAddress: {
+        attrs: {
+          className: 'profile-street-address-edit',
+          // 'data-geo': 'street_address',
+        },
+      },
       locality: {
         label: 'City (optional)',
         attrs: {
           className: 'profile-locality-edit',
+          // 'data-geo': 'locality',
         },
       },
       administrativeArea: {
         label: 'Province, Region, or State (optional)',
         attrs: {
           className: 'profile-administrative-area-edit',
+          // 'data-geo': 'administrative_area_level_1',
         },
       },
       country: {
         attrs: {
           className: 'profile-country-edit',
+          // 'data-geo': 'country',
         },
       },
       postalCode: {
         attrs: {
           className: 'profile-postal-code-edit',
+          // 'data-geo': 'postal_code',
         },
+      },
+      lat: {
+        attrs: {
+          'data-geo': 'lat',
+        }
+      },
+      lon: {
+        attrs: {
+          'data-geo': 'lng',
+        }
       },
       agent: {
         attrs: {
@@ -360,6 +381,7 @@ Profiles.publicFields = {
   about: 1,
   profileType: 1,
   image: 1,
+  streetAddress: 1,
   locality: 1,
   administrativeArea: 1,
   country: 1,

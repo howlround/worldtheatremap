@@ -20,7 +20,6 @@ import NotFoundPage from '../../ui/pages/NotFoundPage.jsx';
 export const renderRoutes = () => (
   <Router history={browserHistory}>
     <Route path="/" component={AppContainer}>
-      <Route path="lists/:id" component={ListContainer}/>
       <Route path="profiles/add" component={ProfileAddContainer}/>
       <Route path="profiles/:id" component={ProfileContainer}/>
       <Route path="profiles/:id/edit" component={ProfileEditContainer}/>

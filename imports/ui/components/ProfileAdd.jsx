@@ -38,6 +38,14 @@ export default class ProfileAdd extends React.Component {
       if ($('.form-group-lat.find-pin-processed').length == 0) {
         // $('.form-group-lat').hide();
         // $('.form-group-lon').hide();
+        let initMapLocation = [0, 0];
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        }
+        function showPosition(position) {
+          initMapLocation = [ position.coords.latitude, position.coords.longitude ];
+        }
+
         $('<div></div>').addClass('form-group profile-geographic-location-edit').insertBefore('.form-group-lat');
         $('<div></div>').addClass('find-pin-map').prependTo('.profile-geographic-location-edit').width('100%').height('300px');
         $('<input></input>').addClass('find-pin').attr({'type': 'text'}).prependTo('.profile-geographic-location-edit').geocomplete({
@@ -46,7 +54,11 @@ export default class ProfileAdd extends React.Component {
           detailsAttribute: "data-geo",
           markerOptions: {
             draggable: true
-          }
+          },
+          mapOptions: {
+            zoom: 2
+          },
+          location: initMapLocation
         });
         $('<label></label>').text('Set Map Pin (optional)').prependTo('.profile-geographic-location-edit');
 

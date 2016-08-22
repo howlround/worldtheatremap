@@ -57,13 +57,13 @@ const atLeastOne = arr => arr.length > 0
 
 export const participantSchema = t.struct({
   profile: relatedProfileSchema,
-  role: t.String,
+  role: t.maybe(t.String),
   event: eventSchema,
 });
 
 export const participantFormSchema = t.struct({
   profile: relatedProfileSchema,
-  role: t.String,
+  role: t.maybe(t.String),
 });
 
 const profileLayout = (profile) => {

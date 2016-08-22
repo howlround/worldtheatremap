@@ -56,3 +56,25 @@ Feature: Participant listing on event pages
     And I click on ".event-name a"
     Then the ".event-participants h2" element should contain "1 Participant"
     And the ".event-participants h2" element should not contain "1 Participants"
+
+  Scenario: Role for participants sholud be optional
+    And a profile with the following fields:
+      | name | Il Regista |
+    And I go to the show page for "Sofia"
+    And I click on ".event-name a"
+    And I fill in ".participant-profile-name-edit" with "Il Regista"
+    And I click on ".autocomplete-results li"
+    And I click on ".edit-participant-save"
+    Then the ".event-participant-name" element should contain "Il Regista"
+
+  Scenario: If a participant is not assigned a role they should still be displayed on the user profile
+    And a profile with the following fields:
+      | name | Il Regista |
+    And I go to the show page for "Sofia"
+    And I click on ".event-name a"
+    And I fill in ".participant-profile-name-edit" with "Il Regista"
+    And I click on ".autocomplete-results li"
+    And I click on ".edit-participant-save"
+    When I go to the profile page for "Il Regista"
+    Then the ".shows-by-role h2" element should contain "Participant"
+    And the ".show-teaser" element should contain "Sofia"

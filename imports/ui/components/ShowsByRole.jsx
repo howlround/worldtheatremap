@@ -29,9 +29,11 @@ export default class ShowsByRole extends React.Component {
       ));
     }
 
+    const roleTitle = role ? role : 'Participant';
+
     return (
       <section className="shows-by-role profile-shows">
-        <h2>{role}</h2>
+        <h2>{roleTitle}</h2>
         <ul>
           {Shows}
         </ul>

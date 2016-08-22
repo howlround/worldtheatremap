@@ -29,11 +29,20 @@ export default class ProfileAdd extends React.Component {
     // this.onBlur = this.onBlur.bind(this);
     // this.componentDidMount = this.componentDidMount.bind(this);
     // this.componentDidUpdate = this.componentDidUpdate.bind(this);
+    this.initGoogleMap = this.initGoogleMap.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
   }
 
+  componentDidMount() {
+    this.initGoogleMap();
+  }
+
   componentDidUpdate() {
+    this.initGoogleMap();
+  }
+
+  initGoogleMap() {
     if (GoogleMaps.loaded()) {
       if ($('.form-group-lat.find-pin-processed').length == 0) {
         // $('.form-group-lat').hide();

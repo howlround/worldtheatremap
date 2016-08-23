@@ -228,8 +228,7 @@ export default class Profile extends React.Component {
     const cityState = [profile.locality, profile.administrativeArea].filter(function (val) {return val;}).join(', ');
     const locationBlock = <div className="profile-location">
       { cityState ? <div>{ cityState }</div> : '' }
-      { profile.country ? <div className="profile-country">{ profile.country }</div> : '' }
-    </div>;
+      { profile.country ? <div className="profile-country">{ profile.country }</div> : '' }</div>;
 
     return (
       <article className="profile full">

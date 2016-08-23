@@ -43,7 +43,7 @@ export default class ProfileAdd extends React.Component {
   }
 
   initGoogleMap() {
-    // @TODO: Find a way to unify with ProfileEdit.jsx
+    // @TODO: Find a way to unify with ProfileEdit.jsx, EventAdd.jsx, and EventEdit.jsx
     if (GoogleMaps.loaded()) {
       if ($('.form-group-lat.find-pin-processed').length == 0) {
         // $('.form-group-lat').hide();

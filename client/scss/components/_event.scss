@@ -1,4 +1,13 @@
 article.event {
+  section {
+    overflow: auto;
+  }
+
+  .event-details {
+    margin-top: $spacing-unit * 2;
+    font-size: 15px;
+  }
+
   .event-name {
     a {
       color: $dark-tan;
@@ -21,6 +30,28 @@ article.event {
         color: $gray;
       }
     }
+  }
+}
+
+article.event.with-location {
+  .event-main-info {
+    float: left;
+    width: 100%;
+
+    @include breakpoint($normal) {
+      float: left;
+      width: 603px - 30px - 30px - 200px - 2px - ($spacing-unit * 2);
+    }
+
+    @include breakpoint($wide) {
+      width: 750px - 30px - 30px - 200px - 2px - ($spacing-unit * 2);
+    }
+  }
+
+  .event-globe {
+    float: left;
+    margin-right: $spacing-unit * 2;
+    width: 200px;
   }
 }
 

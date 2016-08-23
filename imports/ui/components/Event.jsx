@@ -2,8 +2,11 @@ import React from 'react';
 import { Link } from 'react-router';
 import { _ } from 'meteor/underscore';
 import { insert } from '../../api/participants/methods.js';
-// import { updateRoles } from '../../api/profiles/methods.js';
 import { displayError } from '../helpers/errors.js';
+import classNames from 'classnames';
+import { select, queue, json } from 'd3';
+import topojson from 'topojson';
+import { geoOrthographic, geoGraticule, geoPath, geoCentroid, geoInterpolate } from 'd3-geo';
 import { participantFormSchema, defaultFormOptions } from '../../api/participants/participants.js';
 import { Profiles } from '../../api/profiles/profiles.js';
 import t from 'tcomb-form';
@@ -48,16 +51,18 @@ export default class Event extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.renderParticipantAdd = this.renderParticipantAdd.bind(this);
     this.renderParticipantEdit = this.renderParticipantEdit.bind(this);
+    this.initializeD3Globe = this.initializeD3Globe.bind(this);
   }
 
-  // createNewParticipant() {
-  //   const newId = insert.call((err) => {
-  //     if (err) {
-  //       // eslint-disable no-alert
-  //       alert('Could not create participant.');
-  //     }
-  //   });
-  // }
+  componentDidMount() {
+    this.initializeD3Globe();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.event.lat && prevProps.event.lon && this.props.event.lat && this.props.event.lon && (prevProps.event.lat !== this.props.event.lat || prevProps.event.lon !== this.props.event.lon)) {
+      this.initializeD3Globe();
+    }
+  }
 
   handleSubmit(event) {
     event.preventDefault();
@@ -145,6 +150,130 @@ export default class Event extends React.Component {
 
   }
 
+  initializeD3Globe() {
+    const { event } = this.props;
+    /* d3 setup */
+    // Original example: https://bl.ocks.org/mbostock/4183330
+    if (event.lat && event.lon) {
+      const containerWidth = 200;
+      const conatinerHeight = 200;
+      const diameter = 196;
+
+      const projection = geoOrthographic()
+        .translate([diameter / 2 + 2, diameter / 2 + 2])
+        .scale(diameter / 2)
+        .clipAngle(90)
+        .precision(0.6);
+
+      const graticule = geoGraticule();
+
+      $('#canvas').remove();
+      const canvas = select("#globe").append("canvas").attr('id', 'canvas')
+        .attr("width", containerWidth)
+        .attr("height", conatinerHeight);
+
+      let c = canvas.node().getContext("2d");
+
+      let path = geoPath()
+        .projection(projection)
+        .context(c);
+
+      const eventLocation = {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            event.lon,
+            event.lat
+          ]
+        }
+      };
+
+      queue()
+        .defer(json, "/world-110m.json")
+        .await(globeReady);
+
+      function globeReady(error, world) {
+        if (error) {
+          return;
+        }
+
+        const globe = {type: "Sphere"};
+        const grid = graticule();
+        const land = topojson.feature(world, world.objects.land);
+        var borders = topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; });
+
+        // Set rotation
+        const p = geoCentroid(eventLocation);
+        const r = geoInterpolate(projection.rotate(), [-p[0]-15, -p[1]+30]);
+
+        projection.rotate(r(1)).clipAngle(90);
+        c.clearRect(0, 0, containerWidth, conatinerHeight);
+
+        // Globe background
+        c.fillStyle = "#fff8f5";
+        c.beginPath();
+        path(globe);
+        c.fill();
+
+        // Background Continents
+        projection.clipAngle(180);
+        c.fillStyle = "#77d0c9";
+        c.strokeStyle = "#77d0c9";
+        c.lineWidth = .5;
+        c.beginPath();
+        path(land);
+        c.stroke();
+        c.fill();
+
+        // Background Grid
+        projection.clipAngle(180);
+        // c.strokeStyle = "#deffff";
+        c.strokeStyle = "#68d3c84";
+        c.lineWidth = .25;
+        c.beginPath();
+        path(grid);
+        c.stroke();
+
+        // Foreground Grid
+        projection.clipAngle(90);
+        // c.strokeStyle = "#ffffff";
+        c.strokeStyle = "#68d3c8";
+        c.lineWidth = 0.75;
+        c.beginPath();
+        path(grid);
+        c.stroke();
+
+        // Continents
+        projection.clipAngle(90);
+        c.fillStyle = "#50b2aa";
+        c.beginPath();
+        path(land);
+        c.fill();
+
+        // Foreground borders
+        c.strokeStyle = "#50b2aa";
+        c.lineWidth = .5;
+        c.beginPath();
+        path(borders);
+        c.stroke();
+
+        // Dot
+        c.fillStyle = "#ef4606";
+        c.beginPath();
+        path(eventLocation);
+        c.fill();
+
+        // Globe outline
+        c.strokeStyle = "#20A09";
+        c.lineWidth = 2;
+        c.beginPath();
+        path(globe);
+        c.stroke();
+      }
+    }
+  }
+
   render() {
     const { event, user, participantsByEvent } = this.props;
 
@@ -195,28 +324,43 @@ export default class Event extends React.Component {
       participantsTitle = participantsByEvent.length == 1 ? participantsByEvent.length + ' Participant' : participantsByEvent.length + ' Participants';
     }
 
+    const locationLine = [event.locality, event.administrativeArea, event.country].filter(function (val) {return val;}).join(', ');
+
+    const articleClasses = classNames('event', 'full', {
+      'with-location': event.lat && event.lon,
+    });
+
     return (
-      <article className="event full">
-        <section className="event-main-info">
-          <h1 className="event-name page-title">
-            <Link
-              to={`/shows/${ event.show.id }`}
-              title={event.show.name}
-            >
-              {event.show.name}
-            </Link>
-          </h1>
-          <div className="event-authorship">
-            by {authors}
-          </div>
-          <div className="event-info">
-            <h3 className="event-type">
-              {event.eventType}
-            </h3>
-            { event.dateRange ?
-              <div className="event-date-range date">
-                { event.dateRange }
-              </div> : '' }
+      <article className={articleClasses}>
+        <section>
+          { (event.lat && event.lon) ?
+            <div className="event-globe">
+              <div id="globe"></div>
+            </div> : ''
+          }
+          <div className="event-main-info">
+            <h1 className="event-name page-title">
+              <Link
+                to={`/shows/${ event.show.id }`}
+                title={event.show.name}
+              >
+                {event.show.name}
+              </Link>
+            </h1>
+            <div className="event-authorship">
+              by {authors}
+            </div>
+            <div className="event-details">
+              <h3 className="event-type">
+                {event.eventType}
+              </h3>
+              { typeof locationLine != 'undefined' ?
+                <div className="event-location">{ locationLine }</div> : '' }
+              { event.dateRange ?
+                <div className="event-date-range date">
+                  { event.dateRange }
+                </div> : '' }
+            </div>
           </div>
           {editLink}
         </section>

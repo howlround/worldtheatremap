@@ -13,11 +13,7 @@ export default class EventAdd extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      event: {
-        show: {}
-      }
-    };
+    this.state = {};
 
     this.throttledAdd = _.throttle(newEvent => {
       if (newEvent) {
@@ -29,14 +25,79 @@ export default class EventAdd extends React.Component {
       }
     }, 300);
 
+    this.initGoogleMap = this.initGoogleMap.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.initGoogleMap();
+  }
+
+  componentDidUpdate() {
+    this.initGoogleMap();
+  }
+
+  initGoogleMap() {
+    // @TODO: Find a way to unify with ProfileEdit.jsx
+    if (GoogleMaps.loaded()) {
+      if ($('.form-group-lat.find-pin-processed').length == 0) {
+        // $('.form-group-lat').hide();
+        // $('.form-group-lon').hide();
+        let initMapLocation = [ 0, 0 ];
+        // if (navigator.geolocation) {
+        //     navigator.geolocation.getCurrentPosition(showPosition);
+        // }
+        // function showPosition(position) {
+        //   initMapLocation = [ position.coords.latitude, position.coords.longitude ];
+        // }
+
+        $('<div></div>').addClass('form-group profile-geographic-location-edit').insertBefore('.form-group-lat');
+        $('<div></div>').addClass('find-pin-map').prependTo('.profile-geographic-location-edit').width('100%').height('300px');
+        $('<input></input>').addClass('find-pin').attr({'type': 'text'}).prependTo('.profile-geographic-location-edit').geocomplete({
+          map: ".find-pin-map",
+          details: "form ",
+          detailsAttribute: "data-geo",
+          markerOptions: {
+            draggable: true
+          },
+          mapOptions: {
+            zoom: 2
+          },
+          location: initMapLocation
+        });
+        $('<label></label>').text('Set Map Pin (optional)').prependTo('.profile-geographic-location-edit');
+
+        $('.find-pin').bind("geocode:dragged", (event, latLng) => {
+          let updatedEvent = _.extend({}, this.state);
+          const newLat = latLng.lat();
+          const newLon = latLng.lng();
+          updatedEvent.lat = newLat.toString();
+          updatedEvent.lon = newLon.toString();
+          this.setState(updatedEvent);
+        });
+
+        $('.find-pin').bind("geocode:result", (event, result) => {
+          let updatedEvent = _.extend({}, this.state);
+          const newLat = result.geometry.location.lat();
+          const newLon = result.geometry.location.lng();
+          updatedEvent.lat = newLat.toString();
+          updatedEvent.lon = newLon.toString();
+          this.setState(updatedEvent);
+        });
+
+        $('.find-pin').trigger("geocode");
+
+        // Don't process again
+        $('.form-group-lat').addClass('find-pin-processed');
+      }
+    }
   }
 
   handleSubmit(event) {
     event.preventDefault();
     const formValues = this.refs.form.getValue();
-    let newEvent = this.state.event;
+    let newEvent = this.state;
 
     if (newEvent && formValues) {
       newEvent.about = formValues.about;
@@ -50,7 +111,7 @@ export default class EventAdd extends React.Component {
   }
 
   onChange(value, path) {
-    this.setState({event: value});
+    this.setState(value);
     // @TODO: Merge with EventEdit.jsx
     if (path[0] == 'show' && path[1] == 'name') {
       const search = value.show.name;
@@ -61,7 +122,7 @@ export default class EventAdd extends React.Component {
         // Clear any existing stored values
         const clearValue = value;
         clearValue.show.id = '';
-        this.setState({event: clearValue});
+        this.setState(clearValue);
 
         const regex = new RegExp('.*' + search + '.*', 'i');
         const results = Shows.find({name: { $regex: regex }}, {limit: 5}).fetch();
@@ -80,7 +141,7 @@ export default class EventAdd extends React.Component {
                 // @TODO: Refactor to only use the _id
                 newValue.show.id = show._id;
 
-                this.setState({event: newValue});
+                this.setState(newValue);
 
                 // Clear fields
                 resultsElement.html('');
@@ -105,7 +166,7 @@ export default class EventAdd extends React.Component {
           ref="form"
           type={eventSchema}
           options={formOptions}
-          value={this.state.event}
+          value={this.state}
           onChange={this.onChange}
         />
         <div className="form-group">

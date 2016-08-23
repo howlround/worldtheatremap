@@ -13,14 +13,6 @@ Feature: Create events
     Then the "h1" element should contain "Sign in"
     And the ".wrapper-message" element should contain "Sign in or register to participate in the World Theatre Map"
 
-  Scenario: Users should see all the fields on the add event form
-    And I am logged in
-    When I go to the "event" add page
-    Then I should see the ".event-show-name-edit" element
-    And I should see the ".event-about-edit" element
-    And I should see the ".form-group-startDate" element
-    And I should see the ".form-group-endDate" element
-
   Scenario: Users should be able to create an event with all the fields
     And a profile with the following fields:
       | name | My Favorite Playwright |
@@ -40,10 +32,19 @@ Feature: Create events
     And I click on ".DayPicker-Day=1"
     And I click on ".form-group-endDate input"
     And I click on ".DayPicker-Day=15"
+    And I fill in ".event-street-address-edit" with "Brandsen 805"
+    And I fill in ".event-locality-edit" with "Buenos Aires"
+    And I fill in ".event-country-edit" with "Argentina"
+    And I fill in ".event-postal-code-edit" with "1161"
+    And I fill in ".find-pin" with "Buenos Aires"
+    And I click on ".pac-item"
+    And I should wait extra long until "pac-item" is not visible
     And I click on ".edit-event-save"
     Then the "h1.page-title" element should contain "Sofia"
     And the ".event-about" element should contain "A workshop on spelling"
     And the ".event-date-range" element should contain the date range for day "1" to day "15" of this month
+    And I should see the "#globe" element
+    And the ".event-location" element should contain "Buenos Aires, Argentina"
 
   Scenario: Events should display the primary author for the related show
     And a profile with the following fields:

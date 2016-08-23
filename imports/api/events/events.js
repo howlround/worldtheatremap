@@ -103,6 +103,13 @@ export const eventSchema = t.struct({
   eventType: EventTypes,
   startDate: t.Date,
   endDate: t.Date,
+  streetAddress: t.maybe(t.String),
+  locality: t.maybe(t.String), // City
+  administrativeArea: t.maybe(t.String), // Province, Region, State
+  country: t.maybe(t.String),
+  postalCode: t.maybe(t.String),
+  lat: t.maybe(t.String),
+  lon: t.maybe(t.String),
   about: t.maybe(t.String),
 });
 
@@ -160,6 +167,43 @@ export const defaultFormOptions = () => {
           className: 'event-type-edit',
         }
       },
+      streetAddress: {
+        attrs: {
+          className: 'event-street-address-edit',
+        },
+      },
+      locality: {
+        label: 'City (optional)',
+        attrs: {
+          className: 'event-locality-edit',
+        },
+      },
+      administrativeArea: {
+        label: 'Province, Region, or State (optional)',
+        attrs: {
+          className: 'event-administrative-area-edit',
+        },
+      },
+      country: {
+        attrs: {
+          className: 'event-country-edit',
+        },
+      },
+      postalCode: {
+        attrs: {
+          className: 'event-postal-code-edit',
+        },
+      },
+      lat: {
+        attrs: {
+          'data-geo': 'lat',
+        }
+      },
+      lon: {
+        attrs: {
+          'data-geo': 'lng',
+        }
+      },
       about: {
         type: 'textarea',
         attrs: {
@@ -179,6 +223,12 @@ Events.publicFields = {
   startDate: 1,
   endDate: 1,
   dateRange: 1,
+  streetAddress: 1,
+  locality: 1,
+  administrativeArea: 1,
+  country: 1,
+  lat: 1,
+  lon: 1,
   about: 1,
   eventType: 1,
 };

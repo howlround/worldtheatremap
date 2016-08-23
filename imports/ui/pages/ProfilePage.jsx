@@ -48,8 +48,9 @@ export default class ProfilePage extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.profile.lat && prevProps.profile.lon && (prevProps.profile.lat !== this.props.profile.lat || prevProps.profile.lon !== this.props.profile.lon))
-    this.initializeD3Globe();
+    if (prevProps.profile.lat && prevProps.profile.lon && this.props.profile.lat && this.props.profile.lon && (prevProps.profile.lat !== this.props.profile.lat || prevProps.profile.lon !== this.props.profile.lon)) {
+      this.initializeD3Globe();
+    }
   }
 
   initializeD3Globe() {

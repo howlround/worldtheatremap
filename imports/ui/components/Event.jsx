@@ -213,6 +213,10 @@ export default class Event extends React.Component {
             <h3 className="event-type">
               {event.eventType}
             </h3>
+            { event.dateRange ?
+              <div className="event-date-range date">
+                { event.dateRange }
+              </div> : '' }
           </div>
           {editLink}
         </section>

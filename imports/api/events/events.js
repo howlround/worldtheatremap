@@ -7,25 +7,40 @@ import SimpleDatePicker from 'simple-date-picker'
 // import DayPicker from 'react-day-picker';
 // import MomentLocaleUtils from 'react-day-picker/moment';
 // import 'moment/locale/ja';
+import moment from 'moment';
 import { Profiles } from '../profiles/profiles.js';
 
 class EventsCollection extends Mongo.Collection {
   insert(event, callback) {
     const ourEvent = event;
-    // if (!ourEvent.name) {
-    //   let nextLetter = 'A';
-    //   ourEvent.name = `Show ${nextLetter}`;
-
-    //   while (!!this.findOne({ name: ourEvent.name })) {
-    //     // not going to be too smart here, can go past Z
-    //     nextLetter = String.fromCharCode(nextLetter.charCodeAt(0) + 1);
-    //     ourEvent.name = `Show ${nextLetter}`;
-    //   }
-    // }
+    // Construct the human readable date range line
+    if (ourEvent.startDate && ourEvent.endDate) {
+      const startMoment = moment(ourEvent.startDate);
+      const endMoment = moment(ourEvent.endDate);
+      const dateRange = startMoment.format('MMM D YYYY') + ' – ' + endMoment.format('MMM D YYYY');
+      ourEvent.dateRange = dateRange;
+    }
 
     // @TODO: Save author information to event
-
+    //        Or maybe check to make sure the correct author is passed in?
     return super.insert(ourEvent, callback);
+  }
+  update(eventId, event, callback) {
+    const ourEvent = event.$set;
+    // Construct the human readable date range line
+    if (ourEvent.startDate && ourEvent.endDate) {
+
+      const startMoment = moment(ourEvent.startDate);
+      const endMoment = moment(ourEvent.endDate);
+      const dateRange = startMoment.format('MMM D YYYY') + ' – ' + endMoment.format('MMM D YYYY');
+      ourEvent.dateRange = dateRange;
+    }
+
+    // @TODO: Save author information to event
+    //        Or maybe check to make sure the correct author is passed in?
+    return super.update(eventId, {
+      $set: ourEvent,
+    });
   }
   remove(selector, callback) {
     Events.remove({ eventId: selector });
@@ -163,6 +178,7 @@ Events.publicFields = {
   show: 1,
   startDate: 1,
   endDate: 1,
+  dateRange: 1,
   about: 1,
   eventType: 1,
 };

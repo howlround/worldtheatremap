@@ -100,7 +100,7 @@ export default class EventAdd extends React.Component {
   render() {
     const formOptions = defaultFormOptions();
     return (
-      <form className="event-edit-form" onSubmit={this.handleSubmit.bind(this)} >
+      <form className="event-edit-form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off" >
         <Form
           ref="form"
           type={eventSchema}

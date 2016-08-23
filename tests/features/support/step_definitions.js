@@ -1,4 +1,5 @@
 /* eslint-disable */
+import moment from 'moment';
 RegExp.escape = function(str) {
   return (str+'').replace(/[.?*+^$[\]\\(){}|-]/g, "\\$&");
 }
@@ -177,6 +178,13 @@ module.exports = function() {
 
     const processedText = RegExp(RegExp.escape(filename), 'i');
     expect(client.getAttribute(element, "src")).toMatch(processedText);
+  });
+
+  this.Then(/^the "([^"]*)" element should contain the date range for day "([^"]*)" to day "([^"]*)" of this month$/, function (element, day1, day2) {
+    browser.waitForExist(element, 2000);
+    const dateRange = moment(day1, "DD").format('MMM D YYYY') + ' – ' + moment(day2, "DD").format('MMM D YYYY');
+    const processedText = RegExp(RegExp.escape(dateRange), 'i');
+    expect(browser.getText(element)).toMatch(processedText);
   });
 
   this.Given(/^a profile with the following fields:$/, function (table) {

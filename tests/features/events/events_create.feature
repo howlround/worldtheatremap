@@ -44,6 +44,7 @@ Feature: Create events
     And I click on ".edit-event-save"
     Then the "h1.page-title" element should contain "Sofia"
     And the ".event-about" element should contain "A workshop on spelling"
+    And the ".event-date-range" element should contain the date range for day "1" to day "15" of this month
 
   Scenario: Events should display the primary author for the related show
     And a profile with the following fields:

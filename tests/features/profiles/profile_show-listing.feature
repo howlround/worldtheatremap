@@ -35,6 +35,10 @@ Feature: List shows on the playwright profile
     And I click on ".autocomplete-results li"
     And I fill in ".event-about-edit" with "A workshop on spelling"
     And I select "Performance" from ".event-type-edit"
+    And I click on ".form-group-startDate input"
+    And I click on ".DayPicker-Day=1"
+    And I click on ".form-group-endDate input"
+    And I click on ".DayPicker-Day=15"
     And I click on ".edit-event-save"
     And a profile with the following fields:
       | name | Il Regista |

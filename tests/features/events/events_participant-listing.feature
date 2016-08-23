@@ -1,3 +1,4 @@
+@events @participants
 Feature: Participant listing on event pages
 
   As a user
@@ -20,6 +21,10 @@ Feature: Participant listing on event pages
     And I click on ".autocomplete-results li"
     And I select "Performance" from ".event-type-edit"
     And I fill in ".event-about-edit" with "A workshop on spelling"
+    And I click on ".form-group-startDate input"
+    And I click on ".DayPicker-Day=1"
+    And I click on ".form-group-endDate input"
+    And I click on ".DayPicker-Day=15"
     And I click on ".edit-event-save"
 
   Scenario: Add participant form should only display for logged in users

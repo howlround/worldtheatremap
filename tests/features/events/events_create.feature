@@ -1,3 +1,4 @@
+@events
 Feature: Create events
 
   As a user
@@ -8,15 +9,13 @@ Feature: Create events
     Given I am on the home page
 
   Scenario: Anonymous users should see the option to add an event but be directed to a login page with a message
-    And I hover over ".add"
-    When I click on ".add-event"
+    When I go to the "event" add page
     Then the "h1" element should contain "Sign in"
     And the ".wrapper-message" element should contain "Sign in or register to participate in the World Theatre Map"
 
   Scenario: Users should see all the fields on the add event form
     And I am logged in
-    And I hover over ".add"
-    When I click on ".add-event"
+    When I go to the "event" add page
     Then I should see the ".event-show-name-edit" element
     And I should see the ".event-about-edit" element
     And I should see the ".form-group-startDate" element
@@ -56,12 +55,15 @@ Feature: Create events
     And I click on ".autocomplete-results li"
     And I fill in ".show-about-edit" with "Most popular name in Italy"
     And I click on ".edit-show-save"
-    And I hover over ".add"
-    When I click on ".add-event"
+    When I go to the "event" add page
     And I fill in ".event-show-name-edit" with "Sofia"
     And I click on ".autocomplete-results li"
     And I select "Performance" from ".event-type-edit"
     And I fill in ".event-about-edit" with "A workshop on spelling"
+    And I click on ".form-group-startDate input"
+    And I click on ".DayPicker-Day=1"
+    And I click on ".form-group-endDate input"
+    And I click on ".DayPicker-Day=15"
     And I click on ".edit-event-save"
     Then the ".event-name" element should contain "Sofia"
     Then the ".event-type" element should contain "Performance"
@@ -77,10 +79,13 @@ Feature: Create events
     And I click on ".autocomplete-results li"
     And I fill in ".show-about-edit" with "Most popular name in Italy"
     And I click on ".edit-show-save"
-    And I hover over ".add"
-    When I click on ".add-event"
+    And I go to the "event" add page
     And I fill in ".event-show-name-edit" with "Sofia"
     And I click on ".autocomplete-results li"
     And I fill in ".event-about-edit" with "A workshop on spelling"
+    And I click on ".form-group-startDate input"
+    And I click on ".DayPicker-Day=1"
+    And I click on ".form-group-endDate input"
+    And I click on ".DayPicker-Day=15"
     And I click on ".edit-event-save"
     Then the ".error-block" element should contain "Event type is required"

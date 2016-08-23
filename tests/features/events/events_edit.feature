@@ -1,3 +1,4 @@
+@events
 Feature: Edit events
 
   As a user
@@ -21,6 +22,10 @@ Feature: Edit events
     And I click on ".autocomplete-results li"
     And I select "Performance" from ".event-type-edit"
     And I fill in ".event-about-edit" with "A workshop on spelling"
+    And I click on ".form-group-startDate input"
+    And I click on ".DayPicker-Day=1"
+    And I click on ".form-group-endDate input"
+    And I click on ".DayPicker-Day=15"
     And I click on ".edit-event-save"
 
   Scenario: Users should be able to edit basic information for an event
@@ -29,9 +34,14 @@ Feature: Edit events
     And I click on ".edit-link"
     And I select "Twitter Chat" from ".event-type-edit"
     And I fill in ".event-about-edit" with "Tweets about spelling"
+    And I click on ".form-group-startDate input"
+    And I click on ".DayPicker-Day=2"
+    And I click on ".form-group-endDate input"
+    And I click on ".DayPicker-Day=18"
     And I click on ".edit-event-save"
     Then the "h1.page-title" element should contain "Sofia"
     And the ".event-about" element should contain "Tweets about spelling"
+    And the ".event-date-range" element should contain the date range for day "2" to day "18" of this month
 
   # Scenario: Events should display the primary author for the related show
   #   And a profile with the following fields:

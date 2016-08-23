@@ -19,6 +19,8 @@ Feature: Create events
     When I click on ".add-event"
     Then I should see the ".event-show-name-edit" element
     And I should see the ".event-about-edit" element
+    And I should see the ".form-group-startDate" element
+    And I should see the ".form-group-endDate" element
 
   Scenario: Users should be able to create an event with all the fields
     And a profile with the following fields:
@@ -35,6 +37,10 @@ Feature: Create events
     And I click on ".autocomplete-results li"
     And I select "Performance" from ".event-type-edit"
     And I fill in ".event-about-edit" with "A workshop on spelling"
+    And I click on ".form-group-startDate input"
+    And I click on ".DayPicker-Day=1"
+    And I click on ".form-group-endDate input"
+    And I click on ".DayPicker-Day=15"
     And I click on ".edit-event-save"
     Then the "h1.page-title" element should contain "Sofia"
     And the ".event-about" element should contain "A workshop on spelling"

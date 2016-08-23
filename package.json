@@ -23,10 +23,12 @@
     "react-addons-css-transition-group": "^15.0.0",
     "react-addons-pure-render-mixin": "^15.0.0",
     "react-autosuggest": "^3.7.3",
+    "react-date-picker": "^5.3.28",
     "react-dom": "^15.0.0",
     "react-dropzone": "^3.5.3",
     "react-router": "^2.0.0",
     "react-select": "^1.0.0-beta14",
+    "simple-date-picker": "^0.1.1",
     "tcomb-form": "^0.9.3",
     "tcomb-validation": "^3.0.0",
     "topojson": "^1.6.26"

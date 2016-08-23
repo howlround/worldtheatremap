@@ -50,6 +50,7 @@ export default class EventAdd extends React.Component {
   }
 
   onChange(value, path) {
+    this.setState({event: value});
     // @TODO: Merge with EventEdit.jsx
     if (path[0] == 'show' && path[1] == 'name') {
       const search = value.show.name;

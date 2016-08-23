@@ -3,6 +3,10 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Factory } from 'meteor/factory';
 import React from 'react';
 import t from 'tcomb-form';
+import SimpleDatePicker from 'simple-date-picker'
+// import DayPicker from 'react-day-picker';
+// import MomentLocaleUtils from 'react-day-picker/moment';
+// import 'moment/locale/ja';
 import { Profiles } from '../profiles/profiles.js';
 
 class EventsCollection extends Mongo.Collection {
@@ -50,6 +54,25 @@ const EventTypes = t.enums({
   "Twitter Chat": "Twitter Chat"
 });
 
+function renderDate(locals) {
+  return (
+    <SimpleDatePicker
+      value={locals.value}
+      onChange={locals.onChange}
+    />
+  )
+}
+
+const dateTemplate = t.form.Form.templates.date.clone({ renderDate });
+
+class DatePickerFactory extends t.form.Component {
+  getTemplate() {
+    return dateTemplate;
+  }
+}
+
+t.Date.getTcombFormFactory = () => DatePickerFactory;
+
 const atLeastOne = arr => arr.length > 0
 export const relatedShowSchema = t.struct({
   name: t.String,
@@ -63,6 +86,8 @@ export const relatedShowSchema = t.struct({
 export const eventSchema = t.struct({
   show: relatedShowSchema,
   eventType: EventTypes,
+  startDate: t.Date,
+  endDate: t.Date,
   about: t.maybe(t.String),
 });
 
@@ -102,6 +127,18 @@ export const defaultFormOptions = () => {
           }
         }
       },
+      startDate: {
+        error: 'Start date is required',
+        attrs: {
+          className: 'event-start-date-edit',
+        },
+      },
+      endDate: {
+        error: 'End date is required',
+        attrs: {
+          className: 'event-end-date-edit',
+        },
+      },
       eventType: {
         error: 'Event type is required',
         attrs: {
@@ -124,6 +161,8 @@ export const defaultFormOptions = () => {
 // them here to keep them private to the server.
 Events.publicFields = {
   show: 1,
+  startDate: 1,
+  endDate: 1,
   about: 1,
   eventType: 1,
 };

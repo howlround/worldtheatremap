@@ -43,6 +43,16 @@ Feature: Edit events
     And the ".event-about" element should contain "Tweets about spelling"
     And the ".event-date-range" element should contain the date range for day "2" to day "18" of this month
 
+  Scenario: Users should be able to edit location information for events
+    And I go to the show page for "Sofia"
+    And I click on ".event-name a"
+    And I click on ".edit-link"
+    And I fill in ".find-pin" with "Buenos Aires"
+    And I click on ".pac-item"
+    And I should wait extra long until "pac-item" is not visible
+    And I click on ".edit-event-save"
+    Then I should see the "#globe" element
+
   # Scenario: Events should display the primary author for the related show
   #   And a profile with the following fields:
   #     | name | My Favorite Playwright |

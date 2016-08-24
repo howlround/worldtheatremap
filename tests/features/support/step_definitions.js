@@ -14,18 +14,21 @@ module.exports = function() {
 
     browser.waitForExist('button[type="submit"]', 2000);
     browser.click('button[type="submit"]');
-    browser.pause(100);
 
-    expect(browser.waitForText('.user-menu .menu-parent', 'REGINOLD'));
+    browser.waitUntil(function () {
+      return browser.getText('.user-menu .menu-parent') === 'REGINOLD'
+    }, 5000, 'Not logged in');
   });
 
   this.Given(/^I am logged out$/, function () {
+    browser.waitForExist('.user-menu .menu-parent');
+    browser.moveToObject('.user-menu .menu-parent');
     browser.waitForExist('.menu-logout', 2000);
     browser.click('.menu-logout');
 
-    browser.pause(100);
-
-    expect(browser.waitForText('.user-menu .menu-parent', 'SIGNUP/IN'));
+    browser.waitUntil(function () {
+      return browser.getText('.user-menu .menu-parent') === 'SIGNUP/IN'
+    }, 5000, 'Still logged in');
   });
 
   this.Given(/^I log in with the email "([^"]*)" and the password "([^"]*)"$/, function (email, password) {

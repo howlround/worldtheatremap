@@ -29,7 +29,7 @@ Feature: Related profiles on profile pages
       | name | Il Regista |
     And I go to the show page for "Sofia"
     And I click on ".event-name a"
-    And I fill in ".participant-profile-name-edit" with "Il Regista"
+    And I fill in ".participant-profile-edit" with "Il Regista"
     And I click on ".autocomplete-results li"
     And I fill in ".participant-role-edit" with "Stage Director"
     And I click on ".edit-participant-save"
@@ -37,7 +37,7 @@ Feature: Related profiles on profile pages
       | name | Il Curatore |
     And I go to the show page for "Sofia"
     And I click on ".event-name a"
-    And I fill in ".participant-profile-name-edit" with "Il Curatore"
+    And I fill in ".participant-profile-edit" with "Il Curatore"
     And I click on ".autocomplete-results li"
     And I fill in ".participant-role-edit" with "Curator"
     And I click on ".edit-participant-save"

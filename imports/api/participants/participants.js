@@ -4,6 +4,7 @@ import React from 'react';
 import t from 'tcomb-form';
 import { eventSchema } from '../events/events.js';
 import { RelatedRecords } from '../relatedRecords/relatedRecords.js';
+import RelatedProfile from '../../ui/components/RelatedProfile.jsx';
 
 class ParticipantsCollection extends Mongo.Collection {
   insert(ourParticipant, callback) {
@@ -44,12 +45,32 @@ Participants.deny({
   remove() { return true; },
 });
 
+function renderTextbox(locals) {
+  const onChange = (evt) => locals.onChange(evt);
+  return (
+    <div>
+      <div className="input-group">
+        <RelatedProfile parentValue={ locals.value } updateParent={ onChange } attrs={ locals.attrs } />
+      </div>
+    </div>
+  )
+}
+
+const textboxTemplate = t.form.Form.templates.textbox.clone({ renderTextbox })
+
+// here we are: the factory
+class RelatedProfileFactory extends t.form.Textbox {
+  getTemplate() {
+    return textboxTemplate
+  }
+}
+
 export const relatedProfileSchema = t.struct({
   name: t.String,
   id: t.String,
 });
 
-const atLeastOne = arr => arr.length > 0
+const atLeastOne = arr => arr.length > 0;
 
 // @TODO: Refactor to look like this:
 // https://github.com/gcanti/tcomb-form/issues/311
@@ -66,29 +87,32 @@ export const participantFormSchema = t.struct({
   role: t.maybe(t.String),
 });
 
-const profileLayout = (profile) => {
-  return (
-    <div className="profile-fields-group autocomplete-group">
-      {profile.inputs.name}
-      {profile.inputs.id}
-      <ul className="autocomplete-results"></ul>
-    </div>
-  );
-};
+// const profileLayout = (profile) => {
+//   return (
+//     <div className="profile-fields-group autocomplete-group">
+//       {profile.inputs.name}
+//       {profile.inputs.id}
+//       <ul className="autocomplete-results"></ul>
+//     </div>
+//   );
+// };
 
 export const defaultFormOptions = () => {
   return {
     fields: {
       profile: {
+        factory: RelatedProfileFactory,
         auto: 'none',
         error: 'Profile is required',
         attrs: {
           className: 'participant-profile-edit',
+          autoComplete: 'off',
+          placeholder: 'Profile name',
         },
         disableAdd: true,
         disableRemove: true,
         disableOrder: true,
-        template: profileLayout,
+        // template: profileLayout,
         fields: {
           name: {
             // template: AutosuggestTemplate({

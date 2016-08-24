@@ -149,7 +149,23 @@ export default class EventAdd extends React.Component {
           });
         }
         else {
-          // @TODO: Add new profile workflow
+          // New show workflow
+          // @TODO: Replace with nested components
+          // resultsElement.append('<li>Add Show for <b>' + search + '</b>?</li>').find('li:last-child').click(() => {
+          //   // Build a new profile object
+          //   const newShow = {
+          //     name: search,
+          //   }
+          //   // Save profile to DB
+          //   const newShowObject = this.throttledAddShow(newShow);
+          //   // Save the new profile to the new show state
+          //   const newValue = value;
+          //   newValue.show = newShowObject;
+          //   this.setState({show: newValue});
+
+          //   // Clear fields
+          //   resultsElement.html('');
+          // });
         }
       }
       else {

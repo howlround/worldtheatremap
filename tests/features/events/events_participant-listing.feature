@@ -32,14 +32,14 @@ Feature: Participant listing on event pages
     And I am logged out
     And I go to the show page for "Sofia"
     And I click on ".event-name a"
-    Then I should not see ".participant-profile-name-edit"
+    Then I should not see ".participant-profile-edit"
 
   Scenario: Users should be see all participants associated with an event
     And a profile with the following fields:
       | name | Il Regista |
     And I go to the show page for "Sofia"
     And I click on ".event-name a"
-    And I fill in ".participant-profile-name-edit" with "Il Regista"
+    And I fill in ".participant-profile-edit" with "Il Regista"
     And I click on ".autocomplete-results li"
     And I fill in ".participant-role-edit" with "Stage Director"
     And I click on ".edit-participant-save"
@@ -53,7 +53,7 @@ Feature: Participant listing on event pages
       | name | Il Regista |
     And I go to the show page for "Sofia"
     And I click on ".event-name a"
-    And I fill in ".participant-profile-name-edit" with "Il Regista"
+    And I fill in ".participant-profile-edit" with "Il Regista"
     And I click on ".autocomplete-results li"
     And I fill in ".participant-role-edit" with "Stage Director"
     And I click on ".edit-participant-save"
@@ -67,7 +67,7 @@ Feature: Participant listing on event pages
       | name | Il Regista |
     And I go to the show page for "Sofia"
     And I click on ".event-name a"
-    And I fill in ".participant-profile-name-edit" with "Il Regista"
+    And I fill in ".participant-profile-edit" with "Il Regista"
     And I click on ".autocomplete-results li"
     And I click on ".edit-participant-save"
     Then the ".event-participant-name" element should contain "Il Regista"
@@ -77,7 +77,7 @@ Feature: Participant listing on event pages
       | name | Il Regista |
     And I go to the show page for "Sofia"
     And I click on ".event-name a"
-    And I fill in ".participant-profile-name-edit" with "Il Regista"
+    And I fill in ".participant-profile-edit" with "Il Regista"
     And I click on ".autocomplete-results li"
     And I click on ".edit-participant-save"
     When I go to the profile page for "Il Regista"

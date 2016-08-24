@@ -20,9 +20,7 @@ export default class Event extends React.Component {
     this.state = {
       editing: false,
       participant: {
-        profile: [
-          {}
-        ]
+        profile: {}
       }
     };
 
@@ -84,9 +82,7 @@ export default class Event extends React.Component {
       if (newID) {
         this.setState({
           participant: {
-            profile: [
-              {}
-            ]
+            profile: {}
           }
         });
       }
@@ -94,60 +90,7 @@ export default class Event extends React.Component {
   }
 
   onChange(value, path) {
-    // @TODO: Merge with ShowEdit.jsx
-    if (path[0] == 'profile' && path[1] == 'name') {
-      const search = value.profile.name;
-      const resultsElement = $('.form-group-profile-name').siblings('ul.autocomplete-results');
-
-      if (search.length > 0) {
-        // Clear any existing stored values
-        const clearValue = value;
-        clearValue.profile.id = '';
-        this.setState({participant: clearValue});
-
-        const regex = new RegExp('.*' + search + '.*', 'i');
-        const results = Profiles.find({name: { $regex: regex }}, {limit: 5}).fetch();
-
-        // Clear fields
-        resultsElement.html('');
-
-        if (results.length > 0) {
-          results.map(profile => {
-            resultsElement.append('<li><b>' + profile.name + '</b> (' + profile._id + ')</li>').find('li:last-child').click(() => {
-                const newValue = value;
-                newValue.profile.name = profile.name;
-                newValue.profile.id = profile._id;
-                this.setState({participant: newValue});
-
-                // Clear fields
-                resultsElement.html('');
-            });
-          });
-        }
-        else {
-          // Add new profile workflow
-          resultsElement.append('<li>Add Profile for <b>' + search + '</b>?</li>').find('li:last-child').click(() => {
-            // Build a new profile object
-            const newProfile = {
-              name: search,
-            }
-            // Save profile to DB
-            const newProfileID = this.throttledAddProfile(newProfile);
-            // Save the new profile to the new show state
-            const newValue = value;
-            newValue.profile.name = search;
-            newValue.profile.id = newProfileID;
-            this.setState({participant: newValue});
-
-            // Clear fields
-            resultsElement.html('');
-          });
-        }
-      }
-      else {
-        $('ul.autocomplete-results').html('');
-      }
-    }
+    this.setState({ participant: value });
   }
 
   renderParticipantAdd() {

@@ -30,7 +30,7 @@ Feature: Add new profile from the participant add form
   Scenario: Users should be able to add participants to events for profiles that are not in the system yet
     And I go to the show page for "Sofia"
     And I click on ".event-name a"
-    And I fill in ".participant-profile-name-edit" with "Unknown participant"
+    And I fill in ".participant-profile-edit" with "Unknown participant"
     And I click on ".autocomplete-results li"
     And I fill in ".participant-role-edit" with "Stage Director"
     And I click on ".edit-participant-save"

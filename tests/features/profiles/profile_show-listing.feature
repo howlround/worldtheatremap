@@ -44,7 +44,7 @@ Feature: List shows on the playwright profile
       | name | Il Regista |
     And I go to the show page for "A Play About Maryam"
     And I click on ".event-name a"
-    And I fill in ".participant-profile-name-edit" with "Il Regista"
+    And I fill in ".participant-profile-edit" with "Il Regista"
     And I click on ".autocomplete-results li"
     And I fill in ".participant-role-edit" with "Stage Director"
     And I click on ".edit-participant-save"

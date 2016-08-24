@@ -90,7 +90,7 @@ export default class ShowAdd extends React.Component {
           });
         }
         else {
-          // @TODO: Add new profile workflow
+          // Add new profile workflow
           resultsElement.append('<li>Add Profile for <b>' + search + '</b>?</li>').find('li:last-child').click(() => {
             // Build a new profile object
             const newProfile = {

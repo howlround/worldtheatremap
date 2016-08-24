@@ -121,8 +121,8 @@ export default class ProfilePage extends React.Component {
 
         // Background Continents
         projection.clipAngle(180);
-        c.fillStyle = "#77d0c9";
-        c.strokeStyle = "#77d0c9";
+        c.fillStyle = "#c8ece9";
+        c.strokeStyle = "#c8ece9";
         c.lineWidth = .5;
         c.beginPath();
         path(land);

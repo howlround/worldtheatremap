@@ -8,6 +8,7 @@ import { select, queue, json } from 'd3';
 import topojson from 'topojson';
 import { geoOrthographic, geoGraticule, geoPath, geoCentroid, geoInterpolate } from 'd3-geo';
 import { participantFormSchema, defaultFormOptions } from '../../api/participants/participants.js';
+import { insert as insertProfile } from '../../api/profiles/methods.js';
 import { Profiles } from '../../api/profiles/profiles.js';
 import t from 'tcomb-form';
 
@@ -41,6 +42,16 @@ export default class Event extends React.Component {
         //   profileId: newParticipant.profile.id,
         //   role: newParticipant.role,
         // }, displayError);
+
+        return newID;
+      }
+    }, 300);
+
+    this.throttledAddProfile = _.throttle(newProfile => {
+      if (newProfile) {
+        const newID = insertProfile.call({
+          newProfile,
+        }, displayError);
 
         return newID;
       }
@@ -114,7 +125,23 @@ export default class Event extends React.Component {
           });
         }
         else {
-          // @TODO: Add new profile workflow
+          // Add new profile workflow
+          resultsElement.append('<li>Add Profile for <b>' + search + '</b>?</li>').find('li:last-child').click(() => {
+            // Build a new profile object
+            const newProfile = {
+              name: search,
+            }
+            // Save profile to DB
+            const newProfileID = this.throttledAddProfile(newProfile);
+            // Save the new profile to the new show state
+            const newValue = value;
+            newValue.profile.name = search;
+            newValue.profile.id = newProfileID;
+            this.setState({participant: newValue});
+
+            // Clear fields
+            resultsElement.html('');
+          });
         }
       }
       else {
@@ -218,8 +245,8 @@ export default class Event extends React.Component {
 
         // Background Continents
         projection.clipAngle(180);
-        c.fillStyle = "#77d0c9";
-        c.strokeStyle = "#77d0c9";
+        c.fillStyle = "#c8ece9";
+        c.strokeStyle = "#c8ece9";
         c.lineWidth = .5;
         c.beginPath();
         path(land);

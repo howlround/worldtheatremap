@@ -269,7 +269,7 @@ export default class Event extends React.Component {
       else if (index == array.length - 2) {
         seperator = ' and ';
       }
-      return <span key={author.id}><Link to={`/profiles/${ author.id }`} className="event-author">{author.name}</Link>{seperator}</span>
+      return <span key={author.id}><Link to={`/profiles/${ author.id }`} className="show-author">{author.name}</Link>{seperator}</span>
     });
     // const authors = '';
 

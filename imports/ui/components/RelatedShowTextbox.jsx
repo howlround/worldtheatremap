@@ -8,10 +8,12 @@ import RelatedProfile from '../../ui/components/RelatedProfile.jsx';
 export default class RelatedShowTextbox extends React.Component {
   constructor(props) {
     super(props);
+    const { parentValue } = this.props;
+    const defaultName = (parentValue.name) ? parentValue.name : '';
 
     this.state = {
       show: {
-        name: '',
+        name: defaultName,
       },
       results: {},
       showAuthorField: false,

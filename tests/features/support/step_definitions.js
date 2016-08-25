@@ -90,6 +90,11 @@ module.exports = function() {
     browser.setValue(element, text);
   });
 
+  this.Then(/^the "([^"]*)" field should have the value "([^"]*)"$/, function (element, text) {
+    browser.waitForExist(element, 2000);
+    expect(client.getValue(element)).toEqual(text);
+  });
+
   this.When(/^I choose the "([^"]*)" file for the "([^"]*)" field$/, function (fileName, fieldInput) {
     browser.waitForExist(fieldInput, 2000);
     client.chooseFile(fieldInput, process.cwd() + '/tests/files/' + fileName);

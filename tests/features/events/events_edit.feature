@@ -16,8 +16,7 @@ Feature: Edit events
     And I click on ".autocomplete-results li"
     And I fill in ".show-about-edit" with "Most popular name in Italy"
     And I click on ".edit-show-save"
-    And I hover over ".add"
-    When I click on ".add-event"
+    And I go to the "event" add page
     And I fill in ".event-show-edit" with "Sofia"
     And I click on ".autocomplete-results li"
     And I select "Performance" from ".event-type-edit"
@@ -53,23 +52,8 @@ Feature: Edit events
     And I click on ".edit-event-save"
     Then I should see the "#globe" element
 
-  # Scenario: Events should display the primary author for the related show
-  #   And a profile with the following fields:
-  #     | name | My Favorite Playwright |
-  #   And I am logged in
-  #   And I go to the "show" add page
-  #   And I fill in ".show-name-edit" with "Sofia"
-  #   And I fill in ".show-author-name-edit" with "My Favorite Playwright"
-  #   And I click on ".autocomplete-results li"
-  #   And I fill in ".show-about-edit" with "Most popular name in Italy"
-  #   And I click on ".edit-show-save"
-  #   And I hover over ".add"
-  #   When I click on ".add-event"
-  #   And I fill in ".event-show-edit" with "Sofia"
-  #   And I click on ".autocomplete-results li"
-  #   And I select "Performance" from ".event-type-edit"
-  #   And I fill in ".event-about-edit" with "A workshop on spelling"
-  #   And I click on ".edit-event-save"
-  #   Then the ".event-name" element should contain "Sofia"
-  #   Then the ".event-type" element should contain "Performance"
-  #   And the ".event-authorship" element should contain "My Favorite Playwright"
+  Scenario: Users should see the existing show value when editing an event
+    And I go to the show page for "Sofia"
+    And I click on ".event-name a"
+    When I click on ".edit-link"
+    Then the ".event-show-edit" field should have the value "Sofia"

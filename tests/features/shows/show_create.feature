@@ -12,6 +12,11 @@ Feature: Create shows
     Then the "h1" element should contain "Sign in"
     And the ".wrapper-message" element should contain "Sign in or register to participate in the World Theatre Map"
 
+  Scenario: There should be no show option in the add menu
+    And I am logged in
+    And I hover over ".add"
+    Then I should not see ".add-show"
+
   Scenario: Users should see all the fields on the add show form
     And I am logged in
     When I go to the "show" add page

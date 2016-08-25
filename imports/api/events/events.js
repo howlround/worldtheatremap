@@ -3,11 +3,14 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Factory } from 'meteor/factory';
 import React from 'react';
 import t from 'tcomb-form';
+import moment from 'moment';
 import SimpleDatePicker from 'simple-date-picker'
 // import DayPicker from 'react-day-picker';
 // import MomentLocaleUtils from 'react-day-picker/moment';
 // import 'moment/locale/ja';
-import moment from 'moment';
+import RelatedShowTextbox from '../../ui/components/RelatedShowTextbox.jsx';
+import RelatedProfile from '../../ui/components/RelatedProfile.jsx';
+
 import { Profiles } from '../profiles/profiles.js';
 
 class EventsCollection extends Mongo.Collection {
@@ -69,6 +72,7 @@ const EventTypes = t.enums({
   "Twitter Chat": "Twitter Chat"
 });
 
+/* Date component override */
 function renderDate(locals) {
   return (
     <SimpleDatePicker
@@ -88,7 +92,28 @@ class DatePickerFactory extends t.form.Component {
 
 t.Date.getTcombFormFactory = () => DatePickerFactory;
 
-const atLeastOne = arr => arr.length > 0
+/* Related Show component override */
+function renderTextbox(locals) {
+  const onChange = (evt) => locals.onChange(evt);
+  return (
+    <div>
+      <div className="input-group">
+        <RelatedShowTextbox parentValue={ locals.value } updateParent={ onChange } attrs={ locals.attrs } />
+      </div>
+    </div>
+  )
+}
+
+const relatedShowTextboxTemplate = t.form.Form.templates.textbox.clone({ renderTextbox })
+
+// here we are: the factory
+class RelatedShowFactory extends t.form.Textbox {
+  getTemplate() {
+    return relatedShowTextboxTemplate
+  }
+}
+
+// const atLeastOne = arr => arr.length > 0;
 export const relatedShowSchema = t.struct({
   name: t.String,
   id: t.String,
@@ -113,29 +138,21 @@ export const eventSchema = t.struct({
   about: t.maybe(t.String),
 });
 
-const relatedShowLayout = (show) => {
-  return (
-    <div className="show-fields-group autocomplete-group">
-      {show.inputs.name}
-      {show.inputs.id}
-      <ul className="autocomplete-results"></ul>
-    </div>
-  );
-};
-
 export const defaultFormOptions = () => {
   return {
     fields: {
       show: {
+        factory: RelatedShowFactory,
         auto: 'none',
         error: 'Show is required',
         attrs: {
           className: 'event-show-edit',
+          autoComplete: 'off',
+          placeholder: 'Show name',
         },
-        template: relatedShowLayout,
         fields: {
           name: {
-            error: 'Primary authorship is required',
+            error: 'Show name is required',
             attrs: {
               className: 'event-show-name-edit',
               autoComplete: 'off',

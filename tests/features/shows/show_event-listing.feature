@@ -18,7 +18,7 @@ Feature: Events listing on show pages
     And I fill in ".show-about-edit" with "Most popular name in Italy"
     And I click on ".edit-show-save"
     And I go to the "event" add page
-    And I fill in ".event-show-name-edit" with "Sofia"
+    And I fill in ".event-show-edit" with "Sofia"
     And I click on ".autocomplete-results li"
     And I fill in ".event-about-edit" with "A workshop on spelling"
     And I select "Performance" from ".event-type-edit"

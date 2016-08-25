@@ -31,7 +31,7 @@ Feature: List shows on the playwright profile
     And I click on "ul.autocomplete-results li"
     And I click on ".edit-show-save"
     And I go to the "event" add page
-    And I fill in ".event-show-name-edit" with "A Play About Maryam"
+    And I fill in ".event-show-edit" with "A Play About Maryam"
     And I click on ".autocomplete-results li"
     And I fill in ".event-about-edit" with "A workshop on spelling"
     And I select "Performance" from ".event-type-edit"

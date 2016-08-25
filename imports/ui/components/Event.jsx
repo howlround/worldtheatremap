@@ -261,7 +261,6 @@ export default class Event extends React.Component {
     : '';
 
     // @TODO: Abstract this to a function or component to reduce duplication in EventTeaser.jsx
-    // @TODO: Refactor event.show format to be a single show item
     const authors = event.show.author.map((author, index, array) => {
       let seperator = ', ';
       if (index == array.length - 1) {

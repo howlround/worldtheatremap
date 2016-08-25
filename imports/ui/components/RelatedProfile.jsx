@@ -3,6 +3,7 @@ import { displayError } from '../helpers/errors.js';
 import { Profiles } from '../../api/profiles/profiles.js';
 import { insert } from '../../api/profiles/methods.js';
 import { _ } from 'meteor/underscore';
+import classNames from 'classnames';
 
 export default class RelatedProfile extends React.Component {
   constructor(props) {
@@ -95,7 +96,7 @@ export default class RelatedProfile extends React.Component {
   }
 
   render() {
-    const { attrs, updateParent } = this.props;
+    const { attrs, updateParent, wrapperAttrs } = this.props;
     const { profile, results } = this.state;
 
     const resultsItems = (results.length > 0) ? results.map(profile => {
@@ -107,9 +108,12 @@ export default class RelatedProfile extends React.Component {
 
     const addProfileOption = (profile.name.length > 0 && results.length == 0) ? <li onClick={ this.createProfile.bind(this, profile.name) }>Add Profile for <b>{ profile.name }</b>?</li> : '';
 
+    const wrapperClasses = classNames('profile-fields-group', 'autocomplete-group', wrapperAttrs.className);
+
     return (
-      <div className="profile-fields-group autocomplete-group">
-        <input { ...attrs } value={ profile.name } onChange={ this.onChange } />
+      <div className={ wrapperClasses }>
+        { attrs.label ? <label>{ attrs.label }</label> : '' }
+        <input { ...attrs } type="text" value={ profile.name } onChange={ this.onChange } />
         <ul className="autocomplete-results">{ resultsItems }{ addProfileOption }</ul>
       </div>
     );

@@ -96,10 +96,8 @@ t.Date.getTcombFormFactory = () => DatePickerFactory;
 function renderTextbox(locals) {
   const onChange = (evt) => locals.onChange(evt);
   return (
-    <div>
-      <div className="input-group">
-        <RelatedShowTextbox parentValue={ locals.value } updateParent={ onChange } attrs={ locals.attrs } />
-      </div>
+    <div className="form-group">
+      <RelatedShowTextbox parentValue={ locals.value } updateParent={ onChange } attrs={ locals.attrs } />
     </div>
   )
 }
@@ -143,12 +141,11 @@ export const defaultFormOptions = () => {
     fields: {
       show: {
         factory: RelatedShowFactory,
-        auto: 'none',
         error: 'Show is required',
+        label: 'Show name (required)',
         attrs: {
           className: 'event-show-edit',
           autoComplete: 'off',
-          placeholder: 'Show name',
         },
         fields: {
           name: {
@@ -187,7 +184,7 @@ export const defaultFormOptions = () => {
       streetAddress: {
         attrs: {
           className: 'event-street-address-edit',
-        },
+        }
       },
       locality: {
         label: 'City (optional)',

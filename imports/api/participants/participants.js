@@ -48,10 +48,8 @@ Participants.deny({
 function renderTextbox(locals) {
   const onChange = (evt) => locals.onChange(evt);
   return (
-    <div>
-      <div className="input-group">
-        <RelatedProfile parentValue={ locals.value } updateParent={ onChange } attrs={ locals.attrs } />
-      </div>
+    <div className="input-group">
+      <RelatedProfile parentValue={ locals.value } updateParent={ onChange } attrs={ locals.attrs } />
     </div>
   )
 }

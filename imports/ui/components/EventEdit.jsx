@@ -51,7 +51,7 @@ export default class EventEdit extends React.Component {
         //   initMapLocation = [ position.coords.latitude, position.coords.longitude ];
         // }
 
-        $('<div></div>').addClass('form-group profile-geographic-location-edit').insertBefore('.form-group-lat');
+        $('<div></div>').addClass('form-group form-group-depth-1 profile-geographic-location-edit').insertBefore('.form-group-lat');
         $('<div></div>').addClass('find-pin-map').prependTo('.profile-geographic-location-edit').width('100%').height('300px');
         $('<input></input>').addClass('find-pin').attr({'type': 'text'}).prependTo('.profile-geographic-location-edit').geocomplete({
           map: ".find-pin-map",

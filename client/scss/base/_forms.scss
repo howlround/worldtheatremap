@@ -40,6 +40,10 @@ label {
   margin-bottom: $spacing-unit * 2;
 }
 
+.nested-subfield {
+  margin-top: $spacing-unit * 2;
+}
+
 .alert {
   color: $red;
   font-size: 0.8em;

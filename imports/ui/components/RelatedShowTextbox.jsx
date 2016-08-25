@@ -133,7 +133,7 @@ export default class RelatedShowTextbox extends React.Component {
       <div className="show-fields-group autocomplete-group">
         <input { ...attrs } value={ show.name } onChange={ this.onChange } />
         <ul className="autocomplete-results">{ resultsItems }{ addShowOption }</ul>
-        { showAuthorField ? <RelatedProfile updateParent={ this.setProfileForNewShow } attrs={ { placeholder: 'Primary Author', type: 'text', className: 'show-author-name-edit' } } /> : '' }
+        { showAuthorField ? <RelatedProfile updateParent={ this.setProfileForNewShow } attrs={ { className: 'show-author-name-edit', label: 'Primary Author (required)' } } wrapperAttrs={ { className: 'nested-subfield' } } /> : '' }
       </div>
     );
   }

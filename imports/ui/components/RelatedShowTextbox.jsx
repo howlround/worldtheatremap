@@ -17,6 +17,7 @@ export default class RelatedShowTextbox extends React.Component {
       },
       results: {},
       showAuthorField: false,
+      focus: false,
     };
 
     this.throttledAddShow = _.throttle(newShow => {
@@ -30,6 +31,7 @@ export default class RelatedShowTextbox extends React.Component {
     }, 300);
 
     this.onChange = this.onChange.bind(this);
+    this.onFocus = this.onFocus.bind(this);
     this.selectShow = this.selectShow.bind(this);
     this.createShow = this.createShow.bind(this);
     this.setProfileForNewShow = this.setProfileForNewShow.bind(this);
@@ -71,6 +73,10 @@ export default class RelatedShowTextbox extends React.Component {
     }
   }
 
+  onFocus() {
+    this.setState({ focus: true });
+  }
+
   createShow(newShow) {
     // Save show to DB
     const newShowId = this.throttledAddShow(newShow);
@@ -84,6 +90,7 @@ export default class RelatedShowTextbox extends React.Component {
   }
 
   selectNewShow(name) {
+    this.setState({ focus: false });
     // User indicated they are creating a new show
     const newShow = {
       name
@@ -103,6 +110,7 @@ export default class RelatedShowTextbox extends React.Component {
     const newState = this.state;
     newState.show.name = newShow.name;
     newState.results = {};
+    newState.focus = false;
     this.setState(newState);
 
     updateParent(newShow);
@@ -118,21 +126,20 @@ export default class RelatedShowTextbox extends React.Component {
 
   render() {
     const { attrs, updateParent } = this.props;
-    const { show, results, showAuthorField } = this.state;
+    const { show, results, showAuthorField, focus } = this.state;
 
-    const resultsItems = (results.length > 0) ? results.map(show => {
-      // const selectShowClick = this.selectShow.bind(this, show._id);
+    let resultsItems = (results.length > 0) ? results.map(show => {
       return (
-        <li key={ show._id } onClick={ this.selectShow.bind(this, show) }>{ show.name }</li>
+        <li className="select-show" key={ show._id } onClick={ this.selectShow.bind(this, show) }>{ show.name }</li>
       );
     }) : '';
 
-    const addShowOption = (show.name.length > 0 && results.length == 0) ? <li onClick={ this.selectNewShow.bind(this, show.name) }>Add Show for <b>{ show.name }</b>?</li> : '';
+    const addShowOption = (show.name.length > 0) ? <li className="select-new-show" onClick={ this.selectNewShow.bind(this, show.name) }>Add Show for <b>{ show.name }</b>?</li> : '';
 
     return (
       <div className="show-fields-group autocomplete-group">
-        <input { ...attrs } value={ show.name } onChange={ this.onChange } />
-        <ul className="autocomplete-results">{ resultsItems }{ addShowOption }</ul>
+        <input { ...attrs } value={ show.name } onChange={ this.onChange } onFocus={ this.onFocus } />
+        { focus ? <ul className="autocomplete-results">{ resultsItems }{ addShowOption }</ul> : '' }
         { showAuthorField ? <RelatedProfile updateParent={ this.setProfileForNewShow } attrs={ { className: 'show-author-name-edit', label: 'Primary Author (required)' } } wrapperAttrs={ { className: 'nested-subfield' } } /> : '' }
       </div>
     );

@@ -14,6 +14,7 @@ export default class RelatedProfile extends React.Component {
         name: '',
       },
       results: {},
+      focus: false,
     };
 
     this.throttledAddProfile = _.throttle(newProfile => {
@@ -27,13 +28,13 @@ export default class RelatedProfile extends React.Component {
     }, 300);
 
     this.onChange = this.onChange.bind(this);
+    this.onFocus = this.onFocus.bind(this);
     this.selectProfile = this.selectProfile.bind(this);
     this.createProfile = this.createProfile.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
     // If the parent form was submitted clear this field
-
     if (!_.isEmpty(prevProps.attrs.value) && _.isEmpty(this.props.attrs.value)) {
       this.setState({
         profile: {
@@ -52,7 +53,6 @@ export default class RelatedProfile extends React.Component {
     this.setState(newState);
 
     const search = value.target.value;
-    // const resultsElement = $('.form-group-profile-name').siblings('ul.autocomplete-results');
 
     if (search.length > 0) {
       const regex = new RegExp('.*' + search + '.*', 'i');
@@ -79,6 +79,11 @@ export default class RelatedProfile extends React.Component {
 
     // Update the parent form
     this.selectProfile(newProfile);
+
+    const newState = this.state;
+    newState.profile = newProfile;
+    newState.focus = false;
+    this.setState(newState);
   }
 
   selectProfile(profile) {
@@ -86,7 +91,7 @@ export default class RelatedProfile extends React.Component {
 
     const newState = this.state;
     newState.profile.name = profile.name;
-    newState.results = {};
+    newState.focus = false;
     this.setState(newState);
 
     updateParent({
@@ -95,26 +100,31 @@ export default class RelatedProfile extends React.Component {
     });
   }
 
+  onFocus() {
+    this.setState({ focus: true });
+  }
+
   render() {
     const { attrs, updateParent, wrapperAttrs } = this.props;
-    const { profile, results } = this.state;
+    const { profile, results, focus } = this.state;
 
     const resultsItems = (results.length > 0) ? results.map(profile => {
-      // const selectProfileClick = this.selectProfile.bind(this, profile._id);
       return (
-        <li key={ profile._id } onClick={ this.selectProfile.bind(this, profile) }>{ profile.name }</li>
+        <li key={ profile._id } className="select-profile" onClick={ this.selectProfile.bind(this, profile) }>{ profile.name }</li>
       );
     }) : '';
 
-    const addProfileOption = (profile.name.length > 0 && results.length == 0) ? <li onClick={ this.createProfile.bind(this, profile.name) }>Add Profile for <b>{ profile.name }</b>?</li> : '';
+    const addProfileOption = (profile.name.length > 0) ? <li className="create-profile" onClick={ this.createProfile.bind(this, profile.name) }>Add Profile for <b>{ profile.name }</b>?</li> : '';
 
-    const wrapperClasses = classNames('profile-fields-group', 'autocomplete-group', wrapperAttrs.className);
+    const additionalWrapperClasses = (wrapperAttrs) ? wrapperAttrs.className : '';
+    const wrapperClasses = classNames('profile-fields-group', 'autocomplete-group', additionalWrapperClasses);
 
     return (
       <div className={ wrapperClasses }>
         { attrs.label ? <label>{ attrs.label }</label> : '' }
-        <input { ...attrs } type="text" value={ profile.name } onChange={ this.onChange } />
-        <ul className="autocomplete-results">{ resultsItems }{ addProfileOption }</ul>
+        <input { ...attrs } onFocus={ this.onFocus } type="text" value={ profile.name } onChange={ this.onChange } />
+        { focus ? <ul className="autocomplete-results">{ resultsItems }{ addProfileOption }</ul> : '' }
+
       </div>
     );
   }
@@ -122,6 +132,7 @@ export default class RelatedProfile extends React.Component {
 
 RelatedProfile.propTypes = {
   attrs: React.PropTypes.object,
+  wrapperAttrs: React.PropTypes.object,
   updateParent: React.PropTypes.func,
 };
 

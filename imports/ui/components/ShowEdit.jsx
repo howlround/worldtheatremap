@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { _ } from 'meteor/underscore';
-import { disshowError } from '../helpers/errors.js';
+import { displayError } from '../helpers/errors.js';
 import {
   update,
   remove,

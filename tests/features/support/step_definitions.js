@@ -85,6 +85,10 @@ module.exports = function() {
     browser.url('http://localhost:3000/' + type + 's/add');
   });
 
+  this.Given(/^I go to the "([^"]*)" search page$/, function (type) {
+    browser.url('http://localhost:3000/search/' + type);
+  });
+
   this.When(/^I fill in "([^"]*)" with "([^"]*)"$/, function (element, text) {
     browser.waitForExist(element, 2000);
     browser.setValue(element, text);

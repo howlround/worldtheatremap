@@ -28,7 +28,6 @@ Feature: Participant listing on event pages
     And I click on ".edit-event-save"
 
   Scenario: Add participant form should only display for logged in users
-    And I hover over ".user-menu"
     And I am logged out
     And I go to the show page for "Sofia"
     And I click on ".event-name a"

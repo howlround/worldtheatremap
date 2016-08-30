@@ -10,6 +10,7 @@ import NotFoundPage from '../pages/NotFoundPage.jsx';
 import Message from '../components/Message.jsx';
 import Modal from '../components/Modal.jsx';
 import AuthSignIn from '../components/AuthSignIn.jsx';
+import Loading from '../components/Loading.jsx';
 import { Link } from 'react-router';
 
 export default class ProfilePage extends React.Component {
@@ -48,16 +49,18 @@ export default class ProfilePage extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.profile.lat && prevProps.profile.lon && this.props.profile.lat && this.props.profile.lon && (prevProps.profile.lat !== this.props.profile.lat || prevProps.profile.lon !== this.props.profile.lon)) {
+    const { profileExists, profile } = this.props;
+
+    if (profileExists && prevProps.profile && prevProps.profile.lat && prevProps.profile.lon && profile.lat && profile.lon && (prevProps.profile.lat !== profile.lat || prevProps.profile.lon !== profile.lon)) {
       this.initializeD3Globe();
     }
   }
 
   initializeD3Globe() {
-    const { profile, editing } = this.props;
+    const { profileExists, profile, editing } = this.props;
     /* d3 setup */
     // Original example: https://bl.ocks.org/mbostock/4183330
-    if (!editing && profile.lat && profile.lon) {
+    if (profileExists && !editing && profile.lat && profile.lon) {
       const containerWidth = 200;
       const conatinerHeight = 200;
       const diameter = 196;
@@ -179,7 +182,7 @@ export default class ProfilePage extends React.Component {
 
   render() {
     // const { profile, profileExists, loading } = this.props;
-    const { profile, user, shows, roles, connections } = this.props;
+    const { profile, user, shows, roles, connections, loading } = this.props;
     const { editing } = this.state;
 
     const profilePageClass = classnames({
@@ -188,7 +191,12 @@ export default class ProfilePage extends React.Component {
       editing,
     });
 
-    if (!profile) {
+    if (loading) {
+      return (
+        <Loading key="loading"/>
+      );
+    }
+    else if (!loading && !profile) {
       return (
         <NotFoundPage/>
       );
@@ -265,6 +273,6 @@ ProfilePage.propTypes = {
   shows: React.PropTypes.array,
   roles: React.PropTypes.array,
   connections: React.PropTypes.array,
-  // loading: React.PropTypes.bool,
-  // profileExists: React.PropTypes.bool,
+  loading: React.PropTypes.bool,
+  profileExists: React.PropTypes.bool,
 };

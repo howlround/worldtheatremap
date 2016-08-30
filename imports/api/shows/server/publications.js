@@ -9,3 +9,9 @@ Meteor.publish('shows.public', function showsPublic() {
     fields: Shows.publicFields,
   });
 });
+
+Meteor.publish('shows.byId', function showsById(ids) {
+  return Shows.find({ '_id': { $in: ids } }, {
+    fields: Shows.publicFields,
+  });
+});

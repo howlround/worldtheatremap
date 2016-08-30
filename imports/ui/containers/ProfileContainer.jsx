@@ -5,16 +5,17 @@ import ProfilePage from '../pages/ProfilePage.jsx';
 
 export default createContainer(({ params: { id } }) => {
   // const todosHandle = Meteor.subscribe('todos.inList', id);
-  // const loading = !todosHandle.ready();
+  const profileSub = Meteor.subscribe('profiles.byId', [id]);
+  const loading = !profileSub.ready();
   const profile = Profiles.findOne(id);
   const shows = profile ? profile.getShows().fetch() : null;
   const roles = profile ? profile.getRoles() : null;
   const connections = profile ? profile.getConnections() : null;
-  // const profileExists = !loading && !!profile;
+  const profileExists = !loading && !!profile;
   return {
-    // loading,
+    loading,
     profile,
-    // profileExists,
+    profileExists,
     shows,
     roles,
     connections,

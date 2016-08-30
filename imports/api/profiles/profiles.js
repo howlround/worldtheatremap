@@ -418,6 +418,7 @@ Profiles.helpers({
   //   return this.userId === userId;
   // },
   getShows() {
+    // Subscribe to these shows using shows.byId (or something like that)
     return Shows.find({ "author.id": this._id });
   },
 

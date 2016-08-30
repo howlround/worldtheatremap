@@ -1,0 +1,50 @@
+.search {
+  section {
+    background-color: $white;
+    border: solid 1px $dark-tan;
+
+    @include breakpoint($narrow) {
+      padding: $spacing-unit * 3;
+    }
+  }
+}
+
+ul.search-type {
+  overflow: auto;
+  border-bottom: solid 2px $teal;
+
+  li {
+    float: left;
+    border-right: 3px solid $white;
+  }
+
+  a {
+    font-family: $oswald-font-stack;
+    font-size: 15px;
+    text-transform: uppercase;
+    padding: $spacing-unit ($spacing-unit * 2);
+    background-color: $light-teal;
+    color: $black;
+    display: block;
+
+    &:hover,
+    &:focus {
+      background-color: $dark-tan;
+    }
+
+    &.active {
+      background-color: $teal;
+      color: $white;
+
+      &:hover,
+      &:focus {
+        background-color: $gray;
+      }
+    }
+  }
+}
+
+.search-type-content {
+  border: solid 1px $dark-tan;
+  border-top: none;
+}

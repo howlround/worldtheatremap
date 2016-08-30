@@ -16,6 +16,8 @@ import EventEditContainer from '../../ui/containers/EventEditContainer.jsx';
 import AuthSignInPage from '../../ui/pages/AuthSignInPage.jsx';
 import AuthJoinPage from '../../ui/pages/AuthJoinPage.jsx';
 import NotFoundPage from '../../ui/pages/NotFoundPage.jsx';
+// import SearchParent from '../../ui/pages/SearchParent.jsx';
+import SearchProfilesContainer from '../../ui/containers/SearchProfilesContainer.jsx';
 
 export const renderRoutes = () => (
   <Router history={browserHistory}>
@@ -27,10 +29,12 @@ export const renderRoutes = () => (
       <Route path="shows/:id" component={ShowContainer}/>
       <Route path="shows/:id/edit" component={ShowEditContainer}/>
       <Route path="events/add" component={EventAddContainer}/>
-      {<Route path="events/:id" component={EventContainer}/>}
+      <Route path="events/:id" component={EventContainer}/>
       <Route path="events/:id/edit" component={EventEditContainer}/>
       <Route path="signin" component={AuthSignInPage}/>
       <Route path="join" component={AuthJoinPage}/>
+      {/* <Route path="search" component={SearchParent}/> */}
+      <Route path="search/profiles" component={SearchProfilesContainer}/>
       <Route path="*" component={NotFoundPage}/>
     </Route>
   </Router>

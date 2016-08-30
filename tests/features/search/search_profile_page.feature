@@ -7,8 +7,8 @@ Feature: Profile search page
 
   Background:
     Given I am on the home page
-@focus
+
   Scenario: The profile search page should exist
-    And I go to the "profile" search page
+    And I go to the "profiles" search page
     Then I should not see ".not-found"
-    And the ".search-type.active" element should contain "Profiles"
+    And the ".search-type .active" element should contain "Profiles"

@@ -257,6 +257,8 @@ export const profileSchema = t.struct({
 
 export const profileFiltersSchema = t.struct({
   selfDefinedRoles: t.maybe(t.list(t.String)),
+  interests: t.maybe(t.list(t.String)),
+  orgTypes: t.maybe(t.list(t.String)),
 });
 
 export const defaultFormOptions = () => {

@@ -31,7 +31,6 @@ Feature: Create organization profiles
     And I select "Musicals" from the ".profile-interests-edit" combobox
     And I select "Producer" from the ".profile-organization-types-edit" combobox
     And I select "Stage Director" from the ".profile-roles-edit" combobox
-    And I press the "ESCAPE" key
     And I click on ".edit-profile-save"
     Then the ".profile-name" element should contain "Fatima"
     And the ".profile-about" element should contain "Most popular name in Algeria (census, 2010)"

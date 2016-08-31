@@ -51,11 +51,11 @@ export default class SearchProfiles extends React.Component {
       }
     });
 
-    const profiles = Profiles.find(cleanQuery).fetch();
+    const profiles = (!_.isEmpty(cleanQuery)) ? Profiles.find(cleanQuery).fetch() : {};
 
     // @TODO: This should be a component that takes the results of Profiles.find().fetch()
     return (
-      profiles.map(profile => (
+      _.map(profiles, profile => (
         <li key={profile._id}>
           <Link
             to={`/profiles/${ profile._id }`}

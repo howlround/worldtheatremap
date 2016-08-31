@@ -44,6 +44,16 @@ ul.search-type {
   }
 }
 
+.search-results {
+  margin: $spacing-unit;
+  border-top: solid 1px $teal;
+
+  li {
+    border-bottom: solid 1px $teal;
+    padding: $spacing-unit * 2 0;
+  }
+}
+
 .search-type-content {
   border: solid 1px $dark-tan;
   border-top: none;

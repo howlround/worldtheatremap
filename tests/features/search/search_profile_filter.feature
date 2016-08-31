@@ -21,11 +21,22 @@ Feature: Filters on profile search
     And I select "Musicals" from the ".profile-interests-edit" combobox
     And I select "Producer" from the ".profile-organization-types-edit" combobox
     And I select "Stage Director" from the ".profile-roles-edit" combobox
-    And I press the "ESCAPE" key
     And I click on ".edit-profile-save"
 
-  Scenario: Users can filter by country
-    And I go to the "profile" search page
+  Scenario: Users can filter by role
+    And I go to the "profiles" search page
     And the ".search-results" element should not contain "Fatima"
-    And I select "Algeria" from the ".profile-interests-edit" combobox
+    And I select "Stage Director" from the ".profile-roles-edit" combobox
+    And the ".search-results" element should contain "Fatima"
+
+  Scenario: Users can filter by interest
+    And I go to the "profiles" search page
+    And the ".search-results" element should not contain "Fatima"
+    And I select "Musicals" from the ".profile-interests-edit" combobox
+    And the ".search-results" element should contain "Fatima"
+
+  Scenario: Users can filter by organization type
+    And I go to the "profiles" search page
+    And the ".search-results" element should not contain "Fatima"
+    And I select "Producer" from the ".profile-organization-types-edit" combobox
     And the ".search-results" element should contain "Fatima"

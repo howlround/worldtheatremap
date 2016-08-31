@@ -48,7 +48,7 @@ const ProfileTypeTags = t.form.Form.templates.select.clone({
       const values = (options || []).map(({value}) => value)
       locals.onChange(values)
     }
-    return <ReactSelect multi options={ProfileType} value={locals.value} onChange={onChange} className="profile-type-edit" />
+    return <ReactSelect multi autoBlur options={ProfileType} value={locals.value} onChange={onChange} className="profile-type-edit" />
   }
 });
 
@@ -151,7 +151,7 @@ const interestsTags = t.form.Form.templates.select.clone({
       const values = (options || []).map(({value}) => value)
       locals.onChange(values)
     }
-    return <ReactSelect multi options={Interests} value={locals.value} onChange={onChange} className="profile-interests-edit" />
+    return <ReactSelect multi autoBlur options={Interests} value={locals.value} onChange={onChange} className="profile-interests-edit" />
   }
 });
 
@@ -183,7 +183,7 @@ const orgTypesTags = t.form.Form.templates.select.clone({
       const values = (options || []).map(({value}) => value)
       locals.onChange(values)
     }
-    return <ReactSelect multi options={OrgTypes} value={locals.value} onChange={onChange} className="profile-organization-types-edit" />
+    return <ReactSelect multi autoBlur options={OrgTypes} value={locals.value} onChange={onChange} className="profile-organization-types-edit" />
   }
 });
 
@@ -221,7 +221,7 @@ const rolesTags = t.form.Form.templates.select.clone({
       const values = (options || []).map(({value}) => value)
       locals.onChange(values)
     }
-    return <ReactSelect multi options={Roles} value={locals.value} onChange={onChange} className="profile-roles-edit" />
+    return <ReactSelect multi autoBlur options={Roles} value={locals.value} onChange={onChange} className="profile-roles-edit" />
   }
 });
 
@@ -252,6 +252,10 @@ export const profileSchema = t.struct({
   foundingYear: t.maybe(t.String),
   interests: t.maybe(t.list(t.String)),
   orgTypes: t.maybe(t.list(t.String)),
+  selfDefinedRoles: t.maybe(t.list(t.String)),
+});
+
+export const profileFiltersSchema = t.struct({
   selfDefinedRoles: t.maybe(t.list(t.String)),
 });
 

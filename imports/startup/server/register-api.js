@@ -19,8 +19,8 @@ import '../../api/relatedRecords/methods.js';
 import '../../api/relatedRecords/server/publications.js';
 
 // Lists
-// import '../../api/lists/methods.js';
-// import '../../api/lists/server/publications.js';
+import '../../api/localities/methods.js';
+import '../../api/localities/server/publications.js';
 
 // Todos
 // import '../../api/todos/methods.js';

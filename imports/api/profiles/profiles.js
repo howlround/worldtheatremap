@@ -2,6 +2,7 @@
 import { Mongo } from 'meteor/mongo';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Factory } from 'meteor/factory';
+import { _ } from 'meteor/underscore';
 
 // Forms
 import React from 'react';
@@ -10,8 +11,12 @@ import ReactSelect from 'react-select';
 
 // Collections
 import { Shows } from '../shows/shows.js';
+import { Localities } from '../localities/localities.js';
 import { Participants } from '../participants/participants.js';
 import { RelatedRecords } from '../relatedRecords/relatedRecords.js';
+
+// Methods
+import { upsert } from '../localities/methods.js';
 
 class ProfilesCollection extends Mongo.Collection {
   insert(profile, callback) {
@@ -19,10 +24,27 @@ class ProfilesCollection extends Mongo.Collection {
     // Do any preprocessing here
     // @TODO: Strip out null values and empty objects?
 
+    if (!_.isEmpty(ourProfile.locality)) {
+      // Localities.upsert({ locality: ourProfile.locality });
+      upsert.call({ locality: ourProfile.locality });
+    }
     return super.insert(ourProfile, callback);
   }
+
+  update(profileId, profile, callback) {
+    const ourProfile = profile.$set;
+
+    if (!_.isEmpty(ourProfile.locality)) {
+      // Localities.upsert({ locality: ourProfile.locality });
+      upsert.call({ locality: ourProfile.locality });
+    }
+
+    return super.update(profileId, {
+      $set: ourProfile,
+    });
+  }
+
   remove(selector, callback) {
-    Todos.remove({ profileId: selector });
     return super.remove(selector, callback);
   }
 }
@@ -60,6 +82,7 @@ class ReactSelectProfileTypeFactory extends t.form.Component {
 
 ReactSelectProfileTypeFactory.transformer = t.form.List.transformer;
 
+// interests options
 const Interests = [
   { value: "Accessibility", label: "Accessibility" },
   { value: "Adaptation", label: "Adaptation" },
@@ -145,6 +168,7 @@ const Interests = [
   { value: "Young Audiences", label: "Young Audiences" },
 ];
 
+// interests template
 const interestsTags = t.form.Form.templates.select.clone({
   renderSelect: (locals) => {
     function onChange(options) {
@@ -155,14 +179,17 @@ const interestsTags = t.form.Form.templates.select.clone({
   }
 });
 
+// interests factory function
 class ReactSelectInterestsFactory extends t.form.Component {
   getTemplate() {
     return interestsTags;
   }
 }
 
+// interests transformer
 ReactSelectInterestsFactory.transformer = t.form.List.transformer;
 
+// orgTypes options
 const OrgTypes = [
   { value: "Development / Residency Organization", label: "Development / Residency Organization" },
   { value: "Festival / Presenting", label: "Festival / Presenting" },
@@ -177,6 +204,7 @@ const OrgTypes = [
   { value: "Other", label: "Other" },
 ];
 
+// orgTypes template
 const orgTypesTags = t.form.Form.templates.select.clone({
   renderSelect: (locals) => {
     function onChange(options) {
@@ -187,14 +215,17 @@ const orgTypesTags = t.form.Form.templates.select.clone({
   }
 });
 
+// orgTypes factory function
 class ReactSelectOrgTypesFactory extends t.form.Component {
   getTemplate() {
     return orgTypesTags;
   }
 }
 
+// orgTypes transformer
 ReactSelectOrgTypesFactory.transformer = t.form.List.transformer;
 
+// selfDefinedRoles options
 const Roles = [
   { value: "Administrator", label: "Administrator" },
   { value: "Show Producer", label: "Show Producer" },
@@ -215,6 +246,7 @@ const Roles = [
   { value: "Curator", label: "Curator" },
 ];
 
+// selfDefinedRoles template
 const rolesTags = t.form.Form.templates.select.clone({
   renderSelect: (locals) => {
     function onChange(options) {
@@ -225,12 +257,14 @@ const rolesTags = t.form.Form.templates.select.clone({
   }
 });
 
+// selfDefinedRoles factory function
 class ReactSelectRolesFactory extends t.form.Component {
   getTemplate() {
     return rolesTags;
   }
 }
 
+// selfDefinedRoles transformer
 ReactSelectRolesFactory.transformer = t.form.List.transformer;
 
 export const profileSchema = t.struct({
@@ -259,6 +293,7 @@ export const profileFiltersSchema = t.struct({
   selfDefinedRoles: t.maybe(t.list(t.String)),
   interests: t.maybe(t.list(t.String)),
   orgTypes: t.maybe(t.list(t.String)),
+  locality: t.maybe(t.String), // City
 });
 
 export const defaultFormOptions = () => {
@@ -365,6 +400,37 @@ export const defaultFormOptions = () => {
         factory: ReactSelectOrgTypesFactory,
       },
       selfDefinedRoles: {
+        factory: ReactSelectRolesFactory,
+      },
+    },
+  };
+}
+
+export const filtersFormOptions = () => {
+  return {
+    fields: {
+      profileType: {
+        factory: ReactSelectProfileTypeFactory,
+        label: 'Profile type',
+        help: 'Is this profile representing an individual or an organization? Can be both if applicable. '
+      },
+      locality: {
+        // factory: ReactSelectExistingLocalitiesFactory,
+        label: 'City',
+        attrs: {
+          className: 'profile-locality-select-edit',
+        },
+      },
+      interests: {
+        label: 'Interests',
+        factory: ReactSelectInterestsFactory,
+      },
+      orgTypes: {
+        label: 'Organization Types',
+        factory: ReactSelectOrgTypesFactory,
+      },
+      selfDefinedRoles: {
+        label: 'Roles',
         factory: ReactSelectRolesFactory,
       },
     },

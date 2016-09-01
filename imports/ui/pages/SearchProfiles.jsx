@@ -1,10 +1,12 @@
 import React from 'react';
+import { Profiles, profileFiltersSchema, filtersFormOptions } from '../../api/profiles/profiles.js';
+import { Localities } from '../../api/localities/localities.js';
 import Profile from '../components/Profile.jsx';
-import { Profiles, profileFiltersSchema, defaultFormOptions } from '../../api/profiles/profiles.js';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
 import AuthSignIn from '../components/AuthSignIn.jsx';
 import Loading from '../components/Loading.jsx';
 import { Link } from 'react-router';
+import ReactSelect from 'react-select';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-form';
 
@@ -88,13 +90,39 @@ export default class SearchProfiles extends React.Component {
       );
     }
     else {
-      const formOptions = defaultFormOptions();
+      // locality options
+      const ExistingLocalities = Localities.find().fetch();
+
+      // locality template
+      const existingLocalitiesTags = t.form.Form.templates.select.clone({
+        renderSelect: (locals) => {
+          function onChange(options) {
+            const values = (options || []).map(({value}) => value)
+            locals.onChange(values)
+          }
+          return <ReactSelect multi autoBlur options={ExistingLocalities} value={locals.value} onChange={onChange} className="profile-locality-select-edit" />
+        }
+      });
+
+      // locality factory function
+      class ReactSelectExistingLocalitiesFactory extends t.form.Component {
+        getTemplate() {
+          return existingLocalitiesTags;
+        }
+      }
+
+      // selfDefinedRoles transformer
+      ReactSelectExistingLocalitiesFactory.transformer = t.form.List.transformer;
+
+      let formOptions = filtersFormOptions();
+      formOptions.fields.locality.factory = ReactSelectExistingLocalitiesFactory;
+
       // @TODO: Refactor search type <ul> to be a component
       return (
         <div className="search page">
           <section>
             <ul className="search-type">
-              <li><Link to="/search/shows" activeClassName="active">Shows</Link></li>
+              {/*<li><Link to="/search/shows" activeClassName="active">Shows</Link></li>*/}
               <li><Link to="/search/profiles" activeClassName="active">Profiles</Link></li>
             </ul>
             <div className="search-type-content">

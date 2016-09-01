@@ -22,21 +22,30 @@ Feature: Filters on profile search
     And I select "Producer" from the ".profile-organization-types-edit" combobox
     And I select "Stage Director" from the ".profile-roles-edit" combobox
     And I click on ".edit-profile-save"
-
-  Scenario: Users can filter by role
     And I go to the "profiles" search page
     And the ".search-results" element should not contain "Fatima"
-    And I select "Stage Director" from the ".profile-roles-edit" combobox
+
+  Scenario: Users can filter by role
+    When I select "Stage Director" from the ".profile-roles-edit" combobox
     And the ".search-results" element should contain "Fatima"
 
   Scenario: Users can filter by interest
-    And I go to the "profiles" search page
-    And the ".search-results" element should not contain "Fatima"
-    And I select "Musicals" from the ".profile-interests-edit" combobox
+    When I select "Musicals" from the ".profile-interests-edit" combobox
     And the ".search-results" element should contain "Fatima"
 
   Scenario: Users can filter by organization type
+    When I select "Producer" from the ".profile-organization-types-edit" combobox
+    And the ".search-results" element should contain "Fatima"
+
+  Scenario: Users can filter by city
+    When I select "Algiers" from the ".profile-locality-select-edit" combobox
+    And the ".search-results" element should contain "Fatima"
+
+  Scenario: Users can filter by city after editing a profile to add a new city
+    And I go to the profile page for "Fatima"
+    And I follow ".edit-link"
+    And I fill in ".profile-locality-edit" with "Morocco"
+    And I click on ".edit-profile-save"
     And I go to the "profiles" search page
-    And the ".search-results" element should not contain "Fatima"
-    And I select "Producer" from the ".profile-organization-types-edit" combobox
+    When I select "Morocco" from the ".profile-locality-select-edit" combobox
     And the ".search-results" element should contain "Fatima"

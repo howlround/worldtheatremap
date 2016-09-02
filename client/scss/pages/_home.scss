@@ -1,0 +1,22 @@
+.homepage-section-header {
+  text-align: center;
+
+  h2 {
+    background-color: $black;
+    color: $white;
+    padding: $spacing-unit $spacing-unit * 4;
+    font-size: 20px;
+    display: inline;
+  }
+}
+
+.homepage-events-globe {
+  p {
+    font-size: 35px;
+    color: $teal;
+    text-align: center;
+    font-weight: bold;
+    margin: $spacing-unit * 4 15%;
+    line-height: 1.2em;
+  }
+}

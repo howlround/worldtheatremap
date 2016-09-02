@@ -7,6 +7,7 @@ import { Profiles } from '../../api/profiles/profiles.js';
 import UserMenu from '../components/UserMenu.jsx';
 import AddMenu from '../components/AddMenu.jsx';
 import Profile from '../components/Profile.jsx';
+import EventsGlobe from '../components/EventsGlobe.jsx';
 
 import ConnectionNotification from '../components/ConnectionNotification.jsx';
 import Loading from '../components/Loading.jsx';
@@ -64,6 +65,20 @@ export default class App extends React.Component {
     }
     else if (menu == 'UserMenu') {
       this.setState({ forceCloseDropDown: { UserMenu: value, AddMenu: false } });
+    }
+  }
+
+  renderTodayMap() {
+    const { events, loading } = this.props;
+
+    if (!loading) {
+      return (
+        <section className="homepage-events-globe">
+          <div className="homepage-section-header"><h2>What's Happening Today</h2></div>
+          <p>The World Theatre Map is a user-generated directory and a real-time media hub of the world’s theatre community. </p>
+          <EventsGlobe events={ events } />
+        </section>
+      );
     }
   }
 
@@ -149,6 +164,7 @@ export default class App extends React.Component {
             : clonedChildren}
           {!clonedChildren ?
             <div className="page">
+              {this.renderTodayMap()}
               <ul>
                 {this.renderHomePageProfiles()}
                 {this.renderHomePageShows()}
@@ -168,6 +184,7 @@ App.propTypes = {
   menuOpen: React.PropTypes.bool,    // is side menu open?
   profiles: React.PropTypes.array,   // all profiles visible to the current user
   shows: React.PropTypes.array,
+  events: React.PropTypes.array,
   children: React.PropTypes.element, // matched child route component
   location: React.PropTypes.object,  // current router location
   params: React.PropTypes.object,    // parameters of the current route

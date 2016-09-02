@@ -5,6 +5,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import EventPage from '../pages/EventPage.jsx';
 
 export default createContainer(({ params: { id } }) => {
+  const singleEventSubscription = Meteor.subscribe('events.single', id);
   const event = Events.findOne(id);
   const participantsByEvent = Meteor.subscribe('participants.byEvent', id);
   return {

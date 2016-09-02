@@ -22,6 +22,10 @@ class EventsCollection extends Mongo.Collection {
       const endMoment = moment(ourEvent.endDate);
       const dateRange = startMoment.format('MMM D YYYY') + ' – ' + endMoment.format('MMM D YYYY');
       ourEvent.dateRange = dateRange;
+
+      // Set all the dates to 8pm
+      ourEvent.startDate = startMoment.hours(20).toDate();
+      ourEvent.endDate = endMoment.hours(20).toDate();
     }
 
     // @TODO: Save author information to event
@@ -37,6 +41,10 @@ class EventsCollection extends Mongo.Collection {
       const endMoment = moment(ourEvent.endDate);
       const dateRange = startMoment.format('MMM D YYYY') + ' – ' + endMoment.format('MMM D YYYY');
       ourEvent.dateRange = dateRange;
+
+      // Set the dates to 8pm
+      ourEvent.startDate = startMoment.hours(20).toDate();
+      ourEvent.endDate = endMoment.hours(20).toDate();
     }
 
     // @TODO: Save author information to event

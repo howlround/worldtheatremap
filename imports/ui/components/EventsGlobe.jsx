@@ -69,6 +69,11 @@ export default class EventsGlobe extends React.Component {
 
     let i = 0;
     const n = eventLocations.length;
+
+    if (n == 0 || typeof eventLocations[i] == 'undefined') {
+      return;
+    }
+
     this.setState({ currentEvent: eventLocations[i].properties });
 
     const triggerTransition = () => {

@@ -21,6 +21,7 @@ Feature: Create events for a show that doesn't exist yet
     And I click on ".form-group-startDate input"
     And I click on ".DayPicker-Day=1"
     And I click on ".form-group-endDate input"
+    And I click on ".DayPicker-NavButton--next"
     And I click on ".DayPicker-Day=15"
     And I click on ".edit-event-save"
     Then the "h1.page-title" element should contain "Althea"

@@ -9,14 +9,14 @@ import Loading from '../components/Loading.jsx';
 import { Link } from 'react-router';
 import { _ } from 'meteor/underscore';
 
-export default class ProfilePage extends React.Component {
+export default class EventsGlobe extends React.Component {
   constructor(props) {
     super(props);
 
     this.initializeD3Globe = this.initializeD3Globe.bind(this);
   }
 
-  componentWillReceiveProps() {
+  componentDidMount() {
     this.initializeD3Globe();
   }
 
@@ -119,7 +119,6 @@ export default class ProfilePage extends React.Component {
           // })
           .tween("rotate", function() {
             // Set rotation
-            console.log(i);
             const p = geoCentroid(eventLocations[i]);
             const r = geoInterpolate(projection.rotate(), [-p[0]-15, -p[1]+30]);
 
@@ -211,24 +210,14 @@ export default class ProfilePage extends React.Component {
   }
 
   render() {
-    const { loading } = this.props;
-
-    if (loading) {
-      return (
-        <Loading key="loading"/>
-      );
-    }
-    else {
-      return (
-        <div className="events-globe">
-          <div id="globe"></div>
-        </div>
-      );
-    }
+    return (
+      <div className="events-globe">
+        <div id="globe"></div>
+      </div>
+    );
   }
 }
 
-ProfilePage.propTypes = {
+EventsGlobe.propTypes = {
   events: React.PropTypes.array,
-  loading: React.PropTypes.bool,
 };

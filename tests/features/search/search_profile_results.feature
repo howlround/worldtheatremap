@@ -8,7 +8,9 @@ Feature: Search results content
   Background:
     Given I am on the home page
     And I am logged in
-    When I go to the "profile" add page
+
+  Scenario: Search results should contain all the necessary information
+    And I go to the "profile" add page
     And I fill in ".profile-name-edit" with "Fatima"
     And I select "Individual" from the ".profile-type-edit" combobox
     And I fill in ".profile-about-edit" with "Most popular name in Algeria (census, 2010)"
@@ -23,8 +25,6 @@ Feature: Search results content
     And I select "Producer" from the ".profile-organization-types-edit" combobox
     And I select "Stage Director" from the ".profile-roles-edit" combobox
     And I click on ".edit-profile-save"
-
-  Scenario: Search results should contain all the necessary information
     When I go to the "profiles" search page
     And I select "Stage Director" from the ".profile-roles-edit" combobox
     And the ".search-results" element should contain "Fatima"
@@ -32,3 +32,17 @@ Feature: Search results content
     And the ".search-results" element should contain "Interests: Musicals and Improvisation"
     And the ".search-results" element should contain "Roles: Stage Director"
     And the ".search-results" element should contain "Organization types: Producer"
+
+  Scenario: Empty fields should not be displayed on search results
+    And I go to the "profile" add page
+    And I fill in ".profile-name-edit" with "Fatima"
+    And I select "Individual" from the ".profile-type-edit" combobox
+    And I fill in ".profile-about-edit" with "Most popular name in Algeria (census, 2010)"
+    And I select "Stage Director" from the ".profile-roles-edit" combobox
+    And I click on ".edit-profile-save"
+    When I go to the "profiles" search page
+    And I select "Stage Director" from the ".profile-roles-edit" combobox
+    And the ".search-results" element should contain "Fatima"
+    And the ".search-results" element should not contain "Location:"
+    And the ".search-results" element should not contain "Interests:"
+    And the ".search-results" element should not contain "Organization types:"

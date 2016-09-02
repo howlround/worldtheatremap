@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { _ } from 'meteor/underscore';
 import { Link } from 'react-router';
 // import ShowTeaser from '../components/ShowTeaser.jsx';
 
@@ -86,13 +87,13 @@ export default class ProfileSearchResult extends React.Component {
             {profile.name}
           </Link>
           <div className="profile-metadata">
-            { typeof locationBlock != 'undefined' ?
+            { !_.isEmpty(locationBlock) ?
                 <div className="profile-location"><span className="profile-metadata-label">Location: </span>{ locationBlock }</div> : '' }
-            { profile.selfDefinedRoles ?
+            { !_.isEmpty(profile.selfDefinedRoles) ?
               <div className="profile-roles" title="Roles"><span className="profile-metadata-label">Roles: </span>{ selfDefinedRoles }</div> : '' }
-            { profile.orgTypes ?
+            { !_.isEmpty(profile.orgTypes) ?
               <div className="profile-organization-types" title="Organization Type"><span className="profile-metadata-label">Organization types: </span>{ orgTypes }</div> : '' }
-            { profile.interests ?
+            { !_.isEmpty(profile.interests) ?
               <div className="profile-interests" title="Interests"><span className="profile-metadata-label">Interests: </span>{ interests }</div> : '' }
           </div>
         </div>

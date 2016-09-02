@@ -59,15 +59,24 @@ section.show-events {
   ul {
     border-bottom: 1px solid $light-teal;
     padding-top: $spacing-unit * 2;
+
+    li {
+      border-top: 1px solid $light-teal;
+      padding: ($spacing-unit * 2) 0;
+    }
   }
 }
 
 article.event-teaser {
-  border-top: 1px solid $light-teal;
-  padding: ($spacing-unit * 2) 0;
-
   .event-main-info {
     line-height: 1.5em;
+  }
+}
+
+article.event-teaser-with-show {
+  .event-type {
+    text-transform: uppercase;
+    font-size: 13px;
   }
 }
 

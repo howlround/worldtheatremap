@@ -10,6 +10,12 @@ Meteor.publish('events.public', function eventsPublic() {
   });
 });
 
+Meteor.publish('events.withLocations', function eventsPublic() {
+  return Events.find({ 'lat': { $ne: null}}, {
+    fields: Events.publicFields,
+  });
+});
+
 Meteor.publish('events.byShow', function eventsbyShow(id) {
   return Events.find({'show.id': id}, {
     fields: Events.publicFields,

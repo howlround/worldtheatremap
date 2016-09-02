@@ -6,6 +6,7 @@ import { Shows } from '../../api/shows/shows.js';
 import { Events } from '../../api/events/events.js';
 import { createContainer } from 'meteor/react-meteor-data';
 import App from '../layouts/App.jsx';
+// import moment from 'moment';
 
 export default createContainer(() => {
   // @TODO: All of these need to be moved into more
@@ -14,16 +15,18 @@ export default createContainer(() => {
   // Except some version of events for todays events
   const profilesSubscribe = Meteor.subscribe('profiles.public');
   const showsSubscribe = Meteor.subscribe('shows.public');
-  // @TODO: Change to events today. Should only display events with location
-  const eventsSubscribe = Meteor.subscribe('events.public');
+  // @TODO: Change to events today.
+  // const start = moment().format('MMMM+DD+YYYY');
+  // const end = moment().format('MMMM+DD+YYYY');
+  const eventsWithLocationsSubscribe = Meteor.subscribe('events.withLocations');
   // const participantsSubscribe = Meteor.subscribe('participants.public');
   return {
     user: Meteor.user(),
-    loading: !(profilesSubscribe.ready() && showsSubscribe.ready() && eventsSubscribe.ready()),
+    loading: !(profilesSubscribe.ready() && showsSubscribe.ready() && eventsWithLocationsSubscribe.ready()),
     connected: Meteor.status().connected,
     menuOpen: Session.get('menuOpen'),
     profiles: Profiles.find().fetch(),
     shows: Shows.find().fetch(),
-    events: Events.find().fetch(),
+    eventsWithLocations: Events.find({ 'lat': { $ne: null}}, { fields: Events.publicFields }).fetch(),
   };
 }, App);

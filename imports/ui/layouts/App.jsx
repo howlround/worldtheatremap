@@ -69,14 +69,14 @@ export default class App extends React.Component {
   }
 
   renderTodayMap() {
-    const { events, loading } = this.props;
+    const { eventsWithLocations, loading } = this.props;
 
     if (!loading) {
       return (
         <section className="homepage-events-globe">
           <div className="homepage-section-header"><h2>What's Happening Today</h2></div>
           <p>The World Theatre Map is a user-generated directory and a real-time media hub of the world’s theatre community. </p>
-          <EventsGlobe events={ events } />
+          <EventsGlobe events={ eventsWithLocations } />
         </section>
       );
     }
@@ -184,7 +184,7 @@ App.propTypes = {
   menuOpen: React.PropTypes.bool,    // is side menu open?
   profiles: React.PropTypes.array,   // all profiles visible to the current user
   shows: React.PropTypes.array,
-  events: React.PropTypes.array,
+  eventsWithLocations: React.PropTypes.array,
   children: React.PropTypes.element, // matched child route component
   location: React.PropTypes.object,  // current router location
   params: React.PropTypes.object,    // parameters of the current route

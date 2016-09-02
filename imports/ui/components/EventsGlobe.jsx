@@ -15,11 +15,19 @@ export default class EventsGlobe extends React.Component {
     super(props);
 
     this.state = {
-      paused: false
+      paused: false,
     }
 
     this.initializeD3Globe = this.initializeD3Globe.bind(this);
     this.globeReady = this.globeReady.bind(this);
+    this.pause = this.pause.bind(this);
+    this.continue = this.continue.bind(this);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.events !== this.props.events) {
+      this.initializeD3Globe();
+    }
   }
 
   componentDidMount() {
@@ -61,13 +69,16 @@ export default class EventsGlobe extends React.Component {
 
     let i = 0;
     const n = eventLocations.length;
+    this.setState({ currentEvent: eventLocations[i].properties });
 
     const triggerTransition = () => {
       transition()
         .duration(1250)
         .on("start", () => {
-          i = (i + 1) % n;
+          if (this.state.paused != true) {
+            i = (i + 1) % n;
           this.setState({ currentEvent: eventLocations[i].properties });
+          }
         })
         .tween("rotate", function() {
           // Set rotation
@@ -168,7 +179,7 @@ export default class EventsGlobe extends React.Component {
     /* d3 setup */
     // Original example: https://bl.ocks.org/mbostock/4183330
 
-    let title = select(".event-info")
+    let title = select(".event-info-wrapper")
       .on("mouseover", () => this.setState({ pause: true }))
       .on("mouseout", () => this.setState({ pause: false }));
 
@@ -201,13 +212,21 @@ export default class EventsGlobe extends React.Component {
       .await(this.globeReady);
   }
 
+  pause() {
+    this.setState({ paused: true });
+  }
+
+  continue() {
+    this.setState({ paused: false });
+  }
+
   render() {
     const { currentEvent } = this.state;
 
     return (
       <div className="events-globe">
         <div id="globe"></div>
-        { currentEvent ? <div className="event-info-wrapper"><div className="event-info"><EventTeaserWithShow event={ currentEvent } /></div></div> : '' }
+        { currentEvent ? <div className="event-info-wrapper"><div className="event-info" onMouseOver={ this.pause } onMouseLeave={ this.continue }><EventTeaserWithShow event={ currentEvent } /></div></div> : '' }
       </div>
     );
   }

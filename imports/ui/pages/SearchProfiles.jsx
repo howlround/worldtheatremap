@@ -1,14 +1,17 @@
 import React from 'react';
-import { Profiles, profileFiltersSchema, filtersFormOptions } from '../../api/profiles/profiles.js';
-import { Localities } from '../../api/localities/localities.js';
-import Profile from '../components/Profile.jsx';
-import NotFoundPage from '../pages/NotFoundPage.jsx';
-import AuthSignIn from '../components/AuthSignIn.jsx';
-import Loading from '../components/Loading.jsx';
 import { Link } from 'react-router';
 import ReactSelect from 'react-select';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-form';
+
+import { Profiles, profileFiltersSchema, filtersFormOptions } from '../../api/profiles/profiles.js';
+import { Localities } from '../../api/localities/localities.js';
+
+import Profile from '../components/Profile.jsx';
+import ProfileSearchResult from '../components/ProfileSearchResult.jsx';
+import NotFoundPage from '../pages/NotFoundPage.jsx';
+import AuthSignIn from '../components/AuthSignIn.jsx';
+import Loading from '../components/Loading.jsx';
 
 const Form = t.form.Form;
 
@@ -16,12 +19,14 @@ export default class SearchProfiles extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = this.props.location.query;
+    this.state = {};
 
     this.onChange = this.onChange.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
+    this.setState(this.props.location.query);
+
     if (this.props.location.query !== nextProps.location.query) {
       const cleanQuery = {};
       _.each(nextProps.location.query, (val, key) => {
@@ -53,20 +58,16 @@ export default class SearchProfiles extends React.Component {
       }
     });
 
+    // @TODO: Use a function passed down on the container instead.
+    // Right now if a profile is deleted it doesn't get remove
+    // from the list
     const profiles = (!_.isEmpty(cleanQuery)) ? Profiles.find(cleanQuery).fetch() : {};
 
     // @TODO: This should be a component that takes the results of Profiles.find().fetch()
     return (
       _.map(profiles, profile => (
         <li key={profile._id}>
-          <Link
-            to={`/profiles/${ profile._id }`}
-            title={profile.name}
-            className="profile-view"
-            activeClassName="active"
-          >
-            {profile.name}
-          </Link>
+          <ProfileSearchResult profile={profile} />
         </li>
       ))
     );

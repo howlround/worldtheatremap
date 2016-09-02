@@ -2,7 +2,7 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import classNames from 'classnames';
 import { Link } from 'react-router';
-import { disshowError } from '../helpers/errors.js';
+import { display } from '../helpers/errors.js';
 import { updateImage } from '../../api/profiles/methods.js';
 import ShowTeaser from '../components/ShowTeaser.jsx';
 import ShowsByRole from '../components/ShowsByRole.jsx';
@@ -43,7 +43,7 @@ export default class Profile extends React.Component {
       }
       updateImage.call(
         newImage
-      , disshowError);
+      , display);
 
       // Reset the upload counter in case the user tries again
       this.setState({ uploadAttempts: 0 });

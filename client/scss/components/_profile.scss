@@ -16,39 +16,65 @@ h1.profile-name {
   word-break: break-word;
 }
 
-.profile-location {
-  margin-bottom: $spacing-unit * 2;
-  font-size: 19px;
-}
-
 .profile-metadata {
   font-size: 13px;
   color: $medium-gray;
 
-  .profile-interests {
-    margin-top: $spacing-unit * 2;
+  & > div {
+    display: inline-block;
+    margin-right: $spacing-unit * 2;
+  }
+}
+
+article.profile.full {
+  .profile-content-wrapper {
+    float: left;
+    width: 100%;
+
+    @include breakpoint($normal) {
+      float: left;
+      width: 603px - 30px - 30px - 200px - 2px - ($spacing-unit * 2);
+    }
+
+    @include breakpoint($wide) {
+      width: 750px - 30px - 30px - 200px - 2px - ($spacing-unit * 2);
+    }
+  }
+
+  .profile-image-wrapper {
+    float: left;
+    margin-right: $spacing-unit * 2;
+    width: 200px;
+  }
+
+  .profile-metadata {
+    .profile-interests {
+      margin-top: $spacing-unit * 2;
+      color: $gray;
+    }
+  }
+
+  .profile-location {
+    margin-bottom: $spacing-unit * 2;
+    font-size: 19px;
+  }
+}
+
+article.profile.search-result {
+  line-height: 1.2em;
+
+  .profile-name {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .profile-metadata {
     color: $gray;
   }
-}
 
-.profile-content-wrapper {
-  float: left;
-  width: 100%;
-
-  @include breakpoint($normal) {
-    float: left;
-    width: 603px - 30px - 30px - 200px - 2px - ($spacing-unit * 2);
+  .profile-metadata-label {
+    font-style: italic;
   }
-
-  @include breakpoint($wide) {
-    width: 750px - 30px - 30px - 200px - 2px - ($spacing-unit * 2);
-  }
-}
-
-.profile-image-wrapper {
-  float: left;
-  margin-right: $spacing-unit * 2;
-  width: 200px;
 }
 
 .profile-image-uploading {

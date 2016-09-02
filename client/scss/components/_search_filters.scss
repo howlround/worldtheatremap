@@ -1,0 +1,16 @@
+.search-filters {
+  padding: $spacing-unit * 2 $spacing-unit;
+  font-size: 13px;
+
+  h3 {
+    font-family: $oswald-font-stack;
+    color: $black;
+    text-transform: uppercase;
+    font-size: 15px;
+    margin-bottom: $spacing-unit;
+  }
+
+  .form-group-depth-1 {
+    @include gallery(2);
+  }
+}

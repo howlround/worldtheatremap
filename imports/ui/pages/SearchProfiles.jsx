@@ -119,6 +119,7 @@ export default class SearchProfiles extends React.Component {
       formOptions.fields.locality.factory = ReactSelectExistingLocalitiesFactory;
 
       // @TODO: Refactor search type <ul> to be a component
+      // @TODO: Refactor filters form to be a component?
       return (
         <div className="search page">
           <section>
@@ -128,6 +129,7 @@ export default class SearchProfiles extends React.Component {
             </ul>
             <div className="search-type-content">
               <div className="search-filters">
+                <h3>Filter by</h3>
                 <form className="profile-filters-form">
                   <Form
                     ref="form"

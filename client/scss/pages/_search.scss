@@ -45,7 +45,7 @@ ul.search-type {
 }
 
 .search-results {
-  margin: $spacing-unit;
+  margin: $spacing-unit * 2;
   border-top: solid 1px $teal;
 
   li {

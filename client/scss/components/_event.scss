@@ -74,9 +74,55 @@ article.event-teaser {
 }
 
 article.event-teaser-with-show {
+  .event-main-info {
+    line-height: 1.5em;
+  }
+
   .event-type {
     text-transform: uppercase;
     font-size: 13px;
+  }
+}
+
+.search-results {
+  article.event-teaser-with-show {
+    overflow: auto;
+
+    .event-type {
+      font-size: 11px;
+      color: $gray;
+
+      @include breakpoint($narrow) {
+        float: right;
+      }
+    }
+
+    .event-show-name {
+      float: left;
+      line-height: 1.5em;
+      margin-right: $spacing-unit / 2;
+    }
+
+    .event-authorship {
+      float: left;
+      line-height: 1.9em;
+      margin-right: $spacing-unit / 2;
+    }
+
+    .event-location {
+      float: left;
+      clear: left;
+      font-size: 13px;
+      color: $gray;
+      margin-right: $spacing-unit * 2;
+    }
+
+    .event-date-range {
+      float: left;
+      color: $gray;
+      text-transform: none;
+      margin-right: $spacing-unit * 2;
+    }
   }
 }
 

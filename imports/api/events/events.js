@@ -1,6 +1,10 @@
+// Meteor
 import { Mongo } from 'meteor/mongo';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Factory } from 'meteor/factory';
+import { _ } from 'meteor/underscore';
+
+// Forms
 import React from 'react';
 import t from 'tcomb-form';
 import moment from 'moment';
@@ -8,10 +12,16 @@ import SimpleDatePicker from 'simple-date-picker'
 // import DayPicker from 'react-day-picker';
 // import MomentLocaleUtils from 'react-day-picker/moment';
 // import 'moment/locale/ja';
+
+// Collections
+import { Profiles } from '../profiles/profiles.js';
+
+// Components
 import RelatedShowTextbox from '../../ui/components/RelatedShowTextbox.jsx';
 import RelatedProfile from '../../ui/components/RelatedProfile.jsx';
 
-import { Profiles } from '../profiles/profiles.js';
+// Methods
+import { upsert } from '../localities/methods.js';
 
 class EventsCollection extends Mongo.Collection {
   insert(event, callback) {
@@ -26,6 +36,10 @@ class EventsCollection extends Mongo.Collection {
       // Set all the dates to 8pm
       ourEvent.startDate = startMoment.hours(20).toDate();
       ourEvent.endDate = endMoment.hours(20).toDate();
+    }
+
+    if (!_.isEmpty(ourEvent.locality)) {
+      upsert.call({ locality: ourEvent.locality });
     }
 
     // @TODO: Save author information to event
@@ -45,6 +59,10 @@ class EventsCollection extends Mongo.Collection {
       // Set the dates to 8pm
       ourEvent.startDate = startMoment.hours(20).toDate();
       ourEvent.endDate = endMoment.hours(20).toDate();
+    }
+
+    if (!_.isEmpty(ourEvent.locality)) {
+      upsert.call({ locality: ourEvent.locality });
     }
 
     // @TODO: Save author information to event
@@ -144,6 +162,13 @@ export const eventSchema = t.struct({
   about: t.maybe(t.String),
 });
 
+export const eventFiltersSchema = t.struct({
+  eventType: t.maybe(EventTypes),
+  locality: t.maybe(t.String), // City
+  // startDate: t.maybe(t.Date),
+  // endDate: t.maybe(t.Date),
+});
+
 export const defaultFormOptions = () => {
   return {
     fields: {
@@ -231,6 +256,52 @@ export const defaultFormOptions = () => {
         attrs: {
           rows: '10',
           className: 'event-about-edit',
+        },
+      },
+    },
+  };
+}
+
+export const filtersFormOptions = () => {
+  return {
+    fields: {
+      startDate: {
+        label: 'Start date',
+        error: 'Start date is required',
+        attrs: {
+          className: 'event-start-date-edit',
+        },
+      },
+      endDate: {
+        label: 'End date',
+        error: 'End date is required',
+        attrs: {
+          className: 'event-end-date-edit',
+        },
+      },
+      eventType: {
+        label: 'Event type',
+        error: 'Event type is required',
+        attrs: {
+          className: 'event-type-edit',
+        }
+      },
+      locality: {
+        label: 'City',
+        attrs: {
+          className: 'event-locality-edit',
+        },
+      },
+      administrativeArea: {
+        label: 'Province, Region, or State',
+        attrs: {
+          className: 'event-administrative-area-edit',
+        },
+      },
+      country: {
+        label: 'Country',
+        attrs: {
+          className: 'event-country-edit',
         },
       },
     },

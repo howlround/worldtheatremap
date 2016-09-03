@@ -17,6 +17,16 @@ Meteor.publish('events.single', function eventsPublic(id) {
   });
 });
 
+Meteor.publish('events.search', function eventsSearch(query, requestedPage) {
+  const limit = 20;
+  const skip = requestedPage ? (requestedPage - 1) * limit : 0;
+  return Events.find({}, {
+    fields: Events.publicFields,
+    limit,
+    skip
+  });
+});
+
 Meteor.publish('events.withLocations', function eventsPublic() {
   return Events.find({ 'lat': { $ne: null}}, {
     fields: Events.publicFields,

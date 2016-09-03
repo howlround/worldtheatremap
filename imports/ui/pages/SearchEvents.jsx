@@ -4,17 +4,17 @@ import ReactSelect from 'react-select';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-form';
 
-import { Profiles, profileFiltersSchema, filtersFormOptions } from '../../api/profiles/profiles.js';
+import { Events, eventFiltersSchema, filtersFormOptions } from '../../api/events/events.js';
 import { Localities } from '../../api/localities/localities.js';
 
-import Profile from '../components/Profile.jsx';
-import ProfileSearchResult from '../components/ProfileSearchResult.jsx';
+import Event from '../components/Event.jsx';
+import EventTeaserWithShow from '../components/EventTeaserWithShow.jsx';
 import SearchTypeNav from '../components/SearchTypeNav.jsx';
 import Loading from '../components/Loading.jsx';
 
 const Form = t.form.Form;
 
-export default class SearchProfiles extends React.Component {
+export default class SearchEvents extends React.Component {
   constructor(props) {
     super(props);
 
@@ -47,7 +47,7 @@ export default class SearchProfiles extends React.Component {
     }
   }
 
-  renderProfiles() {
+  renderEvents() {
     const query = this.state;
 
     const cleanQuery = {};
@@ -58,15 +58,15 @@ export default class SearchProfiles extends React.Component {
     });
 
     // @TODO: Use a function passed down on the container instead.
-    // Right now if a profile is deleted it doesn't get remove
+    // Right now if a event is deleted it doesn't get remove
     // from the list
-    const profiles = (!_.isEmpty(cleanQuery)) ? Profiles.find(cleanQuery).fetch() : {};
+    const events = (!_.isEmpty(cleanQuery)) ? Events.find(cleanQuery).fetch() : {};
 
-    // @TODO: This should be a component that takes the results of Profiles.find().fetch()
+    // @TODO: This should be a component that takes the results of Events.find().fetch()
     return (
-      _.map(profiles, profile => (
-        <li key={profile._id}>
-          <ProfileSearchResult profile={profile} />
+      _.map(events, event => (
+        <li key={event._id}>
+          <EventTeaserWithShow event={event} />
         </li>
       ))
     );
@@ -75,13 +75,13 @@ export default class SearchProfiles extends React.Component {
   onChange(value) {
     this.setState(value);
     this.context.router.push({
-      pathname: '/search/profiles',
+      pathname: '/search/events',
       query: value
     });
   }
 
   render() {
-    // const { profile, profileExists, loading } = this.props;
+    // const { event, eventExists, loading } = this.props;
     const { loading } = this.props;
 
     if (loading) {
@@ -100,7 +100,7 @@ export default class SearchProfiles extends React.Component {
             const values = (options || []).map(({value}) => value)
             locals.onChange(values)
           }
-          return <ReactSelect multi autoBlur options={ExistingLocalities} value={locals.value} onChange={onChange} className="profile-locality-select-edit" />
+          return <ReactSelect multi autoBlur options={ExistingLocalities} value={locals.value} onChange={onChange} className="event-locality-select-edit" />
         }
       });
 
@@ -125,10 +125,10 @@ export default class SearchProfiles extends React.Component {
             <div className="search-type-content">
               <div className="search-filters">
                 <h3>Filter by</h3>
-                <form className="profile-filters-form">
+                <form className="event-filters-form">
                   <Form
                     ref="form"
-                    type={profileFiltersSchema}
+                    type={eventFiltersSchema}
                     options={formOptions}
                     onChange={this.onChange}
                     value={this.state}
@@ -136,7 +136,7 @@ export default class SearchProfiles extends React.Component {
                 </form>
               </div>
               <ul className="search-results">
-                { this.renderProfiles() }
+                { this.renderEvents() }
               </ul>
             </div>
           </section>
@@ -146,10 +146,10 @@ export default class SearchProfiles extends React.Component {
   }
 }
 
-SearchProfiles.contextTypes = {
+SearchEvents.contextTypes = {
   router: React.PropTypes.object,
 };
 
-SearchProfiles.propTypes = {
+SearchEvents.propTypes = {
   loading: React.PropTypes.bool,
 };

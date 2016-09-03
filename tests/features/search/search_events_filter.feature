@@ -19,7 +19,7 @@ Feature: Filters on event search
     When I go to the "event" add page
     And I fill in ".event-show-edit" with "Sofia"
     And I click on ".autocomplete-results li"
-    And I select "Performance" from ".event-type-edit"
+    And I select "Performance" from the ".event-type-edit" combobox
     And I fill in ".event-about-edit" with "A workshop on spelling"
     And I click on ".form-group-startDate input"
     And I click on ".DayPicker-Day=1"
@@ -37,7 +37,7 @@ Feature: Filters on event search
     And the ".search-results" element should not contain "Sofia"
 
   Scenario: Users can filter events by type
-    When I select "Performance" from ".event-type-edit"
+    When I select "Performance" from the ".event-type-edit" combobox
     And the ".search-results" element should contain "Sofia"
 
   Scenario: Users can filter events by city

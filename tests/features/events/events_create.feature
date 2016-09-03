@@ -26,7 +26,7 @@ Feature: Create events
     When I go to the "event" add page
     And I fill in ".event-show-edit" with "Sofia"
     And I click on ".autocomplete-results li"
-    And I select "Performance" from ".event-type-edit"
+    And I select "Performance" from the ".event-type-edit" combobox
     And I fill in ".event-about-edit" with "A workshop on spelling"
     And I click on ".form-group-startDate input"
     And I click on ".DayPicker-Day=1"
@@ -59,7 +59,7 @@ Feature: Create events
     When I go to the "event" add page
     And I fill in ".event-show-edit" with "Sofia"
     And I click on ".autocomplete-results li"
-    And I select "Performance" from ".event-type-edit"
+    And I select "Performance" from the ".event-type-edit" combobox
     And I fill in ".event-about-edit" with "A workshop on spelling"
     And I click on ".form-group-startDate input"
     And I click on ".DayPicker-Day=1"

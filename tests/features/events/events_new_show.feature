@@ -17,7 +17,7 @@ Feature: Create events for a show that doesn't exist yet
     And I click on ".autocomplete-results li"
     And I fill in ".show-author-name-edit" with "My Favorite Playwright"
     And I click on ".autocomplete-results li"
-    And I select "Performance" from ".event-type-edit"
+    And I select "Performance" from the ".event-type-edit" combobox
     And I click on ".form-group-startDate input"
     And I click on ".DayPicker-Day=1"
     And I click on ".form-group-endDate input"
@@ -34,7 +34,7 @@ Feature: Create events for a show that doesn't exist yet
     And I click on ".autocomplete-results li"
     And I fill in ".show-author-name-edit" with "Unknown Playwright"
     And I click on ".autocomplete-results li"
-    And I select "Performance" from ".event-type-edit"
+    And I select "Performance" from the ".event-type-edit" combobox
     And I click on ".form-group-startDate input"
     And I click on ".DayPicker-Day=1"
     And I click on ".form-group-endDate input"
@@ -59,7 +59,7 @@ Feature: Create events for a show that doesn't exist yet
     And I go to the "event" add page
     And I fill in ".event-show-edit" with "Sofia"
     And I click on ".autocomplete-results li"
-    And I select "Performance" from ".event-type-edit"
+    And I select "Performance" from the ".event-type-edit" combobox
     And I fill in ".event-about-edit" with "A workshop on spelling"
     And I click on ".form-group-startDate input"
     And I click on ".DayPicker-Day=1"
@@ -71,7 +71,7 @@ Feature: Create events for a show that doesn't exist yet
     And I click on ".autocomplete-results li"
     And I fill in ".show-author-name-edit" with "Unknown Playwright"
     And I click on ".autocomplete-results li"
-    And I select "Performance" from ".event-type-edit"
+    And I select "Performance" from the ".event-type-edit" combobox
     And I click on ".form-group-startDate input"
     And I click on ".DayPicker-Day=1"
     And I click on ".form-group-endDate input"
@@ -96,7 +96,7 @@ Feature: Create events for a show that doesn't exist yet
     And I go to the "event" add page
     And I fill in ".event-show-edit" with "Sofia"
     And I click on ".autocomplete-results li.select-show"
-    And I select "Performance" from ".event-type-edit"
+    And I select "Performance" from the ".event-type-edit" combobox
     And I fill in ".event-about-edit" with "A workshop on spelling"
     And I click on ".form-group-startDate input"
     And I click on ".DayPicker-Day=1"
@@ -108,7 +108,7 @@ Feature: Create events for a show that doesn't exist yet
     And I click on ".autocomplete-results li.select-new-show"
     And I fill in ".show-author-name-edit" with "Unknown Playwright"
     And I click on ".autocomplete-results li.create-profile"
-    And I select "Performance" from ".event-type-edit"
+    And I select "Performance" from the ".event-type-edit" combobox
     And I click on ".form-group-startDate input"
     And I click on ".DayPicker-Day=1"
     And I click on ".form-group-endDate input"
@@ -129,7 +129,7 @@ Feature: Create events for a show that doesn't exist yet
     And I click on ".autocomplete-results li.select-new-show"
     And I fill in ".show-author-name-edit" with "My Favorite"
     And I click on ".autocomplete-results li.create-profile"
-    And I select "Performance" from ".event-type-edit"
+    And I select "Performance" from the ".event-type-edit" combobox
     And I click on ".form-group-startDate input"
     And I click on ".DayPicker-Day=1"
     And I click on ".form-group-endDate input"

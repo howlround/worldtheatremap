@@ -34,7 +34,7 @@ Feature: List shows on the playwright profile
     And I fill in ".event-show-edit" with "A Play About Maryam"
     And I click on ".autocomplete-results li"
     And I fill in ".event-about-edit" with "A workshop on spelling"
-    And I select "Performance" from ".event-type-edit"
+    And I select "Performance" from the ".event-type-edit" combobox
     And I click on ".form-group-startDate input"
     And I click on ".DayPicker-Day=1"
     And I click on ".form-group-endDate input"

@@ -19,7 +19,7 @@ Feature: Edit events
     And I go to the "event" add page
     And I fill in ".event-show-edit" with "Sofia"
     And I click on ".autocomplete-results li"
-    And I select "Performance" from ".event-type-edit"
+    And I select "Performance" from the ".event-type-edit" combobox
     And I fill in ".event-about-edit" with "A workshop on spelling"
     And I click on ".form-group-startDate input"
     And I click on ".DayPicker-Day=1"
@@ -31,7 +31,7 @@ Feature: Edit events
     And I go to the show page for "Sofia"
     And I click on ".event-name a"
     And I click on ".edit-link"
-    And I select "Twitter Chat" from ".event-type-edit"
+    And I select "Twitter Chat" from the ".event-type-edit" combobox
     And I fill in ".event-about-edit" with "Tweets about spelling"
     And I click on ".form-group-startDate input"
     And I click on ".DayPicker-Day=2"

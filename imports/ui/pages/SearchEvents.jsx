@@ -111,7 +111,7 @@ export default class SearchEvents extends React.Component {
         }
       }
 
-      // selfDefinedRoles transformer
+      // locality transformer
       ReactSelectExistingLocalitiesFactory.transformer = t.form.List.transformer;
 
       let formOptions = filtersFormOptions();

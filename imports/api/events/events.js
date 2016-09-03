@@ -7,6 +7,7 @@ import { _ } from 'meteor/underscore';
 // Forms
 import React from 'react';
 import t from 'tcomb-form';
+import ReactSelect from 'react-select';
 import moment from 'moment';
 import SimpleDatePicker from 'simple-date-picker'
 // import DayPicker from 'react-day-picker';
@@ -91,12 +92,34 @@ Events.deny({
 //   id: t.String,
 // });
 
-const EventTypes = t.enums({
-  "Work-in-Progress": "Work-in-Progress",
-  "Performance": "Performance",
-  "HowlRound TV Livestream": "HowlRound TV Livestream",
-  "Twitter Chat": "Twitter Chat"
+
+// Event type options
+const EventType = [
+  { value: "Work-in-Progress", label: "Work-in-Progress" },
+  { value: "Performance", label: "Performance" },
+  { value: "HowlRound TV Livestream", label: "HowlRound TV Livestream" },
+  { value: "Twitter Chat", label: "Twitter Chat" },
+];
+// Event type template (single select)
+const EventTypeTags = t.form.Form.templates.select.clone({
+  renderSelect: (locals) => {
+    function onChange(options) {
+      if (options) {
+        locals.onChange(options.value)
+      }
+      else {
+        locals.onChange(null);
+      }
+    }
+    return <ReactSelect autoBlur options={EventType} value={locals.value} onChange={onChange} className="event-type-edit" />
+  }
 });
+// Event type Factory
+class ReactSelectEventTypeFactory extends t.form.Component {
+  getTemplate() {
+    return EventTypeTags;
+  }
+}
 
 /* Date component override */
 function renderDate(locals) {
@@ -149,7 +172,7 @@ export const relatedShowSchema = t.struct({
 // Maybe that should be in eventProfile?
 export const eventSchema = t.struct({
   show: relatedShowSchema,
-  eventType: EventTypes,
+  eventType: t.String,
   startDate: t.Date,
   endDate: t.Date,
   streetAddress: t.maybe(t.String),
@@ -163,7 +186,7 @@ export const eventSchema = t.struct({
 });
 
 export const eventFiltersSchema = t.struct({
-  eventType: t.maybe(EventTypes),
+  eventType: t.maybe(t.String),
   locality: t.maybe(t.String), // City
   // startDate: t.maybe(t.Date),
   // endDate: t.maybe(t.Date),
@@ -209,6 +232,7 @@ export const defaultFormOptions = () => {
         },
       },
       eventType: {
+        factory: ReactSelectEventTypeFactory,
         error: 'Event type is required',
         attrs: {
           className: 'event-type-edit',
@@ -280,6 +304,7 @@ export const filtersFormOptions = () => {
         },
       },
       eventType: {
+        factory: ReactSelectEventTypeFactory,
         label: 'Event type',
         error: 'Event type is required',
         attrs: {

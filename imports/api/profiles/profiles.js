@@ -25,7 +25,6 @@ class ProfilesCollection extends Mongo.Collection {
     // @TODO: Strip out null values and empty objects?
 
     if (!_.isEmpty(ourProfile.locality)) {
-      // Localities.upsert({ locality: ourProfile.locality });
       upsert.call({ locality: ourProfile.locality });
     }
     return super.insert(ourProfile, callback);
@@ -35,7 +34,6 @@ class ProfilesCollection extends Mongo.Collection {
     const ourProfile = profile.$set;
 
     if (!_.isEmpty(ourProfile.locality)) {
-      // Localities.upsert({ locality: ourProfile.locality });
       upsert.call({ locality: ourProfile.locality });
     }
 
@@ -59,11 +57,12 @@ Profiles.deny({
 });
 
 // React Select integration: https://github.com/gcanti/tcomb-form/issues/249
+// Profile type options
 const ProfileType = [
   {value: "Individual", label: "Individual"},
   {value: "Organization", label: "Organization"},
 ];
-
+// Profile type template
 const ProfileTypeTags = t.form.Form.templates.select.clone({
   renderSelect: (locals) => {
     function onChange(options) {
@@ -73,13 +72,13 @@ const ProfileTypeTags = t.form.Form.templates.select.clone({
     return <ReactSelect multi autoBlur options={ProfileType} value={locals.value} onChange={onChange} className="profile-type-edit" />
   }
 });
-
+// Profile type Factory
 class ReactSelectProfileTypeFactory extends t.form.Component {
   getTemplate() {
     return ProfileTypeTags;
   }
 }
-
+// Profile type transformer
 ReactSelectProfileTypeFactory.transformer = t.form.List.transformer;
 
 // interests options

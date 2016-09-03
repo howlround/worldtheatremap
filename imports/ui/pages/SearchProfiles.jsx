@@ -7,6 +7,10 @@ import t from 'tcomb-form';
 import { Profiles, profileFiltersSchema, filtersFormOptions } from '../../api/profiles/profiles.js';
 import { Localities } from '../../api/localities/localities.js';
 
+// Containers
+import SearchProfilesResultsContainer from '../containers/SearchProfilesResultsContainer.jsx';
+
+// Components
 import Profile from '../components/Profile.jsx';
 import ProfileSearchResult from '../components/ProfileSearchResult.jsx';
 import SearchTypeNav from '../components/SearchTypeNav.jsx';
@@ -57,10 +61,11 @@ export default class SearchProfiles extends React.Component {
       }
     });
 
-    // @TODO: Use a function passed down on the container instead.
-    // Right now if a profile is deleted it doesn't get remove
-    // from the list
-    const profiles = (!_.isEmpty(cleanQuery)) ? Profiles.find(cleanQuery).fetch() : {};
+    // @TODO: This should just pass the cleanQuery down to <SearchProfilesResultsContainer />
+    // const profiles = (!_.isEmpty(cleanQuery)) ? Profiles.find(cleanQuery).fetch() : {};
+    return (
+      <SearchProfilesResultsContainer query={cleanQuery} />
+    );
 
     // @TODO: This should be a component that takes the results of Profiles.find().fetch()
     return (
@@ -135,9 +140,7 @@ export default class SearchProfiles extends React.Component {
                   />
                 </form>
               </div>
-              <ul className="search-results">
-                { this.renderProfiles() }
-              </ul>
+              { this.renderProfiles() }
             </div>
           </section>
         </div>

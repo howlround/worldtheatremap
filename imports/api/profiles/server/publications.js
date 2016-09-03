@@ -10,11 +10,12 @@ Meteor.publish('profiles.public', function profilesPublic() {
   });
 });
 
-Meteor.publish('profiles.search', function profilesSearch(requestedPage) {
+Meteor.publish('profiles.search', function profilesSearch(query, requestedPage) {
   const limit = 20;
   const skip = requestedPage ? requestedPage * limit : 0;
-  return Profiles.find({}, {
+  return Profiles.find(query, {
     fields: Profiles.publicFields,
+    sort: { name: 1 },
     limit,
     skip
   });

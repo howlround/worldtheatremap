@@ -289,6 +289,7 @@ export const profileSchema = t.struct({
 });
 
 export const profileFiltersSchema = t.struct({
+  name: t.maybe(t.String),
   selfDefinedRoles: t.maybe(t.list(t.String)),
   interests: t.maybe(t.list(t.String)),
   orgTypes: t.maybe(t.list(t.String)),
@@ -408,10 +409,18 @@ export const defaultFormOptions = () => {
 export const filtersFormOptions = () => {
   return {
     fields: {
+      // In the filters Name is the search field
+      name: {
+        label: 'Search by name',
+        attrs: {
+          className: 'profile-search-text',
+          autoComplete: 'off',
+        }
+      },
       profileType: {
         factory: ReactSelectProfileTypeFactory,
         label: 'Profile type',
-        help: 'Is this profile representing an individual or an organization? Can be both if applicable. '
+        help: 'Is this profile representing an individual or an organization? Can be both if applicable.'
       },
       locality: {
         // factory: ReactSelectExistingLocalitiesFactory,

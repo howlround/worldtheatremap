@@ -411,10 +411,11 @@ export const filtersFormOptions = () => {
     fields: {
       // In the filters Name is the search field
       name: {
-        label: 'Search by name',
+        auto: 'none',
         attrs: {
           className: 'profile-search-text',
           autoComplete: 'off',
+          placeholder: 'Search for profiles by name',
         }
       },
       profileType: {

@@ -129,7 +129,6 @@ export default class SearchProfiles extends React.Component {
             <SearchTypeNav />
             <div className="search-type-content">
               <div className="search-filters">
-                <h3>Filter by</h3>
                 <form className="profile-filters-form">
                   <Form
                     ref="form"

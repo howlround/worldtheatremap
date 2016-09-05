@@ -23,7 +23,7 @@ Feature: Filters on profile search
     And I select "Stage Director" from the ".profile-roles-edit" combobox
     And I click on ".edit-profile-save"
     And I go to the "profiles" search page
-    And the ".search-results" element should not contain "Fatima"
+    And I should not see ".search-results"
 
   Scenario: Users can filter profiles by role
     When I select "Stage Director" from the ".profile-roles-edit" combobox

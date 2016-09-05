@@ -11,6 +11,31 @@
   }
 
   .form-group-depth-1 {
-    @include gallery(2);
+    @include span(1 of 2);
+
+    &:nth-child(2n+1) {
+      @include last;
+    }
+
+    &.form-group-name {
+      font-size: 30px;
+      font-weight: bold;
+
+      @include span(1 of 1 last);
+    }
+  }
+
+  input[type="text"].profile-search-text {
+    border: none;
+    border-bottom: $black solid 2px;
+    padding-left: 0;
+    font-weight: bold;
+    color: $teal;
+
+    &::placeholder,
+    &::-webkit-input-placeholder {
+      font-weight: bold;
+      color: $teal;
+    }
   }
 }

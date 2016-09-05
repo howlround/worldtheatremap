@@ -11,6 +11,7 @@ export default createContainer(({ params: { id } }) => {
     show,
     eventsByShow: Events.find({'show.id': id}, {
       fields: Events.publicFields,
+      sort: { startDate: 1 },
     }).fetch(),
   };
 }, ShowPage);

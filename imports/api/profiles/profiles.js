@@ -409,7 +409,7 @@ export const defaultFormOptions = () => {
 export const filtersFormOptions = () => {
   return {
     fields: {
-      // In the filters Name is the search field
+      // Name is the text search field
       name: {
         auto: 'none',
         attrs: {

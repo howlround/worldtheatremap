@@ -22,6 +22,7 @@ Meteor.publish('events.search', function eventsSearch(query, requestedPage) {
   const skip = requestedPage ? requestedPage * limit : 0;
   return Events.find(query, {
     fields: Events.publicFields,
+    sort: { startDate: 1 },
     limit,
     skip
   });
@@ -52,5 +53,6 @@ Meteor.publish('events.dateRangeWithLocations', function eventsPublic(start, end
 Meteor.publish('events.byShow', function eventsbyShow(id) {
   return Events.find({'show.id': id}, {
     fields: Events.publicFields,
+    sort: { startDate: 1 }
   });
 });

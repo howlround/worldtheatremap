@@ -19,6 +19,9 @@ import NotFoundPage from '../../ui/pages/NotFoundPage.jsx';
 import SearchProfilesContainer from '../../ui/containers/SearchProfilesContainer.jsx';
 import SearchEventsContainer from '../../ui/containers/SearchEventsContainer.jsx';
 
+// Use this to handle arrays in the query params
+// https://github.com/reactjs/react-router/issues/939#issuecomment-215988002
+
 export const renderRoutes = () => (
   <Router history={browserHistory}>
     <Route path="/" component={AppContainer}>

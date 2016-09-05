@@ -4,9 +4,14 @@ import ReactSelect from 'react-select';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-form';
 
+// API
 import { Events, eventFiltersSchema, filtersFormOptions } from '../../api/events/events.js';
 import { Localities } from '../../api/localities/localities.js';
 
+// Containers
+import SearchEventsResultsContainer from '../containers/SearchEventsResultsContainer.jsx';
+
+// Components
 import Event from '../components/Event.jsx';
 import EventTeaserWithShow from '../components/EventTeaserWithShow.jsx';
 import SearchTypeNav from '../components/SearchTypeNav.jsx';
@@ -57,18 +62,8 @@ export default class SearchEvents extends React.Component {
       }
     });
 
-    // @TODO: Use a function passed down on the container instead.
-    // Right now if a event is deleted it doesn't get remove
-    // from the list
-    const events = (!_.isEmpty(cleanQuery)) ? Events.find(cleanQuery).fetch() : {};
-
-    // @TODO: This should be a component that takes the results of Events.find().fetch()
     return (
-      _.map(events, event => (
-        <li key={event._id}>
-          <EventTeaserWithShow event={event} />
-        </li>
-      ))
+      <SearchEventsResultsContainer query={cleanQuery} />
     );
   }
 
@@ -135,9 +130,7 @@ export default class SearchEvents extends React.Component {
                   />
                 </form>
               </div>
-              <ul className="search-results">
-                { this.renderEvents() }
-              </ul>
+              { this.renderEvents() }
             </div>
           </section>
         </div>

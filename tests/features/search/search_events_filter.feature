@@ -49,7 +49,7 @@ Feature: Filters on event search
     And I fill in ".event-country-edit" with "India"
     And I click on ".edit-event-save"
     And I go to the "events" search page
-    And the ".search-results" element should not contain "Sofia"
+    And I should not see ".search-results"
 
   Scenario: Users can filter events by type
     When I select "Performance" from the ".event-type-edit" combobox

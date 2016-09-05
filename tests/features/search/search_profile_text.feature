@@ -35,7 +35,7 @@ Feature: Search box on profile search
     And I go to the "profiles" search page
     And I should not see ".search-results"
 
-  Scenario: Users can search for name (partial/full, different case variations)
+  Scenario: Users can search for profiles by name (partial/full, different case variations)
     # Full name, match case
     When I fill in ".profile-search-text" with "Fatima"
     And the ".search-results" element should contain "Fatima"

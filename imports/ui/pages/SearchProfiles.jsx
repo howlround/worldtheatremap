@@ -4,6 +4,7 @@ import ReactSelect from 'react-select';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-form';
 
+// API
 import { Profiles, profileFiltersSchema, filtersFormOptions } from '../../api/profiles/profiles.js';
 import { Localities } from '../../api/localities/localities.js';
 
@@ -61,19 +62,8 @@ export default class SearchProfiles extends React.Component {
       }
     });
 
-    // @TODO: This should just pass the cleanQuery down to <SearchProfilesResultsContainer />
-    // const profiles = (!_.isEmpty(cleanQuery)) ? Profiles.find(cleanQuery).fetch() : {};
     return (
       <SearchProfilesResultsContainer query={cleanQuery} />
-    );
-
-    // @TODO: This should be a component that takes the results of Profiles.find().fetch()
-    return (
-      _.map(profiles, profile => (
-        <li key={profile._id}>
-          <ProfileSearchResult profile={profile} />
-        </li>
-      ))
     );
   }
 

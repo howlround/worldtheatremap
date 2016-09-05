@@ -19,8 +19,8 @@ Meteor.publish('events.single', function eventsPublic(id) {
 
 Meteor.publish('events.search', function eventsSearch(query, requestedPage) {
   const limit = 20;
-  const skip = requestedPage ? (requestedPage - 1) * limit : 0;
-  return Events.find({}, {
+  const skip = requestedPage ? requestedPage * limit : 0;
+  return Events.find(query, {
     fields: Events.publicFields,
     limit,
     skip

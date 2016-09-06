@@ -342,6 +342,7 @@ export const profileFiltersSchema = t.struct({
   locality: t.maybe(t.String), // City
   administrativeArea: t.maybe(t.String), // Province, Region, State
   country: t.maybe(t.String),
+  postalCode: t.maybe(t.String),
   gender: t.maybe(t.String),
 });
 
@@ -496,6 +497,11 @@ export const filtersFormOptions = () => {
           className: 'profile-country-select-edit',
         },
       },
+      postalCode: {
+        attrs: {
+          className: 'profile-postal-code-edit',
+        },
+      },
       interests: {
         label: 'Interests',
         factory: ReactSelectInterestsFactory,
@@ -536,6 +542,7 @@ Profiles.publicFields = {
   locality: 1,
   administrativeArea: 1,
   country: 1,
+  postalCode: 1,
   lat: 1,
   lon: 1,
   imageWide: 1,

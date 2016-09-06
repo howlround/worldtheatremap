@@ -196,3 +196,8 @@ Feature: Filters on profile search
     When I select "Kuala Lumpur" from the ".profile-administrative-area-select-edit" combobox
     And the ".search-results" element should contain "Fatima"
     And the ".search-results" element should contain "Nor"
+
+  # Postal Code
+  Scenario: Users can filter profiles by postal code
+    When I fill in ".profile-postal-code-edit" with "16000"
+    And the ".search-results" element should contain "Fatima"

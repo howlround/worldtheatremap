@@ -53,12 +53,17 @@ export default SearchProfilesResultsContainer = createContainer((props) => {
       };
     }
 
+    if (query.postalCode) {
+      privateQuery.postalCode = new RegExp('^' + query.postalCode, 'i');
+    }
+
     if (query.gender && query.gender instanceof Array) {
       privateQuery.gender = {
         $in: query.gender
       };
     }
 
+    // Make sure privateQuery is not empty otherwise all records are returned
     if (!_.isEmpty(privateQuery)) {
       const profilesSubscribe = Meteor.subscribe('profiles.search', privateQuery);
       loading = !profilesSubscribe.ready();

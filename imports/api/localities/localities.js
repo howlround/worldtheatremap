@@ -1,5 +1,8 @@
 // Meteor
 import { Mongo } from 'meteor/mongo';
+import React from 'react';
+import ReactSelect from 'react-select';
+import t from 'tcomb-form';
 
 class LocalitiesCollection extends Mongo.Collection {
   // insert(profile, callback) {
@@ -21,3 +24,31 @@ Localities.publicFields = {
   value: 1,
   label: 1,
 };
+
+export const factory = () => {
+  // locality options
+  const ExistingLocalities = Localities.find().fetch();
+
+  // locality template
+  const existingLocalitiesTags = t.form.Form.templates.select.clone({
+    renderSelect: (locals) => {
+      function onChange(options) {
+        const values = (options || []).map(({value}) => value)
+        locals.onChange(values)
+      }
+      return <ReactSelect multi autoBlur options={ExistingLocalities} value={locals.value} onChange={onChange} className="profile-locality-select-edit" />
+    }
+  });
+
+  // locality factory function
+  class ReactSelectExistingLocalitiesFactory extends t.form.Component {
+    getTemplate() {
+      return existingLocalitiesTags;
+    }
+  }
+
+  // locality transformer
+  ReactSelectExistingLocalitiesFactory.transformer = t.form.List.transformer;
+
+  return ReactSelectExistingLocalitiesFactory;
+}

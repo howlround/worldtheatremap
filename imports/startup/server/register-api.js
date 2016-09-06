@@ -18,10 +18,10 @@ import '../../api/participants/server/publications.js';
 import '../../api/relatedRecords/methods.js';
 import '../../api/relatedRecords/server/publications.js';
 
-// Lists
+// Localities
 import '../../api/localities/methods.js';
 import '../../api/localities/server/publications.js';
 
-// Todos
-// import '../../api/todos/methods.js';
-// import '../../api/todos/server/publications.js';
+// Countries
+import '../../api/countries/methods.js';
+import '../../api/countries/server/publications.js';

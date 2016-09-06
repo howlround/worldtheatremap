@@ -115,10 +115,10 @@ Feature: Filters on profile search
   Scenario: Users can filter profiles by city after editing a profile to add a new city
     And I go to the profile page for "Fatima"
     And I follow ".edit-link"
-    And I fill in ".profile-locality-edit" with "Morocco"
+    And I fill in ".profile-locality-edit" with "Rabat"
     And I click on ".edit-profile-save"
     And I go to the "profiles" search page
-    When I select "Morocco" from the ".profile-locality-select-edit" combobox
+    When I select "Rabat" from the ".profile-locality-select-edit" combobox
     And the ".search-results" element should contain "Fatima"
 
   Scenario: Choosing multiple cities should match two different profiles that each have one of the cities
@@ -134,5 +134,35 @@ Feature: Filters on profile search
     And I should not see ".search-results"
     When I select "Algiers" from the ".profile-locality-select-edit" combobox
     And I select "Kuala Lumpur" from the ".profile-locality-select-edit" combobox
+    And the ".search-results" element should contain "Fatima"
+    And the ".search-results" element should contain "Nor"
+
+  # Country
+  Scenario: Users can filter profiles by Country
+    When I select "Algeria" from the ".profile-country-select-edit" combobox
+    And the ".search-results" element should contain "Fatima"
+
+  Scenario: Users can filter profiles by Country after editing a profile to add a new Country
+    And I go to the profile page for "Fatima"
+    And I follow ".edit-link"
+    And I fill in ".profile-country-edit" with "Morocco"
+    And I click on ".edit-profile-save"
+    And I go to the "profiles" search page
+    When I select "Morocco" from the ".profile-country-select-edit" combobox
+    And the ".search-results" element should contain "Fatima"
+
+  Scenario: Choosing multiple countries should match two different profiles that each have one of the countries
+    When I go to the "profile" add page
+    And I fill in ".profile-name-edit" with " Nor"
+    And I select "Individual" from the ".profile-type-edit" combobox
+    And I fill in ".profile-about-edit" with "Most popular name in Malaysia"
+    And I fill in ".profile-country-edit" with "Kuala Lumpur"
+    And I fill in ".profile-administrative-area-edit" with "Kuala Lumpur"
+    And I fill in ".profile-country-edit" with "Malaysia"
+    And I click on ".edit-profile-save"
+    And I go to the "profiles" search page
+    And I should not see ".search-results"
+    When I select "Algeria" from the ".profile-country-select-edit" combobox
+    And I select "Malaysia" from the ".profile-country-select-edit" combobox
     And the ".search-results" element should contain "Fatima"
     And the ".search-results" element should contain "Nor"

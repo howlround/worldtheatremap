@@ -12,12 +12,12 @@ import { Creatable } from 'react-select';
 
 // Collections
 import { Shows } from '../shows/shows.js';
-import { Localities } from '../localities/localities.js';
 import { Participants } from '../participants/participants.js';
 import { RelatedRecords } from '../relatedRecords/relatedRecords.js';
 
 // Methods
-import { upsert } from '../localities/methods.js';
+import { upsert as upsertLocality } from '../localities/methods.js';
+import { upsert as upsertCountry } from '../countries/methods.js';
 
 class ProfilesCollection extends Mongo.Collection {
   insert(profile, callback) {
@@ -26,7 +26,10 @@ class ProfilesCollection extends Mongo.Collection {
     // @TODO: Strip out null values and empty objects?
 
     if (!_.isEmpty(ourProfile.locality)) {
-      upsert.call({ locality: ourProfile.locality });
+      upsertLocality.call({ locality: ourProfile.locality });
+    }
+    if (!_.isEmpty(ourProfile.country)) {
+      upsertCountry.call({ country: ourProfile.country });
     }
     return super.insert(ourProfile, callback);
   }
@@ -35,7 +38,10 @@ class ProfilesCollection extends Mongo.Collection {
     const ourProfile = profile.$set;
 
     if (!_.isEmpty(ourProfile.locality)) {
-      upsert.call({ locality: ourProfile.locality });
+      upsertLocality.call({ locality: ourProfile.locality });
+    }
+    if (!_.isEmpty(ourProfile.country)) {
+      upsertCountry.call({ country: ourProfile.country });
     }
 
     return super.update(profileId, {
@@ -327,6 +333,7 @@ export const profileFiltersSchema = t.struct({
   interests: t.maybe(t.list(t.String)),
   orgTypes: t.maybe(t.list(t.String)),
   locality: t.maybe(t.String), // City
+  country: t.maybe(t.String),
   gender: t.maybe(t.String),
 });
 
@@ -461,10 +468,17 @@ export const filtersFormOptions = () => {
         help: 'Is this profile representing an individual or an organization? Can be both if applicable.'
       },
       locality: {
-        // factory: ReactSelectExistingLocalitiesFactory,
+        // The Factory function is applied later to allow reactive options
         label: 'City',
         attrs: {
           className: 'profile-locality-select-edit',
+        },
+      },
+      country: {
+        // The Factory function is applied later to allow reactive options
+        label: 'Country',
+        attrs: {
+          className: 'profile-country-select-edit',
         },
       },
       interests: {

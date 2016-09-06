@@ -10,9 +10,6 @@ export default SearchEventsResultsContainer = createContainer((props) => {
   let results = [];
 
   if (!_.isEmpty(query)) {
-    if (query.name) {
-      query.name = new RegExp(query.name, 'i');
-    }
     const eventsSubscribe = Meteor.subscribe('events.search', query);
     loading = !eventsSubscribe.ready();
     results = Events.find(query, { sort: { startDate: 1 } }).fetch();

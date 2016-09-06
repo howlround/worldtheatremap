@@ -1,5 +1,7 @@
 import React from 'react';
-import { Router, Route, IndexRedirect, browserHistory } from 'react-router';
+import { Router, Route, IndexRedirect, browserHistory, useRouterHistory } from 'react-router';
+import createBrowserHistory from 'history/lib/createBrowserHistory'
+import { stringify, parse } from 'qs'
 
 // route components
 import AppContainer from '../../ui/containers/AppContainer.jsx';
@@ -21,9 +23,11 @@ import SearchEventsContainer from '../../ui/containers/SearchEventsContainer.jsx
 
 // Use this to handle arrays in the query params
 // https://github.com/reactjs/react-router/issues/939#issuecomment-215988002
+const stringifyQuery = query => stringify(query, { arrayFormat: 'brackets', encode: false})
+const customHistory = useRouterHistory(createBrowserHistory)({ parseQueryString: parse, stringifyQuery })
 
 export const renderRoutes = () => (
-  <Router history={browserHistory}>
+  <Router history={customHistory}>
     <Route path="/" component={AppContainer}>
       <Route path="profiles">
         <IndexRedirect to="add"/>

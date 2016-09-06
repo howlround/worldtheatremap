@@ -9,8 +9,8 @@ export default class SearchTypeNav extends React.Component {
   render() {
     return (
       <ul className="search-type">
-        <li><Link to="/search/events" activeClassName="active">Events</Link></li>
         <li><Link to="/search/profiles" activeClassName="active">Profiles</Link></li>
+        <li><Link to="/search/events" activeClassName="active">Events</Link></li>
       </ul>
     );
   }

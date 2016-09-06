@@ -152,6 +152,12 @@ export default class App extends React.Component {
             >World Theatre Map</Link>
             <UserMenu user={user} logout={this.logout} hideDropDown={this.hideDropDown} forceCloseDropDown={forceCloseDropDown}/>
             <AddMenu hideDropDown={this.hideDropDown} forceCloseDropDown={forceCloseDropDown}/>
+            <div className="menu-right menu-container menu-with-divider">
+              <Link
+                to="search"
+                className="menu-parent"
+              >Directory</Link>
+            </div>
           </section>
         </header>
         {showConnectionIssue && !connected

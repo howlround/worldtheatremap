@@ -61,23 +61,20 @@
 
 .menu-container {
   font-family: $oswald-font-stack;
-}
-
-.user-menu {
   display: none;
 
   @include breakpoint($narrow) {
     display: block;
     float: right;
-    background-color: $light-red;
+  }
+
+  &.menu-with-divider {
+    border-right: 1px $background-red solid;
   }
 }
 
-.add-menu {
-  display: none;
-
+.user-menu {
   @include breakpoint($narrow) {
-    display: block;
-    float: right;
+    background-color: $light-red;
   }
 }

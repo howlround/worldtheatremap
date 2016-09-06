@@ -19,9 +19,15 @@ export default SearchEventsResultsContainer = createContainer((props) => {
       };
     }
 
-    const eventsSubscribe = Meteor.subscribe('events.search', privateQuery);
-    loading = !eventsSubscribe.ready();
-    results = Events.find(privateQuery, { sort: { startDate: 1 } }).fetch();
+    if (query.eventType) {
+      privateQuery.eventType = query.eventType;
+    }
+
+    if (!_.isEmpty(privateQuery)) {
+      const eventsSubscribe = Meteor.subscribe('events.search', privateQuery);
+      loading = !eventsSubscribe.ready();
+      results = Events.find(privateQuery, { sort: { startDate: 1 } }).fetch();
+    }
   }
 
   return {

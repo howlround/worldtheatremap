@@ -327,7 +327,7 @@ export const profileFiltersSchema = t.struct({
   interests: t.maybe(t.list(t.String)),
   orgTypes: t.maybe(t.list(t.String)),
   locality: t.maybe(t.String), // City
-  // gender: t.maybe(t.String), // City
+  gender: t.maybe(t.String),
 });
 
 export const defaultFormOptions = () => {
@@ -479,7 +479,8 @@ export const filtersFormOptions = () => {
         label: 'Roles',
         factory: ReactSelectRolesFactory,
       },
-      selfDefinedRoles: {
+      gender: {
+        label: 'Gender',
         factory: ReactSelectGendersFactory,
       },
     },

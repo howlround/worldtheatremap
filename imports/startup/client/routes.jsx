@@ -17,6 +17,7 @@ import EventAddContainer from '../../ui/containers/EventAddContainer.jsx';
 import EventEditContainer from '../../ui/containers/EventEditContainer.jsx';
 import AuthSignInPage from '../../ui/pages/AuthSignInPage.jsx';
 import AuthJoinPage from '../../ui/pages/AuthJoinPage.jsx';
+import LogoutPage from '../../ui/pages/LogoutPage.jsx';
 import NotFoundPage from '../../ui/pages/NotFoundPage.jsx';
 import SearchProfilesContainer from '../../ui/containers/SearchProfilesContainer.jsx';
 import SearchEventsContainer from '../../ui/containers/SearchEventsContainer.jsx';
@@ -49,6 +50,7 @@ export const renderRoutes = () => (
       </Route>
       <Route path="signin" component={AuthSignInPage}/>
       <Route path="join" component={AuthJoinPage}/>
+      <Route path="logout" component={LogoutPage}/>
       <Route path="search">
         <IndexRedirect to="profiles"/>
         <Route path="profiles" component={SearchProfilesContainer}/>

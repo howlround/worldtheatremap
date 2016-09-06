@@ -21,12 +21,7 @@ module.exports = function() {
   });
 
   this.Given(/^I am logged out$/, function () {
-    // server.call('logout');
-    // browser.pause(100);
-    browser.waitForExist('.user-menu .menu-parent');
-    browser.moveToObject('.user-menu .menu-parent');
-    browser.waitForExist('.menu-logout', 2000);
-    browser.click('.menu-logout');
+    browser.url('http://localhost:3000/logout');
 
     browser.waitUntil(function () {
       return browser.getText('.user-menu .menu-parent') === 'SIGNUP/IN'

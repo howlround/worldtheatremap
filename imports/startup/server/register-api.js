@@ -25,3 +25,7 @@ import '../../api/localities/server/publications.js';
 // Countries
 import '../../api/countries/methods.js';
 import '../../api/countries/server/publications.js';
+
+// Administrative Area
+import '../../api/administrativeAreas/methods.js';
+import '../../api/administrativeAreas/server/publications.js';

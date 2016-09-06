@@ -41,15 +41,29 @@ export default SearchProfilesResultsContainer = createContainer((props) => {
       };
     }
 
+    if (query.administrativeArea && query.administrativeArea instanceof Array) {
+      privateQuery.administrativeArea = {
+        $in: query.administrativeArea
+      };
+    }
+
+    if (query.country && query.country instanceof Array) {
+      privateQuery.country = {
+        $in: query.country
+      };
+    }
+
     if (query.gender && query.gender instanceof Array) {
       privateQuery.gender = {
         $in: query.gender
       };
     }
 
-    const profilesSubscribe = Meteor.subscribe('profiles.search', privateQuery);
-    loading = !profilesSubscribe.ready();
-    results = Profiles.find(privateQuery, { sort: { name: 1 } }).fetch();
+    if (!_.isEmpty(privateQuery)) {
+      const profilesSubscribe = Meteor.subscribe('profiles.search', privateQuery);
+      loading = !profilesSubscribe.ready();
+      results = Profiles.find(privateQuery, { sort: { name: 1 } }).fetch();
+    }
   }
 
   return {

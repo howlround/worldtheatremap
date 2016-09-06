@@ -17,6 +17,7 @@ import { RelatedRecords } from '../relatedRecords/relatedRecords.js';
 
 // Methods
 import { upsert as upsertLocality } from '../localities/methods.js';
+import { upsert as upsertAdministrativeArea } from '../administrativeAreas/methods.js';
 import { upsert as upsertCountry } from '../countries/methods.js';
 
 class ProfilesCollection extends Mongo.Collection {
@@ -27,6 +28,9 @@ class ProfilesCollection extends Mongo.Collection {
 
     if (!_.isEmpty(ourProfile.locality)) {
       upsertLocality.call({ locality: ourProfile.locality });
+    }
+    if (!_.isEmpty(ourProfile.administrativeArea)) {
+      upsertAdministrativeArea.call({ administrativeArea: ourProfile.administrativeArea });
     }
     if (!_.isEmpty(ourProfile.country)) {
       upsertCountry.call({ country: ourProfile.country });
@@ -39,6 +43,9 @@ class ProfilesCollection extends Mongo.Collection {
 
     if (!_.isEmpty(ourProfile.locality)) {
       upsertLocality.call({ locality: ourProfile.locality });
+    }
+    if (!_.isEmpty(ourProfile.administrativeArea)) {
+      upsertAdministrativeArea.call({ administrativeArea: ourProfile.administrativeArea });
     }
     if (!_.isEmpty(ourProfile.country)) {
       upsertCountry.call({ country: ourProfile.country });
@@ -333,6 +340,7 @@ export const profileFiltersSchema = t.struct({
   interests: t.maybe(t.list(t.String)),
   orgTypes: t.maybe(t.list(t.String)),
   locality: t.maybe(t.String), // City
+  administrativeArea: t.maybe(t.String), // Province, Region, State
   country: t.maybe(t.String),
   gender: t.maybe(t.String),
 });
@@ -470,6 +478,13 @@ export const filtersFormOptions = () => {
       locality: {
         // The Factory function is applied later to allow reactive options
         label: 'City',
+        attrs: {
+          className: 'profile-locality-select-edit',
+        },
+      },
+      administrativeArea: {
+        // The Factory function is applied later to allow reactive options
+        label: 'Province, Region, or State',
         attrs: {
           className: 'profile-locality-select-edit',
         },

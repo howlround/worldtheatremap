@@ -166,3 +166,33 @@ Feature: Filters on profile search
     And I select "Malaysia" from the ".profile-country-select-edit" combobox
     And the ".search-results" element should contain "Fatima"
     And the ".search-results" element should contain "Nor"
+
+  # Province / Administrative area
+  Scenario: Users can filter profiles by Province
+    When I select "Algiers Province" from the ".profile-administrative-area-select-edit" combobox
+    And the ".search-results" element should contain "Fatima"
+
+  @chromOnly
+  Scenario: Users can filter profiles by Province after editing a profile to add a new Province (DOES NOT WORK IN PHANTOMJS)
+    And I go to the profile page for "Fatima"
+    And I follow ".edit-link"
+    And I fill in ".profile-administrative-area-edit " with "Rabat-Salé-Kénitra"
+    And I click on ".edit-profile-save"
+    And I go to the "profiles" search page
+    When I select "Rabat-Salé-Kénitra" from the ".profile-administrative-area-select-edit" combobox
+    And the ".search-results" element should contain "Fatima"
+
+  Scenario: Choosing multiple countries should match two different profiles that each have one of the countries
+    When I go to the "profile" add page
+    And I fill in ".profile-name-edit" with " Nor"
+    And I select "Individual" from the ".profile-type-edit" combobox
+    And I fill in ".profile-about-edit" with "Most popular name in Malaysia"
+    And I fill in ".profile-administrative-area-edit" with "Kuala Lumpur"
+    And I fill in ".profile-country-edit" with "Malaysia"
+    And I click on ".edit-profile-save"
+    And I go to the "profiles" search page
+    And I should not see ".search-results"
+    When I select "Algiers Province" from the ".profile-administrative-area-select-edit" combobox
+    When I select "Kuala Lumpur" from the ".profile-administrative-area-select-edit" combobox
+    And the ".search-results" element should contain "Fatima"
+    And the ".search-results" element should contain "Nor"

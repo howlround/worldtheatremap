@@ -8,6 +8,7 @@ import { _ } from 'meteor/underscore';
 import React from 'react';
 import t from 'tcomb-form';
 import ReactSelect from 'react-select';
+import { Creatable } from 'react-select';
 
 // Collections
 import { Shows } from '../shows/shows.js';
@@ -266,6 +267,37 @@ class ReactSelectRolesFactory extends t.form.Component {
 // selfDefinedRoles transformer
 ReactSelectRolesFactory.transformer = t.form.List.transformer;
 
+// Gender options
+const Genders = [
+  { value: "Female", label: "Female" },
+  { value: "Male", label: "Male" },
+  { value: "Other", label: "Other" },
+];
+
+// Gender template
+const gendersTags = t.form.Form.templates.select.clone({
+  renderSelect: (locals) => {
+    const reformattedValues = _.map(locals.value, value => { return { value: value, label: value } });
+    // _.union allows repeat arrays but ReactSelect/Creatable handles it properly anyway
+    const includeCustomValues = _.union(reformattedValues, Genders);
+    function onChange(options) {
+      const values = (options || []).map(({value}) => value)
+      locals.onChange(values)
+    }
+    return <Creatable multi autoBlur options={includeCustomValues} value={locals.value} onChange={onChange} className="profile-gender-edit" />
+  }
+});
+
+// Gender factory function
+class ReactSelectGendersFactory extends t.form.Component {
+  getTemplate() {
+    return gendersTags;
+  }
+}
+
+// Gender transformer
+ReactSelectGendersFactory.transformer = t.form.List.transformer;
+
 export const profileSchema = t.struct({
   name: t.String, // Required
   about: t.maybe(t.String),
@@ -286,6 +318,7 @@ export const profileSchema = t.struct({
   interests: t.maybe(t.list(t.String)),
   orgTypes: t.maybe(t.list(t.String)),
   selfDefinedRoles: t.maybe(t.list(t.String)),
+  gender: t.maybe(t.list(t.String)),
 });
 
 export const profileFiltersSchema = t.struct({
@@ -294,6 +327,7 @@ export const profileFiltersSchema = t.struct({
   interests: t.maybe(t.list(t.String)),
   orgTypes: t.maybe(t.list(t.String)),
   locality: t.maybe(t.String), // City
+  // gender: t.maybe(t.String), // City
 });
 
 export const defaultFormOptions = () => {
@@ -402,6 +436,9 @@ export const defaultFormOptions = () => {
       selfDefinedRoles: {
         factory: ReactSelectRolesFactory,
       },
+      gender: {
+        factory: ReactSelectGendersFactory,
+      },
     },
   };
 }
@@ -442,6 +479,9 @@ export const filtersFormOptions = () => {
         label: 'Roles',
         factory: ReactSelectRolesFactory,
       },
+      selfDefinedRoles: {
+        factory: ReactSelectGendersFactory,
+      },
     },
   };
 }
@@ -478,6 +518,7 @@ Profiles.publicFields = {
   interests: 1,
   orgTypes: 1,
   selfDefinedRoles: 1,
+  gender: 1,
 };
 
 Factory.define('profile', Profiles, {});

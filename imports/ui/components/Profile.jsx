@@ -1,6 +1,7 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import classNames from 'classnames';
+import { _ } from 'meteor/underscore';
 import { Link } from 'react-router';
 import { display } from '../helpers/errors.js';
 import { updateImage } from '../../api/profiles/methods.js';
@@ -225,6 +226,22 @@ export default class Profile extends React.Component {
       return <span key={selfDefinedRole}>{selfDefinedRole}{seperator}</span>
     }) : false;
 
+    let genders = (profile.gender) ? profile.gender.map((gender, index, array) => {
+      let seperator = ', ';
+      if (index == array.length - 1) {
+        seperator = '';
+      }
+      else if (index == array.length - 2) {
+        if (array.length > 2) {
+          seperator = ', and ';
+        }
+        else {
+          seperator = ' and ';
+        }
+      }
+      return <span key={gender}>{gender}{seperator}</span>
+    }) : false;
+
     const cityState = [profile.locality, profile.administrativeArea].filter(function (val) {return val;}).join(', ');
     const locationBlock = <div className="profile-location">
       { cityState ? <div>{ cityState }</div> : '' }
@@ -242,13 +259,15 @@ export default class Profile extends React.Component {
             { typeof locationBlock != 'undefined' ?
                 <div className="profile-location">{ locationBlock }</div> : '' }
             <div className="profile-metadata">
-              { profile.selfDefinedRoles ?
+              { !_.isEmpty(profile.selfDefinedRoles) ?
                 <div className="profile-roles" title="Roles">{ selfDefinedRoles }</div> : '' }
-              { profile.orgTypes ?
+              { !_.isEmpty(profile.gender) ?
+                <div className="profile-gender" title="Gender">{ genders }</div> : '' }
+              { !_.isEmpty(profile.orgTypes) ?
                 <div className="profile-organization-types" title="Organization Type">{ orgTypes }</div> : '' }
-              { profile.foundingYear ?
+              { !_.isEmpty(profile.foundingYear) ?
                 <div className="profile-founding-year">Founded { profile.foundingYear }</div> : '' }
-              { profile.interests ?
+              { !_.isEmpty(profile.interests) ?
                 <div className="profile-interests" title="Interests">{ interests }</div> : '' }
             </div>
           </div>

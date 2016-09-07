@@ -27,6 +27,7 @@ Feature: Edit events
     And I click on ".react-datepicker__day=15"
     And I fill in "[name=lat]" with "-36.03133177633187"
     And I fill in "[name=lon]" with "-72.0703125"
+    And I select "Coral Sea Islands" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
 
   Scenario: Users should be able to edit basic information for an event
@@ -41,6 +42,7 @@ Feature: Edit events
     And I click on ".react-datepicker__day=18"
     And I fill in "[name=lat]" with "-36.03133177633187"
     And I fill in "[name=lon]" with "-72.0703125"
+    And I select "Coral Sea Islands" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
     Then the "h1.page-title" element should contain "Sofia"
     And the ".event-about" element should contain "Tweets about spelling"

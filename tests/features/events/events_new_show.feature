@@ -23,6 +23,7 @@ Feature: Create events for a show that doesn't exist yet
     And I click on ".form-group-endDate input"
     And I click on ".react-datepicker__navigation--next"
     And I click on ".react-datepicker__day=15"
+    And I select "India" from the ".country-select-edit" combobox
     And I fill in "[name=lat]" with "-36.03133177633187"
     And I fill in "[name=lon]" with "-72.0703125"
     And I click on ".edit-event-save"
@@ -43,6 +44,7 @@ Feature: Create events for a show that doesn't exist yet
     And I click on ".react-datepicker__day=15"
     And I fill in "[name=lat]" with "-36.03133177633187"
     And I fill in "[name=lon]" with "-72.0703125"
+    And I select "India" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
     Then the "h1.page-title" element should contain "Althea"
     And the ".event-authorship" element should contain "Unknown Playwright"
@@ -71,6 +73,7 @@ Feature: Create events for a show that doesn't exist yet
     And I click on ".react-datepicker__day=15"
     And I fill in "[name=lat]" with "-36.03133177633187"
     And I fill in "[name=lon]" with "-72.0703125"
+    And I select "India" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
     And I click on ".edit-link"
     When I fill in ".event-show-edit" with "Althea"
@@ -84,6 +87,7 @@ Feature: Create events for a show that doesn't exist yet
     And I click on ".react-datepicker__day=15"
     And I fill in "[name=lat]" with "-36.03133177633187"
     And I fill in "[name=lon]" with "-72.0703125"
+    And I select "India" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
     Then the "h1.page-title" element should contain "Althea"
     And the ".event-authorship" element should contain "Unknown Playwright"
@@ -112,6 +116,7 @@ Feature: Create events for a show that doesn't exist yet
     And I click on ".react-datepicker__day=15"
     And I fill in "[name=lat]" with "-36.03133177633187"
     And I fill in "[name=lon]" with "-72.0703125"
+    And I select "India" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
     And I click on ".edit-link"
     When I fill in ".event-show-edit" with "Sof"
@@ -125,6 +130,7 @@ Feature: Create events for a show that doesn't exist yet
     And I click on ".react-datepicker__day=15"
     And I fill in "[name=lat]" with "-36.03133177633187"
     And I fill in "[name=lon]" with "-72.0703125"
+    And I select "India" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
     Then the "h1.page-title" element should contain "Sof"
     And the ".event-authorship" element should contain "Unknown Playwright"
@@ -148,6 +154,7 @@ Feature: Create events for a show that doesn't exist yet
     And I click on ".react-datepicker__day=15"
     And I fill in "[name=lat]" with "-36.03133177633187"
     And I fill in "[name=lon]" with "-72.0703125"
+    And I select "India" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
     Then the "h1.page-title" element should contain "Sof"
     And the ".event-authorship" element should contain "My Favorite"

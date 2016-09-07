@@ -67,6 +67,7 @@ Feature: Create events
     And I click on ".react-datepicker__day=15"
     And I fill in "[name=lat]" with "-36.03133177633187"
     And I fill in "[name=lon]" with "-72.0703125"
+    And I select "Coral Sea Islands" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
     Then the ".event-name" element should contain "Sofia"
     Then the ".event-type" element should contain "Performance"
@@ -92,5 +93,6 @@ Feature: Create events
     And I click on ".react-datepicker__day=15"
     And I fill in "[name=lat]" with "-36.03133177633187"
     And I fill in "[name=lon]" with "-72.0703125"
+    And I select "Coral Sea Islands" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
     Then the ".error-block" element should contain "Event type is required"

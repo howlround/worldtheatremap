@@ -39,6 +39,7 @@ Feature: List shows on the playwright profile
     And I click on ".react-datepicker__day=1"
     And I click on ".form-group-endDate input"
     And I click on ".react-datepicker__day=15"
+    And I select "Coral Sea Islands" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
     And a profile with the following fields:
       | name | Il Regista |

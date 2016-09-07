@@ -26,6 +26,7 @@ Feature: Events taking place today should display on a map on the home page
     And I click on ".form-group-endDate input"
     And I click on ".react-datepicker__navigation--next"
     And I click on ".react-datepicker__day=15"
+    And I select "Coral Sea Islands" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
     And I am on the home page
     Then the ".events-globe .event-show-name" element should contain "Althea"
@@ -48,6 +49,7 @@ Feature: Events taking place today should display on a map on the home page
     And I click on ".form-group-endDate input"
     And I click on ".react-datepicker__navigation--previous"
     And I click on ".react-datepicker__day=15"
+    And I select "Coral Sea Islands" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
     And I am on the home page
     Then I should not see ".events-globe .event-show-name"
@@ -70,6 +72,7 @@ Feature: Events taking place today should display on a map on the home page
     And I click on ".form-group-endDate input"
     And I click on ".react-datepicker__navigation--next"
     And I click on ".react-datepicker__day=18"
+    And I select "Coral Sea Islands" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
     And I am on the home page
     Then I should not see ".events-globe .event-show-name"
@@ -90,6 +93,7 @@ Feature: Events taking place today should display on a map on the home page
     And I click on ".react-datepicker__day--today"
     And I click on ".form-group-endDate input"
     And I click on ".react-datepicker__day--today"
+    And I select "Coral Sea Islands" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
     And I am on the home page
     Then the ".events-globe .event-show-name" element should contain "Althea"

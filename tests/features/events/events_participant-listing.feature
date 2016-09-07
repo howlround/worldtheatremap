@@ -27,6 +27,7 @@ Feature: Participant listing on event pages
     And I click on ".react-datepicker__day=15"
     And I fill in "[name=lat]" with "-36.03133177633187"
     And I fill in "[name=lon]" with "-72.0703125"
+    And I select "Coral Sea Islands" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
 
   Scenario: Add participant form should only display for logged in users

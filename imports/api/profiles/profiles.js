@@ -350,7 +350,7 @@ export const profileSchema = t.struct({
   streetAddress: t.maybe(t.String),
   locality: t.maybe(t.String), // City
   administrativeArea: t.maybe(t.String), // Province, Region, State
-  country: t.String,
+  country: t.maybe(t.String),
   postalCode: t.maybe(t.String),
   lat: t.maybe(t.String),
   lon: t.maybe(t.String),

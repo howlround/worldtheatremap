@@ -109,7 +109,7 @@ Feature: Filters on profile search
 
   # City / Locality
   Scenario: Users can filter profiles by city
-    When I select "Algiers" from the ".profile-locality-select-edit" combobox
+    When I select "Algiers" from the ".locality-select-edit" combobox
     And the ".search-results" element should contain "Fatima"
 
   Scenario: Users can filter profiles by city after editing a profile to add a new city
@@ -118,7 +118,7 @@ Feature: Filters on profile search
     And I fill in ".profile-locality-edit" with "Rabat"
     And I click on ".edit-profile-save"
     And I go to the "profiles" search page
-    When I select "Rabat" from the ".profile-locality-select-edit" combobox
+    When I select "Rabat" from the ".locality-select-edit" combobox
     And the ".search-results" element should contain "Fatima"
 
   Scenario: Choosing multiple cities should match two different profiles that each have one of the cities
@@ -132,8 +132,8 @@ Feature: Filters on profile search
     And I click on ".edit-profile-save"
     And I go to the "profiles" search page
     And I should not see ".search-results"
-    When I select "Algiers" from the ".profile-locality-select-edit" combobox
-    And I select "Kuala Lumpur" from the ".profile-locality-select-edit" combobox
+    When I select "Algiers" from the ".locality-select-edit" combobox
+    And I select "Kuala Lumpur" from the ".locality-select-edit" combobox
     And the ".search-results" element should contain "Fatima"
     And the ".search-results" element should contain "Nor"
 

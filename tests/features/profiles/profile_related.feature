@@ -20,10 +20,10 @@ Feature: Related profiles on profile pages
     And I click on ".autocomplete-results li"
     And I select "Performance" from the ".event-type-edit" combobox
     And I fill in ".event-about-edit" with "A workshop on spelling"
-    And I click on ".form-group-startDate .react-date-field__calendar-icon"
-    And I click on ".react-date-picker__month-view-day-text=1"
-    And I click on ".form-group-endDate .react-date-field__calendar-icon"
-    And I click on ".react-date-picker__month-view-day-text=15"
+    And I click on ".form-group-startDate input"
+    And I click on ".react-datepicker__day=1"
+    And I click on ".form-group-endDate input"
+    And I click on ".react-datepicker__day=15"
     And I click on ".edit-event-save"
     And a profile with the following fields:
       | name | Il Regista |

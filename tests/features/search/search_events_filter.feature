@@ -21,10 +21,10 @@ Feature: Filters on event search
     And I click on ".autocomplete-results li"
     And I select "Performance" from the ".event-type-edit" combobox
     And I fill in ".event-about-edit" with "A workshop on spelling"
-    And I click on ".form-group-startDate .react-date-field__calendar-icon"
-    And I click on ".react-date-picker__month-view-day-text=1"
-    And I click on ".form-group-endDate .react-date-field__calendar-icon"
-    And I click on ".react-date-picker__month-view-day-text=15"
+    And I click on ".form-group-startDate input"
+    And I click on ".react-datepicker__day=1"
+    And I click on ".form-group-endDate input"
+    And I click on ".react-datepicker__day=15"
     And I fill in ".event-street-address-edit" with "Brandsen 805"
     And I fill in ".event-locality-edit" with "Buenos Aires"
     And I fill in ".event-country-edit" with "Argentina"
@@ -42,12 +42,12 @@ Feature: Filters on event search
     And I click on ".autocomplete-results li"
     And I select "Twitter Chat" from the ".event-type-edit" combobox
     And I fill in ".event-about-edit" with "A workshop on spelling"
-    And I click on ".form-group-startDate .react-date-field__calendar-icon"
-    And I click on ".react-date-picker__nav-bar-arrow--next"
-    And I click on ".react-date-picker__month-view-day-text=1"
-    And I click on ".form-group-endDate .react-date-field__calendar-icon"
-    And I click on ".react-date-picker__nav-bar-arrow--next"
-    And I click on ".react-date-picker__month-view-day-text=15"
+    And I click on ".form-group-startDate input"
+    And I click on ".react-datepicker__navigation--next"
+    And I click on ".react-datepicker__day=1"
+    And I click on ".form-group-endDate input"
+    And I click on ".react-datepicker__navigation--next"
+    And I click on ".react-datepicker__day=15"
     And I fill in ".event-locality-edit" with "Chennai"
     And I fill in ".event-country-edit" with "India"
     And I click on ".edit-event-save"
@@ -60,7 +60,7 @@ Feature: Filters on event search
     And the ".search-results" element should not contain "Aadya"
 
   Scenario: Users can filter events by city
-    When I select "Buenos Aires" from the ".event-locality-select-edit" combobox
+    When I select "Buenos Aires" from the ".locality-select-edit" combobox
     And the ".search-results" element should contain "Sofia"
     And the ".search-results" element should not contain "Aadya"
 
@@ -71,13 +71,13 @@ Feature: Filters on event search
     And I fill in ".event-locality-edit" with "Morocco"
     And I click on ".edit-event-save"
     And I go to the "events" search page
-    When I select "Morocco" from the ".event-locality-select-edit" combobox
+    When I select "Morocco" from the ".locality-select-edit" combobox
     And the ".search-results" element should contain "Sofia"
 
   Scenario: Users can filter events by date range
-    When I click on ".form-group-startDate .react-date-field__calendar-icon"
-    And I click on ".react-date-picker__month-view-day-text=1"
-    And I click on ".form-group-endDate .react-date-field__calendar-icon"
-    And I click on ".react-date-picker__month-view-day-text=15"
+    When I click on ".form-group-startDate input"
+    And I click on ".react-datepicker__day=1"
+    And I click on ".form-group-endDate input"
+    And I click on ".react-datepicker__day=15"
     And the ".search-results" element should contain "Sofia"
     And the ".search-results" element should not contain "Aadya"

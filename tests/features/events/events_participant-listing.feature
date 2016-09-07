@@ -21,10 +21,10 @@ Feature: Participant listing on event pages
     And I click on ".autocomplete-results li"
     And I select "Performance" from the ".event-type-edit" combobox
     And I fill in ".event-about-edit" with "A workshop on spelling"
-    And I click on ".form-group-startDate .react-date-field__calendar-icon"
-    And I click on ".react-date-picker__month-view-day-text=1"
-    And I click on ".form-group-endDate .react-date-field__calendar-icon"
-    And I click on ".react-date-picker__month-view-day-text=15"
+    And I click on ".form-group-startDate input"
+    And I click on ".react-datepicker__day=1"
+    And I click on ".form-group-endDate input"
+    And I click on ".react-datepicker__day=15"
     And I click on ".edit-event-save"
 
   Scenario: Add participant form should only display for logged in users

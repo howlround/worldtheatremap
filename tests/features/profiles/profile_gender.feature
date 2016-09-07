@@ -30,6 +30,6 @@ Feature: Select gender options on profile
     And I fill in ".profile-administrative-area-edit" with "Tirana County"
     And I fill in ".profile-country-edit" with "Albania"
     And I select "Female" from the ".profile-gender-edit" combobox
-    And I select "Other" from the ".profile-gender-edit" combobox
+    And I select "Another Identity" from the ".profile-gender-edit" combobox
     And I click on ".edit-profile-save"
-    Then the ".profile-gender" element should contain "Female and Other"
+    Then the ".profile-gender" element should contain "Female and Another Identity"

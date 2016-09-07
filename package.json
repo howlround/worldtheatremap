@@ -25,6 +25,7 @@
     "react-addons-pure-render-mixin": "^15.0.0",
     "react-autosuggest": "^3.7.3",
     "react-date-picker": "^5.3.28",
+    "react-datepicker": "^0.29.0",
     "react-dom": "^15.0.0",
     "react-dropzone": "^3.5.3",
     "react-router": "^2.0.0",
@@ -83,6 +84,10 @@
       "no-use-before-define": [
         2,
         "nofunc"
+      ],
+      "react/jsx-curly-spacing": [
+        2,
+        "never"
       ]
     }
   },

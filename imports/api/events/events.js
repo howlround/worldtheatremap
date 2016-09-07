@@ -8,7 +8,9 @@ import React from 'react';
 import t from 'tcomb-form';
 import ReactSelect from 'react-select';
 import moment from 'moment';
-import { DateField, DatePicker } from 'react-date-picker';
+import DatePicker from 'react-datepicker';
+// require('react-datepicker/dist/react-datepicker.css');
+// import { DateField, DatePicker } from 'react-date-picker';
 // import DayPicker from 'react-day-picker';
 // import MomentLocaleUtils from 'react-day-picker/moment';
 // import 'moment/locale/ja';
@@ -67,7 +69,6 @@ class EventsCollection extends Mongo.Collection {
     });
   }
   remove(selector, callback) {
-    Events.remove({ eventId: selector });
     return super.remove(selector, callback);
   }
 }
@@ -107,9 +108,9 @@ const EventTypeTags = t.form.Form.templates.select.clone({
     return (
       <ReactSelect
         autoBlur
-        options={ EventType }
-        value={ locals.value }
-        onChange={ onChange }
+        options={EventType}
+        value={locals.value}
+        onChange={onChange}
         className="event-type-edit"
       />
     );
@@ -124,29 +125,22 @@ class ReactSelectEventTypeFactory extends t.form.Component {
 
 /* Date component override */
 function renderDate(locals) {
+  const onChange = (dateMoment) => {
+    if (_.isNull(dateMoment)) {
+      locals.onChange(null);
+    } else {
+      locals.onChange(dateMoment.toDate());
+    }
+  };
+
+  const selected = locals.value ? moment(locals.value) : null;
+
   return (
-    <DateField
-      dateFormat="YYYY-MM-DD"
-      forceValidDate
-      updateOnDateClick
-      collapseOnDateClick
-      expandOnFocus={ false }
-      value={ moment(locals.value).format("YYYY-MM-DD") }
-      showClock={ false }
-      onChange={ (dateString, { dateMoment }) => {
-        locals.onChange(dateMoment.toDate());
-      } }
-    >
-      <DatePicker
-        navigation
-        locale="en"
-        forceValidDate
-        highlightWeekends={ false }
-        highlightToday
-        weekNumbers={ false }
-        weekStartDay={ 0 }
-      />
-    </DateField>
+    <DatePicker
+      selected={selected}
+      onChange={onChange}
+      isClearable
+    />
   );
 }
 
@@ -166,9 +160,9 @@ function renderTextbox(locals) {
   return (
     <div className="form-group">
       <RelatedShowTextbox
-        parentValue={ locals.value }
-        updateParent={ onChange }
-        attrs={ locals.attrs }
+        parentValue={locals.value}
+        updateParent={onChange}
+        attrs={locals.attrs}
       />
     </div>
   );

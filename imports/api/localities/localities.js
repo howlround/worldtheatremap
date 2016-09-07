@@ -36,7 +36,7 @@ export const factory = () => {
         const values = (options || []).map(({value}) => value)
         locals.onChange(values)
       }
-      return <ReactSelect multi autoBlur options={ExistingLocalities} value={locals.value} onChange={onChange} className="profile-locality-select-edit" />
+      return <ReactSelect multi autoBlur options={ExistingLocalities} value={locals.value} onChange={onChange} className="locality-select-edit" />
     }
   });
 

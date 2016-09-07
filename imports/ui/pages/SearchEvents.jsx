@@ -1,19 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router';
-import ReactSelect from 'react-select';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-form';
 
 // API
-import { Events, eventFiltersSchema, filtersFormOptions } from '../../api/events/events.js';
-import { Localities, factory as localitiesFactory } from '../../api/localities/localities.js';
+import { eventFiltersSchema, filtersFormOptions } from '../../api/events/events.js';
+import { factory as localitiesFactory } from '../../api/localities/localities.js';
 
 // Containers
 import SearchEventsResultsContainer from '../containers/SearchEventsResultsContainer.jsx';
 
 // Components
-import Event from '../components/Event.jsx';
-import EventTeaserWithShow from '../components/EventTeaserWithShow.jsx';
 import SearchTypeNav from '../components/SearchTypeNav.jsx';
 import Loading from '../components/Loading.jsx';
 
@@ -44,12 +40,19 @@ export default class SearchEvents extends React.Component {
       _.each(this.props.location.query, (val, key) => {
         if (_.isEmpty(nextProps.location.query[key]) && !_.isEmpty(val)) {
           cleanQuery[key] = null;
-
         }
       });
 
       this.setState(cleanQuery);
     }
+  }
+
+  onChange(value) {
+    this.setState(value);
+    this.context.router.push({
+      pathname: '/search/events',
+      query: value,
+    });
   }
 
   renderEvents() {
@@ -67,24 +70,15 @@ export default class SearchEvents extends React.Component {
     );
   }
 
-  onChange(value) {
-    this.setState(value);
-    this.context.router.push({
-      pathname: '/search/events',
-      query: value
-    });
-  }
-
   render() {
     // const { event, eventExists, loading } = this.props;
     const { loading } = this.props;
 
     if (loading) {
       return (
-        <Loading key="loading"/>
+        <Loading key="loading" />
       );
-    }
-    else {
+    } else {
       let formOptions = filtersFormOptions();
       formOptions.fields.locality.factory = localitiesFactory();
 
@@ -106,7 +100,7 @@ export default class SearchEvents extends React.Component {
                   />
                 </form>
               </div>
-              { this.renderEvents() }
+              {this.renderEvents()}
             </div>
           </section>
         </div>
@@ -121,4 +115,5 @@ SearchEvents.contextTypes = {
 
 SearchEvents.propTypes = {
   loading: React.PropTypes.bool,
+  location: React.PropTypes.object,
 };

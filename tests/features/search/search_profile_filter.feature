@@ -14,7 +14,7 @@ Feature: Filters on profile search
     And I fill in ".profile-about-edit" with "Most popular name in Algeria (census, 2010)"
     And I fill in ".profile-locality-edit" with "Algiers"
     And I fill in ".profile-administrative-area-edit" with "Algiers Province"
-    And I fill in ".profile-country-edit" with "Algeria"
+    And I select "Algeria" from the ".country-select-edit" combobox
     And I fill in ".profile-postal-code-edit" with "16000"
     And I select "Musicals" from the ".profile-interests-edit" combobox
     And I select "African-American" from the ".profile-interests-edit" combobox
@@ -43,7 +43,7 @@ Feature: Filters on profile search
     And I fill in ".profile-about-edit" with "Most popular name in Malaysia"
     And I fill in ".profile-locality-edit" with "Kuala Lumpur"
     And I fill in ".profile-administrative-area-edit" with "Kuala Lumpur"
-    And I fill in ".profile-country-edit" with "Malaysia"
+    And I select "Malaysia" from the ".country-select-edit" combobox
     And I select "Performer" from the ".profile-roles-edit" combobox
     And I click on ".edit-profile-save"
     And I go to the "profiles" search page
@@ -70,7 +70,7 @@ Feature: Filters on profile search
     And I fill in ".profile-about-edit" with "Most popular name in Malaysia"
     And I fill in ".profile-locality-edit" with "Kuala Lumpur"
     And I fill in ".profile-administrative-area-edit" with "Kuala Lumpur"
-    And I fill in ".profile-country-edit" with "Malaysia"
+    And I select "Malaysia" from the ".country-select-edit" combobox
     And I select "Adaptation" from the ".profile-interests-edit" combobox
     And I click on ".edit-profile-save"
     And I go to the "profiles" search page
@@ -97,7 +97,7 @@ Feature: Filters on profile search
     And I fill in ".profile-about-edit" with "Most popular name in Malaysia"
     And I fill in ".profile-locality-edit" with "Kuala Lumpur"
     And I fill in ".profile-administrative-area-edit" with "Kuala Lumpur"
-    And I fill in ".profile-country-edit" with "Malaysia"
+    And I select "Malaysia" from the ".country-select-edit" combobox
     And I select "Venue" from the ".profile-organization-types-edit" combobox
     And I click on ".edit-profile-save"
     And I go to the "profiles" search page
@@ -128,7 +128,7 @@ Feature: Filters on profile search
     And I fill in ".profile-about-edit" with "Most popular name in Malaysia"
     And I fill in ".profile-locality-edit" with "Kuala Lumpur"
     And I fill in ".profile-administrative-area-edit" with "Kuala Lumpur"
-    And I fill in ".profile-country-edit" with "Malaysia"
+    And I select "Malaysia" from the ".country-select-edit" combobox
     And I click on ".edit-profile-save"
     And I go to the "profiles" search page
     And I should not see ".search-results"
@@ -145,7 +145,7 @@ Feature: Filters on profile search
   Scenario: Users can filter profiles by Country after editing a profile to add a new Country
     And I go to the profile page for "Fatima"
     And I follow ".edit-link"
-    And I fill in ".profile-country-edit" with "Morocco"
+    And I select "Morocco" from the ".country-select-edit" combobox
     And I click on ".edit-profile-save"
     And I go to the "profiles" search page
     When I select "Morocco" from the ".country-select-edit" combobox
@@ -156,9 +156,8 @@ Feature: Filters on profile search
     And I fill in ".profile-name-edit" with " Nor"
     And I select "Individual" from the ".profile-type-edit" combobox
     And I fill in ".profile-about-edit" with "Most popular name in Malaysia"
-    And I fill in ".profile-country-edit" with "Kuala Lumpur"
     And I fill in ".profile-administrative-area-edit" with "Kuala Lumpur"
-    And I fill in ".profile-country-edit" with "Malaysia"
+    And I select "Malaysia" from the ".country-select-edit" combobox
     And I click on ".edit-profile-save"
     And I go to the "profiles" search page
     And I should not see ".search-results"
@@ -187,7 +186,7 @@ Feature: Filters on profile search
     And I select "Individual" from the ".profile-type-edit" combobox
     And I fill in ".profile-about-edit" with "Most popular name in Malaysia"
     And I fill in ".profile-administrative-area-edit" with "Kuala Lumpur"
-    And I fill in ".profile-country-edit" with "Malaysia"
+    And I select "Malaysia" from the ".country-select-edit" combobox
     And I click on ".edit-profile-save"
     And I go to the "profiles" search page
     And I should not see ".search-results"

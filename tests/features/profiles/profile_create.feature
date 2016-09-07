@@ -21,7 +21,7 @@ Feature: Create organization profiles
     And I fill in ".profile-agent-edit" with "Secret Agent"
     And I fill in ".profile-locality-edit" with "Algiers"
     And I fill in ".profile-administrative-area-edit" with "Algiers Province"
-    And I fill in ".profile-country-edit" with "Algeria"
+    And I select "Algeria" from the ".country-select-edit" combobox
     And I fill in ".profile-postal-code-edit" with "16000"
     And I fill in ".profile-phone-edit" with "(212) 903-1170"
     And I fill in ".profile-email-edit" with "c@cc.cc"

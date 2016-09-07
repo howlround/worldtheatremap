@@ -346,7 +346,7 @@ export const AllCountriesFactory = () => {
           options={AllCountries}
           value={locals.value}
           onChange={onChange}
-          className="profile-organization-types-edit"
+          className="country-select-edit"
         />
       );
     },

@@ -12,6 +12,7 @@ Feature: Gender filters on profile search
     And I fill in ".profile-name-edit" with "Fatima"
     And I select "Individual" from the ".profile-type-edit" combobox
     And I fill in ".profile-about-edit" with "Most popular name in Algeria (census, 2010)"
+    And I select "India" from the ".country-select-edit" combobox
     And I select "Female" from the ".profile-gender-edit" combobox
     And I select "Male" from the ".profile-gender-edit" combobox
     And I click on ".edit-profile-save"
@@ -34,6 +35,7 @@ Feature: Gender filters on profile search
     And I select "Individual" from the ".profile-type-edit" combobox
     And I fill in ".profile-about-edit" with "Most popular name in Malaysia"
     And I select "Male" from the ".profile-gender-edit" combobox
+    And I select "India" from the ".country-select-edit" combobox
     And I click on ".edit-profile-save"
     And I go to the "profiles" search page
     And I should not see ".search-results"

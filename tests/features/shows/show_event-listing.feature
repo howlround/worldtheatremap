@@ -28,8 +28,10 @@ Feature: Events listing on show pages
     And I click on ".react-datepicker__day=15"
     And I fill in ".event-street-address-edit" with "Brandsen 805"
     And I fill in ".event-locality-edit" with "Buenos Aires"
-    And I fill in ".event-country-edit" with "Argentina"
+    And I select "Argentina" from the ".country-select-edit" combobox
     And I fill in ".event-postal-code-edit" with "1161"
+    And I fill in "[name=lat]" with "-36.03133177633187"
+    And I fill in "[name=lon]" with "-72.0703125"
     And I click on ".edit-event-save"
     When I go to the show page for "Sofia"
     Then the "article.event-teaser" element should contain "Performance"

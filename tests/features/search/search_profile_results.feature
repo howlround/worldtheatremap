@@ -17,7 +17,7 @@ Feature: Search results content
     And I fill in ".profile-agent-edit" with "Secret Agent"
     And I fill in ".profile-locality-edit" with "Algiers"
     And I fill in ".profile-administrative-area-edit" with "Algiers Province"
-    And I fill in ".profile-country-edit" with "Algeria"
+    And I select "Algeria" from the ".country-select-edit" combobox
     And I fill in ".profile-postal-code-edit" with "16000"
     And I fill in ".profile-founding-year-edit" with "1979"
     And I select "Musicals" from the ".profile-interests-edit" combobox
@@ -39,10 +39,10 @@ Feature: Search results content
     And I select "Individual" from the ".profile-type-edit" combobox
     And I fill in ".profile-about-edit" with "Most popular name in Algeria (census, 2010)"
     And I select "Stage Director" from the ".profile-roles-edit" combobox
+    And I select "India" from the ".country-select-edit" combobox
     And I click on ".edit-profile-save"
     When I go to the "profiles" search page
     And I select "Stage Director" from the ".profile-roles-edit" combobox
     And the ".search-results" element should contain "Fatima"
-    And the ".search-results" element should not contain "Location:"
     And the ".search-results" element should not contain "Interests:"
     And the ".search-results" element should not contain "Organization types:"

@@ -28,8 +28,10 @@ Feature: Filters on event search
     And I fill in ".event-street-address-edit" with "Brandsen 805"
     And I fill in ".event-locality-edit" with "Buenos Aires"
     And I fill in ".event-administrative-area-edit" with "La Bombonera"
-    And I fill in ".event-country-edit" with "Argentina"
+    And I select "Argentina" from the ".country-select-edit" combobox
     And I fill in ".event-postal-code-edit" with "1161"
+    And I fill in "[name=lat]" with "-36.03133177633187"
+    And I fill in "[name=lon]" with "-72.0703125"
     And I click on ".edit-event-save"
     # Add Second Event
     And I go to the "show" add page
@@ -49,9 +51,11 @@ Feature: Filters on event search
     And I click on ".form-group-endDate input"
     And I click on ".react-datepicker__navigation--next"
     And I click on ".react-datepicker__day=15"
+    And I fill in "[name=lat]" with "-36.03133177633187"
+    And I fill in "[name=lon]" with "-72.0703125"
     And I fill in ".event-locality-edit" with "Chennai"
     And I fill in ".event-administrative-area-edit" with "Tamil Nadu"
-    And I fill in ".event-country-edit" with "India"
+    And I select "India" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
     And I go to the "events" search page
     And I should not see ".search-results"
@@ -93,7 +97,7 @@ Feature: Filters on event search
     And I go to the show page for "Sofia"
     And I click on ".event-name a"
     And I click on ".edit-link"
-    And I fill in ".event-country-edit" with "Morocco"
+    And I select "Morocco" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
     And I go to the "events" search page
     When I select "Morocco" from the ".country-select-edit" combobox

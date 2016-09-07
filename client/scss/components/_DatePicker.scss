@@ -1,0 +1,12 @@
+// Override from utilities/_react-datepicker.scss
+.react-datepicker__input-container {
+  display: block;
+}
+
+.react-datepicker__day--outside-month {
+  color: $dark-tan;
+}
+
+.react-datepicker__day--today {
+  color: $teal;
+}

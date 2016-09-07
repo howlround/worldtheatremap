@@ -6,7 +6,7 @@ import t from 'tcomb-form';
 
 // API
 import { Events, eventFiltersSchema, filtersFormOptions } from '../../api/events/events.js';
-import { Localities } from '../../api/localities/localities.js';
+import { Localities, factory as localitiesFactory } from '../../api/localities/localities.js';
 
 // Containers
 import SearchEventsResultsContainer from '../containers/SearchEventsResultsContainer.jsx';
@@ -85,32 +85,8 @@ export default class SearchEvents extends React.Component {
       );
     }
     else {
-      // locality options
-      const ExistingLocalities = Localities.find().fetch();
-
-      // locality template
-      const existingLocalitiesTags = t.form.Form.templates.select.clone({
-        renderSelect: (locals) => {
-          function onChange(options) {
-            const values = (options || []).map(({value}) => value)
-            locals.onChange(values)
-          }
-          return <ReactSelect multi autoBlur options={ExistingLocalities} value={locals.value} onChange={onChange} className="event-locality-select-edit" />
-        }
-      });
-
-      // locality factory function
-      class ReactSelectExistingLocalitiesFactory extends t.form.Component {
-        getTemplate() {
-          return existingLocalitiesTags;
-        }
-      }
-
-      // locality transformer
-      ReactSelectExistingLocalitiesFactory.transformer = t.form.List.transformer;
-
       let formOptions = filtersFormOptions();
-      formOptions.fields.locality.factory = ReactSelectExistingLocalitiesFactory;
+      formOptions.fields.locality.factory = localitiesFactory();
 
       // @TODO: Refactor filters form to be a component?
       return (

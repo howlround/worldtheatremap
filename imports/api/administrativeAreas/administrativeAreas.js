@@ -33,11 +33,20 @@ export const factory = () => {
   const existingAdministrativeAreasTags = t.form.Form.templates.select.clone({
     renderSelect: (locals) => {
       function onChange(options) {
-        const values = (options || []).map(({value}) => value)
-        locals.onChange(values)
+        const values = (options || []).map(({ value }) => value);
+        locals.onChange(values);
       }
-      return <ReactSelect multi autoBlur options={ExistingAdministrativeAreas} value={locals.value} onChange={onChange} className="profile-administrative-area-select-edit" />
-    }
+      return (
+        <ReactSelect
+          multi
+          autoBlur
+          options={ExistingAdministrativeAreas}
+          value={locals.value}
+          onChange={onChange}
+          className="profile-administrative-area-select-edit"
+        />
+      );
+    },
   });
 
   // Administrative Area factory function
@@ -51,4 +60,4 @@ export const factory = () => {
   ReactSelectExistingAdministrativeAreasFactory.transformer = t.form.List.transformer;
 
   return ReactSelectExistingAdministrativeAreasFactory;
-}
+};

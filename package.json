@@ -35,12 +35,16 @@
     "topojson": "^1.6.26"
   },
   "devDependencies": {
+    "babel-eslint": "^6.1.2",
     "breakpoint-sass": "^2.7.0",
     "chimp": "^0.33.1",
-    "eslint": "^2.3.0",
-    "eslint-config-airbnb": "^6.1.0",
-    "eslint-plugin-meteor": "^3.0.1",
-    "eslint-plugin-react": "^4.0.0",
+    "eslint": "^2.13.1",
+    "eslint-config-airbnb": "^6.2.0",
+    "eslint-import-resolver-meteor": "^0.3.3",
+    "eslint-plugin-import": "^1.14.0",
+    "eslint-plugin-jsx-a11y": "^2.2.1",
+    "eslint-plugin-meteor": "^3.6.0",
+    "eslint-plugin-react": "^4.3.0",
     "grunt": "^1.0.1",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-sass": "^1.1.0",
@@ -49,9 +53,11 @@
     "susy": "^2.2.12"
   },
   "eslintConfig": {
+    "parser": "babel-eslint",
     "parserOptions": {
       "ecmaVersion": 6,
-      "sourceType": "module"
+      "sourceType": "module",
+      "allowImportExportEverywhere": true
     },
     "plugins": [
       "meteor"
@@ -60,6 +66,9 @@
       "airbnb",
       "plugin:meteor/recommended"
     ],
+    "settings": {
+      "import/resolver": "meteor"
+    },
     "rules": {
       "meteor/eventmap-params": [
         2,

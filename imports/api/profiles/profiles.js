@@ -8,7 +8,6 @@ import { _ } from 'meteor/underscore';
 import React from 'react';
 import t from 'tcomb-form';
 import ReactSelect from 'react-select';
-import { Creatable } from 'react-select';
 
 // Collections
 import { Shows } from '../shows/shows.js';
@@ -284,7 +283,8 @@ ReactSelectRolesFactory.transformer = t.form.List.transformer;
 const Genders = [
   { value: "Female", label: "Female" },
   { value: "Male", label: "Male" },
-  { value: "Other", label: "Other" },
+  { value: "Transgender", label: "Transgender" },
+  { value: "Another Identity", label: "Another Identity" },
 ];
 
 // Gender template
@@ -297,7 +297,7 @@ const gendersTags = t.form.Form.templates.select.clone({
       const values = (options || []).map(({value}) => value)
       locals.onChange(values)
     }
-    return <Creatable multi autoBlur options={includeCustomValues} value={locals.value} onChange={onChange} className="profile-gender-edit" />
+    return <ReactSelect multi autoBlur options={ includeCustomValues } value={ locals.value } onChange={ onChange } className="profile-gender-edit" />
   }
 });
 

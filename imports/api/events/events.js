@@ -8,7 +8,7 @@ import React from 'react';
 import t from 'tcomb-form';
 import ReactSelect from 'react-select';
 import moment from 'moment';
-import SimpleDatePicker from 'simple-date-picker';
+import { DateField, DatePicker } from 'react-date-picker';
 // import DayPicker from 'react-day-picker';
 // import MomentLocaleUtils from 'react-day-picker/moment';
 // import 'moment/locale/ja';
@@ -26,7 +26,7 @@ class EventsCollection extends Mongo.Collection {
     if (ourEvent.startDate && ourEvent.endDate) {
       const startMoment = moment(ourEvent.startDate);
       const endMoment = moment(ourEvent.endDate);
-      const dateRange = startMoment.format('MMM D YYYY') + ' – ' + endMoment.format('MMM D YYYY');
+      const dateRange = `${startMoment.format('MMM D YYYY')} – ${endMoment.format('MMM D YYYY')}`;
       ourEvent.dateRange = dateRange;
 
       // Set all the dates to 8pm
@@ -48,7 +48,7 @@ class EventsCollection extends Mongo.Collection {
     if (ourEvent.startDate && ourEvent.endDate) {
       const startMoment = moment(ourEvent.startDate);
       const endMoment = moment(ourEvent.endDate);
-      const dateRange = startMoment.format('MMM D YYYY') + ' – ' + endMoment.format('MMM D YYYY');
+      const dateRange = `${startMoment.format('MMM D YYYY')} – ${endMoment.format('MMM D YYYY')}`;
       ourEvent.dateRange = dateRange;
 
       // Set the dates to 8pm
@@ -107,9 +107,9 @@ const EventTypeTags = t.form.Form.templates.select.clone({
     return (
       <ReactSelect
         autoBlur
-        options={EventType}
-        value={locals.value}
-        onChange={onChange}
+        options={ EventType }
+        value={ locals.value }
+        onChange={ onChange }
         className="event-type-edit"
       />
     );
@@ -125,10 +125,29 @@ class ReactSelectEventTypeFactory extends t.form.Component {
 /* Date component override */
 function renderDate(locals) {
   return (
-    <SimpleDatePicker
-      value={locals.value}
-      onChange={locals.onChange}
-    />
+    <DateField
+      // defaultValue={locals.value}
+      dateFormat="YYYY-MM-DD"
+      forceValidDate
+      updateOnDateClick
+      // collapseOnDateClick={true}
+      // expandOnFocus={false}
+      defaultValue={ 1473235961449 }
+      showClock={ false }
+      onChange={ (dateString, { dateMoment }) => {
+        locals.onChange(dateMoment.toDate());
+      } }
+    >
+      <DatePicker
+        navigation
+        locale="en"
+        forceValidDate
+        highlightWeekends={ false }
+        highlightToday
+        weekNumbers={ false }
+        weekStartDay={ 0 }
+      />
+    </DateField>
   );
 }
 

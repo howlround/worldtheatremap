@@ -81,7 +81,8 @@
         0
       ],
       "no-use-before-define": [
-        2, "nofunc"
+        2,
+        "nofunc"
       ]
     }
   },

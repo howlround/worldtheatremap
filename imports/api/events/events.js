@@ -20,6 +20,8 @@ import RelatedShowTextbox from '../../ui/components/RelatedShowTextbox.jsx';
 
 // Methods
 import { upsert } from '../localities/methods.js';
+import { upsert as upsertAdministrativeArea } from '../administrativeAreas/methods.js';
+import { upsert as upsertCountry } from '../countries/methods.js';
 
 class EventsCollection extends Mongo.Collection {
   insert(event, callback) {
@@ -38,6 +40,12 @@ class EventsCollection extends Mongo.Collection {
 
     if (!_.isEmpty(ourEvent.locality)) {
       upsert.call({ locality: ourEvent.locality });
+    }
+    if (!_.isEmpty(ourEvent.administrativeArea)) {
+      upsertAdministrativeArea.call({ administrativeArea: ourEvent.administrativeArea });
+    }
+    if (!_.isEmpty(ourEvent.country)) {
+      upsertCountry.call({ country: ourEvent.country });
     }
 
     // @TODO: Save author information to event
@@ -60,6 +68,12 @@ class EventsCollection extends Mongo.Collection {
 
     if (!_.isEmpty(ourEvent.locality)) {
       upsert.call({ locality: ourEvent.locality });
+    }
+    if (!_.isEmpty(ourEvent.administrativeArea)) {
+      upsertAdministrativeArea.call({ administrativeArea: ourEvent.administrativeArea });
+    }
+    if (!_.isEmpty(ourEvent.country)) {
+      upsertCountry.call({ country: ourEvent.country });
     }
 
     // @TODO: Save author information to event
@@ -205,6 +219,8 @@ export const eventSchema = t.struct({
 export const eventFiltersSchema = t.struct({
   eventType: t.maybe(t.String),
   locality: t.maybe(t.String), // City
+  administrativeArea: t.maybe(t.String), // Province, Region, State
+  country: t.maybe(t.String),
   endDate: t.maybe(t.Date),
   startDate: t.maybe(t.Date),
 });

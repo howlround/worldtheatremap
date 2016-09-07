@@ -43,7 +43,7 @@ export const factory = () => {
           options={ExistingAdministrativeAreas}
           value={locals.value}
           onChange={onChange}
-          className="profile-administrative-area-select-edit"
+          className="administrative-area-select-edit"
         />
       );
     },

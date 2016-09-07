@@ -23,6 +23,18 @@ export default createContainer((props) => {
       };
     }
 
+    if (query.administrativeArea && query.administrativeArea instanceof Array) {
+      privateQuery.administrativeArea = {
+        $in: query.administrativeArea,
+      };
+    }
+
+    if (query.country && query.country instanceof Array) {
+      privateQuery.country = {
+        $in: query.country,
+      };
+    }
+
     if (query.eventType) {
       privateQuery.eventType = query.eventType;
     }

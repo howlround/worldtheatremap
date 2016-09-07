@@ -27,6 +27,7 @@ Feature: Filters on event search
     And I click on ".react-datepicker__day=15"
     And I fill in ".event-street-address-edit" with "Brandsen 805"
     And I fill in ".event-locality-edit" with "Buenos Aires"
+    And I fill in ".event-administrative-area-edit" with "La Bombonera"
     And I fill in ".event-country-edit" with "Argentina"
     And I fill in ".event-postal-code-edit" with "1161"
     And I click on ".edit-event-save"
@@ -49,6 +50,7 @@ Feature: Filters on event search
     And I click on ".react-datepicker__navigation--next"
     And I click on ".react-datepicker__day=15"
     And I fill in ".event-locality-edit" with "Chennai"
+    And I fill in ".event-administrative-area-edit" with "Tamil Nadu"
     And I fill in ".event-country-edit" with "India"
     And I click on ".edit-event-save"
     And I go to the "events" search page
@@ -59,12 +61,19 @@ Feature: Filters on event search
     And the ".search-results" element should contain "Sofia"
     And the ".search-results" element should not contain "Aadya"
 
+  # City / Locality
   Scenario: Users can filter events by city
     When I select "Buenos Aires" from the ".locality-select-edit" combobox
     And the ".search-results" element should contain "Sofia"
     And the ".search-results" element should not contain "Aadya"
 
-  Scenario: Users can filter events by city after editing a profile to add a new city
+  Scenario: Choosing multiple cities should match two different events that each have one of the cities
+    When I select "Buenos Aires" from the ".locality-select-edit" combobox
+    When I select "Chennai" from the ".locality-select-edit" combobox
+    And the ".search-results" element should contain "Sofia"
+    And the ".search-results" element should contain "Aadya"
+
+  Scenario: Users can filter events by city after editing an event to add a new city
     And I go to the show page for "Sofia"
     And I click on ".event-name a"
     And I click on ".edit-link"
@@ -73,6 +82,52 @@ Feature: Filters on event search
     And I go to the "events" search page
     When I select "Morocco" from the ".locality-select-edit" combobox
     And the ".search-results" element should contain "Sofia"
+
+  # Country
+  Scenario: Users can filter events by Country
+    When I select "Argentina" from the ".country-select-edit" combobox
+    And the ".search-results" element should contain "Sofia"
+    And the ".search-results" element should not contain "Aadya"
+
+  Scenario: Users can filter events by Country after editing an event to add a new Country
+    And I go to the show page for "Sofia"
+    And I click on ".event-name a"
+    And I click on ".edit-link"
+    And I fill in ".event-country-edit" with "Morocco"
+    And I click on ".edit-event-save"
+    And I go to the "events" search page
+    When I select "Morocco" from the ".country-select-edit" combobox
+    And the ".search-results" element should contain "Sofia"
+
+  Scenario: Choosing multiple countries should match two different events that each have one of the countries
+    And I go to the "events" search page
+    And I should not see ".search-results"
+    When I select "Argentina" from the ".country-select-edit" combobox
+    And I select "India" from the ".country-select-edit" combobox
+    And the ".search-results" element should contain "Sofia"
+    And the ".search-results" element should contain "Aadya"
+
+  # Province / Administrative area
+  Scenario: Users can filter events by Province
+    When I select "La Bombonera" from the ".administrative-area-select-edit" combobox
+    And I select "Tamil Nadu" from the ".administrative-area-select-edit" combobox
+    And the ".search-results" element should contain "Sofia"
+
+  Scenario: Users can filter events by Province after editing an event to add a new Province
+    And I go to the show page for "Sofia"
+    And I click on ".event-name a"
+    And I click on ".edit-link"
+    And I fill in ".event-administrative-area-edit" with "Rabat-Salé-Kénitra"
+    And I click on ".edit-event-save"
+    And I go to the "events" search page
+    When I select "Rabat-Salé-Kénitra" from the ".administrative-area-select-edit" combobox
+    And the ".search-results" element should contain "Sofia"
+
+  Scenario: Choosing multiple countries should match two different events that each have one of the countries
+    When I select "La Bombonera" from the ".administrative-area-select-edit" combobox
+    And I select "Tamil Nadu" from the ".administrative-area-select-edit" combobox
+    And the ".search-results" element should contain "Sofia"
+    And the ".search-results" element should contain "Aadya"
 
   Scenario: Users can filter events by date range
     When I click on ".form-group-startDate input"

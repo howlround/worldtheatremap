@@ -33,11 +33,20 @@ export const factory = () => {
   const existingCountriesTags = t.form.Form.templates.select.clone({
     renderSelect: (locals) => {
       function onChange(options) {
-        const values = (options || []).map(({value}) => value)
-        locals.onChange(values)
+        const values = (options || []).map(({ value }) => value);
+        locals.onChange(values);
       }
-      return <ReactSelect multi autoBlur options={ExistingCountries} value={locals.value} onChange={onChange} className="profile-country-select-edit" />
-    }
+      return (
+        <ReactSelect
+          multi
+          autoBlur
+          options={ExistingCountries}
+          value={locals.value}
+          onChange={onChange}
+          className="country-select-edit"
+        />
+      );
+    },
   });
 
   // Country factory function
@@ -51,4 +60,4 @@ export const factory = () => {
   ReactSelectExistingCountriesFactory.transformer = t.form.List.transformer;
 
   return ReactSelectExistingCountriesFactory;
-}
+};

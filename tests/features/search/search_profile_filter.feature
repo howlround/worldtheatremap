@@ -139,7 +139,7 @@ Feature: Filters on profile search
 
   # Country
   Scenario: Users can filter profiles by Country
-    When I select "Algeria" from the ".profile-country-select-edit" combobox
+    When I select "Algeria" from the ".country-select-edit" combobox
     And the ".search-results" element should contain "Fatima"
 
   Scenario: Users can filter profiles by Country after editing a profile to add a new Country
@@ -148,7 +148,7 @@ Feature: Filters on profile search
     And I fill in ".profile-country-edit" with "Morocco"
     And I click on ".edit-profile-save"
     And I go to the "profiles" search page
-    When I select "Morocco" from the ".profile-country-select-edit" combobox
+    When I select "Morocco" from the ".country-select-edit" combobox
     And the ".search-results" element should contain "Fatima"
 
   Scenario: Choosing multiple countries should match two different profiles that each have one of the countries
@@ -162,24 +162,23 @@ Feature: Filters on profile search
     And I click on ".edit-profile-save"
     And I go to the "profiles" search page
     And I should not see ".search-results"
-    When I select "Algeria" from the ".profile-country-select-edit" combobox
-    And I select "Malaysia" from the ".profile-country-select-edit" combobox
+    When I select "Algeria" from the ".country-select-edit" combobox
+    And I select "Malaysia" from the ".country-select-edit" combobox
     And the ".search-results" element should contain "Fatima"
     And the ".search-results" element should contain "Nor"
 
   # Province / Administrative area
   Scenario: Users can filter profiles by Province
-    When I select "Algiers Province" from the ".profile-administrative-area-select-edit" combobox
+    When I select "Algiers Province" from the ".administrative-area-select-edit" combobox
     And the ".search-results" element should contain "Fatima"
 
-  @chromOnly
-  Scenario: Users can filter profiles by Province after editing a profile to add a new Province (DOES NOT WORK IN PHANTOMJS)
+  Scenario: Users can filter profiles by Province after editing a profile to add a new Province
     And I go to the profile page for "Fatima"
     And I follow ".edit-link"
-    And I fill in ".profile-administrative-area-edit " with "Rabat-Salé-Kénitra"
+    And I fill in ".profile-administrative-area-edit" with "Rabat-Sale-Kenitra"
     And I click on ".edit-profile-save"
     And I go to the "profiles" search page
-    When I select "Rabat-Salé-Kénitra" from the ".profile-administrative-area-select-edit" combobox
+    When I select "Rabat-Salé-Kénitra" from the ".administrative-area-select-edit" combobox
     And the ".search-results" element should contain "Fatima"
 
   Scenario: Choosing multiple countries should match two different profiles that each have one of the countries
@@ -192,8 +191,8 @@ Feature: Filters on profile search
     And I click on ".edit-profile-save"
     And I go to the "profiles" search page
     And I should not see ".search-results"
-    When I select "Algiers Province" from the ".profile-administrative-area-select-edit" combobox
-    When I select "Kuala Lumpur" from the ".profile-administrative-area-select-edit" combobox
+    When I select "Algiers Province" from the ".administrative-area-select-edit" combobox
+    When I select "Kuala Lumpur" from the ".administrative-area-select-edit" combobox
     And the ".search-results" element should contain "Fatima"
     And the ".search-results" element should contain "Nor"
 

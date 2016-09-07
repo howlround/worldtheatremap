@@ -30,20 +30,23 @@ Feature: Filters on event search
     And I fill in ".event-country-edit" with "Argentina"
     And I fill in ".event-postal-code-edit" with "1161"
     And I click on ".edit-event-save"
+    # Add Second Event
     And I go to the "show" add page
     And I fill in ".show-name-edit" with "Aadya"
     And I fill in ".show-author-name-edit" with "My Favorite Playwright"
     And I click on ".autocomplete-results li"
     And I fill in ".show-about-edit" with "Most popular name in India"
     And I click on ".edit-show-save"
-    When I go to the "event" add page
+    And I go to the "event" add page
     And I fill in ".event-show-edit" with "Aadya"
     And I click on ".autocomplete-results li"
     And I select "Twitter Chat" from the ".event-type-edit" combobox
     And I fill in ".event-about-edit" with "A workshop on spelling"
     And I click on ".form-group-startDate .react-date-field__calendar-icon"
+    And I click on ".react-date-picker__nav-bar-arrow--next"
     And I click on ".react-date-picker__month-view-day-text=1"
     And I click on ".form-group-endDate .react-date-field__calendar-icon"
+    And I click on ".react-date-picker__nav-bar-arrow--next"
     And I click on ".react-date-picker__month-view-day-text=15"
     And I fill in ".event-locality-edit" with "Chennai"
     And I fill in ".event-country-edit" with "India"
@@ -70,3 +73,11 @@ Feature: Filters on event search
     And I go to the "events" search page
     When I select "Morocco" from the ".event-locality-select-edit" combobox
     And the ".search-results" element should contain "Sofia"
+
+  Scenario: Users can filter events by date range
+    When I click on ".form-group-startDate .react-date-field__calendar-icon"
+    And I click on ".react-date-picker__month-view-day-text=1"
+    And I click on ".form-group-endDate .react-date-field__calendar-icon"
+    And I click on ".react-date-picker__month-view-day-text=15"
+    And the ".search-results" element should contain "Sofia"
+    And the ".search-results" element should not contain "Aadya"

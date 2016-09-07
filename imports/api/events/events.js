@@ -126,13 +126,12 @@ class ReactSelectEventTypeFactory extends t.form.Component {
 function renderDate(locals) {
   return (
     <DateField
-      // defaultValue={locals.value}
       dateFormat="YYYY-MM-DD"
       forceValidDate
       updateOnDateClick
-      // collapseOnDateClick={true}
-      // expandOnFocus={false}
-      defaultValue={ 1473235961449 }
+      collapseOnDateClick
+      expandOnFocus={ false }
+      value={ moment(locals.value).format("YYYY-MM-DD") }
       showClock={ false }
       onChange={ (dateString, { dateMoment }) => {
         locals.onChange(dateMoment.toDate());
@@ -212,8 +211,8 @@ export const eventSchema = t.struct({
 export const eventFiltersSchema = t.struct({
   eventType: t.maybe(t.String),
   locality: t.maybe(t.String), // City
-  // startDate: t.maybe(t.Date),
-  // endDate: t.maybe(t.Date),
+  endDate: t.maybe(t.Date),
+  startDate: t.maybe(t.Date),
 });
 
 export const defaultFormOptions = () => ({
@@ -312,14 +311,12 @@ export const filtersFormOptions = () => ({
   fields: {
     startDate: {
       label: 'Start date',
-      error: 'Start date is required',
       attrs: {
         className: 'event-start-date-edit',
       },
     },
     endDate: {
       label: 'End date',
-      error: 'End date is required',
       attrs: {
         className: 'event-end-date-edit',
       },

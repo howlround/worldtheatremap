@@ -1,5 +1,4 @@
 import { Meteor } from 'meteor/meteor';
-// XXX: Session
 import { Session } from 'meteor/session';
 import { Profiles } from '../../api/profiles/profiles.js';
 import { Shows } from '../../api/shows/shows.js';

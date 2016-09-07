@@ -7,7 +7,7 @@ import t from 'tcomb-form';
 // API
 import { Profiles, profileFiltersSchema, filtersFormOptions } from '../../api/profiles/profiles.js';
 import { Localities, factory as localitiesFactory } from '../../api/localities/localities.js';
-import { Countries, factory as countriesFactory } from '../../api/countries/countries.js';
+import { Countries, existingCountriesFactory } from '../../api/countries/countries.js';
 import { AdministrativeAreas, factory as administrativeAreasFactory } from '../../api/administrativeAreas/administrativeAreas.js';
 
 // Containers
@@ -88,7 +88,7 @@ export default class SearchProfiles extends React.Component {
     else {
       let formOptions = filtersFormOptions();
       formOptions.fields.locality.factory = localitiesFactory();
-      formOptions.fields.country.factory = countriesFactory();
+      formOptions.fields.country.factory = existingCountriesFactory();
       formOptions.fields.administrativeArea.factory = administrativeAreasFactory();
 
       // @TODO: Refactor filters form to be a component?

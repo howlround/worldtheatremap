@@ -15,6 +15,9 @@ import { Shows } from '../shows/shows.js';
 import { Participants } from '../participants/participants.js';
 import { RelatedRecords } from '../relatedRecords/relatedRecords.js';
 
+// API
+import { AllCountriesFactory } from '../../api/countries/countries.js';
+
 // Methods
 import { upsert as upsertLocality } from '../localities/methods.js';
 import { upsert as upsertAdministrativeArea } from '../administrativeAreas/methods.js';
@@ -83,7 +86,16 @@ const ProfileTypeTags = t.form.Form.templates.select.clone({
       const values = (options || []).map(({value}) => value)
       locals.onChange(values)
     }
-    return <ReactSelect multi autoBlur options={ProfileType} value={locals.value} onChange={onChange} className="profile-type-edit" />
+    return (
+      <ReactSelect
+        multi
+        autoBlur
+        options={ProfileType}
+        value={locals.value}
+        onChange={onChange}
+        className="profile-type-edit"
+      />
+    );
   }
 });
 // Profile type Factory
@@ -300,6 +312,7 @@ const Genders = [
 // Gender template
 const gendersTags = t.form.Form.templates.select.clone({
   renderSelect: (locals) => {
+    // @TODO: If we don't have custom values this isn't necessary
     const reformattedValues = _.map(locals.value, value => { return { value: value, label: value } });
     // _.union allows repeat arrays but ReactSelect/Creatable handles it properly anyway
     const includeCustomValues = _.union(reformattedValues, Genders);
@@ -307,7 +320,16 @@ const gendersTags = t.form.Form.templates.select.clone({
       const values = (options || []).map(({value}) => value)
       locals.onChange(values)
     }
-    return <ReactSelect multi autoBlur options={ includeCustomValues } value={ locals.value } onChange={ onChange } className="profile-gender-edit" />
+    return (
+      <ReactSelect
+        multi
+        autoBlur
+        options={ includeCustomValues }
+        value={ locals.value }
+        onChange={ onChange }
+        className="profile-gender-edit"
+      />
+    );
   }
 });
 
@@ -398,10 +420,9 @@ export const defaultFormOptions = () => {
         },
       },
       country: {
-        attrs: {
-          className: 'profile-country-edit',
-          // 'data-geo': 'country',
-        },
+        // Imported factories need to be called as functions
+        factory: AllCountriesFactory(),
+        // factory: ReactSelectAllCountriesFactory,
       },
       postalCode: {
         attrs: {

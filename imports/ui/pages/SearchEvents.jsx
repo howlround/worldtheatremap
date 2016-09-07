@@ -5,7 +5,7 @@ import t from 'tcomb-form';
 // API
 import { eventFiltersSchema, filtersFormOptions } from '../../api/events/events.js';
 import { factory as localitiesFactory } from '../../api/localities/localities.js';
-import { factory as countriesFactory } from '../../api/countries/countries.js';
+import { existingCountriesFactory } from '../../api/countries/countries.js';
 import { factory as administrativeAreasFactory } from '../../api/administrativeAreas/administrativeAreas.js';
 
 // Containers
@@ -83,7 +83,7 @@ export default class SearchEvents extends React.Component {
     } else {
       let formOptions = filtersFormOptions();
       formOptions.fields.locality.factory = localitiesFactory();
-      formOptions.fields.country.factory = countriesFactory();
+      formOptions.fields.country.factory = existingCountriesFactory();
       formOptions.fields.administrativeArea.factory = administrativeAreasFactory();
 
       // @TODO: Refactor filters form to be a component?

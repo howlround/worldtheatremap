@@ -15,6 +15,9 @@ import DatePicker from 'react-datepicker';
 // import MomentLocaleUtils from 'react-day-picker/moment';
 // import 'moment/locale/ja';
 
+// API
+import { AllCountriesFactory } from '../../api/countries/countries.js';
+
 // Components
 import RelatedShowTextbox from '../../ui/components/RelatedShowTextbox.jsx';
 
@@ -288,6 +291,8 @@ export const defaultFormOptions = () => ({
       },
     },
     country: {
+      factory: AllCountriesFactory(),
+      label: 'Country (required)',
       attrs: {
         className: 'event-country-edit',
       },

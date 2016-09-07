@@ -17,32 +17,12 @@ Meteor.publish('profiles.search', function profilesSearch(query, requestedPage) 
     fields: Profiles.publicFields,
     sort: { name: 1 },
     limit,
-    skip
+    skip,
   });
 });
 
 Meteor.publish('profiles.byId', function profilesById(ids) {
-  return Profiles.find({ '_id': { $in: ids } }, {
+  return Profiles.find({ _id: { $in: ids } }, {
     fields: Profiles.publicFields,
   });
 });
-
-Meteor.publish('profiles.private', function profilesPrivate() {
-  if (!this.userId) {
-    return this.ready();
-  }
-
-  return Profiles.find({
-    userId: this.userId,
-  }, {
-    fields: Profiles.publicFields,
-  });
-});
-
-// Meteor.publish('profiles.autocomplete', function profilesAutocomplete() {
-//   return Profiles.find({}, {
-//     fields: {
-//       name: true
-//     }
-//   });
-// });

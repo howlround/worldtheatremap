@@ -1,4 +1,5 @@
 // Meteor
+import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Factory } from 'meteor/factory';
@@ -96,88 +97,88 @@ ReactSelectProfileTypeFactory.transformer = t.form.List.transformer;
 
 // interests options
 const Interests = [
-  { value: "Accessibility", label: "Accessibility" },
-  { value: "Adaptation", label: "Adaptation" },
-  { value: "African-American", label: "African-American" },
-  { value: "African-Diaspora", label: "African-Diaspora" },
-  { value: "Asian American", label: "Asian American" },
-  { value: "Asian-American", label: "Asian-American" },
-  { value: "Asian-Diaspora", label: "Asian-Diaspora" },
-  { value: "Black Theatre", label: "Black Theatre" },
-  { value: "Burlesque", label: "Burlesque" },
-  { value: "Circus", label: "Circus" },
-  { value: "Classical", label: "Classical" },
-  { value: "Climate Change", label: "Climate Change" },
-  { value: "Contemporary", label: "Contemporary" },
-  { value: "Creative Placemaking", label: "Creative Placemaking" },
-  { value: "Criticism", label: "Criticism" },
-  { value: "Cross-cultural Exchange", label: "Cross-cultural Exchange" },
-  { value: "Dance", label: "Dance" },
-  { value: "Deaf", label: "Deaf" },
-  { value: "Design", label: "Design" },
-  { value: "Devised", label: "Devised" },
-  { value: "Directing", label: "Directing" },
-  { value: "Disabilities", label: "Disabilities" },
-  { value: "Disability", label: "Disability" },
-  { value: "Diversity and Inclusion", label: "Diversity and Inclusion" },
-  { value: "Documentary Theatre", label: "Documentary Theatre" },
-  { value: "Eco Theatre", label: "Eco Theatre" },
-  { value: "Ensemble", label: "Ensemble" },
-  { value: "Experimental", label: "Experimental" },
-  { value: "Gay/Lesbian", label: "Gay/Lesbian" },
-  { value: "Geek Theatre", label: "Geek Theatre" },
-  { value: "Gender Politics", label: "Gender Politics" },
-  { value: "Hip Hop Theatre", label: "Hip Hop Theatre" },
-  { value: "Immersive Theatre", label: "Immersive Theatre" },
-  { value: "Improvisation", label: "Improvisation" },
-  { value: "Indigenous", label: "Indigenous" },
-  { value: "International", label: "International" },
-  { value: "Jewish Theatre", label: "Jewish Theatre" },
-  { value: "Latina/o Theatre Commons", label: "Latina/o Theatre Commons" },
-  { value: "Latino-American", label: "Latino-American" },
-  { value: "Literary Management", label: "Literary Management" },
-  { value: "Multicultural", label: "Multicultural" },
-  { value: "Multidisciplinary", label: "Multidisciplinary" },
-  { value: "Music", label: "Music" },
-  { value: "Musical Theatre", label: "Musical Theatre" },
-  { value: "Musicals", label: "Musicals" },
-  { value: "New Work", label: "New Work" },
-  { value: "Object Theatre/Puppetry", label: "Object Theatre/Puppetry" },
-  { value: "Opera", label: "Opera" },
-  { value: "Performance Art", label: "Performance Art" },
-  { value: "Philanthropy/Funding", label: "Philanthropy/Funding" },
-  { value: "physical theatre", label: "physical theatre" },
-  { value: "Playwright Residencies", label: "Playwright Residencies" },
-  { value: "Playwriting", label: "Playwriting" },
-  { value: "Poetry", label: "Poetry" },
-  { value: "Political/Social", label: "Political/Social" },
-  { value: "Process", label: "Process" },
-  { value: "Producing", label: "Producing" },
-  { value: "Puppetry", label: "Puppetry" },
-  { value: "Queer Theatre", label: "Queer Theatre" },
-  { value: "Race", label: "Race" },
-  { value: "Religion/Spirituality", label: "Religion/Spirituality" },
-  { value: "Rural Theatre", label: "Rural Theatre" },
-  { value: "Senior Theatre", label: "Senior Theatre" },
-  { value: "Shakespeare", label: "Shakespeare" },
-  { value: "Site-specific", label: "Site-specific" },
-  { value: "Social Justice", label: "Social Justice" },
-  { value: "Social Media", label: "Social Media" },
-  { value: "Sound Design", label: "Sound Design" },
-  { value: "Sports", label: "Sports" },
-  { value: "Stage Combat", label: "Stage Combat" },
-  { value: "Stage Management", label: "Stage Management" },
-  { value: "Student/Youth", label: "Student/Youth" },
-  { value: "Technology", label: "Technology" },
-  { value: "Theatre Education/Training", label: "Theatre Education/Training" },
-  { value: "Theatre for Young Audiences", label: "Theatre for Young Audiences" },
-  { value: "Theatre History", label: "Theatre History" },
-  { value: "Touring", label: "Touring" },
-  { value: "Transgender", label: "Transgender" },
-  { value: "Translations/Adaptations", label: "Translations/Adaptations" },
-  { value: "Video Games", label: "Video Games" },
-  { value: "Women", label: "Women" },
-  { value: "Young Audiences", label: "Young Audiences" },
+  { value: 'Accessibility', label: 'Accessibility' },
+  { value: 'Adaptation', label: 'Adaptation' },
+  { value: 'African-American', label: 'African-American' },
+  { value: 'African-Diaspora', label: 'African-Diaspora' },
+  { value: 'Asian American', label: 'Asian American' },
+  { value: 'Asian-American', label: 'Asian-American' },
+  { value: 'Asian-Diaspora', label: 'Asian-Diaspora' },
+  { value: 'Black Theatre', label: 'Black Theatre' },
+  { value: 'Burlesque', label: 'Burlesque' },
+  { value: 'Circus', label: 'Circus' },
+  { value: 'Classical', label: 'Classical' },
+  { value: 'Climate Change', label: 'Climate Change' },
+  { value: 'Contemporary', label: 'Contemporary' },
+  { value: 'Creative Placemaking', label: 'Creative Placemaking' },
+  { value: 'Criticism', label: 'Criticism' },
+  { value: 'Cross-cultural Exchange', label: 'Cross-cultural Exchange' },
+  { value: 'Dance', label: 'Dance' },
+  { value: 'Deaf', label: 'Deaf' },
+  { value: 'Design', label: 'Design' },
+  { value: 'Devised', label: 'Devised' },
+  { value: 'Directing', label: 'Directing' },
+  { value: 'Disabilities', label: 'Disabilities' },
+  { value: 'Disability', label: 'Disability' },
+  { value: 'Diversity and Inclusion', label: 'Diversity and Inclusion' },
+  { value: 'Documentary Theatre', label: 'Documentary Theatre' },
+  { value: 'Eco Theatre', label: 'Eco Theatre' },
+  { value: 'Ensemble', label: 'Ensemble' },
+  { value: 'Experimental', label: 'Experimental' },
+  { value: 'Gay/Lesbian', label: 'Gay/Lesbian' },
+  { value: 'Geek Theatre', label: 'Geek Theatre' },
+  { value: 'Gender Politics', label: 'Gender Politics' },
+  { value: 'Hip Hop Theatre', label: 'Hip Hop Theatre' },
+  { value: 'Immersive Theatre', label: 'Immersive Theatre' },
+  { value: 'Improvisation', label: 'Improvisation' },
+  { value: 'Indigenous', label: 'Indigenous' },
+  { value: 'International', label: 'International' },
+  { value: 'Jewish Theatre', label: 'Jewish Theatre' },
+  { value: 'Latina/o Theatre Commons', label: 'Latina/o Theatre Commons' },
+  { value: 'Latino-American', label: 'Latino-American' },
+  { value: 'Literary Management', label: 'Literary Management' },
+  { value: 'Multicultural', label: 'Multicultural' },
+  { value: 'Multidisciplinary', label: 'Multidisciplinary' },
+  { value: 'Music', label: 'Music' },
+  { value: 'Musical Theatre', label: 'Musical Theatre' },
+  { value: 'Musicals', label: 'Musicals' },
+  { value: 'New Work', label: 'New Work' },
+  { value: 'Object Theatre/Puppetry', label: 'Object Theatre/Puppetry' },
+  { value: 'Opera', label: 'Opera' },
+  { value: 'Performance Art', label: 'Performance Art' },
+  { value: 'Philanthropy/Funding', label: 'Philanthropy/Funding' },
+  { value: 'physical theatre', label: 'physical theatre' },
+  { value: 'Playwright Residencies', label: 'Playwright Residencies' },
+  { value: 'Playwriting', label: 'Playwriting' },
+  { value: 'Poetry', label: 'Poetry' },
+  { value: 'Political/Social', label: 'Political/Social' },
+  { value: 'Process', label: 'Process' },
+  { value: 'Producing', label: 'Producing' },
+  { value: 'Puppetry', label: 'Puppetry' },
+  { value: 'Queer Theatre', label: 'Queer Theatre' },
+  { value: 'Race', label: 'Race' },
+  { value: 'Religion/Spirituality', label: 'Religion/Spirituality' },
+  { value: 'Rural Theatre', label: 'Rural Theatre' },
+  { value: 'Senior Theatre', label: 'Senior Theatre' },
+  { value: 'Shakespeare', label: 'Shakespeare' },
+  { value: 'Site-specific', label: 'Site-specific' },
+  { value: 'Social Justice', label: 'Social Justice' },
+  { value: 'Social Media', label: 'Social Media' },
+  { value: 'Sound Design', label: 'Sound Design' },
+  { value: 'Sports', label: 'Sports' },
+  { value: 'Stage Combat', label: 'Stage Combat' },
+  { value: 'Stage Management', label: 'Stage Management' },
+  { value: 'Student/Youth', label: 'Student/Youth' },
+  { value: 'Technology', label: 'Technology' },
+  { value: 'Theatre Education/Training', label: 'Theatre Education/Training' },
+  { value: 'Theatre for Young Audiences', label: 'Theatre for Young Audiences' },
+  { value: 'Theatre History', label: 'Theatre History' },
+  { value: 'Touring', label: 'Touring' },
+  { value: 'Transgender', label: 'Transgender' },
+  { value: 'Translations/Adaptations', label: 'Translations/Adaptations' },
+  { value: 'Video Games', label: 'Video Games' },
+  { value: 'Women', label: 'Women' },
+  { value: 'Young Audiences', label: 'Young Audiences' },
 ];
 
 // interests template
@@ -203,17 +204,17 @@ ReactSelectInterestsFactory.transformer = t.form.List.transformer;
 
 // orgTypes options
 const OrgTypes = [
-  { value: "Development / Residency Organization", label: "Development / Residency Organization" },
-  { value: "Festival / Presenting", label: "Festival / Presenting" },
-  { value: "Cultural / Sociocultural Service", label: "Cultural / Sociocultural Service" },
-  { value: "Producer", label: "Producer" },
-  { value: "Network / Association / Union", label: "Network / Association / Union" },
-  { value: "School / University / Training Organization", label: "School / University / Training Organization" },
-  { value: "Funder / Supporting / Grant-giving Institution", label: "Funder / Supporting / Grant-giving Institution" },
-  { value: "Resource Centre / Researcher", label: "Resource Centre / Researcher" },
-  { value: "Performing Company", label: "Performing Company" },
-  { value: "Venue", label: "Venue" },
-  { value: "Other", label: "Other" },
+  { value: 'Development / Residency Organization', label: 'Development / Residency Organization' },
+  { value: 'Festival / Presenting', label: 'Festival / Presenting' },
+  { value: 'Cultural / Sociocultural Service', label: 'Cultural / Sociocultural Service' },
+  { value: 'Producer', label: 'Producer' },
+  { value: 'Network / Association / Union', label: 'Network / Association / Union' },
+  { value: 'School / University / Training Organization', label: 'School / University / Training Organization' },
+  { value: 'Funder / Supporting / Grant-giving Institution', label: 'Funder / Supporting / Grant-giving Institution' },
+  { value: 'Resource Centre / Researcher', label: 'Resource Centre / Researcher' },
+  { value: 'Performing Company', label: 'Performing Company' },
+  { value: 'Venue', label: 'Venue' },
+  { value: 'Other', label: 'Other' },
 ];
 
 // orgTypes template
@@ -239,33 +240,42 @@ ReactSelectOrgTypesFactory.transformer = t.form.List.transformer;
 
 // selfDefinedRoles options
 const Roles = [
-  { value: "Administrator", label: "Administrator" },
-  { value: "Show Producer", label: "Show Producer" },
-  { value: "Agent / Manager", label: "Agent / Manager" },
-  { value: "Funder", label: "Funder" },
-  { value: "Journalist / Critic", label: "Journalist / Critic" },
-  { value: "Production Staff", label: "Production Staff" },
-  { value: "Technical Staff", label: "Technical Staff" },
-  { value: "Designer", label: "Designer" },
-  { value: "Performer", label: "Performer" },
-  { value: "Stage Director", label: "Stage Director" },
-  { value: "Playwright", label: "Playwright" },
-  { value: "Translator", label: "Translator" },
-  { value: "Dramaturg", label: "Dramaturg" },
-  { value: "Educator / Scholar", label: "Educator / Scholar" },
-  { value: "Student", label: "Student" },
-  { value: "Music Composer", label: "Music Composer" },
-  { value: "Curator", label: "Curator" },
+  { value: 'Administrator', label: 'Administrator' },
+  { value: 'Show Producer', label: 'Show Producer' },
+  { value: 'Agent / Manager', label: 'Agent / Manager' },
+  { value: 'Funder', label: 'Funder' },
+  { value: 'Journalist / Critic', label: 'Journalist / Critic' },
+  { value: 'Production Staff', label: 'Production Staff' },
+  { value: 'Technical Staff', label: 'Technical Staff' },
+  { value: 'Designer', label: 'Designer' },
+  { value: 'Performer', label: 'Performer' },
+  { value: 'Stage Director', label: 'Stage Director' },
+  { value: 'Playwright', label: 'Playwright' },
+  { value: 'Translator', label: 'Translator' },
+  { value: 'Dramaturg', label: 'Dramaturg' },
+  { value: 'Educator / Scholar', label: 'Educator / Scholar' },
+  { value: 'Student', label: 'Student' },
+  { value: 'Music Composer', label: 'Music Composer' },
+  { value: 'Curator', label: 'Curator' },
 ];
 
 // selfDefinedRoles template
 const rolesTags = t.form.Form.templates.select.clone({
   renderSelect: (locals) => {
     function onChange(options) {
-      const values = (options || []).map(({value}) => value)
+      const values = (options || []).map(({ value }) => value)
       locals.onChange(values)
     }
-    return <ReactSelect multi autoBlur options={Roles} value={locals.value} onChange={onChange} className="profile-roles-edit" />
+    return (
+      <ReactSelect
+        multi
+        autoBlur
+        options={Roles}
+        value={locals.value}
+        onChange={onChange}
+        className="profile-roles-edit"
+      />
+    );
   }
 });
 
@@ -281,10 +291,10 @@ ReactSelectRolesFactory.transformer = t.form.List.transformer;
 
 // Gender options
 const Genders = [
-  { value: "Female", label: "Female" },
-  { value: "Male", label: "Male" },
-  { value: "Transgender", label: "Transgender" },
-  { value: "Another Identity", label: "Another Identity" },
+  { value: 'Female', label: 'Female' },
+  { value: 'Male', label: 'Male' },
+  { value: 'Transgender', label: 'Transgender' },
+  { value: 'Another Identity', label: 'Another Identity' },
 ];
 
 // Gender template
@@ -318,7 +328,7 @@ export const profileSchema = t.struct({
   streetAddress: t.maybe(t.String),
   locality: t.maybe(t.String), // City
   administrativeArea: t.maybe(t.String), // Province, Region, State
-  country: t.maybe(t.String),
+  country: t.String,
   postalCode: t.maybe(t.String),
   lat: t.maybe(t.String),
   lon: t.maybe(t.String),
@@ -457,7 +467,7 @@ export const defaultFormOptions = () => {
       },
     },
   };
-}
+};
 
 export const filtersFormOptions = () => {
   return {
@@ -520,7 +530,7 @@ export const filtersFormOptions = () => {
       },
     },
   };
-}
+};
 
 // Profiles.schema = new SimpleSchema({
 //   name: { type: String },
@@ -595,13 +605,12 @@ Profiles.helpers({
 
   getConnections() {
     const connections = Meteor.subscribe('relatedRecords.byProfile', this._id);
-    let profileIds = new Array
-    const relatedProfiles = RelatedRecords.find({"profiles": this._id}).map(relatedRecord => {
-      for (var i = relatedRecord.profiles.length - 1; i >= 0; i--) {
-        if (relatedRecord.profiles[i] == this._id) {
+    let profileIds = new Array;
+    const relatedProfiles = RelatedRecords.find({ "profiles": this._id }).map(relatedRecord => {
+      for (let i = relatedRecord.profiles.length - 1; i >= 0; i--) {
+        if (relatedRecord.profiles[i] === this._id) {
           continue;
-        }
-        else {
+        } else {
           profileIds.push(relatedRecord.profiles[i]);
         }
       }
@@ -611,8 +620,8 @@ Profiles.helpers({
     const connectedProfilesSub = Meteor.subscribe('profiles.byId', profileIds);
 
     // Return array of profile objects instead of just the ids
-    return Profiles.find({ '_id': { $in: profileIds } }, {
+    return Profiles.find({ _id: { $in: profileIds } }, {
       fields: Profiles.publicFields,
     }).fetch();
-  }
+  },
 });

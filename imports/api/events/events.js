@@ -209,10 +209,10 @@ export const eventSchema = t.struct({
   streetAddress: t.maybe(t.String),
   locality: t.maybe(t.String), // City
   administrativeArea: t.maybe(t.String), // Province, Region, State
-  country: t.maybe(t.String),
+  country: t.String,
   postalCode: t.maybe(t.String),
-  lat: t.maybe(t.String),
-  lon: t.maybe(t.String),
+  lat: t.String,
+  lon: t.String,
   about: t.maybe(t.String),
 });
 

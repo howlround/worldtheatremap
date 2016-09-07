@@ -1,6 +1,5 @@
 // Meteor
 import { Mongo } from 'meteor/mongo';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Factory } from 'meteor/factory';
 import { _ } from 'meteor/underscore';
 
@@ -9,17 +8,13 @@ import React from 'react';
 import t from 'tcomb-form';
 import ReactSelect from 'react-select';
 import moment from 'moment';
-import SimpleDatePicker from 'simple-date-picker'
+import SimpleDatePicker from 'simple-date-picker';
 // import DayPicker from 'react-day-picker';
 // import MomentLocaleUtils from 'react-day-picker/moment';
 // import 'moment/locale/ja';
 
-// Collections
-import { Profiles } from '../profiles/profiles.js';
-
 // Components
 import RelatedShowTextbox from '../../ui/components/RelatedShowTextbox.jsx';
-import RelatedProfile from '../../ui/components/RelatedProfile.jsx';
 
 // Methods
 import { upsert } from '../localities/methods.js';
@@ -47,11 +42,10 @@ class EventsCollection extends Mongo.Collection {
     //        Or maybe check to make sure the correct author is passed in?
     return super.insert(ourEvent, callback);
   }
-  update(eventId, event, callback) {
+  update(eventId, event) {
     const ourEvent = event.$set;
     // Construct the human readable date range line
     if (ourEvent.startDate && ourEvent.endDate) {
-
       const startMoment = moment(ourEvent.startDate);
       const endMoment = moment(ourEvent.endDate);
       const dateRange = startMoment.format('MMM D YYYY') + ' – ' + endMoment.format('MMM D YYYY');
@@ -95,24 +89,31 @@ Events.deny({
 
 // Event type options
 const EventType = [
-  { value: "Work-in-Progress", label: "Work-in-Progress" },
-  { value: "Performance", label: "Performance" },
-  { value: "HowlRound TV Livestream", label: "HowlRound TV Livestream" },
-  { value: "Twitter Chat", label: "Twitter Chat" },
+  { value: 'Work-in-Progress', label: 'Work-in-Progress' },
+  { value: 'Performance', label: 'Performance' },
+  { value: 'HowlRound TV Livestream', label: 'HowlRound TV Livestream' },
+  { value: 'Twitter Chat', label: 'Twitter Chat' },
 ];
 // Event type template (single select)
 const EventTypeTags = t.form.Form.templates.select.clone({
   renderSelect: (locals) => {
     function onChange(options) {
       if (options) {
-        locals.onChange(options.value)
-      }
-      else {
+        locals.onChange(options.value);
+      } else {
         locals.onChange(null);
       }
     }
-    return <ReactSelect autoBlur options={EventType} value={locals.value} onChange={onChange} className="event-type-edit" />
-  }
+    return (
+      <ReactSelect
+        autoBlur
+        options={EventType}
+        value={locals.value}
+        onChange={onChange}
+        className="event-type-edit"
+      />
+    );
+  },
 });
 // Event type Factory
 class ReactSelectEventTypeFactory extends t.form.Component {
@@ -128,7 +129,7 @@ function renderDate(locals) {
       value={locals.value}
       onChange={locals.onChange}
     />
-  )
+  );
 }
 
 const dateTemplate = t.form.Form.templates.date.clone({ renderDate });
@@ -146,17 +147,21 @@ function renderTextbox(locals) {
   const onChange = (evt) => locals.onChange(evt);
   return (
     <div className="form-group">
-      <RelatedShowTextbox parentValue={ locals.value } updateParent={ onChange } attrs={ locals.attrs } />
+      <RelatedShowTextbox
+        parentValue={ locals.value }
+        updateParent={ onChange }
+        attrs={ locals.attrs }
+      />
     </div>
-  )
+  );
 }
 
-const relatedShowTextboxTemplate = t.form.Form.templates.textbox.clone({ renderTextbox })
+const relatedShowTextboxTemplate = t.form.Form.templates.textbox.clone({ renderTextbox });
 
 // here we are: the factory
 class RelatedShowFactory extends t.form.Textbox {
   getTemplate() {
-    return relatedShowTextboxTemplate
+    return relatedShowTextboxTemplate;
   }
 }
 
@@ -192,146 +197,142 @@ export const eventFiltersSchema = t.struct({
   // endDate: t.maybe(t.Date),
 });
 
-export const defaultFormOptions = () => {
-  return {
-    fields: {
-      show: {
-        factory: RelatedShowFactory,
-        error: 'Show is required',
-        label: 'Show name (required)',
-        attrs: {
-          className: 'event-show-edit',
-          autoComplete: 'off',
-        },
-        fields: {
-          name: {
-            error: 'Show name is required',
-            attrs: {
-              className: 'event-show-name-edit',
-              autoComplete: 'off',
-              placeholder: 'Show name',
-            }
+export const defaultFormOptions = () => ({
+  fields: {
+    show: {
+      factory: RelatedShowFactory,
+      error: 'Show is required',
+      label: 'Show name (required)',
+      attrs: {
+        className: 'event-show-edit',
+        autoComplete: 'off',
+      },
+      fields: {
+        name: {
+          error: 'Show name is required',
+          attrs: {
+            className: 'event-show-name-edit',
+            autoComplete: 'off',
+            placeholder: 'Show name',
           },
-          id: {
-            attrs: {
-              className: 'event-show-id-edit'
-            }
-          }
-        }
-      },
-      startDate: {
-        error: 'Start date is required',
-        attrs: {
-          className: 'event-start-date-edit',
         },
-      },
-      endDate: {
-        error: 'End date is required',
-        attrs: {
-          className: 'event-end-date-edit',
-        },
-      },
-      eventType: {
-        factory: ReactSelectEventTypeFactory,
-        error: 'Event type is required',
-        attrs: {
-          className: 'event-type-edit',
-        }
-      },
-      streetAddress: {
-        attrs: {
-          className: 'event-street-address-edit',
-        }
-      },
-      locality: {
-        label: 'City (optional)',
-        attrs: {
-          className: 'event-locality-edit',
-        },
-      },
-      administrativeArea: {
-        label: 'Province, Region, or State (optional)',
-        attrs: {
-          className: 'event-administrative-area-edit',
-        },
-      },
-      country: {
-        attrs: {
-          className: 'event-country-edit',
-        },
-      },
-      postalCode: {
-        attrs: {
-          className: 'event-postal-code-edit',
-        },
-      },
-      lat: {
-        attrs: {
-          'data-geo': 'lat',
-        }
-      },
-      lon: {
-        attrs: {
-          'data-geo': 'lng',
-        }
-      },
-      about: {
-        type: 'textarea',
-        attrs: {
-          rows: '10',
-          className: 'event-about-edit',
+        id: {
+          attrs: {
+            className: 'event-show-id-edit',
+          },
         },
       },
     },
-  };
-}
+    startDate: {
+      error: 'Start date is required',
+      attrs: {
+        className: 'event-start-date-edit',
+      },
+    },
+    endDate: {
+      error: 'End date is required',
+      attrs: {
+        className: 'event-end-date-edit',
+      },
+    },
+    eventType: {
+      factory: ReactSelectEventTypeFactory,
+      error: 'Event type is required',
+      attrs: {
+        className: 'event-type-edit',
+      },
+    },
+    streetAddress: {
+      attrs: {
+        className: 'event-street-address-edit',
+      },
+    },
+    locality: {
+      label: 'City (optional)',
+      attrs: {
+        className: 'event-locality-edit',
+      },
+    },
+    administrativeArea: {
+      label: 'Province, Region, or State (optional)',
+      attrs: {
+        className: 'event-administrative-area-edit',
+      },
+    },
+    country: {
+      attrs: {
+        className: 'event-country-edit',
+      },
+    },
+    postalCode: {
+      attrs: {
+        className: 'event-postal-code-edit',
+      },
+    },
+    lat: {
+      attrs: {
+        'data-geo': 'lat',
+      },
+    },
+    lon: {
+      attrs: {
+        'data-geo': 'lng',
+      },
+    },
+    about: {
+      type: 'textarea',
+      attrs: {
+        rows: '10',
+        className: 'event-about-edit',
+      },
+    },
+  },
+});
 
-export const filtersFormOptions = () => {
-  return {
-    fields: {
-      startDate: {
-        label: 'Start date',
-        error: 'Start date is required',
-        attrs: {
-          className: 'event-start-date-edit',
-        },
-      },
-      endDate: {
-        label: 'End date',
-        error: 'End date is required',
-        attrs: {
-          className: 'event-end-date-edit',
-        },
-      },
-      eventType: {
-        factory: ReactSelectEventTypeFactory,
-        label: 'Event type',
-        error: 'Event type is required',
-        attrs: {
-          className: 'event-type-edit',
-        }
-      },
-      locality: {
-        label: 'City',
-        attrs: {
-          className: 'event-locality-edit',
-        },
-      },
-      administrativeArea: {
-        label: 'Province, Region, or State',
-        attrs: {
-          className: 'event-administrative-area-edit',
-        },
-      },
-      country: {
-        label: 'Country',
-        attrs: {
-          className: 'event-country-edit',
-        },
+export const filtersFormOptions = () => ({
+  fields: {
+    startDate: {
+      label: 'Start date',
+      error: 'Start date is required',
+      attrs: {
+        className: 'event-start-date-edit',
       },
     },
-  };
-}
+    endDate: {
+      label: 'End date',
+      error: 'End date is required',
+      attrs: {
+        className: 'event-end-date-edit',
+      },
+    },
+    eventType: {
+      factory: ReactSelectEventTypeFactory,
+      label: 'Event type',
+      error: 'Event type is required',
+      attrs: {
+        className: 'event-type-edit',
+      },
+    },
+    locality: {
+      label: 'City',
+      attrs: {
+        className: 'event-locality-edit',
+      },
+    },
+    administrativeArea: {
+      label: 'Province, Region, or State',
+      attrs: {
+        className: 'event-administrative-area-edit',
+      },
+    },
+    country: {
+      label: 'Country',
+      attrs: {
+        className: 'event-country-edit',
+      },
+    },
+  },
+});
 
 // This represents the keys from Events objects that should be published
 // to the client. If we add secret properties to Event objects, don't event

@@ -57,13 +57,7 @@ article.event.with-location {
 
 section.show-events {
   ul {
-    border-bottom: 1px solid $light-teal;
-    padding-top: $spacing-unit * 2;
-
-    li {
-      border-top: 1px solid $light-teal;
-      padding: ($spacing-unit * 2) 0;
-    }
+    @include results-listing;
   }
 }
 

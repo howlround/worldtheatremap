@@ -1,0 +1,9 @@
+@mixin results-listing {
+  border-bottom: 1px solid $light-teal;
+  padding-top: $spacing-unit * 2;
+
+  li {
+    border-top: 1px solid $light-teal;
+    padding: ($spacing-unit * 2) 0;
+  }
+}

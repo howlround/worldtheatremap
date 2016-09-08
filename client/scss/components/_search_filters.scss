@@ -1,5 +1,5 @@
 .search-filters {
-  padding: $spacing-unit * 2 $spacing-unit;
+  padding: $spacing-unit * 2;
   font-size: 13px;
 
   h3 {
@@ -25,17 +25,16 @@
     }
   }
 
-  input[type="text"].profile-search-text {
-    border: none;
+  input[type="text"].profile-search-text,
+  input[type="text"].show-search-text {
     border-bottom: $black solid 2px;
-    padding-left: 0;
     font-weight: bold;
     color: $teal;
 
     &::placeholder,
     &::-webkit-input-placeholder {
       font-weight: bold;
-      color: $teal;
+      color: $light-teal;
     }
   }
 }

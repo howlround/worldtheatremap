@@ -3,7 +3,7 @@ import { _ } from 'meteor/underscore';
 import t from 'tcomb-form';
 
 // API
-import { showFiltersSchema, defaultFormOptions } from '../../api/shows/shows.js';
+import { showFiltersSchema, filtersFormOptions } from '../../api/shows/shows.js';
 
 // Containers
 import SearchShowsResultsContainer from '../containers/SearchShowsResultsContainer.jsx';
@@ -78,7 +78,7 @@ export default class SearchShows extends React.Component {
         <Loading key="loading" />
       );
     } else {
-      let formOptions = defaultFormOptions();
+      let formOptions = filtersFormOptions();
 
       // @TODO: Refactor filters form to be a component?
       return (
@@ -87,7 +87,6 @@ export default class SearchShows extends React.Component {
             <SearchTypeNav />
             <div className="search-type-content">
               <div className="search-filters">
-                <h3>Filter by</h3>
                 <form className="show-filters-form">
                   <Form
                     ref="form"

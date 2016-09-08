@@ -45,6 +45,7 @@ export const showSchema = t.struct({
 });
 
 export const showFiltersSchema = t.struct({
+  name: t.maybe(t.String),
   interests: t.maybe(t.list(t.String)),
 });
 
@@ -94,6 +95,22 @@ export const defaultFormOptions = () => ({
       attrs: {
         rows: '10',
         className: 'show-about-edit',
+      },
+    },
+    interests: {
+      factory: interestsFactory(),
+    },
+  },
+});
+
+export const filtersFormOptions = () => ({
+  fields: {
+    name: {
+      auto: 'none',
+      attrs: {
+        className: 'show-search-text',
+        autoComplete: 'off',
+        placeholder: 'Search for shows by name',
       },
     },
     interests: {

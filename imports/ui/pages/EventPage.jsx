@@ -1,14 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router';
 import classnames from 'classnames';
-// import ListHeader from '../components/ListHeader.jsx';
-// import TodoItem from '../components/TodoItem.jsx';
 import Event from '../components/Event.jsx';
 import EventEdit from '../components/EventEdit.jsx';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
 import Message from '../components/Message.jsx';
 import Modal from '../components/Modal.jsx';
 import AuthSignIn from '../components/AuthSignIn.jsx';
-import { Link } from 'react-router';
+import Loading from '../components/Loading.jsx';
 
 export default class EventPage extends React.Component {
   constructor(props) {
@@ -25,9 +24,17 @@ export default class EventPage extends React.Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.editing !== nextProps.editing) {
+      this.setState({
+        editing: nextProps.editing,
+      });
+    }
+  }
+
   render() {
     // const { event, eventExists, loading } = this.props;
-    const { event, user, participantsByEvent } = this.props;
+    const { loading, event, user, participantsByEvent } = this.props;
     const { editing } = this.state;
 
     const eventPageClass = classnames({
@@ -36,7 +43,11 @@ export default class EventPage extends React.Component {
       editing,
     });
 
-    if (!event) {
+    if (loading) {
+      return (
+        <Loading key="loading"/>
+      );
+    } else if (!event) {
       return (
         <NotFoundPage/>
       );
@@ -94,6 +105,6 @@ EventPage.propTypes = {
   editing: React.PropTypes.string,
   user: React.PropTypes.object,
   participantsByEvent: React.PropTypes.array,
-  // loading: React.PropTypes.bool,
+  loading: React.PropTypes.bool,
   // eventExists: React.PropTypes.bool,
 };

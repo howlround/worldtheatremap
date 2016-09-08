@@ -48,6 +48,20 @@ Feature: Edit events
     And the ".event-about" element should contain "Tweets about spelling"
     And the ".event-date-range" element should contain the date range for day "2" to day "18" of this month
 
+  Scenario: Users should be able to edit the show and the author on an event edit form
+    And I go to the show page for "Sofia"
+    And I click on ".event-name a"
+    And I click on ".edit-link"
+    And I fill in ".event-show-edit" with "Althea"
+    And I click on ".autocomplete-results li"
+    And I fill in ".show-author-name-edit" with "Unknown Playwright"
+    And I click on ".autocomplete-results li"
+    And I click on ".edit-event-save"
+    Then the "h1.page-title" element should contain "Althea"
+    And the ".event-authorship" element should contain "Unknown Playwright"
+    And I click on ".show-author"
+    Then the ".profile-name" element should contain "Unknown Playwright"
+
   @chromeOnly
   Scenario: Users should be able to edit location information for events (CHROME ONLY)
     And I go to the show page for "Sofia"

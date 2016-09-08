@@ -170,7 +170,7 @@ module.exports = function() {
   });
 
   this.Then(/^the "([^"]*)" element should contain "([^"]*)"$/, function (element, text) {
-    browser.waitForExist(element, 2000);
+    browser.waitForExist(element, 5000);
     const processedText = RegExp(RegExp.escape(text), 'i');
 
     expect(browser.getText(element)).toMatch(processedText);

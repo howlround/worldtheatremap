@@ -34,6 +34,11 @@ export default class EventsGlobe extends React.Component {
     this.initializeD3Globe();
   }
 
+  // componentWillUnmount () {
+  //   // Find a way to stop the globe transition
+  //   // http://jaketrent.com/post/set-state-in-callbacks-in-react/
+  // }
+
   globeReady(error, world, eventLocations) {
     if (error) {
       console.log(error);

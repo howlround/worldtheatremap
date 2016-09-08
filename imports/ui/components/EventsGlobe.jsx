@@ -87,7 +87,7 @@ export default class EventsGlobe extends React.Component {
         .on("start", () => {
           if (this.state.paused != true) {
             i = (i + 1) % n;
-          this.setState({ currentEvent: eventLocations[i].properties });
+            this.setState({ currentEvent: eventLocations[i].properties });
           }
         })
         .tween("rotate", function() {
@@ -188,10 +188,6 @@ export default class EventsGlobe extends React.Component {
     const { events } = this.props;
     /* d3 setup */
     // Original example: https://bl.ocks.org/mbostock/4183330
-
-    let title = select(".event-info-wrapper")
-      .on("mouseover", () => this.setState({ pause: true }))
-      .on("mouseout", () => this.setState({ pause: false }));
 
     // Until the event collection is formatted as GeoJSON reformat it on the fly
     // D3 defer task

@@ -48,7 +48,8 @@ Feature: Edit events
     And the ".event-about" element should contain "Tweets about spelling"
     And the ".event-date-range" element should contain the date range for day "2" to day "18" of this month
 
-  Scenario: Users should be able to edit location information for events
+  @chromeOnly
+  Scenario: Users should be able to edit location information for events (CHROME ONLY)
     And I go to the show page for "Sofia"
     And I click on ".event-name a"
     And I click on ".edit-link"

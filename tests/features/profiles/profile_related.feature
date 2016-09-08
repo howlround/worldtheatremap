@@ -20,6 +20,8 @@ Feature: Related profiles on profile pages
     And I click on ".autocomplete-results li"
     And I select "Performance" from the ".event-type-edit" combobox
     And I fill in ".event-about-edit" with "A workshop on spelling"
+    And I fill in "[name=lat]" with "-36.03133177633187"
+    And I fill in "[name=lon]" with "-72.0703125"
     And I click on ".form-group-startDate input"
     And I click on ".react-datepicker__day=1"
     And I click on ".form-group-endDate input"

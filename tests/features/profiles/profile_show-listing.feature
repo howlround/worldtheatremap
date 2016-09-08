@@ -40,6 +40,8 @@ Feature: List shows on the playwright profile
     And I click on ".form-group-endDate input"
     And I click on ".react-datepicker__day=15"
     And I select "Coral Sea Islands" from the ".country-select-edit" combobox
+    And I fill in "[name=lat]" with "-36.03133177633187"
+    And I fill in "[name=lon]" with "-72.0703125"
     And I click on ".edit-event-save"
     And a profile with the following fields:
       | name | Il Regista |

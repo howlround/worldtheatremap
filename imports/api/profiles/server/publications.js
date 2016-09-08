@@ -24,3 +24,10 @@ Meteor.publish('profiles.byId', function profilesById(ids) {
     fields: Profiles.publicFields,
   });
 });
+
+Meteor.publish('profiles.singleById', function profilesById(id) {
+  return Profiles.find({ _id: id }, {
+    fields: Profiles.publicFields,
+    limit: 1,
+  });
+});

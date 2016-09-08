@@ -30,6 +30,14 @@ export default class ProfilePage extends React.Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.editing !== nextProps.editing) {
+      this.setState({
+        editing: nextProps.editing,
+      });
+    }
+  }
+
   renderRelatedProfiles() {
     const { connections, profile } = this.props;
 
@@ -44,14 +52,12 @@ export default class ProfilePage extends React.Component {
     return <ul className="related-profiles">{relatedProfiles}</ul>;
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { profileExists, profile, loading } = this.props;
+  componentDidMount() {
+    this.initializeD3Globe();
+  }
 
-    // Load globe if lat and lon changes
-    // @TODO: What happens if someone removes a location?
-    if (profileExists && prevProps.profile && prevProps.profile.lat && prevProps.profile.lon && profile.lat && profile.lon && (prevProps.profile.lat !== profile.lat || prevProps.profile.lon !== profile.lon || prevProps.loading !== loading)) {
-      this.initializeD3Globe();
-    }
+  componentDidUpdate(prevProps, prevState) {
+    this.initializeD3Globe();
   }
 
   initializeD3Globe() {

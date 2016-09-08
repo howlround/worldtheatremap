@@ -47,6 +47,7 @@ Meteor.publish('events.dateRangeWithLocations', function eventsPublic(start, end
     }
   }, {
     fields: Events.publicFields,
+    sort: { startDate: 1 }
   });
 });
 

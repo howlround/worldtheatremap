@@ -28,6 +28,7 @@ export default createContainer(() => {
     },
     {
       fields: Events.publicFields,
+      sort: { startDate: 1 }
     });
   return {
     user: Meteor.user(),

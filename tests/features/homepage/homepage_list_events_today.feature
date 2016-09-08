@@ -1,4 +1,4 @@
-@events @homepage @focus
+@events @homepage
 Feature: Events taking place today should display on a list on the home page
 
   As a user

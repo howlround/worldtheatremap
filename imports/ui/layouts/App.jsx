@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import UserMenu from '../components/UserMenu.jsx';
 import AddMenu from '../components/AddMenu.jsx';
 import EventsGlobe from '../components/EventsGlobe.jsx';
-import SearchEventsResults from '../components/SearchEventsResults.jsx';
+import EventTeaserWithShow from '../components/EventTeaserWithShow.jsx';
 
 import ConnectionNotification from '../components/ConnectionNotification.jsx';
 import Loading from '../components/Loading.jsx';
@@ -56,13 +56,25 @@ export default class App extends React.Component {
   }
 
   renderTodayList() {
-    const { eventsTodayWithLocations, eventsTodayCount, loading } = this.props;
+    const { eventsTodayWithLocations, eventsTodayCount, startDate, endDate, loading } = this.props;
 
     if (!loading && eventsTodayWithLocations) {
       return (
         <section className="homepage-events-list">
           <h2>{`${eventsTodayCount} Events Happening Today`}</h2>
-          <SearchEventsResults results={eventsTodayWithLocations} />
+          <ul className="results">
+            {eventsTodayWithLocations.slice(0, 6).map(event => (
+              <li key={event._id}>
+                <EventTeaserWithShow event={event} />
+              </li>
+            ))}
+          </ul>
+          <Link
+            to={{ pathname: '/search/events', query: { startDate, endDate } }}
+            className="events-today-view-all"
+          >
+            See All Events
+          </Link>
         </section>
       );
     } else {
@@ -114,7 +126,6 @@ export default class App extends React.Component {
       user,
       connected,
       loading,
-      profiles,
       eventsTodayWithLocations,
       menuOpen,
       children,
@@ -193,6 +204,8 @@ App.propTypes = {
   shows: React.PropTypes.array,
   eventsTodayWithLocations: React.PropTypes.array,
   eventsTodayCount: React.PropTypes.number,
+  startDate: React.PropTypes.instanceOf(Date),
+  endDate: React.PropTypes.instanceOf(Date),
   children: React.PropTypes.element, // matched child route component
   location: React.PropTypes.object,  // current router location
   params: React.PropTypes.object,    // parameters of the current route

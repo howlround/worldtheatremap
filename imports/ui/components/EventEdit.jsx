@@ -65,7 +65,7 @@ export default class EventEdit extends React.Component {
           },
           location: initMapLocation
         });
-        $('<label></label>').text('Set Map Pin (optional)').prependTo('.profile-geographic-location-edit');
+        $('<label></label>').text('Set Map Pin (required)').prependTo('.profile-geographic-location-edit');
 
         $('.find-pin').bind("geocode:dragged", (event, latLng) => {
           let updatedEvent = _.extend({}, this.state);

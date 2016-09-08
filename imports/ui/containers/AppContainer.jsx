@@ -16,19 +16,19 @@ export default createContainer(() => {
   const profilesSubscribe = Meteor.subscribe('profiles.public');
   const showsSubscribe = Meteor.subscribe('shows.public');
   // @TODO: Change to events today.
-  const start = moment().startOf('day').toDate();
-  const end = moment().endOf('day').toDate();
-  const eventsWithLocationsSubscribe = Meteor.subscribe('events.dateRangeWithLocations', start, end);
+  const startDate = moment().startOf('day').toDate();
+  const endDate = moment().endOf('day').toDate();
+  const eventsWithLocationsSubscribe = Meteor.subscribe('events.dateRangeWithLocations', startDate, endDate);
   eventsTodayWithLocationsCursor = Events.find(
     {
       'lat': {
         $ne: null
       },
       'startDate': {
-        $lte: end
+        $lte: endDate
       },
       'endDate': {
-        $gte: start
+        $gte: startDate
       }
     },
     {
@@ -43,5 +43,7 @@ export default createContainer(() => {
     shows: Shows.find().fetch(),
     eventsTodayWithLocations: eventsTodayWithLocationsCursor.fetch(),
     eventsTodayCount: eventsTodayWithLocationsCursor.count(),
+    startDate,
+    endDate,
   };
 }, App);

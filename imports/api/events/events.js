@@ -255,12 +255,14 @@ export const defaultFormOptions = () => ({
       },
     },
     startDate: {
+      label: 'Start date (required)',
       error: 'Start date is required',
       attrs: {
         className: 'event-start-date-edit',
       },
     },
     endDate: {
+      label: 'End date (required)',
       error: 'End date is required',
       attrs: {
         className: 'event-end-date-edit',

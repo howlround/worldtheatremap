@@ -22,6 +22,7 @@
 }
 
 .homepage-events-list {
+  margin-top: $spacing-unit * 4;
   background-color: $white;
   border: solid 1px $dark-tan;
   margin-bottom: $spacing-unit * 2;
@@ -32,13 +33,36 @@
     padding: $spacing-unit * 3;
   }
 
-  ul.search-results {
+  h2 {
+    color: $black;
+    margin-bottom: $spacing-unit * 2;
+  }
+
+  ul.results {
     margin: 0;
 
-    @include breakpoint($normal) {
-      li {
+    li {
+      @include breakpoint($narrow) {
         @include gallery(1 of 2);
       }
+      @include breakpoint($normal) {
+        @include gallery(1 of 3);
+      }
+
+      margin-bottom: $spacing-unit * 4;
     }
+
+    .event-type {
+      border-bottom: 1px solid $dark-tan;
+      margin-bottom: $spacing-unit / 2;
+      line-height: 1em;
+    }
+  }
+
+  .events-today-view-all {
+    font-family: $oswald-font-stack;
+    clear: both;
+    float: right;
+    text-transform: uppercase;
   }
 }

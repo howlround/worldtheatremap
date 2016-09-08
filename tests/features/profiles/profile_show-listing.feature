@@ -1,3 +1,4 @@
+@profiles
 Feature: List shows on the playwright profile
 
   As a user

@@ -9,6 +9,12 @@ Meteor.publish('shows.public', function showsPublic() {
   });
 });
 
+Meteor.publish('shows.byAuthor', function showsById(authorId) {
+  return Shows.find({ 'author.id': { $in: [authorId] } }, {
+    fields: Shows.publicFields,
+  });
+});
+
 Meteor.publish('shows.multipleById', function showsById(ids) {
   return Shows.find({ _id: { $in: ids } }, {
     fields: Shows.publicFields,

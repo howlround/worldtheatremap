@@ -498,13 +498,12 @@ Profiles.helpers({
   //   return this.userId === userId;
   // },
   getShows() {
-    // Subscribe to these shows using shows.byId (or something like that)
+    // You should already subscribe to shows.byAuthor
+    const connectedProfilesSub = Meteor.subscribe('shows.byAuthor', this._id);
     return Shows.find({ "author.id": this._id });
   },
 
   getRoles() {
-    // @TODO: This should be more specific (by user?)
-    const participantsSubscribe = Meteor.subscribe('participants.public');
     let roles = new Array;
     const participantRecords = Participants.find({ "profile.id": this._id }, { fields: { "role": true } }).map(record => {
       if (!_.contains(roles, record.role)) {
@@ -515,7 +514,6 @@ Profiles.helpers({
   },
 
   getConnections() {
-    const connections = Meteor.subscribe('relatedRecords.byProfile', this._id);
     let profileIds = new Array;
     const relatedProfiles = RelatedRecords.find({ "profiles": this._id }).map(relatedRecord => {
       for (let i = relatedRecord.profiles.length - 1; i >= 0; i--) {

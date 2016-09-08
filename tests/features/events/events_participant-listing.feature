@@ -64,7 +64,7 @@ Feature: Participant listing on event pages
     Then the ".event-participants h2" element should contain "1 Participant"
     And the ".event-participants h2" element should not contain "1 Participants"
 
-  Scenario: Role for participants sholud be optional
+  Scenario: Role for participants should be optional
     And a profile with the following fields:
       | name | Il Regista |
     And I go to the show page for "Sofia"

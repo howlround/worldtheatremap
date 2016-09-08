@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { insert } from '../../api/shows/methods.js';
+import classNames from 'classnames';
 import EventTeaser from '../components/EventTeaser.jsx';
+import EventsMiniGlobe from '../components/EventsMiniGlobe.jsx';
 
 export default class Show extends React.Component {
   constructor(props) {
@@ -81,20 +83,29 @@ export default class Show extends React.Component {
       return <span key={interest}>{interest}{seperator}</span>
     }) : false;
 
+    const articleClasses = classNames('show', 'full', {
+      'with-location': eventsByShow && eventsByShow.length,
+    });
+
     return (
-      <article className="show full">
-        <section className="show-main-info">
-          <h1 className="show-name page-title">
-            {show.name}
-          </h1>
-          <div className="show-authorship">
-            by {authors}
+      <article className={articleClasses}>
+        <section>
+          {(eventsByShow && eventsByShow.length) ?
+            <EventsMiniGlobe events={eventsByShow} /> : ''
+          }
+          <div className="show-main-info">
+            <h1 className="show-name page-title">
+              {show.name}
+            </h1>
+            <div className="show-authorship">
+              by {authors}
+            </div>
+            <div className="show-metadata metadata">
+              { !_.isEmpty(show.interests) ?
+                <div className="show-interests" title="Interests">{ interests }</div> : '' }
+            </div>
+            {editLink}
           </div>
-          <div className="show-metadata metadata">
-            { !_.isEmpty(show.interests) ?
-              <div className="show-interests" title="Interests">{ interests }</div> : '' }
-          </div>
-          {editLink}
         </section>
         {show.about ?
           <section className="show-about">

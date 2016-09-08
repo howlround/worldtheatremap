@@ -1,3 +1,9 @@
+article.show {
+  section {
+    overflow: auto;
+  }
+}
+
 article.show-teaser {
   h3.show-name {
     display: inline-block;
@@ -30,5 +36,27 @@ article.show.full {
       margin-top: $spacing-unit * 2;
       color: $gray;
     }
+  }
+}
+
+article.show.with-location {
+  .show-main-info {
+    float: left;
+    width: 100%;
+
+    @include breakpoint($normal) {
+      float: left;
+      width: 603px - 30px - 30px - 200px - 2px - ($spacing-unit * 2);
+    }
+
+    @include breakpoint($wide) {
+      width: 750px - 30px - 30px - 200px - 2px - ($spacing-unit * 2);
+    }
+  }
+
+  .show-globe {
+    float: left;
+    margin-right: $spacing-unit * 2;
+    width: 200px;
   }
 }

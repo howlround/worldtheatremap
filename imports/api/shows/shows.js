@@ -44,6 +44,10 @@ export const showSchema = t.struct({
   interests: t.maybe(t.list(t.String)),
 });
 
+export const showFiltersSchema = t.struct({
+  interests: t.maybe(t.list(t.String)),
+});
+
 const authorLayout = (author) => (
   <div className="author-fields-group autocomplete-group">
     {author.inputs.name}

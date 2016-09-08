@@ -4,7 +4,7 @@ import { _ } from 'meteor/underscore';
 import { Profiles } from '../../api/profiles/profiles.js';
 import SearchProfilesResults from '../components/SearchProfilesResults.jsx';
 
-export default SearchProfilesResultsContainer = createContainer((props) => {
+const SearchProfilesResultsContainer = createContainer((props) => {
   const { query } = props;
   let loading = false;
   let results = [];
@@ -76,3 +76,5 @@ export default SearchProfilesResultsContainer = createContainer((props) => {
     loading: loading,
   };
 }, SearchProfilesResults);
+
+export default SearchProfilesResultsContainer;

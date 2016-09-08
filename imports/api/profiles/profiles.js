@@ -426,7 +426,7 @@ export const filtersFormOptions = () => ({
     },
     interests: {
       label: 'Interests',
-      factory: ReactSelectInterestsFactory,
+      factory: interestsFactory(),
     },
     orgTypes: {
       label: 'Organization Types',

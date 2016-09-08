@@ -1,13 +1,11 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Session } from 'meteor/session'; // XXX: SESSION
 import { Link } from 'react-router';
 
-import { Profiles } from '../../api/profiles/profiles.js';
 import UserMenu from '../components/UserMenu.jsx';
 import AddMenu from '../components/AddMenu.jsx';
-import Profile from '../components/Profile.jsx';
 import EventsGlobe from '../components/EventsGlobe.jsx';
+import SearchEventsResults from '../components/SearchEventsResults.jsx';
 
 import ConnectionNotification from '../components/ConnectionNotification.jsx';
 import Loading from '../components/Loading.jsx';
@@ -22,7 +20,6 @@ export default class App extends React.Component {
       showConnectionIssue: false,
       forceCloseDropDown: { AddMenu: false, UserMenu: false },
     };
-    this.toggleMenu = this.toggleMenu.bind(this);
     this.logout = this.logout.bind(this);
     this.hideDropDown = this.hideDropDown.bind(this);
   }
@@ -34,27 +31,14 @@ export default class App extends React.Component {
     }, CONNECTION_ISSUE_TIMEOUT);
   }
 
-  componentWillReceiveProps({ loading, children }) {
-    // redirect / to a profile once profiles are ready
-    // if (!loading && !children) {
-    //   const profile = Profiles.findOne();
-    //   this.context.router.replace(`/profiles/${ profile._id }`);
-    // }
-  }
-
-  toggleMenu(menuOpen = !Session.get('menuOpen')) {
-    Session.set({ menuOpen });
-  }
-
   logout() {
     Meteor.logout();
   }
 
   hideDropDown(menu, value) {
-    if (menu == 'AddMenu') {
+    if (menu === 'AddMenu') {
       this.setState({ forceCloseDropDown: { AddMenu: value, UserMenu: false } });
-    }
-    else if (menu == 'UserMenu') {
+    } else if (menu === 'UserMenu') {
       this.setState({ forceCloseDropDown: { UserMenu: value, AddMenu: false } });
     }
   }
@@ -62,14 +46,27 @@ export default class App extends React.Component {
   renderTodayMap() {
     const { eventsTodayWithLocations, loading } = this.props;
 
+    return (
+      <section className="homepage-events-globe">
+        <div className="homepage-section-header"><h2>What's Happening Today</h2></div>
+        <p>The World Theatre Map is a user-generated directory and a real-time media hub of the world’s theatre community.</p>
+        <EventsGlobe events={eventsTodayWithLocations} />
+      </section>
+    );
+  }
+
+  renderTodayList() {
+    const { eventsTodayWithLocations, eventsTodayCount, loading } = this.props;
+
     if (!loading && eventsTodayWithLocations) {
       return (
-        <section className="homepage-events-globe">
-          <div className="homepage-section-header"><h2>What's Happening Today</h2></div>
-          <p>The World Theatre Map is a user-generated directory and a real-time media hub of the world’s theatre community. </p>
-          <EventsGlobe events={ eventsTodayWithLocations } />
+        <section className="homepage-events-list">
+          <h2>{`${eventsTodayCount} Events Happening Today`}</h2>
+          <SearchEventsResults results={eventsTodayWithLocations} />
         </section>
       );
+    } else {
+      return (null);
     }
   }
 
@@ -80,7 +77,7 @@ export default class App extends React.Component {
       profiles.map(profile => (
         <li key={profile._id}>
           <Link
-            to={`/profiles/${ profile._id }`}
+            to={`/profiles/${profile._id}`}
             title={profile.name}
             className="profile-view"
             activeClassName="active"
@@ -99,7 +96,7 @@ export default class App extends React.Component {
       shows.map(show => (
         <li key={show._id}>
           <Link
-            to={`/shows/${ show._id }`}
+            to={`/shows/${show._id}`}
             title={show.name}
             className="show-view"
             activeClassName="active"
@@ -118,12 +115,11 @@ export default class App extends React.Component {
       connected,
       loading,
       profiles,
+      eventsTodayWithLocations,
       menuOpen,
       children,
       location,
     } = this.props;
-
-    const closeMenu = this.toggleMenu.bind(this, false);
 
     // clone route components with keys so that they can
     // have transitions
@@ -134,15 +130,29 @@ export default class App extends React.Component {
 
     return (
       <div id="container" className={menuOpen ? 'menu-open' : ''}>
-        <a className="skip-to-content" href="#content-container" tabindex="1">Skip to main content</a>
+        <a
+          className="skip-to-content"
+          href="#content-container"
+          tabIndex="1"
+        >
+          Skip to main content
+        </a>
         <header id="header">
           <section id="menu">
             <Link
               to="/"
               className="home"
             >World Theatre Map</Link>
-            <UserMenu user={user} logout={this.logout} hideDropDown={this.hideDropDown} forceCloseDropDown={forceCloseDropDown}/>
-            <AddMenu hideDropDown={this.hideDropDown} forceCloseDropDown={forceCloseDropDown}/>
+            <UserMenu
+              user={user}
+              logout={this.logout}
+              hideDropDown={this.hideDropDown}
+              forceCloseDropDown={forceCloseDropDown}
+            />
+            <AddMenu
+              hideDropDown={this.hideDropDown}
+              forceCloseDropDown={forceCloseDropDown}
+            />
             <div className="menu-right menu-container menu-with-divider">
               <Link
                 to="search"
@@ -152,16 +162,16 @@ export default class App extends React.Component {
           </section>
         </header>
         {showConnectionIssue && !connected
-          ? <ConnectionNotification/>
+          ? <ConnectionNotification />
           : null}
-        <div className="content-overlay" onClick={closeMenu}></div>
         <div id="content-container">
           {loading
-            ? <Loading key="loading"/>
+            ? <Loading key="loading" />
             : clonedChildren}
           {!clonedChildren ?
             <div className="page">
-              {this.renderTodayMap()}
+              {!loading && eventsTodayWithLocations ? this.renderTodayMap() : ''}
+              {!loading && eventsTodayWithLocations ? this.renderTodayList() : ''}
               <ul>
                 {this.renderHomePageProfiles()}
                 {this.renderHomePageShows()}
@@ -182,6 +192,7 @@ App.propTypes = {
   profiles: React.PropTypes.array,   // all profiles visible to the current user
   shows: React.PropTypes.array,
   eventsTodayWithLocations: React.PropTypes.array,
+  eventsTodayCount: React.PropTypes.number,
   children: React.PropTypes.element, // matched child route component
   location: React.PropTypes.object,  // current router location
   params: React.PropTypes.object,    // parameters of the current route

@@ -19,7 +19,21 @@ export default createContainer(() => {
   const start = moment().startOf('day').toDate();
   const end = moment().endOf('day').toDate();
   const eventsWithLocationsSubscribe = Meteor.subscribe('events.dateRangeWithLocations', start, end);
-  // const participantsSubscribe = Meteor.subscribe('participants.public');
+  eventsTodayWithLocationsCursor = Events.find(
+    {
+      'lat': {
+        $ne: null
+      },
+      'startDate': {
+        $lte: end
+      },
+      'endDate': {
+        $gte: start
+      }
+    },
+    {
+      fields: Events.publicFields
+    });
   return {
     user: Meteor.user(),
     loading: !(profilesSubscribe.ready() && showsSubscribe.ready() && eventsWithLocationsSubscribe.ready()),
@@ -27,20 +41,7 @@ export default createContainer(() => {
     menuOpen: Session.get('menuOpen'),
     profiles: Profiles.find().fetch(),
     shows: Shows.find().fetch(),
-    eventsTodayWithLocations: Events.find(
-      {
-        'lat': {
-          $ne: null
-        },
-        'startDate': {
-          $lte: end
-        },
-        'endDate': {
-          $gte: start
-        }
-      },
-      {
-        fields: Events.publicFields
-      }).fetch(),
+    eventsTodayWithLocations: eventsTodayWithLocationsCursor.fetch(),
+    eventsTodayCount: eventsTodayWithLocationsCursor.count(),
   };
 }, App);

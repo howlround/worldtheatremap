@@ -1,5 +1,5 @@
-@events @homepage
-Feature: Events taking place today should display on a map on the home page
+@events @homepage @focus
+Feature: Events taking place today should display on a list on the home page
 
   As a user
   I want to see events happening today on the home page
@@ -8,7 +8,7 @@ Feature: Events taking place today should display on a map on the home page
   Background:
     Given I am on the home page
 
-  Scenario: Events that start before today and end after today should display on the home page globe
+  Scenario: Events that start before today and end after today should display on the home page events list
     And I am logged in
     And a profile with the following fields:
       | name | My Favorite Playwright |
@@ -29,9 +29,9 @@ Feature: Events taking place today should display on a map on the home page
     And I select "Coral Sea Islands" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
     And I am on the home page
-    Then the ".events-globe .event-show-name" element should contain "Althea"
+    Then the ".homepage-events-list .event-show-name" element should contain "Althea"
 
-  Scenario: Events that start before today and end before today should not display on the home page globe
+  Scenario: Events that start before today and end before today should not display on the home page events list
     And I am logged in
     And a profile with the following fields:
       | name | My Favorite Playwright |
@@ -52,9 +52,9 @@ Feature: Events taking place today should display on a map on the home page
     And I select "Coral Sea Islands" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
     And I am on the home page
-    Then I should not see ".events-globe .event-show-name"
+    Then I should not see ".homepage-events-list .event-show-name"
 
-  Scenario: Events that start after today and end after today should not display on the home page globe
+  Scenario: Events that start after today and end after today should not display on the home page events list
     And I am logged in
     And a profile with the following fields:
       | name | My Favorite Playwright |
@@ -75,9 +75,9 @@ Feature: Events taking place today should display on a map on the home page
     And I select "Coral Sea Islands" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
     And I am on the home page
-    Then I should not see ".events-globe .event-show-name"
+    Then I should not see ".homepage-events-list .event-show-name"
 
-  Scenario: Events that start today and end today should display on the home page globe
+  Scenario: Events that start today and end today should display on the home page events list
     And I am logged in
     And a profile with the following fields:
       | name | My Favorite Playwright |
@@ -96,4 +96,4 @@ Feature: Events taking place today should display on a map on the home page
     And I select "Coral Sea Islands" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
     And I am on the home page
-    Then the ".events-globe .event-show-name" element should contain "Althea"
+    Then the ".homepage-events-list .event-show-name" element should contain "Althea"

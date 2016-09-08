@@ -8,6 +8,7 @@ import NotFoundPage from '../pages/NotFoundPage.jsx';
 import Message from '../components/Message.jsx';
 import Modal from '../components/Modal.jsx';
 import AuthSignIn from '../components/AuthSignIn.jsx';
+import Loading from '../components/Loading.jsx';
 import { Link } from 'react-router';
 
 export default class ShowPage extends React.Component {
@@ -19,6 +20,14 @@ export default class ShowPage extends React.Component {
     this.onEditingChange = this.onEditingChange.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.editing !== nextProps.editing) {
+      this.setState({
+        editing: nextProps.editing,
+      });
+    }
+  }
+
   onEditingChange(id, editing) {
     this.setState({
       editing: editing ? id : null,
@@ -27,7 +36,7 @@ export default class ShowPage extends React.Component {
 
   render() {
     // const { show, showExists, loading } = this.props;
-    const { show, user, eventsByShow } = this.props;
+    const { loading, show, user, eventsByShow } = this.props;
     const { editing } = this.state;
 
     const showPageClass = classnames({
@@ -36,12 +45,15 @@ export default class ShowPage extends React.Component {
       editing,
     });
 
-    if (!show) {
+    if (loading) {
+      return (
+        <Loading key="loading" />
+      );
+    } else if (!show) {
       return (
         <NotFoundPage/>
       );
-    }
-    else if (editing && user) {
+    } else if (editing && user) {
       return (
         <div className="overlay-wrapper">
           <Modal/>
@@ -94,6 +106,6 @@ ShowPage.propTypes = {
   eventsByShow: React.PropTypes.array,
   editing: React.PropTypes.string,
   user: React.PropTypes.object,
-  // loading: React.PropTypes.bool,
-  // showExists: React.PropTypes.bool,
+  loading: React.PropTypes.bool,
+  showExists: React.PropTypes.bool,
 };

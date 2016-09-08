@@ -9,9 +9,16 @@ Meteor.publish('shows.public', function showsPublic() {
   });
 });
 
-Meteor.publish('shows.byId', function showsById(ids) {
+Meteor.publish('shows.multipleById', function showsById(ids) {
   return Shows.find({ _id: { $in: ids } }, {
     fields: Shows.publicFields,
+  });
+});
+
+Meteor.publish('shows.singleById', function showsById(id) {
+  return Shows.find({ _id: id }, {
+    fields: Shows.publicFields,
+    limit: 1,
   });
 });
 

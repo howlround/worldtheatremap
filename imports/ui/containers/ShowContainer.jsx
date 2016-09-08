@@ -5,11 +5,17 @@ import { createContainer } from 'meteor/react-meteor-data';
 import ShowPage from '../pages/ShowPage.jsx';
 
 export default createContainer(({ params: { id } }) => {
+  const singleShowSubscribe = Meteor.subscribe('shows.singleById', id);
+  const loading = !singleShowSubscribe.ready();
   const show = Shows.findOne(id);
-  const eventsByShow = Meteor.subscribe('events.byShow', id);
+  const showExists = !loading && !!show;
+  // If necessary another loading prop can be created from eventsByShowSubscribe
+  const eventsByShowSubscribe = Meteor.subscribe('events.byShow', id);
   return {
+    loading,
     show,
-    eventsByShow: Events.find({'show.id': id}, {
+    showExists,
+    eventsByShow: Events.find({ 'show.id': id }, {
       fields: Events.publicFields,
       sort: { startDate: 1 },
     }).fetch(),

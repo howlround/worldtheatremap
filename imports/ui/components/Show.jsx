@@ -65,6 +65,22 @@ export default class Show extends React.Component {
       ));
     }
 
+    const interests = (show.interests) ? show.interests.map((interest, index, array) => {
+      let seperator = ', ';
+      if (index == array.length - 1) {
+        seperator = '';
+      }
+      else if (index == array.length - 2) {
+        if (array.length > 2) {
+          seperator = ', and ';
+        }
+        else {
+          seperator = ' and ';
+        }
+      }
+      return <span key={interest}>{interest}{seperator}</span>
+    }) : false;
+
     return (
       <article className="show full">
         <section className="show-main-info">
@@ -73,6 +89,10 @@ export default class Show extends React.Component {
           </h1>
           <div className="show-authorship">
             by {authors}
+          </div>
+          <div className="show-metadata metadata">
+            { !_.isEmpty(show.interests) ?
+              <div className="show-interests" title="Interests">{ interests }</div> : '' }
           </div>
           {editLink}
         </section>

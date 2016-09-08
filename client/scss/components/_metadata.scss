@@ -1,0 +1,9 @@
+.metadata {
+  font-size: 13px;
+  color: $medium-gray;
+
+  & > div {
+    display: inline-block;
+    margin-right: $spacing-unit * 2;
+  }
+}

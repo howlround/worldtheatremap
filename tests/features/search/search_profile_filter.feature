@@ -16,8 +16,8 @@ Feature: Filters on profile search
     And I fill in ".profile-administrative-area-edit" with "Algiers Province"
     And I select "Algeria" from the ".country-select-edit" combobox
     And I fill in ".profile-postal-code-edit" with "16000"
-    And I select "Musicals" from the ".profile-interests-edit" combobox
-    And I select "African-American" from the ".profile-interests-edit" combobox
+    And I select "Musicals" from the ".interests-edit" combobox
+    And I select "African-American" from the ".interests-edit" combobox
     And I select "Producer" from the ".profile-organization-types-edit" combobox
     And I select "Venue" from the ".profile-organization-types-edit" combobox
     And I select "Stage Director" from the ".profile-roles-edit" combobox
@@ -55,12 +55,12 @@ Feature: Filters on profile search
 
   # Interests
   Scenario: Users can filter profiles by interest
-    When I select "Musicals" from the ".profile-interests-edit" combobox
+    When I select "Musicals" from the ".interests-edit" combobox
     And the ".search-results" element should contain "Fatima"
 
   Scenario: Choosing multiple interests should match a profile that has both interests
-    When I select "Musicals" from the ".profile-interests-edit" combobox
-    And I select "African-American" from the ".profile-interests-edit" combobox
+    When I select "Musicals" from the ".interests-edit" combobox
+    And I select "African-American" from the ".interests-edit" combobox
     And the ".search-results" element should contain "Fatima"
 
   Scenario: Choosing multiple interests should match two different profiles that each have one of the interests
@@ -71,12 +71,12 @@ Feature: Filters on profile search
     And I fill in ".profile-locality-edit" with "Kuala Lumpur"
     And I fill in ".profile-administrative-area-edit" with "Kuala Lumpur"
     And I select "Malaysia" from the ".country-select-edit" combobox
-    And I select "Adaptation" from the ".profile-interests-edit" combobox
+    And I select "Adaptation" from the ".interests-edit" combobox
     And I click on ".edit-profile-save"
     And I go to the "profiles" search page
     And I should not see ".search-results"
-    When I select "African-American" from the ".profile-interests-edit" combobox
-    And I select "Adaptation" from the ".profile-interests-edit" combobox
+    When I select "African-American" from the ".interests-edit" combobox
+    And I select "Adaptation" from the ".interests-edit" combobox
     And the ".search-results" element should contain "Fatima"
     And the ".search-results" element should contain "Nor"
 

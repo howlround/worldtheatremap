@@ -26,3 +26,12 @@ article.show-teaser {
     }
   }
 }
+
+article.show.full {
+  .show-metadata {
+    .show-interests {
+      margin-top: $spacing-unit * 2;
+      color: $gray;
+    }
+  }
+}

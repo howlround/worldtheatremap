@@ -16,16 +16,6 @@ h1.profile-name {
   word-break: break-word;
 }
 
-.profile-metadata {
-  font-size: 13px;
-  color: $medium-gray;
-
-  & > div {
-    display: inline-block;
-    margin-right: $spacing-unit * 2;
-  }
-}
-
 article.profile.full {
   .profile-content-wrapper {
     float: left;

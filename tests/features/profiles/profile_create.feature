@@ -28,7 +28,7 @@ Feature: Create organization profiles
     And I fill in ".profile-website-edit" with "cc.cc"
     And I fill in ".profile-social-edit" with "Facebook: facebook.com/fatima"
     And I fill in ".profile-founding-year-edit" with "1979"
-    And I select "Musicals" from the ".profile-interests-edit" combobox
+    And I select "Musicals" from the ".interests-edit" combobox
     And I select "Producer" from the ".profile-organization-types-edit" combobox
     And I select "Stage Director" from the ".profile-roles-edit" combobox
     And I click on ".edit-profile-save"

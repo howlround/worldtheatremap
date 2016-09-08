@@ -17,6 +17,7 @@ import { RelatedRecords } from '../relatedRecords/relatedRecords.js';
 
 // API
 import { AllCountriesFactory } from '../../api/countries/countries.js';
+import { factory as interestsFactory } from '../../api/interests/interests.js';
 
 // Methods
 import { upsert as upsertLocality } from '../localities/methods.js';
@@ -106,113 +107,6 @@ class ReactSelectProfileTypeFactory extends t.form.Component {
 }
 // Profile type transformer
 ReactSelectProfileTypeFactory.transformer = t.form.List.transformer;
-
-// interests options
-const Interests = [
-  { value: 'Accessibility', label: 'Accessibility' },
-  { value: 'Adaptation', label: 'Adaptation' },
-  { value: 'African-American', label: 'African-American' },
-  { value: 'African-Diaspora', label: 'African-Diaspora' },
-  { value: 'Asian American', label: 'Asian American' },
-  { value: 'Asian-American', label: 'Asian-American' },
-  { value: 'Asian-Diaspora', label: 'Asian-Diaspora' },
-  { value: 'Black Theatre', label: 'Black Theatre' },
-  { value: 'Burlesque', label: 'Burlesque' },
-  { value: 'Circus', label: 'Circus' },
-  { value: 'Classical', label: 'Classical' },
-  { value: 'Climate Change', label: 'Climate Change' },
-  { value: 'Contemporary', label: 'Contemporary' },
-  { value: 'Creative Placemaking', label: 'Creative Placemaking' },
-  { value: 'Criticism', label: 'Criticism' },
-  { value: 'Cross-cultural Exchange', label: 'Cross-cultural Exchange' },
-  { value: 'Dance', label: 'Dance' },
-  { value: 'Deaf', label: 'Deaf' },
-  { value: 'Design', label: 'Design' },
-  { value: 'Devised', label: 'Devised' },
-  { value: 'Directing', label: 'Directing' },
-  { value: 'Disabilities', label: 'Disabilities' },
-  { value: 'Disability', label: 'Disability' },
-  { value: 'Diversity and Inclusion', label: 'Diversity and Inclusion' },
-  { value: 'Documentary Theatre', label: 'Documentary Theatre' },
-  { value: 'Eco Theatre', label: 'Eco Theatre' },
-  { value: 'Ensemble', label: 'Ensemble' },
-  { value: 'Experimental', label: 'Experimental' },
-  { value: 'Gay/Lesbian', label: 'Gay/Lesbian' },
-  { value: 'Geek Theatre', label: 'Geek Theatre' },
-  { value: 'Gender Politics', label: 'Gender Politics' },
-  { value: 'Hip Hop Theatre', label: 'Hip Hop Theatre' },
-  { value: 'Immersive Theatre', label: 'Immersive Theatre' },
-  { value: 'Improvisation', label: 'Improvisation' },
-  { value: 'Indigenous', label: 'Indigenous' },
-  { value: 'International', label: 'International' },
-  { value: 'Jewish Theatre', label: 'Jewish Theatre' },
-  { value: 'Latina/o Theatre Commons', label: 'Latina/o Theatre Commons' },
-  { value: 'Latino-American', label: 'Latino-American' },
-  { value: 'Literary Management', label: 'Literary Management' },
-  { value: 'Multicultural', label: 'Multicultural' },
-  { value: 'Multidisciplinary', label: 'Multidisciplinary' },
-  { value: 'Music', label: 'Music' },
-  { value: 'Musical Theatre', label: 'Musical Theatre' },
-  { value: 'Musicals', label: 'Musicals' },
-  { value: 'New Work', label: 'New Work' },
-  { value: 'Object Theatre/Puppetry', label: 'Object Theatre/Puppetry' },
-  { value: 'Opera', label: 'Opera' },
-  { value: 'Performance Art', label: 'Performance Art' },
-  { value: 'Philanthropy/Funding', label: 'Philanthropy/Funding' },
-  { value: 'physical theatre', label: 'physical theatre' },
-  { value: 'Playwright Residencies', label: 'Playwright Residencies' },
-  { value: 'Playwriting', label: 'Playwriting' },
-  { value: 'Poetry', label: 'Poetry' },
-  { value: 'Political/Social', label: 'Political/Social' },
-  { value: 'Process', label: 'Process' },
-  { value: 'Producing', label: 'Producing' },
-  { value: 'Puppetry', label: 'Puppetry' },
-  { value: 'Queer Theatre', label: 'Queer Theatre' },
-  { value: 'Race', label: 'Race' },
-  { value: 'Religion/Spirituality', label: 'Religion/Spirituality' },
-  { value: 'Rural Theatre', label: 'Rural Theatre' },
-  { value: 'Senior Theatre', label: 'Senior Theatre' },
-  { value: 'Shakespeare', label: 'Shakespeare' },
-  { value: 'Site-specific', label: 'Site-specific' },
-  { value: 'Social Justice', label: 'Social Justice' },
-  { value: 'Social Media', label: 'Social Media' },
-  { value: 'Sound Design', label: 'Sound Design' },
-  { value: 'Sports', label: 'Sports' },
-  { value: 'Stage Combat', label: 'Stage Combat' },
-  { value: 'Stage Management', label: 'Stage Management' },
-  { value: 'Student/Youth', label: 'Student/Youth' },
-  { value: 'Technology', label: 'Technology' },
-  { value: 'Theatre Education/Training', label: 'Theatre Education/Training' },
-  { value: 'Theatre for Young Audiences', label: 'Theatre for Young Audiences' },
-  { value: 'Theatre History', label: 'Theatre History' },
-  { value: 'Touring', label: 'Touring' },
-  { value: 'Transgender', label: 'Transgender' },
-  { value: 'Translations/Adaptations', label: 'Translations/Adaptations' },
-  { value: 'Video Games', label: 'Video Games' },
-  { value: 'Women', label: 'Women' },
-  { value: 'Young Audiences', label: 'Young Audiences' },
-];
-
-// interests template
-const interestsTags = t.form.Form.templates.select.clone({
-  renderSelect: (locals) => {
-    function onChange(options) {
-      const values = (options || []).map(({value}) => value)
-      locals.onChange(values)
-    }
-    return <ReactSelect multi autoBlur options={Interests} value={locals.value} onChange={onChange} className="profile-interests-edit" />
-  }
-});
-
-// interests factory function
-class ReactSelectInterestsFactory extends t.form.Component {
-  getTemplate() {
-    return interestsTags;
-  }
-}
-
-// interests transformer
-ReactSelectInterestsFactory.transformer = t.form.List.transformer;
 
 // orgTypes options
 const OrgTypes = [
@@ -378,180 +272,176 @@ export const profileFiltersSchema = t.struct({
   gender: t.maybe(t.String),
 });
 
-export const defaultFormOptions = () => {
-  return {
-    fields: {
-      name: {
-        label: 'Profile name (required)',
-        attrs: {
-          className: 'profile-name-edit',
-        },
-        error: 'Name is required',
+export const defaultFormOptions = () => ({
+  fields: {
+    name: {
+      label: 'Profile name (required)',
+      attrs: {
+        className: 'profile-name-edit',
       },
-      about: {
-        type: 'textarea',
-        attrs: {
-          rows: '10',
-          className: 'profile-about-edit',
-        },
-      },
-      profileType: {
-        factory: ReactSelectProfileTypeFactory,
-        help: 'Is this profile representing an individual or an organization? Can be both if applicable. '
-      },
-      streetAddress: {
-        attrs: {
-          className: 'profile-street-address-edit',
-          // 'data-geo': 'street_address',
-        },
-      },
-      locality: {
-        label: 'City (optional)',
-        attrs: {
-          className: 'profile-locality-edit',
-          // 'data-geo': 'locality',
-        },
-      },
-      administrativeArea: {
-        label: 'Province, Region, or State (optional)',
-        attrs: {
-          className: 'profile-administrative-area-edit',
-          // 'data-geo': 'administrative_area_level_1',
-        },
-      },
-      country: {
-        // Imported factories need to be called as functions
-        factory: AllCountriesFactory(),
-        // factory: ReactSelectAllCountriesFactory,
-      },
-      postalCode: {
-        attrs: {
-          className: 'profile-postal-code-edit',
-          // 'data-geo': 'postal_code',
-        },
-      },
-      lat: {
-        attrs: {
-          'data-geo': 'lat',
-        }
-      },
-      lon: {
-        attrs: {
-          'data-geo': 'lng',
-        }
-      },
-      agent: {
-        attrs: {
-          className: 'profile-agent-edit',
-        },
-      },
-      phone: {
-        attrs: {
-          className: 'profile-phone-edit',
-        },
-      },
-      email: {
-        attrs: {
-          className: 'profile-email-edit',
-        },
-      },
-      website: {
-        attrs: {
-          className: 'profile-website-edit',
-        },
-      },
-      social: {
-        type: 'textarea',
-        attrs: {
-          rows: '10',
-          className: 'profile-social-edit',
-        },
-        help: 'Add a label and a link. Put each link on a new line. For example: Facebook: https://www.facebook.com/myprofile',
-      },
-      foundingYear: {
-        attrs: {
-          className: 'profile-founding-year-edit',
-        },
-        help: 'If this profile is referencing an organization, what year was it founded?'
-      },
-      interests: {
-        factory: ReactSelectInterestsFactory,
-      },
-      orgTypes: {
-        factory: ReactSelectOrgTypesFactory,
-      },
-      selfDefinedRoles: {
-        factory: ReactSelectRolesFactory,
-      },
-      gender: {
-        factory: ReactSelectGendersFactory,
+      error: 'Name is required',
+    },
+    about: {
+      type: 'textarea',
+      attrs: {
+        rows: '10',
+        className: 'profile-about-edit',
       },
     },
-  };
-};
+    profileType: {
+      factory: ReactSelectProfileTypeFactory,
+      help: 'Is this profile representing an individual or an organization? Can be both if applicable. '
+    },
+    streetAddress: {
+      attrs: {
+        className: 'profile-street-address-edit',
+        // 'data-geo': 'street_address',
+      },
+    },
+    locality: {
+      label: 'City (optional)',
+      attrs: {
+        className: 'profile-locality-edit',
+        // 'data-geo': 'locality',
+      },
+    },
+    administrativeArea: {
+      label: 'Province, Region, or State (optional)',
+      attrs: {
+        className: 'profile-administrative-area-edit',
+        // 'data-geo': 'administrative_area_level_1',
+      },
+    },
+    country: {
+      // Imported factories need to be called as functions
+      factory: AllCountriesFactory(),
+      // factory: ReactSelectAllCountriesFactory,
+    },
+    postalCode: {
+      attrs: {
+        className: 'profile-postal-code-edit',
+        // 'data-geo': 'postal_code',
+      },
+    },
+    lat: {
+      attrs: {
+        'data-geo': 'lat',
+      }
+    },
+    lon: {
+      attrs: {
+        'data-geo': 'lng',
+      }
+    },
+    agent: {
+      attrs: {
+        className: 'profile-agent-edit',
+      },
+    },
+    phone: {
+      attrs: {
+        className: 'profile-phone-edit',
+      },
+    },
+    email: {
+      attrs: {
+        className: 'profile-email-edit',
+      },
+    },
+    website: {
+      attrs: {
+        className: 'profile-website-edit',
+      },
+    },
+    social: {
+      type: 'textarea',
+      attrs: {
+        rows: '10',
+        className: 'profile-social-edit',
+      },
+      help: 'Add a label and a link. Put each link on a new line. For example: Facebook: https://www.facebook.com/myprofile',
+    },
+    foundingYear: {
+      attrs: {
+        className: 'profile-founding-year-edit',
+      },
+      help: 'If this profile is referencing an organization, what year was it founded?'
+    },
+    interests: {
+      factory: interestsFactory(),
+    },
+    orgTypes: {
+      factory: ReactSelectOrgTypesFactory,
+    },
+    selfDefinedRoles: {
+      factory: ReactSelectRolesFactory,
+    },
+    gender: {
+      factory: ReactSelectGendersFactory,
+    },
+  },
+});
 
-export const filtersFormOptions = () => {
-  return {
-    fields: {
-      // Name is the text search field
-      name: {
-        auto: 'none',
-        attrs: {
-          className: 'profile-search-text',
-          autoComplete: 'off',
-          placeholder: 'Search for profiles by name',
-        }
-      },
-      profileType: {
-        factory: ReactSelectProfileTypeFactory,
-        label: 'Profile type',
-        help: 'Is this profile representing an individual or an organization? Can be both if applicable.'
-      },
-      locality: {
-        // The Factory function is applied later to allow reactive options
-        label: 'City',
-        attrs: {
-          className: 'profile-locality-select-edit',
-        },
-      },
-      administrativeArea: {
-        // The Factory function is applied later to allow reactive options
-        label: 'Province, Region, or State',
-        attrs: {
-          className: 'profile-locality-select-edit',
-        },
-      },
-      country: {
-        // The Factory function is applied later to allow reactive options
-        label: 'Country',
-        attrs: {
-          className: 'profile-country-select-edit',
-        },
-      },
-      postalCode: {
-        attrs: {
-          className: 'profile-postal-code-edit',
-        },
-      },
-      interests: {
-        label: 'Interests',
-        factory: ReactSelectInterestsFactory,
-      },
-      orgTypes: {
-        label: 'Organization Types',
-        factory: ReactSelectOrgTypesFactory,
-      },
-      selfDefinedRoles: {
-        label: 'Roles',
-        factory: ReactSelectRolesFactory,
-      },
-      gender: {
-        label: 'Gender',
-        factory: ReactSelectGendersFactory,
+export const filtersFormOptions = () => ({
+  fields: {
+    // Name is the text search field
+    name: {
+      auto: 'none',
+      attrs: {
+        className: 'profile-search-text',
+        autoComplete: 'off',
+        placeholder: 'Search for profiles by name',
+      }
+    },
+    profileType: {
+      factory: ReactSelectProfileTypeFactory,
+      label: 'Profile type',
+      help: 'Is this profile representing an individual or an organization? Can be both if applicable.'
+    },
+    locality: {
+      // The Factory function is applied later to allow reactive options
+      label: 'City',
+      attrs: {
+        className: 'profile-locality-select-edit',
       },
     },
-  };
-};
+    administrativeArea: {
+      // The Factory function is applied later to allow reactive options
+      label: 'Province, Region, or State',
+      attrs: {
+        className: 'profile-locality-select-edit',
+      },
+    },
+    country: {
+      // The Factory function is applied later to allow reactive options
+      label: 'Country',
+      attrs: {
+        className: 'profile-country-select-edit',
+      },
+    },
+    postalCode: {
+      attrs: {
+        className: 'profile-postal-code-edit',
+      },
+    },
+    interests: {
+      label: 'Interests',
+      factory: ReactSelectInterestsFactory,
+    },
+    orgTypes: {
+      label: 'Organization Types',
+      factory: ReactSelectOrgTypesFactory,
+    },
+    selfDefinedRoles: {
+      label: 'Roles',
+      factory: ReactSelectRolesFactory,
+    },
+    gender: {
+      label: 'Gender',
+      factory: ReactSelectGendersFactory,
+    },
+  },
+});
 
 // Profiles.schema = new SimpleSchema({
 //   name: { type: String },

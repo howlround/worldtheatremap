@@ -33,9 +33,11 @@ Feature: Create shows
     And I fill in ".show-author-name-edit" with "My Favorite Playwright"
     And I click on ".autocomplete-results li"
     And I fill in ".show-about-edit" with "Most popular name in Argentina"
+    And I select "Musicals" from the ".interests-edit" combobox
     And I click on ".edit-show-save"
     Then the ".show-name" element should contain "Sofía"
     Then the ".show-author" element should contain "My Favorite Playwright"
+    And the ".show-interests" element should contain "Musicals"
     And the ".show-about" element should contain "Most popular name in Argentina"
 
   Scenario: Autocomplete suggestions for existing primary authorship field

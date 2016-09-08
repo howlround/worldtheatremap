@@ -258,7 +258,7 @@ export default class Profile extends React.Component {
             </h1>
             { typeof locationBlock != 'undefined' ?
                 <div className="profile-location">{ locationBlock }</div> : '' }
-            <div className="profile-metadata">
+            <div className="profile-metadata metadata">
               { !_.isEmpty(profile.selfDefinedRoles) ?
                 <div className="profile-roles" title="Roles">{ selfDefinedRoles }</div> : '' }
               { !_.isEmpty(profile.gender) ?

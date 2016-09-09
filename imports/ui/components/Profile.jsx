@@ -158,12 +158,22 @@ export default class Profile extends React.Component {
     const editLink = user ?
       <Link
         to={`/profiles/${ profile._id }/edit`}
-        key={profile._id}
-        title={profile.name}
+        key={`${profile._id}-edit`}
+        title={`Edit ${profile.name}`}
         className="edit-link"
-        activeClassName="active"
       >
         Edit
+      </Link>
+    : '';
+
+    const translateLink = user ?
+      <Link
+        to={`/profiles/${ profile._id }/translate/es`}
+        key={`${profile._id}-translate`}
+        title={`Translate ${profile.name}`}
+        className="translate-link"
+      >
+        Translate
       </Link>
     : '';
 
@@ -191,97 +201,112 @@ export default class Profile extends React.Component {
           seperator = ' and ';
         }
       }
-      return <span key={interest}>{interest}{seperator}</span>
+      return (<span key={interest}>{interest}{seperator}</span>);
     }) : false;
 
     let orgTypes = (profile.orgTypes) ? profile.orgTypes.map((orgType, index, array) => {
       let seperator = ', ';
-      if (index == array.length - 1) {
+      if (index === array.length - 1) {
         seperator = '';
-      }
-      else if (index == array.length - 2) {
+      } else if (index === array.length - 2) {
         if (array.length > 2) {
           seperator = ', and ';
-        }
-        else {
+        } else {
           seperator = ' and ';
         }
       }
-      return <span key={orgType}>{orgType}{seperator}</span>
+      return (<span key={orgType}>{orgType}{seperator}</span>);
     }) : false;
 
-    let selfDefinedRoles = (profile.selfDefinedRoles) ? profile.selfDefinedRoles.map((selfDefinedRole, index, array) => {
-      let seperator = ', ';
-      if (index == array.length - 1) {
-        seperator = '';
-      }
-      else if (index == array.length - 2) {
-        if (array.length > 2) {
-          seperator = ', and ';
+    let selfDefinedRoles = (profile.selfDefinedRoles) ?
+      profile.selfDefinedRoles.map((selfDefinedRole, index, array) => {
+        let seperator = ', ';
+        if (index === array.length - 1) {
+          seperator = '';
+        } else if (index === array.length - 2) {
+          if (array.length > 2) {
+            seperator = ', and ';
+          } else {
+            seperator = ' and ';
+          }
         }
-        else {
-          seperator = ' and ';
-        }
-      }
-      return <span key={selfDefinedRole}>{selfDefinedRole}{seperator}</span>
-    }) : false;
+        return (<span key={selfDefinedRole}>{selfDefinedRole}{seperator}</span>);
+      }) : false;
 
     let genders = (profile.gender) ? profile.gender.map((gender, index, array) => {
       let seperator = ', ';
-      if (index == array.length - 1) {
+      if (index === array.length - 1) {
         seperator = '';
-      }
-      else if (index == array.length - 2) {
+      } else if (index === array.length - 2) {
         if (array.length > 2) {
           seperator = ', and ';
-        }
-        else {
+        } else {
           seperator = ' and ';
         }
       }
-      return <span key={gender}>{gender}{seperator}</span>
+      return (<span key={gender}>{gender}{seperator}</span>);
     }) : false;
 
-    const cityState = [profile.locality, profile.administrativeArea].filter(function (val) {return val;}).join(', ');
-    const locationBlock = <div className="profile-location">
-      { cityState ? <div>{ cityState }</div> : '' }
-      { profile.country ? <div className="profile-country">{ profile.country }</div> : '' }</div>;
+    const cityState = [
+      profile.locality,
+      profile.administrativeArea,
+    ].filter((val) => val).join(', ');
+    const locationBlock = (<div className="profile-location">
+      {cityState ? <div>{cityState}</div> : ''}
+      {profile.country ? <div className="profile-country">{profile.country}</div> : ''}</div>);
 
     return (
       <article className="profile full">
         <section>
 
-          { this.renderPhotoAndUploader() }
+          {this.renderPhotoAndUploader()}
           <div className="profile-content-wrapper">
             <h1 className="profile-name page-title">
               {profile.name}
             </h1>
-            { typeof locationBlock != 'undefined' ?
-                <div className="profile-location">{ locationBlock }</div> : '' }
+            {typeof locationBlock !== 'undefined' ?
+                <div className="profile-location">{locationBlock}</div> : ''}
             <div className="profile-metadata metadata">
-              { !_.isEmpty(profile.selfDefinedRoles) ?
-                <div className="profile-roles" title="Roles">{ selfDefinedRoles }</div> : '' }
-              { !_.isEmpty(profile.gender) ?
-                <div className="profile-gender" title="Gender">{ genders }</div> : '' }
-              { !_.isEmpty(profile.orgTypes) ?
-                <div className="profile-organization-types" title="Organization Type">{ orgTypes }</div> : '' }
-              { !_.isEmpty(profile.foundingYear) ?
-                <div className="profile-founding-year">Founded { profile.foundingYear }</div> : '' }
-              { !_.isEmpty(profile.interests) ?
-                <div className="profile-interests" title="Interests">{ interests }</div> : '' }
+              {!_.isEmpty(profile.selfDefinedRoles) ?
+                <div className="profile-roles" title="Roles">{selfDefinedRoles}</div> : ''}
+              {!_.isEmpty(profile.gender) ?
+                <div className="profile-gender" title="Gender">{genders}</div> : ''}
+              {!_.isEmpty(profile.orgTypes) ?
+                <div
+                  className="profile-organization-types"
+                  title="Organization Type"
+                >
+                  {orgTypes}
+                </div> : ''}
+              {!_.isEmpty(profile.foundingYear) ?
+                <div className="profile-founding-year">Founded {profile.foundingYear}</div> : ''}
+              {!_.isEmpty(profile.interests) ?
+                <div className="profile-interests" title="Interests">{interests}</div> : ''}
             </div>
           </div>
-          {editLink}
+          {editLink || translateLink ?
+            <div className="edit-links">
+              {editLink}
+              {translateLink}
+            </div>
+            : ''
+          }
         </section>
-        { profile.about ?
+        {profile.about ?
           <section className="profile-about">
             <h2>About</h2>
-            {/*<div dangerouslySetInnerHTML={{__html: profile.about}} />*/}
+            {/* <div dangerouslySetInnerHTML={{__html: profile.about}} /> */}
             {profile.about}
-            {editLink}
+            {editLink || translateLink ?
+              <div className="edit-links">
+                {editLink}
+                {translateLink}
+              </div>
+              : ''
+            }
           </section> : ''
         }
-        { (shows && shows.length) ?
+        {(shows && shows.length) ?
           <section className="profile-shows">
             <h2>Primary Authorship or Playwright</h2>
             <ul>
@@ -290,7 +315,7 @@ export default class Profile extends React.Component {
           </section>
           : ''
         }
-        { roles ? this.renderShowsByRoles() : '' }
+        {roles ? this.renderShowsByRoles() : ''}
       </article>
     );
   }
@@ -301,7 +326,6 @@ Profile.propTypes = {
   user: React.PropTypes.object,
   shows: React.PropTypes.array,
   roles: React.PropTypes.array,
-  onEditingChange: React.PropTypes.func,
 };
 
 Profile.contextTypes = {

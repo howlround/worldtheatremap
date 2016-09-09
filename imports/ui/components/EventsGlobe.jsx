@@ -36,7 +36,7 @@ export default class EventsGlobe extends React.Component {
 
   // componentWillUnmount () {
   //   // Find a way to stop the globe transition
-  //   // http://jaketrent.com/post/set-state-in-callbacks-in-react/
+  //   // https://swizec.com/blog/using-d3js-transitions-in-react/swizec/6797
   // }
 
   globeReady(error, world, eventLocations) {

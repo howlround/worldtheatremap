@@ -5,13 +5,13 @@ import { stringify, parse } from 'qs'
 
 // route components
 import AppContainer from '../../ui/containers/AppContainer.jsx';
-import ListContainer from '../../ui/containers/ListContainer.jsx';
 import ShowAddContainer from '../../ui/containers/ShowAddContainer.jsx';
 import ShowContainer from '../../ui/containers/ShowContainer.jsx';
 import ShowEditContainer from '../../ui/containers/ShowEditContainer.jsx';
 import ProfileContainer from '../../ui/containers/ProfileContainer.jsx';
 import ProfileAddContainer from '../../ui/containers/ProfileAddContainer.jsx';
 import ProfileEditContainer from '../../ui/containers/ProfileEditContainer.jsx';
+import ProfileTranslateContainer from '../../ui/containers/ProfileTranslateContainer.jsx';
 import EventContainer from '../../ui/containers/EventContainer.jsx';
 import EventAddContainer from '../../ui/containers/EventAddContainer.jsx';
 import EventEditContainer from '../../ui/containers/EventEditContainer.jsx';
@@ -36,6 +36,10 @@ export const renderRoutes = () => (
         <Route path="add" component={ProfileAddContainer}/>
         <Route path=":id" component={ProfileContainer}/>
         <Route path=":id/edit" component={ProfileEditContainer}/>
+        <Route path=":id/translate">
+          <IndexRedirect to="es"/>
+          <Route path=":lang" component={ProfileTranslateContainer}/>
+        </Route>
       </Route>
       <Route path="shows">
         <IndexRedirect to="add"/>

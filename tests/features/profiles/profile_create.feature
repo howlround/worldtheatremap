@@ -1,7 +1,8 @@
+@profiles
 Feature: Create organization profiles
 
   As a user
-  I want to create new organization profiles
+  I want to create new profiles
   So I can add information
 
   Background:

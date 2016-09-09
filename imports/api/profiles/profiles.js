@@ -91,6 +91,7 @@ const ProfileTypeTags = t.form.Form.templates.select.clone({
       <ReactSelect
         multi
         autoBlur
+        disabled={locals.disabled}
         options={ProfileType}
         value={locals.value}
         onChange={onChange}
@@ -130,7 +131,17 @@ const orgTypesTags = t.form.Form.templates.select.clone({
       const values = (options || []).map(({value}) => value)
       locals.onChange(values)
     }
-    return <ReactSelect multi autoBlur options={OrgTypes} value={locals.value} onChange={onChange} className="profile-organization-types-edit" />
+    return (
+      <ReactSelect
+        multi
+        autoBlur
+        disabled={locals.disabled}
+        options={OrgTypes}
+        value={locals.value}
+        onChange={onChange}
+        className="profile-organization-types-edit"
+      />
+    );
   }
 });
 
@@ -176,6 +187,7 @@ const rolesTags = t.form.Form.templates.select.clone({
       <ReactSelect
         multi
         autoBlur
+        disabled={locals.disabled}
         options={Roles}
         value={locals.value}
         onChange={onChange}
@@ -218,6 +230,7 @@ const gendersTags = t.form.Form.templates.select.clone({
       <ReactSelect
         multi
         autoBlur
+        disabled={locals.disabled}
         options={ includeCustomValues }
         value={ locals.value }
         onChange={ onChange }
@@ -270,6 +283,12 @@ export const profileFiltersSchema = t.struct({
   country: t.maybe(t.String),
   postalCode: t.maybe(t.String),
   gender: t.maybe(t.String),
+});
+
+export const translateFormSchema = t.struct({
+  name: t.String, // Required
+  about: t.maybe(t.String),
+  agent: t.maybe(t.String),
 });
 
 export const defaultFormOptions = () => ({
@@ -439,6 +458,123 @@ export const filtersFormOptions = () => ({
     gender: {
       label: 'Gender',
       factory: ReactSelectGendersFactory,
+    },
+  },
+});
+
+
+export const translateSourceFormOptions = () => ({
+  disabled: true,
+  fields: {
+    name: {
+      label: 'Profile name (required)',
+      attrs: {
+        className: 'profile-name-edit',
+      },
+      error: 'Name is required',
+    },
+    about: {
+      type: 'textarea',
+      attrs: {
+        rows: '10',
+        className: 'profile-about-edit',
+      },
+    },
+    profileType: {
+      factory: ReactSelectProfileTypeFactory,
+      disabled: true,
+      help: 'Is this profile representing an individual or an organization? Can be both if applicable. '
+    },
+    streetAddress: {
+      attrs: {
+        className: 'profile-street-address-edit',
+        // 'data-geo': 'street_address',
+      },
+    },
+    locality: {
+      label: 'City (optional)',
+      attrs: {
+        className: 'profile-locality-edit',
+        // 'data-geo': 'locality',
+      },
+    },
+    administrativeArea: {
+      label: 'Province, Region, or State (optional)',
+      attrs: {
+        className: 'profile-administrative-area-edit',
+        // 'data-geo': 'administrative_area_level_1',
+      },
+    },
+    country: {
+      // Imported factories need to be called as functions
+      factory: AllCountriesFactory(),
+      disabled: true,
+    },
+    postalCode: {
+      attrs: {
+        className: 'profile-postal-code-edit',
+        // 'data-geo': 'postal_code',
+      },
+    },
+    lat: {
+      attrs: {
+        'data-geo': 'lat',
+      }
+    },
+    lon: {
+      attrs: {
+        'data-geo': 'lng',
+      }
+    },
+    agent: {
+      attrs: {
+        className: 'profile-agent-edit',
+      },
+    },
+    phone: {
+      attrs: {
+        className: 'profile-phone-edit',
+      },
+    },
+    email: {
+      attrs: {
+        className: 'profile-email-edit',
+      },
+    },
+    website: {
+      attrs: {
+        className: 'profile-website-edit',
+      },
+    },
+    social: {
+      type: 'textarea',
+      attrs: {
+        rows: '10',
+        className: 'profile-social-edit',
+      },
+      help: 'Add a label and a link. Put each link on a new line. For example: Facebook: https://www.facebook.com/myprofile',
+    },
+    foundingYear: {
+      attrs: {
+        className: 'profile-founding-year-edit',
+      },
+      help: 'If this profile is referencing an organization, what year was it founded?'
+    },
+    interests: {
+      factory: interestsFactory(),
+      disabled: true,
+    },
+    orgTypes: {
+      factory: ReactSelectOrgTypesFactory,
+      disabled: true,
+    },
+    selfDefinedRoles: {
+      factory: ReactSelectRolesFactory,
+      disabled: true,
+    },
+    gender: {
+      factory: ReactSelectGendersFactory,
+      disabled: true,
     },
   },
 });

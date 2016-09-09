@@ -1,0 +1,9 @@
+.translation-source {
+  @include span(1 of 2 inside);
+
+  color: $gray;
+}
+
+.translation-target {
+  @include span(last 1 of 2 inside);
+}

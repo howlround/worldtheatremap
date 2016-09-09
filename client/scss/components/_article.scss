@@ -15,7 +15,7 @@ article.full {
     }
   }
 
-  .edit-link {
+  .edit-links {
     display: block;
     font-size: 13px;
 
@@ -23,6 +23,11 @@ article.full {
       position: absolute;
       top: $spacing-unit * 3;
       right: $spacing-unit * 3;
+    }
+
+    a {
+      display: block;
+      text-align: right;
     }
   }
 }

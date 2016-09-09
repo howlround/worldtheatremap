@@ -227,12 +227,15 @@ export default class EventsGlobe extends React.Component {
   }
 
   render() {
+    const { events } = this.props;
     const { currentEvent } = this.state;
 
     return (
       <div className="events-globe">
-        <div id="globe"></div>
-        { currentEvent ? <div className="event-info-wrapper"><div className="event-info" onMouseOver={ this.pause } onMouseLeave={ this.continue }><EventTeaserWithShow event={ currentEvent } /></div></div> : '' }
+        {events && events.length ?
+          <div id="globe"></div> : ''
+        }
+        {events && events.length && currentEvent ? <div className="event-info-wrapper"><div className="event-info" onMouseOver={ this.pause } onMouseLeave={ this.continue }><EventTeaserWithShow event={ currentEvent } /></div></div> : '' }
       </div>
     );
   }

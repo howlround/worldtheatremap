@@ -6,7 +6,8 @@ export default createContainer(() => {
   const localitiesSubscribe = Meteor.subscribe('localities.public');
   const countriesSubscribe = Meteor.subscribe('countries.public');
   const administrativeAreasSubscribe = Meteor.subscribe('administrativeAreas.public');
+  const profilesSubscribe = Meteor.subscribe('profiles.public');
   return {
-    loading: !(localitiesSubscribe.ready() && countriesSubscribe.ready() && administrativeAreasSubscribe.ready()),
+    loading: !(localitiesSubscribe.ready() && countriesSubscribe.ready() && administrativeAreasSubscribe.ready() && profilesSubscribe.ready()),
   };
 }, SearchProfiles);

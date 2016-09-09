@@ -86,7 +86,7 @@ export default class ProfileSearchResult extends React.Component {
           >
             {profile.name}
           </Link>
-          <div className="profile-metadata">
+          <div className="profile-metadata metadata">
             { !_.isEmpty(locationBlock) ?
                 <div className="profile-location"><span className="profile-metadata-label">Location: </span>{ locationBlock }</div> : '' }
             { !_.isEmpty(profile.selfDefinedRoles) ?

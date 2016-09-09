@@ -1,7 +1,6 @@
 // Meteor
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Factory } from 'meteor/factory';
 import { _ } from 'meteor/underscore';
 
@@ -9,11 +8,6 @@ import { _ } from 'meteor/underscore';
 import React from 'react';
 import t from 'tcomb-form';
 import ReactSelect from 'react-select';
-
-// Collections
-import { Shows } from '../shows/shows.js';
-import { Participants } from '../participants/participants.js';
-import { RelatedRecords } from '../relatedRecords/relatedRecords.js';
 
 // API
 import { AllCountriesFactory } from '../../api/countries/countries.js';
@@ -24,7 +18,7 @@ import { upsert as upsertLocality } from '../localities/methods.js';
 import { upsert as upsertAdministrativeArea } from '../administrativeAreas/methods.js';
 import { upsert as upsertCountry } from '../countries/methods.js';
 
-class ProfilesCollection extends Mongo.Collection {
+class ProfilesCollection extends TAPi18n.Collection {
   insert(profile, callback) {
     const ourProfile = profile;
     // Do any preprocessing here
@@ -579,14 +573,6 @@ export const translateSourceFormOptions = () => ({
   },
 });
 
-// Profiles.schema = new SimpleSchema({
-//   name: { type: String },
-//   about: { type: String, optional: true },
-//   roles: { type: Object, optional: true },
-// });
-
-// Profiles.attachSchema(Profiles.schema);
-
 // This represents the keys from Profiles objects that should be published
 // to the client. If we add secret properties to Profile objects, don't profile
 // them here to keep them private to the server.
@@ -616,57 +602,3 @@ Profiles.publicFields = {
 };
 
 Factory.define('profile', Profiles, {});
-
-Profiles.helpers({
-  // // A profile is considered to be private if it has a userId set
-  // isPrivate() {
-  //   return !!this.userId;
-  // },
-  // isLastPublicProfile() {
-  //   const publicProfileCount = Profiles.find({ userId: { $exists: false } }).count();
-  //   return !this.isPrivate() && publicProfileCount === 1;
-  // },
-  // editableBy(userId) {
-  //   if (!this.userId) {
-  //     return true;
-  //   }
-
-  //   return this.userId === userId;
-  // },
-  getShows() {
-    // You should already subscribe to shows.byAuthor
-    const connectedProfilesSub = Meteor.subscribe('shows.byAuthor', this._id);
-    return Shows.find({ "author.id": this._id });
-  },
-
-  getRoles() {
-    let roles = new Array;
-    const participantRecords = Participants.find({ "profile.id": this._id }, { fields: { "role": true } }).map(record => {
-      if (!_.contains(roles, record.role)) {
-        roles.push(record.role);
-      }
-    });
-    return roles;
-  },
-
-  getConnections() {
-    let profileIds = new Array;
-    const relatedProfiles = RelatedRecords.find({ "profiles": this._id }).map(relatedRecord => {
-      for (let i = relatedRecord.profiles.length - 1; i >= 0; i--) {
-        if (relatedRecord.profiles[i] === this._id) {
-          continue;
-        } else {
-          profileIds.push(relatedRecord.profiles[i]);
-        }
-      }
-    });
-
-    // Subscribe to this group of profiles
-    const connectedProfilesSub = Meteor.subscribe('profiles.byId', profileIds);
-
-    // Return array of profile objects instead of just the ids
-    return Profiles.find({ _id: { $in: profileIds } }, {
-      fields: Profiles.publicFields,
-    }).fetch();
-  },
-});

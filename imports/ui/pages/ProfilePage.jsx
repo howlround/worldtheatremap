@@ -16,26 +16,9 @@ import { Link } from 'react-router';
 export default class ProfilePage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      editing: this.props.editing ? this.props.profile._id : null
-    };
-    this.onEditingChange = this.onEditingChange.bind(this);
+
     this.renderRelatedProfiles = this.renderRelatedProfiles.bind(this);
     this.initializeD3Globe = this.initializeD3Globe.bind(this);
-  }
-
-  onEditingChange(id, editing) {
-    this.setState({
-      editing: editing ? id : null,
-    });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.editing !== nextProps.editing) {
-      this.setState({
-        editing: nextProps.editing,
-      });
-    }
   }
 
   renderRelatedProfiles() {
@@ -187,12 +170,9 @@ export default class ProfilePage extends React.Component {
   render() {
     // const { profile, profileExists, loading } = this.props;
     const { profile, user, shows, roles, connections, loading } = this.props;
-    const { editing } = this.state;
 
     const profilePageClass = classnames({
       'page': true,
-      'profiles-show': true,
-      editing,
     });
 
     if (loading) {
@@ -204,41 +184,7 @@ export default class ProfilePage extends React.Component {
       return (
         <NotFoundPage/>
       );
-    }
-    else if (editing && user) {
-      return (
-        <div className="overlay-wrapper">
-          <Modal/>
-          <div className={profilePageClass}>
-            <ProfileEdit
-              profile={profile}
-              onEditingChange={this.onEditingChange}
-            />
-          </div>
-          <Link
-            to={`/profiles/${ profile._id }`}
-            title='Back'
-            className="overlay-close"
-          >
-            &times;
-          </Link>
-        </div>
-      );
-    }
-    else if (editing) {
-      return (
-        <div className="overlay-wrapper">
-          <Modal/>
-          <div className="page auth">
-            <Message title="Access denied" subtitle="Sign in or register to participate in the World Theatre Map"/>
-            <div className="page-content">
-              <AuthSignIn/>
-            </div>
-          </div>
-        </div>
-      )
-    }
-    else {
+    } else {
       return (
         <div className={profilePageClass}>
           <Profile
@@ -246,7 +192,6 @@ export default class ProfilePage extends React.Component {
             user={user}
             shows={shows}
             roles={roles}
-            onEditingChange={this.onEditingChange}
           />
           <aside className="sidebar">
             { (profile.lat && profile.lon) ?

@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Profiles } from '../../api/profiles/profiles.js';
 import { createContainer } from 'meteor/react-meteor-data';
-import ProfilePage from '../pages/ProfilePage.jsx';
+import ProfileEditPage from '../pages/ProfileEditPage.jsx';
 
 export default createContainer(({ params: { id } }) => {
   const singleProfileSubscription = Meteor.subscribe('profiles.singleById', id);
@@ -16,4 +16,4 @@ export default createContainer(({ params: { id } }) => {
     editing: profileExists ? profile._id : null,
     shows: [],
   };
-}, ProfilePage);
+}, ProfileEditPage);

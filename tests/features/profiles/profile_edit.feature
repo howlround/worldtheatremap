@@ -1,7 +1,8 @@
-Feature: Edit organization profiles
+@profiles
+Feature: Edit profiles
 
   As a user
-  I want to edit organization profiles
+  I want to edit profiles
   So I can make sure information is up to date
 
   Background:
@@ -13,7 +14,7 @@ Feature: Edit organization profiles
     When I go to the profile page for "Favorite place theatre"
     Then I should not see ".edit-link"
 
-  Scenario: As a user editing an organization profile page I want to be able to update information about that organization
+  Scenario: As a user editing a profile page I want to be able to update information
     And I am logged in
     And a profile with the following fields:
       | name | Favorite place theatre |

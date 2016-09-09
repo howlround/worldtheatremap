@@ -121,8 +121,6 @@ export default class ProfileEdit extends React.Component {
     if (newProfile) {
       this.throttledUpdate(newProfile);
 
-      // Only change editing state if validation passed
-      this.props.onEditingChange(this.props.profile._id, false);
       const { router } = this.context;
       router.push(`/profiles/${ this.props.profile._id }`);
     }
@@ -153,7 +151,6 @@ export default class ProfileEdit extends React.Component {
 
 ProfileEdit.propTypes = {
   profile: React.PropTypes.object,
-  onEditingChange: React.PropTypes.func,
   googpleMapsReady: React.PropTypes.bool,
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { _ } from 'meteor/underscore';
 import { displayError } from '../helpers/errors.js';
-import { update } from '../../api/profiles/methods.js';
+import { translate } from '../../api/profiles/methods.js';
 import { translateFormSchema, defaultFormOptions } from '../../api/profiles/profiles.js';
 import t from 'tcomb-form';
 
@@ -15,9 +15,11 @@ export default class ProfileEdit extends React.Component {
 
     this.throttledUpdate = _.throttle(newProfile => {
       if (newProfile) {
-        update.call({
+        console.log('translate');
+        translate.call({
           profileId: this.props.profile._id,
           newProfile,
+          lang: 'es',
         }, displayError);
 
         // @TODO:Update this profile name in all plays and events

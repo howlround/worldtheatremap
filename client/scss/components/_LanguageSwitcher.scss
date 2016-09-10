@@ -1,0 +1,10 @@
+.language-switcher {
+  float: right;
+  margin: $spacing-unit;
+
+  a {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

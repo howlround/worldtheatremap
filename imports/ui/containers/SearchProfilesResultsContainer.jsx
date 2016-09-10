@@ -67,7 +67,7 @@ const SearchProfilesResultsContainer = createContainer((props) => {
     if (!_.isEmpty(privateQuery)) {
       // @TODO: Figure out why specific subscribe isn't working
       // then remove generic call on SearchProfilesContainer
-      // const profilesSubscribe = Meteor.subscribe('profiles.search', privateQuery);
+      // const profilesSubscribe = TAPi18n.subscribe('profiles.search', privateQuery);
       // loading = !profilesSubscribe.ready();
       results = Profiles.find(privateQuery, { sort: { name: 1 } }).fetch();
     }

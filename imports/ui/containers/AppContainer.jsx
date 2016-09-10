@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { TAPi18n } from 'meteor/tap:i18n';
 import { Session } from 'meteor/session';
 import { Profiles } from '../../api/profiles/profiles.js';
 import { Shows } from '../../api/shows/shows.js';
@@ -30,6 +31,11 @@ export default createContainer(() => {
       fields: Events.publicFields,
       sort: { startDate: 1 }
     });
+
+  // Language
+  const lang = TAPi18n.getLanguage();
+  const supportedLanguages = TAPi18n.getLanguages();
+
   return {
     user: Meteor.user(),
     loading: !(eventsWithLocationsSubscribe.ready()),
@@ -41,5 +47,7 @@ export default createContainer(() => {
     eventsTodayCount: eventsTodayWithLocationsCursor.count(),
     startDate,
     endDate,
+    lang,
+    supportedLanguages,
   };
 }, App);

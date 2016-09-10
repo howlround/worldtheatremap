@@ -8,7 +8,7 @@ Feature: Translate profile fields
   Background:
     Given I am on the home page
 
-  Scenario: Users should be able to translate basic fields on a profile into Spanish
+  Scenario: As a user lookingat the site in English I should be able to translate basic fields on a profile into Spanish
     And I am logged in
     And I go to the "profile" add page
     And I fill in ".profile-name-edit" with "Simona"
@@ -20,8 +20,10 @@ Feature: Translate profile fields
     And I fill in ".translation-target .profile-about-edit" with "La mayoría nombre popular en México (2013)"
     And I click on ".translation-target .edit-profile-save"
     # Make sure it's not just overwriting base language
-    Then the ".profile-name" element should contain "Ximena"
+    Then the ".profile-name" element should contain "Simona"
     And the ".profile-about" element should contain "Most popular name in Mexico (2013)"
-    And I click on ".translate [name=Spanish]"
-    And the ".profile-name" element should contain "Simona"
+    And I click on ".language-switcher [name=es]"
+    And the ".profile-name" element should contain "Ximena"
     And the ".profile-about" element should contain "La mayoría nombre popular en México (2013)"
+
+  # The edit page should load up the translation next time

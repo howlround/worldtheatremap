@@ -1,6 +1,5 @@
 // Meteor
-import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
+import { TAPi18n } from 'meteor/tap:i18n';
 import { Factory } from 'meteor/factory';
 import { _ } from 'meteor/underscore';
 

@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { TAPi18n } from 'meteor/tap:i18n';
 import { Profiles } from '../../api/profiles/profiles.js';
 import { createContainer } from 'meteor/react-meteor-data';
 
@@ -16,21 +17,23 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
   const participantsSubscribe = Meteor.subscribe('participants.public');
 
   // Connections
-  // @TODO: Refactor to not push to the profileIds array
+  // @TODO: Refactor to not push to the connectionIds array
   const connectionsSubscribe = Meteor.subscribe('relatedRecords.byProfile', id);
-  let profileIds = new Array;
+  let connectionIds = new Array;
   const relatedProfiles = RelatedRecords.find({ "profiles": this._id }).map(relatedRecord => {
     for (let i = relatedRecord.profiles.length - 1; i >= 0; i--) {
       if (relatedRecord.profiles[i] === this._id) {
         continue;
       } else {
-        profileIds.push(relatedRecord.profiles[i]);
+        connectionIds.push(relatedRecord.profiles[i]);
       }
     }
   });
 
   // Add the author themselves to save a subscription
-  const connectedProfilesSub = Meteor.subscribe('profiles.byId', _.union(profileIds, [id]));
+  const allNecessaryProfiles = connectionIds;
+  allNecessaryProfiles.push(id);
+  const connectedProfilesSub = TAPi18n.subscribe('profiles.byId', allNecessaryProfiles);
 
   // Roles
   // @TODO: Refactor to not push to the roles array
@@ -48,7 +51,7 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
   const connections = profile ? Profiles.find(
     {
       _id: {
-        $in: profileIds
+        $in: connectionIds
       }
     }, {
       fields: Profiles.publicFields,

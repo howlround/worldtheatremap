@@ -2,6 +2,7 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Link } from 'react-router';
 
+import LanguageSwitcher from '../components/LanguageSwitcher.jsx';
 import UserMenu from '../components/UserMenu.jsx';
 import AddMenu from '../components/AddMenu.jsx';
 import EventsGlobe from '../components/EventsGlobe.jsx';
@@ -20,6 +21,7 @@ export default class App extends React.Component {
       showConnectionIssue: false,
       forceCloseDropDown: { AddMenu: false, UserMenu: false },
     };
+
     this.logout = this.logout.bind(this);
     this.hideDropDown = this.hideDropDown.bind(this);
   }
@@ -130,6 +132,8 @@ export default class App extends React.Component {
       menuOpen,
       children,
       location,
+      lang,
+      supportedLanguages,
     } = this.props;
 
     // clone route components with keys so that they can
@@ -175,6 +179,7 @@ export default class App extends React.Component {
         {showConnectionIssue && !connected
           ? <ConnectionNotification />
           : null}
+        <LanguageSwitcher lang={lang} supportedLanguages={supportedLanguages} />
         <div id="content-container">
           {loading
             ? <Loading key="loading" />
@@ -209,6 +214,8 @@ App.propTypes = {
   children: React.PropTypes.element, // matched child route component
   location: React.PropTypes.object,  // current router location
   params: React.PropTypes.object,    // parameters of the current route
+  lang: React.PropTypes.string,
+  supportedLanguages: React.PropTypes.object,
 };
 
 App.contextTypes = {

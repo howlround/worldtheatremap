@@ -1,17 +1,17 @@
 /* eslint-disable prefer-arrow-callback */
-import { Meteor } from 'meteor/meteor';
+import { TAPi18n } from 'meteor/tap:i18n'
 import { Profiles } from '../profiles.js';
 
-Meteor.publish('profiles.public', function profilesPublic() {
-  return Profiles.find({}, {
+TAPi18n.publish('profiles.public', function profilesPublic() {
+  return Profiles.i18nFind({}, {
     fields: Profiles.publicFields,
   });
 });
 
-Meteor.publish('profiles.search', function profilesSearch(query, requestedPage) {
+TAPi18n.publish('profiles.search', function profilesSearch(query, requestedPage) {
   const limit = 20;
   const skip = requestedPage ? requestedPage * limit : 0;
-  return Profiles.find(query, {
+  return Profiles.i18nFind(query, {
     fields: Profiles.publicFields,
     sort: { name: 1 },
     limit,
@@ -19,14 +19,14 @@ Meteor.publish('profiles.search', function profilesSearch(query, requestedPage) 
   });
 });
 
-Meteor.publish('profiles.byId', function profilesById(ids) {
-  return Profiles.find({ _id: { $in: ids } }, {
+TAPi18n.publish('profiles.byId', function profilesById(ids) {
+  return Profiles.i18nFind({ _id: { $in: ids } }, {
     fields: Profiles.publicFields,
   });
 });
 
-Meteor.publish('profiles.singleById', function profilesById(id) {
-  return Profiles.find({ _id: id }, {
+TAPi18n.publish('profiles.singleById', function profilesById(id) {
+  return Profiles.i18nFind({ _id: id }, {
     fields: Profiles.publicFields,
     limit: 1,
   });

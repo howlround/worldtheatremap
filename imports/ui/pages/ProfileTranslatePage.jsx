@@ -12,6 +12,13 @@ import Loading from '../components/Loading.jsx';
 import { Link } from 'react-router';
 
 export default class ProfileTranslatePage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    const { lang } = this.props;
+
+    TAPi18n.setLanguage(lang);
+  }
   componentWillReceiveProps(nextProps) {
     const { profile, user, loading, lang } = nextProps;
 
@@ -23,14 +30,41 @@ export default class ProfileTranslatePage extends React.Component {
         this.context.router.push('/');
       }
     }
+
+    this.switchToTarget = this.switchToTarget.bind(this);
+    this.switchToSource = this.switchToSource.bind(this);
+  }
+
+  switchToTarget() {
+    const { lang } = this.props;
+
+    TAPi18n.setLanguage(lang);
+  }
+
+  switchToSource() {
+    TAPi18n.setLanguage('en');
   }
 
   render() {
     const { profile, user, loading, lang } = this.props;
+    const currentLanguage = TAPi18n.getLanguage();
+    const targetLangInfo = TAPi18n.getLanguages()[lang];
 
     const profilePageClass = classnames({
       page: true,
       'translation-page': true,
+    });
+
+    const sourceClassNames = classnames({
+      'translation-source': true,
+      'active-pane': currentLanguage === 'en',
+      'passive-pane': currentLanguage !== 'en',
+    });
+
+    const targetClassNames = classnames({
+      'translation-target': true,
+      'active-pane': currentLanguage !== 'en',
+      'passive-pane': currentLanguage === 'en',
     });
 
     if (loading) {
@@ -46,14 +80,16 @@ export default class ProfileTranslatePage extends React.Component {
         <div className="overlay-wrapper">
           <Modal />
           <div className={profilePageClass}>
-            <div className="translation-source">
-              <h2>English</h2>
-              <ProfileTranslateSource
-                profile={profile}
-              />
+            <div onClick={this.switchToSource}>
+              <div className={sourceClassNames}>
+                <h2>English (for reference)</h2>
+                <ProfileTranslateSource
+                  profile={profile}
+                />
+              </div>
             </div>
-            <div className="translation-target">
-              <h2>Spanish</h2>
+            <div className={targetClassNames} onClick={this.switchToTarget}>
+              <h2>{targetLangInfo.name}</h2>
               <ProfileTranslateTarget
                 profile={profile}
               />
@@ -96,6 +132,7 @@ ProfileTranslatePage.propTypes = {
   connections: React.PropTypes.array,
   loading: React.PropTypes.bool,
   profileExists: React.PropTypes.bool,
+  lang: React.PropTypes.string,
 };
 
 ProfileTranslatePage.contextTypes = {

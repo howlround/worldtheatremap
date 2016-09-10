@@ -281,7 +281,6 @@ export const profileFiltersSchema = t.struct({
 export const translateFormSchema = t.struct({
   name: t.String, // Required
   about: t.maybe(t.String),
-  agent: t.maybe(t.String),
 });
 
 export const defaultFormOptions = () => ({

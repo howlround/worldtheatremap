@@ -1,9 +1,53 @@
-.translation-source {
-  @include span(1 of 2 inside);
+.overlay-wrapper {
+  .translation-page.page {
+    padding: 0;
+    background-color: transparent;
 
-  color: $gray;
-}
+    @include breakpoint($narrow) {
+      padding: 0;
+    }
 
-.translation-target {
-  @include span(last 1 of 2 inside);
+    .translation-source {
+      color: $gray;
+      position: absolute;
+      padding: $spacing-unit;
+      background-color: $light-gray;
+      width: 97%;
+
+      input[type="text"],
+      textarea {
+        border: 1px solid $white;
+      }
+
+      @include breakpoint($narrow) {
+        padding: $spacing-unit * 4;
+      }
+    }
+
+    .translation-target {
+      position: absolute;
+      padding: $spacing-unit;
+      background-color: $light-gray;
+      width: 97%;
+
+      @include breakpoint($narrow) {
+        padding: $spacing-unit * 4;
+      }
+    }
+
+    .active-pane {
+      right: 0;
+      z-index: 10;
+      margin-top: 74px;
+      -webkit-box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.25);
+      -moz-box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.25);
+      box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.25);
+    }
+
+    .passive-pane {
+      z-index: 9;
+      background-color: $background-teal;
+      cursor: pointer;
+    }
+  }
 }

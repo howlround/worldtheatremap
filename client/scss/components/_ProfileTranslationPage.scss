@@ -13,6 +13,7 @@
       padding: $spacing-unit;
       background-color: $light-gray;
       width: 97%;
+      padding-bottom: 90px;
 
       input[type="text"],
       textarea {
@@ -21,6 +22,7 @@
 
       @include breakpoint($narrow) {
         padding: $spacing-unit * 4;
+        padding-bottom: 90px;
       }
     }
 
@@ -38,10 +40,14 @@
     .active-pane {
       right: 0;
       z-index: 10;
-      margin-top: 74px;
+      margin-top: 40px;
       -webkit-box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.25);
       -moz-box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.25);
       box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.25);
+
+      @include breakpoint($narrow) {
+        margin-top: 74px;
+      }
     }
 
     .passive-pane {

@@ -155,7 +155,7 @@ export default class Profile extends React.Component {
   render() {
     const { profile, user, shows, roles } = this.props;
 
-    const editLink = user ?
+    const editLink = (user && TAPi18n.getLanguage() === 'en') ?
       <Link
         to={`/profiles/${ profile._id }/edit`}
         key={`${profile._id}-edit`}
@@ -166,7 +166,7 @@ export default class Profile extends React.Component {
       </Link>
     : '';
 
-    const translateLink = user ?
+    const translateLink = (user && TAPi18n.getLanguage() === 'en') ?
       <Link
         to={`/profiles/${ profile._id }/translate/es`}
         key={`${profile._id}-translate`}

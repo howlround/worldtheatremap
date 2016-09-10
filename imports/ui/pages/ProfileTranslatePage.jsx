@@ -80,13 +80,11 @@ export default class ProfileTranslatePage extends React.Component {
         <div className="overlay-wrapper">
           <Modal />
           <div className={profilePageClass}>
-            <div onClick={this.switchToSource}>
-              <div className={sourceClassNames}>
-                <h2>English (for reference)</h2>
-                <ProfileTranslateSource
-                  profile={profile}
-                />
-              </div>
+            <div className={sourceClassNames} onClick={this.switchToSource}>
+              <h2>English (for reference)</h2>
+              <ProfileTranslateSource
+                profile={profile}
+              />
             </div>
             <div className={targetClassNames} onClick={this.switchToTarget}>
               <h2>{targetLangInfo.name}</h2>

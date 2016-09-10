@@ -31,7 +31,7 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
   });
 
   // Add the author themselves to save a subscription
-  const allNecessaryProfiles = connectionIds;
+  const allNecessaryProfiles = _.clone(connectionIds);
   allNecessaryProfiles.push(id);
   const connectedProfilesSub = TAPi18n.subscribe('profiles.byId', allNecessaryProfiles);
 

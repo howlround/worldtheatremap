@@ -15,7 +15,6 @@ export default class ProfileEdit extends React.Component {
 
     this.throttledUpdate = _.throttle(newProfile => {
       if (newProfile) {
-        console.log('translate');
         translate.call({
           profileId: this.props.profile._id,
           newProfile,

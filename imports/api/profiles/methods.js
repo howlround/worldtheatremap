@@ -20,8 +20,59 @@ export const insert = new ValidatedMethod({
       throw new ValidationError(result.firstError());
     }
   },
-  run({ newProfile }) {
-    return Profiles.insert(newProfile);
+  run({ newProfile, targetLang }) {
+    // The permutations of viewing language and target language:
+    // (After doing this we will conflate "Viewing in" and "Target" for now. They can be split apart later if required.)
+    // [Viewing: Spanish + ]Target: Spanish
+    //  - Save name, and all tags, and image to english; everything minus tags to spanish
+    // [Viewing: Spanish + ]Target: English
+    //  - Save everything to english
+    // [Viewing: English + ]Target: English
+    //  - Save everything to english
+    // [Viewing English + ]Target: Spanish
+    //  - Save name, and all tags, and image to english; everything minus tags to spanish
+
+    if (targetLang && targetLang === 'es') {
+      const baseDoc = {
+        name: newProfile.name,
+      }
+
+      if (!_.isEmpty(newProfile.profileType)) {
+        baseDoc.profileType = newProfile.profileType;
+        delete newProfile.profileType;
+      }
+      if (!_.isEmpty(newProfile.interests)) {
+        baseDoc.interests = newProfile.interests;
+        delete newProfile.interests;
+      }
+      if (!_.isEmpty(newProfile.orgTypes)) {
+        baseDoc.orgTypes = newProfile.profileType;
+        delete newProfile.orgTypes;
+      }
+      if (!_.isEmpty(newProfile.selfDefinedRoles)) {
+        baseDoc.selfDefinedRoles = newProfile.selfDefinedRoles;
+        delete newProfile.selfDefinedRoles;
+      }
+      if (!_.isEmpty(newProfile.gender)) {
+        baseDoc.gender = newProfile.gender;
+        delete newProfile.gender;
+      }
+
+      const translatedDoc = newProfile;
+    } else {
+      // Target language is English, either by default or specifically stated
+      const baseDoc = newProfile;
+      const translatedDoc = {
+        name: newProfile.name,
+      }
+    }
+
+    // @TODO: Change Update function to match
+    return Profiles.insertTranslations(newProfile, {
+        es: {
+          name: newProfile.name,
+        },
+    });
   },
 });
 

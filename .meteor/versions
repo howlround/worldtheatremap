@@ -35,6 +35,7 @@ ddp-common@1.2.6
 ddp-rate-limiter@1.0.5
 ddp-server@1.2.10
 deps@1.0.12
+dfischer:prerenderio@1.0.9
 diff-sequence@1.0.6
 dispatch:mocha-phantomjs@0.1.7
 dispatch:phantomjs-tests@0.0.5
@@ -62,6 +63,7 @@ less@2.6.5
 livedata@1.0.18
 localstorage@1.0.11
 logging@1.0.14
+mdg:seo@1.0.1
 mdg:validated-method@1.1.0
 mdg:validation-error@0.5.1
 meteor@1.1.16

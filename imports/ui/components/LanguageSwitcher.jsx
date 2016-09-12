@@ -35,7 +35,8 @@ export default class LanguageSwitcher extends React.Component {
         <a key={langCode} name={langCode} onClick={
           (e) => {
             e.preventDefault();
-            TAPi18n.setLanguage(langCode);
+            window.AppState.setLocale(langCode);
+            window.AppState.rerender();
           }
         }>
           {langLocalName}

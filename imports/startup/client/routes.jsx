@@ -3,6 +3,8 @@ import { Router, Route, IndexRedirect, browserHistory, useRouterHistory } from '
 import createBrowserHistory from 'history/lib/createBrowserHistory'
 import { stringify, parse } from 'qs'
 
+import { IntlProvider } from 'react-intl';
+
 // route components
 import AppContainer from '../../ui/containers/AppContainer.jsx';
 import ShowAddContainer from '../../ui/containers/ShowAddContainer.jsx';
@@ -28,41 +30,43 @@ import SearchShowsContainer from '../../ui/containers/SearchShowsContainer.jsx';
 const stringifyQuery = query => stringify(query, { arrayFormat: 'brackets', encode: false})
 const customHistory = useRouterHistory(createBrowserHistory)({ parseQueryString: parse, stringifyQuery })
 
-export const renderRoutes = () => (
-  <Router history={customHistory}>
-    <Route path="/" component={AppContainer}>
-      <Route path="profiles">
-        <IndexRedirect to="add"/>
-        <Route path="add" component={ProfileAddContainer}/>
-        <Route path=":id" component={ProfileContainer}/>
-        <Route path=":id/edit" component={ProfileEditContainer}/>
-        <Route path=":id/translate">
-          <IndexRedirect to="es"/>
-          <Route path=":lang" component={ProfileTranslateContainer}/>
+export const renderRoutes = ({ locale }) => (
+  <IntlProvider locale={locale} key={locale}>
+    <Router history={customHistory}>
+      <Route path="/" component={AppContainer}>
+        <Route path="profiles">
+          <IndexRedirect to="add"/>
+          <Route path="add" component={ProfileAddContainer}/>
+          <Route path=":id" component={ProfileContainer}/>
+          <Route path=":id/edit" component={ProfileEditContainer}/>
+          <Route path=":id/translate">
+            <IndexRedirect to="es"/>
+            <Route path=":lang" component={ProfileTranslateContainer}/>
+          </Route>
         </Route>
+        <Route path="shows">
+          <IndexRedirect to="add"/>
+          <Route path="add" component={ShowAddContainer}/>
+          <Route path=":id" component={ShowContainer}/>
+          <Route path=":id/edit" component={ShowEditContainer}/>
+        </Route>
+        <Route path="events">
+          <IndexRedirect to="add"/>
+          <Route path="add" component={EventAddContainer}/>
+          <Route path=":id" component={EventContainer}/>
+          <Route path=":id/edit" component={EventEditContainer}/>
+        </Route>
+        <Route path="signin" component={AuthSignInPage}/>
+        <Route path="join" component={AuthJoinPage}/>
+        <Route path="logout" component={LogoutPage}/>
+        <Route path="search">
+          <IndexRedirect to="profiles"/>
+          <Route path="profiles" component={SearchProfilesContainer}/>
+          <Route path="events" component={SearchEventsContainer}/>
+          <Route path="shows" component={SearchShowsContainer}/>
+        </Route>
+        <Route path="*" component={NotFoundPage}/>
       </Route>
-      <Route path="shows">
-        <IndexRedirect to="add"/>
-        <Route path="add" component={ShowAddContainer}/>
-        <Route path=":id" component={ShowContainer}/>
-        <Route path=":id/edit" component={ShowEditContainer}/>
-      </Route>
-      <Route path="events">
-        <IndexRedirect to="add"/>
-        <Route path="add" component={EventAddContainer}/>
-        <Route path=":id" component={EventContainer}/>
-        <Route path=":id/edit" component={EventEditContainer}/>
-      </Route>
-      <Route path="signin" component={AuthSignInPage}/>
-      <Route path="join" component={AuthJoinPage}/>
-      <Route path="logout" component={LogoutPage}/>
-      <Route path="search">
-        <IndexRedirect to="profiles"/>
-        <Route path="profiles" component={SearchProfilesContainer}/>
-        <Route path="events" component={SearchEventsContainer}/>
-        <Route path="shows" component={SearchShowsContainer}/>
-      </Route>
-      <Route path="*" component={NotFoundPage}/>
-    </Route>
-  </Router>
+    </Router>
+  </IntlProvider>
 );

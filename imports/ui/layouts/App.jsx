@@ -2,6 +2,8 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Link } from 'react-router';
 
+import { FormattedMessage } from 'react-intl';
+
 import LanguageSwitcher from '../components/LanguageSwitcher.jsx';
 import UserMenu from '../components/UserMenu.jsx';
 import AddMenu from '../components/AddMenu.jsx';
@@ -50,7 +52,15 @@ export default class App extends React.Component {
 
     return (
       <section className="homepage-events-globe">
-        <div className="homepage-section-header"><h2>What's Happening Today</h2></div>
+        <div className="homepage-section-header">
+          <h2>
+            <FormattedMessage
+              id='home.todayGlobeHeader'
+              description='Header for home page events globe'
+              defaultMessage="What's Happening Today"
+            />
+          </h2>
+        </div>
         <p>The World Theatre Map is a user-generated directory and a real-time media hub of the world’s theatre community.</p>
         <EventsGlobe events={eventsTodayWithLocations} />
       </section>

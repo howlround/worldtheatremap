@@ -61,7 +61,13 @@ export default class App extends React.Component {
             />
           </h2>
         </div>
-        <p>The World Theatre Map is a user-generated directory and a real-time media hub of the world’s theatre community.</p>
+        <p>
+          <FormattedMessage
+            id='home.introText'
+            description='Large introduction text on the home page'
+            defaultMessage="The World Theatre Map is a user-generated directory and a real-time media hub of the world’s theatre community."
+          />
+        </p>
         <EventsGlobe events={eventsTodayWithLocations} />
       </section>
     );
@@ -85,51 +91,17 @@ export default class App extends React.Component {
             to={{ pathname: '/search/events', query: { startDate, endDate } }}
             className="events-today-view-all"
           >
-            See All Events
+            <FormattedMessage
+              id="home.todayEventsMoreLink"
+              description="See all today's events link on home page"
+              defaultMessage="See All Events"
+            />
           </Link>
         </section>
       );
     } else {
       return (null);
     }
-  }
-
-  renderHomePageProfiles() {
-    const { profiles } = this.props;
-
-    return (
-      profiles.map(profile => (
-        <li key={profile._id}>
-          <Link
-            to={`/profiles/${profile._id}`}
-            title={profile.name}
-            className="profile-view"
-            activeClassName="active"
-          >
-            {profile.name}
-          </Link>
-        </li>
-      ))
-    );
-  }
-
-  renderHomePageShows() {
-    const { shows } = this.props;
-
-    return (
-      shows.map(show => (
-        <li key={show._id}>
-          <Link
-            to={`/shows/${show._id}`}
-            title={show.name}
-            className="show-view"
-            activeClassName="active"
-          >
-            {show.name}
-          </Link>
-        </li>
-      ))
-    );
   }
 
   render() {
@@ -198,10 +170,6 @@ export default class App extends React.Component {
             <div className="page">
               {!loading && eventsTodayWithLocations ? this.renderTodayMap() : ''}
               {!loading && eventsTodayWithLocations ? this.renderTodayList() : ''}
-              <ul>
-                {this.renderHomePageProfiles()}
-                {this.renderHomePageShows()}
-              </ul>
             </div> : ''
           }
         </div>

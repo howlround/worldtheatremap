@@ -9,6 +9,9 @@ export default class LanguageSwitcher extends React.Component {
     // Get all supported languages
     const switchOptions = this.props.supportedLanguages;
 
+    // Remove current language
+    delete switchOptions[this.props.lang];
+
     this.state = {
       switchOptions
     };

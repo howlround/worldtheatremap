@@ -30,8 +30,17 @@ import SearchShowsContainer from '../../ui/containers/SearchShowsContainer.jsx';
 const stringifyQuery = query => stringify(query, { arrayFormat: 'brackets', encode: false})
 const customHistory = useRouterHistory(createBrowserHistory)({ parseQueryString: parse, stringifyQuery })
 
-export const renderRoutes = ({ locale }) => (
-  <IntlProvider locale={locale} key={locale}>
+export const loadTranslation = ({ locale }) => {
+  let messages = {};
+  if (locale === 'es') {
+    messages = require("/i18n/es.json");
+  }
+
+  return messages;
+};
+
+export const renderRoutes = ({ locale, messages }) => (
+  <IntlProvider locale={locale} key={locale} messages={messages}>
     <Router history={customHistory}>
       <Route path="/" component={AppContainer}>
         <Route path="profiles">

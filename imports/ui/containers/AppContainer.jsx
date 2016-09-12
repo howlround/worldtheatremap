@@ -33,7 +33,8 @@ export default createContainer(() => {
     });
 
   // Language
-  const lang = TAPi18n.getLanguage();
+  // const lang = TAPi18n.getLanguage();
+  const lang = window.AppState.getLocale();
   const supportedLanguages = TAPi18n.getLanguages();
 
   return {

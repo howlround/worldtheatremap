@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { FormattedMessage } from 'react-intl';
 
 export default class AddMenu extends React.Component {
   constructor(props) {
@@ -53,12 +54,28 @@ export default class AddMenu extends React.Component {
     return (
       <div className="add-menu menu-container menu-right" onMouseEnter={this.open} onMouseLeave={this.close}>
         <a href="#" className="add menu-parent" onClick={this.toggle}>
-          + Add
+          <FormattedMessage
+            id='navigation.addMenu'
+            description='Parent navigation item for Add menu'
+            defaultMessage="+ Add"
+          />
         </a>
         { open ?
           <div className="add-options menu-children">
-            <Link to="/profiles/add" className="add-profile" onClick={this.close}>Add Person / Organization</Link>
-            <Link to="/events/add" className="add-event" onClick={this.close}>Add Event</Link>
+            <Link to="/profiles/add" className="add-profile" onClick={this.close}>
+              <FormattedMessage
+                id='navigation.addProfile'
+                description='Add menu item for a Profile'
+                defaultMessage="Add Person / Organization"
+              />
+            </Link>
+            <Link to="/events/add" className="add-event" onClick={this.close}>
+              <FormattedMessage
+                id='navigation.addEvent'
+                description='Add menu item for an Event'
+                defaultMessage="Add Event"
+              />
+            </Link>
           </div> : ''
         }
       </div>

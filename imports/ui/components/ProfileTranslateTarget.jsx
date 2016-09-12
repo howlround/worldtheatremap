@@ -1,4 +1,5 @@
 import React from 'react';
+import { TAPi18n } from 'meteor/tap:i18n';
 import { _ } from 'meteor/underscore';
 import { displayError } from '../helpers/errors.js';
 import { translate } from '../../api/profiles/methods.js';
@@ -121,6 +122,10 @@ export default class ProfileEdit extends React.Component {
     const newProfile = this.refs.form.getValue();
     if (newProfile) {
       this.throttledUpdate(newProfile);
+
+      // Make sure locale is set back to where the user was before
+      var locale = window.AppState.getLocale();
+      TAPi18n.setLanguage(locale);
 
       const { router } = this.context;
       router.push(`/profiles/${this.props.profile._id}`);

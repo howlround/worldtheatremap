@@ -1,8 +1,12 @@
 import React from 'react';
 import classnames from 'classnames';
+
 import { select, queue, json } from 'd3';
 import topojson from 'topojson';
 import { geoOrthographic, geoGraticule, geoPath, geoCentroid, geoInterpolate } from 'd3-geo';
+import { Link } from 'react-router';
+import { FormattedMessage } from 'react-intl';
+
 import Profile from '../components/Profile.jsx';
 import ProfileEdit from '../components/ProfileEdit.jsx';
 import ProfileContact from '../components/ProfileContact.jsx';
@@ -11,7 +15,6 @@ import Message from '../components/Message.jsx';
 import Modal from '../components/Modal.jsx';
 import AuthSignIn from '../components/AuthSignIn.jsx';
 import Loading from '../components/Loading.jsx';
-import { Link } from 'react-router';
 
 export default class ProfilePage extends React.Component {
   constructor(props) {
@@ -196,14 +199,26 @@ export default class ProfilePage extends React.Component {
           <aside className="sidebar">
             { (profile.lat && profile.lon) ?
               <section className="profile-globe">
-                <h2>Location</h2>
+                <h2>
+                  <FormattedMessage
+                    id='profilePage.locationHeader'
+                    description='Header for globe on the profile page sidebar'
+                    defaultMessage="Location"
+                  />
+                </h2>
                 <div id="globe"></div>
               </section> : ''
             }
             <ProfileContact profile={profile} />
             { connections.length > 0 ?
               <section>
-                <h2>Related People</h2>
+                <h2>
+                  <FormattedMessage
+                    id='profilePage.relatedPeopleHeader'
+                    description='Header for related people list on the profile page sidebar'
+                    defaultMessage="Related People"
+                  />
+                </h2>
                 <div className="content">
                   { this.renderRelatedProfiles() }
                 </div>

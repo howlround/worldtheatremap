@@ -10,3 +10,6 @@ npm-debug.log
 
 # Compiled CSS
 client/css
+
+# Compiled i18n filtes
+i18n/imports

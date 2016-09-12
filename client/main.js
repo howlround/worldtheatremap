@@ -6,7 +6,7 @@ import { addLocaleData } from 'react-intl'
 import en from 'react-intl/locale-data/en'
 import es from 'react-intl/locale-data/es'
 
-import { renderRoutes } from '../imports/startup/client/routes.jsx';
+import { renderRoutes, loadTranslation } from '../imports/startup/client/routes.jsx';
 import '/imports/startup/client';
 
 addLocaleData(en);
@@ -22,13 +22,15 @@ const initiateRender = () => {
 
     setLocale: function(lang) {
       localStorage.setItem('locale', lang);
-      TAPi18n.setLanguage(lang);
+      // TAPi18n.setLanguage(lang);
     },
 
     render: function() {
       var locale = this.getLocale();
+      TAPi18n.setLanguage(locale);
 
-      render(renderRoutes({ locale }), this.container)
+      const messages = loadTranslation( { locale });
+      render(renderRoutes({ locale, messages }), this.container)
     },
 
     unmount: function() {

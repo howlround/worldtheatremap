@@ -30,7 +30,6 @@ mdg:validated-method
 mdg:validation-error
 
 # i18n
-tap:i18n
 
 # accounts
 accounts-password

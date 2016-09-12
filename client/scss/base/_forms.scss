@@ -59,13 +59,18 @@ label {
     font-size: 0.8em;
   }
 
-  &.form-group-eventType {
+  &.form-group-eventType,
+  &.form-group-country {
     border: 1px solid $red;
     padding: $spacing-unit;
 
     .error-block {
       display: block;
     }
+  }
+
+  label {
+    color: $red;
   }
 
   input[type="text"] {

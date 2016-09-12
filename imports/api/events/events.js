@@ -298,6 +298,7 @@ export const defaultFormOptions = () => ({
       attrs: {
         className: 'event-country-edit',
       },
+      error: 'Country is required',
     },
     postalCode: {
       attrs: {

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { FormattedMessage } from 'react-intl';
+import Authors from '../components/Authors.jsx';
 
 export default class ShowTeaser extends React.Component {
   constructor(props) {
@@ -9,18 +11,6 @@ export default class ShowTeaser extends React.Component {
   render() {
     const { show } = this.props;
 
-    // @TODO: Abstract this to a function or component to reduce duplication in Show.jsx
-    const authors = show.author.map((author, index, array) => {
-      let seperator = ', ';
-      if (index == array.length - 1) {
-        seperator = '';
-      }
-      else if (index == array.length - 2) {
-        seperator = ' and ';
-      }
-      return <span key={author.id}><Link to={`/profiles/${ author.id }`} className="show-author">{author.name}</Link>{seperator}</span>
-    });
-
     return (
       <article className="show-teaser">
         <div className="show-main-info">
@@ -28,7 +18,12 @@ export default class ShowTeaser extends React.Component {
             <Link to={`/shows/${ show._id }`} key={show._id}>{show.name}</Link>
           </h3>
           <div className="show-authorship">
-            by {authors}
+            <FormattedMessage
+              id="show.authors"
+              description='By line for authors of a show'
+              defaultMessage={`by {authors}`}
+              values={{ authors: <Authors authors={show.author} /> }}
+            />
           </div>
         </div>
       </article>

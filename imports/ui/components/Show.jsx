@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router';
 import { insert } from '../../api/shows/methods.js';
 import classNames from 'classnames';
+import { FormattedMessage } from 'react-intl';
+import Authors from '../components/Authors.jsx';
 import EventTeaser from '../components/EventTeaser.jsx';
 import EventsMiniGlobe from '../components/EventsMiniGlobe.jsx';
 
@@ -38,23 +40,6 @@ export default class Show extends React.Component {
         Edit
       </Link>
     : '';
-
-    // @TODO: Abstract this to a function or component to reduce duplication in ShowTeaser.jsx
-    const authors = show.author.map((author, index, array) => {
-      let seperator = ', ';
-      if (index == array.length - 1) {
-        seperator = '';
-      }
-      else if (index == array.length - 2) {
-        if (array.length > 2) {
-          seperator = ', and ';
-        }
-        else {
-          seperator = ' and ';
-        }
-      }
-      return <span key={author.id}><Link to={`/profiles/${ author.id }`} className="show-author">{author.name}</Link>{seperator}</span>
-    });
 
     let events;
     if (eventsByShow && eventsByShow.length) {
@@ -98,7 +83,12 @@ export default class Show extends React.Component {
               {show.name}
             </h1>
             <div className="show-authorship">
-              by {authors}
+              <FormattedMessage
+                id="show.authors"
+                description='By line for authors of a show'
+                defaultMessage={`by {authors}`}
+                values={{ authors: <Authors authors={show.author} /> }}
+              />
             </div>
             <div className="show-metadata metadata">
               { !_.isEmpty(show.interests) ?

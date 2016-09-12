@@ -1,17 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { _ } from 'meteor/underscore';
-import { insert } from '../../api/participants/methods.js';
-import { displayError } from '../helpers/errors.js';
+import { FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
+import { displayError } from '../helpers/errors.js';
 import { select, queue, json } from 'd3';
 import topojson from 'topojson';
 import { geoOrthographic, geoGraticule, geoPath, geoCentroid, geoInterpolate } from 'd3-geo';
+import t from 'tcomb-form';
+
+import Authors from '../components/Authors.jsx';
+
+import { insert } from '../../api/participants/methods.js';
 import { participantFormSchema, defaultFormOptions } from '../../api/participants/participants.js';
 import { insert as insertProfile } from '../../api/profiles/methods.js';
 import { Profiles } from '../../api/profiles/profiles.js';
-import t from 'tcomb-form';
-import { FormattedMessage } from 'react-intl';
 
 const Form = t.form.Form;
 
@@ -273,19 +276,6 @@ export default class Event extends React.Component {
       </Link>
     : '';
 
-    // @TODO: Abstract this to a function or component to reduce duplication in EventTeaser.jsx
-    const authors = event.show.author.map((author, index, array) => {
-      let seperator = ', ';
-      if (index == array.length - 1) {
-        seperator = '';
-      }
-      else if (index == array.length - 2) {
-        seperator = ' and ';
-      }
-      return <span key={author.id}><Link to={`/profiles/${ author.id }`} className="show-author">{author.name}</Link>{seperator}</span>
-    });
-    // const authors = '';
-
     let participants;
     let participantsTitle = '0 Participants'
     if (participantsByEvent.length > 0) {
@@ -330,7 +320,12 @@ export default class Event extends React.Component {
               </Link>
             </h1>
             <div className="event-authorship">
-              by {authors}
+              <FormattedMessage
+                id="show.authors"
+                description='By line for authors of a show'
+                defaultMessage={`by {authors}`}
+                values={{ authors: <Authors authors={event.show.author} /> }}
+              />
             </div>
             <div className="event-details">
               <h3 className="event-type">

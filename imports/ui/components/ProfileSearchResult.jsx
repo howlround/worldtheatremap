@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { _ } from 'meteor/underscore';
 import { Link } from 'react-router';
-// import ShowTeaser from '../components/ShowTeaser.jsx';
+import { FormattedMessage } from 'react-intl';
 
 export default class ProfileSearchResult extends React.Component {
   constructor(props) {
@@ -11,18 +11,6 @@ export default class ProfileSearchResult extends React.Component {
 
   render() {
     const { profile } = this.props;
-
-    // Leave this for now in case we want to display show info on search results later
-    // let Shows;
-    // if (shows && shows.length) {
-    //   Shows = shows.map(show => (
-    //     <li key={show._id}>
-    //       <ShowTeaser
-    //         show={show}
-    //       />
-    //     </li>
-    //   ));
-    // }
 
     const interests = (profile.interests) ? profile.interests.map((interest, index, array) => {
       let seperator = ', ';
@@ -88,13 +76,44 @@ export default class ProfileSearchResult extends React.Component {
           </Link>
           <div className="profile-metadata metadata">
             { !_.isEmpty(locationBlock) ?
-                <div className="profile-location"><span className="profile-metadata-label">Location: </span>{ locationBlock }</div> : '' }
+              <div className="profile-location">
+                <span className="profile-metadata-label">
+                  <FormattedMessage
+                    id="profileSearchResult.locationLabel"
+                    description="Location label profile search result metadata"
+                    defaultMessage="Location"
+                  />:
+                </span> { locationBlock }
+              </div> : '' }
             { !_.isEmpty(profile.selfDefinedRoles) ?
-              <div className="profile-roles" title="Roles"><span className="profile-metadata-label">Roles: </span>{ selfDefinedRoles }</div> : '' }
+              <div className="profile-roles" title="Roles">
+                <span className="profile-metadata-label">
+                  <FormattedMessage
+                    id="profileSearchResult.rolesLabel"
+                    description="Roles label profile search result metadata"
+                    defaultMessage="Roles"
+                  />:
+                </span> { selfDefinedRoles }
+              </div> : '' }
             { !_.isEmpty(profile.orgTypes) ?
-              <div className="profile-organization-types" title="Organization Type"><span className="profile-metadata-label">Organization types: </span>{ orgTypes }</div> : '' }
+              <div className="profile-organization-types" title="Organization Type">
+                <span className="profile-metadata-label">
+                  <FormattedMessage
+                    id="profileSearchResult.orgTypesLabel"
+                    description="Organization Types label profile search result metadata"
+                    defaultMessage="Organization Types"
+                  />:
+                </span> { orgTypes }
+              </div> : '' }
             { !_.isEmpty(profile.interests) ?
-              <div className="profile-interests" title="Interests"><span className="profile-metadata-label">Interests: </span>{ interests }</div> : '' }
+              <div className="profile-interests" title="Interests">
+                <span className="profile-metadata-label">
+                  <FormattedMessage
+                    id="profileSearchResult.interestsLabel"
+                    description="Interests label profile search result metadata"
+                    defaultMessage="Interests"
+                  />:
+                </span> { interests }</div> : '' }
           </div>
         </div>
       </article>

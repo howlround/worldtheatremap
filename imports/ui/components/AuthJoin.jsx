@@ -154,7 +154,7 @@ class AuthJoin extends React.Component {
 }
 
 AuthJoin.propTypes = {
-    intl: intlShape.isRequired,
+  intl: intlShape.isRequired,
 };
 
 AuthJoin.contextTypes = {

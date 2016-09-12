@@ -1,6 +1,7 @@
 import React from 'react';
 import { _ } from 'meteor/underscore';
 import { displayError } from '../helpers/errors.js';
+import { FormattedMessage } from 'react-intl';
 import { update } from '../../api/profiles/methods.js';
 import { profileSchema, defaultFormOptions } from '../../api/profiles/profiles.js';
 import t from 'tcomb-form';
@@ -142,7 +143,13 @@ export default class ProfileEdit extends React.Component {
         <button
           type="submit"
           className="edit-profile-save"
-        >Save</button>
+        >
+          <FormattedMessage
+            id='buttons.save'
+            description='Generic save button'
+            defaultMessage='Save'
+          />
+        </button>
       </form>
     );
   }

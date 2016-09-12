@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { _ } from 'meteor/underscore';
 import { Link } from 'react-router';
 import { display } from '../helpers/errors.js';
+import { FormattedMessage } from 'react-intl';
 import { updateImage } from '../../api/profiles/methods.js';
 import ShowTeaser from '../components/ShowTeaser.jsx';
 import ShowsByRole from '../components/ShowsByRole.jsx';
@@ -132,14 +133,26 @@ export default class Profile extends React.Component {
             { profile.imageWide ?
               <img className="profile-image" width="200px" height="200px" src={ profile.imageWide } />
               : '' }
-            <div className="dropzone-help-text">To upload a new photo click or drag a photo here.</div>
+            <div className="dropzone-help-text">
+              <FormattedMessage
+                id="profile.imageDropHelpText"
+                description='Help text for adding an image to a profile'
+                defaultMessage='To upload a new photo click or drag a photo here.'
+              />
+            </div>
           </Dropzone>
           { uploading ?
             <div className="profile-image-uploading">Uploading: { progress }%</div> : '' }
           { (uploading == false && progress == 100 && newImageLoaded == false && uploadError == false) ?
             <div className="profile-image-uploading">Almost done...</div> : '' }
           { (uploadError == true) ?
-            <div className="profile-image-uploading error">There was an error, please try again</div> : '' }
+            <div className="profile-image-uploading error">
+              <FormattedMessage
+                id="profile.imageUploadingError"
+                description='Help text when there is an error uploading an image to a profile'
+                defaultMessage='There was an error, please try again'
+              />
+            </div> : '' }
         </div>
       );
     }
@@ -162,7 +175,11 @@ export default class Profile extends React.Component {
         title={`Edit ${profile.name}`}
         className="edit-link"
       >
-        Edit
+        <FormattedMessage
+          id="ui.edit"
+          description='Generic edit link'
+          defaultMessage='Edit'
+        />
       </Link>
     : '';
 
@@ -173,7 +190,11 @@ export default class Profile extends React.Component {
         title={`Translate ${profile.name}`}
         className="translate-link"
       >
-        Translate
+        <FormattedMessage
+          id="ui.translate"
+          description='Generic translate link'
+          defaultMessage='Translate'
+        />
       </Link>
     : '';
 
@@ -279,7 +300,14 @@ export default class Profile extends React.Component {
                   {orgTypes}
                 </div> : ''}
               {!_.isEmpty(profile.foundingYear) ?
-                <div className="profile-founding-year">Founded {profile.foundingYear}</div> : ''}
+                <div className="profile-founding-year">
+                  <FormattedMessage
+                    id="profile.foundedDate"
+                    description="Founded date metadata"
+                    defaultMessage={`Founded {foundingYear}`}
+                    values={{ foundingYear: profile.foundingYear }}
+                  />
+                </div> : ''}
               {!_.isEmpty(profile.interests) ?
                 <div className="profile-interests" title="Interests">{interests}</div> : ''}
             </div>
@@ -294,7 +322,13 @@ export default class Profile extends React.Component {
         </section>
         {profile.about ?
           <section className="profile-about">
-            <h2>About</h2>
+            <h2>
+              <FormattedMessage
+                id="profile.aboutSectionHeader"
+                description="Section header for the profile about section"
+                defaultMessage="About"
+              />
+            </h2>
             {/* <div dangerouslySetInnerHTML={{__html: profile.about}} /> */}
             {profile.about}
             {editLink || translateLink ?
@@ -308,7 +342,13 @@ export default class Profile extends React.Component {
         }
         {(shows && shows.length) ?
           <section className="profile-shows">
-            <h2>Primary Authorship or Playwright</h2>
+            <h2>
+              <FormattedMessage
+                id="profile.primaryAuthorship"
+                description="Section header for show for which this user is the primary author"
+                defaultMessage="Primary Authorship or Playwright"
+              />
+            </h2>
             <ul>
               {Shows}
             </ul>

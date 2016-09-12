@@ -94,7 +94,9 @@ export default class Show extends React.Component {
               { !_.isEmpty(show.interests) ?
                 <div className="show-interests" title="Interests">{ interests }</div> : '' }
             </div>
-            {editLink}
+            <div className="edit-links">
+              {editLink}
+            </div>
           </div>
         </section>
         {show.about ?
@@ -102,7 +104,9 @@ export default class Show extends React.Component {
             <h2>About</h2>
             {/*<div dangerouslySetInnerHTML={{__html: show.about}} />*/}
             {show.about}
-            {editLink}
+            <div className="edit-links">
+              {editLink}
+            </div>
           </section> : ''
         }
         {(eventsByShow && eventsByShow.length) ?

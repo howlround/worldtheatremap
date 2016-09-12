@@ -22,7 +22,7 @@ export default class EventTeaserWithShow extends React.Component {
           <div className="event-authorship">
             <FormattedMessage
               id="show.authors"
-              description='By line for authors of a show'
+              description="By line for authors of a show"
               defaultMessage={`by {authors}`}
               values={{ authors: <Authors authors={event.show.author} /> }}
             />

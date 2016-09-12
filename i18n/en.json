@@ -1,0 +1,20 @@
+{
+  "navigation.addMenu": "+ Add",
+  "navigation.addProfile": "Add Person / Organization",
+  "navigation.addEvent": "Add Event",
+  "auth.errorsEmail": "Email required",
+  "auth.errorsPassword": "Password required",
+  "auth.emailLabel": "Your Email",
+  "auth.passwordConfirmLabel": "Confirm Password",
+  "auth.errorsConfirm": "Please confirm your password",
+  "auth.joinTitle": "Join",
+  "auth.joinSubTitle": "Joining allows you to add and edit profiles and events",
+  "auth.passwordLabel": "Password",
+  "auth.joinButton": "Join Now",
+  "auth.linkToSignIn": "Have an account? Sign in",
+  "home.todayGlobeHeader": "What's Happening Today",
+  "home.introText": "The World Theatre Map is a user-generated directory and a real-time media hub of the world’s theatre community.",
+  "home.todayEventsMoreLink": "See All Events",
+  "profilePage.locationHeader": "Location",
+  "profilePage.relatedPeopleHeader": "Related People"
+}

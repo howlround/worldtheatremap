@@ -69,14 +69,14 @@ class AuthJoin extends React.Component {
       <div className="wrapper-auth">
         <h1 className="title-auth">
           <FormattedMessage
-            id='authr.joinTitle'
+            id='auth.joinTitle'
             description='Title for the Join screen'
             defaultMessage="Join"
           />
         </h1>
         <p className="subtitle-auth" >
           <FormattedMessage
-            id='authr.joinSubTitle'
+            id='auth.joinSubTitle'
             description='Subtitle for the Join screen'
             defaultMessage="Joining allows you to add and edit profiles and events"
           />
@@ -110,7 +110,7 @@ class AuthJoin extends React.Component {
               ref="password"
               placeholder={
                 formatMessage({
-                  'id': 'auth.passowrdLabel',
+                  'id': 'auth.passwordLabel',
                   'defaultMessage': 'Password',
                   'description': 'Placeholder text for password field'
                 })
@@ -125,7 +125,7 @@ class AuthJoin extends React.Component {
               ref="confirm"
               placeholder={
                 formatMessage({
-                  'id': 'auth.passowrdConfirmLabel',
+                  'id': 'auth.passwordConfirmLabel',
                   'defaultMessage': 'Confirm Password',
                   'description': 'Placeholder text for confirm password field'
                 })

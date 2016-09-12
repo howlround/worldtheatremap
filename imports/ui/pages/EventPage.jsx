@@ -45,7 +45,10 @@ export default class EventPage extends React.Component {
 
     if (loading) {
       return (
-        <Loading key="loading"/>
+        <div className="overlay-wrapper">
+          <Modal />
+          <Loading key="loading" />
+        </div>
       );
     } else if (!event) {
       return (

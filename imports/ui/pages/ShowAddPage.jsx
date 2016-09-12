@@ -23,7 +23,10 @@ export default class ShowAddPage extends React.Component {
 
     if (loading) {
       return (
-        <Loading key="loading"/>
+        <div className="overlay-wrapper">
+          <Modal />
+          <Loading key="loading" />
+        </div>
       );
     } else if (add && user) {
       return (

@@ -6,7 +6,6 @@ import { geoOrthographic, geoGraticule, geoPath, geoCentroid, geoInterpolate } f
 import Profile from '../components/Profile.jsx';
 import EventTeaserWithShow from '../components/EventTeaserWithShow.jsx';
 import Message from '../components/Message.jsx';
-import Loading from '../components/Loading.jsx';
 import { Link } from 'react-router';
 import { _ } from 'meteor/underscore';
 

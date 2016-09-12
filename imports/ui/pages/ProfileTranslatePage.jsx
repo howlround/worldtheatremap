@@ -69,7 +69,10 @@ export default class ProfileTranslatePage extends React.Component {
 
     if (loading) {
       return (
-        <Loading key="loading" />
+        <div className="overlay-wrapper">
+          <Modal />
+          <Loading key="loading" />
+        </div>
       );
     } else if (!loading && !profile) {
       return (

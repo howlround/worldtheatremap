@@ -177,7 +177,7 @@ export default class ProfilePage extends React.Component {
 
     if (loading) {
       return (
-        <Loading key="loading"/>
+        <Loading key="loading" />
       );
     }
     else if (!loading && !profile) {

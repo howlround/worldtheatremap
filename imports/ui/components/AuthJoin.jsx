@@ -20,14 +20,14 @@ class AuthJoin extends React.Component {
     if (!email) {
       errors.email = <FormattedMessage
         id='auth.errorsEmail'
-        description='Field validation error when user does not enter an email on the join form'
+        description='Field validation error when user does not enter an email on an auth form'
         defaultMessage='Email required'
       />
     }
     if (!password) {
       errors.password = <FormattedMessage
         id='auth.errorsPassword'
-        description='Field validation error when user does not enter a password on the join form'
+        description='Field validation error when user does not enter a password on an auth form'
         defaultMessage='Password required'
       />
     }
@@ -60,7 +60,7 @@ class AuthJoin extends React.Component {
   }
 
   render() {
-    const {formatMessage} = this.props.intl;
+    const { formatMessage } = this.props.intl;
     const { errors } = this.state;
     const errorMessages = Object.keys(errors).map(key => errors[key]);
     const errorClass = key => errors[key] && 'error';

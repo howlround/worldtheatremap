@@ -20,9 +20,9 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
   // @TODO: Refactor to not push to the connectionIds array
   const connectionsSubscribe = Meteor.subscribe('relatedRecords.byProfile', id);
   let connectionIds = new Array;
-  const relatedProfiles = RelatedRecords.find({ "profiles": this._id }).map(relatedRecord => {
+  const relatedProfiles = RelatedRecords.find({ "profiles": id }).map(relatedRecord => {
     for (let i = relatedRecord.profiles.length - 1; i >= 0; i--) {
-      if (relatedRecord.profiles[i] === this._id) {
+      if (relatedRecord.profiles[i] === id) {
         continue;
       } else {
         connectionIds.push(relatedRecord.profiles[i]);
@@ -38,7 +38,7 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
   // Roles
   // @TODO: Refactor to not push to the roles array
   let roles = new Array;
-  const participantRecords = Participants.find({ "profile.id": this._id }, { fields: { "role": true } }).map(record => {
+  const participantRecords = Participants.find({ "profile.id": id }, { fields: { "role": true } }).map(record => {
     if (!_.contains(roles, record.role)) {
       roles.push(record.role);
     }

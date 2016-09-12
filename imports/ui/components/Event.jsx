@@ -11,6 +11,7 @@ import { participantFormSchema, defaultFormOptions } from '../../api/participant
 import { insert as insertProfile } from '../../api/profiles/methods.js';
 import { Profiles } from '../../api/profiles/profiles.js';
 import t from 'tcomb-form';
+import { FormattedMessage } from 'react-intl';
 
 const Form = t.form.Form;
 
@@ -99,7 +100,13 @@ export default class Event extends React.Component {
 
     return (
       <form className="participant-edit-form" onSubmit={this.handleSubmit.bind(this)} >
-        <h3>Add a New Participant</h3>
+        <h3>
+          <FormattedMessage
+            id='event.participantFormTitle'
+            description='Heading above participant form on events'
+            defaultMessage='Add a New Participant'
+          />
+        </h3>
         <Form
           ref="form"
           type={participantFormSchema}
@@ -111,7 +118,13 @@ export default class Event extends React.Component {
         <button
           type="submit"
           className="edit-participant-save"
-        >Save</button>
+        >
+          <FormattedMessage
+            id='buttons.save'
+            description='Generic save button'
+            defaultMessage='Save'
+          />
+        </button>
       </form>
     );
   }
@@ -335,7 +348,13 @@ export default class Event extends React.Component {
         </section>
         {event.about ?
           <section className="event-about">
-            <h2>About</h2>
+            <h2>
+              <FormattedMessage
+                id='event.aboutSectionHeader'
+                description='Header above about text on events'
+                defaultMessage='About'
+              />
+            </h2>
             {/*<div dangerouslySetInnerHTML={{__html: event.about}} />*/}
             {event.about}
             {editLink}

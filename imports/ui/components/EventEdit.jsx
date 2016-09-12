@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { FormattedMessage } from 'react-intl';
 import { _ } from 'meteor/underscore';
 import { displayError } from '../helpers/errors.js';
 import { insert, update } from '../../api/events/methods.js';
@@ -130,7 +131,11 @@ export default class EventEdit extends React.Component {
           <button
             type="submit"
             className="edit-event-save">
-            Save
+            <FormattedMessage
+              id='buttons.save'
+              description='Generic save button'
+              defaultMessage='Save'
+            />
           </button>
         </div>
       </form>

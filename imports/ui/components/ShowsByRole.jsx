@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { FormattedMessage } from 'react-intl';
 import { Participants } from '../../api/participants/participants.js';
 import ShowTeaser from '../components/ShowTeaser.jsx';
 
@@ -29,7 +30,12 @@ export default class ShowsByRole extends React.Component {
       ));
     }
 
-    const roleTitle = role ? role : 'Participant';
+    const roleTitle = role ? role :
+      <FormattedMessage
+        id='show.participantDefaultHeader'
+        description="Default header for participants that don't list a role"
+        defaultMessage="Participant"
+      />;
 
     return (
       <section className="shows-by-role profile-shows">

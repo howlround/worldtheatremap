@@ -101,7 +101,13 @@ export default class Show extends React.Component {
         </section>
         {show.about ?
           <section className="show-about">
-            <h2>About</h2>
+            <h2>
+              <FormattedMessage
+                id="show.about"
+                description="About section on show page"
+                defaultMessage="About"
+              />
+            </h2>
             {/*<div dangerouslySetInnerHTML={{__html: show.about}} />*/}
             {show.about}
             <div className="edit-links">
@@ -111,7 +117,13 @@ export default class Show extends React.Component {
         }
         {(eventsByShow && eventsByShow.length) ?
           <section className="show-events">
-            <h2>Show History</h2>
+            <h2>
+              <FormattedMessage
+                id="show.history"
+                description="Show history section on show page"
+                defaultMessage="Show History"
+              />
+            </h2>
             <ul>
               {events}
             </ul>

@@ -168,7 +168,7 @@ export default class Profile extends React.Component {
   render() {
     const { profile, user, shows, roles } = this.props;
 
-    const editLink = (user && TAPi18n.getLanguage() === 'en') ?
+    const editLink = (user) ?
       <Link
         to={`/profiles/${ profile._id }/edit`}
         key={`${profile._id}-edit`}

@@ -4,6 +4,7 @@ import { Shows } from '../../api/shows/shows.js';
 import { insert } from '../../api/shows/methods.js';
 import { _ } from 'meteor/underscore';
 import RelatedProfile from '../../ui/components/RelatedProfile.jsx';
+import { FormattedMessage } from 'react-intl';
 
 export default class RelatedShowTextbox extends React.Component {
   constructor(props) {
@@ -134,7 +135,15 @@ export default class RelatedShowTextbox extends React.Component {
       );
     }) : '';
 
-    const addShowOption = (show.name.length > 0) ? <li className="select-new-show" onClick={ this.selectNewShow.bind(this, show.name) }>Add Show for <b>{ show.name }</b>?</li> : '';
+    const addShowOption = (show.name.length > 0) ?
+      <li className="select-new-show" onClick={ this.selectNewShow.bind(this, show.name) }>
+        <FormattedMessage
+          id="show.autocompleteCreate"
+          description="Autocomplete option to create a related show"
+          defaultMessage={`Add Show for {name}?`}
+          values={{ name: <b>{ show.name }</b> }}
+        />
+      </li> : '';
 
     return (
       <div className="show-fields-group autocomplete-group">

@@ -272,7 +272,11 @@ export default class Event extends React.Component {
         activeClassName="active"
         onChange={this.onChange}
       >
-        Edit
+        <FormattedMessage
+          id="ui.edit"
+          description='Generic edit link'
+          defaultMessage='Edit'
+        />
       </Link>
     : '';
 

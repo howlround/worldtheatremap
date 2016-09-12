@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { _ } from 'meteor/underscore';
 import { displayError } from '../helpers/errors.js';
+import { FormattedMessage } from 'react-intl';
 import {
   update,
   remove,
@@ -108,7 +109,13 @@ export default class ShowEdit extends React.Component {
         <button
           type="submit"
           className="edit-show-save"
-        >Save</button>
+        >
+          <FormattedMessage
+            id='buttons.save'
+            description='Generic save button'
+            defaultMessage='Save'
+          />
+        </button>
       </form>
     );
   }

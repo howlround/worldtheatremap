@@ -4,6 +4,7 @@ import { Profiles } from '../../api/profiles/profiles.js';
 import { insert } from '../../api/profiles/methods.js';
 import { _ } from 'meteor/underscore';
 import classNames from 'classnames';
+import { FormattedMessage } from 'react-intl';
 
 export default class RelatedProfile extends React.Component {
   constructor(props) {
@@ -114,7 +115,15 @@ export default class RelatedProfile extends React.Component {
       );
     }) : '';
 
-    const addProfileOption = (profile.name.length > 0) ? <li className="create-profile" onClick={ this.createProfile.bind(this, profile.name) }>Add Profile for <b>{ profile.name }</b>?</li> : '';
+    const addProfileOption = (profile.name.length > 0) ?
+      <li className="create-profile" onClick={ this.createProfile.bind(this, profile.name) }>
+        <FormattedMessage
+          id="profile.autocompleteCreate"
+          description="Autocomplete option to create a related profile"
+          defaultMessage={`Add Profile for {name}?`}
+          values={{ name: <b>{ profile.name }</b> }}
+        />
+      </li> : '';
 
     const additionalWrapperClasses = (wrapperAttrs) ? wrapperAttrs.className : '';
     const wrapperClasses = classNames('profile-fields-group', 'autocomplete-group', additionalWrapperClasses);

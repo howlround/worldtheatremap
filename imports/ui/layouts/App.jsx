@@ -139,7 +139,13 @@ export default class App extends React.Component {
             <Link
               to="/"
               className="home"
-            >World Theatre Map</Link>
+            >
+              <FormattedMessage
+                id='navigation.siteName'
+                description="Site Name"
+                defaultMessage="World Theatre Map"
+              />
+            </Link>
             <UserMenu
               user={user}
               logout={this.logout}
@@ -154,7 +160,13 @@ export default class App extends React.Component {
               <Link
                 to="search"
                 className="menu-parent"
-              >Directory</Link>
+              >
+                <FormattedMessage
+                  id='navigation.directory'
+                  description="Directory menu"
+                  defaultMessage="Directory"
+                />
+              </Link>
             </div>
           </section>
         </header>

@@ -30,6 +30,17 @@ input:-webkit-autofill {
 
 label {
   font-weight: 700;
+
+  .field-label-modifier {
+    font-weight: 400;
+    font-size: 0.8em;
+    font-style: italic;
+    color: $gray;
+
+    &.required {
+      color: $light-red;
+    }
+  }
 }
 
 .help-block {
@@ -71,6 +82,12 @@ label {
 
   label {
     color: $red;
+
+    .field-label-modifier {
+      &.required {
+        color: $red;
+      }
+    }
   }
 
   input[type="text"] {

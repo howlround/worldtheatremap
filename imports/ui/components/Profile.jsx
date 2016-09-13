@@ -183,7 +183,7 @@ export default class Profile extends React.Component {
       </Link>
     : '';
 
-    const translateLink = (user && TAPi18n.getLanguage() === 'en') ?
+    const translateLink = (user) ?
       <Link
         to={`/profiles/${ profile._id }/translate/es`}
         key={`${profile._id}-translate`}

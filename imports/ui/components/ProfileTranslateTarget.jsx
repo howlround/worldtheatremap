@@ -129,6 +129,7 @@ export default class ProfileEdit extends React.Component {
 
       const { router } = this.context;
       router.push(`/profiles/${this.props.profile._id}`);
+      window.AppState.rerender();
     }
   }
 

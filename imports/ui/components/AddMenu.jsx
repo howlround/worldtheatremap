@@ -55,8 +55,8 @@ export default class AddMenu extends React.Component {
       <div className="add-menu menu-container menu-right" onMouseEnter={this.open} onMouseLeave={this.close}>
         <a href="#" className="add menu-parent" onClick={this.toggle}>
           <FormattedMessage
-            id='navigation.addMenu'
-            description='Parent navigation item for Add menu'
+            id="navigation.addMenu"
+            description="Parent navigation item for Add menu"
             defaultMessage="+ Add"
           />
         </a>
@@ -64,15 +64,15 @@ export default class AddMenu extends React.Component {
           <div className="add-options menu-children">
             <Link to="/profiles/add" className="add-profile" onClick={this.close}>
               <FormattedMessage
-                id='navigation.addProfile'
-                description='Add menu item for a Profile'
+                id="navigation.addProfile"
+                description="Add menu item for a Profile"
                 defaultMessage="Add Person / Organization"
               />
             </Link>
             <Link to="/events/add" className="add-event" onClick={this.close}>
               <FormattedMessage
-                id='navigation.addEvent'
-                description='Add menu item for an Event'
+                id="navigation.addEvent"
+                description="Add menu item for an Event"
                 defaultMessage="Add Event"
               />
             </Link>

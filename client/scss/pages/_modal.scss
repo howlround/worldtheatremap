@@ -49,7 +49,7 @@
       border: none;
       padding: $spacing-unit * 4;
       margin-top: $spacing-unit * -2;
-      margin-bottom: $spacing-unit * -2;
+      margin-bottom: $spacing-unit * 4;
     }
 
     @include breakpoint($normal) {

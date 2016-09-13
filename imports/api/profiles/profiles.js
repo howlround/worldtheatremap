@@ -1,7 +1,10 @@
 // Meteor
 import { TAPi18n } from 'meteor/tap:i18n';
 import { Factory } from 'meteor/factory';
+
+// Utilities
 import { _ } from 'meteor/underscore';
+import { FormattedMessage } from 'react-intl';
 
 // Forms
 import React from 'react';
@@ -212,25 +215,25 @@ const Genders = [
 const gendersTags = t.form.Form.templates.select.clone({
   renderSelect: (locals) => {
     // @TODO: If we don't have custom values this isn't necessary
-    const reformattedValues = _.map(locals.value, value => { return { value: value, label: value } });
+    const reformattedValues = _.map(locals.value, value => ({ value, label: value }));
     // _.union allows repeat arrays but ReactSelect/Creatable handles it properly anyway
     const includeCustomValues = _.union(reformattedValues, Genders);
     function onChange(options) {
-      const values = (options || []).map(({value}) => value)
-      locals.onChange(values)
+      const values = (options || []).map(({ value }) => value);
+      locals.onChange(values);
     }
     return (
       <ReactSelect
         multi
         autoBlur
         disabled={locals.disabled}
-        options={ includeCustomValues }
-        value={ locals.value }
-        onChange={ onChange }
+        options={includeCustomValues}
+        value={locals.value}
+        onChange={onChange}
         className="profile-gender-edit"
       />
     );
-  }
+  },
 });
 
 // Gender factory function
@@ -286,13 +289,46 @@ export const translateFormSchema = t.struct({
 export const defaultFormOptions = () => ({
   fields: {
     name: {
-      label: 'Profile name (required)',
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier required"><FormattedMessage
+            id="forms.requiredLabel"
+            description="Addition to label indicating a field is required"
+            defaultMessage="(required)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.profileNameLabel"
+            description="Label for a Profile name form field"
+            defaultMessage="Profile name"
+          />,
+        }}
+      />,
       attrs: {
         className: 'profile-name-edit',
       },
       error: 'Name is required',
     },
     about: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.profileAboutLabel"
+            description="Label for a Profile About form field"
+            defaultMessage="About"
+          />,
+        }}
+      />,
       type: 'textarea',
       attrs: {
         rows: '10',
@@ -300,94 +336,371 @@ export const defaultFormOptions = () => ({
       },
     },
     profileType: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.profileTypeLabel"
+            description="Label for a Profile Type form field"
+            defaultMessage="Profile type"
+          />,
+        }}
+      />,
       factory: ReactSelectProfileTypeFactory,
-      help: 'Is this profile representing an individual or an organization? Can be both if applicable. '
+      help: 'Is this profile representing an individual or an organization? Can be both if applicable.',
     },
     streetAddress: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.streetLabel"
+            description="Label for a Street Address form field"
+            defaultMessage="Street address"
+          />,
+        }}
+      />,
       attrs: {
         className: 'profile-street-address-edit',
         // 'data-geo': 'street_address',
       },
     },
     locality: {
-      label: 'City (optional)',
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.localityLabel"
+            description="Label for a Locality / City form field"
+            defaultMessage="City"
+          />,
+        }}
+      />,
       attrs: {
         className: 'profile-locality-edit',
         // 'data-geo': 'locality',
       },
     },
     administrativeArea: {
-      label: 'Province, Region, or State (optional)',
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.administrativeAreaLabel"
+            description="Label for Administrative Area form field"
+            defaultMessage="Province, Region, or State"
+          />,
+        }}
+      />,
       attrs: {
         className: 'profile-administrative-area-edit',
         // 'data-geo': 'administrative_area_level_1',
       },
     },
     country: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.countryLabel"
+            description="Label for a Country form field"
+            defaultMessage="Country"
+          />,
+        }}
+      />,
       // Imported factories need to be called as functions
       factory: AllCountriesFactory(),
-      // factory: ReactSelectAllCountriesFactory,
     },
     postalCode: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.postalCodeLabel"
+            description="Label for a Postal code form field"
+            defaultMessage="Postal Code"
+          />,
+        }}
+      />,
       attrs: {
         className: 'profile-postal-code-edit',
         // 'data-geo': 'postal_code',
       },
     },
     lat: {
+      auto: 'none',
       attrs: {
         'data-geo': 'lat',
+        className: 'visually-hidden',
       }
     },
     lon: {
+      auto: 'none',
       attrs: {
         'data-geo': 'lng',
+        className: 'visually-hidden',
       }
     },
     agent: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="profile.agentLabel"
+            description="Label for an Agent form field"
+            defaultMessage="Agent"
+          />,
+        }}
+      />,
       attrs: {
         className: 'profile-agent-edit',
       },
     },
     phone: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="profile.phoneLabel"
+            description="Label for a Profile Phone form field"
+            defaultMessage="Phone"
+          />,
+        }}
+      />,
       attrs: {
         className: 'profile-phone-edit',
       },
     },
     email: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="profile.emailLabel"
+            description="Label for a Profile Email form field"
+            defaultMessage="Email"
+          />,
+        }}
+      />,
       attrs: {
         className: 'profile-email-edit',
       },
     },
     website: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="profile.websiteLabel"
+            description="Label for a Profile website form field"
+            defaultMessage="Website"
+          />,
+        }}
+      />,
       attrs: {
         className: 'profile-website-edit',
       },
     },
     social: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="profile.socialLabel"
+            description="Label for a Social form field"
+            defaultMessage="Social"
+          />,
+        }}
+      />,
       type: 'textarea',
       attrs: {
         rows: '10',
         className: 'profile-social-edit',
       },
-      help: 'Add a label and a link. Put each link on a new line. For example: Facebook: https://www.facebook.com/myprofile',
+      help: <FormattedMessage
+        id="forms.profileSocialHelpText"
+        description="Help text for an optional Social form field"
+        defaultMessage="Add a label and a link. Put each link on a new line. For example: Facebook: https://www.facebook.com/myprofile"
+      />,
     },
     foundingYear: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.foundingYearLabel"
+            description="Label for Founding year form field"
+            defaultMessage="Founding year"
+          />,
+        }}
+      />,
       attrs: {
         className: 'profile-founding-year-edit',
       },
       help: 'If this profile is referencing an organization, what year was it founded?'
     },
     interests: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.interestsLabel"
+            description="Label for Interests form field"
+            defaultMessage="Interests"
+          />,
+        }}
+      />,
       factory: interestsFactory(),
     },
     orgTypes: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.orgTypesLabel"
+            description="Label for an Organization Type form field"
+            defaultMessage="Organization Type"
+          />,
+        }}
+      />,
       factory: ReactSelectOrgTypesFactory,
     },
     selfDefinedRoles: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.rolesLabel"
+            description="Label for the Roles form field"
+            defaultMessage="Roles"
+          />,
+        }}
+      />,
       factory: ReactSelectRolesFactory,
     },
     gender: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.genderLabel"
+            description="Label for the Gender form field"
+            defaultMessage="Gender"
+          />,
+        }}
+      />,
       factory: ReactSelectGendersFactory,
     },
   },
@@ -406,49 +719,86 @@ export const filtersFormOptions = () => ({
     },
     profileType: {
       factory: ReactSelectProfileTypeFactory,
-      label: 'Profile type',
+      label: <FormattedMessage
+        id="forms.profileTypeLabel"
+        description="Label for a Profile Type form field"
+        defaultMessage="Profile type"
+      />,
       help: 'Is this profile representing an individual or an organization? Can be both if applicable.'
     },
     locality: {
       // The Factory function is applied later to allow reactive options
-      label: 'City',
+      label: <FormattedMessage
+        id="forms.localityLabel"
+        description="Label for a Locality / City form field"
+        defaultMessage="City"
+      />,
       attrs: {
         className: 'profile-locality-select-edit',
       },
     },
     administrativeArea: {
       // The Factory function is applied later to allow reactive options
-      label: 'Province, Region, or State',
+      label: <FormattedMessage
+        id="forms.administrativeAreaLabel"
+        description="Label for Administrative Area form field"
+        defaultMessage="Province, Region, or State"
+      />,
       attrs: {
         className: 'profile-locality-select-edit',
       },
     },
     country: {
       // The Factory function is applied later to allow reactive options
-      label: 'Country',
+      label: <FormattedMessage
+        id="forms.countryLabel"
+        description="Label for a Country form field"
+        defaultMessage="Country"
+      />,
       attrs: {
         className: 'profile-country-select-edit',
       },
     },
     postalCode: {
+      label: <FormattedMessage
+        id="forms.postalCodeLabel"
+        description="Label for a Postal code form field"
+        defaultMessage="Postal Code"
+      />,
       attrs: {
         className: 'profile-postal-code-edit',
       },
     },
     interests: {
-      label: 'Interests',
+      label: <FormattedMessage
+        id="forms.interestsLabel"
+        description="Label for Interests form field"
+        defaultMessage="Interests"
+      />,
       factory: interestsFactory(),
     },
     orgTypes: {
-      label: 'Organization Types',
+      label: <FormattedMessage
+        id="forms.orgTypesLabel"
+        description="Label for an Organization Type form field"
+        defaultMessage="Organization Type"
+      />,
       factory: ReactSelectOrgTypesFactory,
     },
     selfDefinedRoles: {
-      label: 'Roles',
+      label: <FormattedMessage
+        id="forms.rolesLabel"
+        description="Label for the Roles form field"
+        defaultMessage="Roles"
+      />,
       factory: ReactSelectRolesFactory,
     },
     gender: {
-      label: 'Gender',
+      label: <FormattedMessage
+        id="forms.genderLabel"
+        description="Label for the Gender form field"
+        defaultMessage="Gender"
+      />,
       factory: ReactSelectGendersFactory,
     },
   },

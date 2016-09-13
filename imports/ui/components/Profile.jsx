@@ -4,12 +4,12 @@ import classNames from 'classnames';
 import { _ } from 'meteor/underscore';
 import { Link } from 'react-router';
 import { display } from '../helpers/errors.js';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { updateImage } from '../../api/profiles/methods.js';
 import ShowTeaser from '../components/ShowTeaser.jsx';
 import ShowsByRole from '../components/ShowsByRole.jsx';
 
-export default class Profile extends React.Component {
+class Profile extends React.Component {
   constructor(props) {
     super(props);
 
@@ -167,6 +167,7 @@ export default class Profile extends React.Component {
 
   render() {
     const { profile, user, shows, roles } = this.props;
+    const { formatMessage } = this.props.intl;
 
     const editLink = (user) ?
       <Link
@@ -222,7 +223,18 @@ export default class Profile extends React.Component {
           seperator = ' and ';
         }
       }
-      return (<span key={interest}>{interest}{seperator}</span>);
+      return (
+        <span key={interest}>
+          {
+            formatMessage({
+              'id': `interest.${interest}`,
+              'defaultMessage': interest,
+              'description': `Interests option: ${interest}`
+            })
+          }
+          {seperator}
+        </span>
+      );
     }) : false;
 
     let orgTypes = (profile.orgTypes) ? profile.orgTypes.map((orgType, index, array) => {
@@ -366,8 +378,11 @@ Profile.propTypes = {
   user: React.PropTypes.object,
   shows: React.PropTypes.array,
   roles: React.PropTypes.array,
+  intl: intlShape.isRequired,
 };
 
 Profile.contextTypes = {
   router: React.PropTypes.object,
 };
+
+export default injectIntl(Profile);

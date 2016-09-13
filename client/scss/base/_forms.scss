@@ -36,10 +36,6 @@ label {
     font-size: 0.8em;
     font-style: italic;
     color: $gray;
-
-    &.required {
-      color: $light-red;
-    }
   }
 }
 

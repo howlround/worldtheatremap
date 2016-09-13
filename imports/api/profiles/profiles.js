@@ -481,19 +481,47 @@ ReactSelectRolesFactory.transformer = t.form.List.transformer;
 
 // Gender options
 const Genders = [
-  { value: 'Female', label: 'Female' },
-  { value: 'Male', label: 'Male' },
-  { value: 'Transgender', label: 'Transgender' },
-  { value: 'Another Identity', label: 'Another Identity' },
+  {
+    value: 'Female',
+    label: <FormattedMessage
+      id="gender.Female"
+      description="Gender options: Female"
+      defaultMessage="Female"
+    />,
+  },
+  {
+    value: 'Male',
+    label: <FormattedMessage
+      id="gender.Male"
+      description="Gender options: Male"
+      defaultMessage="Male"
+    />,
+  },
+  {
+    value: 'Transgender',
+    label: <FormattedMessage
+      id="gender.Transgender"
+      description="Gender options: Transgender"
+      defaultMessage="Transgender"
+    />,
+  },
+  {
+    value: 'Another Identity',
+    label: <FormattedMessage
+      id="gender.Another Identity"
+      description="Gender options: Another Identity"
+      defaultMessage="Another Identity"
+    />,
+  },
 ];
 
 // Gender template
 const gendersTags = t.form.Form.templates.select.clone({
   renderSelect: (locals) => {
     // @TODO: If we don't have custom values this isn't necessary
-    const reformattedValues = _.map(locals.value, value => ({ value, label: value }));
-    // _.union allows repeat arrays but ReactSelect/Creatable handles it properly anyway
-    const includeCustomValues = _.union(reformattedValues, Genders);
+    // const reformattedValues = _.map(locals.value, value => ({ value, label: value }));
+    // // _.union allows repeat arrays but ReactSelect/Creatable handles it properly anyway
+    // const includeCustomValues = _.union(reformattedValues, Genders);
     function onChange(options) {
       const values = (options || []).map(({ value }) => value);
       locals.onChange(values);
@@ -503,7 +531,7 @@ const gendersTags = t.form.Form.templates.select.clone({
         multi
         autoBlur
         disabled={locals.disabled}
-        options={includeCustomValues}
+        options={Genders}
         value={locals.value}
         onChange={onChange}
         className="profile-gender-edit"

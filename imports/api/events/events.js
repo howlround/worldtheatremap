@@ -97,7 +97,7 @@ const EventType = [
     value: 'Work-in-Progress',
     label: <FormattedMessage
       id="eventType.Work-in-Progress"
-      description="Intersts options: Work-in-Progress"
+      description="Event types: Work-in-Progress"
       defaultMessage="Work-in-Progress"
     />,
   },
@@ -105,7 +105,7 @@ const EventType = [
     value: 'Reading',
     label: <FormattedMessage
       id="eventType.Reading"
-      description="Intersts options: Reading"
+      description="Event types: Reading"
       defaultMessage="Reading"
     />,
   },
@@ -113,7 +113,7 @@ const EventType = [
     value: 'Workshop',
     label: <FormattedMessage
       id="eventType.Workshop"
-      description="Intersts options: Workshop"
+      description="Event types: Workshop"
       defaultMessage="Workshop"
     />,
   },
@@ -121,7 +121,7 @@ const EventType = [
     value: 'Performance',
     label: <FormattedMessage
       id="eventType.Performance"
-      description="Intersts options: Performance"
+      description="Event types: Performance"
       defaultMessage="Performance"
     />,
   },

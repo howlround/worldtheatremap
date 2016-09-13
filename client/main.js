@@ -45,16 +45,28 @@ const initiateRender = () => {
 }
 
 Meteor.startup(() => {
-  // All modern browsers, except `Safari`, have implemented
-  // the `ECMAScript Internationalization API`.
-  // For that we need to patch in on runtime.
-  if (!global.Intl) {
-    require.ensure(['intl'], require => {
-      require('intl').default
-      initiateRender();
-      window.AppState.render();
-    }, 'IntlBundle');
+  const areIntlLocalesSupported = require('intl-locales-supported');
+
+  const localesMyAppSupports = [
+      'en',
+      'es'
+  ];
+
+  if (global.Intl) {
+    // Determine if the built-in `Intl` has the locale data we need.
+    if (!areIntlLocalesSupported(localesMyAppSupports)) {
+        // `Intl` exists, but it doesn't have the data we need, so load the
+        // polyfill and patch the constructors we need with the polyfill's.
+        var IntlPolyfill    = require('intl');
+        Intl.NumberFormat   = IntlPolyfill.NumberFormat;
+        Intl.DateTimeFormat = IntlPolyfill.DateTimeFormat;
+    }
+    initiateRender();
+    window.AppState.render();
   } else {
+    // No `Intl`, so use and load the polyfill.
+    global.Intl = require('intl');
+
     initiateRender();
     window.AppState.render();
   }

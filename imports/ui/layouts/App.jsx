@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 
 import { FormattedMessage } from 'react-intl';
 
-import SearchProfiles from '../pages/SearchProfiles.jsx';
+import SearchProfilesContainer from '../containers/SearchProfilesContainer.jsx';
 
 import LanguageSwitcher from '../components/LanguageSwitcher.jsx';
 import UserMenu from '../components/UserMenu.jsx';
@@ -205,7 +205,7 @@ export default class App extends React.Component {
                       />
                     </h2>
                   </div>
-                  <SearchProfiles location={{ query: {} }} />
+                  <SearchProfilesContainer location={{ query: {} }} />
                 </div>
               </div>
             </div>

@@ -1,7 +1,10 @@
 // Meteor
 import { Mongo } from 'meteor/mongo';
 import { Factory } from 'meteor/factory';
+
+// Utilities
 import { _ } from 'meteor/underscore';
+import { FormattedMessage } from 'react-intl';
 
 // Forms
 import React from 'react';
@@ -9,11 +12,6 @@ import t from 'tcomb-form';
 import ReactSelect from 'react-select';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
-// require('react-datepicker/dist/react-datepicker.css');
-// import { DateField, DatePicker } from 'react-date-picker';
-// import DayPicker from 'react-day-picker';
-// import MomentLocaleUtils from 'react-day-picker/moment';
-// import 'moment/locale/ja';
 
 // API
 import { AllCountriesFactory } from '../../api/countries/countries.js';
@@ -107,10 +105,38 @@ Events.deny({
 
 // Event type options
 const EventType = [
-  { value: 'Work-in-Progress', label: 'Work-in-Progress' },
-  { value: 'Performance', label: 'Performance' },
-  { value: 'HowlRound TV Livestream', label: 'HowlRound TV Livestream' },
-  { value: 'Twitter Chat', label: 'Twitter Chat' },
+  {
+    value: 'Work-in-Progress',
+    label: <FormattedMessage
+      id="eventType.Work-in-Progress"
+      description="Intersts options: Work-in-Progress"
+      defaultMessage="Work-in-Progress"
+    />,
+  },
+  {
+    value: 'Reading',
+    label: <FormattedMessage
+      id="eventType.Reading"
+      description="Intersts options: Reading"
+      defaultMessage="Reading"
+    />,
+  },
+  {
+    value: 'Workshop',
+    label: <FormattedMessage
+      id="eventType.Workshop"
+      description="Intersts options: Workshop"
+      defaultMessage="Workshop"
+    />,
+  },
+  {
+    value: 'Performance',
+    label: <FormattedMessage
+      id="eventType.Performance"
+      description="Intersts options: Performance"
+      defaultMessage="Performance"
+    />,
+  },
 ];
 // Event type template (single select)
 const EventTypeTags = t.form.Form.templates.select.clone({
@@ -234,6 +260,23 @@ export const defaultFormOptions = () => ({
       factory: RelatedShowFactory,
       error: 'Show is required',
       label: 'Show name (required)',
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier required"><FormattedMessage
+            id="forms.requiredLabel"
+            description="Addition to label indicating a field is required"
+            defaultMessage="(required)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.showNameLabel"
+            description="Label for a Show name form field"
+            defaultMessage="Show name"
+          />,
+        }}
+      />,
       attrs: {
         className: 'event-show-edit',
         autoComplete: 'off',
@@ -255,20 +298,69 @@ export const defaultFormOptions = () => ({
       },
     },
     startDate: {
-      label: 'Start date (required)',
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier required"><FormattedMessage
+            id="forms.requiredLabel"
+            description="Addition to label indicating a field is required"
+            defaultMessage="(required)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.startDateLabel"
+            description="Label for a Start date form field"
+            defaultMessage="Start date"
+          />,
+        }}
+      />,
       error: 'Start date is required',
       attrs: {
         className: 'event-start-date-edit',
       },
     },
     endDate: {
-      label: 'End date (required)',
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier required"><FormattedMessage
+            id="forms.requiredLabel"
+            description="Addition to label indicating a field is required"
+            defaultMessage="(required)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.endDateLabel"
+            description="Label for a End date form field"
+            defaultMessage="End date"
+          />,
+        }}
+      />,
       error: 'End date is required',
       attrs: {
         className: 'event-end-date-edit',
       },
     },
     eventType: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier required"><FormattedMessage
+            id="forms.requiredLabel"
+            description="Addition to label indicating a field is required"
+            defaultMessage="(required)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.eventTypeLabel"
+            description="Label for a Event type form field"
+            defaultMessage="Event type"
+          />,
+        }}
+      />,
       factory: ReactSelectEventTypeFactory,
       error: 'Event type is required',
       attrs: {
@@ -276,31 +368,113 @@ export const defaultFormOptions = () => ({
       },
     },
     streetAddress: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.streetLabel"
+            description="Label for a Street Address form field"
+            defaultMessage="Street address"
+          />,
+        }}
+      />,
       attrs: {
         className: 'event-street-address-edit',
       },
     },
     locality: {
-      label: 'City (optional)',
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.localityLabel"
+            description="Label for a Locality / City form field"
+            defaultMessage="City"
+          />,
+        }}
+      />,
       attrs: {
         className: 'event-locality-edit',
       },
     },
     administrativeArea: {
-      label: 'Province, Region, or State (optional)',
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.administrativeAreaLabel"
+            description="Label for Administrative Area form field"
+            defaultMessage="Province, Region, or State"
+          />,
+        }}
+      />,
       attrs: {
         className: 'event-administrative-area-edit',
       },
     },
     country: {
       factory: AllCountriesFactory(),
-      label: 'Country (required)',
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.countryLabel"
+            description="Label for a Country form field"
+            defaultMessage="Country"
+          />,
+        }}
+      />,
       attrs: {
         className: 'event-country-edit',
       },
       error: 'Country is required',
     },
     postalCode: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.postalCodeLabel"
+            description="Label for a Postal code form field"
+            defaultMessage="Postal Code"
+          />,
+        }}
+      />,
       attrs: {
         className: 'event-postal-code-edit',
       },
@@ -322,6 +496,23 @@ export const defaultFormOptions = () => ({
     },
     about: {
       type: 'textarea',
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.eventAboutLabel"
+            description="Label for a Event About form field"
+            defaultMessage="About"
+          />,
+        }}
+      />,
       attrs: {
         rows: '10',
         className: 'event-about-edit',
@@ -333,39 +524,63 @@ export const defaultFormOptions = () => ({
 export const filtersFormOptions = () => ({
   fields: {
     startDate: {
-      label: 'Start date',
+      label: <FormattedMessage
+        id="forms.startDateLabel"
+        description="Label for a Start date form field"
+        defaultMessage="Start date"
+      />,
       attrs: {
         className: 'event-start-date-edit',
       },
     },
     endDate: {
-      label: 'End date',
+      label: <FormattedMessage
+        id="forms.endDateLabel"
+        description="Label for a End date form field"
+        defaultMessage="End date"
+      />,
       attrs: {
         className: 'event-end-date-edit',
       },
     },
     eventType: {
       factory: ReactSelectEventTypeFactory,
-      label: 'Event type',
+      label: <FormattedMessage
+        id="forms.eventTypeLabel"
+        description="Label for a Event type form field"
+        defaultMessage="Event type"
+      />,
       error: 'Event type is required',
       attrs: {
         className: 'event-type-edit',
       },
     },
     locality: {
-      label: 'City',
+      label: <FormattedMessage
+        id="forms.localityLabel"
+        description="Label for a Locality / City form field"
+        defaultMessage="City"
+      />,
       attrs: {
         className: 'event-locality-edit',
       },
     },
     administrativeArea: {
-      label: 'Province, Region, or State',
+      label: <FormattedMessage
+        id="forms.administrativeAreaLabel"
+        description="Label for Administrative Area form field"
+        defaultMessage="Province, Region, or State"
+      />,
       attrs: {
         className: 'event-administrative-area-edit',
       },
     },
     country: {
-      label: 'Country',
+      label: <FormattedMessage
+        id="forms.countryLabel"
+        description="Label for a Country form field"
+        defaultMessage="Country"
+      />,
       attrs: {
         className: 'event-country-edit',
       },

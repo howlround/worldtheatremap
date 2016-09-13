@@ -1,6 +1,7 @@
 import React from 'react';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-form';
+import { FormattedMessage } from 'react-intl';
 
 // API
 import { eventFiltersSchema, filtersFormOptions } from '../../api/events/events.js';
@@ -93,7 +94,13 @@ export default class SearchEvents extends React.Component {
             <SearchTypeNav />
             <div className="search-type-content">
               <div className="search-filters">
-                <h3>Filter by</h3>
+                <h3>
+                  <FormattedMessage
+                    id="search.filterByHeader"
+                    description="Header for search filters"
+                    defaultMessage="Filter by"
+                  />
+                </h3>
                 <form className="event-filters-form">
                   <Form
                     ref="form"

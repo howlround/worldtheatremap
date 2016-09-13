@@ -2,15 +2,16 @@ import React from 'react';
 import classNames from 'classnames';
 import { _ } from 'meteor/underscore';
 import { Link } from 'react-router';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 
-export default class ProfileSearchResult extends React.Component {
+class ProfileSearchResult extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
     const { profile } = this.props;
+    const { formatMessage } = this.props.intl;
 
     const interests = (profile.interests) ? profile.interests.map((interest, index, array) => {
       let seperator = ', ';
@@ -25,7 +26,18 @@ export default class ProfileSearchResult extends React.Component {
           seperator = ' and ';
         }
       }
-      return <span key={interest}>{interest}{seperator}</span>
+      return (
+        <span key={interest}>
+          {
+            formatMessage({
+              'id': `interest.${interest}`,
+              'defaultMessage': interest,
+              'description': `Interests option: ${interest}`
+            })
+          }
+          {seperator}
+        </span>
+      );
     }) : false;
 
     let orgTypes = (profile.orgTypes) ? profile.orgTypes.map((orgType, index, array) => {
@@ -128,3 +140,5 @@ ProfileSearchResult.propTypes = {
 ProfileSearchResult.contextTypes = {
   router: React.PropTypes.object,
 };
+
+export default injectIntl(ProfileSearchResult);

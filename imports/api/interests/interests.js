@@ -13,7 +13,7 @@ export const factory = () => {
         id="interest.Accessibility"
         description="Intersts options: Accessibility"
         defaultMessage="Accessibility"
-      />
+      />,
     },
     {
       value: 'Adaptation',
@@ -21,7 +21,7 @@ export const factory = () => {
         id="interest.Adaptation"
         description="Intersts options: Adaptation"
         defaultMessage="Adaptation"
-      />
+      />,
     },
     {
       value: 'African-American',
@@ -29,7 +29,7 @@ export const factory = () => {
         id="interest.African-American"
         description="Intersts options: African-American"
         defaultMessage="African-American"
-      />
+      />,
     },
     {
       value: 'African-Diaspora',
@@ -37,7 +37,7 @@ export const factory = () => {
         id="interest.African-Diaspora"
         description="Intersts options: African-Diaspora"
         defaultMessage="African-Diaspora"
-      />
+      />,
     },
     {
       value: 'Asian-American',
@@ -45,7 +45,7 @@ export const factory = () => {
         id="interest.Asian-American"
         description="Intersts options: Asian-American"
         defaultMessage="Asian-American"
-      />
+      />,
     },
     {
       value: 'Asian-Diaspora',
@@ -53,7 +53,7 @@ export const factory = () => {
         id="interest.Asian-Diaspora"
         description="Intersts options: Asian-Diaspora"
         defaultMessage="Asian-Diaspora"
-      />
+      />,
     },
     {
       value: 'Black Theatre',
@@ -61,7 +61,7 @@ export const factory = () => {
         id="interest.Black Theatre"
         description="Intersts options: Black Theatre"
         defaultMessage="Black Theatre"
-      />
+      />,
     },
     {
       value: 'Burlesque',
@@ -69,7 +69,7 @@ export const factory = () => {
         id="interest.Burlesque"
         description="Intersts options: Burlesque"
         defaultMessage="Burlesque"
-      />
+      />,
     },
     {
       value: 'Circus',
@@ -77,7 +77,7 @@ export const factory = () => {
         id="interest.Circus"
         description="Intersts options: Circus"
         defaultMessage="Circus"
-      />
+      />,
     },
     {
       value: 'Classical',
@@ -85,7 +85,7 @@ export const factory = () => {
         id="interest.Classical"
         description="Intersts options: Classical"
         defaultMessage="Classical"
-      />
+      />,
     },
     {
       value: 'Climate Change',
@@ -93,7 +93,7 @@ export const factory = () => {
         id="interest.Climate Change"
         description="Intersts options: Climate Change"
         defaultMessage="Climate Change"
-      />
+      />,
     },
     {
       value: 'Contemporary',
@@ -101,7 +101,7 @@ export const factory = () => {
         id="interest.Contemporary"
         description="Intersts options: Contemporary"
         defaultMessage="Contemporary"
-      />
+      />,
     },
     {
       value: 'Creative Placemaking',
@@ -109,7 +109,7 @@ export const factory = () => {
         id="interest.Creative Placemaking"
         description="Intersts options: Creative Placemaking"
         defaultMessage="Creative Placemaking"
-      />
+      />,
     },
     {
       value: 'Criticism',
@@ -117,7 +117,7 @@ export const factory = () => {
         id="interest.Criticism"
         description="Intersts options: Criticism"
         defaultMessage="Criticism"
-      />
+      />,
     },
     {
       value: 'Cross-cultural Exchange',
@@ -125,7 +125,7 @@ export const factory = () => {
         id="interest.Cross-cultural Exchange"
         description="Intersts options: Cross-cultural Exchange"
         defaultMessage="Cross-cultural Exchange"
-      />
+      />,
     },
     {
       value: 'Dance',
@@ -133,7 +133,7 @@ export const factory = () => {
         id="interest.Cross-cultural Exchange"
         description="Intersts options: Cross-cultural Exchange"
         defaultMessage="Cross-cultural Exchange"
-      />
+      />,
     },
     {
       value: 'Deaf',
@@ -141,7 +141,7 @@ export const factory = () => {
         id="interest.Deaf"
         description="Intersts options: Deaf"
         defaultMessage="Deaf"
-      />
+      />,
     },
     {
       value: 'Design',
@@ -149,7 +149,7 @@ export const factory = () => {
         id="interest.Design"
         description="Intersts options: Design"
         defaultMessage="Design"
-      />
+      />,
     },
     {
       value: 'Devised',
@@ -157,7 +157,7 @@ export const factory = () => {
         id="interest.Devised"
         description="Intersts options: Devised"
         defaultMessage="Devised"
-      />
+      />,
     },
     {
       value: 'Directing',
@@ -165,7 +165,7 @@ export const factory = () => {
         id="interest.Directing"
         description="Intersts options: Directing"
         defaultMessage="Directing"
-      />
+      />,
     },
     {
       value: 'Disability',
@@ -173,7 +173,7 @@ export const factory = () => {
         id="interest.Disability"
         description="Intersts options: Disability"
         defaultMessage="Disability"
-      />
+      />,
     },
     {
       value: 'Diversity and Inclusion',
@@ -181,7 +181,7 @@ export const factory = () => {
         id="interest.Diversity and Inclusion"
         description="Intersts options: Diversity and Inclusion"
         defaultMessage="Diversity and Inclusion"
-      />
+      />,
     },
     {
       value: 'Documentary Theatre',
@@ -189,7 +189,7 @@ export const factory = () => {
         id="interest.Documentary Theatre"
         description="Intersts options: Documentary Theatre"
         defaultMessage="Documentary Theatre"
-      />
+      />,
     },
     {
       value: 'Eco Theatre',
@@ -197,7 +197,7 @@ export const factory = () => {
         id="interest.Eco Theatre"
         description="Intersts options: Eco Theatre"
         defaultMessage="Eco Theatre"
-      />
+      />,
     },
     {
       value: 'Ensemble',
@@ -205,7 +205,7 @@ export const factory = () => {
         id="interest.Ensemble"
         description="Intersts options: Ensemble"
         defaultMessage="Ensemble"
-      />
+      />,
     },
     {
       value: 'Experimental',
@@ -213,7 +213,7 @@ export const factory = () => {
         id="interest.Experimental"
         description="Intersts options: Experimental"
         defaultMessage="Experimental"
-      />
+      />,
     },
     {
       value: 'LGBTQIA*',
@@ -221,7 +221,7 @@ export const factory = () => {
         id="interest.LGBTQIA*"
         description="Intersts options: LGBTQIA*"
         defaultMessage="LGBTQIA*"
-      />
+      />,
     },
     {
       value: 'Geek Theater',
@@ -229,7 +229,7 @@ export const factory = () => {
         id="interest.Geek Theater"
         description="Intersts options: Geek Theater"
         defaultMessage="Geek Theater"
-      />
+      />,
     },
     {
       value: 'Gender Politics',
@@ -237,7 +237,7 @@ export const factory = () => {
         id="interest.Gender Politics"
         description="Intersts options: Gender Politics"
         defaultMessage="Gender Politics"
-      />
+      />,
     },
     {
       value: 'Hip Hop Theatre',
@@ -245,7 +245,7 @@ export const factory = () => {
         id="interest.Hip Hop Theatre"
         description="Intersts options: Hip Hop Theatre"
         defaultMessage="Hip Hop Theatre"
-      />
+      />,
     },
     {
       value: 'Immersive Theatre',
@@ -253,7 +253,7 @@ export const factory = () => {
         id="interest.Immersive Theatre"
         description="Intersts options: Immersive Theatre"
         defaultMessage="Immersive Theatre"
-      />
+      />,
     },
     {
       value: 'Improvisation',
@@ -261,7 +261,7 @@ export const factory = () => {
         id="interest.Improvisation"
         description="Intersts options: Improvisation"
         defaultMessage="Improvisation"
-      />
+      />,
     },
     {
       value: 'Indigenous',
@@ -269,7 +269,7 @@ export const factory = () => {
         id="interest.Indigenous"
         description="Intersts options: Indigenous"
         defaultMessage="Indigenous"
-      />
+      />,
     },
     {
       value: 'International',
@@ -277,7 +277,7 @@ export const factory = () => {
         id="interest.International"
         description="Intersts options: International"
         defaultMessage="International"
-      />
+      />,
     },
     {
       value: 'Jewish Theatre',
@@ -285,7 +285,7 @@ export const factory = () => {
         id="interest.Jewish Theatre"
         description="Intersts options: Jewish Theatre"
         defaultMessage="Jewish Theatre"
-      />
+      />,
     },
     {
       value: 'Latina/o Theatre Commons',
@@ -293,7 +293,7 @@ export const factory = () => {
         id="interest.Latina/o Theatre Commons"
         description="Intersts options: Latina/o Theatre Commons"
         defaultMessage="Latina/o Theatre Commons"
-      />
+      />,
     },
     {
       value: 'Latino-American',
@@ -301,7 +301,7 @@ export const factory = () => {
         id="interest.Latino-American"
         description="Intersts options: Latino-American"
         defaultMessage="Latino-American"
-      />
+      />,
     },
     {
       value: 'Literary Management',
@@ -309,7 +309,7 @@ export const factory = () => {
         id="interest.Literary Management"
         description="Intersts options: Literary Management"
         defaultMessage="Literary Management"
-      />
+      />,
     },
     {
       value: 'Multicultural',
@@ -317,7 +317,7 @@ export const factory = () => {
         id="interest.Multicultural"
         description="Intersts options: Multicultural"
         defaultMessage="Multicultural"
-      />
+      />,
     },
     {
       value: 'Multidisciplinary',
@@ -325,7 +325,7 @@ export const factory = () => {
         id="interest.Multidisciplinary"
         description="Intersts options: Multidisciplinary"
         defaultMessage="Multidisciplinary"
-      />
+      />,
     },
     {
       value: 'Music',
@@ -333,7 +333,7 @@ export const factory = () => {
         id="interest.Music"
         description="Intersts options: Music"
         defaultMessage="Music"
-      />
+      />,
     },
     {
       value: 'Musical Theatre',
@@ -341,7 +341,7 @@ export const factory = () => {
         id="interest.Musical Theatre"
         description="Intersts options: Musical Theatre"
         defaultMessage="Musical Theatre"
-      />
+      />,
     },
     {
       value: 'Musicals',
@@ -349,7 +349,7 @@ export const factory = () => {
         id="interest.Musicals"
         description="Intersts options: Musicals"
         defaultMessage="Musicals"
-      />
+      />,
     },
     {
       value: 'New Work',
@@ -357,7 +357,7 @@ export const factory = () => {
         id="interest.New Work"
         description="Intersts options: New Work"
         defaultMessage="New Work"
-      />
+      />,
     },
     {
       value: 'Object Theatre/Puppetry',
@@ -365,7 +365,7 @@ export const factory = () => {
         id="interest.Object Theatre/Puppetry"
         description="Intersts options: Object Theatre/Puppetry"
         defaultMessage="Object Theatre/Puppetry"
-      />
+      />,
     },
     {
       value: 'Opera',
@@ -373,7 +373,7 @@ export const factory = () => {
         id="interest.Opera"
         description="Intersts options: Opera"
         defaultMessage="Opera"
-      />
+      />,
     },
     {
       value: 'Performance Art',
@@ -381,7 +381,7 @@ export const factory = () => {
         id="interest.Performance Art"
         description="Intersts options: Performance Art"
         defaultMessage="Performance Art"
-      />
+      />,
     },
     {
       value: 'Philanthropy/Funding',
@@ -389,7 +389,7 @@ export const factory = () => {
         id="interest.Philanthropy/Funding"
         description="Intersts options: Philanthropy/Funding"
         defaultMessage="Philanthropy/Funding"
-      />
+      />,
     },
     {
       value: 'Physical Theatre',
@@ -397,7 +397,7 @@ export const factory = () => {
         id="interest.Physical Theatre"
         description="Intersts options: Physical Theatre"
         defaultMessage="Physical Theatre"
-      />
+      />,
     },
     {
       value: 'Playwright Residencies',
@@ -405,7 +405,7 @@ export const factory = () => {
         id="interest.Playwright Residencies"
         description="Intersts options: Playwright Residencies"
         defaultMessage="Playwright Residencies"
-      />
+      />,
     },
     {
       value: 'Playwriting',
@@ -413,7 +413,7 @@ export const factory = () => {
         id="interest.Playwriting"
         description="Intersts options: Playwriting"
         defaultMessage="Playwriting"
-      />
+      />,
     },
     {
       value: 'Poetry',
@@ -421,7 +421,7 @@ export const factory = () => {
         id="interest.Poetry"
         description="Intersts options: Poetry"
         defaultMessage="Poetry"
-      />
+      />,
     },
     {
       value: 'Political/Social',
@@ -429,7 +429,7 @@ export const factory = () => {
         id="interest.Political/Social"
         description="Intersts options: Political/Social"
         defaultMessage="Political/Social"
-      />
+      />,
     },
     {
       value: 'Process',
@@ -437,7 +437,7 @@ export const factory = () => {
         id="interest.Process"
         description="Intersts options: Process"
         defaultMessage="Process"
-      />
+      />,
     },
     {
       value: 'Producing',
@@ -445,7 +445,7 @@ export const factory = () => {
         id="interest.Producing"
         description="Intersts options: Producing"
         defaultMessage="Producing"
-      />
+      />,
     },
     {
       value: 'Puppetry',
@@ -453,7 +453,7 @@ export const factory = () => {
         id="interest.Puppetry"
         description="Intersts options: Puppetry"
         defaultMessage="Puppetry"
-      />
+      />,
     },
     {
       value: 'Queer Theatre',
@@ -461,7 +461,7 @@ export const factory = () => {
         id="interest.Queer Theatre"
         description="Intersts options: Queer Theatre"
         defaultMessage="Queer Theatre"
-      />
+      />,
     },
     {
       value: 'Race',
@@ -469,7 +469,7 @@ export const factory = () => {
         id="interest.Race"
         description="Intersts options: Race"
         defaultMessage="Race"
-      />
+      />,
     },
     {
       value: 'Religion/Spirituality',
@@ -477,7 +477,7 @@ export const factory = () => {
         id="interest.Religion/Spirituality"
         description="Intersts options: Religion/Spirituality"
         defaultMessage="Religion/Spirituality"
-      />
+      />,
     },
     {
       value: 'Rural Theatre',
@@ -485,7 +485,7 @@ export const factory = () => {
         id="interest.Rural Theatre"
         description="Intersts options: Rural Theatre"
         defaultMessage="Rural Theatre"
-      />
+      />,
     },
     {
       value: 'Senior Theatre',
@@ -493,7 +493,7 @@ export const factory = () => {
         id="interest.Senior Theatre"
         description="Intersts options: Senior Theatre"
         defaultMessage="Senior Theatre"
-      />
+      />,
     },
     {
       value: 'Shakespeare',
@@ -501,7 +501,7 @@ export const factory = () => {
         id="interest.Shakespeare"
         description="Intersts options: Shakespeare"
         defaultMessage="Shakespeare"
-      />
+      />,
     },
     {
       value: 'Site-specific',
@@ -509,7 +509,7 @@ export const factory = () => {
         id="interest.Site-specific"
         description="Intersts options: Site-specific"
         defaultMessage="Site-specific"
-      />
+      />,
     },
     {
       value: 'Social Justice',
@@ -517,7 +517,7 @@ export const factory = () => {
         id="interest.Social Justice"
         description="Intersts options: Social Justice"
         defaultMessage="Social Justice"
-      />
+      />,
     },
     {
       value: 'Social Media',
@@ -525,7 +525,7 @@ export const factory = () => {
         id="interest.Social Media"
         description="Intersts options: Social Media"
         defaultMessage="Social Media"
-      />
+      />,
     },
     {
       value: 'Sound Design',
@@ -533,7 +533,7 @@ export const factory = () => {
         id="interest.Sound Design"
         description="Intersts options: Sound Design"
         defaultMessage="Sound Design"
-      />
+      />,
     },
     {
       value: 'Sports',
@@ -541,7 +541,7 @@ export const factory = () => {
         id="interest.Sports"
         description="Intersts options: Sports"
         defaultMessage="Sports"
-      />
+      />,
     },
     {
       value: 'Stage Combat',
@@ -549,7 +549,7 @@ export const factory = () => {
         id="interest.Stage Combat"
         description="Intersts options: Stage Combat"
         defaultMessage="Stage Combat"
-      />
+      />,
     },
     {
       value: 'Stage Management',
@@ -557,7 +557,7 @@ export const factory = () => {
         id="interest.Stage Management"
         description="Intersts options: Stage Management"
         defaultMessage="Stage Management"
-      />
+      />,
     },
     {
       value: 'Student/Youth',
@@ -565,7 +565,7 @@ export const factory = () => {
         id="interest.Student/Youth"
         description="Intersts options: Student/Youth"
         defaultMessage="Student/Youth"
-      />
+      />,
     },
     {
       value: 'Technology',
@@ -573,7 +573,7 @@ export const factory = () => {
         id="interest.Technology"
         description="Intersts options: Technology"
         defaultMessage="Technology"
-      />
+      />,
     },
     {
       value: 'Theatre Education/Training',
@@ -581,7 +581,7 @@ export const factory = () => {
         id="interest.Theatre Education/Training"
         description="Intersts options: Theatre Education/Training"
         defaultMessage="Theatre Education/Training"
-      />
+      />,
     },
     {
       value: 'Theatre for Young Audiences',
@@ -589,7 +589,7 @@ export const factory = () => {
         id="interest.Theatre for Young Audiences"
         description="Intersts options: Theatre for Young Audiences"
         defaultMessage="Theatre for Young Audiences"
-      />
+      />,
     },
     {
       value: 'Theatre History',
@@ -597,7 +597,7 @@ export const factory = () => {
         id="interest.Theatre History"
         description="Intersts options: Theatre History"
         defaultMessage="Theatre History"
-      />
+      />,
     },
     {
       value: 'Touring',
@@ -605,7 +605,7 @@ export const factory = () => {
         id="interest.Touring"
         description="Intersts options: Touring"
         defaultMessage="Touring"
-      />
+      />,
     },
     {
       value: 'Transgender',
@@ -613,7 +613,7 @@ export const factory = () => {
         id="interest.Transgender"
         description="Intersts options: Transgender"
         defaultMessage="Transgender"
-      />
+      />,
     },
     {
       value: 'Translations/Adaptations',
@@ -621,7 +621,7 @@ export const factory = () => {
         id="interest.Translations/Adaptations"
         description="Intersts options: Translations/Adaptations"
         defaultMessage="Translations/Adaptations"
-      />
+      />,
     },
     {
       value: 'Video Games',
@@ -629,7 +629,7 @@ export const factory = () => {
         id="interest.Video Games"
         description="Intersts options: Video Games"
         defaultMessage="Video Games"
-      />
+      />,
     },
     {
       value: 'Women',
@@ -637,7 +637,7 @@ export const factory = () => {
         id="interest.Women"
         description="Intersts options: Women"
         defaultMessage="Women"
-      />
+      />,
     },
     {
       value: 'Young Audiences',
@@ -645,7 +645,7 @@ export const factory = () => {
         id="interest.Young Audiences"
         description="Intersts options: Young Audiences"
         defaultMessage="Young Audiences"
-      />
+      />,
     },
   ];
 

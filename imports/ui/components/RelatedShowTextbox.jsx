@@ -149,7 +149,31 @@ export default class RelatedShowTextbox extends React.Component {
       <div className="show-fields-group autocomplete-group">
         <input { ...attrs } value={ show.name } onChange={ this.onChange } onFocus={ this.onFocus } />
         { focus ? <ul className="autocomplete-results">{ resultsItems }{ addShowOption }</ul> : '' }
-        { showAuthorField ? <RelatedProfile updateParent={ this.setProfileForNewShow } attrs={ { className: 'show-author-name-edit', label: 'Primary Author (required)' } } wrapperAttrs={ { className: 'nested-subfield' } } /> : '' }
+        { showAuthorField ?
+          <RelatedProfile
+            updateParent={ this.setProfileForNewShow }
+            attrs={{
+              className: 'show-author-name-edit',
+              label: <FormattedMessage
+                id="forms.labelRequiredOrOptional"
+                description="Label for a form field with required or optional specified"
+                defaultMessage="{labelText} {optionalOrRequired}"
+                values={{
+                  optionalOrRequired: <span className="field-label-modifier required"><FormattedMessage
+                    id="forms.requiredLabel"
+                    description="Addition to label indicating a field is required"
+                    defaultMessage="(required)"
+                  /></span>,
+                  labelText: <FormattedMessage
+                    id="forms.primaryAuthorLabel"
+                    description="Label for a Primary author form field"
+                    defaultMessage="Primary Author"
+                  />,
+                }}
+              />,
+            }}
+            wrapperAttrs={{ className: 'nested-subfield' }}
+          /> : '' }
       </div>
     );
   }

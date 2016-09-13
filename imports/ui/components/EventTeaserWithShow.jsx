@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 
 import Authors from '../components/Authors.jsx';
 
-export default class EventTeaserWithShow extends React.Component {
+class EventTeaserWithShow extends React.Component {
   render() {
     const { event } = this.props;
+    const { formatMessage } = this.props.intl;
 
     const locationLine = [ event.locality, event.administrativeArea, event.country ].filter(function (val) {return val;}).join(', ');
 
@@ -14,7 +15,13 @@ export default class EventTeaserWithShow extends React.Component {
       <article className="event-teaser-with-show">
         <div className="event-main-info">
           <div className="event-type">
-            {event.eventType}
+            {
+              formatMessage({
+                'id': `eventType.${event.eventType}`,
+                'defaultMessage': event.eventType,
+                'description': `Interests option: ${event.eventType}`
+              })
+            }
           </div>
           <h3 className="event-show-name">
             <Link to={`/shows/${ event.show._id }`} key={event.show._id}>{event.show.name}</Link>
@@ -46,3 +53,5 @@ EventTeaserWithShow.propTypes = {
 EventTeaserWithShow.contextTypes = {
   router: React.PropTypes.object,
 };
+
+export default injectIntl(EventTeaserWithShow);

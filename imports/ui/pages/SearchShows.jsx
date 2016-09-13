@@ -1,6 +1,7 @@
 import React from 'react';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-form';
+import { intlShape, injectIntl } from 'react-intl';
 
 // API
 import { showFiltersSchema, filtersFormOptions } from '../../api/shows/shows.js';
@@ -14,7 +15,7 @@ import Loading from '../components/Loading.jsx';
 
 const Form = t.form.Form;
 
-export default class SearchShows extends React.Component {
+class SearchShows extends React.Component {
   constructor(props) {
     super(props);
 
@@ -72,6 +73,7 @@ export default class SearchShows extends React.Component {
   render() {
     // const { show, showExists, loading } = this.props;
     const { loading } = this.props;
+    const { formatMessage } = this.props.intl;
 
     if (loading) {
       return (
@@ -79,6 +81,11 @@ export default class SearchShows extends React.Component {
       );
     } else {
       let formOptions = filtersFormOptions();
+      formOptions.fields.name.attrs.placeholder = formatMessage({
+        'id': 'searchShows.placeholder',
+        'defaultMessage': 'Search for shows by name',
+        'description': 'Placeholder text for the show name field on search filters'
+      });
 
       // @TODO: Refactor filters form to be a component?
       return (
@@ -113,4 +120,7 @@ SearchShows.contextTypes = {
 SearchShows.propTypes = {
   loading: React.PropTypes.bool,
   location: React.PropTypes.object,
+  intl: intlShape.isRequired,
 };
+
+export default injectIntl(SearchShows);

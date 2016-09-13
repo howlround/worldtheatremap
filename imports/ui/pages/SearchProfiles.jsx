@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import ReactSelect from 'react-select';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-form';
+import { intlShape, injectIntl } from 'react-intl';
 
 // API
 import { Profiles, profileFiltersSchema, filtersFormOptions } from '../../api/profiles/profiles.js';
@@ -21,7 +22,7 @@ import Loading from '../components/Loading.jsx';
 
 const Form = t.form.Form;
 
-export default class SearchProfiles extends React.Component {
+class SearchProfiles extends React.Component {
   constructor(props) {
     super(props);
 
@@ -100,6 +101,7 @@ export default class SearchProfiles extends React.Component {
 
   render() {
     const { loading } = this.props;
+    const { formatMessage } = this.props.intl;
 
     if (loading) {
       return (
@@ -111,6 +113,11 @@ export default class SearchProfiles extends React.Component {
       formOptions.fields.locality.factory = localitiesFactory();
       formOptions.fields.country.factory = existingCountriesFactory();
       formOptions.fields.administrativeArea.factory = administrativeAreasFactory();
+      formOptions.fields.name.attrs.placeholder = formatMessage({
+        'id': 'searchProfiles.placeholder',
+        'defaultMessage': 'Search for profiles by name',
+        'description': 'Placeholder text for the profile name field on search filters'
+      });
 
       // @TODO: Refactor filters form to be a component?
       return (
@@ -144,4 +151,7 @@ SearchProfiles.contextTypes = {
 
 SearchProfiles.propTypes = {
   loading: React.PropTypes.bool,
+  intl: intlShape.isRequired,
 };
+
+export default injectIntl(SearchProfiles);

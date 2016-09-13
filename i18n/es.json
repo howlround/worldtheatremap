@@ -207,5 +207,7 @@
   "homepage.discoverSection": "Descubrir",
   "profilePage.locationHeader": "Ubicación",
   "profilePage.relatedPeopleHeader": "Personas Relacionadas",
-  "search.filterByHeader": "Filtrado por"
+  "search.filterByHeader": "Filtrado por",
+  "searchShows.placeholder": "Búsqueda de programas por nombre",
+  "searchProfiles.placeholder": "Búsqueda de perfiles por nombre"
 }

@@ -5,6 +5,9 @@ import { Mongo } from 'meteor/mongo';
 import React from 'react';
 import t from 'tcomb-form';
 
+// i18n
+import { FormattedMessage } from 'react-intl';
+
 // API
 import { factory as interestsFactory } from '../../api/interests/interests.js';
 
@@ -60,6 +63,23 @@ const authorLayout = (author) => (
 export const defaultFormOptions = () => ({
   fields: {
     name: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier required"><FormattedMessage
+            id="forms.requiredLabel"
+            description="Addition to label indicating a field is required"
+            defaultMessage="(required)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.showNameLabel"
+            description="Label for a Show name form field"
+            defaultMessage="Name"
+          />,
+        }}
+      />,
       attrs: {
         className: 'show-name-edit',
       },
@@ -68,7 +88,6 @@ export const defaultFormOptions = () => ({
     author: {
       auto: 'none',
       error: 'At least one author is required',
-      label: 'Primary authorship',
       attrs: {
         className: 'show-author-edit',
       },
@@ -76,6 +95,23 @@ export const defaultFormOptions = () => ({
         template: authorLayout,
         fields: {
           name: {
+            label: <FormattedMessage
+              id="forms.labelRequiredOrOptional"
+              description="Label for a form field with required or optional specified"
+              defaultMessage="{labelText} {optionalOrRequired}"
+              values={{
+                optionalOrRequired: <span className="field-label-modifier required"><FormattedMessage
+                  id="forms.requiredLabel"
+                  description="Addition to label indicating a field is required"
+                  defaultMessage="(required)"
+                /></span>,
+                labelText: <FormattedMessage
+                  id="forms.primaryAuthorLabel"
+                  description="Label for a Primary author form field"
+                  defaultMessage="Primary Author"
+                />,
+              }}
+            />,
             error: 'Primary authorship is required',
             attrs: {
               className: 'show-author-name-edit',
@@ -91,6 +127,23 @@ export const defaultFormOptions = () => ({
       },
     },
     about: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.profileAboutLabel"
+            description="Label for a Profile About form field"
+            defaultMessage="About"
+          />,
+        }}
+      />,
       type: 'textarea',
       attrs: {
         rows: '10',
@@ -98,6 +151,23 @@ export const defaultFormOptions = () => ({
       },
     },
     interests: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.interestsLabel"
+            description="Label for Interests form field"
+            defaultMessage="Interests"
+          />,
+        }}
+      />,
       factory: interestsFactory(),
     },
   },
@@ -114,6 +184,11 @@ export const filtersFormOptions = () => ({
       },
     },
     interests: {
+      label: <FormattedMessage
+        id="forms.interestsLabel"
+        description="Label for Interests form field"
+        defaultMessage="Interests"
+      />,
       factory: interestsFactory(),
     },
   },

@@ -17,6 +17,11 @@ export const upsert = new ValidatedMethod({
     country: { type: String },
   }).validator(),
   run({ country }) {
+    if (!this.userId) {
+      throw new Meteor.Error('countries.upsert.accessDenied',
+        'You must be logged in to complete this operation.');
+    }
+
     const countryObject = {
       label: country,
       value: country

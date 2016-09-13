@@ -17,6 +17,11 @@ export const insert = new ValidatedMethod({
     }
   },
   run({ newShow }) {
+    if (!this.userId) {
+      throw new Meteor.Error('shows.insert.accessDenied',
+        'You must be logged in to complete this operation.');
+    }
+
     return Shows.insert(newShow);
   },
 });
@@ -31,16 +36,10 @@ export const update = new ValidatedMethod({
     }
   },
   run({ showId, newShow }) {
-    // const show = Shows.findOne(showId);
-
-    // if (!show.editableBy(this.userId)) {
-    //   throw new Meteor.Error('shows.update.accessDenied',
-    //     'You don\'t have permission to edit this show.');
-    // }
-
-    // XXX the security check above is not atomic, so in theory a race condition could
-    // result in exposing private data
-
+    if (!this.userId) {
+      throw new Meteor.Error('shows.insert.accessDenied',
+        'You must be logged in to complete this operation.');
+    }
     Shows.update(showId, {
       $set: newShow,
     });

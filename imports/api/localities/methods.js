@@ -17,6 +17,11 @@ export const upsert = new ValidatedMethod({
     locality: { type: String },
   }).validator(),
   run({ locality }) {
+    if (!this.userId) {
+      throw new Meteor.Error('localities.upsert.accessDenied',
+        'You must be logged in to complete this operation.');
+    }
+
     const localityObject = {
       label: locality,
       value: locality

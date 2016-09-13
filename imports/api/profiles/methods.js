@@ -21,6 +21,11 @@ export const insert = new ValidatedMethod({
     }
   },
   run({ newProfile, targetLang }) {
+    if (!this.userId) {
+      throw new Meteor.Error('profiles.insert.accessDenied',
+        'You must be logged in to complete this operation.');
+    }
+
     // The permutations of viewing language and target language:
     // (After doing this we will conflate "Viewing in" and "Target" for now. They can be split apart later if required.)
     // [Viewing: Spanish + ]Target: Spanish
@@ -83,6 +88,12 @@ export const updateImage = new ValidatedMethod({
     image: { type: String },
   }).validator(),
   run({ profileId, image }) {
+    if (!this.userId) {
+      throw new Meteor.Error('profiles.updateImage.accessDenied',
+        'You must be logged in to complete this operation.');
+    }
+
+
     const profile = Profiles.findOne(profileId);
     const imageWide = image.replace('https://wtm-dev-images', 'https://wtm-dev-images-resized');
 
@@ -105,6 +116,11 @@ export const update = new ValidatedMethod({
     }
   },
   run({ profileId, newProfile }) {
+    if (!this.userId) {
+      throw new Meteor.Error('profiles.update.accessDenied',
+        'You must be logged in to complete this operation.');
+    }
+
     Profiles.update(profileId, {
       $set: newProfile,
     });
@@ -121,6 +137,11 @@ export const translate = new ValidatedMethod({
     }
   },
   run({ profileId, lang, newProfile }) {
+    if (!this.userId) {
+      throw new Meteor.Error('profiles.translate.accessDenied',
+        'You must be logged in to complete this operation.');
+    }
+
     Profiles.updateTranslations(profileId, {
       es: newProfile,
     });
@@ -131,12 +152,10 @@ export const remove = new ValidatedMethod({
   name: 'profiles.remove',
   validate: PROFILE_ID_ONLY,
   run({ profileId }) {
-    // const profile = Profiles.findOne(profileId);
-
-    // if (!profile.editableBy(this.userId)) {
-    //   throw new Meteor.Error('profiles.remove.accessDenied',
-    //     'You don\'t have permission to remove this profile.');
-    // }
+    if (!this.userId) {
+      throw new Meteor.Error('profiles.remove.accessDenied',
+        'You must be logged in to complete this operation.');
+    }
 
     Profiles.remove(profileId);
   },

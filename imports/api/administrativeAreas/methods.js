@@ -17,6 +17,11 @@ export const upsert = new ValidatedMethod({
     administrativeArea: { type: String },
   }).validator(),
   run({ administrativeArea }) {
+    if (!this.userId) {
+      throw new Meteor.Error('administrativeAreas.upsert.accessDenied',
+        'You must be logged in to complete this operation.');
+    }
+
     const administrativeAreaObject = {
       label: administrativeArea,
       value: administrativeArea

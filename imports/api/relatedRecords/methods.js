@@ -18,6 +18,10 @@ import { Participants } from '../participants/participants.js';
 //     }
 //   },
 //   run({ reconcileRelatedRecord }) {
+//     if (!this.userId) {
+//       throw new Meteor.Error('relatedRecords.update.accessDenied',
+//         'You must be logged in to complete this operation.');
+//     }
 //     // Get all participants for this event
 //     const allParticipants = Participants.find({'event._id': reconcileRelatedRecord.eventId}, {
 //       fields: Participants.publicFields,

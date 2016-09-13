@@ -107,17 +107,94 @@ ReactSelectProfileTypeFactory.transformer = t.form.List.transformer;
 
 // orgTypes options
 const OrgTypes = [
-  { value: 'Development / Residency Organization', label: 'Development / Residency Organization' },
-  { value: 'Festival / Presenting', label: 'Festival / Presenting' },
-  { value: 'Cultural / Sociocultural Service', label: 'Cultural / Sociocultural Service' },
-  { value: 'Producer', label: 'Producer' },
-  { value: 'Network / Association / Union', label: 'Network / Association / Union' },
-  { value: 'School / University / Training Organization', label: 'School / University / Training Organization' },
-  { value: 'Funder / Supporting / Grant-giving Institution', label: 'Funder / Supporting / Grant-giving Institution' },
-  { value: 'Resource Centre / Researcher', label: 'Resource Centre / Researcher' },
-  { value: 'Performing Company', label: 'Performing Company' },
-  { value: 'Venue', label: 'Venue' },
-  { value: 'Other', label: 'Other' },
+  {
+    value: 'Development / Residency Organization',
+    label: <FormattedMessage
+      id="orgType.Development / Residency Organization"
+      description="Org Types: Development / Residency Organization"
+      defaultMessage="Development / Residency Organization"
+    />,
+  },
+  {
+    value: 'Festival',
+    label: <FormattedMessage
+      id="orgType.Festival"
+      description="Org Types: Festival"
+      defaultMessage="Festival"
+    />,
+  },
+  {
+    value: 'Cultural / Sociocultural Service',
+    label: <FormattedMessage
+      id="orgType.Cultural / Sociocultural Service"
+      description="Org Types: Cultural / Sociocultural Service"
+      defaultMessage="Cultural / Sociocultural Service"
+    />,
+  },
+  {
+    value: 'Producer/ Presenter',
+    label: <FormattedMessage
+      id="orgType.Producer/ Presenter"
+      description="Org Types: Producer/ Presenter"
+      defaultMessage="Producer/ Presenter"
+    />,
+  },
+  {
+    value: 'Network / Association / Union',
+    label: <FormattedMessage
+      id="orgType.Network / Association / Union"
+      description="Org Types: Network / Association / Union"
+      defaultMessage="Network / Association / Union"
+    />,
+  },
+  {
+    value: 'School / University / Training Organization',
+    label: <FormattedMessage
+      id="orgType.School / University / Training Organization"
+      description="Org Types: School / University / Training Organization"
+      defaultMessage="School / University / Training Organization"
+    />,
+  },
+  {
+    value: 'Funder / Supporting Institution',
+    label: <FormattedMessage
+      id="orgType.Funder / Supporting Institution"
+      description="Org Types: Funder / Supporting Institution"
+      defaultMessage="Funder / Supporting Institution"
+    />,
+  },
+  {
+    value: 'Performing Company / Ensemble',
+    label: <FormattedMessage
+      id="orgType.Performing Company / Ensemble"
+      description="Org Types: Performing Company / Ensemble"
+      defaultMessage="Performing Company / Ensemble"
+    />,
+  },
+  {
+    value: 'Venue',
+    label: <FormattedMessage
+      id="orgType.Venue"
+      description="Org Types: Venue"
+      defaultMessage="Venue"
+    />,
+  },
+  {
+    value: 'Other',
+    label: <FormattedMessage
+      id="orgType.Other"
+      description="Org Types: Other"
+      defaultMessage="Other"
+    />,
+  },
+  {
+    value: 'Resource Centre',
+    label: <FormattedMessage
+      id="orgType.Resource Centre"
+      description="Org Types: Resource Centre"
+      defaultMessage="Resource Centre"
+    />,
+  },
 ];
 
 // orgTypes template
@@ -153,23 +230,222 @@ ReactSelectOrgTypesFactory.transformer = t.form.List.transformer;
 
 // selfDefinedRoles options
 const Roles = [
-  { value: 'Administrator', label: 'Administrator' },
-  { value: 'Show Producer', label: 'Show Producer' },
-  { value: 'Agent / Manager', label: 'Agent / Manager' },
-  { value: 'Funder', label: 'Funder' },
-  { value: 'Journalist / Critic', label: 'Journalist / Critic' },
-  { value: 'Production Staff', label: 'Production Staff' },
-  { value: 'Technical Staff', label: 'Technical Staff' },
-  { value: 'Designer', label: 'Designer' },
-  { value: 'Performer', label: 'Performer' },
-  { value: 'Stage Director', label: 'Stage Director' },
-  { value: 'Playwright', label: 'Playwright' },
-  { value: 'Translator', label: 'Translator' },
-  { value: 'Dramaturg', label: 'Dramaturg' },
-  { value: 'Educator / Scholar', label: 'Educator / Scholar' },
-  { value: 'Student', label: 'Student' },
-  { value: 'Music Composer', label: 'Music Composer' },
-  { value: 'Curator', label: 'Curator' },
+  {
+    value: 'Administrator',
+    label: <FormattedMessage
+      id="role.Administrator"
+      description="Roles options: Administrator"
+      defaultMessage="Administrator"
+    />,
+  },
+  {
+    value: 'Producer',
+    label: <FormattedMessage
+      id="role.Producer"
+      description="Roles options: Producer"
+      defaultMessage="Producer"
+    />,
+  },
+  {
+    value: 'Agent / Manager',
+    label: <FormattedMessage
+      id="role.Agent / Manager"
+      description="Roles options: Agent / Manager"
+      defaultMessage="Agent / Manager"
+    />,
+  },
+  {
+    value: 'Funder',
+    label: <FormattedMessage
+      id="role.Funder"
+      description="Roles options: Funder"
+      defaultMessage="Funder"
+    />,
+  },
+  {
+    value: 'Journalist / Critic',
+    label: <FormattedMessage
+      id="role.Journalist / Critic"
+      description="Roles options: Journalist / Critic"
+      defaultMessage="Journalist / Critic"
+    />,
+  },
+  {
+    value: 'Production/Technical Staff',
+    label: <FormattedMessage
+      id="role.Production/Technical Staff"
+      description="Roles options: Production/Technical Staff"
+      defaultMessage="Production/Technical Staff"
+    />,
+  },
+  {
+    value: 'Stage Director',
+    label: <FormattedMessage
+      id="role.Stage Director"
+      description="Roles options: Stage Director"
+      defaultMessage="Stage Director"
+    />,
+  },
+  {
+    value: 'Playwright',
+    label: <FormattedMessage
+      id="role.Playwright"
+      description="Roles options: Playwright"
+      defaultMessage="Playwright"
+    />,
+  },
+  {
+    value: 'Translator',
+    label: <FormattedMessage
+      id="role.Translator"
+      description="Roles options: Translator"
+      defaultMessage="Translator"
+    />,
+  },
+  {
+    value: 'Dramaturg',
+    label: <FormattedMessage
+      id="role.Dramaturg"
+      description="Roles options: Dramaturg"
+      defaultMessage="Dramaturg"
+    />,
+  },
+  {
+    value: 'Educator / Scholar',
+    label: <FormattedMessage
+      id="role.Educator / Scholar"
+      description="Roles options: Educator / Scholar"
+      defaultMessage="Educator / Scholar"
+    />,
+  },
+  {
+    value: 'Student',
+    label: <FormattedMessage
+      id="role.Student"
+      description="Roles options: Student"
+      defaultMessage="Student"
+    />,
+  },
+  {
+    value: 'Composer',
+    label: <FormattedMessage
+      id="role.Composer"
+      description="Roles options: Composer"
+      defaultMessage="Composer"
+    />,
+  },
+  {
+    value: 'Curator / Programmer',
+    label: <FormattedMessage
+      id="role.Curator / Programmer"
+      description="Roles options: Curator / Programmer"
+      defaultMessage="Curator / Programmer"
+    />,
+  },
+  {
+    value: 'Choreographer',
+    label: <FormattedMessage
+      id="role.Choreographer"
+      description="Roles options: Choreographer"
+      defaultMessage="Choreographer"
+    />,
+  },
+  {
+    value: 'Designer',
+    label: <FormattedMessage
+      id="role.Designer"
+      description="Roles options: Designer"
+      defaultMessage="Designer"
+    />,
+  },
+  {
+    value: 'Lighting Designer',
+    label: <FormattedMessage
+      id="role.Lighting Designer"
+      description="Roles options: Lighting Designer"
+      defaultMessage="Lighting Designer"
+    />,
+  },
+  {
+    value: 'Sound Designer',
+    label: <FormattedMessage
+      id="role.Sound Designer"
+      description="Roles options: Sound Designer"
+      defaultMessage="Sound Designer"
+    />,
+  },
+  {
+    value: 'Costume Designer',
+    label: <FormattedMessage
+      id="role.Costume Designer"
+      description="Roles options: Costume Designer"
+      defaultMessage="Costume Designer"
+    />,
+  },
+  {
+    value: 'Set Designer',
+    label: <FormattedMessage
+      id="role.Set Designer"
+      description="Roles options: Set Designer"
+      defaultMessage="Set Designer"
+    />,
+  },
+  {
+    value: 'Projection Design',
+    label: <FormattedMessage
+      id="role.Projection Design"
+      description="Roles options: Projection Design"
+      defaultMessage="Projection Design"
+    />,
+  },
+  {
+    value: 'Performer',
+    label: <FormattedMessage
+      id="role.Performer"
+      description="Roles options: Performer"
+      defaultMessage="Performer"
+    />,
+  },
+  {
+    value: 'Actor',
+    label: <FormattedMessage
+      id="role.Actor"
+      description="Roles options: Actor"
+      defaultMessage="Actor"
+    />,
+  },
+  {
+    value: 'Musician',
+    label: <FormattedMessage
+      id="role.Musician"
+      description="Roles options: Musician"
+      defaultMessage="Musician"
+    />,
+  },
+  {
+    value: 'Dancer',
+    label: <FormattedMessage
+      id="role.Dancer"
+      description="Roles options: Dancer"
+      defaultMessage="Dancer"
+    />,
+  },
+  {
+    value: 'Other',
+    label: <FormattedMessage
+      id="role.Other"
+      description="Roles options: Other"
+      defaultMessage="Other"
+    />,
+  },
+  {
+    value: 'Singer',
+    label: <FormattedMessage
+      id="role.Singer"
+      description="Roles options: Singer"
+      defaultMessage="Singer"
+    />,
+  },
 ];
 
 // selfDefinedRoles template

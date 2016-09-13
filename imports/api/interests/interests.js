@@ -11,7 +11,7 @@ export const factory = () => {
       value: 'Accessibility',
       label: <FormattedMessage
         id="interest.Accessibility"
-        description="Intersts options: Accessibility"
+        description="Interests options: Accessibility"
         defaultMessage="Accessibility"
       />,
     },
@@ -19,7 +19,7 @@ export const factory = () => {
       value: 'Adaptation',
       label: <FormattedMessage
         id="interest.Adaptation"
-        description="Intersts options: Adaptation"
+        description="Interests options: Adaptation"
         defaultMessage="Adaptation"
       />,
     },
@@ -27,7 +27,7 @@ export const factory = () => {
       value: 'African-American',
       label: <FormattedMessage
         id="interest.African-American"
-        description="Intersts options: African-American"
+        description="Interests options: African-American"
         defaultMessage="African-American"
       />,
     },
@@ -35,7 +35,7 @@ export const factory = () => {
       value: 'African-Diaspora',
       label: <FormattedMessage
         id="interest.African-Diaspora"
-        description="Intersts options: African-Diaspora"
+        description="Interests options: African-Diaspora"
         defaultMessage="African-Diaspora"
       />,
     },
@@ -43,7 +43,7 @@ export const factory = () => {
       value: 'Asian-American',
       label: <FormattedMessage
         id="interest.Asian-American"
-        description="Intersts options: Asian-American"
+        description="Interests options: Asian-American"
         defaultMessage="Asian-American"
       />,
     },
@@ -51,7 +51,7 @@ export const factory = () => {
       value: 'Asian-Diaspora',
       label: <FormattedMessage
         id="interest.Asian-Diaspora"
-        description="Intersts options: Asian-Diaspora"
+        description="Interests options: Asian-Diaspora"
         defaultMessage="Asian-Diaspora"
       />,
     },
@@ -59,7 +59,7 @@ export const factory = () => {
       value: 'Black Theatre',
       label: <FormattedMessage
         id="interest.Black Theatre"
-        description="Intersts options: Black Theatre"
+        description="Interests options: Black Theatre"
         defaultMessage="Black Theatre"
       />,
     },
@@ -67,7 +67,7 @@ export const factory = () => {
       value: 'Burlesque',
       label: <FormattedMessage
         id="interest.Burlesque"
-        description="Intersts options: Burlesque"
+        description="Interests options: Burlesque"
         defaultMessage="Burlesque"
       />,
     },
@@ -75,7 +75,7 @@ export const factory = () => {
       value: 'Circus',
       label: <FormattedMessage
         id="interest.Circus"
-        description="Intersts options: Circus"
+        description="Interests options: Circus"
         defaultMessage="Circus"
       />,
     },
@@ -83,7 +83,7 @@ export const factory = () => {
       value: 'Classical',
       label: <FormattedMessage
         id="interest.Classical"
-        description="Intersts options: Classical"
+        description="Interests options: Classical"
         defaultMessage="Classical"
       />,
     },
@@ -91,7 +91,7 @@ export const factory = () => {
       value: 'Climate Change',
       label: <FormattedMessage
         id="interest.Climate Change"
-        description="Intersts options: Climate Change"
+        description="Interests options: Climate Change"
         defaultMessage="Climate Change"
       />,
     },
@@ -99,7 +99,7 @@ export const factory = () => {
       value: 'Contemporary',
       label: <FormattedMessage
         id="interest.Contemporary"
-        description="Intersts options: Contemporary"
+        description="Interests options: Contemporary"
         defaultMessage="Contemporary"
       />,
     },
@@ -107,7 +107,7 @@ export const factory = () => {
       value: 'Creative Placemaking',
       label: <FormattedMessage
         id="interest.Creative Placemaking"
-        description="Intersts options: Creative Placemaking"
+        description="Interests options: Creative Placemaking"
         defaultMessage="Creative Placemaking"
       />,
     },
@@ -115,7 +115,7 @@ export const factory = () => {
       value: 'Criticism',
       label: <FormattedMessage
         id="interest.Criticism"
-        description="Intersts options: Criticism"
+        description="Interests options: Criticism"
         defaultMessage="Criticism"
       />,
     },
@@ -123,7 +123,7 @@ export const factory = () => {
       value: 'Cross-cultural Exchange',
       label: <FormattedMessage
         id="interest.Cross-cultural Exchange"
-        description="Intersts options: Cross-cultural Exchange"
+        description="Interests options: Cross-cultural Exchange"
         defaultMessage="Cross-cultural Exchange"
       />,
     },
@@ -131,7 +131,7 @@ export const factory = () => {
       value: 'Dance',
       label: <FormattedMessage
         id="interest.Cross-cultural Exchange"
-        description="Intersts options: Cross-cultural Exchange"
+        description="Interests options: Cross-cultural Exchange"
         defaultMessage="Cross-cultural Exchange"
       />,
     },
@@ -139,7 +139,7 @@ export const factory = () => {
       value: 'Deaf',
       label: <FormattedMessage
         id="interest.Deaf"
-        description="Intersts options: Deaf"
+        description="Interests options: Deaf"
         defaultMessage="Deaf"
       />,
     },
@@ -147,7 +147,7 @@ export const factory = () => {
       value: 'Design',
       label: <FormattedMessage
         id="interest.Design"
-        description="Intersts options: Design"
+        description="Interests options: Design"
         defaultMessage="Design"
       />,
     },
@@ -155,7 +155,7 @@ export const factory = () => {
       value: 'Devised',
       label: <FormattedMessage
         id="interest.Devised"
-        description="Intersts options: Devised"
+        description="Interests options: Devised"
         defaultMessage="Devised"
       />,
     },
@@ -163,7 +163,7 @@ export const factory = () => {
       value: 'Directing',
       label: <FormattedMessage
         id="interest.Directing"
-        description="Intersts options: Directing"
+        description="Interests options: Directing"
         defaultMessage="Directing"
       />,
     },
@@ -171,7 +171,7 @@ export const factory = () => {
       value: 'Disability',
       label: <FormattedMessage
         id="interest.Disability"
-        description="Intersts options: Disability"
+        description="Interests options: Disability"
         defaultMessage="Disability"
       />,
     },
@@ -179,7 +179,7 @@ export const factory = () => {
       value: 'Diversity and Inclusion',
       label: <FormattedMessage
         id="interest.Diversity and Inclusion"
-        description="Intersts options: Diversity and Inclusion"
+        description="Interests options: Diversity and Inclusion"
         defaultMessage="Diversity and Inclusion"
       />,
     },
@@ -187,7 +187,7 @@ export const factory = () => {
       value: 'Documentary Theatre',
       label: <FormattedMessage
         id="interest.Documentary Theatre"
-        description="Intersts options: Documentary Theatre"
+        description="Interests options: Documentary Theatre"
         defaultMessage="Documentary Theatre"
       />,
     },
@@ -195,7 +195,7 @@ export const factory = () => {
       value: 'Eco Theatre',
       label: <FormattedMessage
         id="interest.Eco Theatre"
-        description="Intersts options: Eco Theatre"
+        description="Interests options: Eco Theatre"
         defaultMessage="Eco Theatre"
       />,
     },
@@ -203,7 +203,7 @@ export const factory = () => {
       value: 'Ensemble',
       label: <FormattedMessage
         id="interest.Ensemble"
-        description="Intersts options: Ensemble"
+        description="Interests options: Ensemble"
         defaultMessage="Ensemble"
       />,
     },
@@ -211,7 +211,7 @@ export const factory = () => {
       value: 'Experimental',
       label: <FormattedMessage
         id="interest.Experimental"
-        description="Intersts options: Experimental"
+        description="Interests options: Experimental"
         defaultMessage="Experimental"
       />,
     },
@@ -219,7 +219,7 @@ export const factory = () => {
       value: 'LGBTQIA*',
       label: <FormattedMessage
         id="interest.LGBTQIA*"
-        description="Intersts options: LGBTQIA*"
+        description="Interests options: LGBTQIA*"
         defaultMessage="LGBTQIA*"
       />,
     },
@@ -227,7 +227,7 @@ export const factory = () => {
       value: 'Geek Theater',
       label: <FormattedMessage
         id="interest.Geek Theater"
-        description="Intersts options: Geek Theater"
+        description="Interests options: Geek Theater"
         defaultMessage="Geek Theater"
       />,
     },
@@ -235,7 +235,7 @@ export const factory = () => {
       value: 'Gender Politics',
       label: <FormattedMessage
         id="interest.Gender Politics"
-        description="Intersts options: Gender Politics"
+        description="Interests options: Gender Politics"
         defaultMessage="Gender Politics"
       />,
     },
@@ -243,7 +243,7 @@ export const factory = () => {
       value: 'Hip Hop Theatre',
       label: <FormattedMessage
         id="interest.Hip Hop Theatre"
-        description="Intersts options: Hip Hop Theatre"
+        description="Interests options: Hip Hop Theatre"
         defaultMessage="Hip Hop Theatre"
       />,
     },
@@ -251,7 +251,7 @@ export const factory = () => {
       value: 'Immersive Theatre',
       label: <FormattedMessage
         id="interest.Immersive Theatre"
-        description="Intersts options: Immersive Theatre"
+        description="Interests options: Immersive Theatre"
         defaultMessage="Immersive Theatre"
       />,
     },
@@ -259,7 +259,7 @@ export const factory = () => {
       value: 'Improvisation',
       label: <FormattedMessage
         id="interest.Improvisation"
-        description="Intersts options: Improvisation"
+        description="Interests options: Improvisation"
         defaultMessage="Improvisation"
       />,
     },
@@ -267,7 +267,7 @@ export const factory = () => {
       value: 'Indigenous',
       label: <FormattedMessage
         id="interest.Indigenous"
-        description="Intersts options: Indigenous"
+        description="Interests options: Indigenous"
         defaultMessage="Indigenous"
       />,
     },
@@ -275,7 +275,7 @@ export const factory = () => {
       value: 'International',
       label: <FormattedMessage
         id="interest.International"
-        description="Intersts options: International"
+        description="Interests options: International"
         defaultMessage="International"
       />,
     },
@@ -283,7 +283,7 @@ export const factory = () => {
       value: 'Jewish Theatre',
       label: <FormattedMessage
         id="interest.Jewish Theatre"
-        description="Intersts options: Jewish Theatre"
+        description="Interests options: Jewish Theatre"
         defaultMessage="Jewish Theatre"
       />,
     },
@@ -291,7 +291,7 @@ export const factory = () => {
       value: 'Latina/o Theatre Commons',
       label: <FormattedMessage
         id="interest.Latina/o Theatre Commons"
-        description="Intersts options: Latina/o Theatre Commons"
+        description="Interests options: Latina/o Theatre Commons"
         defaultMessage="Latina/o Theatre Commons"
       />,
     },
@@ -299,7 +299,7 @@ export const factory = () => {
       value: 'Latino-American',
       label: <FormattedMessage
         id="interest.Latino-American"
-        description="Intersts options: Latino-American"
+        description="Interests options: Latino-American"
         defaultMessage="Latino-American"
       />,
     },
@@ -307,7 +307,7 @@ export const factory = () => {
       value: 'Literary Management',
       label: <FormattedMessage
         id="interest.Literary Management"
-        description="Intersts options: Literary Management"
+        description="Interests options: Literary Management"
         defaultMessage="Literary Management"
       />,
     },
@@ -315,7 +315,7 @@ export const factory = () => {
       value: 'Multicultural',
       label: <FormattedMessage
         id="interest.Multicultural"
-        description="Intersts options: Multicultural"
+        description="Interests options: Multicultural"
         defaultMessage="Multicultural"
       />,
     },
@@ -323,7 +323,7 @@ export const factory = () => {
       value: 'Multidisciplinary',
       label: <FormattedMessage
         id="interest.Multidisciplinary"
-        description="Intersts options: Multidisciplinary"
+        description="Interests options: Multidisciplinary"
         defaultMessage="Multidisciplinary"
       />,
     },
@@ -331,7 +331,7 @@ export const factory = () => {
       value: 'Music',
       label: <FormattedMessage
         id="interest.Music"
-        description="Intersts options: Music"
+        description="Interests options: Music"
         defaultMessage="Music"
       />,
     },
@@ -339,7 +339,7 @@ export const factory = () => {
       value: 'Musical Theatre',
       label: <FormattedMessage
         id="interest.Musical Theatre"
-        description="Intersts options: Musical Theatre"
+        description="Interests options: Musical Theatre"
         defaultMessage="Musical Theatre"
       />,
     },
@@ -347,7 +347,7 @@ export const factory = () => {
       value: 'Musicals',
       label: <FormattedMessage
         id="interest.Musicals"
-        description="Intersts options: Musicals"
+        description="Interests options: Musicals"
         defaultMessage="Musicals"
       />,
     },
@@ -355,7 +355,7 @@ export const factory = () => {
       value: 'New Work',
       label: <FormattedMessage
         id="interest.New Work"
-        description="Intersts options: New Work"
+        description="Interests options: New Work"
         defaultMessage="New Work"
       />,
     },
@@ -363,7 +363,7 @@ export const factory = () => {
       value: 'Object Theatre/Puppetry',
       label: <FormattedMessage
         id="interest.Object Theatre/Puppetry"
-        description="Intersts options: Object Theatre/Puppetry"
+        description="Interests options: Object Theatre/Puppetry"
         defaultMessage="Object Theatre/Puppetry"
       />,
     },
@@ -371,7 +371,7 @@ export const factory = () => {
       value: 'Opera',
       label: <FormattedMessage
         id="interest.Opera"
-        description="Intersts options: Opera"
+        description="Interests options: Opera"
         defaultMessage="Opera"
       />,
     },
@@ -379,7 +379,7 @@ export const factory = () => {
       value: 'Performance Art',
       label: <FormattedMessage
         id="interest.Performance Art"
-        description="Intersts options: Performance Art"
+        description="Interests options: Performance Art"
         defaultMessage="Performance Art"
       />,
     },
@@ -387,7 +387,7 @@ export const factory = () => {
       value: 'Philanthropy/Funding',
       label: <FormattedMessage
         id="interest.Philanthropy/Funding"
-        description="Intersts options: Philanthropy/Funding"
+        description="Interests options: Philanthropy/Funding"
         defaultMessage="Philanthropy/Funding"
       />,
     },
@@ -395,7 +395,7 @@ export const factory = () => {
       value: 'Physical Theatre',
       label: <FormattedMessage
         id="interest.Physical Theatre"
-        description="Intersts options: Physical Theatre"
+        description="Interests options: Physical Theatre"
         defaultMessage="Physical Theatre"
       />,
     },
@@ -403,7 +403,7 @@ export const factory = () => {
       value: 'Playwright Residencies',
       label: <FormattedMessage
         id="interest.Playwright Residencies"
-        description="Intersts options: Playwright Residencies"
+        description="Interests options: Playwright Residencies"
         defaultMessage="Playwright Residencies"
       />,
     },
@@ -411,7 +411,7 @@ export const factory = () => {
       value: 'Playwriting',
       label: <FormattedMessage
         id="interest.Playwriting"
-        description="Intersts options: Playwriting"
+        description="Interests options: Playwriting"
         defaultMessage="Playwriting"
       />,
     },
@@ -419,7 +419,7 @@ export const factory = () => {
       value: 'Poetry',
       label: <FormattedMessage
         id="interest.Poetry"
-        description="Intersts options: Poetry"
+        description="Interests options: Poetry"
         defaultMessage="Poetry"
       />,
     },
@@ -427,7 +427,7 @@ export const factory = () => {
       value: 'Political/Social',
       label: <FormattedMessage
         id="interest.Political/Social"
-        description="Intersts options: Political/Social"
+        description="Interests options: Political/Social"
         defaultMessage="Political/Social"
       />,
     },
@@ -435,7 +435,7 @@ export const factory = () => {
       value: 'Process',
       label: <FormattedMessage
         id="interest.Process"
-        description="Intersts options: Process"
+        description="Interests options: Process"
         defaultMessage="Process"
       />,
     },
@@ -443,7 +443,7 @@ export const factory = () => {
       value: 'Producing',
       label: <FormattedMessage
         id="interest.Producing"
-        description="Intersts options: Producing"
+        description="Interests options: Producing"
         defaultMessage="Producing"
       />,
     },
@@ -451,7 +451,7 @@ export const factory = () => {
       value: 'Puppetry',
       label: <FormattedMessage
         id="interest.Puppetry"
-        description="Intersts options: Puppetry"
+        description="Interests options: Puppetry"
         defaultMessage="Puppetry"
       />,
     },
@@ -459,7 +459,7 @@ export const factory = () => {
       value: 'Queer Theatre',
       label: <FormattedMessage
         id="interest.Queer Theatre"
-        description="Intersts options: Queer Theatre"
+        description="Interests options: Queer Theatre"
         defaultMessage="Queer Theatre"
       />,
     },
@@ -467,7 +467,7 @@ export const factory = () => {
       value: 'Race',
       label: <FormattedMessage
         id="interest.Race"
-        description="Intersts options: Race"
+        description="Interests options: Race"
         defaultMessage="Race"
       />,
     },
@@ -475,7 +475,7 @@ export const factory = () => {
       value: 'Religion/Spirituality',
       label: <FormattedMessage
         id="interest.Religion/Spirituality"
-        description="Intersts options: Religion/Spirituality"
+        description="Interests options: Religion/Spirituality"
         defaultMessage="Religion/Spirituality"
       />,
     },
@@ -483,7 +483,7 @@ export const factory = () => {
       value: 'Rural Theatre',
       label: <FormattedMessage
         id="interest.Rural Theatre"
-        description="Intersts options: Rural Theatre"
+        description="Interests options: Rural Theatre"
         defaultMessage="Rural Theatre"
       />,
     },
@@ -491,7 +491,7 @@ export const factory = () => {
       value: 'Senior Theatre',
       label: <FormattedMessage
         id="interest.Senior Theatre"
-        description="Intersts options: Senior Theatre"
+        description="Interests options: Senior Theatre"
         defaultMessage="Senior Theatre"
       />,
     },
@@ -499,7 +499,7 @@ export const factory = () => {
       value: 'Shakespeare',
       label: <FormattedMessage
         id="interest.Shakespeare"
-        description="Intersts options: Shakespeare"
+        description="Interests options: Shakespeare"
         defaultMessage="Shakespeare"
       />,
     },
@@ -507,7 +507,7 @@ export const factory = () => {
       value: 'Site-specific',
       label: <FormattedMessage
         id="interest.Site-specific"
-        description="Intersts options: Site-specific"
+        description="Interests options: Site-specific"
         defaultMessage="Site-specific"
       />,
     },
@@ -515,7 +515,7 @@ export const factory = () => {
       value: 'Social Justice',
       label: <FormattedMessage
         id="interest.Social Justice"
-        description="Intersts options: Social Justice"
+        description="Interests options: Social Justice"
         defaultMessage="Social Justice"
       />,
     },
@@ -523,7 +523,7 @@ export const factory = () => {
       value: 'Social Media',
       label: <FormattedMessage
         id="interest.Social Media"
-        description="Intersts options: Social Media"
+        description="Interests options: Social Media"
         defaultMessage="Social Media"
       />,
     },
@@ -531,7 +531,7 @@ export const factory = () => {
       value: 'Sound Design',
       label: <FormattedMessage
         id="interest.Sound Design"
-        description="Intersts options: Sound Design"
+        description="Interests options: Sound Design"
         defaultMessage="Sound Design"
       />,
     },
@@ -539,7 +539,7 @@ export const factory = () => {
       value: 'Sports',
       label: <FormattedMessage
         id="interest.Sports"
-        description="Intersts options: Sports"
+        description="Interests options: Sports"
         defaultMessage="Sports"
       />,
     },
@@ -547,7 +547,7 @@ export const factory = () => {
       value: 'Stage Combat',
       label: <FormattedMessage
         id="interest.Stage Combat"
-        description="Intersts options: Stage Combat"
+        description="Interests options: Stage Combat"
         defaultMessage="Stage Combat"
       />,
     },
@@ -555,7 +555,7 @@ export const factory = () => {
       value: 'Stage Management',
       label: <FormattedMessage
         id="interest.Stage Management"
-        description="Intersts options: Stage Management"
+        description="Interests options: Stage Management"
         defaultMessage="Stage Management"
       />,
     },
@@ -563,7 +563,7 @@ export const factory = () => {
       value: 'Student/Youth',
       label: <FormattedMessage
         id="interest.Student/Youth"
-        description="Intersts options: Student/Youth"
+        description="Interests options: Student/Youth"
         defaultMessage="Student/Youth"
       />,
     },
@@ -571,7 +571,7 @@ export const factory = () => {
       value: 'Technology',
       label: <FormattedMessage
         id="interest.Technology"
-        description="Intersts options: Technology"
+        description="Interests options: Technology"
         defaultMessage="Technology"
       />,
     },
@@ -579,7 +579,7 @@ export const factory = () => {
       value: 'Theatre Education/Training',
       label: <FormattedMessage
         id="interest.Theatre Education/Training"
-        description="Intersts options: Theatre Education/Training"
+        description="Interests options: Theatre Education/Training"
         defaultMessage="Theatre Education/Training"
       />,
     },
@@ -587,7 +587,7 @@ export const factory = () => {
       value: 'Theatre for Young Audiences',
       label: <FormattedMessage
         id="interest.Theatre for Young Audiences"
-        description="Intersts options: Theatre for Young Audiences"
+        description="Interests options: Theatre for Young Audiences"
         defaultMessage="Theatre for Young Audiences"
       />,
     },
@@ -595,7 +595,7 @@ export const factory = () => {
       value: 'Theatre History',
       label: <FormattedMessage
         id="interest.Theatre History"
-        description="Intersts options: Theatre History"
+        description="Interests options: Theatre History"
         defaultMessage="Theatre History"
       />,
     },
@@ -603,7 +603,7 @@ export const factory = () => {
       value: 'Touring',
       label: <FormattedMessage
         id="interest.Touring"
-        description="Intersts options: Touring"
+        description="Interests options: Touring"
         defaultMessage="Touring"
       />,
     },
@@ -611,7 +611,7 @@ export const factory = () => {
       value: 'Transgender',
       label: <FormattedMessage
         id="interest.Transgender"
-        description="Intersts options: Transgender"
+        description="Interests options: Transgender"
         defaultMessage="Transgender"
       />,
     },
@@ -619,7 +619,7 @@ export const factory = () => {
       value: 'Translations/Adaptations',
       label: <FormattedMessage
         id="interest.Translations/Adaptations"
-        description="Intersts options: Translations/Adaptations"
+        description="Interests options: Translations/Adaptations"
         defaultMessage="Translations/Adaptations"
       />,
     },
@@ -627,7 +627,7 @@ export const factory = () => {
       value: 'Video Games',
       label: <FormattedMessage
         id="interest.Video Games"
-        description="Intersts options: Video Games"
+        description="Interests options: Video Games"
         defaultMessage="Video Games"
       />,
     },
@@ -635,7 +635,7 @@ export const factory = () => {
       value: 'Women',
       label: <FormattedMessage
         id="interest.Women"
-        description="Intersts options: Women"
+        description="Interests options: Women"
         defaultMessage="Women"
       />,
     },
@@ -643,7 +643,7 @@ export const factory = () => {
       value: 'Young Audiences',
       label: <FormattedMessage
         id="interest.Young Audiences"
-        description="Intersts options: Young Audiences"
+        description="Interests options: Young Audiences"
         defaultMessage="Young Audiences"
       />,
     },

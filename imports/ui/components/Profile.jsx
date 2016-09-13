@@ -248,7 +248,18 @@ class Profile extends React.Component {
           seperator = ' and ';
         }
       }
-      return (<span key={orgType}>{orgType}{seperator}</span>);
+      return (
+        <span key={orgType}>
+          {
+            formatMessage({
+              'id': `orgType.${orgType}`,
+              'defaultMessage': orgType,
+              'description': `Interests option: ${orgType}`
+            })
+          }
+          {seperator}
+        </span>
+      );
     }) : false;
 
     let selfDefinedRoles = (profile.selfDefinedRoles) ?
@@ -263,7 +274,18 @@ class Profile extends React.Component {
             seperator = ' and ';
           }
         }
-        return (<span key={selfDefinedRole}>{selfDefinedRole}{seperator}</span>);
+        return (
+          <span key={selfDefinedRole}>
+            {
+              formatMessage({
+                'id': `selfDefinedRole.${selfDefinedRole}`,
+                'defaultMessage': selfDefinedRole,
+                'description': `Interests option: ${selfDefinedRole}`
+              })
+            }
+            {seperator}
+          </span>
+        );
       }) : false;
 
     let genders = (profile.gender) ? profile.gender.map((gender, index, array) => {

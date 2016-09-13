@@ -474,14 +474,14 @@ export const defaultFormOptions = () => ({
       attrs: {
         'data-geo': 'lat',
         className: 'visually-hidden',
-      }
+      },
     },
     lon: {
       auto: 'none',
       attrs: {
         'data-geo': 'lng',
         className: 'visually-hidden',
-      }
+      },
     },
     agent: {
       label: <FormattedMessage

@@ -306,13 +306,18 @@ export const defaultFormOptions = () => ({
       },
     },
     lat: {
+      auto: 'none',
       attrs: {
         'data-geo': 'lat',
+        className: 'event-lon-edit visually-hidden',
       },
+      error: 'You must select a location for this event',
     },
     lon: {
+      auto: 'none',
       attrs: {
         'data-geo': 'lng',
+        className: 'event-lat-edit visually-hidden',
       },
     },
     about: {

@@ -43,6 +43,7 @@
   "event.participantFormTitle": "Añadir un nuevo interlocutor",
   "buttons.save": "Guardar",
   "event.aboutSectionHeader": "Aobre",
+  "event.participantsCountHeader": "{participantsCount, number} {participantsCount, plural, one {Participante} other {Participantes}}",
   "show.authors": "de {authors}",
   "profile.imageDropHelpText": "Para subir una nueva foto clic o arrastrar una foto aquí.",
   "profile.agentLabel": "Agente",

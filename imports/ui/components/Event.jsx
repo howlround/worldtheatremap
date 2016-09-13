@@ -281,7 +281,6 @@ export default class Event extends React.Component {
     : '';
 
     let participants;
-    let participantsTitle = '0 Participants'
     if (participantsByEvent.length > 0) {
       participants = participantsByEvent.map(participant => {
         return <li key={participant._id} className="event-participant-list-item">
@@ -296,8 +295,6 @@ export default class Event extends React.Component {
           <div className="event-participant-role">{participant.role}</div>
         </li>
       });
-
-      participantsTitle = participantsByEvent.length == 1 ? participantsByEvent.length + ' Participant' : participantsByEvent.length + ' Participants';
     }
 
     const locationLine = [event.locality, event.administrativeArea, event.country].filter(function (val) {return val;}).join(', ');
@@ -343,7 +340,9 @@ export default class Event extends React.Component {
                 </div> : '' }
             </div>
           </div>
-          {editLink}
+          <div className="edit-links">
+            {editLink}
+          </div>
         </section>
         {event.about ?
           <section className="event-about">
@@ -356,12 +355,21 @@ export default class Event extends React.Component {
             </h2>
             {/*<div dangerouslySetInnerHTML={{__html: event.about}} />*/}
             {event.about}
-            {editLink}
+            <div className="edit-links">
+              {editLink}
+            </div>
           </section> : ''
         }
         { user || participants ?
           <section className="event-participants">
-            <h2>{participantsTitle}</h2>
+            <h2>
+              <FormattedMessage
+                id="event.participantsCountHeader"
+                description="Header for participants block on an event displaying count"
+                defaultMessage={`{participantsCount, number} {participantsCount, plural, one {Participant} other {Participants}}`}
+                values={{ participantsCount: participantsByEvent.length }}
+              />
+            </h2>
             <ul className="event-participant-list">
               { participants }
             </ul>

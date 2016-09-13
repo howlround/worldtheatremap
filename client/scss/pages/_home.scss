@@ -2,12 +2,23 @@
   text-align: center;
 
   h2 {
-    background-color: $black;
-    color: $white;
     padding: $spacing-unit $spacing-unit * 4;
+
+    span {
+      background-color: $black;
+      padding: $spacing-unit $spacing-unit * 4;
+    }
+
+    color: $white;
     font-size: 20px;
-    display: inline;
   }
+}
+
+.homepage-search-wrapper {
+  background-color: $background-teal;
+  border-top: solid 4px $black;
+  padding-bottom: $spacing-unit * 4;
+  margin-top: $spacing-unit * 4;
 }
 
 .homepage-events-globe {

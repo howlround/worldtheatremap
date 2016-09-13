@@ -44,12 +44,14 @@
   "home.todayGlobeHeader": "Que esta pasando hoy",
   "show.participantDefaultHeader": "Partícipe",
   "home.introText": "El Teatro Mapa del Mundo es un directorio generado por el usuario y un centro de medios en tiempo real de la comunidad mundos teatro.",
+  "homepage.autocompleteCreate": "{eventsTodayCount, number} {eventsTodayCount, plural, one {Evento Sucediendo} other {Eventos Que Suceden}} Hoy",
   "home.todayEventsMoreLink": "Ver todos los eventos de hoy",
   "searchNav.profiles": "Personas",
   "searchNav.events": "Eventos",
   "searchNav.shows": "Obras de teatro",
   "navigation.siteName": "El mapa",
   "navigation.directory": "Directorio",
+  "homepage.discoverSection": "Descubrir",
   "profilePage.locationHeader": "Ubicación",
   "profilePage.relatedPeopleHeader": "Personas Relacionadas"
 }

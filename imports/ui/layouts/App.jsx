@@ -4,6 +4,8 @@ import { Link } from 'react-router';
 
 import { FormattedMessage } from 'react-intl';
 
+import SearchProfiles from '../pages/SearchProfiles.jsx';
+
 import LanguageSwitcher from '../components/LanguageSwitcher.jsx';
 import UserMenu from '../components/UserMenu.jsx';
 import AddMenu from '../components/AddMenu.jsx';
@@ -79,7 +81,14 @@ export default class App extends React.Component {
     if (!loading && eventsTodayWithLocations) {
       return (
         <section className="homepage-events-list">
-          <h2>{`${eventsTodayCount} Events Happening Today`}</h2>
+          <h2>
+            <FormattedMessage
+              id="homepage.autocompleteCreate"
+              description="Autocomplete option to create a related show"
+              defaultMessage={`{eventsTodayCount, number} {eventsTodayCount, plural, one {Event} other {Events}} Happening Today`}
+              values={{ eventsTodayCount }}
+            />
+          </h2>
           <ul className="results">
             {eventsTodayWithLocations.slice(0, 6).map(event => (
               <li key={event._id}>
@@ -94,7 +103,7 @@ export default class App extends React.Component {
             <FormattedMessage
               id="home.todayEventsMoreLink"
               description="See all today's events link on home page"
-              defaultMessage="See All Events"
+              defaultMessage="See All Today's Events"
             />
           </Link>
         </section>
@@ -105,6 +114,7 @@ export default class App extends React.Component {
   }
 
   render() {
+    // @TODO: Need tests for search on the home page
     const { showConnectionIssue, forceCloseDropDown } = this.state;
     const {
       user,
@@ -178,11 +188,28 @@ export default class App extends React.Component {
           {loading
             ? <Loading key="loading" />
             : clonedChildren}
-          {!clonedChildren ?
-            <div className="page">
-              {!loading && eventsTodayWithLocations ? this.renderTodayMap() : ''}
-              {!loading && eventsTodayWithLocations ? this.renderTodayList() : ''}
-            </div> : ''
+          {(!clonedChildren && !loading) ?
+            <div className="homepage-content-wrapper">
+              <div className="page">
+                {eventsTodayWithLocations ? this.renderTodayMap() : ''}
+                {eventsTodayWithLocations ? this.renderTodayList() : ''}
+              </div>
+              <div className="homepage-search-wrapper">
+                <div className="homepage-search-content">
+                  <div className="homepage-section-header">
+                    <h2>
+                      <FormattedMessage
+                        id='homepage.discoverSection'
+                        description="Search filters header on the home page"
+                        defaultMessage="Discover"
+                      />
+                    </h2>
+                  </div>
+                  <SearchProfiles location={{ query: {} }} />
+                </div>
+              </div>
+            </div>
+            : ''
           }
         </div>
       </div>

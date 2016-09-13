@@ -228,5 +228,6 @@ module.exports = function() {
       Package['xolvio:cleaner'].resetDatabase();
     });
     browser.pause(100);
+    client.localStorage('DELETE');
   });
 }

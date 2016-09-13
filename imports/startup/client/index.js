@@ -1,5 +1,5 @@
 // PhantomJS does not support web fonts
-WebFontConfig = {
+const WebFontConfig = {
   google: { families: [ 'Oswald:300,400' ] }
 };
 (function() {

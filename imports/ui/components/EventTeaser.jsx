@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { FormattedDate } from 'react-intl';
 
 export default class EventTeaser extends React.Component {
   constructor(props) {
@@ -19,10 +20,22 @@ export default class EventTeaser extends React.Component {
           </h3>
           { typeof locationLine != 'undefined' ?
             <div className="event-location">{ locationLine }</div> : '' }
-          { event.dateRange ?
+          {event.startDate && event.endDate ?
             <div className="event-date-range date">
-              { event.dateRange }
-            </div> : '' }
+              <FormattedDate
+                value={event.startDate}
+                year='numeric'
+                month='short'
+                day='numeric'
+              />
+              <span> – </span>
+              <FormattedDate
+                value={event.endDate}
+                year='numeric'
+                month='short'
+                day='numeric'
+              />
+            </div> : ''}
         </div>
       </article>
     );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { _ } from 'meteor/underscore';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedDate } from 'react-intl';
 import classNames from 'classnames';
 import { displayError } from '../helpers/errors.js';
 import { select, queue, json } from 'd3';
@@ -334,10 +334,22 @@ export default class Event extends React.Component {
               </h3>
               { typeof locationLine != 'undefined' ?
                 <div className="event-location">{ locationLine }</div> : '' }
-              { event.dateRange ?
+              {event.startDate && event.endDate ?
                 <div className="event-date-range date">
-                  { event.dateRange }
-                </div> : '' }
+                  <FormattedDate
+                    value={event.startDate}
+                    year='numeric'
+                    month='short'
+                    day='numeric'
+                  />
+                  <span> – </span>
+                  <FormattedDate
+                    value={event.endDate}
+                    year='numeric'
+                    month='short'
+                    day='numeric'
+                  />
+                </div> : ''}
             </div>
           </div>
           <div className="edit-links">

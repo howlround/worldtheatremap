@@ -27,13 +27,7 @@ import { upsert as upsertCountry } from '../countries/methods.js';
 class EventsCollection extends Mongo.Collection {
   insert(event, callback) {
     const ourEvent = event;
-    // Construct the human readable date range line
     if (ourEvent.startDate && ourEvent.endDate) {
-      const startMoment = moment(ourEvent.startDate);
-      const endMoment = moment(ourEvent.endDate);
-      const dateRange = `${startMoment.format('MMM D YYYY')} – ${endMoment.format('MMM D YYYY')}`;
-      ourEvent.dateRange = dateRange;
-
       // Set all the dates to 8pm
       ourEvent.startDate = startMoment.hours(20).toDate();
       ourEvent.endDate = endMoment.hours(20).toDate();
@@ -55,13 +49,7 @@ class EventsCollection extends Mongo.Collection {
   }
   update(eventId, event) {
     const ourEvent = event.$set;
-    // Construct the human readable date range line
     if (ourEvent.startDate && ourEvent.endDate) {
-      const startMoment = moment(ourEvent.startDate);
-      const endMoment = moment(ourEvent.endDate);
-      const dateRange = `${startMoment.format('MMM D YYYY')} – ${endMoment.format('MMM D YYYY')}`;
-      ourEvent.dateRange = dateRange;
-
       // Set the dates to 8pm
       ourEvent.startDate = startMoment.hours(20).toDate();
       ourEvent.endDate = endMoment.hours(20).toDate();
@@ -595,7 +583,6 @@ Events.publicFields = {
   show: 1,
   startDate: 1,
   endDate: 1,
-  dateRange: 1,
   streetAddress: 1,
   locality: 1,
   administrativeArea: 1,

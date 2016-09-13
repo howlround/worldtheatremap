@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
+import { FormattedMessage, FormattedDate, intlShape, injectIntl } from 'react-intl';
 
 import Authors from '../components/Authors.jsx';
 
@@ -36,9 +36,21 @@ class EventTeaserWithShow extends React.Component {
           </div>
           {typeof locationLine !== 'undefined' ?
             <div className="event-location">{locationLine}</div> : ''}
-          {event.dateRange ?
+          {event.startDate && event.endDate ?
             <div className="event-date-range date">
-              {event.dateRange}
+              <FormattedDate
+                value={event.startDate}
+                year='numeric'
+                month='short'
+                day='numeric'
+              />
+              <span> – </span>
+              <FormattedDate
+                value={event.endDate}
+                year='numeric'
+                month='short'
+                day='numeric'
+              />
             </div> : ''}
         </div>
       </article>

@@ -73,6 +73,20 @@ Feature: Edit events
     And I click on ".edit-event-save"
     Then I should see the "#globe" element
 
+  @chromeOnly
+  Scenario: Users who use the pin selector when editing should have the other address fields prepopulated (CHROME ONLY)
+    And I go to the show page for "Sofia"
+    And I click on ".event-name a"
+    And I click on ".edit-link"
+    And I fill in ".find-pin" with "10 Boylston Pl, Boston"
+    And I click on ".pac-item"
+    And I should wait extra long until "pac-item" is not visible
+    Then the ".event-street-address-edit" field should have the value "10 Boylston Place"
+    And the ".event-locality-edit" field should have the value "Boston"
+    And the ".event-administrative-area-edit" field should have the value "Massachusetts"
+    And I click on ".edit-event-save"
+    And the ".event-location" element should contain "Massachusetts, United States"
+
   Scenario: Users should see the existing show value when editing an event
     And I go to the show page for "Sofia"
     And I click on ".event-name a"

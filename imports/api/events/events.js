@@ -227,13 +227,13 @@ export const eventSchema = t.struct({
   eventType: t.String,
   startDate: t.Date,
   endDate: t.Date,
+  lat: t.String,
+  lon: t.String,
   streetAddress: t.maybe(t.String),
   locality: t.maybe(t.String), // City
   administrativeArea: t.maybe(t.String), // Province, Region, State
   country: t.String,
   postalCode: t.maybe(t.String),
-  lat: t.String,
-  lon: t.String,
   about: t.maybe(t.String),
 });
 
@@ -474,7 +474,6 @@ export const defaultFormOptions = () => ({
     lat: {
       auto: 'none',
       attrs: {
-        'data-geo': 'lat',
         className: 'event-lon-edit visually-hidden',
       },
       error: 'You must select a location for this event',
@@ -482,7 +481,6 @@ export const defaultFormOptions = () => ({
     lon: {
       auto: 'none',
       attrs: {
-        'data-geo': 'lng',
         className: 'event-lat-edit visually-hidden',
       },
     },

@@ -79,10 +79,39 @@ export default class EventEdit extends React.Component {
 
         $('.find-pin').bind("geocode:result", (event, result) => {
           let updatedEvent = _.extend({}, this.state);
+
+          _.each(result.address_components, (comp) => {
+            updatedEvent[comp.types[0]] = comp.long_name;
+          });
+
           const newLat = result.geometry.location.lat();
           const newLon = result.geometry.location.lng();
           updatedEvent.lat = newLat.toString();
           updatedEvent.lon = newLon.toString();
+
+          if (updatedEvent.street_number && updatedEvent.route) {
+            updatedEvent.streetAddress = `${updatedEvent.street_number} ${updatedEvent.route}`;
+
+            delete updatedEvent.street_number;
+            delete updatedEvent.route;
+          } else if (updatedEvent.route) {
+            updatedEvent.streetAddress = updatedEvent.route;
+
+            delete updatedEvent.route;
+          }
+
+          if (updatedEvent.administrative_area_level_1) {
+            updatedEvent.administrativeArea = updatedEvent.administrative_area_level_1;
+
+            delete updatedEvent.administrative_area_level_1;
+          }
+
+          if (updatedEvent.postal_code) {
+            updatedEvent.postalCode = updatedEvent.postal_code;
+
+            delete updatedEvent.postal_code;
+          }
+
           this.setState(updatedEvent);
         });
 

@@ -51,7 +51,7 @@ Feature: Create events for a show that doesn't exist yet
     And I click on ".show-author"
     Then the ".profile-name" element should contain "Unknown Playwright"
 
-  Scenario: Users should be able to edit and event and change it to a show that is not already in the system with an author not already in the system
+  Scenario: Users should be able to edit an event and change it to a show that is not already in the system with an author not already in the system
     And I am on the home page
     And a profile with the following fields:
       | name | My Favorite Playwright |
@@ -137,7 +137,7 @@ Feature: Create events for a show that doesn't exist yet
     And I click on ".show-author"
     Then the ".profile-name" element should contain "Unknown Playwright"
 
-  Scenario: During adding an event for a show that does not existin in the system when a user types in a profile name that matches other profiles they should still be able to add it as a new profile
+  Scenario: During adding an event for a show that does not exist in in the system when a user types in a profile name that matches other profiles they should still be able to add it as a new profile
     And I am on the home page
     And a profile with the following fields:
       | name | My Favorite Playwright |

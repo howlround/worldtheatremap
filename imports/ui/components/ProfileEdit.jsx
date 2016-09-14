@@ -89,22 +89,51 @@ export default class ProfileEdit extends React.Component {
           .text('Set Map Pin (optional)')
           .prependTo('.profile-geographic-location-edit');
 
-        $('.find-pin').bind('geocode:dragged', (event, latLng) => {
-          const updatedProfile = _.extend({}, this.state);
+        $('.find-pin').bind("geocode:dragged", (event, latLng) => {
+          let updatedDoc = _.extend({}, this.state);
           const newLat = latLng.lat();
           const newLon = latLng.lng();
-          updatedProfile.lat = newLat.toString();
-          updatedProfile.lon = newLon.toString();
-          this.setState(updatedProfile);
+          updatedDoc.lat = newLat.toString();
+          updatedDoc.lon = newLon.toString();
+          this.setState(updatedDoc);
         });
 
-        $('.find-pin').bind('geocode:result', (event, result) => {
-          const updatedProfile = _.extend({}, this.state);
+        $('.find-pin').bind("geocode:result", (event, result) => {
+          let updatedDoc = _.extend({}, this.state);
+
+          _.each(result.address_components, (comp) => {
+            updatedDoc[comp.types[0]] = comp.long_name;
+          });
+
           const newLat = result.geometry.location.lat();
           const newLon = result.geometry.location.lng();
-          updatedProfile.lat = newLat.toString();
-          updatedProfile.lon = newLon.toString();
-          this.setState(updatedProfile);
+          updatedDoc.lat = newLat.toString();
+          updatedDoc.lon = newLon.toString();
+
+          if (updatedDoc.street_number && updatedDoc.route) {
+            updatedDoc.streetAddress = `${updatedDoc.street_number} ${updatedDoc.route}`;
+
+            delete updatedDoc.street_number;
+            delete updatedDoc.route;
+          } else if (updatedDoc.route) {
+            updatedDoc.streetAddress = updatedDoc.route;
+
+            delete updatedDoc.route;
+          }
+
+          if (updatedDoc.administrative_area_level_1) {
+            updatedDoc.administrativeArea = updatedDoc.administrative_area_level_1;
+
+            delete updatedDoc.administrative_area_level_1;
+          }
+
+          if (updatedDoc.postal_code) {
+            updatedDoc.postalCode = updatedDoc.postal_code;
+
+            delete updatedDoc.postal_code;
+          }
+
+          this.setState(updatedDoc);
         });
 
         $('.find-pin').trigger('geocode');

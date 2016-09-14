@@ -70,50 +70,50 @@ export default class EventAdd extends React.Component {
         $('<label></label>').text('Set Map Pin (required)').prependTo('.profile-geographic-location-edit');
 
         $('.find-pin').bind("geocode:dragged", (event, latLng) => {
-          let updatedEvent = _.extend({}, this.state);
+          let updatedDoc = _.extend({}, this.state);
           const newLat = latLng.lat();
           const newLon = latLng.lng();
-          updatedEvent.lat = newLat.toString();
-          updatedEvent.lon = newLon.toString();
-          this.setState(updatedEvent);
+          updatedDoc.lat = newLat.toString();
+          updatedDoc.lon = newLon.toString();
+          this.setState(updatedDoc);
         });
 
         $('.find-pin').bind("geocode:result", (event, result) => {
-          let updatedEvent = _.extend({}, this.state);
+          let updatedDoc = _.extend({}, this.state);
 
           _.each(result.address_components, (comp) => {
-            updatedEvent[comp.types[0]] = comp.long_name;
+            updatedDoc[comp.types[0]] = comp.long_name;
           });
 
           const newLat = result.geometry.location.lat();
           const newLon = result.geometry.location.lng();
-          updatedEvent.lat = newLat.toString();
-          updatedEvent.lon = newLon.toString();
+          updatedDoc.lat = newLat.toString();
+          updatedDoc.lon = newLon.toString();
 
-          if (updatedEvent.street_number && updatedEvent.route) {
-            updatedEvent.streetAddress = `${updatedEvent.street_number} ${updatedEvent.route}`;
+          if (updatedDoc.street_number && updatedDoc.route) {
+            updatedDoc.streetAddress = `${updatedDoc.street_number} ${updatedDoc.route}`;
 
-            delete updatedEvent.street_number;
-            delete updatedEvent.route;
-          } else if (updatedEvent.route) {
-            updatedEvent.streetAddress = updatedEvent.route;
+            delete updatedDoc.street_number;
+            delete updatedDoc.route;
+          } else if (updatedDoc.route) {
+            updatedDoc.streetAddress = updatedDoc.route;
 
-            delete updatedEvent.route;
+            delete updatedDoc.route;
           }
 
-          if (updatedEvent.administrative_area_level_1) {
-            updatedEvent.administrativeArea = updatedEvent.administrative_area_level_1;
+          if (updatedDoc.administrative_area_level_1) {
+            updatedDoc.administrativeArea = updatedDoc.administrative_area_level_1;
 
-            delete updatedEvent.administrative_area_level_1;
+            delete updatedDoc.administrative_area_level_1;
           }
 
-          if (updatedEvent.postal_code) {
-            updatedEvent.postalCode = updatedEvent.postal_code;
+          if (updatedDoc.postal_code) {
+            updatedDoc.postalCode = updatedDoc.postal_code;
 
-            delete updatedEvent.postal_code;
+            delete updatedDoc.postal_code;
           }
 
-          this.setState(updatedEvent);
+          this.setState(updatedDoc);
         });
 
         $('.find-pin').trigger("geocode");

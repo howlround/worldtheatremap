@@ -46,7 +46,7 @@ Feature: Create events
     And I should see the "#globe" element
     And the ".event-location" element should contain "Buenos Aires, Argentina"
 
-  Scenario: Users who use the pin selector should have the other address fields prepopulated
+  Scenario: Users who use the text box on the location map when adding an event should have the other address fields prepopulated
     And a profile with the following fields:
       | name | My Favorite Playwright |
     And I am logged in

@@ -554,13 +554,13 @@ export const profileSchema = t.struct({
   name: t.String, // Required
   about: t.maybe(t.String),
   profileType: t.maybe(t.list(t.String)), // Required
+  lat: t.maybe(t.String),
+  lon: t.maybe(t.String),
   streetAddress: t.maybe(t.String),
   locality: t.maybe(t.String), // City
   administrativeArea: t.maybe(t.String), // Province, Region, State
   country: t.maybe(t.String),
   postalCode: t.maybe(t.String),
-  lat: t.maybe(t.String),
-  lon: t.maybe(t.String),
   agent: t.maybe(t.String),
   phone: t.maybe(t.String),
   email: t.maybe(t.String),
@@ -680,7 +680,6 @@ export const defaultFormOptions = () => ({
       />,
       attrs: {
         className: 'profile-street-address-edit',
-        // 'data-geo': 'street_address',
       },
     },
     locality: {
@@ -703,7 +702,6 @@ export const defaultFormOptions = () => ({
       />,
       attrs: {
         className: 'profile-locality-edit',
-        // 'data-geo': 'locality',
       },
     },
     administrativeArea: {
@@ -726,7 +724,6 @@ export const defaultFormOptions = () => ({
       />,
       attrs: {
         className: 'profile-administrative-area-edit',
-        // 'data-geo': 'administrative_area_level_1',
       },
     },
     country: {
@@ -770,20 +767,17 @@ export const defaultFormOptions = () => ({
       />,
       attrs: {
         className: 'profile-postal-code-edit',
-        // 'data-geo': 'postal_code',
       },
     },
     lat: {
       auto: 'none',
       attrs: {
-        'data-geo': 'lat',
         className: 'visually-hidden',
       },
     },
     lon: {
       auto: 'none',
       attrs: {
-        'data-geo': 'lng',
         className: 'visually-hidden',
       },
     },
@@ -1134,21 +1128,18 @@ export const translateSourceFormOptions = () => ({
     streetAddress: {
       attrs: {
         className: 'profile-street-address-edit',
-        // 'data-geo': 'street_address',
       },
     },
     locality: {
       label: 'City (optional)',
       attrs: {
         className: 'profile-locality-edit',
-        // 'data-geo': 'locality',
       },
     },
     administrativeArea: {
       label: 'Province, Region, or State (optional)',
       attrs: {
         className: 'profile-administrative-area-edit',
-        // 'data-geo': 'administrative_area_level_1',
       },
     },
     country: {
@@ -1159,17 +1150,14 @@ export const translateSourceFormOptions = () => ({
     postalCode: {
       attrs: {
         className: 'profile-postal-code-edit',
-        // 'data-geo': 'postal_code',
       },
     },
     lat: {
       attrs: {
-        'data-geo': 'lat',
       }
     },
     lon: {
       attrs: {
-        'data-geo': 'lng',
       }
     },
     agent: {

@@ -7,6 +7,11 @@ import t from 'tcomb-validation';
 
 import { Profiles, profileSchema } from './profiles.js';
 
+// Methods
+import { upsert as upsertLocality } from '../localities/methods.js';
+import { upsert as upsertAdministrativeArea } from '../administrativeAreas/methods.js';
+import { upsert as upsertCountry } from '../countries/methods.js';
+
 const PROFILE_ID_ONLY = new SimpleSchema({
   profileId: { type: String },
 }).validator();
@@ -24,6 +29,16 @@ export const insert = new ValidatedMethod({
     if (!this.userId) {
       throw new Meteor.Error('profiles.insert.accessDenied',
         'You must be logged in to complete this operation.');
+    }
+
+    if (!_.isEmpty(newProfile.locality)) {
+      upsertLocality.call({ locality: newProfile.locality });
+    }
+    if (!_.isEmpty(newProfile.administrativeArea)) {
+      upsertAdministrativeArea.call({ administrativeArea: newProfile.administrativeArea });
+    }
+    if (!_.isEmpty(newProfile.country)) {
+      upsertCountry.call({ country: newProfile.country });
     }
 
     // The permutations of viewing language and target language:
@@ -119,6 +134,16 @@ export const update = new ValidatedMethod({
     if (!this.userId) {
       throw new Meteor.Error('profiles.update.accessDenied',
         'You must be logged in to complete this operation.');
+    }
+
+    if (!_.isEmpty(newProfile.locality)) {
+      upsertLocality.call({ locality: newProfile.locality });
+    }
+    if (!_.isEmpty(newProfile.administrativeArea)) {
+      upsertAdministrativeArea.call({ administrativeArea: newProfile.administrativeArea });
+    }
+    if (!_.isEmpty(newProfile.country)) {
+      upsertCountry.call({ country: newProfile.country });
     }
 
     Profiles.update(profileId, {

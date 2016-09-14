@@ -20,7 +20,7 @@ import { AllCountriesFactory } from '../../api/countries/countries.js';
 import RelatedShowTextbox from '../../ui/components/RelatedShowTextbox.jsx';
 
 // Methods
-import { upsert } from '../localities/methods.js';
+import { upsert as upsertLocality } from '../localities/methods.js';
 import { upsert as upsertAdministrativeArea } from '../administrativeAreas/methods.js';
 import { upsert as upsertCountry } from '../countries/methods.js';
 
@@ -36,7 +36,7 @@ class EventsCollection extends Mongo.Collection {
     }
 
     if (!_.isEmpty(ourEvent.locality)) {
-      upsert.call({ locality: ourEvent.locality });
+      upsertLocality.call({ locality: ourEvent.locality });
     }
     if (!_.isEmpty(ourEvent.administrativeArea)) {
       upsertAdministrativeArea.call({ administrativeArea: ourEvent.administrativeArea });
@@ -60,7 +60,7 @@ class EventsCollection extends Mongo.Collection {
     }
 
     if (!_.isEmpty(ourEvent.locality)) {
-      upsert.call({ locality: ourEvent.locality });
+      upsertLocality.call({ locality: ourEvent.locality });
     }
     if (!_.isEmpty(ourEvent.administrativeArea)) {
       upsertAdministrativeArea.call({ administrativeArea: ourEvent.administrativeArea });

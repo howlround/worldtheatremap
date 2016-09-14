@@ -15,50 +15,22 @@ import ReactSelect from 'react-select';
 import { AllCountriesFactory } from '../../api/countries/countries.js';
 import { factory as interestsFactory } from '../../api/interests/interests.js';
 
-// Methods
-import { upsert as upsertLocality } from '../localities/methods.js';
-import { upsert as upsertAdministrativeArea } from '../administrativeAreas/methods.js';
-import { upsert as upsertCountry } from '../countries/methods.js';
-
 class ProfilesCollection extends TAPi18n.Collection {
-  insert(profile, callback) {
-    const ourProfile = profile;
-    // Do any preprocessing here
-    // @TODO: Strip out null values and empty objects?
+  // insert(profile, callback) {
+  //   const ourProfile = profile;
+  //   return super.insert(ourProfile, callback);
+  // }
 
-    if (!_.isEmpty(ourProfile.locality)) {
-      upsertLocality.call({ locality: ourProfile.locality });
-    }
-    if (!_.isEmpty(ourProfile.administrativeArea)) {
-      upsertAdministrativeArea.call({ administrativeArea: ourProfile.administrativeArea });
-    }
-    if (!_.isEmpty(ourProfile.country)) {
-      upsertCountry.call({ country: ourProfile.country });
-    }
-    return super.insert(ourProfile, callback);
-  }
+  // update(profileId, profile, callback) {
+  //   const ourProfile = profile.$set;
+  //   return super.update(profileId, {
+  //     $set: ourProfile,
+  //   });
+  // }
 
-  update(profileId, profile, callback) {
-    const ourProfile = profile.$set;
-
-    if (!_.isEmpty(ourProfile.locality)) {
-      upsertLocality.call({ locality: ourProfile.locality });
-    }
-    if (!_.isEmpty(ourProfile.administrativeArea)) {
-      upsertAdministrativeArea.call({ administrativeArea: ourProfile.administrativeArea });
-    }
-    if (!_.isEmpty(ourProfile.country)) {
-      upsertCountry.call({ country: ourProfile.country });
-    }
-
-    return super.update(profileId, {
-      $set: ourProfile,
-    });
-  }
-
-  remove(selector, callback) {
-    return super.remove(selector, callback);
-  }
+  // remove(selector, callback) {
+  //   return super.remove(selector, callback);
+  // }
 }
 
 export const Profiles = new ProfilesCollection('Profiles');

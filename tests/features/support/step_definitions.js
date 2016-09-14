@@ -192,9 +192,12 @@ module.exports = function() {
 
   this.Then(/^the "([^"]*)" element should contain the date range for day "([^"]*)" to day "([^"]*)" of this month$/, function (element, day1, day2) {
     browser.waitForExist(element, 2000);
-    const dateRange = moment(day1, "DD").format('MMM D YYYY') + ' – ' + moment(day2, "DD").format('MMM D YYYY');
+    const dateRange = moment(day1, "DD").format('MMM D, YYYY');
+    const dateRange2 = moment(day2, "DD").format('MMM D, YYYY');
     const processedText = RegExp(RegExp.escape(dateRange), 'i');
+    const processedText2 = RegExp(RegExp.escape(dateRange2), 'i');
     expect(browser.getText(element)).toMatch(processedText);
+    expect(browser.getText(element)).toMatch(processedText2);
   });
 
   this.Given(/^a profile with the following fields:$/, function (table) {

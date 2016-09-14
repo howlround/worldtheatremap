@@ -29,7 +29,7 @@ Feature: Events taking place today should display on a map on the home page
     And I select "Coral Sea Islands" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
     And I am on the home page
-    Then the ".events-globe .event-show-name .show-name" element should contain "Althea"
+    Then the ".events-globe .event-show-name" element should contain "Althea"
 
   Scenario: Events that start before today and end before today should not display on the home page globe
     And I am logged in
@@ -96,7 +96,7 @@ Feature: Events taking place today should display on a map on the home page
     And I select "Coral Sea Islands" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
     And I am on the home page
-    Then the ".events-globe .event-show-name .show-name" element should contain "Althea"
+    Then the ".events-globe .event-show-name" element should contain "Althea"
 
   Scenario: When an show name is edited the name should propogate to the info on the home page globe
     And I am logged in
@@ -123,4 +123,4 @@ Feature: Events taking place today should display on a map on the home page
     And I fill in ".show-name-edit" with "Jessa"
     And I click on ".edit-show-save"
     And I am on the home page
-    Then the ".events-globe .event-show-name .show-name" element should contain "Jessa"
+    Then the ".events-globe .event-show-name" element should contain "Jessa"

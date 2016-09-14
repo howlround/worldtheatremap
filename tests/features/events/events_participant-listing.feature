@@ -101,7 +101,7 @@ Feature: Participant listing on event pages
     And I press ".edit-profile-save"
     And I go to the show page for "Sofia"
     And I click on ".event-name a"
-    Then the ".event-participant-name .profile-name" element should contain "La Regista"
+    Then the ".event-participant-name" element should contain "La Regista"
 
   Scenario: If a show name is edited after a participant is added they show name should display correctly on the participants profile
     And a profile with the following fields:

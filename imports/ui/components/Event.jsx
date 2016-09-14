@@ -10,6 +10,7 @@ import { geoOrthographic, geoGraticule, geoPath, geoCentroid, geoInterpolate } f
 import t from 'tcomb-form';
 
 import Authors from '../components/Authors.jsx';
+import ProfileNameContainer from '../containers/ProfileNameContainer.jsx';
 
 import { insert } from '../../api/participants/methods.js';
 import { participantFormSchema, defaultFormOptions } from '../../api/participants/participants.js';
@@ -289,7 +290,7 @@ export default class Event extends React.Component {
               to={`/profiles/${ participant.profile.id }`}
               title={participant.profile.name}
             >
-              {participant.profile.name}
+              <ProfileNameContainer profileId={participant.profile.id} />
             </Link>
           </h3>
           <div className="event-participant-role">{participant.role}</div>

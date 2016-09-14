@@ -5,7 +5,7 @@ class ProfileName extends React.Component {
     const { profileName, profileExists } = this.props;
 
     return (
-      <span>
+      <span className="profile-name">
         {profileExists ?
           profileName.name
           : ''

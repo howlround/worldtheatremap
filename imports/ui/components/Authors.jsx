@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
+import ProfileNameContainer from '../containers/ProfileNameContainer.jsx';
 
 export default class Authors extends React.Component {
   render() {
@@ -21,7 +22,7 @@ export default class Authors extends React.Component {
         /><span> </span></span>);
       }
 
-      return (<span key={author.id}><Link to={`/profiles/${ author.id }`} className="show-author">{author.name}</Link>{seperator}</span>);
+      return (<span key={author.id}><Link to={`/profiles/${ author.id }`} className="show-author"><ProfileNameContainer profileId={author.id} /></Link>{seperator}</span>);
     });
 
     return (

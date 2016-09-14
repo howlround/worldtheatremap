@@ -151,6 +151,7 @@ module.exports = function() {
 
     // Check if we are on the correct page
     // const processedName = RegExp('/' + name + '/i');
+    browser.waitForExist('.page-title', 5000);
     const processedName = RegExp(RegExp.escape(name), 'i');
     expect(browser.getText('.page-title')).toMatch(processedName);
     callback();
@@ -174,6 +175,7 @@ module.exports = function() {
 
     // Check if we are on the correct page
     // const processedName = RegExp('/' + name + '/i');
+    browser.waitForExist('.page-title', 5000);
     const processedName = RegExp(RegExp.escape(name), 'i');
     expect(browser.getText('.page-title')).toMatch(processedName);
     callback();

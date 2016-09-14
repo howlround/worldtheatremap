@@ -10,20 +10,6 @@ import EventsMiniGlobe from '../components/EventsMiniGlobe.jsx';
 export default class Show extends React.Component {
   constructor(props) {
     super(props);
-
-    this.createNewShow = this.createNewShow.bind(this);
-  }
-
-  createNewShow() {
-    const { router } = this.context;
-    const listId = insert.call((err) => {
-      if (err) {
-        router.push('/');
-        /* eslint-disable no-alert */
-        alert('Could not create list.');
-      }
-    });
-    router.push(`/shows/${ listId }`);
   }
 
   render() {

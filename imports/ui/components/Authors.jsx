@@ -5,7 +5,7 @@ import ProfileNameContainer from '../containers/ProfileNameContainer.jsx';
 
 export default class Authors extends React.Component {
   render() {
-    const { authors } = this.props;
+    const { authors, noLinks } = this.props;
 
     // @TODO: Abstract this to a function or component to reduce duplication in EventTeaser.jsx and Event.jsx
     const authorString = authors.map((author, index, array) => {
@@ -22,7 +22,17 @@ export default class Authors extends React.Component {
         /><span> </span></span>);
       }
 
-      return (<span key={author.id}><Link to={`/profiles/${ author.id }`} className="show-author"><ProfileNameContainer profileId={author.id} /></Link>{seperator}</span>);
+      return (
+        <span key={author.id}>
+          {!noLinks ?
+            <Link to={`/profiles/${ author.id }`} className="show-author">
+              <ProfileNameContainer profileId={author.id} />
+            </Link>
+            : <ProfileNameContainer profileId={author.id} />
+          }
+          {seperator}
+        </span>
+      );
     });
 
     return (
@@ -35,4 +45,5 @@ export default class Authors extends React.Component {
 
 Authors.propTypes = {
   authors: React.PropTypes.array,
+  noLinks: React.PropTypes.bool,
 };

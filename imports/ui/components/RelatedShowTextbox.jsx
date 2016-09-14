@@ -4,6 +4,7 @@ import { Shows } from '../../api/shows/shows.js';
 import { insert } from '../../api/shows/methods.js';
 import { _ } from 'meteor/underscore';
 import RelatedProfile from '../../ui/components/RelatedProfile.jsx';
+import Authors from '../../ui/components/Authors.jsx';
 import { FormattedMessage } from 'react-intl';
 
 export default class RelatedShowTextbox extends React.Component {
@@ -131,7 +132,7 @@ export default class RelatedShowTextbox extends React.Component {
 
     let resultsItems = (results.length > 0) ? results.map(show => {
       return (
-        <li className="select-show" key={ show._id } onClick={ this.selectShow.bind(this, show) }>{ show.name }</li>
+        <li className="select-show" key={ show._id } onClick={ this.selectShow.bind(this, show) }>{ show.name } – <span className="autocomplete-authors"><Authors authors={show.author} noLinks /></span></li>
       );
     }) : '';
 

@@ -124,3 +124,17 @@ Feature: Create events
     And I select "Coral Sea Islands" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
     Then the ".error-block" element should contain "Event type is required"
+
+  Scenario: When adding an event the suggestions for existing show should include the Playwright
+    And a profile with the following fields:
+      | name | My Favorite Playwright |
+    And I am logged in
+    And I go to the "show" add page
+    And I fill in ".show-name-edit" with "Sofia"
+    And I fill in ".show-author-name-edit" with "My Favorite Playwright"
+    And I click on ".autocomplete-results li"
+    And I fill in ".show-about-edit" with "Most popular name in Italy"
+    And I click on ".edit-show-save"
+    And I go to the "event" add page
+    And I fill in ".event-show-edit" with "Sofia"
+    Then the ".autocomplete-results li" element should contain "My Favorite Playwright"

@@ -251,7 +251,6 @@ export const defaultFormOptions = () => ({
     show: {
       factory: RelatedShowFactory,
       error: 'Show is required',
-      label: 'Show name (required)',
       label: <FormattedMessage
         id="forms.labelRequiredOrOptional"
         description="Label for a form field with required or optional specified"
@@ -485,7 +484,6 @@ export const defaultFormOptions = () => ({
       },
     },
     about: {
-      type: 'textarea',
       label: <FormattedMessage
         id="forms.labelRequiredOrOptional"
         description="Label for a form field with required or optional specified"
@@ -504,9 +502,13 @@ export const defaultFormOptions = () => ({
         }}
       />,
       attrs: {
-        rows: '10',
         className: 'event-about-edit',
       },
+      help: <FormattedMessage
+        id="forms.eventAboutHelpText"
+        description="Help text for the event about field"
+        defaultMessage="Enter a link to more information about this event. Include the http://"
+      />,
     },
   },
 });

@@ -16,6 +16,7 @@
   "forms.countryLabel": "Country",
   "forms.postalCodeLabel": "Postal Code",
   "forms.eventAboutLabel": "About",
+  "forms.eventAboutHelpText": "Enter a link to more information about this event. Include the http://",
   "interest.Accessibility": "Accessibility",
   "interest.Adaptation": "Adaptation",
   "interest.African-American": "African-American",

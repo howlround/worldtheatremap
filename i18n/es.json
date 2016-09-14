@@ -18,6 +18,7 @@
   "forms.setMapPinLabel": "Conjunto pasador mapa",
   "forms.setMapPinPlaceholder": "Introduzca una ubicación",
   "forms.postalCodeLabel": "Código postal",
+  "forms.eventAboutHelpText": "Introduzca un enlace a más información sobre este evento. incluida la",
   "interest.Accessibility": "Accesibilidad",
   "interest.Adaptation": "Adaptación",
   "interest.African-American": "Afro-Americano",

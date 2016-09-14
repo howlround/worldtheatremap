@@ -6,7 +6,7 @@ Feature: Edit profiles
   So I can make sure information is up to date
 
   Background:
-    Given I am on the home page
+    Given I am on the English language home page
 
   Scenario: Anonymous users should not be able to edit profiles
     And a profile with the following fields:

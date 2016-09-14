@@ -9,7 +9,7 @@
   "forms.startDateLabel": "Fecha de inicio",
   "forms.endDateLabel": "Fecha final",
   "forms.eventTypeLabel": "Tipo de evento",
-  "forms.profileAboutLabel": "Aobre",
+  "forms.eventAboutLabel": "Aobre",
   "forms.optionalLabel": "(opcional)",
   "forms.streetLabel": "Dirección",
   "forms.localityLabel": "Ciudad",

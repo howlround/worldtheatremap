@@ -6,7 +6,7 @@ Feature: Search box on profile search
   So I can find specific profiles I already know about
 
   Background:
-    Given I am on the home page
+    Given I am on the English language home page
     And I am logged in
     When I go to the "profile" add page
     And I fill in ".profile-name-edit" with "Fatima"

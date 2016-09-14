@@ -6,7 +6,7 @@ Feature: Create events for a show that doesn't exist yet
   So I can more quickly add information
 
   Background:
-    Given I am on the home page
+    Given I am on the English language home page
 
   Scenario: Users should be able to add events for a show that is not in the system yet but has an existing author
     And I am logged in

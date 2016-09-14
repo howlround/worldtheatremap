@@ -5,7 +5,7 @@ Feature: Add new primary author profiles from show create page
   So I can add more information quickly
 
   Background:
-    Given I am on the home page
+    Given I am on the English language home page
 
   Scenario: Users should be able to create a show for a previously non-existing primary author
     And I am logged in

@@ -6,7 +6,7 @@ Feature: Create events
   So I can add information
 
   Background:
-    Given I am on the home page
+    Given I am on the English language home page
 
   Scenario: Anonymous users should see the option to add an event but be directed to a login page with a message
     When I go to the "event" add page

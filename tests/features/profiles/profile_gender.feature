@@ -5,7 +5,7 @@ Feature: Select gender options on profile
   So I can add accurate information
 
   Background:
-    Given I am on the home page
+    Given I am on the English language home page
 
   Scenario: Users should be able to create a profile choosing a pre-existing gender option
     And I am logged in

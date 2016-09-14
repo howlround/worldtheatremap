@@ -5,7 +5,7 @@ Feature: Events listing on show pages
   So I can know more about the show
 
   Background:
-    Given I am on the home page
+    Given I am on the English language home page
 
   Scenario: Users should be see all events associated with a show
     And a profile with the following fields:

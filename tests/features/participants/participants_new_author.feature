@@ -6,7 +6,7 @@ Feature: Add new profile from the participant add form
   So I can add more information quickly
 
   Background:
-    Given I am on the home page
+    Given I am on the English language home page
     And a profile with the following fields:
       | name | My Favorite Playwright |
     And I am logged in

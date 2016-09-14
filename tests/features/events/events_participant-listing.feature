@@ -6,7 +6,7 @@ Feature: Participant listing on event pages
   So I can know more about the event
 
   Background:
-    Given I am on the home page
+    Given I am on the English language home page
     And a profile with the following fields:
       | name | My Favorite Playwright |
     And I am logged in

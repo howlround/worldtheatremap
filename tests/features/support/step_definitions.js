@@ -48,6 +48,16 @@ module.exports = function() {
     browser.url('http://localhost:3000');
   });
 
+  this.Given(/^I am on the English language home page$/, function () {
+    browser.url('http://localhost:3000');
+    if (browser.getText('.language-switcher') === "English") {
+      browser.url('http://localhost:3000/en');
+      browser.waitUntil(function () {
+        return browser.getText('.language-switcher') === 'Español'
+      }, 5000, 'Site is not being viewed in English');
+    }
+  });
+
   this.When(/^I follow "([^"]*)"$/, function (element) {
     browser.waitForExist(element);
     browser.click(element);
@@ -231,6 +241,5 @@ module.exports = function() {
       Package['xolvio:cleaner'].resetDatabase();
     });
     browser.pause(100);
-    // client.localStorage('DELETE');
   });
 }

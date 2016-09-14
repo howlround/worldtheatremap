@@ -7,6 +7,7 @@ import { IntlProvider } from 'react-intl';
 
 // route components
 import AppContainer from '../../ui/containers/AppContainer.jsx';
+import LangaugeRedirect from '../../ui/pages/LangaugeRedirect.jsx';
 import ShowAddContainer from '../../ui/containers/ShowAddContainer.jsx';
 import ShowContainer from '../../ui/containers/ShowContainer.jsx';
 import ShowEditContainer from '../../ui/containers/ShowEditContainer.jsx';
@@ -43,6 +44,8 @@ export const renderRoutes = ({ locale, messages }) => (
   <IntlProvider locale={locale} key={locale} messages={messages}>
     <Router history={customHistory}>
       <Route path="/" component={AppContainer}>
+        <Route path="en" component={LangaugeRedirect} />
+        <Route path="es" component={LangaugeRedirect} />
         <Route path="profiles">
           <IndexRedirect to="add"/>
           <Route path="add" component={ProfileAddContainer}/>

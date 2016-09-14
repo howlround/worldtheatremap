@@ -6,7 +6,7 @@ Feature: Filters on shows search
   So I can find shows
 
   Background:
-    Given I am on the home page
+    Given I am on the English language home page
     And a profile with the following fields:
       | name | My Favorite Playwright |
     And I am logged in

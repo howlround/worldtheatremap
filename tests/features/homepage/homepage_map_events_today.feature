@@ -6,7 +6,7 @@ Feature: Events taking place today should display on a map on the home page
   So I can quickly see the breadth of content on the site
 
   Background:
-    Given I am on the home page
+    Given I am on the English language home page
 
   Scenario: Events that start before today and end after today should display on the home page globe
     And I am logged in

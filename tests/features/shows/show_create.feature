@@ -5,7 +5,7 @@ Feature: Create shows
   So I can add information
 
   Background:
-    Given I am on the home page
+    Given I am on the English language home page
 
   Scenario: Anonymous users should see the add options but be directed to a login page with a message
     When I go to the "show" add page

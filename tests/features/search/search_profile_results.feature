@@ -6,7 +6,7 @@ Feature: Search results content
   So I can find profiles
 
   Background:
-    Given I am on the home page
+    Given I am on the English language home page
     And I am logged in
 
   Scenario: Search results should contain all the necessary information

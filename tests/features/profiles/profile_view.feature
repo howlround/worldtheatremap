@@ -5,7 +5,7 @@ Feature: View organization profiles
   So I can find information
 
   Background:
-    Given I am on the home page
+    Given I am on the English language home page
 
   Scenario: As a user viewing an organization profile page I want to see information about that organization
     And a profile with the following fields:

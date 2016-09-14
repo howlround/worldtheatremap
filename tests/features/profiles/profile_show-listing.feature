@@ -6,7 +6,7 @@ Feature: List shows on the playwright profile
   So I can better understand what they do
 
   Background:
-    Given I am on the home page
+    Given I am on the English language home page
 
   Scenario: After creating a show that lists a profile as the primary author the show should display on that profile page
     And a profile with the following fields:

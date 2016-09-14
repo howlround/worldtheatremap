@@ -6,7 +6,7 @@ Feature: Profile search page
   So I can find profiles
 
   Background:
-    Given I am on the home page
+    Given I am on the English language home page
 
   Scenario: The profile search page should exist
     And I go to the "profiles" search page

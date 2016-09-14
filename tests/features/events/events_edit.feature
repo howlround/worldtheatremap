@@ -6,7 +6,7 @@ Feature: Edit events
   So I can keep information up to date
 
   Background:
-    Given I am on the home page
+    Given I am on the English language home page
     And a profile with the following fields:
       | name | My Favorite Playwright |
     And I am logged in

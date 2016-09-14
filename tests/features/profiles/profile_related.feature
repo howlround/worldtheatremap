@@ -5,7 +5,7 @@ Feature: Related profiles on profile pages
   So I can know more about the entity
 
   Background:
-    Given I am on the home page
+    Given I am on the English language home page
     And a profile with the following fields:
       | name | My Favorite Playwright |
     And I am logged in

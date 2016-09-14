@@ -225,16 +225,16 @@ export const relatedShowSchema = t.struct({
 export const eventSchema = t.struct({
   show: relatedShowSchema,
   eventType: t.String,
+  about: t.maybe(t.String),
   startDate: t.Date,
   endDate: t.Date,
   lat: t.String,
   lon: t.String,
-  streetAddress: t.maybe(t.String),
-  locality: t.maybe(t.String), // City
-  administrativeArea: t.maybe(t.String), // Province, Region, State
   country: t.String,
+  locality: t.maybe(t.String), // City
+  streetAddress: t.maybe(t.String),
+  administrativeArea: t.maybe(t.String), // Province, Region, State
   postalCode: t.maybe(t.String),
-  about: t.maybe(t.String),
 });
 
 export const eventFiltersSchema = t.struct({

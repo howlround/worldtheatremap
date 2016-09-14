@@ -384,9 +384,9 @@ export default class Event extends React.Component {
               />
             </h2>
             <ul className="event-participant-list">
-              { participants }
+              {participants}
             </ul>
-            { user ? this.renderParticipantAdd() : '' }
+            {user ? this.renderParticipantAdd() : ''}
           </section> : ''
         }
       </article>

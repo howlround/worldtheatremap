@@ -99,6 +99,7 @@ module.exports = function() {
 
   this.When(/^I fill in "([^"]*)" with "([^"]*)"$/, function (element, text) {
     browser.waitForExist(element, 8000);
+    browser.setValue(element, '');
     browser.setValue(element, text);
   });
 

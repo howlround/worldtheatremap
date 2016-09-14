@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { FormattedMessage, FormattedDate, intlShape, injectIntl } from 'react-intl';
 
 import Authors from '../components/Authors.jsx';
+import ShowNameContainer from '../containers/ShowNameContainer.jsx';
 
 class EventTeaserWithShow extends React.Component {
   render() {
@@ -24,7 +25,9 @@ class EventTeaserWithShow extends React.Component {
             }
           </div>
           <h3 className="event-show-name">
-            <Link to={`/shows/${ event.show._id }`} key={event.show._id}>{event.show.name}</Link>
+            <Link to={`/shows/${ event.show._id }`} key={event.show._id}>
+              <ShowNameContainer showId={event.show._id} />
+            </Link>
           </h3>
           <div className="event-authorship">
             <FormattedMessage

@@ -28,6 +28,13 @@ Meteor.publish('shows.singleById', function showsById(id) {
   });
 });
 
+Meteor.publish('shows.singleNameById', function showsById(id) {
+  return Shows.find({ _id: id }, {
+    fields: { name: 1 },
+    limit: 1,
+  });
+});
+
 
 Meteor.publish('shows.search', function showsSearch(query, requestedPage) {
   const limit = 20;

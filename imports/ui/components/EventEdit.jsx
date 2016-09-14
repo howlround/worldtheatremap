@@ -1,16 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { FormattedMessage } from 'react-intl';
+
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { _ } from 'meteor/underscore';
+import t from 'tcomb-form';
 import { displayError } from '../helpers/errors.js';
+
 import { insert, update } from '../../api/events/methods.js';
 import { eventSchema, defaultFormOptions } from '../../api/events/events.js';
 import { Shows } from '../../api/shows/shows.js';
-import t from 'tcomb-form';
 
 const Form = t.form.Form;
 
-export default class EventEdit extends React.Component {
+class EventEdit extends React.Component {
   constructor(props) {
     super(props);
 
@@ -39,22 +41,38 @@ export default class EventEdit extends React.Component {
   }
 
   initGoogleMap() {
-    // @TODO: Find a way to unify with ProfileEdit.jsx
+    // @TODO: Find a way to unify with ProfileAdd.jsx, ProfileEdit.jsx, EventAdd.jsx, and EventEdit.jsx
     if (GoogleMaps.loaded()) {
-      if ($('.form-group-lat.find-pin-processed').length == 0) {
-        // $('.form-group-lat').hide();
-        // $('.form-group-lon').hide();
-        let initMapLocation = [ 0, 0 ];
-        // if (navigator.geolocation) {
-        //     navigator.geolocation.getCurrentPosition(showPosition);
-        // }
-        // function showPosition(position) {
-        //   initMapLocation = [ position.coords.latitude, position.coords.longitude ];
-        // }
+      const { formatMessage } = this.props.intl;
+      if ($('.form-group-lat.find-pin-processed').length === 0) {
+        let initMapLocation = [0, 0];
+        let initMapZoom = 2;
+        if (this.state.lat && this.state.lon) {
+          initMapLocation = [this.state.lat, this.state.lon];
+          initMapZoom = 8;
+        }
 
-        $('<div></div>').addClass('form-group form-group-depth-1 profile-geographic-location-edit').insertBefore('.form-group-lat');
-        $('<div></div>').addClass('find-pin-map').prependTo('.profile-geographic-location-edit').width('100%').height('300px');
-        $('<input></input>').addClass('find-pin').attr({'type': 'text'}).prependTo('.profile-geographic-location-edit').geocomplete({
+        const label = formatMessage({
+          'id': 'forms.setMapPinLabel',
+          'defaultMessage': 'Set Map Pin',
+          'description': 'Label for the Set Map Pin field'
+        });
+
+        const required = formatMessage({
+          'id': 'forms.requiredLabel',
+          'defaultMessage': '(required)',
+          'description': 'Addition to label indicating a field is required'
+        });
+
+        const placeholder = formatMessage({
+          'id': 'forms.setMapPinPlaceholder',
+          'defaultMessage': 'Enter a location',
+          'description': 'Placeholder for the Set Map Pin field'
+        });
+
+        $('<div></div>').addClass('form-group form-group-depth-1 geographic-location-edit').insertBefore('.form-group-lat');
+        $('<div></div>').addClass('find-pin-map').prependTo('.geographic-location-edit').width('100%').height('300px');
+        $('<input></input>').addClass('find-pin').attr({'type': 'text', placeholder}).prependTo('.geographic-location-edit').geocomplete({
           map: ".find-pin-map",
           details: "form ",
           detailsAttribute: "data-geo",
@@ -62,11 +80,11 @@ export default class EventEdit extends React.Component {
             draggable: true
           },
           mapOptions: {
-            zoom: 2
+            zoom: initMapZoom
           },
           location: initMapLocation
         });
-        $('<label></label>').text('Set Map Pin (required)').prependTo('.profile-geographic-location-edit');
+        $('<label></label>').html(label + ' <span class="field-label-modifier required">' + required + '</span>').prependTo('.geographic-location-edit');
 
         $('.find-pin').bind("geocode:dragged", (event, latLng) => {
           let updatedDoc = _.extend({}, this.state);
@@ -174,8 +192,11 @@ export default class EventEdit extends React.Component {
 
 EventEdit.propTypes = {
   event: React.PropTypes.object,
+  intl: intlShape.isRequired,
 };
 
 EventEdit.contextTypes = {
   router: React.PropTypes.object,
 };
+
+export default injectIntl(EventEdit);

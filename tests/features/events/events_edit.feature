@@ -34,7 +34,7 @@ Feature: Edit events
     And I go to the show page for "Sofia"
     And I click on ".event-name a"
     And I click on ".edit-link"
-    And I select "Twitter Chat" from the ".event-type-edit" combobox
+    And I select "Reading" from the ".event-type-edit" combobox
     And I fill in ".event-about-edit" with "Tweets about spelling"
     And I click on ".form-group-startDate input"
     And I click on ".react-datepicker__day=2"

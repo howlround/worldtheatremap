@@ -43,7 +43,7 @@ Feature: Filters on event search
     And I go to the "event" add page
     And I fill in ".event-show-edit" with "Aadya"
     And I click on ".autocomplete-results li"
-    And I select "Twitter Chat" from the ".event-type-edit" combobox
+    And I select "Reading" from the ".event-type-edit" combobox
     And I fill in ".event-about-edit" with "A workshop on spelling"
     And I click on ".form-group-startDate input"
     And I click on ".react-datepicker__navigation--next"

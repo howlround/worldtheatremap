@@ -102,3 +102,19 @@ Feature: Participant listing on event pages
     And I go to the show page for "Sofia"
     And I click on ".event-name a"
     Then the ".event-participant-name .profile-name" element should contain "La Regista"
+
+  Scenario: If a show name is edited after a participant is added they show name should display correctly on the participants profile
+    And a profile with the following fields:
+      | name | Il Regista |
+    And I go to the show page for "Sofia"
+    And I click on ".event-name a"
+    And I fill in ".participant-profile-edit" with "Il Regista"
+    And I click on ".autocomplete-results li"
+    And I fill in ".participant-role-edit" with "Stage Director"
+    And I click on ".edit-participant-save"
+    When I go to the show page for "Sofia"
+    And I click on ".edit-link"
+    And I fill in ".show-name-edit" with "Jessa"
+    And I click on ".edit-show-save"
+    When I go to the profile page for "Il Regista"
+    Then the ".show-teaser" element should contain "Jessa"

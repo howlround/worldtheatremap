@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import Authors from '../components/Authors.jsx';
+import ShowNameContainer from '../containers/ShowNameContainer.jsx';
 
 export default class ShowTeaser extends React.Component {
   constructor(props) {
@@ -15,7 +16,9 @@ export default class ShowTeaser extends React.Component {
       <article className="show-teaser">
         <div className="show-main-info">
           <h3 className="show-name">
-            <Link to={`/shows/${ show._id }`} key={show._id}>{show.name}</Link>
+            <Link to={`/shows/${ show._id }`} key={show._id}>
+              <ShowNameContainer showId={show._id} />
+            </Link>
           </h3>
           <div className="show-authorship">
             <FormattedMessage

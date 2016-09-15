@@ -43,7 +43,7 @@ export default class Event extends React.Component {
         // @TODO: Make sure it doesn't overwrite bits that aren't set here on update
         // @TODO: Use a new method that only operates on the showsByRole array
         // updateRoles.call({
-        //   profileId: newParticipant.profile.id,
+        //   profileId: newParticipant.profile._id,
         //   role: newParticipant.role,
         // }, displayError);
 
@@ -288,10 +288,10 @@ export default class Event extends React.Component {
         return <li key={participant._id} className="event-participant-list-item">
           <h3 className="event-participant-name">
             <Link
-              to={`/profiles/${ participant.profile.id }`}
+              to={`/profiles/${ participant.profile._id }`}
               title={participant.profile.name}
             >
-              <ProfileNameContainer profileId={participant.profile.id} />
+              <ProfileNameContainer profileId={participant.profile._id} />
             </Link>
           </h3>
           <div className="event-participant-role">{participant.role}</div>
@@ -322,10 +322,10 @@ export default class Event extends React.Component {
           <div className="event-main-info">
             <h1 className="event-name page-title">
               <Link
-                to={`/shows/${ event.show.id }`}
+                to={`/shows/${ event.show._id }`}
                 title={event.show.name}
               >
-                <ShowNameContainer showId={event.show.id} />
+                <ShowNameContainer showId={event.show._id} />
               </Link>
             </h1>
             <div className="event-authorship">

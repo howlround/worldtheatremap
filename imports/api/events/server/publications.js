@@ -52,7 +52,7 @@ Meteor.publish('events.dateRangeWithLocations', function eventsPublic(start, end
 });
 
 Meteor.publish('events.byShow', function eventsbyShow(id) {
-  return Events.find({'show.id': id}, {
+  return Events.find({'show._id': id}, {
     fields: Events.publicFields,
     sort: { startDate: 1 }
   });

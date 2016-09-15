@@ -10,7 +10,7 @@ Meteor.publish('shows.public', function showsPublic() {
 });
 
 Meteor.publish('shows.byAuthor', function showsById(authorId) {
-  return Shows.find({ 'author.id': { $in: [authorId] } }, {
+  return Shows.find({ 'author._id': { $in: [authorId] } }, {
     fields: Shows.publicFields,
   });
 });

@@ -17,7 +17,7 @@ Meteor.publish('participants.byEvent', function participantsbyEvent(id) {
 });
 
 Meteor.publish('participants.byProfile', function participantsbyProfile(id) {
-  return Participants.find({'profile.id': id}, {
+  return Participants.find({'profile._id': id}, {
     fields: Participants.publicFields,
   });
 });

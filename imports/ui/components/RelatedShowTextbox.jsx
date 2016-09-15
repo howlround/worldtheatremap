@@ -107,7 +107,7 @@ export default class RelatedShowTextbox extends React.Component {
     // manually specify that
     // @TODO: Refactor to only use the _id
     const newShow = show;
-    newShow.id = show._id;
+    newShow._id = show._id;
 
     const newState = this.state;
     newState.show.name = newShow.name;

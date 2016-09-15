@@ -15,14 +15,14 @@ export default class ShowsByRole extends React.Component {
     // Get all of the events this profile has for this role, sorted by show
     // @TODO: Make sure this is reactive. Maybe make a container for this step
     const participantsByEvent = Meteor.subscribe('participants.byProfile', profile._id);
-    const participantByProfileByRole = Participants.find({'profile.id': profile._id, 'role': role}, {
+    const participantByProfileByRole = Participants.find({'profile._id': profile._id, 'role': role}, {
       fields: Participants.publicFields,
     }).fetch();
 
     let Shows;
     if (participantByProfileByRole && participantByProfileByRole.length) {
       Shows = participantByProfileByRole.map(participantRecord => (
-        <li key={participantRecord.event.show.id}>
+        <li key={participantRecord.event.show._id}>
           <ShowTeaser
             show={participantRecord.event.show}
           />

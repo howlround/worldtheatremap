@@ -33,7 +33,7 @@ Shows.deny({
 
 export const showAuthorSchema = t.struct({
   name: t.String,
-  id: t.String,
+  _id: t.String,
 });
 
 // @TODO: Refactor to look like this:
@@ -55,7 +55,7 @@ export const showFiltersSchema = t.struct({
 const authorLayout = (author) => (
   <div className="author-fields-group autocomplete-group">
     {author.inputs.name}
-    {author.inputs.id}
+    {author.inputs._id}
     <ul className="autocomplete-results"></ul>
   </div>
 );
@@ -118,7 +118,7 @@ export const defaultFormOptions = () => ({
               autoComplete: 'off',
             },
           },
-          id: {
+          _id: {
             attrs: {
               className: 'show-author-id-edit',
             },

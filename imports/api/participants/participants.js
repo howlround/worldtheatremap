@@ -25,7 +25,7 @@ class ParticipantsCollection extends Mongo.Collection {
     // - But running it first means you don't have to exclude it later
     RelatedRecords.reconcile({
       event: ourParticipant.event,
-      profileId: ourParticipant.profile.id
+      profileId: ourParticipant.profile._id
     });
 
     return super.insert(ourParticipant, callback);
@@ -65,7 +65,7 @@ class RelatedProfileFactory extends t.form.Textbox {
 
 export const relatedProfileSchema = t.struct({
   name: t.String,
-  id: t.String,
+  _id: t.String,
 });
 
 const atLeastOne = arr => arr.length > 0;
@@ -89,7 +89,7 @@ export const participantFormSchema = t.struct({
 //   return (
 //     <div className="profile-fields-group autocomplete-group">
 //       {profile.inputs.name}
-//       {profile.inputs.id}
+//       {profile.inputs._id}
 //       <ul className="autocomplete-results"></ul>
 //     </div>
 //   );
@@ -126,7 +126,7 @@ export const defaultFormOptions = () => {
               placeholder: 'Profile name',
             }
           },
-          id: {
+          _id: {
             attrs: {
               className: 'participant-profile-id-edit'
             }

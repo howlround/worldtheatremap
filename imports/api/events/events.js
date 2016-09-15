@@ -91,7 +91,7 @@ Events.deny({
 
 // export const relatedProfileSchema = t.struct({
 //   name: t.String,
-//   id: t.String,
+//   _id: t.String,
 // });
 
 
@@ -215,7 +215,7 @@ class RelatedShowFactory extends t.form.Textbox {
 // const atLeastOne = arr => arr.length > 0;
 export const relatedShowSchema = t.struct({
   name: t.String,
-  id: t.String,
+  _id: t.String,
   // author: t.refinement(t.list(relatedProfileSchema), atLeastOne),
 });
 
@@ -281,7 +281,7 @@ export const defaultFormOptions = () => ({
             placeholder: 'Show name',
           },
         },
-        id: {
+        _id: {
           attrs: {
             className: 'event-show-id-edit',
           },

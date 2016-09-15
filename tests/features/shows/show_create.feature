@@ -1,3 +1,4 @@
+@shows
 Feature: Create shows
 
   As a user
@@ -107,4 +108,4 @@ Feature: Create shows
     And I fill in ".form-group-author-2-name .show-author-name-edit" with "worst"
     And I click on "ul.autocomplete-results li"
     And I click on ".edit-show-save"
-    Then the ".show-authorship" element should contain "My Favorite Playwright, The second best playwright, and The worst playwright"
+    Then the ".show-authorship" element should contain "My Favorite Playwright, The second best playwright and The worst playwright"

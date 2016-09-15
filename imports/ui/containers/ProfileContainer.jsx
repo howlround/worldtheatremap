@@ -38,7 +38,7 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
   // Roles
   // @TODO: Refactor to not push to the roles array
   let roles = new Array;
-  const participantRecords = Participants.find({ "profile.id": id }, { fields: { "role": true } }).map(record => {
+  const participantRecords = Participants.find({ "profile._id": id }, { fields: { "role": true } }).map(record => {
     if (!_.contains(roles, record.role)) {
       roles.push(record.role);
     }
@@ -47,7 +47,7 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
   const loading = !(connectedProfilesSub.ready() && participantsSubscribe.ready() && connectionsSubscribe.ready() && primaryAuthorshipSubscribe.ready());
 
   const profile = Profiles.findOne(id);
-  const shows = profile ? Shows.find({ "author.id": profile._id }).fetch() : null;
+  const shows = profile ? Shows.find({ "author._id": profile._id }).fetch() : null;
   const connections = profile ? Profiles.find(
     {
       _id: {

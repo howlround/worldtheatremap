@@ -67,7 +67,7 @@ export default class ShowAdd extends React.Component {
       if (search.length > 0) {
         // Clear any existing stored values
         const clearValue = value;
-        clearValue.author[path[1]].id = '';
+        clearValue.author[path[1]]._id = '';
         this.setState({show: clearValue});
 
         const regex = new RegExp('.*' + search + '.*', 'i');
@@ -81,7 +81,7 @@ export default class ShowAdd extends React.Component {
             resultsElement.append('<li><b>' + profile.name + '</b> (' + profile._id + ')</li>').find('li:last-child').click(() => {
                 const newValue = value;
                 newValue.author[path[1]].name = profile.name;
-                newValue.author[path[1]].id = profile._id;
+                newValue.author[path[1]]._id = profile._id;
                 this.setState({show: newValue});
 
                 // Clear fields
@@ -101,7 +101,7 @@ export default class ShowAdd extends React.Component {
             // Save the new profile to the new show state
             const newValue = value;
             newValue.author[path[1]].name = search;
-            newValue.author[path[1]].id = newProfileID;
+            newValue.author[path[1]]._id = newProfileID;
             this.setState({show: newValue});
 
             // Clear fields

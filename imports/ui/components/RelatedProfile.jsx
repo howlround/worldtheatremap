@@ -97,7 +97,7 @@ export default class RelatedProfile extends React.Component {
 
     updateParent({
       name: profile.name,
-      'id': profile._id
+      _id: profile._id
     });
   }
 

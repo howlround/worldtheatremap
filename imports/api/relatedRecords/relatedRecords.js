@@ -29,7 +29,7 @@ class RelatedRecordsCollection extends Mongo.Collection {
     allParticipants.map(otherParticipant => {
 
       // if there is an existing record: (aka they have worked together)
-      const existing = super.findOne( { $and: [ { profiles: { $in: [ reconcileRelatedRecord.profileId ] } }, { profiles: { $in: [ otherParticipant.profile.id ] } } ] } );
+      const existing = super.findOne( { $and: [ { profiles: { $in: [ reconcileRelatedRecord.profileId ] } }, { profiles: { $in: [ otherParticipant.profile._id ] } } ] } );
 
       if (existing) {
         // @TODO: if this event is not already in the list
@@ -44,7 +44,7 @@ class RelatedRecordsCollection extends Mongo.Collection {
         const newRelated = {
           profiles: [
             reconcileRelatedRecord.profileId,
-            otherParticipant.profile.id
+            otherParticipant.profile._id
           ],
           events: [
             reconcileRelatedRecord.event._id

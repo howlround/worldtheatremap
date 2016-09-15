@@ -23,12 +23,12 @@ export default class Authors extends React.Component {
       }
 
       return (
-        <span key={author.id}>
+        <span key={author._id}>
           {!noLinks ?
-            <Link to={`/profiles/${ author.id }`} className="show-author">
-              <ProfileNameContainer profileId={author.id} />
+            <Link to={`/profiles/${ author._id }`} className="show-author">
+              <ProfileNameContainer profileId={author._id} />
             </Link>
-            : <ProfileNameContainer profileId={author.id} />
+            : <ProfileNameContainer profileId={author._id} />
           }
           {seperator}
         </span>

@@ -213,17 +213,16 @@ class RelatedShowFactory extends t.form.Textbox {
 }
 
 // const atLeastOne = arr => arr.length > 0;
-export const relatedShowSchema = t.struct({
+export const relatedDocumentSchema = t.struct({
   name: t.String,
   _id: t.String,
-  // author: t.refinement(t.list(relatedProfileSchema), atLeastOne),
 });
 
 // @TODO: Refactor to look like this:
 // https://github.com/gcanti/tcomb-form/issues/311
 // Maybe that should be in eventProfile?
 export const eventSchema = t.struct({
-  show: relatedShowSchema,
+  show: relatedDocumentSchema,
   eventType: t.String,
   about: t.maybe(t.String),
   startDate: t.Date,

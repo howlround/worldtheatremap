@@ -11,6 +11,7 @@ import t from 'tcomb-form';
 
 import Authors from '../components/Authors.jsx';
 import ProfileNameContainer from '../containers/ProfileNameContainer.jsx';
+import ShowNameContainer from '../containers/ShowNameContainer.jsx';
 
 import { insert } from '../../api/participants/methods.js';
 import { participantFormSchema, defaultFormOptions } from '../../api/participants/participants.js';
@@ -318,7 +319,7 @@ export default class Event extends React.Component {
                 to={`/shows/${ event.show.id }`}
                 title={event.show.name}
               >
-                {event.show.name}
+                <ShowNameContainer showId={event.show.id} />
               </Link>
             </h1>
             <div className="event-authorship">

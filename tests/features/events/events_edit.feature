@@ -62,8 +62,7 @@ Feature: Edit events
     And I click on ".show-author"
     Then the ".profile-name" element should contain "Unknown Playwright"
 
-  @chromeOnly
-  Scenario: Users should be able to edit location information for events (CHROME ONLY)
+  Scenario: Users should be able to edit location information for events
     And I go to the show page for "Sofia"
     And I click on ".event-name a"
     And I click on ".edit-link"
@@ -73,8 +72,7 @@ Feature: Edit events
     And I click on ".edit-event-save"
     Then I should see the "#globe" element
 
-  @chromeOnly
-  Scenario: Users who use the pin selector when editing should have the other address fields prepopulated (CHROME ONLY)
+  Scenario: Users who use the pin selector when editing should have the other address fields prepopulated
     And I go to the show page for "Sofia"
     And I click on ".event-name a"
     And I click on ".edit-link"

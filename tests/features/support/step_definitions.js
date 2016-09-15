@@ -186,9 +186,7 @@ module.exports = function() {
     browser.waitForExist(element, 5000);
     const processedText = RegExp(RegExp.escape(text), 'i');
 
-    browser.waitUntil(function () {
-      return processedText.test(text);
-    }, 5000, element + ' does not contain ' + text);
+    browser.waitUntil(() => processedText.test(browser.getText(element)), 5000, element + ' does not contain ' + text);
   });
 
   this.Then(/^the "([^"]*)" element should not contain "([^"]*)"$/, function (element, text) {

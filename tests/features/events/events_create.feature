@@ -27,7 +27,7 @@ Feature: Create events
     And I fill in ".event-show-edit" with "Sofia"
     And I click on ".autocomplete-results li"
     And I select "Performance" from the ".event-type-edit" combobox
-    And I fill in ".event-about-edit" with "A workshop on spelling"
+    And I fill in ".event-about-edit" with "http://google.com"
     And I click on ".form-group-startDate input"
     And I click on ".react-datepicker__day=1"
     And I click on ".form-group-endDate input"
@@ -41,7 +41,7 @@ Feature: Create events
     And I fill in ".event-postal-code-edit" with "1161"
     And I click on ".edit-event-save"
     Then the "h1.page-title" element should contain "Sofia"
-    And the ".event-about" element should contain "A workshop on spelling"
+    And the ".event-about" element should contain "google.com"
     And the ".event-date-range" element should contain the date range for day "1" to day "15" of this month
     And I should see the "#globe" element
     And the ".event-location" element should contain "Buenos Aires, Argentina"
@@ -60,7 +60,7 @@ Feature: Create events
     And I fill in ".event-show-edit" with "Sofia"
     And I click on ".autocomplete-results li"
     And I select "Performance" from the ".event-type-edit" combobox
-    And I fill in ".event-about-edit" with "A workshop on spelling"
+    And I fill in ".event-about-edit" with "http://google.com"
     And I click on ".form-group-startDate input"
     And I click on ".react-datepicker__day=1"
     And I click on ".form-group-endDate input"
@@ -88,7 +88,7 @@ Feature: Create events
     And I fill in ".event-show-edit" with "Sofia"
     And I click on ".autocomplete-results li"
     And I select "Performance" from the ".event-type-edit" combobox
-    And I fill in ".event-about-edit" with "A workshop on spelling"
+    And I fill in ".event-about-edit" with "http://google.com"
     And I click on ".form-group-startDate input"
     And I click on ".react-datepicker__day=1"
     And I click on ".form-group-endDate input"
@@ -114,7 +114,7 @@ Feature: Create events
     And I go to the "event" add page
     And I fill in ".event-show-edit" with "Sofia"
     And I click on ".autocomplete-results li"
-    And I fill in ".event-about-edit" with "A workshop on spelling"
+    And I fill in ".event-about-edit" with "http://google.com"
     And I click on ".form-group-startDate input"
     And I click on ".react-datepicker__day=1"
     And I click on ".form-group-endDate input"

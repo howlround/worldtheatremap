@@ -19,7 +19,7 @@ Feature: Related profiles on profile pages
     And I fill in ".event-show-edit" with "Sofia"
     And I click on ".autocomplete-results li"
     And I select "Performance" from the ".event-type-edit" combobox
-    And I fill in ".event-about-edit" with "A workshop on spelling"
+    And I fill in ".event-about-edit" with "http://google.com"
     And I fill in "[name=lat]" with "-36.03133177633187"
     And I fill in "[name=lon]" with "-72.0703125"
     And I click on ".form-group-startDate input"

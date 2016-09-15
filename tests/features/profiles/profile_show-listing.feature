@@ -34,7 +34,7 @@ Feature: List shows on the playwright profile
     And I go to the "event" add page
     And I fill in ".event-show-edit" with "A Play About Maryam"
     And I click on ".autocomplete-results li"
-    And I fill in ".event-about-edit" with "A workshop on spelling"
+    And I fill in ".event-about-edit" with "http://google.com"
     And I select "Performance" from the ".event-type-edit" combobox
     And I click on ".form-group-startDate input"
     And I click on ".react-datepicker__day=1"

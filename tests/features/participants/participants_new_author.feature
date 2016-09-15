@@ -20,7 +20,7 @@ Feature: Add new profile from the participant add form
     And I fill in ".event-show-edit" with "Sofia"
     And I click on ".autocomplete-results li"
     And I select "Performance" from the ".event-type-edit" combobox
-    And I fill in ".event-about-edit" with "A workshop on spelling"
+    And I fill in ".event-about-edit" with "http://google.com"
     And I click on ".form-group-startDate input"
     And I click on ".react-datepicker__day=1"
     And I click on ".form-group-endDate input"

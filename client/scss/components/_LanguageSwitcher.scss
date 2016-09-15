@@ -1,6 +1,10 @@
 .language-switcher {
-  float: right;
   margin: $spacing-unit;
+  text-align: right;
+
+  @include breakpoint($narrow) {
+    float: right;
+  }
 
   a {
     &:hover {

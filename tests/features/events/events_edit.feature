@@ -20,7 +20,7 @@ Feature: Edit events
     And I fill in ".event-show-edit" with "Sofia"
     And I click on ".autocomplete-results li"
     And I select "Performance" from the ".event-type-edit" combobox
-    And I fill in ".event-about-edit" with "A workshop on spelling"
+    And I fill in ".event-about-edit" with "http://google.com"
     And I click on ".form-group-startDate input"
     And I click on ".react-datepicker__day=1"
     And I click on ".form-group-endDate input"
@@ -35,7 +35,7 @@ Feature: Edit events
     And I click on ".event-name a"
     And I click on ".edit-link"
     And I select "Reading" from the ".event-type-edit" combobox
-    And I fill in ".event-about-edit" with "Tweets about spelling"
+    And I fill in ".event-about-edit" with "http://facebook.com"
     And I click on ".form-group-startDate input"
     And I click on ".react-datepicker__day=2"
     And I click on ".form-group-endDate input"
@@ -45,7 +45,7 @@ Feature: Edit events
     And I select "Coral Sea Islands" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
     Then the "h1.page-title" element should contain "Sofia"
-    And the ".event-about" element should contain "Tweets about spelling"
+    And the ".event-about" element should contain "facebook.com"
     And the ".event-date-range" element should contain the date range for day "2" to day "18" of this month
 
   Scenario: Users should be able to edit the show and the author on an event edit form

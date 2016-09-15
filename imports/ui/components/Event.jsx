@@ -305,6 +305,12 @@ export default class Event extends React.Component {
       'with-location': event.lat && event.lon,
     });
 
+
+    const stripHttpExp = RegExp('^(https?:|)\/\/');
+    const aboutRaw = event.about;
+    const aboutText = aboutRaw.replace(stripHttpExp, '');
+    const aboutLink = <a href={`http://${aboutText}`}>{aboutText}</a>;
+
     return (
       <article className={articleClasses}>
         <section>
@@ -367,8 +373,8 @@ export default class Event extends React.Component {
                 defaultMessage='About'
               />
             </h2>
-            {/*<div dangerouslySetInnerHTML={{__html: event.about}} />*/}
-            {event.about}
+            {/*<div dangerouslySetInnerHTML={{__html: sanitizeHtml(event.about)}} />*/}
+            {aboutLink}
             <div className="edit-links">
               {editLink}
             </div>

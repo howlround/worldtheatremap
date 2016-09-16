@@ -309,7 +309,7 @@ export default class Event extends React.Component {
       const stripHttpExp = RegExp('^(https?:|)\/\/');
       const aboutRaw = event.about;
       const aboutText = aboutRaw.replace(stripHttpExp, '');
-      const aboutLink = <a href={`http://${aboutText}`}>{aboutText}</a>;
+      event.about = <a href={`http://${aboutText}`}>{aboutText}</a>;
     }
 
     return (
@@ -375,7 +375,7 @@ export default class Event extends React.Component {
               />
             </h2>
             {/*<div dangerouslySetInnerHTML={{__html: sanitizeHtml(event.about)}} />*/}
-            {event.about ? aboutLink : ''}
+            {event.about ? event.about : ''}
             <div className="edit-links">
               {editLink}
             </div>

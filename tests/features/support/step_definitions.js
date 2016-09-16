@@ -64,8 +64,8 @@ module.exports = function() {
   });
 
   this.Given(/^I click on "([^"]*)"$/, function (element) {
-    browser.waitForExist(element, 2000);
-    client.waitForVisible(element, 2000);
+    browser.waitForExist(element, 5000);
+    client.waitForVisible(element, 5000);
     browser.click(element);
   });
 
@@ -91,6 +91,8 @@ module.exports = function() {
 
   this.Given(/^I go to the "([^"]*)" add page$/, function (type) {
     browser.url('http://localhost:3000/' + type + 's/add');
+    // Give it lots of time for the add page to load
+    browser.waitForExist('.page', 8000);
   });
 
   this.Given(/^I go to the "([^"]*)" search page$/, function (type) {

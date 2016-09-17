@@ -746,6 +746,11 @@ export const defaultFormOptions = () => ({
       attrs: {
         className: 'visually-hidden',
       },
+      help: <FormattedMessage
+        id="forms.setMapPinHelpText"
+        description="Help text for location picker map field"
+        defaultMessage="Double check your location for accuracy, and adjust text as needed. "
+      />,
     },
     lon: {
       auto: 'none',
@@ -774,6 +779,11 @@ export const defaultFormOptions = () => ({
       attrs: {
         className: 'profile-agent-edit',
       },
+      help: <FormattedMessage
+        id="forms.agentHelpText"
+        description="Help text for agent field"
+        defaultMessage="Name and email"
+      />,
     },
     phone: {
       label: <FormattedMessage
@@ -796,6 +806,11 @@ export const defaultFormOptions = () => ({
       attrs: {
         className: 'profile-phone-edit',
       },
+      help: <FormattedMessage
+        id="forms.phoneHelpText"
+        description="Help text for phone number field"
+        defaultMessage="Format: +[country code] [your number]"
+      />,
     },
     email: {
       label: <FormattedMessage

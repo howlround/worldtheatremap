@@ -57,3 +57,23 @@ Feature: Create organization profiles
     And I should wait and see the ".profile-image-uploading" element
     And I should wait extra long until ".profile-image-uploading" is not visible
     Then the ".profile-image" element should contain the image "sharks_med.jpg"
+
+  # Scenario: Dependent fields on profile for individuals
+  #   And I am logged in
+  #   And I go to the "profile" add page
+  #   And I should not see ".profile-gender-edit.is-disabled"
+  #   And I should not see ".profile-roles-edit.is-disabled"
+  #   And I should not see ".profile-agent-edit.is-disabled"
+  #   And I select "Individual" from the ".profile-type-edit" combobox
+  #   And I should see the ".profile-gender-edit" element
+  #   And I should see the ".profile-roles-edit" element
+  #   And I should see the ".profile-agent-edit" element
+
+  # Scenario: Dependent fields on profile for organizations
+  #   And I am logged in
+  #   And I go to the "profile" add page
+  #   And I should not see ".profile-founding-year-edit"
+  #   And I should not see ".profile-organization-types-edit"
+  #   And I select "Individual" from the ".profile-type-edit" combobox
+  #   And I should see the ".profile-founding-year-edit" element
+  #   And I should see the ".profile-organization-types-edit" element

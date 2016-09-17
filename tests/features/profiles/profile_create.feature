@@ -20,6 +20,7 @@ Feature: Create organization profiles
     And I select "Individual" from the ".profile-type-edit" combobox
     And I fill in ".profile-about-edit" with "Most popular name in Algeria (census, 2010)"
     And I fill in ".profile-agent-edit" with "Secret Agent"
+    And I select "Asian American" from the ".profile-ethnicity-race-edit" combobox
     And I fill in ".profile-locality-edit" with "Algiers"
     And I fill in ".profile-administrative-area-edit" with "Algiers Province"
     And I select "Algeria" from the ".country-select-edit" combobox
@@ -29,7 +30,7 @@ Feature: Create organization profiles
     And I fill in ".profile-website-edit" with "cc.cc"
     And I fill in ".profile-social-edit" with "Facebook: facebook.com/fatima"
     And I fill in ".profile-founding-year-edit" with "1979"
-    And I select "Musicals" from the ".interests-edit" combobox
+    And I select "Musical Theatre" from the ".interests-edit" combobox
     And I select "Producer" from the ".profile-organization-types-edit" combobox
     And I select "Stage Director" from the ".profile-roles-edit" combobox
     And I click on ".edit-profile-save"
@@ -43,7 +44,7 @@ Feature: Create organization profiles
     And the ".profile-website" element should contain "cc.cc"
     And the ".profile-social" element should contain "facebook.com/fatima"
     And the ".profile-founding-year" element should contain "1979"
-    And the ".profile-interests" element should contain "Musicals"
+    And the ".profile-interests" element should contain "Musical Theatre"
     And the ".profile-organization-types" element should contain "Producer"
     And the ".profile-roles" element should contain "Stage Director"
 

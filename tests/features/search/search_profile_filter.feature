@@ -16,7 +16,7 @@ Feature: Filters on profile search
     And I fill in ".profile-administrative-area-edit" with "Algiers Province"
     And I select "Algeria" from the ".country-select-edit" combobox
     And I fill in ".profile-postal-code-edit" with "16000"
-    And I select "Musicals" from the ".interests-edit" combobox
+    And I select "Musical Theatre" from the ".interests-edit" combobox
     And I select "African-American" from the ".interests-edit" combobox
     And I select "Producer" from the ".profile-organization-types-edit" combobox
     And I select "Venue" from the ".profile-organization-types-edit" combobox
@@ -55,11 +55,11 @@ Feature: Filters on profile search
 
   # Interests
   Scenario: Users can filter profiles by interest
-    When I select "Musicals" from the ".interests-edit" combobox
+    When I select "Musical Theatre" from the ".interests-edit" combobox
     And the ".search-results" element should contain "Fatima"
 
   Scenario: Choosing multiple interests should match a profile that has both interests
-    When I select "Musicals" from the ".interests-edit" combobox
+    When I select "Musical Theatre" from the ".interests-edit" combobox
     And I select "African-American" from the ".interests-edit" combobox
     And the ".search-results" element should contain "Fatima"
 

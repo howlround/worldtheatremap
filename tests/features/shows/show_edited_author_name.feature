@@ -17,7 +17,7 @@ Feature: Updating author names should propogate
     And I fill in ".show-author-name-edit" with "My Favorite Playwright"
     And I click on ".autocomplete-results li"
     And I fill in ".show-about-edit" with "Most popular name in Argentina"
-    And I select "Musicals" from the ".interests-edit" combobox
+    And I select "Musical Theatre" from the ".interests-edit" combobox
     And I click on ".edit-show-save"
     When I go to the profile page for "My Favorite Playwright"
     And I follow ".edit-link"

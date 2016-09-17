@@ -77,6 +77,102 @@ class ReactSelectProfileTypeFactory extends t.form.Component {
 // Profile type transformer
 ReactSelectProfileTypeFactory.transformer = t.form.List.transformer;
 
+// Ethnicity/Race options
+const EthnicityRace = [
+  {
+    value: 'Asian American',
+    label: <FormattedMessage
+      id="ethnicityRaceOptions.Asian American"
+      description="Ethnicity/Race options: Asian American"
+      defaultMessage="Asian American"
+    />,
+  },
+  {
+    value: 'Black or African American',
+    label: <FormattedMessage
+      id="ethnicityRaceOptions.Black or African American"
+      description="Ethnicity/Race options: Black or African American"
+      defaultMessage="Black or African American"
+    />,
+  },
+  {
+    value: 'Hispanic or Latino origin',
+    label: <FormattedMessage
+      id="ethnicityRaceOptions.Hispanic or Latino origin"
+      description="Ethnicity/Race options: Hispanic or Latino origin"
+      defaultMessage="Hispanic or Latino origin"
+    />,
+  },
+  {
+    value: 'Middle Eastern American',
+    label: <FormattedMessage
+      id="ethnicityRaceOptions.Middle Eastern American"
+      description="Ethnicity/Race options: Middle Eastern American"
+      defaultMessage="Middle Eastern American"
+    />,
+  },
+  {
+    value: 'Native American or Alaska Native',
+    label: <FormattedMessage
+      id="ethnicityRaceOptions.Native American or Alaska Native"
+      description="Ethnicity/Race options: Native American or Alaska Native"
+      defaultMessage="Native American or Alaska Native"
+    />,
+  },
+  {
+    value: 'Native Hawaiians or Other Pacific Islander',
+    label: <FormattedMessage
+      id="ethnicityRaceOptions.Native Hawaiians or Other Pacific Islander"
+      description="Ethnicity/Race options: Native Hawaiians or Other Pacific Islander"
+      defaultMessage="Native Hawaiians or Other Pacific Islander"
+    />,
+  },
+  {
+    value: 'White American, European American',
+    label: <FormattedMessage
+      id="ethnicityRaceOptions.White American, European American"
+      description="Ethnicity/Race options: White American, European American"
+      defaultMessage="White American, European American"
+    />,
+  },
+  {
+    value: 'Other',
+    label: <FormattedMessage
+      id="ethnicityRaceOptions.Other"
+      description="Ethnicity/Race options: Other"
+      defaultMessage="Other"
+    />,
+  },
+];
+// Ethnicity/Race template
+const EthnicityRaceTags = t.form.Form.templates.select.clone({
+  renderSelect: (locals) => {
+    function onChange(options) {
+      const values = (options || []).map(({value}) => value)
+      locals.onChange(values)
+    }
+    return (
+      <ReactSelect
+        multi
+        autoBlur
+        disabled={locals.disabled}
+        options={EthnicityRace}
+        value={locals.value}
+        onChange={onChange}
+        className="profile-ethnicity-race-edit"
+      />
+    );
+  }
+});
+// Ethnicity/Race Factory
+class ReactSelectEthnicityRaceFactory extends t.form.Component {
+  getTemplate() {
+    return EthnicityRaceTags;
+  }
+}
+// Ethnicity/Race transformer
+ReactSelectEthnicityRaceFactory.transformer = t.form.List.transformer;
+
 // orgTypes options
 const OrgTypes = [
   {
@@ -527,7 +623,7 @@ export const profileSchema = t.struct({
   name: t.String, // Required
   gender: t.maybe(t.list(t.String)),
   foundingYear: t.maybe(t.String),
-  // raceEthnicity: t.maybe(t.list(t.String)),
+  ethnicityRace: t.maybe(t.list(t.String)),
   orgTypes: t.maybe(t.list(t.String)),
   selfDefinedRoles: t.maybe(t.list(t.String)),
   interests: t.maybe(t.list(t.String)),
@@ -631,6 +727,31 @@ export const defaultFormOptions = () => ({
       />,
       factory: ReactSelectProfileTypeFactory,
       help: 'Is this profile representing an individual or an organization? Can be both if applicable.',
+    },
+    ethnicityRace: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.profileEthnicityRaceLabel"
+            description="Label for a Ethnicity/Race form field"
+            defaultMessage="Ethnicity/Race"
+          />,
+        }}
+      />,
+      factory: ReactSelectEthnicityRaceFactory,
+      help: <FormattedMessage
+        id="forms.ethnicityRaceHelpText"
+        description="Help text for Ethnicity/Race map field"
+        defaultMessage="If you are filling out a profile for another person we encourage you not to guess. If you are USA-based, we encourage you to fill answer out these questions for research purposes. (Select all that apply. Refer to https://en.wikipedia.org/wiki/Race_and_ethnicity_in_the_United_States for definitions)"
+      />,
     },
     streetAddress: {
       label: <FormattedMessage
@@ -749,7 +870,7 @@ export const defaultFormOptions = () => ({
       help: <FormattedMessage
         id="forms.setMapPinHelpText"
         description="Help text for location picker map field"
-        defaultMessage="Double check your location for accuracy, and adjust text as needed. "
+        defaultMessage="Double check your location for accuracy, and adjust text as needed."
       />,
     },
     lon: {
@@ -809,7 +930,8 @@ export const defaultFormOptions = () => ({
       help: <FormattedMessage
         id="forms.phoneHelpText"
         description="Help text for phone number field"
-        defaultMessage="Format: +[country code] [your number]"
+        defaultMessage="Format: {plus}[country code] [your number]"
+        values={{ plus: "+" }}
       />,
     },
     email: {
@@ -1207,6 +1329,7 @@ Profiles.publicFields = {
   name: 1,
   about: 1,
   profileType: 1,
+  ethnicityRace: 1,
   image: 1,
   streetAddress: 1,
   locality: 1,

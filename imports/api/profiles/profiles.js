@@ -523,9 +523,20 @@ class ReactSelectGendersFactory extends t.form.Component {
 ReactSelectGendersFactory.transformer = t.form.List.transformer;
 
 export const profileSchema = t.struct({
-  name: t.String, // Required
-  about: t.maybe(t.String),
   profileType: t.maybe(t.list(t.String)), // Required
+  name: t.String, // Required
+  gender: t.maybe(t.list(t.String)),
+  foundingYear: t.maybe(t.String),
+  // raceEthnicity: t.maybe(t.list(t.String)),
+  orgTypes: t.maybe(t.list(t.String)),
+  selfDefinedRoles: t.maybe(t.list(t.String)),
+  interests: t.maybe(t.list(t.String)),
+  about: t.maybe(t.String),
+  email: t.maybe(t.String),
+  phone: t.maybe(t.String),
+  website: t.maybe(t.String),
+  agent: t.maybe(t.String),
+  social: t.maybe(t.String),
   lat: t.maybe(t.String),
   lon: t.maybe(t.String),
   streetAddress: t.maybe(t.String),
@@ -533,16 +544,6 @@ export const profileSchema = t.struct({
   administrativeArea: t.maybe(t.String), // Province, Region, State
   country: t.maybe(t.String),
   postalCode: t.maybe(t.String),
-  agent: t.maybe(t.String),
-  phone: t.maybe(t.String),
-  email: t.maybe(t.String),
-  website: t.maybe(t.String),
-  social: t.maybe(t.String),
-  foundingYear: t.maybe(t.String),
-  interests: t.maybe(t.list(t.String)),
-  orgTypes: t.maybe(t.list(t.String)),
-  selfDefinedRoles: t.maybe(t.list(t.String)),
-  gender: t.maybe(t.list(t.String)),
 });
 
 export const profileFiltersSchema = t.struct({
@@ -559,7 +560,6 @@ export const profileFiltersSchema = t.struct({
 
 export const translateFormSchema = t.struct({
   name: t.String, // Required
-  about: t.maybe(t.String),
 });
 
 export const defaultFormOptions = () => ({
@@ -625,7 +625,7 @@ export const defaultFormOptions = () => ({
           labelText: <FormattedMessage
             id="forms.profileTypeLabel"
             description="Label for a Profile Type form field"
-            defaultMessage="Profile type"
+            defaultMessage="What kind of profile is this?"
           />,
         }}
       />,
@@ -767,7 +767,7 @@ export const defaultFormOptions = () => ({
           labelText: <FormattedMessage
             id="profile.agentLabel"
             description="Label for an Agent form field"
-            defaultMessage="Agent"
+            defaultMessage="Agent/Manager or Contact Person"
           />,
         }}
       />,
@@ -927,7 +927,7 @@ export const defaultFormOptions = () => ({
           labelText: <FormattedMessage
             id="forms.orgTypesLabel"
             description="Label for an Organization Type form field"
-            defaultMessage="Organization Type"
+            defaultMessage="What kind of organization is this?"
           />,
         }}
       />,
@@ -947,7 +947,7 @@ export const defaultFormOptions = () => ({
           labelText: <FormattedMessage
             id="forms.rolesLabel"
             description="Label for the Roles form field"
-            defaultMessage="Roles"
+            defaultMessage="What does this person do in the theatre?"
           />,
         }}
       />,
@@ -992,7 +992,7 @@ export const filtersFormOptions = () => ({
       label: <FormattedMessage
         id="forms.profileTypeLabel"
         description="Label for a Profile Type form field"
-        defaultMessage="Profile type"
+        defaultMessage="What kind of profile is this?"
       />,
       help: 'Is this profile representing an individual or an organization? Can be both if applicable.'
     },
@@ -1051,7 +1051,7 @@ export const filtersFormOptions = () => ({
       label: <FormattedMessage
         id="forms.orgTypesLabel"
         description="Label for an Organization Type form field"
-        defaultMessage="Organization Type"
+        defaultMessage="What kind of organization is this?"
       />,
       factory: ReactSelectOrgTypesFactory,
     },
@@ -1059,7 +1059,7 @@ export const filtersFormOptions = () => ({
       label: <FormattedMessage
         id="forms.rolesLabel"
         description="Label for the Roles form field"
-        defaultMessage="Roles"
+        defaultMessage="What does this person do in the theatre?"
       />,
       factory: ReactSelectRolesFactory,
     },

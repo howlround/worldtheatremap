@@ -4,4 +4,6 @@ Meteor.startup( () => {
   BrowserPolicy.content.allowOriginForAll( 'wtm-dev-images-resized.s3.amazonaws.com' );
   BrowserPolicy.content.allowOriginForAll( 'wtm-dev-images.s3.amazonaws.com' );
   BrowserPolicy.content.allowOriginForAll( 's3.amazonaws.com' );
+  // Allow images from the new play map server
+  BrowserPolicy.content.allowOriginForAll( 'newplaymap.org' );
 })

@@ -344,14 +344,6 @@ export const factory = () => {
       />,
     },
     {
-      value: 'Musicals',
-      label: <FormattedMessage
-        id="interest.Musicals"
-        description="Interests options: Musicals"
-        defaultMessage="Musicals"
-      />,
-    },
-    {
       value: 'New Work',
       label: <FormattedMessage
         id="interest.New Work"

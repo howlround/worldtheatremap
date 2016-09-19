@@ -7,7 +7,7 @@ const SearchProfilesContainer = createContainer(() => {
   const localitiesSubscribe = Meteor.subscribe('localities.public');
   const countriesSubscribe = Meteor.subscribe('countries.public');
   const administrativeAreasSubscribe = Meteor.subscribe('administrativeAreas.public');
-  const profilesSubscribe = TAPi18n.subscribe('profiles.search');
+  const profilesSubscribe = TAPi18n.subscribe('profiles.public');
   return {
     loading: !(localitiesSubscribe.ready() && countriesSubscribe.ready() && administrativeAreasSubscribe.ready() && profilesSubscribe.ready()),
   };

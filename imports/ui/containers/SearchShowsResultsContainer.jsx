@@ -29,7 +29,15 @@ const SearchShowsResultsContainer = createContainer((props) => {
       // then remove the generic subscribe on
       // const showsSubscribe = Meteor.subscribe('shows.search', privateQuery);
       // loading = !showsSubscribe.ready();
-      results = Shows.find(privateQuery, { sort: { name: 1 } }).fetch();
+      results = Shows.find(
+        privateQuery,
+        {
+          sort: {
+            name: 1,
+          },
+          limit: 20,
+        }
+      ).fetch();
     }
   }
 

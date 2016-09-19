@@ -69,7 +69,14 @@ const SearchProfilesResultsContainer = createContainer((props) => {
       // then remove generic call on SearchProfilesContainer
       // const profilesSubscribe = TAPi18n.subscribe('profiles.search', privateQuery);
       // loading = !profilesSubscribe.ready();
-      results = Profiles.find(privateQuery, { sort: { name: 1 } }).fetch();
+      results = Profiles.find(
+        privateQuery,
+        {
+          sort: {
+            name: 1 ,
+          },
+          limit: 20,
+        }).fetch();
     }
   }
 

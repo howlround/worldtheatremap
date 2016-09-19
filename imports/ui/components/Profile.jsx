@@ -131,7 +131,7 @@ class Profile extends React.Component {
         <div className="profile-image-wrapper">
           <Dropzone onDrop={this.onDrop} style={DropzoneStyleOverride} className={targetClasses} activeClassName="dropzone-target-active">
             { profile.imageWide ?
-              <img className="profile-image" width="200px" height="200px" src={ profile.imageWide } />
+              <img className="profile-image" src={ profile.imageWide } />
               : '' }
             <div className="dropzone-help-text">
               <FormattedMessage

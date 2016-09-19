@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { _ } from 'meteor/underscore';
 import { FormattedMessage, FormattedDate } from 'react-intl';
-import classNames from 'classnames';
+import classnames from 'classnames';
 import { displayError } from '../helpers/errors.js';
 import { select, queue, json } from 'd3';
 import topojson from 'topojson';
@@ -301,7 +301,7 @@ export default class Event extends React.Component {
 
     const locationLine = [event.locality, event.administrativeArea, event.country].filter(function (val) {return val;}).join(', ');
 
-    const articleClasses = classNames('event', 'full', {
+    const articleClasses = classnames('event', 'full', {
       'with-location': event.lat && event.lon,
     });
 

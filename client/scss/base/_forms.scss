@@ -3,6 +3,12 @@ textarea {
   width: 100%;
   padding: $spacing-unit;
   border: 1px solid $gray;
+
+  &:disabled {
+    display: none;
+    border-color: $white;
+    background-color: $light-gray;
+  }
 }
 
 input[type="email"],
@@ -31,6 +37,14 @@ input:-webkit-autofill {
 label {
   font-weight: 700;
 
+  &.disabled {
+    color: $dark-tan;
+
+    .field-label-modifier {
+      color: $dark-tan;
+    }
+  }
+
   .field-label-modifier {
     font-weight: 400;
     font-size: 0.8em;
@@ -41,6 +55,11 @@ label {
 
 .help-block {
   font-size: 0.8em;
+
+  &.disabled {
+    display: none;
+    color: $dark-tan;
+  }
 }
 
 .form-group {
@@ -102,5 +121,21 @@ button[type="submit"] {
   &:hover,
   &:focus {
     background-color: $teal;
+  }
+}
+
+.Select-control {
+  border-color: $gray;
+}
+
+.Select.is-disabled {
+  display: none;
+  & > .Select-control {
+    border-color: $white;
+    background-color: $light-gray;
+  }
+
+  .Select-placeholder {
+    color: $dark-tan;
   }
 }

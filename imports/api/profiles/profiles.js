@@ -5,6 +5,7 @@ import { Factory } from 'meteor/factory';
 // Utilities
 import { _ } from 'meteor/underscore';
 import { FormattedMessage } from 'react-intl';
+import classnames from 'classnames';
 
 // Forms
 import React from 'react';
@@ -66,7 +67,23 @@ const ProfileTypeTags = t.form.Form.templates.select.clone({
         className="profile-type-edit"
       />
     );
-  }
+  },
+
+  renderHelp: (locals) => {
+    const className = {
+      'help-block': true,
+      'disabled': locals.disabled,
+    }
+
+    return (
+      <span
+        id={`${locals.attrs.id}-tip`}
+        className={classnames(className)}
+      >
+        {locals.help}
+      </span>
+    );
+  },
 });
 // Profile type Factory
 class ReactSelectProfileTypeFactory extends t.form.Component {
@@ -146,6 +163,22 @@ const EthnicityRace = [
 ];
 // Ethnicity/Race template
 const EthnicityRaceTags = t.form.Form.templates.select.clone({
+  renderLabel: (locals) => {
+    const className = {
+      'control-label': true,
+      'disabled': locals.disabled,
+    }
+    return (
+      <label
+        title='For Individual profiles only'
+        htmlFor={locals.attrs.id}
+        className={classnames(className)}
+      >
+        {locals.label}
+      </label>
+    );
+  },
+
   renderSelect: (locals) => {
     function onChange(options) {
       const values = (options || []).map(({value}) => value)
@@ -162,7 +195,23 @@ const EthnicityRaceTags = t.form.Form.templates.select.clone({
         className="profile-ethnicity-race-edit"
       />
     );
-  }
+  },
+
+  renderHelp: (locals) => {
+    const className = {
+      'help-block': true,
+      'disabled': locals.disabled,
+    }
+
+    return (
+      <span
+        id={`${locals.attrs.id}-tip`}
+        className={classnames(className)}
+      >
+        {locals.help}
+      </span>
+    );
+  },
 });
 // Ethnicity/Race Factory
 class ReactSelectEthnicityRaceFactory extends t.form.Component {
@@ -267,6 +316,22 @@ const OrgTypes = [
 
 // orgTypes template
 const orgTypesTags = t.form.Form.templates.select.clone({
+  renderLabel: (locals) => {
+    const className = {
+      'control-label': true,
+      'disabled': locals.disabled,
+    }
+    return (
+      <label
+        title='For Organizational profiles only'
+        htmlFor={locals.attrs.id}
+        className={classnames(className)}
+      >
+        {locals.label}
+      </label>
+    );
+  },
+
   renderSelect: (locals) => {
     function onChange(options) {
       const values = (options || []).map(({value}) => value)
@@ -283,7 +348,23 @@ const orgTypesTags = t.form.Form.templates.select.clone({
         className="profile-organization-types-edit"
       />
     );
-  }
+  },
+
+  renderHelp: (locals) => {
+    const className = {
+      'help-block': true,
+      'disabled': locals.disabled,
+    }
+
+    return (
+      <span
+        id={`${locals.attrs.id}-tip`}
+        className={classnames(className)}
+      >
+        {locals.help}
+      </span>
+    );
+  },
 });
 
 // orgTypes factory function
@@ -518,6 +599,22 @@ const Roles = [
 
 // selfDefinedRoles template
 const rolesTags = t.form.Form.templates.select.clone({
+  renderLabel: (locals) => {
+    const className = {
+      'control-label': true,
+      'disabled': locals.disabled,
+    }
+    return (
+      <label
+        title='For Individual profiles only'
+        htmlFor={locals.attrs.id}
+        className={classnames(className)}
+      >
+        {locals.label}
+      </label>
+    );
+  },
+
   renderSelect: (locals) => {
     function onChange(options) {
       const values = (options || []).map(({ value }) => value)
@@ -534,7 +631,23 @@ const rolesTags = t.form.Form.templates.select.clone({
         className="profile-roles-edit"
       />
     );
-  }
+  },
+
+  renderHelp: (locals) => {
+    const className = {
+      'help-block': true,
+      'disabled': locals.disabled,
+    }
+
+    return (
+      <span
+        id={`${locals.attrs.id}-tip`}
+        className={classnames(className)}
+      >
+        {locals.help}
+      </span>
+    );
+  },
 });
 
 // selfDefinedRoles factory function
@@ -585,6 +698,22 @@ const Genders = [
 
 // Gender template
 const gendersTags = t.form.Form.templates.select.clone({
+  renderLabel: (locals) => {
+    const className = {
+      'control-label': true,
+      'disabled': locals.disabled,
+    }
+    return (
+      <label
+        title='For Individual profiles only'
+        htmlFor={locals.attrs.id}
+        className={classnames(className)}
+      >
+        {locals.label}
+      </label>
+    );
+  },
+
   renderSelect: (locals) => {
     // @TODO: If we don't have custom values this isn't necessary
     // const reformattedValues = _.map(locals.value, value => ({ value, label: value }));
@@ -606,6 +735,22 @@ const gendersTags = t.form.Form.templates.select.clone({
       />
     );
   },
+
+  renderHelp: (locals) => {
+    const className = {
+      'help-block': true,
+      'disabled': locals.disabled,
+    }
+
+    return (
+      <span
+        id={`${locals.attrs.id}-tip`}
+        className={classnames(className)}
+      >
+        {locals.help}
+      </span>
+    );
+  },
 });
 
 // Gender factory function
@@ -618,14 +763,50 @@ class ReactSelectGendersFactory extends t.form.Component {
 // Gender transformer
 ReactSelectGendersFactory.transformer = t.form.List.transformer;
 
+// Get field labels to change based on disabled value
+const disabledOrgFieldTemplate = t.form.Form.templates.textbox.clone({
+  renderLabel: (locals) => {
+    const className = {
+      'control-label': true,
+      'disabled': locals.disabled,
+    }
+    return (
+      <label
+        title='For Organizational profiles only'
+        htmlFor={locals.attrs.id}
+        className={classnames(className)}
+      >
+        {locals.label}
+      </label>
+    );
+  },
+
+  renderHelp: (locals) => {
+    const className = {
+      'help-block': true,
+      'disabled': locals.disabled,
+    }
+
+    return (
+      <span
+        id={`${locals.attrs.id}-tip`}
+        className={classnames(className)}
+      >
+        {locals.help}
+      </span>
+    );
+  }
+});
+
+
 export const profileSchema = t.struct({
   profileType: t.maybe(t.list(t.String)), // Required
   name: t.String, // Required
   gender: t.maybe(t.list(t.String)),
-  foundingYear: t.maybe(t.String),
   ethnicityRace: t.maybe(t.list(t.String)),
-  orgTypes: t.maybe(t.list(t.String)),
   selfDefinedRoles: t.maybe(t.list(t.String)),
+  foundingYear: t.maybe(t.String),
+  orgTypes: t.maybe(t.list(t.String)),
   interests: t.maybe(t.list(t.String)),
   about: t.maybe(t.String),
   email: t.maybe(t.String),
@@ -1009,6 +1190,7 @@ export const defaultFormOptions = () => ({
       />,
     },
     foundingYear: {
+      template: disabledOrgFieldTemplate,
       label: <FormattedMessage
         id="forms.labelRequiredOrOptional"
         description="Label for a form field with required or optional specified"

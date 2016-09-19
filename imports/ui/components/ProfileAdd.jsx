@@ -159,18 +159,19 @@ class ProfileAdd extends React.Component {
   }
 
   render() {
-    // const { profileType } = this.state;
+    const { profileType } = this.state;
     let formOptions = defaultFormOptions();
-    // if (!_.contains(profileType, 'Individual')) {
-    //   formOptions.fields.gender.disabled = true;
-    //   formOptions.fields.selfDefinedRoles.disabled = true;
-    //   formOptions.fields.agent.disabled = true;
-    // }
+    if (!_.contains(profileType, 'Individual')) {
+      formOptions.fields.gender.disabled = true;
+      formOptions.fields.ethnicityRace.disabled = true;
+      formOptions.fields.selfDefinedRoles.disabled = true;
+      formOptions.fields.agent.disabled = true;
+    }
 
-    // if (!_.contains(profileType, 'Organization')) {
-    //   formOptions.fields.foundingYear.disabled = true;
-    //   formOptions.fields.orgTypes.disabled = true;
-    // }
+    if (!_.contains(profileType, 'Organization')) {
+      formOptions.fields.foundingYear.disabled = true;
+      formOptions.fields.orgTypes.disabled = true;
+    }
 
     return (
       <form className="profile-edit-form" onSubmit={this.handleSubmit.bind(this)} >

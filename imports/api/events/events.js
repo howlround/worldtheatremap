@@ -252,7 +252,7 @@ export const relatedDocumentSchema = t.struct({
 // Maybe that should be in eventProfile?
 export const eventSchema = t.struct({
   show: relatedDocumentSchema,
-  organizations: relatedDocumentSchema,
+  organizations: t.maybe(relatedDocumentSchema),
   eventType: t.String,
   about: t.maybe(t.String),
   startDate: t.Date,
@@ -337,6 +337,11 @@ export const defaultFormOptions = () => ({
             defaultMessage="Local Organization Name"
           />,
         }}
+      />,
+      help: <FormattedMessage
+        id="forms.eventLocalOrgsHelpText"
+        description="Help text for Local organizations form field on events forms"
+        defaultMessage="List the Producing, Presenting, Festival, or Development Organization."
       />,
       attrs: {
         className: 'event-organization-edit',

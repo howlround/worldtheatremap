@@ -7,6 +7,7 @@
   "forms.requiredLabel": "(required)",
   "forms.showNameLabel": "Show name",
   "forms.eventLocalOrgsLabel": "Local Organization Name",
+  "forms.eventLocalOrgsHelpText": "List the Producing, Presenting, Festival, or Development Organization.",
   "forms.eventLocalOrgsError": "Local Organization Name is required",
   "forms.startDateLabel": "Start date",
   "forms.endDateLabel": "End date",

@@ -14,7 +14,8 @@ const SearchProfilesResultsContainer = createContainer((props) => {
     let privateQuery = {};
 
     if (query.name) {
-      privateQuery.name = new RegExp(query.name, 'i');
+      privateQuery.name = query.name;
+      // privateQuery.name = new RegExp(query.name, 'i');
     }
 
     if (query.selfDefinedRoles && query.selfDefinedRoles instanceof Array) {
@@ -67,8 +68,8 @@ const SearchProfilesResultsContainer = createContainer((props) => {
     if (!_.isEmpty(privateQuery)) {
       // @TODO: Figure out why specific subscribe isn't working
       // then remove generic call on SearchProfilesContainer
-      // const profilesSubscribe = TAPi18n.subscribe('profiles.search', privateQuery);
-      // loading = !profilesSubscribe.ready();
+      const profilesSubscribe = TAPi18n.subscribe('profiles.search', privateQuery);
+      loading = !profilesSubscribe.ready();
       results = Profiles.find(
         privateQuery,
         {

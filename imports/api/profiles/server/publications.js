@@ -9,9 +9,17 @@ TAPi18n.publish('profiles.public', function profilesPublic() {
 });
 
 TAPi18n.publish('profiles.search', function profilesSearch(query, requestedPage) {
+  let processedQuery = _.clone(query);
+  // if (query.name) {
+  //   processedQuery.name = {
+  //     $regex: new RegExp(query.name, 'i')
+  //   };
+  // }
+
   const limit = 20;
   const skip = requestedPage ? requestedPage * limit : 0;
-  return Profiles.i18nFind(query, {
+
+  return Profiles.i18nFind(processedQuery, {
     fields: Profiles.publicFields,
     sort: { name: 1 },
     limit,

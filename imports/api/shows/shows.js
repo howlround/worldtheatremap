@@ -52,6 +52,7 @@ export const showFiltersSchema = t.struct({
   interests: t.maybe(t.list(t.String)),
 });
 
+// @TODO: Replace with RelatedProfile
 const authorLayout = (author) => (
   <div className="author-fields-group autocomplete-group">
     {author.inputs.name}

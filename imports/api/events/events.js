@@ -18,6 +18,7 @@ import { AllCountriesFactory } from '../../api/countries/countries.js';
 
 // Components
 import RelatedShowTextbox from '../../ui/components/RelatedShowTextbox.jsx';
+import RelatedProfile from '../../ui/components/RelatedProfile.jsx';
 
 // Methods
 import { upsert as upsertLocality } from '../localities/methods.js';
@@ -190,7 +191,7 @@ class DatePickerFactory extends t.form.Component {
 t.Date.getTcombFormFactory = () => DatePickerFactory;
 
 /* Related Show component override */
-function renderTextbox(locals) {
+function renderRelatedShowTextbox(locals) {
   const onChange = (evt) => locals.onChange(evt);
   return (
     <div className="form-group">
@@ -203,7 +204,7 @@ function renderTextbox(locals) {
   );
 }
 
-const relatedShowTextboxTemplate = t.form.Form.templates.textbox.clone({ renderTextbox });
+const relatedShowTextboxTemplate = t.form.Form.templates.textbox.clone({ renderTextbox: renderRelatedShowTextbox });
 
 // here we are: the factory
 class RelatedShowFactory extends t.form.Textbox {
@@ -212,6 +213,34 @@ class RelatedShowFactory extends t.form.Textbox {
   }
 }
 
+/* Related Organization component override */
+function renderRelatedOrgsTextbox(locals) {
+  // @TODO: Investigate locals.path for multiple. Also something like locals.onChange({0: evt})
+  const onChange = (evt) => locals.onChange(evt);
+  const parentValue = (locals.value !== '') ? locals.value : {};
+
+  return (
+    <div className="form-group">
+      <RelatedProfile
+        parentValue={parentValue}
+        updateParent={onChange}
+        attrs={locals.attrs}
+      />
+    </div>
+  );
+}
+
+// Related orgs
+const relatedOrgsTextboxTemplate = t.form.Form.templates.textbox.clone({ renderTextbox: renderRelatedOrgsTextbox });
+
+// Related orgs: factory
+class RelatedOrgsFactory extends t.form.Textbox {
+  getTemplate() {
+    return relatedOrgsTextboxTemplate;
+  }
+}
+
+// Related orgs
 // const atLeastOne = arr => arr.length > 0;
 export const relatedDocumentSchema = t.struct({
   name: t.String,
@@ -223,6 +252,7 @@ export const relatedDocumentSchema = t.struct({
 // Maybe that should be in eventProfile?
 export const eventSchema = t.struct({
   show: relatedDocumentSchema,
+  organizations: relatedDocumentSchema,
   eventType: t.String,
   about: t.maybe(t.String),
   startDate: t.Date,
@@ -283,6 +313,50 @@ export const defaultFormOptions = () => ({
         _id: {
           attrs: {
             className: 'event-show-id-edit',
+          },
+        },
+      },
+    },
+    organizations: {
+      factory: RelatedOrgsFactory,
+      // template: renderRelatedOrgsTextbox,
+      error: 'Local Organization Name is required',
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier required"><FormattedMessage
+            id="forms.requiredLabel"
+            description="Addition to label indicating a field is required"
+            defaultMessage="(required)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.eventLocalOrgsLabel"
+            description="Label for Local organizations form field on events forms"
+            defaultMessage="Local Organization Name"
+          />,
+        }}
+      />,
+      attrs: {
+        className: 'event-organization-edit',
+        autoComplete: 'off',
+      },
+      fields: {
+        name: {
+          error: <FormattedMessage
+            id="forms.eventLocalOrgsError"
+            description="Error message for Local organizations form field on events forms"
+            defaultMessage="Local Organization Name is required"
+          />,
+          attrs: {
+            className: 'event-organization-name-edit',
+            autoComplete: 'off',
+          },
+        },
+        _id: {
+          attrs: {
+            className: 'event-organization-id-edit',
           },
         },
       },
@@ -584,6 +658,7 @@ export const filtersFormOptions = () => ({
 // them here to keep them private to the server.
 Events.publicFields = {
   show: 1,
+  organizations: 1,
   startDate: 1,
   endDate: 1,
   streetAddress: 1,

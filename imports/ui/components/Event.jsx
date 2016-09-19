@@ -341,8 +341,14 @@ export default class Event extends React.Component {
               <h3 className="event-type">
                 {event.eventType}
               </h3>
-              { typeof locationLine != 'undefined' ?
-                <div className="event-location">{ locationLine }</div> : '' }
+              { event.organizations ?
+                <div className="event-organizations">
+                  <Link to={`/profiles/${ event.organizations._id }`}>
+                    <ProfileNameContainer profileId={event.organizations._id} />
+                  </Link>
+                </div>: ''}
+              {typeof locationLine != 'undefined' ?
+                <div className="event-location">{ locationLine }</div> : ''}
               {event.startDate && event.endDate ?
                 <div className="event-date-range date">
                   <FormattedDate

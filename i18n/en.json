@@ -6,6 +6,8 @@
   "forms.labelRequiredOrOptional": "{labelText} {optionalOrRequired}",
   "forms.requiredLabel": "(required)",
   "forms.showNameLabel": "Show name",
+  "forms.eventLocalOrgsLabel": "Local Organization Name",
+  "forms.eventLocalOrgsError": "Local Organization Name is required",
   "forms.startDateLabel": "Start date",
   "forms.endDateLabel": "End date",
   "forms.eventTypeLabel": "Event type",

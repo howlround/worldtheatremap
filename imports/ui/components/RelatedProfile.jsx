@@ -9,6 +9,7 @@ import { FormattedMessage } from 'react-intl';
 export default class RelatedProfile extends React.Component {
   constructor(props) {
     super(props);
+    const { parentValue } = this.props;
 
     this.state = {
       profile: {
@@ -17,6 +18,15 @@ export default class RelatedProfile extends React.Component {
       results: {},
       focus: false,
     };
+
+    if (parentValue) {
+      if (parentValue.name) {
+        this.state.profile.name = parentValue.name;
+      }
+      if (parentValue._id) {
+        this.state.profile._id = parentValue._id;
+      }
+    }
 
     this.throttledAddProfile = _.throttle(newProfile => {
       if (newProfile) {
@@ -92,6 +102,7 @@ export default class RelatedProfile extends React.Component {
 
     const newState = this.state;
     newState.profile.name = profile.name;
+    newState.profile._id = profile._id;
     newState.focus = false;
     this.setState(newState);
 
@@ -130,7 +141,7 @@ export default class RelatedProfile extends React.Component {
 
     return (
       <div className={ wrapperClasses }>
-        { attrs.label ? <label>{ attrs.label }</label> : '' }
+        {attrs.label ? <label>{ attrs.label }</label> : ''}
         <input { ...attrs } onFocus={ this.onFocus } type="text" value={ profile.name } onChange={ this.onChange } />
         { focus ? <ul className="autocomplete-results">{ resultsItems }{ addProfileOption }</ul> : '' }
 
@@ -140,6 +151,7 @@ export default class RelatedProfile extends React.Component {
 }
 
 RelatedProfile.propTypes = {
+  parentValue: React.PropTypes.object,
   attrs: React.PropTypes.object,
   wrapperAttrs: React.PropTypes.object,
   updateParent: React.PropTypes.func,

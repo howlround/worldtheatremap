@@ -11,10 +11,14 @@ Meteor.publish('shows.public', function showsPublic() {
 
 Meteor.publish('shows.autocomplete', function showsPublic() {
   return Shows.find({}, {
-    fields: {
-      name: 1,
-      author: 1,
-    },
+    fields: Shows.autocompleteFields,
+  });
+});
+
+Meteor.publish('shows.autocompleteQuery', function showsPublic(search) {
+  const regex = new RegExp('^' + search + '.*', 'i');
+  return Shows.find({name: { $regex: regex }}, {
+    fields: Shows.autocompleteFields,
   });
 });
 

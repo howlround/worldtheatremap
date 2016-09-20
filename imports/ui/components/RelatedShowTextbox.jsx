@@ -52,7 +52,7 @@ export default class RelatedShowTextbox extends React.Component {
   }
 
   onChange(value) {
-    const { updateParent } = this.props;
+    const { updateParent, showsAutocompleteQuery } = this.props;
 
     const newState = this.state;
     newState.show.name = value.target.value;
@@ -61,8 +61,9 @@ export default class RelatedShowTextbox extends React.Component {
     const search = value.target.value;
 
     if (search.length > 0) {
-      const regex = new RegExp('.*' + search + '.*', 'i');
-      const results = Shows.find({name: { $regex: regex }}, {limit: 5, fields: Shows.publicFields,}).fetch();
+      // const regex = new RegExp('.*' + search + '.*', 'i');
+      // const results = Shows.find({name: { $regex: regex }}, { limit: 5, fields: Shows.autocompleteFields }).fetch();
+      const results = showsAutocompleteQuery(search);
 
       const newState = this.state;
       newState.results = results;
@@ -182,7 +183,9 @@ export default class RelatedShowTextbox extends React.Component {
 
 RelatedShowTextbox.propTypes = {
   attrs: React.PropTypes.object,
+  results: React.PropTypes.object,
   updateParent: React.PropTypes.func,
+  showsAutocompleteQuery: React.PropTypes.func,
 };
 
 RelatedShowTextbox.contextTypes = {

@@ -210,3 +210,8 @@ Shows.searchFields = {
   author: 1,
   interests: 1,
 };
+
+Shows.autocompleteFields = {
+  name: 1,
+  author: 1,
+};

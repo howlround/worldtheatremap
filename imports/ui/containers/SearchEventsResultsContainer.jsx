@@ -10,7 +10,7 @@ import SearchEventsResults from '../components/SearchEventsResults.jsx';
 
 export default createContainer((props) => {
   const { query } = props;
-  let loading = false;
+  let loading = true;
   let results = [];
 
   if (!_.isEmpty(query)) {
@@ -52,8 +52,8 @@ export default createContainer((props) => {
     }
 
     if (!_.isEmpty(privateQuery)) {
-      // const eventsSubscribe = Meteor.subscribe('events.search', privateQuery);
-      // loading = !eventsSubscribe.ready();
+      const eventsSubscribe = Meteor.subscribe('events.search', privateQuery);
+      loading = !eventsSubscribe.ready();
       results = Events.find(
         privateQuery,
         {

@@ -53,8 +53,7 @@ export default createContainer(() => {
   if (authorsTodaySubscribe.ready() && showsTodaySubscribe.ready()) {
     const profilesSubscribe = TAPi18n.subscribe('profiles.public');
     const showsSubscribe = Meteor.subscribe('shows.public');
-    const eventsSubscribe = Meteor.subscribe('events.public');
-    loadingFullApp = !(profilesSubscribe.ready() && showsSubscribe.ready() && eventsSubscribe.ready());
+    loadingFullApp = !(profilesSubscribe.ready() && showsSubscribe.ready());
   }
 
   return {

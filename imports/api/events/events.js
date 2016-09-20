@@ -16,11 +16,8 @@ import DatePicker from 'react-datepicker';
 // API
 import { AllCountriesFactory } from '../../api/countries/countries.js';
 
-// Containers
-import RelatedShowTextboxContainer from '../../ui/containers/RelatedShowTextboxContainer.jsx';
-
 // Components
-// import RelatedShowTextbox from '../../ui/components/RelatedShowTextbox.jsx';
+import RelatedShowTextbox from '../../ui/components/RelatedShowTextbox.jsx';
 import RelatedProfile from '../../ui/components/RelatedProfile.jsx';
 
 // Methods
@@ -198,7 +195,7 @@ function renderRelatedShowTextbox(locals) {
   const onChange = (evt) => locals.onChange(evt);
   return (
     <div className="form-group">
-      <RelatedShowTextboxContainer
+      <RelatedShowTextbox
         parentValue={locals.value}
         updateParent={onChange}
         attrs={locals.attrs}

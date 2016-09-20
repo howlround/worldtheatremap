@@ -6,7 +6,6 @@ import ProfileEditPage from '../pages/ProfileEditPage.jsx';
 
 export default createContainer(({ params: { id } }) => {
   const singleProfileSubscription = TAPi18n.subscribe('profiles.singleById', id);
-  // const todosHandle = Meteor.subscribe('todos.inList', id);
   const profile = Profiles.findOne(id);
   const profileExists = !loading && !!profile;
   GoogleMaps.load({ key: 'AIzaSyCJleIzga_bAKO6Gwkzz2rlxnQ7T_f2xGM', libraries: 'places' });

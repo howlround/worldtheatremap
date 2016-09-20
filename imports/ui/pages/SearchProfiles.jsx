@@ -100,13 +100,17 @@ class SearchProfiles extends React.Component {
   }
 
   render() {
-    const { loading } = this.props;
+    const { loading, dummyForm } = this.props;
     const { formatMessage } = this.props.intl;
 
     if (loading) {
-      return (null);
-    }
-    else {
+      // Don't display loading screen if using the form away from the directory page
+      if (dummyForm) {
+        return (null);
+      } else {
+        return (<Loading key="loading" />);
+      }
+    } else {
       let formOptions = filtersFormOptions();
       formOptions.fields.locality.factory = localitiesFactory();
       formOptions.fields.country.factory = existingCountriesFactory();
@@ -149,6 +153,7 @@ SearchProfiles.contextTypes = {
 
 SearchProfiles.propTypes = {
   loading: React.PropTypes.bool,
+  dummyForm: React.PropTypes.bool,
   intl: intlShape.isRequired,
 };
 

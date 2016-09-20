@@ -14,7 +14,7 @@ import { Shows } from '../../api/shows/shows.js';
 const ProfileContainer = createContainer(({ params: { id } }) => {
   const primaryAuthorshipSubscribe = Meteor.subscribe('shows.byAuthor', id);
   // @TODO: This should be more specific (by user?)
-  const participantsSubscribe = Meteor.subscribe('participants.public');
+  const participantsSubscribe = Meteor.subscribe('participants.byProfile', id);
 
   // Connections
   // @TODO: Refactor to not push to the connectionIds array

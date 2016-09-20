@@ -25,10 +25,6 @@ const SearchShowsResultsContainer = createContainer((props) => {
 
     // Make sure privateQuery is not empty otherwise all records are returned
     if (!_.isEmpty(privateQuery)) {
-      // @TODO: Figure out why specific subscribe isn't working
-      // then remove the generic subscribe on
-      const showsSubscribe = Meteor.subscribe('shows.search', privateQuery);
-      loading = !showsSubscribe.ready();
       results = Shows.find(
         privateQuery,
         {

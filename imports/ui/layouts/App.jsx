@@ -120,6 +120,7 @@ export default class App extends React.Component {
       user,
       connected,
       loading,
+      loadingFullApp,
       eventsTodayWithLocations,
       menuOpen,
       children,
@@ -133,6 +134,7 @@ export default class App extends React.Component {
     const clonedChildren = children && React.cloneElement(children, {
       key: location.pathname,
       user,
+      loadingFullApp,
     });
 
     return (
@@ -221,6 +223,7 @@ App.propTypes = {
   user: React.PropTypes.object,      // current meteor user
   connected: React.PropTypes.bool,   // server connection status
   loading: React.PropTypes.bool,     // subscription status
+  loadingFullApp: React.PropTypes.bool,
   menuOpen: React.PropTypes.bool,    // is side menu open?
   profiles: React.PropTypes.array,   // all profiles visible to the current user
   shows: React.PropTypes.array,

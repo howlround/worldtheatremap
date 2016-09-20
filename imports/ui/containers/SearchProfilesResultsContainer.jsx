@@ -66,10 +66,6 @@ const SearchProfilesResultsContainer = createContainer((props) => {
 
     // Make sure privateQuery is not empty otherwise all records are returned
     if (!_.isEmpty(privateQuery)) {
-      // @TODO: Figure out why specific subscribe isn't working
-      // then remove generic call on SearchProfilesContainer
-      const profilesSubscribe = TAPi18n.subscribe('profiles.search', privateQuery);
-      loading = !profilesSubscribe.ready();
       results = Profiles.find(
         privateQuery,
         {

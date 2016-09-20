@@ -9,9 +9,7 @@ import App from '../layouts/App.jsx';
 import moment from 'moment';
 
 export default createContainer(() => {
-  // https://www.discovermeteor.com/blog/query-constructors/
-  // Except some version of events for todays events
-  // @TODO: Even today events should be in a new page container then made into an IndexRoute
+  // Load what's on today data
   const startDate = moment().startOf('day').toDate();
   const endDate = moment().endOf('day').toDate();
   const eventsWithLocationsSubscribe = Meteor.subscribe('events.dateRangeWithLocations', startDate, endDate);
@@ -41,6 +39,7 @@ export default createContainer(() => {
     _.each(event.show.author, (author) => authorsToday.push(author._id));
   });
 
+
   const authorsTodaySubscribe = TAPi18n.subscribe('profiles.byId', authorsToday);
   const showsTodaySubscribe = TAPi18n.subscribe('shows.multipleById', showsToday);
 
@@ -49,9 +48,18 @@ export default createContainer(() => {
   const lang = window.AppState.getLocale();
   const supportedLanguages = TAPi18n.getLanguages();
 
+  // Start loading all data after
+  let loadingFullApp = true;
+  if (authorsTodaySubscribe.ready() && showsTodaySubscribe.ready()) {
+    const profilesSubscribe = TAPi18n.subscribe('profiles.public');
+    const showsSubscribe = Meteor.subscribe('shows.public');
+    loadingFullApp = !(profilesSubscribe.ready() && showsSubscribe.ready());
+  }
+
   return {
     user: Meteor.user(),
-    loading: !(eventsWithLocationsSubscribe.ready()),
+    loading: !(eventsWithLocationsSubscribe.ready() && authorsTodaySubscribe.ready() && showsTodaySubscribe.ready()),
+    loadingFullApp,
     connected: Meteor.status().connected,
     menuOpen: Session.get('menuOpen'),
     profiles: Profiles.find().fetch(),

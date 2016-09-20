@@ -10,6 +10,7 @@ const SearchProfilesContainerDummy = createContainer(() => {
   const loading = !(localitiesSubscribe.ready() && countriesSubscribe.ready() && administrativeAreasSubscribe.ready());
   return {
     loading,
+    dummyForm: true,
   };
 }, SearchProfiles);
 

@@ -70,7 +70,7 @@ const SearchProfilesResultsContainer = createContainer((props) => {
         privateQuery,
         {
           sort: {
-            name: 1 ,
+            name: 1,
           },
           limit: 20,
         }).fetch();

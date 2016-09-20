@@ -9,9 +9,9 @@ import { Shows } from '../../api/shows/shows.js';
 
 const ShowNameContainer = createContainer((props) => {
   const { showId } = props;
-  const showsSub = Meteor.subscribe('shows.singleNameById', showId);
-
-  const loading = !(showsSub.ready());
+  // const showsSub = Meteor.subscribe('shows.singleNameById', showId);
+  // const loading = !(showsSub.ready());
+  const loading = false;
 
   const showName = Shows.find(
     {

@@ -104,9 +104,7 @@ class SearchProfiles extends React.Component {
     const { formatMessage } = this.props.intl;
 
     if (loading) {
-      return (
-        <Loading key="loading"/>
-      );
+      return (null);
     }
     else {
       let formOptions = filtersFormOptions();

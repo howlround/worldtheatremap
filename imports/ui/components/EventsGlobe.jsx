@@ -23,12 +23,6 @@ export default class EventsGlobe extends React.Component {
     this.continue = this.continue.bind(this);
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.events !== this.props.events) {
-      this.initializeD3Globe();
-    }
-  }
-
   componentDidMount() {
     this.initializeD3Globe();
   }

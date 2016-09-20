@@ -56,7 +56,7 @@ TAPi18n.publish('profiles.byId', function profilesById(ids) {
   });
 });
 
-TAPi18n.publish('profiles.singleById', function profilesById(id) {
+TAPi18n.publish('profiles.singleById', function singleById(id) {
   return Profiles.i18nFind({ _id: id }, {
     fields: Profiles.publicFields,
     limit: 1,

@@ -31,6 +31,18 @@ export default createContainer(() => {
       fields: Events.publicFields,
       sort: { startDate: 1 }
     });
+  const eventsTodayWithLocations = eventsTodayWithLocationsCursor.fetch();
+
+  // Get author and show ids for these events
+  const authorsToday = [];
+  const showsToday = [];
+  _.each(eventsTodayWithLocations, (event) => {
+    showsToday.push(event.show._id);
+    _.each(event.show.author, (author) => authorsToday.push(author._id));
+  });
+
+  const authorsTodaySubscribe = TAPi18n.subscribe('profiles.byId', authorsToday);
+  const showsTodaySubscribe = TAPi18n.subscribe('shows.multipleById', showsToday);
 
   // Language
   // const lang = TAPi18n.getLanguage();
@@ -44,7 +56,7 @@ export default createContainer(() => {
     menuOpen: Session.get('menuOpen'),
     profiles: Profiles.find().fetch(),
     shows: Shows.find().fetch(),
-    eventsTodayWithLocations: eventsTodayWithLocationsCursor.fetch(),
+    eventsTodayWithLocations,
     eventsTodayCount: eventsTodayWithLocationsCursor.count(),
     startDate,
     endDate,

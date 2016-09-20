@@ -9,9 +9,10 @@ import { Profiles } from '../../api/profiles/profiles.js';
 
 const ProfileNameContainer = createContainer((props) => {
   const { profileId } = props;
-  const profilesSub = TAPi18n.subscribe('profiles.singleById', profileId);
+  // const profilesSub = TAPi18n.subscribe('profiles.singleById', profileId);
 
-  const loading = !(profilesSub.ready());
+  // const loading = !(profilesSub.ready());
+  const loading = false;
 
   const profileName = Profiles.find(
     {

@@ -30,7 +30,7 @@ Feature: Search results content
     And I select "Stage Director" from the ".profile-roles-edit" combobox
     And the ".search-results" element should contain "Fatima"
     And the ".search-results" element should contain "Location: Algiers, Algiers Province, Algeria"
-    And the ".search-results" element should contain "Interests: Musicals and Improvisation"
+    And the ".search-results" element should contain "Interests: Musical Theatre and Improvisation"
     And the ".search-results" element should contain "Roles: Stage Director"
     And the ".search-results" element should contain "Organization types: Producer"
 

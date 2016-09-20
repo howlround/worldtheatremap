@@ -38,7 +38,7 @@ Feature: Create shows
     And I click on ".edit-show-save"
     Then the ".show-name" element should contain "Sofía"
     Then the ".show-author" element should contain "My Favorite Playwright"
-    And the ".show-interests" element should contain "Musicals"
+    And the ".show-interests" element should contain "Musical Theatre"
     And the ".show-about" element should contain "Most popular name in Argentina"
 
   Scenario: Autocomplete suggestions for existing primary authorship field

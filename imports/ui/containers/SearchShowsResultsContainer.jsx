@@ -6,7 +6,7 @@ import SearchShowsResults from '../components/SearchShowsResults.jsx';
 
 const SearchShowsResultsContainer = createContainer((props) => {
   const { query } = props;
-  // let loading = false;
+  let loading = false;
   let results = [];
 
   if (!_.isEmpty(query)) {
@@ -27,8 +27,8 @@ const SearchShowsResultsContainer = createContainer((props) => {
     if (!_.isEmpty(privateQuery)) {
       // @TODO: Figure out why specific subscribe isn't working
       // then remove the generic subscribe on
-      // const showsSubscribe = Meteor.subscribe('shows.search', privateQuery);
-      // loading = !showsSubscribe.ready();
+      const showsSubscribe = Meteor.subscribe('shows.search', privateQuery);
+      loading = !showsSubscribe.ready();
       results = Shows.find(
         privateQuery,
         {
@@ -43,7 +43,7 @@ const SearchShowsResultsContainer = createContainer((props) => {
 
   return {
     results,
-    // loading,
+    loading,
   };
 }, SearchShowsResults);
 

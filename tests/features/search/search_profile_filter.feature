@@ -94,7 +94,7 @@ Feature: Filters on profile search
   Scenario: Choosing multiple organization types should match two different profiles that each have one of the organization types
     When I go to the "profile" add page
     And I fill in ".profile-name-edit" with " Nor"
-    And I select "Individual" from the ".profile-type-edit" combobox
+    And I select "Organization" from the ".profile-type-edit" combobox
     And I fill in ".profile-about-edit" with "Most popular name in Malaysia"
     And I fill in ".profile-locality-edit" with "Kuala Lumpur"
     And I fill in ".profile-administrative-area-edit" with "Kuala Lumpur"

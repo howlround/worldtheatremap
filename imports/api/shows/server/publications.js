@@ -49,7 +49,7 @@ Meteor.publish('shows.search', function showsSearch(query, requestedPage) {
   const limit = 20;
   const skip = (_.isNumber(requestedPage) && !_.isNaN(requestedPage)) ? requestedPage * limit : 0;
   return Shows.find(query, {
-    fields: Shows.publicFields,
+    fields: Shows.searchFields,
     sort: { name: 1 },
     limit,
     skip,

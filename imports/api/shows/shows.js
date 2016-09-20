@@ -204,3 +204,9 @@ Shows.publicFields = {
   about: 1,
   interests: 1,
 };
+
+Shows.searchFields = {
+  name: 1,
+  author: 1,
+  interests: 1,
+};

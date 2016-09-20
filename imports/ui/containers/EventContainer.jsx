@@ -11,10 +11,11 @@ export default createContainer(({ params: { id } }) => {
   const participantsByEvent = Meteor.subscribe('participants.byEvent', id);
   // @TODO: This should be further in on the autocomplete widget
   // and only subscribing to the query
-  const profilesSubscribe = TAPi18n.subscribe('profiles.public');
+  const profilesSubscribe = TAPi18n.subscribe('profiles.autocomplete');
+  const loading = !(singleEventSubscription.ready() && participantsByEvent.ready() && profilesSubscribe.ready());
   return {
     event,
-    loading: !profilesSubscribe.ready(),
+    loading,
     participantsByEvent: Participants.find({'event._id': id}, {
       fields: Participants.publicFields,
     }).fetch(),

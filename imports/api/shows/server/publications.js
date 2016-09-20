@@ -9,6 +9,15 @@ Meteor.publish('shows.public', function showsPublic() {
   });
 });
 
+Meteor.publish('shows.autocomplete', function showsPublic() {
+  return Shows.find({}, {
+    fields: {
+      name: 1,
+      author: 1,
+    },
+  });
+});
+
 Meteor.publish('shows.byAuthor', function showsById(authorId) {
   return Shows.find({ 'author._id': { $in: [authorId] } }, {
     fields: Shows.publicFields,

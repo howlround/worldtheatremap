@@ -13,6 +13,7 @@ Feature: Search results content
     And I go to the "profile" add page
     And I fill in ".profile-name-edit" with "Fatima"
     And I select "Individual" from the ".profile-type-edit" combobox
+    And I select "Organization" from the ".profile-type-edit" combobox
     And I fill in ".profile-about-edit" with "Most popular name in Algeria (census, 2010)"
     And I fill in ".profile-agent-edit" with "Secret Agent"
     And I fill in ".profile-locality-edit" with "Algiers"

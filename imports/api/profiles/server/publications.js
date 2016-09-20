@@ -8,19 +8,42 @@ TAPi18n.publish('profiles.public', function profilesPublic() {
   });
 });
 
+TAPi18n.publish('profiles.autocomplete', function profilesPublic() {
+  return Profiles.i18nFind({}, {
+    fields: { name: 1 },
+  });
+});
+
 TAPi18n.publish('profiles.search', function profilesSearch(query, requestedPage) {
   let processedQuery = _.clone(query);
-  // if (query.name) {
-  //   processedQuery.name = {
-  //     $regex: new RegExp(query.name, 'i')
-  //   };
-  // }
+
+  if (processedQuery.name) {
+    processedQuery.name = new RegExp(query.name, 'i');
+  }
 
   const limit = 20;
   const skip = requestedPage ? requestedPage * limit : 0;
 
   return Profiles.i18nFind(processedQuery, {
     fields: Profiles.publicFields,
+    sort: { name: 1 },
+    limit,
+    skip,
+  });
+});
+
+TAPi18n.publish('profiles.searchNames', function profilesSearch(query, requestedPage) {
+  let processedQuery = _.clone(query);
+
+  if (processedQuery.name) {
+    processedQuery.name = new RegExp(query.name, 'i');
+  }
+
+  const limit = 20;
+  const skip = requestedPage ? requestedPage * limit : 0;
+
+  return Profiles.i18nFind(processedQuery, {
+    fields: { name: 1 },
     sort: { name: 1 },
     limit,
     skip,

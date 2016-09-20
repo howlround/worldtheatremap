@@ -6,11 +6,14 @@ import EventAddPage from '../pages/EventAddPage.jsx';
 export default createContainer(() => {
   // @TODO: These should be further in on the autocomplete widget
   // and only subscribing to the query
-  const profilesSubscribe = TAPi18n.subscribe('profiles.public');
-  const showsSubscribe = Meteor.subscribe('shows.public');
+  const profilesSubscribe = TAPi18n.subscribe('profiles.autocomplete');
+  const showsSubscribe = Meteor.subscribe('shows.autocomplete');
   const add = true;
   GoogleMaps.load({ key: 'AIzaSyCJleIzga_bAKO6Gwkzz2rlxnQ7T_f2xGM', libraries: 'places' });
-  const loading = !(profilesSubscribe.ready() && showsSubscribe.ready() && GoogleMaps.loaded());
+  // Don't wait for google maps:
+  const loading = !(profilesSubscribe.ready() && showsSubscribe.ready());
+  // OR: Wait for google maps to load
+  // const loading = !(profilesSubscribe.ready() && showsSubscribe.ready() && GoogleMaps.loaded());
   return {
     add,
     loading,

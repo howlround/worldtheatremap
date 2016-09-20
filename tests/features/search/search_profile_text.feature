@@ -19,7 +19,6 @@ Feature: Search box on profile search
     And I fill in ".profile-postal-code-edit" with "16000"
     And I fill in ".profile-founding-year-edit" with "1979"
     And I select "Musical Theatre" from the ".interests-edit" combobox
-    And I select "Producer" from the ".profile-organization-types-edit" combobox
     And I select "Stage Director" from the ".profile-roles-edit" combobox
     And I click on ".edit-profile-save"
     When I go to the "profile" add page

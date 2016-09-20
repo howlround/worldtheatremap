@@ -66,8 +66,11 @@ export default class RelatedProfile extends React.Component {
     const search = value.target.value;
 
     if (search.length > 0) {
+      // const profilesSubscribe = TAPi18n.subscribe('profiles.searchNames', { name: search });
       const regex = new RegExp('.*' + search + '.*', 'i');
-      const results = Profiles.find({name: { $regex: regex }}, {limit: 5, fields: Profiles.publicFields,}).fetch();
+      // const results = Profiles.find({name: { $regex: regex }}, {limit: 5, fields: Profiles.publicFields,}).fetch();
+      const results = Profiles.find({name: { $regex: regex }}, {limit: 5, fields: { name: 1 }}).fetch();
+      // profilesSubscribe.stop();
 
       const newState = this.state;
       newState.results = results;

@@ -67,6 +67,7 @@ export default class Event extends React.Component {
     this.renderParticipantAdd = this.renderParticipantAdd.bind(this);
     this.renderParticipantEdit = this.renderParticipantEdit.bind(this);
     this.initializeD3Globe = this.initializeD3Globe.bind(this);
+    this.renderAboutLink = this.renderAboutLink.bind(this);
   }
 
   componentDidMount() {
@@ -262,6 +263,18 @@ export default class Event extends React.Component {
     }
   }
 
+  renderAboutLink() {
+    const { event } = this.props;
+    if (event.about && typeof event.about === 'string') {
+      const stripHttpExp = RegExp('^(https?:|)\/\/');
+      const aboutRaw = event.about;
+      const aboutText = aboutRaw.replace(stripHttpExp, '');
+      const aboutLink = <a href={`http://${aboutText}`}>{aboutText}</a>;
+
+      return <a href={`http://${aboutText}`}>{aboutText}</a>;
+    }
+  }
+
   render() {
     const { event, user, participantsByEvent } = this.props;
 
@@ -304,13 +317,6 @@ export default class Event extends React.Component {
     const articleClasses = classnames('event', 'full', {
       'with-location': event.lat && event.lon,
     });
-
-    if (event.about) {
-      const stripHttpExp = RegExp('^(https?:|)\/\/');
-      const aboutRaw = event.about;
-      const aboutText = aboutRaw.replace(stripHttpExp, '');
-      event.about = <a href={`http://${aboutText}`}>{aboutText}</a>;
-    }
 
     return (
       <article className={articleClasses}>
@@ -380,8 +386,7 @@ export default class Event extends React.Component {
                 defaultMessage='About'
               />
             </h2>
-            {/*<div dangerouslySetInnerHTML={{__html: sanitizeHtml(event.about)}} />*/}
-            {event.about ? event.about : ''}
+            {event.about ? this.renderAboutLink() : ''}
             <div className="edit-links">
               {editLink}
             </div>

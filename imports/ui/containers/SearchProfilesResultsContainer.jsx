@@ -5,9 +5,11 @@ import { Profiles } from '../../api/profiles/profiles.js';
 import SearchProfilesResults from '../components/SearchProfilesResults.jsx';
 
 const SearchProfilesResultsContainer = createContainer((props) => {
-  const { query } = props;
+  const { query, updateQuery } = props;
   let loading = false;
+  let skip = 0;
   let results = [];
+  let totalCount = 0;
 
   if (!_.isEmpty(query)) {
     // Use an internal query so nothing strange gets passed straight through
@@ -64,8 +66,13 @@ const SearchProfilesResultsContainer = createContainer((props) => {
       };
     }
 
+    if (query.page) {
+      skip = query.page * 20;
+    }
+
     // Make sure privateQuery is not empty otherwise all records are returned
     if (!_.isEmpty(privateQuery)) {
+      totalCount = Profiles.find(privateQuery).count();
       results = Profiles.find(
         privateQuery,
         {
@@ -73,6 +80,7 @@ const SearchProfilesResultsContainer = createContainer((props) => {
             name: 1,
           },
           limit: 20,
+          skip,
         }).fetch();
     }
   }
@@ -80,6 +88,10 @@ const SearchProfilesResultsContainer = createContainer((props) => {
   return {
     results: results,
     loading: loading,
+    skip,
+    totalCount,
+    query,
+    updateQuery,
   };
 }, SearchProfilesResults);
 

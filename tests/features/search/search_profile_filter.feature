@@ -200,3 +200,7 @@ Feature: Filters on profile search
   Scenario: Users can filter profiles by postal code
     When I fill in ".profile-postal-code-edit" with "16000"
     And the ".search-results" element should contain "Fatima"
+@focus
+  Scenario: When there are only a few results no pager should be displayed
+    When I fill in ".profile-postal-code-edit" with "16000"
+    Then I should not see ".search-results-pager"

@@ -87,11 +87,12 @@ class SearchProfiles extends React.Component {
     });
 
     return (
-      <SearchProfilesResultsContainer query={cleanQuery} />
+      <SearchProfilesResultsContainer query={cleanQuery} updateQuery={this.onChange} />
     );
   }
 
   onChange(value) {
+    // @TODO: Maybe pass this down in SearchProfilesResultsContainer to page faster
     this.setState(value);
     this.context.router.push({
       pathname: '/search/profiles',

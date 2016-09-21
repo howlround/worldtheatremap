@@ -1,0 +1,18 @@
+.search-results-pager {
+  overflow: auto;
+  margin: $spacing-unit * 2;
+
+  span {
+    cursor: pointer;
+
+    @extend a;
+  }
+
+  .prev {
+    float: left;
+  }
+
+  .next {
+    float: right;
+  }
+}

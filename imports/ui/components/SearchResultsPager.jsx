@@ -27,8 +27,11 @@ export default class SearchResultsPager extends React.Component {
     const { updateQuery, query } = this.props;
 
     const value = query;
-    if (value.page && _.isNumber(value.page) && !_.isNaN(page.value)) {
-      value.page++;
+    if (value.page) {
+      value.page = Number(value.page);
+      if (_.isNumber(value.page) && !_.isNaN(value.page)) {
+        value.page++;
+      }
     } else {
       value.page = 1;
     }
@@ -40,10 +43,9 @@ export default class SearchResultsPager extends React.Component {
     const limit = 20;
 
     const prev = (skip >= limit) ? <span className="prev" onClick={this.prev}>&larr; Previous</span> : '';
-    const next = (skip * limit < totalCount) ? <span className="next" onClick={this.next}>Next &rarr;</span> : '';
-    const seperator = (prev !== '' && next !== '') ? <span> &bull; </span> : '';
+    const next = (skip < totalCount) ? <span className="next" onClick={this.next}>Next &rarr;</span> : '';
 
-    const pager = (totalCount > limit) ? <div className="search-results-pager">{prev}{seperator}{next}</div> : null;
+    const pager = (totalCount > limit) ? <div className="search-results-pager">{prev}{next}</div> : null;
 
     return pager;
   }

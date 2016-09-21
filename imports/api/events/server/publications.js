@@ -7,6 +7,7 @@ import { Events } from '../events.js';
 Meteor.publish('events.public', function eventsPublic() {
   return Events.find({}, {
     fields: Events.publicFields,
+    sort: { startDate: 1 },
   });
 });
 
@@ -17,14 +18,10 @@ Meteor.publish('events.single', function eventsPublic(id) {
   });
 });
 
-Meteor.publish('events.search', function eventsSearch(query, requestedPage) {
-  const limit = 20;
-  const skip = requestedPage ? requestedPage * limit : 0;
+Meteor.publish('events.search', function eventsSearch(query) {
   return Events.find(query, {
     fields: Events.publicFields,
     sort: { startDate: 1 },
-    limit,
-    skip
   });
 });
 

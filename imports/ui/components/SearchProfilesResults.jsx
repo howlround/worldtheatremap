@@ -37,9 +37,9 @@ SearchProfilesResults.contextTypes = {
 
 SearchProfilesResults.propTypes = {
   results: React.PropTypes.array,
+  loading: React.PropTypes.bool,
   query: React.PropTypes.object,
   updateQuery: React.PropTypes.func,
-  loading: React.PropTypes.bool,
   skip: React.PropTypes.number,
   totalCount: React.PropTypes.number,
 };

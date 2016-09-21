@@ -67,7 +67,7 @@ const SearchProfilesResultsContainer = createContainer((props) => {
     }
 
     if (query.page) {
-      skip = query.page * 20;
+      skip = Number(query.page) * 20;
     }
 
     // Make sure privateQuery is not empty otherwise all records are returned
@@ -86,8 +86,8 @@ const SearchProfilesResultsContainer = createContainer((props) => {
   }
 
   return {
-    results: results,
-    loading: loading,
+    results,
+    loading,
     skip,
     totalCount,
     query,

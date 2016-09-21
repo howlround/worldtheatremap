@@ -8,10 +8,12 @@ import { Events } from '../../api/events/events.js';
 import SearchEventsResults from '../components/SearchEventsResults.jsx';
 
 
-export default createContainer((props) => {
-  const { query } = props;
-  let loading = true;
+const SearchEventsResultsContainer = createContainer((props) => {
+  const { query, updateQuery } = props;
+  let loading = false;
+  let skip = 0;
   let results = [];
+  let totalCount = 0;
 
   if (!_.isEmpty(query)) {
     // Use an internal query so nothing strange gets passed straight through
@@ -51,9 +53,15 @@ export default createContainer((props) => {
       };
     }
 
+    if (query.page) {
+      skip = Number(query.page) * 20;
+    }
+
     if (!_.isEmpty(privateQuery)) {
-      const eventsSubscribe = Meteor.subscribe('events.search', privateQuery);
-      loading = !eventsSubscribe.ready();
+      // events.search doesn't take arguments anymore
+      // const eventsSubscribe = Meteor.subscribe('events.search', privateQuery, skip);
+      // loading = !eventsSubscribe.ready();
+      totalCount = Events.find(privateQuery).count();
       results = Events.find(
         privateQuery,
         {
@@ -61,6 +69,7 @@ export default createContainer((props) => {
             startDate: 1,
           },
           limit: 20,
+          skip,
         }).fetch();
     }
   }
@@ -68,5 +77,11 @@ export default createContainer((props) => {
   return {
     results,
     loading,
+    skip,
+    totalCount,
+    query,
+    updateQuery,
   };
 }, SearchEventsResults);
+
+export default SearchEventsResultsContainer;

@@ -21,7 +21,7 @@ export default class EventAddPage extends React.Component {
       'shows-add': true,
     });
 
-    if (loading || loadingFullApp) {
+    if (loading) {
       return (
         <div className="overlay-wrapper">
           <Modal />
@@ -33,7 +33,7 @@ export default class EventAddPage extends React.Component {
         <div className="overlay-wrapper">
           <Modal/>
           <div className={pageClass}>
-            <EventAdd/>
+            <EventAdd loadingFullApp={loadingFullApp} />
           </div>
         </div>
       );

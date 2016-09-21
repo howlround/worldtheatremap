@@ -3,7 +3,7 @@ import { displayError } from '../helpers/errors.js';
 import { Profiles } from '../../api/profiles/profiles.js';
 import { insert } from '../../api/profiles/methods.js';
 import { _ } from 'meteor/underscore';
-import classNames from 'classnames';
+import classnames from 'classnames';
 import { FormattedMessage } from 'react-intl';
 
 export default class RelatedProfile extends React.Component {
@@ -120,7 +120,7 @@ export default class RelatedProfile extends React.Component {
   }
 
   render() {
-    const { attrs, updateParent, wrapperAttrs } = this.props;
+    const { attrs, updateParent, wrapperAttrs, disabled } = this.props;
     const { profile, results, focus } = this.state;
 
     const resultsItems = (results.length > 0) ? results.map(profile => {
@@ -140,13 +140,14 @@ export default class RelatedProfile extends React.Component {
       </li> : '';
 
     const additionalWrapperClasses = (wrapperAttrs) ? wrapperAttrs.className : '';
-    const wrapperClasses = classNames('profile-fields-group', 'autocomplete-group', additionalWrapperClasses);
+    const wrapperClasses = classnames('profile-fields-group', 'autocomplete-group', additionalWrapperClasses);
+    const labelClasses = classnames({ 'disabled': disabled });
 
     return (
-      <div className={ wrapperClasses }>
-        {attrs.label ? <label>{ attrs.label }</label> : ''}
-        <input { ...attrs } onFocus={ this.onFocus } type="text" value={ profile.name } onChange={ this.onChange } />
-        { focus ? <ul className="autocomplete-results">{ resultsItems }{ addProfileOption }</ul> : '' }
+      <div className={wrapperClasses}>
+        {attrs.label ? <label className={labelClasses}>{ attrs.label }</label> : ''}
+        <input {...attrs} onFocus={this.onFocus} type="text" value={profile.name} onChange={this.onChange} disabled={disabled} />
+        {focus ? <ul className="autocomplete-results">{resultsItems}{addProfileOption}</ul> : ''}
 
       </div>
     );
@@ -158,6 +159,7 @@ RelatedProfile.propTypes = {
   attrs: React.PropTypes.object,
   wrapperAttrs: React.PropTypes.object,
   updateParent: React.PropTypes.func,
+  disabled: React.PropTypes.bool,
 };
 
 RelatedProfile.contextTypes = {

@@ -3,6 +3,7 @@ import { displayError } from '../helpers/errors.js';
 import { Shows } from '../../api/shows/shows.js';
 import { insert } from '../../api/shows/methods.js';
 import { _ } from 'meteor/underscore';
+import classnames from 'classnames';
 import RelatedProfile from '../../ui/components/RelatedProfile.jsx';
 import Authors from '../../ui/components/Authors.jsx';
 import { FormattedMessage } from 'react-intl';
@@ -127,7 +128,7 @@ export default class RelatedShowTextbox extends React.Component {
   }
 
   render() {
-    const { attrs, updateParent } = this.props;
+    const { attrs, updateParent, disabled } = this.props;
     const { show, results, showAuthorField, focus } = this.state;
 
     let resultsItems = (results.length > 0) ? results.map(show => {
@@ -146,9 +147,14 @@ export default class RelatedShowTextbox extends React.Component {
         />
       </li> : '';
 
+    const className = {
+      'show-fields-group': true,
+      'autocomplete-group': true,
+    }
+
     return (
-      <div className="show-fields-group autocomplete-group">
-        <input { ...attrs } value={ show.name } onChange={ this.onChange } onFocus={ this.onFocus } />
+      <div className={classnames(className)}>
+        <input { ...attrs } value={ show.name } onChange={ this.onChange } onFocus={ this.onFocus } disabled={disabled} />
         { focus ? <ul className="autocomplete-results">{ resultsItems }{ addShowOption }</ul> : '' }
         { showAuthorField ?
           <RelatedProfile
@@ -184,6 +190,7 @@ RelatedShowTextbox.propTypes = {
   attrs: React.PropTypes.object,
   results: React.PropTypes.object,
   updateParent: React.PropTypes.func,
+  disabled: React.PropTypes.bool,
 };
 
 RelatedShowTextbox.contextTypes = {

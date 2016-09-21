@@ -5,6 +5,7 @@ import { Factory } from 'meteor/factory';
 // Utilities
 import { _ } from 'meteor/underscore';
 import { FormattedMessage } from 'react-intl';
+import classnames from 'classnames';
 
 // Forms
 import React from 'react';
@@ -191,20 +192,37 @@ class DatePickerFactory extends t.form.Component {
 t.Date.getTcombFormFactory = () => DatePickerFactory;
 
 /* Related Show component override */
-function renderRelatedShowTextbox(locals) {
-  const onChange = (evt) => locals.onChange(evt);
-  return (
-    <div className="form-group">
-      <RelatedShowTextbox
-        parentValue={locals.value}
-        updateParent={onChange}
-        attrs={locals.attrs}
-      />
-    </div>
-  );
-}
+const relatedShowTextboxTemplate = t.form.Form.templates.textbox.clone({
+  renderTextbox: (locals) => {
+    const onChange = (evt) => locals.onChange(evt);
+    return (
+      <div className="form-group">
+        {locals.disabled ? <span className="help-block loading-message">Loading show names...</span> : ''}
+        <RelatedShowTextbox
+          disabled={locals.disabled}
+          parentValue={locals.value}
+          updateParent={onChange}
+          attrs={locals.attrs}
+        />
+      </div>
+    );
+  },
 
-const relatedShowTextboxTemplate = t.form.Form.templates.textbox.clone({ renderTextbox: renderRelatedShowTextbox });
+  renderLabel: (locals) => {
+    const className = {
+      'control-label': true,
+      'disabled': locals.disabled,
+    }
+    return (
+      <label
+        htmlFor={locals.attrs.id}
+        className={classnames(className)}
+      >
+        {locals.label}
+      </label>
+    );
+  },
+});
 
 // here we are: the factory
 class RelatedShowFactory extends t.form.Textbox {
@@ -214,24 +232,57 @@ class RelatedShowFactory extends t.form.Textbox {
 }
 
 /* Related Organization component override */
-function renderRelatedOrgsTextbox(locals) {
-  // @TODO: Investigate locals.path for multiple. Also something like locals.onChange({0: evt})
-  const onChange = (evt) => locals.onChange(evt);
-  const parentValue = (locals.value !== '') ? locals.value : {};
-
-  return (
-    <div className="form-group">
-      <RelatedProfile
-        parentValue={parentValue}
-        updateParent={onChange}
-        attrs={locals.attrs}
-      />
-    </div>
-  );
-}
-
 // Related orgs
-const relatedOrgsTextboxTemplate = t.form.Form.templates.textbox.clone({ renderTextbox: renderRelatedOrgsTextbox });
+const relatedOrgsTextboxTemplate = t.form.Form.templates.textbox.clone({
+  renderTextbox: (locals) => {
+    // @TODO: Investigate locals.path for multiple. Also something like locals.onChange({0: evt})
+    const onChange = (evt) => locals.onChange(evt);
+    const parentValue = (locals.value !== '') ? locals.value : {};
+
+    return (
+      <div className="form-group">
+        {locals.disabled ? <span className="help-block loading-message">Loading profile names...</span> : ''}
+        <RelatedProfile
+          disabled={locals.disabled}
+          parentValue={parentValue}
+          updateParent={onChange}
+          attrs={locals.attrs}
+        />
+      </div>
+    );
+  },
+
+  renderLabel: (locals) => {
+    const className = {
+      'control-label': true,
+      'disabled': locals.disabled,
+    }
+    return (
+      <label
+        htmlFor={locals.attrs.id}
+        className={classnames(className)}
+      >
+        {locals.label}
+      </label>
+    );
+  },
+
+  renderHelp: (locals) => {
+    const className = {
+      'help-block': true,
+      'disabled': locals.disabled,
+    }
+
+    return (
+      <span
+        id={`${locals.attrs.id}-tip`}
+        className={classnames(className)}
+      >
+        {locals.help}
+      </span>
+    );
+  },
+});
 
 // Related orgs: factory
 class RelatedOrgsFactory extends t.form.Textbox {

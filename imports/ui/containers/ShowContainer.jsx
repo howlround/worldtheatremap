@@ -9,6 +9,13 @@ export default createContainer(({ params: { id } }) => {
   const loading = !singleShowSubscribe.ready();
   const show = Shows.findOne(id);
   const showExists = !loading && !!show;
+
+  if (showExists) {
+    const showAuthors = [];
+    _.each(show.author, (author) => showAuthors.push(author._id));
+    const authorsSub = TAPi18n.subscribe('profiles.byId', showAuthors);
+  }
+
   // If necessary another loading prop can be created from eventsByShowSubscribe
   const eventsByShowSubscribe = Meteor.subscribe('events.byShow', id);
   return {

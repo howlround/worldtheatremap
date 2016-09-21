@@ -28,8 +28,10 @@ export default class EventsGlobe extends React.Component {
   }
 
   // componentWillUnmount () {
-  //   // Find a way to stop the globe transition
+  //   // @TODO: Find a way to stop the globe transition
   //   // https://swizec.com/blog/using-d3js-transitions-in-react/swizec/6797
+  //   // https://swizec.com/blog/livecoding-18-an-abstract-react-transition-component/swizec/6906
+  //   // http://stackoverflow.com/questions/29977799/how-should-i-handle-a-leave-animation-in-componentwillunmount-in-react
   // }
 
   globeReady(error, world, eventLocations) {

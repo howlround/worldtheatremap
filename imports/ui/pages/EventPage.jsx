@@ -34,7 +34,7 @@ export default class EventPage extends React.Component {
 
   render() {
     // const { event, eventExists, loading } = this.props;
-    const { loading, event, user, participantsByEvent } = this.props;
+    const { loading, event, user, participantsByEvent, loadingFullApp } = this.props;
     const { editing } = this.state;
 
     const eventPageClass = classnames({
@@ -67,6 +67,7 @@ export default class EventPage extends React.Component {
             <EventEdit
               event={event}
               onEditingChange={this.onEditingChange}
+              loadingFullApp={loadingFullApp}
             />
           </div>
           <Link
@@ -113,5 +114,6 @@ EventPage.propTypes = {
   user: React.PropTypes.object,
   participantsByEvent: React.PropTypes.array,
   loading: React.PropTypes.bool,
+  loadingFullApp: React.PropTypes.bool,
   // eventExists: React.PropTypes.bool,
 };

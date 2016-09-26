@@ -9,21 +9,31 @@ import EventPage from '../pages/EventPage.jsx';
 export default createContainer(({ params: { id } }) => {
   const singleEventSubscription = Meteor.subscribe('events.single', id);
   const event = Events.findOne(id);
-  const participantsByEvent = Meteor.subscribe('participants.byEvent', id);
+  const participantsByEventSubscription = Meteor.subscribe('participants.byEvent', id);
+  const participantsByEvent = Participants.find({ 'event._id': id }, {
+      fields: Participants.publicFields,
+    }).fetch();
+
+  // Subscribe to various profiles we need
+  let profileIds = [];
 
   // Subscribe to show authors
-  let authorIds = [];
   if (event && event.show && event.show.author) {
-    authorIds = _.map(event.show.author, (author) => author._id);
+    _.each(event.show.author, (author) => profileIds.push(author._id));
   }
-  const authorsSubscribe = TAPi18n.subscribe('profiles.byId', authorIds);
+
+  // Add participant profiles to subscription
+  if (!_.isEmpty(participantsByEvent)) {
+    _.each(participantsByEvent, (participantRecord) => profileIds.push(participantRecord.profile._id));
+  }
+
+  const authorsSubscribe = TAPi18n.subscribe('profiles.byId', profileIds);
 
   const showId = (event && event.show && event.show._id) ? event.show._id : null;
   const showSubscribe = Meteor.subscribe('shows.singleById', showId);
 
   const loading = !(
     singleEventSubscription.ready() &&
-    participantsByEvent.ready() &&
     authorsSubscribe.ready() &&
     showSubscribe.ready()
   );
@@ -31,8 +41,6 @@ export default createContainer(({ params: { id } }) => {
   return {
     event,
     loading,
-    participantsByEvent: Participants.find({ 'event._id': id }, {
-      fields: Participants.publicFields,
-    }).fetch(),
+    participantsByEvent,
   };
 }, EventPage);

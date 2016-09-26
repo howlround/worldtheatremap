@@ -18,7 +18,6 @@ export default class RelatedShowTextbox extends React.Component {
       show: {
         name: defaultName,
       },
-      results: {},
       showAuthorField: false,
       focus: false,
     };
@@ -40,40 +39,12 @@ export default class RelatedShowTextbox extends React.Component {
     this.setProfileForNewShow = this.setProfileForNewShow.bind(this);
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    // If the parent form was submitted clear this field
-    if (!_.isEmpty(prevProps.attrs.value) && _.isEmpty(this.props.attrs.value)) {
-      this.setState({
-        show: {
-          name: '',
-        },
-        results: {},
-      });
-    }
-  }
-
   onChange(value) {
     const { updateParent } = this.props;
 
-    const newState = this.state;
-    newState.show.name = value.target.value;
-    this.setState(newState);
-
     const search = value.target.value;
-
-    if (search.length > 0) {
-      const regex = new RegExp('.*' + search + '.*', 'i');
-      const results = Shows.find({name: { $regex: regex }}, { limit: 5, fields: Shows.autocompleteFields }).fetch();
-
-      const newState = this.state;
-      newState.results = results;
-      this.setState(newState);
-    }
-    else {
-      const newState = this.state;
-      newState.results = {};
-      this.setState(newState);
-    }
+    updateParent({ name: search });
+    this.setState({ show: { name: search } });
   }
 
   onFocus() {
@@ -98,7 +69,7 @@ export default class RelatedShowTextbox extends React.Component {
     const newShow = {
       name
     }
-    this.setState({ show: newShow, results: {}, showAuthorField: true });
+    this.setState({ show: newShow, showAuthorField: true });
   }
 
   selectShow(show) {
@@ -112,7 +83,6 @@ export default class RelatedShowTextbox extends React.Component {
 
     const newState = this.state;
     newState.show.name = newShow.name;
-    newState.results = {};
     newState.focus = false;
     this.setState(newState);
 
@@ -128,8 +98,8 @@ export default class RelatedShowTextbox extends React.Component {
   }
 
   render() {
-    const { attrs, updateParent, disabled } = this.props;
-    const { show, results, showAuthorField, focus } = this.state;
+    const { attrs, results, updateParent, disabled } = this.props;
+    const { show, showAuthorField, focus } = this.state;
 
     let resultsItems = (results.length > 0) ? results.map(show => {
       return (
@@ -188,7 +158,7 @@ export default class RelatedShowTextbox extends React.Component {
 
 RelatedShowTextbox.propTypes = {
   attrs: React.PropTypes.object,
-  results: React.PropTypes.object,
+  results: React.PropTypes.array,
   updateParent: React.PropTypes.func,
   disabled: React.PropTypes.bool,
 };

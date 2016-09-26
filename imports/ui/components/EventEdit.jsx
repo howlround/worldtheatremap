@@ -164,14 +164,7 @@ class EventEdit extends React.Component {
   }
 
   render() {
-    const { loadingFullApp } = this.props;
-
     const formOptions = defaultFormOptions();
-
-    if (loadingFullApp) {
-      formOptions.fields.show.disabled = true;
-      formOptions.fields.organizations.disabled = true;
-    }
 
     return (
       <form className="event-edit-form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off" >
@@ -200,7 +193,6 @@ class EventEdit extends React.Component {
 
 EventEdit.propTypes = {
   event: React.PropTypes.object,
-  loadingFullApp: React.PropTypes.bool,
   intl: intlShape.isRequired,
 };
 

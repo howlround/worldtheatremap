@@ -17,8 +17,10 @@ import DatePicker from 'react-datepicker';
 // API
 import { AllCountriesFactory } from '../../api/countries/countries.js';
 
+// Containers
+import RelatedShowTextboxContainer from '../../ui/containers/RelatedShowTextboxContainer.jsx';
+
 // Components
-import RelatedShowTextbox from '../../ui/components/RelatedShowTextbox.jsx';
 import RelatedProfile from '../../ui/components/RelatedProfile.jsx';
 
 // Methods
@@ -198,7 +200,7 @@ const relatedShowTextboxTemplate = t.form.Form.templates.textbox.clone({
     return (
       <div className="form-group">
         {locals.disabled ? <span className="help-block loading-message">Loading show names...</span> : ''}
-        <RelatedShowTextbox
+        <RelatedShowTextboxContainer
           disabled={locals.disabled}
           parentValue={locals.value}
           updateParent={onChange}

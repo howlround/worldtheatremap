@@ -4,34 +4,21 @@ import React from 'react';
 import t from 'tcomb-form';
 import { eventSchema } from '../events/events.js';
 import { RelatedRecords } from '../relatedRecords/relatedRecords.js';
-import RelatedProfile from '../../ui/components/RelatedProfile.jsx';
+import RelatedProfileTextboxContainer from '../../ui/containers/RelatedProfileTextboxContainer.jsx';
 
 class ParticipantsCollection extends Mongo.Collection {
   insert(ourParticipant, callback) {
-    // const ourParticipant = event;
-    // if (!ourParticipant.name) {
-    //   let nextLetter = 'A';
-    //   ourParticipant.name = `Play ${nextLetter}`;
-
-    //   while (!!this.findOne({ name: ourParticipant.name })) {
-    //     // not going to be too smart here, can go past Z
-    //     nextLetter = String.fromCharCode(nextLetter.charCodeAt(0) + 1);
-    //     ourParticipant.name = `Play ${nextLetter}`;
-    //   }
-    // }
-
     // Update the relatedRecords collection
     // - Try running it after the insert to speed things up
     // - But running it first means you don't have to exclude it later
     RelatedRecords.reconcile({
       event: ourParticipant.event,
-      profileId: ourParticipant.profile._id
+      profileId: ourParticipant.profile._id,
     });
 
     return super.insert(ourParticipant, callback);
   }
   remove(selector, callback) {
-    Participants.remove({ eventId: selector });
     return super.remove(selector, callback);
   }
 }
@@ -49,17 +36,22 @@ function renderTextbox(locals) {
   const onChange = (evt) => locals.onChange(evt);
   return (
     <div className="input-group">
-      <RelatedProfile parentValue={ locals.value } updateParent={ onChange } attrs={ locals.attrs } />
+      <RelatedProfileTextboxContainer
+        disabled={locals.disabled}
+        parentValue={locals.value}
+        updateParent={onChange}
+        attrs={locals.attrs}
+      />
     </div>
-  )
+  );
 }
 
-const textboxTemplate = t.form.Form.templates.textbox.clone({ renderTextbox })
+const textboxTemplate = t.form.Form.templates.textbox.clone({ renderTextbox });
 
 // here we are: the factory
 class RelatedProfileFactory extends t.form.Textbox {
   getTemplate() {
-    return textboxTemplate
+    return textboxTemplate;
   }
 }
 
@@ -67,12 +59,6 @@ export const relatedProfileSchema = t.struct({
   name: t.String,
   _id: t.String,
 });
-
-const atLeastOne = arr => arr.length > 0;
-
-// @TODO: Refactor to look like this:
-// https://github.com/gcanti/tcomb-form/issues/311
-// Maybe that should be in eventProfile?
 
 export const participantSchema = t.struct({
   profile: relatedProfileSchema,
@@ -85,64 +71,52 @@ export const participantFormSchema = t.struct({
   role: t.maybe(t.String),
 });
 
-// const profileLayout = (profile) => {
-//   return (
-//     <div className="profile-fields-group autocomplete-group">
-//       {profile.inputs.name}
-//       {profile.inputs._id}
-//       <ul className="autocomplete-results"></ul>
-//     </div>
-//   );
-// };
-
-export const defaultFormOptions = () => {
-  return {
-    fields: {
-      profile: {
-        factory: RelatedProfileFactory,
-        auto: 'none',
-        error: 'Profile is required',
-        attrs: {
-          className: 'participant-profile-edit',
-          autoComplete: 'off',
-          placeholder: 'Profile name',
-        },
-        disableAdd: true,
-        disableRemove: true,
-        disableOrder: true,
-        // template: profileLayout,
-        fields: {
-          name: {
-            // template: AutosuggestTemplate({
-            //   getSuggestions,
-            //   getSuggestionValue,
-            //   renderSuggestion,
-            //   onSuggestionSelected
-            // }),
-            error: 'Profile is required',
-            attrs: {
-              className: 'participant-profile-name-edit',
-              autoComplete: 'off',
-              placeholder: 'Profile name',
-            }
-          },
-          _id: {
-            attrs: {
-              className: 'participant-profile-id-edit'
-            }
-          }
-        }
+export const defaultFormOptions = () => ({
+  fields: {
+    profile: {
+      factory: RelatedProfileFactory,
+      auto: 'none',
+      error: 'Profile is required',
+      attrs: {
+        className: 'participant-profile-edit',
+        autoComplete: 'off',
+        placeholder: 'Profile name',
       },
-      role: {
-        error: 'Role is required',
-        attrs: {
-          className: 'participant-role-edit',
-          placeholder: 'Enter the role you played. Create seperate entries for each role.'
-        }
+      disableAdd: true,
+      disableRemove: true,
+      disableOrder: true,
+      // template: profileLayout,
+      fields: {
+        name: {
+          // template: AutosuggestTemplate({
+          //   getSuggestions,
+          //   getSuggestionValue,
+          //   renderSuggestion,
+          //   onSuggestionSelected
+          // }),
+          error: 'Profile is required',
+          attrs: {
+            className: 'participant-profile-name-edit',
+            autoComplete: 'off',
+            placeholder: 'Profile name',
+          },
+        },
+        _id: {
+          attrs: {
+            className: 'participant-profile-id-edit',
+          },
+        },
       },
     },
-  };
-}
+    role: {
+      error: 'Role is required',
+      attrs: {
+        className: 'participant-role-edit',
+        placeholder: 'Enter the role you played. Create seperate entries for each role.',
+      },
+    },
+  },
+});
 
 // This represents the keys from Participants objects that should be published
 // to the client. If we add secret properties to Participant objects, don't event
@@ -150,7 +124,7 @@ export const defaultFormOptions = () => {
 Participants.publicFields = {
   profile: 1,
   role: 1,
-  event: 1
+  event: 1,
 };
 
 Factory.define('event', Participants, {});

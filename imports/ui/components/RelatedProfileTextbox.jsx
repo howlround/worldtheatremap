@@ -1,4 +1,3 @@
-// @TODO: Replace all instances of this file with RelatedProfileTextbox
 import React from 'react';
 import { displayError } from '../helpers/errors.js';
 import { Profiles } from '../../api/profiles/profiles.js';
@@ -7,16 +6,16 @@ import { _ } from 'meteor/underscore';
 import classnames from 'classnames';
 import { FormattedMessage } from 'react-intl';
 
-export default class RelatedProfile extends React.Component {
+export default class RelatedProfileTextbox extends React.Component {
   constructor(props) {
     super(props);
-    const { parentValue } = this.props;
+    const { parentValue, results } = this.props;
 
     this.state = {
       profile: {
         name: '',
       },
-      results: {},
+      results,
       focus: false,
     };
 
@@ -60,28 +59,11 @@ export default class RelatedProfile extends React.Component {
   onChange(value) {
     const { updateParent } = this.props;
 
-    const newState = this.state;
-    newState.profile.name = value.target.value;
-    this.setState(newState);
-
     const search = value.target.value;
-
-    if (search.length > 0) {
-      // const profilesSubscribe = TAPi18n.subscribe('profiles.searchNames', { name: search });
-      const regex = new RegExp('.*' + search + '.*', 'i');
-      // const results = Profiles.find({name: { $regex: regex }}, {limit: 5, fields: Profiles.publicFields,}).fetch();
-      const results = Profiles.find({name: { $regex: regex }}, {limit: 5, fields: { name: 1 }}).fetch();
-      // profilesSubscribe.stop();
-
-      const newState = this.state;
-      newState.results = results;
-      this.setState(newState);
-    }
-    else {
-      const newState = this.state;
-      newState.results = {};
-      this.setState(newState);
-    }
+    updateParent({
+      name: search,
+    });
+    this.setState({ profile: { name: search } });
   }
 
   createProfile(name) {
@@ -121,8 +103,8 @@ export default class RelatedProfile extends React.Component {
   }
 
   render() {
-    const { attrs, updateParent, wrapperAttrs, disabled } = this.props;
-    const { profile, results, focus } = this.state;
+    const { attrs, results, updateParent, wrapperAttrs, disabled, loading } = this.props;
+    const { profile, focus } = this.state;
 
     const resultsItems = (results.length > 0) ? results.map(profile => {
       return (
@@ -141,7 +123,14 @@ export default class RelatedProfile extends React.Component {
       </li> : '';
 
     const additionalWrapperClasses = (wrapperAttrs) ? wrapperAttrs.className : '';
-    const wrapperClasses = classnames('profile-fields-group', 'autocomplete-group', additionalWrapperClasses);
+    const wrapperClasses = classnames(
+      'profile-fields-group',
+      'autocomplete-group',
+      additionalWrapperClasses,
+      {
+        loading,
+      },
+    );
     const labelClasses = classnames({ 'disabled': disabled });
 
     return (
@@ -155,14 +144,16 @@ export default class RelatedProfile extends React.Component {
   }
 }
 
-RelatedProfile.propTypes = {
+RelatedProfileTextbox.propTypes = {
   parentValue: React.PropTypes.object,
+  results: React.PropTypes.array,
   attrs: React.PropTypes.object,
   wrapperAttrs: React.PropTypes.object,
   updateParent: React.PropTypes.func,
   disabled: React.PropTypes.bool,
+  loading: React.PropTypes.bool,
 };
 
-RelatedProfile.contextTypes = {
+RelatedProfileTextbox.contextTypes = {
   router: React.PropTypes.object,
 };

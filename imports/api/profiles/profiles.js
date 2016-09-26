@@ -1534,4 +1534,8 @@ Profiles.publicFields = {
   gender: 1,
 };
 
+Profiles.autocompleteFields = {
+  name: 1,
+};
+
 Factory.define('profile', Profiles, {});

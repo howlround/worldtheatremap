@@ -34,6 +34,14 @@ input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 1000px $white inset;
 }
 
+.loading {
+  input {
+    background-image: url('/loading.gif');
+    background-repeat: no-repeat;
+    background-position: center right;
+  }
+}
+
 label {
   font-weight: 700;
 

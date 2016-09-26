@@ -19,9 +19,7 @@ import { AllCountriesFactory } from '../../api/countries/countries.js';
 
 // Containers
 import RelatedShowTextboxContainer from '../../ui/containers/RelatedShowTextboxContainer.jsx';
-
-// Components
-import RelatedProfile from '../../ui/components/RelatedProfile.jsx';
+import RelatedProfileTextboxContainer from '../../ui/containers/RelatedProfileTextboxContainer.jsx';
 
 // Methods
 import { upsert as upsertLocality } from '../localities/methods.js';
@@ -242,7 +240,7 @@ const relatedOrgsTextboxTemplate = t.form.Form.templates.textbox.clone({
 
     return (
       <div className="form-group">
-        <RelatedProfile
+        <RelatedProfileTextboxContainer
           disabled={locals.disabled}
           parentValue={parentValue}
           updateParent={onChange}

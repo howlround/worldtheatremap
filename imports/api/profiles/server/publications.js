@@ -14,6 +14,14 @@ TAPi18n.publish('profiles.autocomplete', function profilesPublic() {
   });
 });
 
+
+TAPi18n.publish('profiles.autocompleteQuery', function profilesPublic(search) {
+  const regex = new RegExp('^' + search + '.*', 'i');
+  return Profiles.i18nFind({name: { $regex: regex }}, {
+    fields: Profiles.autocompleteFields,
+  });
+});
+
 TAPi18n.publish('profiles.search', function profilesSearch(query, requestedPage) {
   let processedQuery = _.clone(query);
 

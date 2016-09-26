@@ -43,7 +43,9 @@ export default class RelatedShowTextbox extends React.Component {
     const { updateParent } = this.props;
 
     const search = value.target.value;
-    updateParent({ name: search });
+    updateParent({
+      name: search,
+    });
     this.setState({ show: { name: search } });
   }
 
@@ -98,7 +100,7 @@ export default class RelatedShowTextbox extends React.Component {
   }
 
   render() {
-    const { attrs, results, updateParent, disabled } = this.props;
+    const { attrs, results, updateParent, disabled, loading } = this.props;
     const { show, showAuthorField, focus } = this.state;
 
     let resultsItems = (results.length > 0) ? results.map(show => {
@@ -120,6 +122,7 @@ export default class RelatedShowTextbox extends React.Component {
     const className = {
       'show-fields-group': true,
       'autocomplete-group': true,
+      loading,
     }
 
     return (

@@ -199,7 +199,6 @@ const relatedShowTextboxTemplate = t.form.Form.templates.textbox.clone({
     const onChange = (evt) => locals.onChange(evt);
     return (
       <div className="form-group">
-        {locals.disabled ? <span className="help-block loading-message">Loading show names...</span> : ''}
         <RelatedShowTextboxContainer
           disabled={locals.disabled}
           parentValue={locals.value}
@@ -243,7 +242,6 @@ const relatedOrgsTextboxTemplate = t.form.Form.templates.textbox.clone({
 
     return (
       <div className="form-group">
-        {locals.disabled ? <span className="help-block loading-message">Loading profile names...</span> : ''}
         <RelatedProfile
           disabled={locals.disabled}
           parentValue={parentValue}

@@ -159,14 +159,7 @@ class EventAdd extends React.Component {
   }
 
   render() {
-    const { loadingFullApp } = this.props;
-
     const formOptions = defaultFormOptions();
-
-    if (loadingFullApp) {
-      formOptions.fields.show.disabled = true;
-      formOptions.fields.organizations.disabled = true;
-    }
 
     return (
       <form className="event-edit-form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off" >
@@ -195,7 +188,6 @@ class EventAdd extends React.Component {
 
 EventAdd.propTypes = {
   intl: intlShape.isRequired,
-  loadingFullApp: React.PropTypes.bool,
 };
 
 EventAdd.contextTypes = {

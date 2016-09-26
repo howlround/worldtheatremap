@@ -14,7 +14,7 @@ export default class EventAddPage extends React.Component {
   }
 
   render() {
-    const { loading, loadingFullApp, add, user } = this.props;
+    const { loading, add, user } = this.props;
 
     const pageClass = classnames({
       'page': true,
@@ -33,7 +33,7 @@ export default class EventAddPage extends React.Component {
         <div className="overlay-wrapper">
           <Modal/>
           <div className={pageClass}>
-            <EventAdd loadingFullApp={loadingFullApp} />
+            <EventAdd />
           </div>
         </div>
       );
@@ -57,5 +57,4 @@ export default class EventAddPage extends React.Component {
 EventAddPage.propTypes = {
   add: React.PropTypes.bool,
   loading: React.PropTypes.bool,
-  loadingFullApp: React.PropTypes.bool,
 };

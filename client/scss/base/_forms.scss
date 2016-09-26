@@ -38,7 +38,8 @@ input:-webkit-autofill {
   input {
     background-image: url('/loading.gif');
     background-repeat: no-repeat;
-    background-position: center right;
+    background-position: right 9px center;
+    background-size: 18px 18px;
   }
 }
 

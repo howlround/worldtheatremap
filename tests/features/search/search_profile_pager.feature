@@ -76,7 +76,7 @@ Feature: Pager on profile search
     When I fill in ".profile-postal-code-edit" with "16000"
     And the ".search-results" element should contain "Alpha"
     And the ".search-results" element should not contain "Uniform"
-@focus
+
   Scenario: Profiles search should have a pager to see the next page
     And I fill in ".profile-postal-code-edit" with "16000"
     When I click on ".search-results-pager .next"

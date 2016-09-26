@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { TAPi18n } from 'meteor/tap:i18n';
 import { Profiles } from '../../api/profiles/profiles.js';
 import { createContainer } from 'meteor/react-meteor-data';
+import { _ } from 'meteor/underscore';
 
 // Components
 import ProfilePage from '../pages/ProfilePage.jsx';
@@ -12,7 +13,6 @@ import { Participants } from '../../api/participants/participants.js';
 import { Shows } from '../../api/shows/shows.js';
 
 const ProfileContainer = createContainer(({ params: { id } }) => {
-  const primaryAuthorshipSubscribe = Meteor.subscribe('shows.byAuthor', id);
   // @TODO: This should be more specific (by user?)
   const participantsSubscribe = Meteor.subscribe('participants.byProfile', id);
 
@@ -35,16 +35,26 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
   allNecessaryProfiles.push(id);
   const connectedProfilesSub = TAPi18n.subscribe('profiles.byId', allNecessaryProfiles);
 
-  // Roles
-  // @TODO: Refactor to not push to the roles array
+  // Get data from participant records
+  //  - Roles
+  //  - Shows
   let roles = new Array;
-  const participantRecords = Participants.find({ "profile._id": id }, { fields: { "role": true } }).map(record => {
+  let showsToSubscribeTo = new Array;
+  const participantRecords = Participants.find({ "profile._id": id }, { fields: Participants.publicFields }).fetch();
+
+  _.each(participantRecords, record => {
     if (!_.contains(roles, record.role)) {
       roles.push(record.role);
+      showsToSubscribeTo.push(record.event.show._id);
     }
   });
 
-  const loading = !(connectedProfilesSub.ready() && participantsSubscribe.ready() && connectionsSubscribe.ready() && primaryAuthorshipSubscribe.ready());
+  // Subscribe to shows where:
+  //  - profile is author
+  //  - profile is a participant
+  const showsSubscribe = Meteor.subscribe('shows.byAuthorPlusOthers', id, showsToSubscribeTo);
+
+  const loading = !(connectedProfilesSub.ready() && participantsSubscribe.ready() && connectionsSubscribe.ready() && showsSubscribe.ready());
 
   const profile = Profiles.findOne(id);
   const shows = profile ? Shows.find({ "author._id": profile._id }).fetch() : null;

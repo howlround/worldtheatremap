@@ -16,8 +16,8 @@ Meteor.publish('shows.autocomplete', function showsPublic() {
 });
 
 Meteor.publish('shows.autocompleteQuery', function showsPublic(search) {
-  const regex = new RegExp('^' + search + '.*', 'i');
-  return Shows.find({name: { $regex: regex }}, {
+  const regex = new RegExp(`^${search}.*`, 'i');
+  return Shows.find({ name: { $regex: regex } }, {
     fields: Shows.autocompleteFields,
   });
 });
@@ -26,6 +26,28 @@ Meteor.publish('shows.byAuthor', function showsById(authorId) {
   return Shows.find({ 'author._id': { $in: [authorId] } }, {
     fields: Shows.publicFields,
   });
+});
+
+
+Meteor.publish('shows.byAuthorPlusOthers', function showsById(authorId, additionalIds) {
+  return Shows.find(
+    {
+      $or: [
+        {
+          'author._id': {
+            $in: [authorId],
+          },
+        },
+        {
+          _id: {
+            $in: additionalIds,
+          },
+        },
+      ],
+    }, {
+      fields: Shows.publicFields,
+    }
+  );
 });
 
 Meteor.publish('shows.multipleById', function showsById(ids) {

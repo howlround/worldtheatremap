@@ -39,6 +39,15 @@ export default class RelatedShowTextbox extends React.Component {
     this.setProfileForNewShow = this.setProfileForNewShow.bind(this);
   }
 
+  componentWillReceiveProps() {
+    const { parentValue } = this.props;
+
+    this.setState({ show: {
+      name: parentValue.name,
+      _id: parentValue._id,
+    } });
+  }
+
   onChange(value) {
     const { updateParent } = this.props;
 

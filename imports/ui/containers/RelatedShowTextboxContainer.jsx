@@ -8,7 +8,15 @@ import RelatedShowTextbox from '../components/RelatedShowTextbox.jsx';
 import { Shows } from '../../api/shows/shows.js';
 
 const RelatedShowTextboxContainer = createContainer((props) => {
-  const search = props.parentValue.name;
+  let parentValue = _.clone(props.parentValue);
+  const showSubscribe = (!_.isEmpty(props.parentValue)) ? Meteor.subscribe('shows.singleById', parentValue._id) : null;
+  const updatedShowName = Shows.find({ _id: props.parentValue._id }, { fields: { name: 1 } }).fetch();
+  if (!_.isNull(showSubscribe) && !_.isEmpty(updatedShowName) && updatedShowName.length > 0) {
+    parentValue.name = updatedShowName[0].name
+  }
+  // parentValue.name = (!_.isNull(showSubscribe) && !_.isEmpty(updatedShowName) && updatedShowName.length > 0) ? updatedShowName[0].name : props.parentValue.name;
+
+  const search = parentValue.name;
   let results = [];
   let loading = false;
 
@@ -30,6 +38,7 @@ const RelatedShowTextboxContainer = createContainer((props) => {
   return {
     results,
     loading,
+    parentValue,
   };
 }, RelatedShowTextbox);
 

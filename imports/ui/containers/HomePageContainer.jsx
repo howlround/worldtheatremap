@@ -8,7 +8,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import HomePage from '../components/HomePage.jsx';
 import moment from 'moment';
 
-const HomePageContainer = createContainer(({ triggerFullAppDataLoad, loadingFullApp }) => {
+const HomePageContainer = createContainer(() => {
   // Load what's on today data
   const startDate = moment().startOf('day').toDate();
   const endDate = moment().endOf('day').toDate();
@@ -48,16 +48,9 @@ const HomePageContainer = createContainer(({ triggerFullAppDataLoad, loadingFull
   const lang = window.AppState.getLocale();
   const supportedLanguages = TAPi18n.getLanguages();
 
-  // Start loading all data after blocking data is loaded
-  // let loadingFullApp = true;
-  if (authorsTodaySubscribe.ready() && showsTodaySubscribe.ready() && eventsTodayWithLocationsSubscribe.ready()) {
-    triggerFullAppDataLoad();
-  }
-
   return {
     user: Meteor.user(),
     loading: !(eventsTodayWithLocationsSubscribe.ready() && authorsTodaySubscribe.ready() && showsTodaySubscribe.ready()),
-    loadingFullApp,
     connected: Meteor.status().connected,
     menuOpen: Session.get('menuOpen'),
     eventsTodayWithLocations,

@@ -57,8 +57,6 @@ export default class App extends React.Component {
       user,
       connected,
       loading,
-      loadingFullApp,
-      triggerFullAppDataLoad,
       menuOpen,
       children,
       location,
@@ -71,8 +69,6 @@ export default class App extends React.Component {
     const clonedChildren = children && React.cloneElement(children, {
       key: location.pathname,
       user,
-      loadingFullApp,
-      triggerFullAppDataLoad,
     });
 
     return (
@@ -129,7 +125,7 @@ export default class App extends React.Component {
             ? <Loading key="loading" />
             : clonedChildren}
           {(!clonedChildren && !loading) ?
-            <HomePageContainer triggerFullAppDataLoad={triggerFullAppDataLoad} loadingFullApp={loadingFullApp} />
+            <HomePageContainer />
             : ''
           }
         </div>
@@ -142,11 +138,7 @@ App.propTypes = {
   user: React.PropTypes.object,      // current meteor user
   connected: React.PropTypes.bool,   // server connection status
   loading: React.PropTypes.bool,     // subscription status
-  loadingFullApp: React.PropTypes.bool,
-  triggerFullAppDataLoad: React.PropTypes.func,
   menuOpen: React.PropTypes.bool,    // is side menu open?
-  profiles: React.PropTypes.array,   // all profiles visible to the current user
-  shows: React.PropTypes.array,
   children: React.PropTypes.element, // matched child route component
   location: React.PropTypes.object,  // current router location
   params: React.PropTypes.object,    // parameters of the current route

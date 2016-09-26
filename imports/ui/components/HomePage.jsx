@@ -83,7 +83,6 @@ export default class HomePage extends React.Component {
   render() {
     const {
       loading,
-      loadingFullApp,
       eventsTodayWithLocations,
     } = this.props;
 
@@ -118,7 +117,6 @@ export default class HomePage extends React.Component {
 
 HomePage.propTypes = {
   loading: React.PropTypes.bool,     // subscription status
-  loadingFullApp: React.PropTypes.bool,
   profiles: React.PropTypes.array,   // all profiles visible to the current user
   shows: React.PropTypes.array,
   eventsTodayWithLocations: React.PropTypes.array,

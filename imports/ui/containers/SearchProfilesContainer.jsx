@@ -9,7 +9,7 @@ const SearchProfilesContainer = createContainer((props) => {
   const administrativeAreasSubscribe = Meteor.subscribe('administrativeAreas.public');
 
   return {
-    loading: !(localitiesSubscribe.ready() && countriesSubscribe.ready() && administrativeAreasSubscribe.ready() && !props.loadingFullApp),
+    loading: !(localitiesSubscribe.ready() && countriesSubscribe.ready() && administrativeAreasSubscribe.ready()),
   };
 }, SearchProfiles);
 

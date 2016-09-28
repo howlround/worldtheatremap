@@ -10,18 +10,20 @@
     margin-bottom: $spacing-unit;
   }
 
-  .form-group-depth-1 {
-    @include span(1 of 2);
+  @include breakpoint($narrow) {
+    .form-group-depth-1 {
+      @include span(1 of 2);
 
-    &:nth-child(2n+1) {
-      @include last;
-    }
+      &:nth-child(2n+1) {
+        @include last;
+      }
 
-    &.form-group-name {
-      font-size: 30px;
-      font-weight: bold;
+      &.form-group-name {
+        font-size: 30px;
+        font-weight: bold;
 
-      @include span(1 of 1 last);
+        @include span(1 of 1 last);
+      }
     }
   }
 

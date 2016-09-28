@@ -9,7 +9,7 @@ import SearchEventsResults from '../components/SearchEventsResults.jsx';
 
 
 const SearchEventsResultsContainer = createContainer((props) => {
-  const { query, updateQuery } = props;
+  const { query } = props;
   let loading = false;
   let skip = 0;
   let results = [];
@@ -58,9 +58,7 @@ const SearchEventsResultsContainer = createContainer((props) => {
     }
 
     if (!_.isEmpty(privateQuery)) {
-      // events.search doesn't take arguments anymore
-      // const eventsSubscribe = Meteor.subscribe('events.search', privateQuery, skip);
-      // loading = !eventsSubscribe.ready();
+      const eventsSubscribe = Meteor.subscribe('events.search', privateQuery, skip);
       totalCount = Events.find(privateQuery).count();
       results = Events.find(
         privateQuery,
@@ -71,6 +69,18 @@ const SearchEventsResultsContainer = createContainer((props) => {
           limit: 20,
           skip,
         }).fetch();
+
+      // Get author and show ids for these events
+      const resultsAuthors = [];
+      const resultsShows = [];
+      _.each(results, (event) => {
+        resultsShows.push(event.show._id);
+        _.each(event.show.author, (author) => resultsAuthors.push(author._id));
+      });
+
+      const resultsAuthorsSubscribe = TAPi18n.subscribe('profiles.byId', resultsAuthors);
+      const resultsShowsSubscribe = TAPi18n.subscribe('shows.multipleById', resultsShows);
+
     }
   }
 
@@ -80,7 +90,6 @@ const SearchEventsResultsContainer = createContainer((props) => {
     skip,
     totalCount,
     query,
-    updateQuery,
   };
 }, SearchEventsResults);
 

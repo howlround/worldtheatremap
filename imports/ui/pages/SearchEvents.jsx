@@ -48,8 +48,6 @@ export default class SearchEvents extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(this.props.location.query);
-
     if (this.props.location.query !== nextProps.location.query) {
       const cleanQuery = {};
       _.each(nextProps.location.query, (val, key) => {
@@ -89,7 +87,7 @@ export default class SearchEvents extends React.Component {
     });
 
     return (
-      <SearchEventsResultsContainer query={cleanQuery} updateQuery={this.onChange} />
+      <SearchEventsResultsContainer query={cleanQuery} />
     );
   }
 

@@ -18,10 +18,14 @@ Meteor.publish('events.single', function eventsPublic(id) {
   });
 });
 
-Meteor.publish('events.search', function eventsSearch(query) {
+Meteor.publish('events.search', function eventsSearch(query, skip) {
+  const limit = 20;
+
   return Events.find(query, {
     fields: Events.publicFields,
     sort: { startDate: 1 },
+    limit,
+    skip,
   });
 });
 

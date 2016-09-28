@@ -1,6 +1,7 @@
 /* eslint-disable prefer-arrow-callback */
-import { TAPi18n } from 'meteor/tap:i18n'
+import { TAPi18n } from 'meteor/tap:i18n';
 import { Profiles } from '../profiles.js';
+import { _ } from 'meteor/underscore';
 
 TAPi18n.publish('profiles.public', function profilesPublic() {
   return Profiles.i18nFind({}, {
@@ -16,21 +17,24 @@ TAPi18n.publish('profiles.autocomplete', function profilesPublic() {
 
 
 TAPi18n.publish('profiles.autocompleteQuery', function profilesPublic(search) {
-  const regex = new RegExp('^' + search + '.*', 'i');
-  return Profiles.i18nFind({name: { $regex: regex }}, {
+  const regex = new RegExp(`^${search}.*`, 'i');
+  return Profiles.i18nFind({ name: { $regex: regex } }, {
     fields: Profiles.autocompleteFields,
   });
 });
 
-TAPi18n.publish('profiles.search', function profilesSearch(query, requestedPage) {
-  let processedQuery = _.clone(query);
+TAPi18n.publish('profiles.search', function profilesSearch(plainTextQuery, skip) {
+  const processedQuery = _.clone(plainTextQuery);
 
-  if (processedQuery.name) {
-    processedQuery.name = new RegExp(query.name, 'i');
+  if (plainTextQuery.name) {
+    processedQuery.name = new RegExp(`^${plainTextQuery.name}.*`, 'i');
+  }
+
+  if (plainTextQuery.postalCode) {
+    processedQuery.postalCode = new RegExp(`^${plainTextQuery.postalCode}.*`, 'i');
   }
 
   const limit = 20;
-  const skip = requestedPage ? requestedPage * limit : 0;
 
   return Profiles.i18nFind(processedQuery, {
     fields: Profiles.publicFields,
@@ -41,7 +45,7 @@ TAPi18n.publish('profiles.search', function profilesSearch(query, requestedPage)
 });
 
 TAPi18n.publish('profiles.searchNames', function profilesSearch(query, requestedPage) {
-  let processedQuery = _.clone(query);
+  const processedQuery = _.clone(query);
 
   if (processedQuery.name) {
     processedQuery.name = new RegExp(query.name, 'i');

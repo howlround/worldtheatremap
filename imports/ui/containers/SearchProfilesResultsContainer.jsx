@@ -15,11 +15,6 @@ const SearchProfilesResultsContainer = createContainer((props) => {
     // Use an internal query so nothing strange gets passed straight through
     let privateQuery = {};
 
-    if (query.name) {
-      privateQuery.name = query.name;
-      // privateQuery.name = new RegExp(query.name, 'i');
-    }
-
     if (query.selfDefinedRoles && query.selfDefinedRoles instanceof Array) {
       privateQuery.selfDefinedRoles = {
         $in: query.selfDefinedRoles
@@ -57,7 +52,7 @@ const SearchProfilesResultsContainer = createContainer((props) => {
     }
 
     if (query.postalCode) {
-      privateQuery.postalCode = new RegExp('^' + query.postalCode, 'i');
+      privateQuery.postalCode = query.postalCode;
     }
 
     if (query.gender && query.gender instanceof Array) {
@@ -70,9 +65,24 @@ const SearchProfilesResultsContainer = createContainer((props) => {
       skip = Number(query.page) * 20;
     }
 
+    // The publication can't accept regex values as the argument so make a seperate query to pass
+    const plainTextQuery = _.clone(privateQuery);
+
+    if (query.postalCode) {
+      privateQuery.postalCode = new RegExp(`^${query.postalCode}.*`, 'i');
+      plainTextQuery.postalCode = query.postalCode;
+    }
+
+    if (query.name) {
+      privateQuery.name = query.name;
+      plainTextQuery.name = query.name;
+      // privateQuery.name = new RegExp(query.name, 'i');
+    }
+
     // Make sure privateQuery is not empty otherwise all records are returned
     if (!_.isEmpty(privateQuery)) {
       totalCount = Profiles.find(privateQuery).count();
+      const profilesSubscribe = TAPi18n.subscribe('profiles.search', plainTextQuery, skip);
       results = Profiles.find(
         privateQuery,
         {

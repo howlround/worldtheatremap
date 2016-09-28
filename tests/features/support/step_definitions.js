@@ -75,7 +75,7 @@ module.exports = function() {
   });
 
   this.When(/^I select "([^"]*)" from the "([^"]*)" combobox$/, function (value, selector) {
-    browser.waitForExist(selector);
+    browser.waitForExist(selector, 5000);
     browser.setValue(selector + ' input', value);
     browser.click('.Select-option');
   });

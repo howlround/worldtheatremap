@@ -39,13 +39,13 @@ export default class SearchResultsPager extends React.Component {
   }
 
   render() {
-    const { totalCount, skip } = this.props;
+    const { count, skip } = this.props;
     const limit = 20;
 
     const prev = (skip >= limit) ? <span className="prev" onClick={this.prev}>&larr; Previous</span> : '';
-    const next = (skip < totalCount) ? <span className="next" onClick={this.next}>Next &rarr;</span> : '';
+    const next = (count === limit) ? <span className="next" onClick={this.next}>Next &rarr;</span> : '';
 
-    const pager = (totalCount > limit) ? <div className="search-results-pager">{prev}{next}</div> : null;
+    const pager = (prev || next) ? <div className="search-results-pager">{prev}{next}</div> : null;
 
     return pager;
   }
@@ -56,7 +56,7 @@ SearchResultsPager.contextTypes = {
 };
 
 SearchResultsPager.propTypes = {
-  totalCount: React.PropTypes.number,
+  count: React.PropTypes.number,
   skip: React.PropTypes.number,
   query: React.PropTypes.object,
   updateQuery: React.PropTypes.func,

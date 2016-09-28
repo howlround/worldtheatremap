@@ -5,11 +5,10 @@ import { Profiles } from '../../api/profiles/profiles.js';
 import SearchProfilesResults from '../components/SearchProfilesResults.jsx';
 
 const SearchProfilesResultsContainer = createContainer((props) => {
-  const { query } = props;
+  const { query, updateQuery } = props;
   let loading = false;
   let skip = 0;
   let results = [];
-  let totalCount = 0;
 
   if (!_.isEmpty(query)) {
     // Use an internal query so nothing strange gets passed straight through
@@ -81,8 +80,11 @@ const SearchProfilesResultsContainer = createContainer((props) => {
 
     // Make sure privateQuery is not empty otherwise all records are returned
     if (!_.isEmpty(privateQuery)) {
+      // Client query should not have a skip value since there are only 20 in the local db
+      // Another pattern would be to keep the skip here but then instead of skip on the server
+      // use a limit of (skip + limit). That would load all pages up to the current page
+      // for faster rendering of previous pages.
       const profilesSubscribe = TAPi18n.subscribe('profiles.search', plainTextQuery, skip);
-      totalCount = Profiles.find(privateQuery).count();
       results = Profiles.find(
         privateQuery,
         {
@@ -90,7 +92,6 @@ const SearchProfilesResultsContainer = createContainer((props) => {
             name: 1,
           },
           limit: 20,
-          skip,
         }).fetch();
     }
   }
@@ -99,8 +100,8 @@ const SearchProfilesResultsContainer = createContainer((props) => {
     results,
     loading,
     skip,
-    totalCount,
     query,
+    updateQuery,
   };
 }, SearchProfilesResults);
 

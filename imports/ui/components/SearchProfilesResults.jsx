@@ -9,7 +9,7 @@ export default class SearchProfilesResults extends React.Component {
   }
 
   render() {
-    const { results, loading, skip, totalCount, query, updateQuery } = this.props;
+    const { results, loading, skip, query, updateQuery } = this.props;
 
     if (!loading && !_.isEmpty(results)) {
       return (
@@ -21,7 +21,7 @@ export default class SearchProfilesResults extends React.Component {
               </li>
             )) }
           </ul>
-          <SearchResultsPager totalCount={totalCount} skip={skip} query={query} updateQuery={updateQuery} />
+          <SearchResultsPager count={results.length} skip={skip} query={query} updateQuery={updateQuery} />
         </div>
       );
     }
@@ -41,5 +41,4 @@ SearchProfilesResults.propTypes = {
   query: React.PropTypes.object,
   updateQuery: React.PropTypes.func,
   skip: React.PropTypes.number,
-  totalCount: React.PropTypes.number,
 };

@@ -66,7 +66,6 @@ class SearchProfiles extends React.Component {
       _.each(this.props.location.query, (val, key) => {
         if (_.isEmpty(nextProps.location.query[key]) && !_.isEmpty(val)) {
           cleanQuery[key] = null;
-
         }
       });
 
@@ -85,7 +84,7 @@ class SearchProfiles extends React.Component {
     });
 
     return (
-      <SearchProfilesResultsContainer query={cleanQuery} />
+      <SearchProfilesResultsContainer query={cleanQuery}  updateQuery={this.onChange} />
     );
   }
 

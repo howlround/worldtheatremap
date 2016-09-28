@@ -47,7 +47,7 @@ Feature: Create shows
     And I am logged in
     When I go to the "show" add page
     And I fill in ".show-name-edit" with "Sofía"
-    And I fill in ".show-author-name-edit" with "Favorite"
+    And I fill in ".show-author-name-edit" with "My Favorite"
     Then the "ul.autocomplete-results li" element should contain "My Favorite Playwright"
 
   Scenario: After selecting an autocompleted primary author and saving the show a user should be able to click on the author and see their profile
@@ -56,7 +56,7 @@ Feature: Create shows
     And I am logged in
     And I go to the "show" add page
     And I fill in ".show-name-edit" with "Sofía"
-    And I fill in ".show-author-name-edit" with "Favorite"
+    And I fill in ".show-author-name-edit" with "My Favorite"
     When I click on "ul.autocomplete-results li"
     And I click on ".edit-show-save"
     And I click on ".show-author"
@@ -68,7 +68,7 @@ Feature: Create shows
     And I am logged in
     And I go to the "show" add page
     And I fill in ".show-name-edit" with "Sofía"
-    And I fill in ".show-author-name-edit" with "Favorite"
+    And I fill in ".show-author-name-edit" with "My Favorite"
     When I click on "ul.autocomplete-results li"
     And I click on ".edit-show-save"
     Then the ".show-authorship" element should not contain "My Favorite Playwright,"
@@ -81,10 +81,10 @@ Feature: Create shows
     And I am logged in
     When I go to the "show" add page
     And I fill in ".show-name-edit" with "Sofía"
-    And I fill in ".show-author-name-edit" with "Favorite"
+    And I fill in ".show-author-name-edit" with "My Favorite"
     And I click on "ul.autocomplete-results li"
     And I click on ".btn-add"
-    And I fill in ".form-group-author-1-name .show-author-name-edit" with "second"
+    And I fill in ".form-group-author-1 .show-author-name-edit" with "The second"
     And I click on "ul.autocomplete-results li"
     And I click on ".edit-show-save"
     Then the ".show-authorship" element should contain "My Favorite Playwright and The second best playwright"
@@ -99,13 +99,13 @@ Feature: Create shows
     And I am logged in
     When I go to the "show" add page
     And I fill in ".show-name-edit" with "Sofía"
-    And I fill in ".show-author-name-edit" with "Favorite"
+    And I fill in ".show-author-name-edit" with "My Favorite"
     And I click on "ul.autocomplete-results li"
     And I click on ".btn-add"
-    And I fill in ".form-group-author-1-name .show-author-name-edit" with "second"
+    And I fill in ".form-group-author-1 .show-author-name-edit" with "The second"
     And I click on "ul.autocomplete-results li"
     And I click on ".btn-add"
-    And I fill in ".form-group-author-2-name .show-author-name-edit" with "worst"
+    And I fill in ".form-group-author-2 .show-author-name-edit" with "The worst"
     And I click on "ul.autocomplete-results li"
     And I click on ".edit-show-save"
     Then the ".show-authorship" element should contain "My Favorite Playwright, The second best playwright and The worst playwright"

@@ -5,11 +5,16 @@ import { Mongo } from 'meteor/mongo';
 import React from 'react';
 import t from 'tcomb-form';
 
-// i18n
+// Utilities
+import classnames from 'classnames';
 import { FormattedMessage } from 'react-intl';
 
 // API
 import { factory as interestsFactory } from '../../api/interests/interests.js';
+
+// Containers
+import RelatedProfileTextboxContainer from '../../ui/containers/RelatedProfileTextboxContainer.jsx';
+
 
 class ShowsCollection extends Mongo.Collection {
   insert(show, callback) {
@@ -30,6 +35,66 @@ Shows.deny({
   update() { return true; },
   remove() { return true; },
 });
+
+
+/* Author component override */
+// Author
+const relatedProfileTextboxTemplate = t.form.Form.templates.textbox.clone({
+  renderTextbox: (locals) => {
+    // @TODO: Investigate locals.path for multiple. Also something like locals.onChange({0: evt})
+    const onChange = (evt) => locals.onChange(evt);
+    const parentValue = (locals.value !== '') ? locals.value : {};
+
+    return (
+      <div className="form-group">
+        <RelatedProfileTextboxContainer
+          disabled={locals.disabled}
+          parentValue={parentValue}
+          updateParent={onChange}
+          attrs={locals.attrs}
+        />
+      </div>
+    );
+  },
+
+  renderLabel: (locals) => {
+    const className = {
+      'control-label': true,
+      'disabled': locals.disabled,
+    }
+    return (
+      <label
+        htmlFor={locals.attrs.id}
+        className={classnames(className)}
+      >
+        {locals.label}
+      </label>
+    );
+  },
+
+  renderHelp: (locals) => {
+    const className = {
+      'help-block': true,
+      'disabled': locals.disabled,
+    }
+
+    return (
+      <span
+        id={`${locals.attrs.id}-tip`}
+        className={classnames(className)}
+      >
+        {locals.help}
+      </span>
+    );
+  },
+});
+
+// Author: factory
+class RelatedProfileFactory extends t.form.Textbox {
+  getTemplate() {
+    return relatedProfileTextboxTemplate;
+  }
+}
 
 export const showAuthorSchema = t.struct({
   name: t.String,
@@ -87,13 +152,13 @@ export const defaultFormOptions = () => ({
       error: 'Name is required',
     },
     author: {
-      auto: 'none',
       error: 'At least one author is required',
-      attrs: {
-        className: 'show-author-edit',
-      },
       item: {
-        template: authorLayout,
+        attrs: {
+          className: 'show-author-name-edit',
+        },
+        factory: RelatedProfileFactory,
+        // template: authorLayout,
         fields: {
           name: {
             label: <FormattedMessage

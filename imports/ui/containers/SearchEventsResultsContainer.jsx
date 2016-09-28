@@ -13,7 +13,6 @@ const SearchEventsResultsContainer = createContainer((props) => {
   let loading = false;
   let skip = 0;
   let results = [];
-  let totalCount = 0;
 
   if (!_.isEmpty(query)) {
     // Use an internal query so nothing strange gets passed straight through
@@ -59,7 +58,6 @@ const SearchEventsResultsContainer = createContainer((props) => {
 
     if (!_.isEmpty(privateQuery)) {
       const eventsSubscribe = Meteor.subscribe('events.search', privateQuery, skip);
-      totalCount = Events.find(privateQuery).count();
       results = Events.find(
         privateQuery,
         {
@@ -67,7 +65,6 @@ const SearchEventsResultsContainer = createContainer((props) => {
             startDate: 1,
           },
           limit: 20,
-          skip,
         }).fetch();
 
       // Get author and show ids for these events
@@ -88,7 +85,6 @@ const SearchEventsResultsContainer = createContainer((props) => {
     results,
     loading,
     skip,
-    totalCount,
     query,
   };
 }, SearchEventsResults);

@@ -87,7 +87,7 @@ export default class SearchEvents extends React.Component {
     });
 
     return (
-      <SearchEventsResultsContainer query={cleanQuery} />
+      <SearchEventsResultsContainer query={cleanQuery} updateQuery={this.onChange} />
     );
   }
 

@@ -9,7 +9,7 @@ export default class SearchEventsResults extends React.Component {
   }
 
   render() {
-    const { results, loading, skip, totalCount, query, updateQuery } = this.props;
+    const { results, loading, skip, query, updateQuery } = this.props;
     if (!loading && !_.isEmpty(results)) {
       return(
         <div className="search-results-wrapper">
@@ -20,7 +20,7 @@ export default class SearchEventsResults extends React.Component {
               </li>
             )) }
           </ul>
-          <SearchResultsPager totalCount={totalCount} skip={skip} query={query} updateQuery={updateQuery} />
+          <SearchResultsPager count={results.length} skip={skip} query={query} updateQuery={updateQuery} />
         </div>
       );
     }
@@ -40,5 +40,4 @@ SearchEventsResults.propTypes = {
   query: React.PropTypes.object,
   updateQuery: React.PropTypes.func,
   skip: React.PropTypes.number,
-  totalCount: React.PropTypes.number,
 };

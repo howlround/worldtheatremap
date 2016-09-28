@@ -22,6 +22,11 @@ export default createContainer(({ params: { id } }) => {
     _.each(event.show.author, (author) => profileIds.push(author._id));
   }
 
+  // Subscribe to local organization
+  if (event && event.organizations) {
+    profileIds.push(event.organizations._id);
+  }
+
   // Add participant profiles to subscription
   if (!_.isEmpty(participantsByEvent)) {
     _.each(participantsByEvent, (participantRecord) => profileIds.push(participantRecord.profile._id));

@@ -118,7 +118,7 @@ export default class RelatedShowTextbox extends React.Component {
       );
     }) : '';
 
-    const addShowOption = (show.name.length > 0) ?
+    const addShowOption = (!_.isEmpty(show.name) && show.name.length > 0) ?
       <li className="select-new-show" onClick={ this.selectNewShow.bind(this, show.name) }>
         <FormattedMessage
           id="show.autocompleteCreate"

@@ -1,6 +1,7 @@
 import { Mongo } from 'meteor/mongo';
 import { Factory } from 'meteor/factory';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import t from 'tcomb-form';
 import { eventSchema } from '../events/events.js';
 import { RelatedRecords } from '../relatedRecords/relatedRecords.js';
@@ -75,17 +76,19 @@ export const defaultFormOptions = () => ({
   fields: {
     profile: {
       factory: RelatedProfileFactory,
-      auto: 'none',
       error: 'Profile is required',
       attrs: {
         className: 'participant-profile-edit',
         autoComplete: 'off',
-        placeholder: 'Profile name',
       },
+      label: <FormattedMessage
+        id="forms.participantNameLabel"
+        description="Label for Participant name"
+        defaultMessage="Name (individual or organization name)"
+      />,
       disableAdd: true,
       disableRemove: true,
       disableOrder: true,
-      // template: profileLayout,
       fields: {
         name: {
           // template: AutosuggestTemplate({
@@ -114,6 +117,11 @@ export const defaultFormOptions = () => ({
         className: 'participant-role-edit',
         placeholder: 'Enter the role you played. Create seperate entries for each role.',
       },
+      label: <FormattedMessage
+        id="forms.participantRoleLabel"
+        description="Label for Participant Role"
+        defaultMessage="Role (director, designer, dramaturg, performer, co-producer, etc.)"
+      />,
     },
   },
 });

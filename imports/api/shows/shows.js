@@ -174,7 +174,7 @@ export const defaultFormOptions = () => ({
                 labelText: <FormattedMessage
                   id="forms.primaryAuthorLabel"
                   description="Label for a Primary author form field"
-                  defaultMessage="Primary Author"
+                  defaultMessage="Playwright and/or Ensemble"
                 />,
               }}
             />,

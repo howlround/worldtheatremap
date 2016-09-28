@@ -172,7 +172,6 @@ class ProfileEdit extends React.Component {
       formOptions.fields.gender.disabled = true;
       formOptions.fields.ethnicityRace.disabled = true;
       formOptions.fields.selfDefinedRoles.disabled = true;
-      formOptions.fields.agent.disabled = true;
     }
 
     if (!_.contains(profileType, 'Organization')) {

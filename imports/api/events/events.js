@@ -602,6 +602,11 @@ export const defaultFormOptions = () => ({
       attrs: {
         className: 'event-lon-edit visually-hidden',
       },
+      help: <FormattedMessage
+        id="forms.setPinHelpText"
+        description="Help text for set pin field"
+        defaultMessage="We use the google places database to help us find locations. If the location you are searching for is not in the database don't worry! You can place the pin where you want and manually enter the address in the fields below."
+      />,
       error: 'You must select a location for this event',
     },
     lon: {

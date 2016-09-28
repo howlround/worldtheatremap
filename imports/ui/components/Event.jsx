@@ -113,6 +113,13 @@ export default class Event extends React.Component {
             defaultMessage='Add a New Participant'
           />
         </h3>
+        <div className="help-block form-intro">
+          <FormattedMessage
+            id="forms.participantHelpText"
+            description="Help text for participant form"
+            defaultMessage="The people and organizations who made the event happen: cast, crew, producing or supporting organizations, etc. Everyone you would see in the programme or playbill for this event."
+          />
+        </div>
         <Form
           ref="form"
           type={participantFormSchema}

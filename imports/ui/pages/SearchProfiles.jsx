@@ -53,8 +53,6 @@ class SearchProfiles extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(this.props.location.query);
-
     if (this.props.location.query !== nextProps.location.query) {
       const cleanQuery = {};
       _.each(nextProps.location.query, (val, key) => {
@@ -87,7 +85,7 @@ class SearchProfiles extends React.Component {
     });
 
     return (
-      <SearchProfilesResultsContainer query={cleanQuery} updateQuery={this.onChange} />
+      <SearchProfilesResultsContainer query={cleanQuery} />
     );
   }
 

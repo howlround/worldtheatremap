@@ -19,14 +19,32 @@ class SearchShows extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    if (this.props.location && this.props.location.query) {
+      const cleanQuery = {};
+      _.each(this.props.location.query, (val, key) => {
+        // If next has a value, add it
+        if (!_.isEmpty(val)) {
+          cleanQuery[key] = val;
+        }
+      });
+
+      // If next doesn't have a value but this.props does, add null
+      _.each(this.props.location.query, (val, key) => {
+        if (_.isEmpty(this.props.location.query[key]) && !_.isEmpty(val)) {
+          cleanQuery[key] = null;
+
+        }
+      });
+
+      this.state = cleanQuery;
+    } else {
+      this.state = {};
+    }
 
     this.onChange = this.onChange.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(this.props.location.query);
-
     if (this.props.location.query !== nextProps.location.query) {
       const cleanQuery = {};
       _.each(nextProps.location.query, (val, key) => {

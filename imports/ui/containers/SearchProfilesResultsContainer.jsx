@@ -5,7 +5,7 @@ import { Profiles } from '../../api/profiles/profiles.js';
 import SearchProfilesResults from '../components/SearchProfilesResults.jsx';
 
 const SearchProfilesResultsContainer = createContainer((props) => {
-  const { query, updateQuery } = props;
+  const { query } = props;
   let loading = false;
   let skip = 0;
   let results = [];
@@ -74,15 +74,15 @@ const SearchProfilesResultsContainer = createContainer((props) => {
     }
 
     if (query.name) {
-      privateQuery.name = query.name;
+      privateQuery.name = new RegExp(`^${query.name}.*`, 'i');
       plainTextQuery.name = query.name;
       // privateQuery.name = new RegExp(query.name, 'i');
     }
 
     // Make sure privateQuery is not empty otherwise all records are returned
     if (!_.isEmpty(privateQuery)) {
-      totalCount = Profiles.find(privateQuery).count();
       const profilesSubscribe = TAPi18n.subscribe('profiles.search', plainTextQuery, skip);
+      totalCount = Profiles.find(privateQuery).count();
       results = Profiles.find(
         privateQuery,
         {
@@ -101,7 +101,6 @@ const SearchProfilesResultsContainer = createContainer((props) => {
     skip,
     totalCount,
     query,
-    updateQuery,
   };
 }, SearchProfilesResults);
 

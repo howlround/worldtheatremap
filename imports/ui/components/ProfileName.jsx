@@ -1,11 +1,17 @@
 import React from 'react';
+import classnames from 'classnames';
 
 class ProfileName extends React.Component {
   render() {
     const { profileName, profileExists } = this.props;
 
+    const classNames = {
+      'profile-name': true,
+      'profile-exists': profileExists,
+    }
+
     return (
-      <span className="profile-name">
+      <span className={classNames}>
         {profileExists ?
           profileName.name
           : ''

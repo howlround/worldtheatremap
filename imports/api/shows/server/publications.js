@@ -70,11 +70,16 @@ Meteor.publish('shows.singleNameById', function showsById(id) {
   });
 });
 
+Meteor.publish('shows.search', function showsSearch(plainTextQuery, skip) {
+  const processedQuery = _.clone(plainTextQuery);
 
-Meteor.publish('shows.search', function showsSearch(query, requestedPage) {
+  if (plainTextQuery.name) {
+    processedQuery.name = new RegExp(`^${plainTextQuery.name}.*`, 'i');
+  }
+
   const limit = 20;
-  const skip = (_.isNumber(requestedPage) && !_.isNaN(requestedPage)) ? requestedPage * limit : 0;
-  return Shows.find(query, {
+
+  return Shows.find(plainTextQuery, {
     fields: Shows.searchFields,
     sort: { name: 1 },
     limit,

@@ -7,7 +7,8 @@ import { _ } from 'meteor/underscore';
 import moment from 'moment';
 
 // API
-import { RelatedRecords } from '../../api/relatedRecords/relatedRecords.js';
+import { relatedRecordReconcileEvent } from '../../api/relatedRecords/relatedRecords.js';
+import { Participants } from '../../api/participants/participants.js';
 
 // Methods
 import { upsert as upsertLocality } from '../localities/methods.js';
@@ -35,9 +36,9 @@ class EventsCollection extends Mongo.Collection {
       upsertCountry.call({ country: ourEvent.country });
     }
 
-    RelatedRecords.reconcileEvent({
-      event: event,
-      profileId: event.organizations._id,
+    relatedRecordReconcileEvent({
+      event: ourEvent,
+      profileId: ourEvent.organizations._id,
     });
 
     // @TODO: Save author information to event
@@ -64,7 +65,7 @@ class EventsCollection extends Mongo.Collection {
       upsertCountry.call({ country: ourEvent.country });
     }
 
-    RelatedRecords.reconcileEvent({
+    relatedRecordReconcileEvent({
       event: event,
       profileId: event.organizations._id,
     });

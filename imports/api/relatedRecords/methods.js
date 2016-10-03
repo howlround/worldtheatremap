@@ -5,8 +5,8 @@ import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-validation';
 
-import { RelatedRecords, relatedRecordSchema, relatedRecordReconcileSchema } from './relatedRecords.js';
-import { Participants } from '../participants/participants.js';
+// import { RelatedRecords, relatedRecordSchema, relatedRecordReconcileSchema } from './relatedRecords.js';
+// import { Participants } from '../participants/participants.js';
 
 // export const reconcile = new ValidatedMethod({
 //   name: 'relatedRecords.update',

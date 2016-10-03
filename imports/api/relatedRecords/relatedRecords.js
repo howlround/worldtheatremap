@@ -14,49 +14,31 @@ class RelatedRecordsCollection extends Mongo.Collection {
     RelatedRecords.remove({ eventId: selector });
     return super.remove(selector, callback);
   }
-  reconcileEvent(reconcileRelatedRecord) {
-    // Get all participants for this event
-    const allParticipants = Participants.find({'event._id': reconcileRelatedRecord.event._id}, {
-      fields: Participants.publicFields,
-    }).fetch();
+  relate(profileIdA, profileIdB, connectionPointId) {
+    // if there is an existing record: (aka they have worked together)
+    const existing = super.findOne( { $and: [ { profiles: { $in: [ profileIdA ] } }, { profiles: { $in: [ profileIdB ] } } ] } );
 
-    // Add the show authors into the allParticipants array
-    reconcileRelatedRecord.event.show.author.map(author => {
-      const addAuthor = { profile: author };
-      allParticipants.push(addAuthor);
-    });
-
-    // Add the show authors into the allParticipants array
-    const addOrg = { profile: reconcileRelatedRecord.event.organizations };
-    allParticipants.push(addOrg);
-
-    allParticipants.map(otherParticipant => {
-      // if there is an existing record: (aka they have worked together)
-      const existing = super.findOne( { $and: [ { profiles: { $in: [ reconcileRelatedRecord.profileId ] } }, { profiles: { $in: [ otherParticipant.profile._id ] } } ] } );
-
-      if (existing) {
-        // @TODO: if this event is not already in the list
-        // (aka they have not worked together on this event),
-        // add this event to the events list
-        // (meaning they have worked together before on a different event)
-        // and increment the count field
-        // @TODO: Handle a single user having multiple roles on the same event
+    if (existing) {
+      // @TODO: if this event is not already in the list
+      // (aka they have not worked together on this event),
+      // add this event to the events list
+      // (meaning they have worked together before on a different event)
+      // and increment the count field
+      // @TODO: Handle a single user having multiple roles on the same event
+    } else {
+      // create a relatedRecord and add this event to the events list (aka never worked together before)
+      const newRelated = {
+        profiles: [
+          profileIdA,
+          profileIdB,
+        ],
+        connectionPoints: [
+          connectionPointId,
+        ],
+        count: 1,
       }
-      else {
-        // create a relatedRecord and add this event to the events list (aka never worked together before)
-        const newRelated = {
-          profiles: [
-            reconcileRelatedRecord.profileId,
-            otherParticipant.profile._id
-          ],
-          events: [
-            reconcileRelatedRecord.event._id
-          ],
-          count: 1
-        }
-        super.insert(newRelated);
-      }
-    });
+      super.insert(newRelated);
+    }
   }
 }
 
@@ -75,7 +57,7 @@ RelatedRecords.deny({
 
 export const relatedRecordSchema = t.struct({
   profiles: t.list(t.String),
-  events: t.list(t.String),
+  connectionPoints: t.list(t.String),
   count: t.Number,
 });
 
@@ -96,23 +78,23 @@ RelatedRecords.publicFields = {
   count: 1
 };
 
-// RelatedRecords.helpers({
-//   // A event is considered to be private if it has a userId set
-//   isPrivate() {
-//     return !!this.userId;
-//   },
-//   isLastPublicRelatedRecord() {
-//     const publicRelatedRecordCount = RelatedRecords.find({ userId: { $exists: false } }).count();
-//     return !this.isPrivate() && publicRelatedRecordCount === 1;
-//   },
-//   editableBy(userId) {
-//     if (!this.userId) {
-//       return true;
-//     }
+export const relatedRecordReconcileEvent = (reconcileRelatedRecord) => {
+  // Get all participants for this event
+  const allParticipants = Participants.find({'event._id': reconcileRelatedRecord.event._id}, {
+    fields: Participants.publicFields,
+  }).fetch();
 
-//     return this.userId === userId;
-//   },
-//   todos() {
-//     return Todos.find({ eventId: this._id }, { sort: { createdAt: -1 } });
-//   },
-// });
+  // Add the show authors into the allParticipants array
+  reconcileRelatedRecord.event.show.author.map(author => {
+    const addAuthor = { profile: author };
+    allParticipants.push(addAuthor);
+  });
+
+  // Add the show authors into the allParticipants array
+  const addOrg = { profile: reconcileRelatedRecord.event.organizations };
+  allParticipants.push(addOrg);
+
+  allParticipants.map(otherParticipant => {
+    RelatedRecords.relate(reconcileRelatedRecord.profileId, otherParticipant.profile._id, reconcileRelatedRecord.event._id);
+  });
+}

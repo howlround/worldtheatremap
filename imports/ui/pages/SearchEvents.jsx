@@ -4,7 +4,7 @@ import t from 'tcomb-form';
 import { FormattedMessage } from 'react-intl';
 
 // API
-import { eventFiltersSchema, filtersFormOptions } from '../../api/events/events.js';
+import { eventFiltersSchema, filtersFormOptions } from '../../api/events/forms.js';
 import { factory as localitiesFactory } from '../../api/localities/localities.js';
 import { existingCountriesFactory } from '../../api/countries/countries.js';
 import { factory as administrativeAreasFactory } from '../../api/administrativeAreas/administrativeAreas.js';

@@ -4,7 +4,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import t from 'tcomb-form';
 import { eventSchema } from '../events/forms.js';
-import { RelatedRecords } from '../relatedRecords/relatedRecords.js';
+import { relatedRecordReconcileEvent } from '../relatedRecords/relatedRecords.js';
 import RelatedProfileTextboxContainer from '../../ui/containers/RelatedProfileTextboxContainer.jsx';
 
 class ParticipantsCollection extends Mongo.Collection {
@@ -12,7 +12,7 @@ class ParticipantsCollection extends Mongo.Collection {
     // Update the relatedRecords collection
     // - Try running it after the insert to speed things up
     // - But running it first means you don't have to exclude it later
-    RelatedRecords.reconcileEvent({
+    relatedRecordReconcileEvent({
       event: ourParticipant.event,
       profileId: ourParticipant.profile._id,
     });

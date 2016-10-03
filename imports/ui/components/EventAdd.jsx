@@ -7,7 +7,7 @@ import t from 'tcomb-form';
 import { displayError } from '../helpers/errors.js';
 
 import { insert } from '../../api/events/methods.js';
-import { eventSchema, defaultFormOptions } from '../../api/events/events.js';
+import { eventSchema, defaultFormOptions } from '../../api/events/forms.js';
 import { Shows } from '../../api/shows/shows.js';
 
 const Form = t.form.Form;

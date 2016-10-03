@@ -1,3 +1,4 @@
+@related
 Feature: Related profiles on profile pages
 
   As a user
@@ -17,6 +18,8 @@ Feature: Related profiles on profile pages
     And I click on ".edit-show-save"
     And I go to the "event" add page
     And I fill in ".event-show-edit" with "Sofia"
+    And I click on ".autocomplete-results li"
+    And I fill in ".event-organization-edit" with "Organization of the year"
     And I click on ".autocomplete-results li"
     And I select "Performance" from the ".event-type-edit" combobox
     And I fill in ".event-about-edit" with "http://google.com"
@@ -52,6 +55,14 @@ Feature: Related profiles on profile pages
   Scenario: Primary authors should be listed as related profiles
     When I go to the profile page for "Il Regista"
     Then the ".related-profiles" element should contain "My Favorite Playwright"
+
+  Scenario: Local organization profiles should be listed as related profiles
+    When I go to the profile page for "Il Regista"
+    Then the ".related-profiles" element should contain "Organization of the year"
+
+  Scenario: Local organization profiles should be related to authors
+    When I go to the profile page for "My Favorite Playwright"
+    Then the ".related-profiles" element should contain "Organization of the year"
 
   # Scenario: Update after deleting a participant from an event
   # Scenario: Being related by multiple events should make profiles more related

@@ -14,7 +14,7 @@ class RelatedRecordsCollection extends Mongo.Collection {
     RelatedRecords.remove({ eventId: selector });
     return super.remove(selector, callback);
   }
-  reconcile(reconcileRelatedRecord) {
+  reconcileEvent(reconcileRelatedRecord) {
     // Get all participants for this event
     const allParticipants = Participants.find({'event._id': reconcileRelatedRecord.event._id}, {
       fields: Participants.publicFields,
@@ -26,8 +26,11 @@ class RelatedRecordsCollection extends Mongo.Collection {
       allParticipants.push(addAuthor);
     });
 
-    allParticipants.map(otherParticipant => {
+    // Add the show authors into the allParticipants array
+    const addOrg = { profile: reconcileRelatedRecord.event.organizations };
+    allParticipants.push(addOrg);
 
+    allParticipants.map(otherParticipant => {
       // if there is an existing record: (aka they have worked together)
       const existing = super.findOne( { $and: [ { profiles: { $in: [ reconcileRelatedRecord.profileId ] } }, { profiles: { $in: [ otherParticipant.profile._id ] } } ] } );
 

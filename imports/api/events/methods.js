@@ -5,7 +5,8 @@ import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-validation';
 
-import { Events, eventSchema } from './events.js';
+import { Events } from './events.js';
+import { eventSchema } from './forms.js';
 
 const EVENT_ID_ONLY = new SimpleSchema({
   eventId: { type: String },

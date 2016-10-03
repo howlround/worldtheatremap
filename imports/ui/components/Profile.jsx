@@ -166,7 +166,7 @@ class Profile extends React.Component {
   }
 
   render() {
-    const { profile, user, shows, roles } = this.props;
+    const { profile, user, showsForAuthor, showsForOrg, roles } = this.props;
     const { formatMessage } = this.props.intl;
 
     const editLink = (user) ?
@@ -200,8 +200,19 @@ class Profile extends React.Component {
     : '';
 
     let Shows;
-    if (shows && shows.length) {
-      Shows = shows.map(show => (
+    if (showsForAuthor && showsForAuthor.length) {
+      Shows = showsForAuthor.map(show => (
+        <li key={show._id}>
+          <ShowTeaser
+            show={show}
+          />
+        </li>
+      ));
+    }
+
+    let ShowsByOrg;
+    if (showsForOrg && showsForOrg.length) {
+      ShowsByOrg = showsForOrg.map(show => (
         <li key={show._id}>
           <ShowTeaser
             show={show}
@@ -374,7 +385,7 @@ class Profile extends React.Component {
             }
           </section> : ''
         }
-        {(shows && shows.length) ?
+        {(showsForAuthor && showsForAuthor.length) ?
           <section className="profile-shows">
             <h2>
               <FormattedMessage
@@ -389,6 +400,21 @@ class Profile extends React.Component {
           </section>
           : ''
         }
+        {(showsForOrg && showsForOrg.length) ?
+          <section className="profile-shows">
+            <h2>
+              <FormattedMessage
+                id="profile.showsByOrgHeader"
+                description="Section header for show for which this profile is the local organization"
+                defaultMessage="Local Organization"
+              />
+            </h2>
+            <ul>
+              {ShowsByOrg}
+            </ul>
+          </section>
+          : ''
+        }
         {roles ? this.renderShowsByRoles() : ''}
       </article>
     );
@@ -398,7 +424,8 @@ class Profile extends React.Component {
 Profile.propTypes = {
   profile: React.PropTypes.object,
   user: React.PropTypes.object,
-  shows: React.PropTypes.array,
+  showsForAuthor: React.PropTypes.array,
+  showsForOrg: React.PropTypes.array,
   roles: React.PropTypes.array,
   intl: intlShape.isRequired,
 };

@@ -58,3 +58,13 @@ Meteor.publish('events.byShow', function eventsbyShow(id) {
     sort: { startDate: 1 }
   });
 });
+
+Meteor.publish('events.idsByOrg', function eventsIdsByOrg(id) {
+  return Events.find({'organizations._id': id}, {
+    fields: {
+      show: 1,
+      organizations: 1
+    },
+    sort: { startDate: 1 }
+  });
+});

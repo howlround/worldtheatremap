@@ -172,7 +172,7 @@ export default class ProfilePage extends React.Component {
 
   render() {
     // const { profile, profileExists, loading } = this.props;
-    const { profile, user, shows, roles, connections, loading } = this.props;
+    const { profile, user, showsForAuthor, showsForOrg, roles, connections, loading } = this.props;
 
     const profilePageClass = classnames({
       'page': true,
@@ -193,7 +193,8 @@ export default class ProfilePage extends React.Component {
           <Profile
             profile={profile}
             user={user}
-            shows={shows}
+            showsForAuthor={showsForAuthor}
+            showsForOrg={showsForOrg}
             roles={roles}
           />
           <aside className="sidebar">
@@ -234,7 +235,8 @@ ProfilePage.propTypes = {
   profile: React.PropTypes.object,
   editing: React.PropTypes.string,
   user: React.PropTypes.object,
-  shows: React.PropTypes.array,
+  showsForAuthor: React.PropTypes.array,
+  showsForOrg: React.PropTypes.array,
   roles: React.PropTypes.array,
   connections: React.PropTypes.array,
   loading: React.PropTypes.bool,

@@ -11,13 +11,12 @@ import ProfilePage from '../pages/ProfilePage.jsx';
 import { RelatedRecords } from '../../api/relatedRecords/relatedRecords.js';
 import { Participants } from '../../api/participants/participants.js';
 import { Shows } from '../../api/shows/shows.js';
+import { Events } from '../../api/events/events.js';
 
 const ProfileContainer = createContainer(({ params: { id } }) => {
-  // @TODO: This should be more specific (by user?)
   const participantsSubscribe = Meteor.subscribe('participants.byProfile', id);
 
   // Connections
-  // @TODO: Refactor to not push to the connectionIds array
   const connectionsSubscribe = Meteor.subscribe('relatedRecords.byProfile', id);
   let connectionIds = new Array;
   const relatedProfiles = RelatedRecords.find({ "profiles": id }).map(relatedRecord => {
@@ -30,16 +29,16 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
     }
   });
 
-  // Add the author themselves to save a subscription
-  const allNecessaryProfiles = _.clone(connectionIds);
-  allNecessaryProfiles.push(id);
-  const connectedProfilesSub = TAPi18n.subscribe('profiles.byId', allNecessaryProfiles);
-
   // Get data from participant records
   //  - Roles
   //  - Shows
   let roles = new Array;
   let showsToSubscribeTo = new Array;
+  let showIdsByOrg = new Array;
+  const allNecessaryProfiles = _.clone(connectionIds);
+  // Add the author themselves to save a subscription
+  allNecessaryProfiles.push(id);
+
   const participantRecords = Participants.find({ "profile._id": id }, { fields: Participants.publicFields }).fetch();
 
   _.each(participantRecords, record => {
@@ -49,15 +48,51 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
     }
   });
 
+  // Get shows where this user is the local org for an event
+  //  - Get all events where this user is the local org
+  //  - Add any show to showsToSubscribeTo;
+  const eventsByOrgSub = Meteor.subscribe('events.idsByOrg', id);
+  const eventsByOrg = Events.find({'organizations._id': id}, {
+    fields: {
+      show: 1,
+      organizations: 1,
+    },
+    sort: { startDate: 1 }
+  }).fetch();
+
+  if (!_.isEmpty(eventsByOrg)) {
+    _.each(eventsByOrg, event => {
+      if (event && event.show && event.show._id) {
+        showsToSubscribeTo.push(event.show._id);
+        showIdsByOrg.push(event.show._id);
+
+        _.each(event.show.author, (author) => allNecessaryProfiles.push(author._id));
+      }
+    });
+  }
+
   // Subscribe to shows where:
   //  - profile is author
   //  - profile is a participant
+  //  - profile is listed as the local org
   const showsSubscribe = Meteor.subscribe('shows.byAuthorPlusOthers', id, showsToSubscribeTo);
+
+  const connectedProfilesSub = TAPi18n.subscribe('profiles.byId', allNecessaryProfiles);
 
   const loading = !(connectedProfilesSub.ready() && participantsSubscribe.ready() && connectionsSubscribe.ready() && showsSubscribe.ready());
 
   const profile = Profiles.findOne(id);
-  const shows = profile ? Shows.find({ "author._id": profile._id }).fetch() : null;
+
+  const showsForAuthor = profile ? Shows.find({ "author._id": profile._id }).fetch() : null;
+
+  const showsForOrg = profile ? Shows.find(
+    {
+      _id: {
+        $in: showIdsByOrg,
+      }
+    }
+  ).fetch() : null;
+
   const connections = profile ? Profiles.find(
     {
       _id: {
@@ -72,7 +107,8 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
     loading,
     profile,
     profileExists,
-    shows,
+    showsForAuthor,
+    showsForOrg,
     roles,
     connections,
   };

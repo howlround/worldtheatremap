@@ -17,6 +17,8 @@ Feature: Events taking place today should display on a map on the home page
     And I click on ".autocomplete-results li"
     And I fill in ".show-author-name-edit" with "My Favorite Playwright"
     And I click on ".autocomplete-results li"
+    And I fill in ".event-organization-edit" with "Organization of the year"
+    And I click on ".autocomplete-results li"
     And I select "Performance" from the ".event-type-edit" combobox
     And I fill in "[name=lat]" with "-36.03133177633187"
     And I fill in "[name=lon]" with "-72.0703125"
@@ -39,6 +41,8 @@ Feature: Events taking place today should display on a map on the home page
     And I fill in ".event-show-edit" with "Althea"
     And I click on ".autocomplete-results li"
     And I fill in ".show-author-name-edit" with "My Favorite Playwright"
+    And I click on ".autocomplete-results li"
+    And I fill in ".event-organization-edit" with "Organization of the year"
     And I click on ".autocomplete-results li"
     And I select "Performance" from the ".event-type-edit" combobox
     And I fill in "[name=lat]" with "-36.03133177633187"
@@ -63,6 +67,8 @@ Feature: Events taking place today should display on a map on the home page
     And I click on ".autocomplete-results li"
     And I fill in ".show-author-name-edit" with "My Favorite Playwright"
     And I click on ".autocomplete-results li"
+    And I fill in ".event-organization-edit" with "Organization of the year"
+    And I click on ".autocomplete-results li"
     And I select "Performance" from the ".event-type-edit" combobox
     And I fill in "[name=lat]" with "-36.03133177633187"
     And I fill in "[name=lon]" with "-72.0703125"
@@ -86,6 +92,8 @@ Feature: Events taking place today should display on a map on the home page
     And I click on ".autocomplete-results li"
     And I fill in ".show-author-name-edit" with "My Favorite Playwright"
     And I click on ".autocomplete-results li"
+    And I fill in ".event-organization-edit" with "Organization of the year"
+    And I click on ".autocomplete-results li"
     And I select "Performance" from the ".event-type-edit" combobox
     And I fill in "[name=lat]" with "-36.03133177633187"
     And I fill in "[name=lon]" with "-72.0703125"
@@ -106,6 +114,8 @@ Feature: Events taking place today should display on a map on the home page
     And I fill in ".event-show-edit" with "Althea"
     And I click on ".autocomplete-results li"
     And I fill in ".show-author-name-edit" with "My Favorite Playwright"
+    And I click on ".autocomplete-results li"
+    And I fill in ".event-organization-edit" with "Organization of the year"
     And I click on ".autocomplete-results li"
     And I select "Performance" from the ".event-type-edit" combobox
     And I fill in "[name=lat]" with "-36.03133177633187"

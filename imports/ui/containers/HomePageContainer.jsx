@@ -36,6 +36,7 @@ const HomePageContainer = createContainer(() => {
   const showsToday = [];
   _.each(eventsTodayWithLocations, (event) => {
     showsToday.push(event.show._id);
+    authorsToday.push(event.organizations._id);
     _.each(event.show.author, (author) => authorsToday.push(author._id));
   });
 

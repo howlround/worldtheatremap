@@ -72,6 +72,7 @@ const SearchEventsResultsContainer = createContainer((props) => {
       const resultsShows = [];
       _.each(results, (event) => {
         resultsShows.push(event.show._id);
+        resultsAuthors.push(event.organizations._id);
         _.each(event.show.author, (author) => resultsAuthors.push(author._id));
       });
 

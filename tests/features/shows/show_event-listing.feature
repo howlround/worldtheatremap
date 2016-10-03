@@ -20,6 +20,8 @@ Feature: Events listing on show pages
     And I go to the "event" add page
     And I fill in ".event-show-edit" with "Sofia"
     And I click on ".autocomplete-results li"
+    And I fill in ".event-organization-edit" with "Organization of the year"
+    And I click on ".autocomplete-results li"
     And I fill in ".event-about-edit" with "http://google.com"
     And I select "Performance" from the ".event-type-edit" combobox
     And I click on ".form-group-startDate input"
@@ -37,3 +39,4 @@ Feature: Events listing on show pages
     Then the "article.event-teaser" element should contain "Performance"
     And the ".event-location" element should contain "Buenos Aires, Argentina"
     And the ".event-date-range" element should contain the date range for day "1" to day "15" of this month
+    And the ".event-organizations" element should contain "Organization of the year"

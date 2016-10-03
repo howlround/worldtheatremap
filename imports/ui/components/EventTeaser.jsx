@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { FormattedDate } from 'react-intl';
+import ProfileNameContainer from '../containers/ProfileNameContainer.jsx';
 
 export default class EventTeaser extends React.Component {
   constructor(props) {
@@ -18,6 +19,12 @@ export default class EventTeaser extends React.Component {
           <h3 className="event-name">
             <Link to={`/events/${ event._id }`} key={event._id}>{event.eventType}</Link>
           </h3>
+          { event.organizations ?
+            <div className="event-organizations">
+              <Link to={`/profiles/${ event.organizations._id }`}>
+                <ProfileNameContainer profileId={event.organizations._id} />
+              </Link>
+            </div>: ''}
           { typeof locationLine != 'undefined' ?
             <div className="event-location">{ locationLine }</div> : '' }
           {event.startDate && event.endDate ?

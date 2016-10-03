@@ -4,6 +4,7 @@ import { FormattedMessage, FormattedDate, intlShape, injectIntl } from 'react-in
 
 import Authors from '../components/Authors.jsx';
 import ShowNameContainer from '../containers/ShowNameContainer.jsx';
+import ProfileNameContainer from '../containers/ProfileNameContainer.jsx';
 
 class EventTeaserWithShow extends React.Component {
   render() {
@@ -37,6 +38,12 @@ class EventTeaserWithShow extends React.Component {
               values={{ authors: <Authors authors={event.show.author} /> }}
             />
           </div>
+          { event.organizations ?
+            <div className="event-organizations">
+              <Link to={`/profiles/${ event.organizations._id }`}>
+                <ProfileNameContainer profileId={event.organizations._id} />
+              </Link>
+            </div>: ''}
           {typeof locationLine !== 'undefined' ?
             <div className="event-location">{locationLine}</div> : ''}
           {event.startDate && event.endDate ?

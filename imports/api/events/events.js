@@ -66,8 +66,8 @@ class EventsCollection extends Mongo.Collection {
     }
 
     relatedRecordReconcileEvent({
-      event: event,
-      profileId: event.organizations._id,
+      event: ourEvent,
+      profileId: ourEvent.organizations._id,
     });
 
     // @TODO: Save author information to event

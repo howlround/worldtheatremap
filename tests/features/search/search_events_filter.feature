@@ -19,6 +19,8 @@ Feature: Filters on event search
     When I go to the "event" add page
     And I fill in ".event-show-edit" with "Sofia"
     And I click on ".autocomplete-results li"
+    And I fill in ".event-organization-edit" with "Organization of the year"
+    And I click on ".autocomplete-results li"
     And I select "Performance" from the ".event-type-edit" combobox
     And I fill in ".event-about-edit" with "http://google.com"
     And I click on ".form-group-startDate input"
@@ -42,6 +44,8 @@ Feature: Filters on event search
     And I click on ".edit-show-save"
     And I go to the "event" add page
     And I fill in ".event-show-edit" with "Aadya"
+    And I click on ".autocomplete-results li"
+    And I fill in ".event-organization-edit" with "Organization of the year"
     And I click on ".autocomplete-results li"
     And I select "Reading" from the ".event-type-edit" combobox
     And I fill in ".event-about-edit" with "http://google.com"

@@ -19,6 +19,8 @@ Feature: Participant listing on event pages
     And I go to the "event" add page
     And I fill in ".event-show-edit" with "Sofia"
     And I click on ".autocomplete-results li"
+    And I fill in ".event-organization-edit" with "Organization of the year"
+    And I click on ".autocomplete-results li"
     And I select "Performance" from the ".event-type-edit" combobox
     And I fill in ".event-about-edit" with "http://google.com"
     And I click on ".form-group-startDate input"

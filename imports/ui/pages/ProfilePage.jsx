@@ -1,26 +1,58 @@
 import React from 'react';
-import classnames from 'classnames';
 
+// Utilities
+import classnames from 'classnames';
 import { select, queue, json } from 'd3';
 import topojson from 'topojson';
 import { geoOrthographic, geoGraticule, geoPath, geoCentroid, geoInterpolate } from 'd3-geo';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
+import { displayError } from '../helpers/errors.js';
 
+// Forms
+import t from 'tcomb-form';
+
+// Components
 import Profile from '../components/Profile.jsx';
 import ProfileContact from '../components/ProfileContact.jsx';
-import NotFoundPage from '../pages/NotFoundPage.jsx';
 import Loading from '../components/Loading.jsx';
+
+// Pages
+import NotFoundPage from '../pages/NotFoundPage.jsx';
+
+// API
+import { upsert } from '../../api/affiliations/methods.js';
+import { affiliationFormSchema, defaultFormOptions } from '../../api/affiliations/affiliations.js';
+
+const Form = t.form.Form;
 
 export default class ProfilePage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      addAffiliationForm: false,
+      affiliation: {
+        profile: {},
+      },
     };
 
+    this.throttledAdd = _.throttle(newAffiliation => {
+      if (newAffiliation) {
+        // Create Affiliation record
+        const parent = this.props.profile;
+        const newID = upsert.call({
+          newAffiliation,
+          parent,
+        }, displayError);
+
+        return newID;
+      }
+    }, 300);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
     this.renderRelatedProfiles = this.renderRelatedProfiles.bind(this);
+    this.renderAddAffiliationForm = this.renderAddAffiliationForm.bind(this);
     this.initializeD3Globe = this.initializeD3Globe.bind(this);
   }
 
@@ -28,8 +60,12 @@ export default class ProfilePage extends React.Component {
     this.initializeD3Globe();
   }
 
-  componentDidUpdate() {
-    this.initializeD3Globe();
+  componentDidUpdate(prevProps) {
+    if (prevProps.profile === undefined && this.props.profile && this.props.profile.lat && this.props.profile.lon) {
+      this.initializeD3Globe();
+    } else if (prevProps.profile && prevProps.profile.lat && prevProps.profile.lon && this.props.profile && this.props.profile.lat && this.props.profile.lon && (prevProps.profile.lat !== this.props.profile.lat || prevProps.profile.lon !== this.props.profile.lon)) {
+      this.initializeD3Globe();
+    }
   }
 
   initializeD3Globe() {
@@ -156,6 +192,26 @@ export default class ProfilePage extends React.Component {
     }
   }
 
+  handleSubmit(event) {
+    event.preventDefault();
+    const newAffiliation = this.refs.form.getValue();
+    if (newAffiliation) {
+      const newID = this.throttledAdd(newAffiliation);
+
+      if (newID) {
+        this.setState({
+          affiliation: {
+            profile: {}
+          }
+        });
+      }
+    }
+  }
+
+  onChange(value, path) {
+    this.setState({ affiliation: value });
+  }
+
   renderRelatedProfiles() {
     const { connections } = this.props;
 
@@ -168,6 +224,48 @@ export default class ProfilePage extends React.Component {
     ));
 
     return <ul className="related-profiles">{relatedProfiles}</ul>;
+  }
+
+  renderAddAffiliationForm() {
+    const formOptions = defaultFormOptions();
+    const { affiliation } = this.state;
+
+    return (
+      <form className="affiliation-edit-form" onSubmit={this.handleSubmit.bind(this)} >
+        <h3>
+          <FormattedMessage
+            id='event.affiliationFormTitle'
+            description='Heading above affiliation form on events'
+            defaultMessage='Add a New Affiliation'
+          />
+        </h3>
+        <div className="help-block form-intro">
+          <FormattedMessage
+            id="forms.affiliationHelpText"
+            description="Help text for affiliation form"
+            defaultMessage="Are you a member of a service organization? Staff at a theatre? Add affiliations here."
+          />
+        </div>
+        <Form
+          ref="form"
+          type={affiliationFormSchema}
+          value={affiliation}
+          options={formOptions}
+          onChange={this.onChange}
+        />
+
+        <button
+          type="submit"
+          className="edit-affiliation-save"
+        >
+          <FormattedMessage
+            id='buttons.save'
+            description='Generic save button'
+            defaultMessage='Save'
+          />
+        </button>
+      </form>
+    );
   }
 
   render() {
@@ -221,6 +319,19 @@ export default class ProfilePage extends React.Component {
                 </h2>
                 <div className="content">
                   {this.renderRelatedProfiles()}
+                </div>
+              </section> : ''}
+            {user ?
+              <section>
+                <h2>
+                  <FormattedMessage
+                    id="profilePage.affiliationsHeader"
+                    description="Header for affiliation list and form on the profile page sidebar"
+                    defaultMessage="Affiliations"
+                  />
+                </h2>
+                <div className="content">
+                  {this.renderAddAffiliationForm()}
                 </div>
               </section> : ''}
             </aside>

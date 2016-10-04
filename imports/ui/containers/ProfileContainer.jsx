@@ -14,6 +14,7 @@ import { Shows } from '../../api/shows/shows.js';
 import { Events } from '../../api/events/events.js';
 
 const ProfileContainer = createContainer(({ params: { id } }) => {
+  const singleProfileSub = TAPi18n.subscribe('profiles.singleById', id);
   const participantsSubscribe = Meteor.subscribe('participants.byProfile', id);
 
   // Connections
@@ -37,6 +38,7 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
   let showIdsByOrg = new Array;
   const allNecessaryProfiles = _.clone(connectionIds);
   // Add the author themselves to save a subscription
+  // We first subscribe to the single profile, then also add them to the big profile sub so it doesn't get removed from minimongo
   allNecessaryProfiles.push(id);
 
   const participantRecords = Participants.find({ "profile._id": id }, { fields: Participants.publicFields }).fetch();
@@ -79,8 +81,6 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
 
   const connectedProfilesSub = TAPi18n.subscribe('profiles.byId', allNecessaryProfiles);
 
-  const loading = !(connectedProfilesSub.ready() && participantsSubscribe.ready() && connectionsSubscribe.ready() && showsSubscribe.ready());
-
   const profile = Profiles.findOne(id);
 
   const showsForAuthor = profile ? Shows.find({ "author._id": profile._id }).fetch() : null;
@@ -101,6 +101,8 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
     }, {
       fields: Profiles.publicFields,
     }).fetch() : null;
+
+  const loading = !(singleProfileSub.ready());
   const profileExists = !loading && !!profile;
 
   return {

@@ -10,6 +10,10 @@ import '../../api/shows/server/publications.js';
 import '../../api/events/methods.js';
 import '../../api/events/server/publications.js';
 
+// Affiliations
+import '../../api/affiliations/methods.js';
+import '../../api/affiliations/server/publications.js';
+
 // Participants
 import '../../api/participants/methods.js';
 import '../../api/participants/server/publications.js';

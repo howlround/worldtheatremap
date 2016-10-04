@@ -17,8 +17,8 @@ Feature: Create an affiliation
       | name | Affiliated friends |
       | about | We come together |
     When I go to the profile page for "Affiliated friends"
-    And I click on ".add-affiliation"
-    And I fill in ".affiliation-name-edit" with "National Organization"
+    And I fill in ".affiliation-profile-edit" with "National Organization"
+    And I click on ".autocomplete-results li"
     And I click on ".edit-affiliation-save"
     Then the ".affiliations" element should contain "National Organization"
     When I go to the profile page for "National Organization"

@@ -8,14 +8,26 @@ import { _ } from 'meteor/underscore';
 import ProfilePage from '../pages/ProfilePage.jsx';
 
 // Collections
+import { Affiliations } from '../../api/affiliations/affiliations.js';
 import { RelatedRecords } from '../../api/relatedRecords/relatedRecords.js';
 import { Participants } from '../../api/participants/participants.js';
 import { Shows } from '../../api/shows/shows.js';
 import { Events } from '../../api/events/events.js';
 
 const ProfileContainer = createContainer(({ params: { id } }) => {
+  let roles = new Array;
+  let showsToSubscribeTo = new Array;
+  let showIdsByOrg = new Array;
+  // const allNecessaryProfiles = _.clone(connectionIds);
+  const allNecessaryProfiles = new Array;
+  // Add the author themselves to save a subscription
+  // We first subscribe to the single profile, then also add them to the big profile sub so it doesn't get removed from minimongo
+  allNecessaryProfiles.push(id);
+
+
   const singleProfileSub = TAPi18n.subscribe('profiles.singleById', id);
   const participantsSubscribe = Meteor.subscribe('participants.byProfile', id);
+  const affiliationsSubscribe = Meteor.subscribe('affiliations.byProfile', id);
 
   // Connections
   const connectionsSubscribe = Meteor.subscribe('relatedRecords.byProfile', id);
@@ -25,22 +37,25 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
       if (relatedRecord.profiles[i] === id) {
         continue;
       } else {
+        // Add to both, one is for subscribing to profiles, one is for passing on just the connections to render
         connectionIds.push(relatedRecord.profiles[i]);
+        allNecessaryProfiles.push(relatedRecord.profiles[i]);
       }
     }
+  });
+
+  // Affilitions
+  const affilitionsSubscribe = Meteor.subscribe('affiliations.byProfile', id);
+  const affiliationIds = new Array;
+  Affiliations.find({ "profile._id": id }).map(affiliation => {
+    // Add to both, one is for subscribing to profiles, one is for passing on just the affilitions to render
+    affiliationIds.push(affiliation.parentId);
+    allNecessaryProfiles.push(affiliation.parentId);
   });
 
   // Get data from participant records
   //  - Roles
   //  - Shows
-  let roles = new Array;
-  let showsToSubscribeTo = new Array;
-  let showIdsByOrg = new Array;
-  const allNecessaryProfiles = _.clone(connectionIds);
-  // Add the author themselves to save a subscription
-  // We first subscribe to the single profile, then also add them to the big profile sub so it doesn't get removed from minimongo
-  allNecessaryProfiles.push(id);
-
   const participantRecords = Participants.find({ "profile._id": id }, { fields: Participants.publicFields }).fetch();
 
   _.each(participantRecords, record => {
@@ -96,10 +111,19 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
   const connections = profile ? Profiles.find(
     {
       _id: {
-        $in: connectionIds
+        $in: connectionIds,
       }
     }, {
-      fields: Profiles.publicFields,
+      fields: Profiles.autocompleteFields,
+    }).fetch() : null;
+
+  const affiliations = profile ? Profiles.find(
+    {
+      _id: {
+        $in: affiliationIds,
+      }
+    }, {
+      fields: Profiles.autocompleteFields,
     }).fetch() : null;
 
   const loading = !(singleProfileSub.ready());
@@ -113,6 +137,7 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
     showsForOrg,
     roles,
     connections,
+    affiliations,
   };
 }, ProfilePage);
 

@@ -36,10 +36,17 @@ export default class ProfilePage extends React.Component {
       },
     };
 
-    this.throttledAdd = _.throttle(newAffiliation => {
-      if (newAffiliation) {
+    this.throttledAdd = _.throttle(newParent => {
+      if (newParent) {
         // Create Affiliation record
-        const parent = this.props.profile;
+        const parent = newParent.profile;
+        const newAffiliation = {
+          profile: {
+            _id: this.props.profile._id,
+            name: this.props.profile.name,
+          }
+        }
+
         const newID = upsert.call({
           newAffiliation,
           parent,
@@ -194,9 +201,9 @@ export default class ProfilePage extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const newAffiliation = this.refs.form.getValue();
-    if (newAffiliation) {
-      const newID = this.throttledAdd(newAffiliation);
+    const newParent = this.refs.form.getValue();
+    if (newParent) {
+      const newID = this.throttledAdd(newParent);
 
       if (newID) {
         this.setState({
@@ -224,6 +231,20 @@ export default class ProfilePage extends React.Component {
     ));
 
     return <ul className="related-profiles">{relatedProfiles}</ul>;
+  }
+
+  renderAffiliatedProfiles() {
+    const { affiliations } = this.props;
+
+    let affiliatedProfiles = affiliations.map(profile => (
+      <li key={profile._id}>
+        <Link to={`/profiles/${profile._id}`}>
+          {profile.name}
+        </Link>
+      </li>
+    ));
+
+    return <ul className="affiliations">{affiliatedProfiles}</ul>;
   }
 
   renderAddAffiliationForm() {
@@ -321,7 +342,7 @@ export default class ProfilePage extends React.Component {
                   {this.renderRelatedProfiles()}
                 </div>
               </section> : ''}
-            {user ?
+            {user || affiliations.length > 0 ?
               <section>
                 <h2>
                   <FormattedMessage
@@ -331,7 +352,8 @@ export default class ProfilePage extends React.Component {
                   />
                 </h2>
                 <div className="content">
-                  {this.renderAddAffiliationForm()}
+                  {this.renderAffiliatedProfiles()}
+                  {user ? this.renderAddAffiliationForm() : ''}
                 </div>
               </section> : ''}
             </aside>
@@ -349,6 +371,7 @@ ProfilePage.propTypes = {
   showsForOrg: React.PropTypes.array,
   roles: React.PropTypes.array,
   connections: React.PropTypes.array,
+  affiliations: React.PropTypes.array,
   loading: React.PropTypes.bool,
   profileExists: React.PropTypes.bool,
 };

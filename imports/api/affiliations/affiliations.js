@@ -100,6 +100,5 @@ export const defaultFormOptions = () => ({
 // them here to keep them private to the server.
 Affiliations.publicFields = {
   profile: 1,
-  role: 1,
-  event: 1,
+  parentId: 1,
 };

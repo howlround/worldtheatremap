@@ -8,41 +8,27 @@ import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 
 import Profile from '../components/Profile.jsx';
-import ProfileEdit from '../components/ProfileEdit.jsx';
 import ProfileContact from '../components/ProfileContact.jsx';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
-import Message from '../components/Message.jsx';
-import Modal from '../components/Modal.jsx';
-import AuthSignIn from '../components/AuthSignIn.jsx';
 import Loading from '../components/Loading.jsx';
 
 export default class ProfilePage extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      addAffiliationForm: false,
+    };
+
     this.renderRelatedProfiles = this.renderRelatedProfiles.bind(this);
     this.initializeD3Globe = this.initializeD3Globe.bind(this);
-  }
-
-  renderRelatedProfiles() {
-    const { connections, profile } = this.props;
-
-    let relatedProfiles = connections.map(profile => {
-      return <li key={profile._id}><Link
-            to={`/profiles/${ profile._id }`}
-          >
-            {profile.name}
-          </Link></li>;
-    });
-
-    return <ul className="related-profiles">{relatedProfiles}</ul>;
   }
 
   componentDidMount() {
     this.initializeD3Globe();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate() {
     this.initializeD3Globe();
   }
 
@@ -64,29 +50,29 @@ export default class ProfilePage extends React.Component {
       const graticule = geoGraticule();
 
       $('#canvas').remove();
-      const canvas = select("#globe").append("canvas").attr('id', 'canvas')
-        .attr("width", containerWidth)
-        .attr("height", conatinerHeight);
+      const canvas = select('#globe').append('canvas').attr('id', 'canvas')
+        .attr('width', containerWidth)
+        .attr('height', conatinerHeight);
 
-      let c = canvas.node().getContext("2d");
+      const c = canvas.node().getContext('2d');
 
-      let path = geoPath()
+      const path = geoPath()
         .projection(projection)
         .context(c);
 
       const profileLocation = {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [
             profile.lon,
-            profile.lat
-          ]
-        }
+            profile.lat,
+          ],
+        },
       };
 
       queue()
-        .defer(json, "/world-110m.json")
+        .defer(json, '/world-110m.json')
         .await(globeReady);
 
       function globeReady(error, world) {
@@ -94,29 +80,29 @@ export default class ProfilePage extends React.Component {
           return;
         }
 
-        const globe = {type: "Sphere"};
+        const globe = { type: 'Sphere' };
         const grid = graticule();
         const land = topojson.feature(world, world.objects.land);
-        var borders = topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; });
+        const borders = topojson.mesh(world, world.objects.countries, (a, b) => a !== b);
 
         // Set rotation
         const p = geoCentroid(profileLocation);
-        const r = geoInterpolate(projection.rotate(), [-p[0]-15, -p[1]+30]);
+        const r = geoInterpolate(projection.rotate(), [-p[0] - 15, -p[1] + 30]);
 
         projection.rotate(r(1)).clipAngle(90);
         c.clearRect(0, 0, containerWidth, conatinerHeight);
 
         // Globe background
-        c.fillStyle = "#fff8f5";
+        c.fillStyle = '#fff8f5';
         c.beginPath();
         path(globe);
         c.fill();
 
         // Background Continents
         projection.clipAngle(180);
-        c.fillStyle = "#c8ece9";
-        c.strokeStyle = "#c8ece9";
-        c.lineWidth = .5;
+        c.fillStyle = '#c8ece9';
+        c.strokeStyle = '#c8ece9';
+        c.lineWidth = 0.5;
         c.beginPath();
         path(land);
         c.stroke();
@@ -124,17 +110,17 @@ export default class ProfilePage extends React.Component {
 
         // Background Grid
         projection.clipAngle(180);
-        // c.strokeStyle = "#deffff";
-        c.strokeStyle = "#68d3c84";
-        c.lineWidth = .25;
+        // c.strokeStyle = '#deffff';
+        c.strokeStyle = '#68d3c84';
+        c.lineWidth = 0.25;
         c.beginPath();
         path(grid);
         c.stroke();
 
         // Foreground Grid
         projection.clipAngle(90);
-        // c.strokeStyle = "#ffffff";
-        c.strokeStyle = "#68d3c8";
+        // c.strokeStyle = '#ffffff';
+        c.strokeStyle = '#68d3c8';
         c.lineWidth = 0.75;
         c.beginPath();
         path(grid);
@@ -142,26 +128,26 @@ export default class ProfilePage extends React.Component {
 
         // Continents
         projection.clipAngle(90);
-        c.fillStyle = "#50b2aa";
+        c.fillStyle = '#50b2aa';
         c.beginPath();
         path(land);
         c.fill();
 
         // Foreground borders
-        c.strokeStyle = "#50b2aa";
-        c.lineWidth = .5;
+        c.strokeStyle = '#50b2aa';
+        c.lineWidth = 0.5;
         c.beginPath();
         path(borders);
         c.stroke();
 
         // Dot
-        c.fillStyle = "#ef4606";
+        c.fillStyle = '#ef4606';
         c.beginPath();
         path(profileLocation);
         c.fill();
 
         // Globe outline
-        c.strokeStyle = "#20A09";
+        c.strokeStyle = '#20A09';
         c.lineWidth = 2;
         c.beginPath();
         path(globe);
@@ -170,22 +156,35 @@ export default class ProfilePage extends React.Component {
     }
   }
 
+  renderRelatedProfiles() {
+    const { connections } = this.props;
+
+    let relatedProfiles = connections.map(profile => (
+      <li key={profile._id}>
+        <Link to={`/profiles/${profile._id}`}>
+          {profile.name}
+        </Link>
+      </li>
+    ));
+
+    return <ul className="related-profiles">{relatedProfiles}</ul>;
+  }
+
   render() {
     // const { profile, profileExists, loading } = this.props;
     const { profile, user, showsForAuthor, showsForOrg, roles, connections, loading } = this.props;
 
     const profilePageClass = classnames({
-      'page': true,
+      page: true,
     });
 
     if (loading) {
       return (
         <Loading key="loading" />
       );
-    }
-    else if (!loading && !profile) {
+    } else if (!loading && !profile) {
       return (
-        <NotFoundPage/>
+        <NotFoundPage />
       );
     } else {
       return (
@@ -198,12 +197,12 @@ export default class ProfilePage extends React.Component {
             roles={roles}
           />
           <aside className="sidebar">
-            { (profile.lat && profile.lon) ?
+            {(profile.lat && profile.lon) ?
               <section className="profile-globe">
                 <h2>
                   <FormattedMessage
-                    id='profilePage.locationHeader'
-                    description='Header for globe on the profile page sidebar'
+                    id="profilePage.locationHeader"
+                    description="Header for globe on the profile page sidebar"
                     defaultMessage="Location"
                   />
                 </h2>
@@ -211,19 +210,19 @@ export default class ProfilePage extends React.Component {
               </section> : ''
             }
             <ProfileContact profile={profile} />
-            { connections.length > 0 ?
+            {connections.length > 0 ?
               <section>
                 <h2>
                   <FormattedMessage
-                    id='profilePage.relatedPeopleHeader'
-                    description='Header for related people list on the profile page sidebar'
+                    id="profilePage.relatedPeopleHeader"
+                    description="Header for related people list on the profile page sidebar"
                     defaultMessage="Related People"
                   />
                 </h2>
                 <div className="content">
-                  { this.renderRelatedProfiles() }
+                  {this.renderRelatedProfiles()}
                 </div>
-              </section> : '' }
+              </section> : ''}
             </aside>
         </div>
       );

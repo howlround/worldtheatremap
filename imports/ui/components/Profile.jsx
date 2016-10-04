@@ -3,11 +3,17 @@ import Dropzone from 'react-dropzone';
 import classNames from 'classnames';
 import { _ } from 'meteor/underscore';
 import { Link } from 'react-router';
-import { display } from '../helpers/errors.js';
+import { displayError } from '../helpers/errors.js';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
-import { updateImage } from '../../api/profiles/methods.js';
+
+// Components
 import ShowTeaser from '../components/ShowTeaser.jsx';
 import ShowsByRole from '../components/ShowsByRole.jsx';
+import ProfileNameContainer from '../containers/ProfileNameContainer.jsx';
+
+// API
+import { updateImage } from '../../api/profiles/methods.js';
+import { remove } from '../../api/affiliations/methods.js';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -22,6 +28,7 @@ class Profile extends React.Component {
     };
 
     this.renderShowsByRoles = this.renderShowsByRoles.bind(this);
+    this.removeAffiliation = this.removeAffiliation.bind(this);
     this.renderAffiliatedProfiles = this.renderAffiliatedProfiles.bind(this);
     this.renderPhotoAndUploader = this.renderPhotoAndUploader.bind(this);
     this.checkResizedImage = this.checkResizedImage.bind(this);
@@ -166,14 +173,29 @@ class Profile extends React.Component {
     }
   }
 
-  renderAffiliatedProfiles() {
-    const { affiliatedProfiles } = this.props;
+  removeAffiliation(affiliationId) {
+    remove.call({
+      affiliationId,
+    }, displayError);
+  }
 
-    let affiliatedProfilesList = affiliatedProfiles.map(profile => (
-      <li key={profile._id}>
-        <Link to={`/profiles/${profile._id}`}>
-          {profile.name}
+  renderAffiliatedProfiles() {
+    const { affiliatedProfiles, user } = this.props;
+
+    let affiliatedProfilesList = affiliatedProfiles.map(affiliation => (
+      <li key={affiliation.profile._id}>
+        <Link to={`/profiles/${affiliation.profile._id}`}>
+          <ProfileNameContainer profileId={affiliation.profile._id} />
         </Link>
+        {user ?
+          <span
+            className="delete-affiliation"
+            onClick={this.removeAffiliation.bind(this, affiliation._id)}
+            title="Delete affiliation"
+          >
+            &times;
+          </span>
+        : ''}
       </li>
     ));
 

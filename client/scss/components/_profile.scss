@@ -75,3 +75,13 @@ article.profile.search-result {
     color: $light-red;
   }
 }
+
+.delete-affiliation {
+  cursor: pointer;
+  margin-left: $spacing-unit / 2;
+
+  &:focus,
+  &:hover {
+    color: $gray;
+  }
+}

@@ -12,6 +12,9 @@ import { displayError } from '../helpers/errors.js';
 // Forms
 import t from 'tcomb-form';
 
+// Containers
+import ProfileNameContainer from '../containers/ProfileNameContainer.jsx';
+
 // Components
 import Profile from '../components/Profile.jsx';
 import ProfileContact from '../components/ProfileContact.jsx';
@@ -21,7 +24,7 @@ import Loading from '../components/Loading.jsx';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
 
 // API
-import { upsert } from '../../api/affiliations/methods.js';
+import { upsert, remove } from '../../api/affiliations/methods.js';
 import { affiliationFormSchema, defaultFormOptions } from '../../api/affiliations/affiliations.js';
 
 const Form = t.form.Form;
@@ -58,6 +61,7 @@ export default class ProfilePage extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.removeAffiliation = this.removeAffiliation.bind(this);
     this.renderRelatedProfiles = this.renderRelatedProfiles.bind(this);
     this.renderAffiliations = this.renderAffiliations.bind(this);
     this.renderAddAffiliationForm = this.renderAddAffiliationForm.bind(this);
@@ -220,6 +224,12 @@ export default class ProfilePage extends React.Component {
     this.setState({ affiliation: value });
   }
 
+  removeAffiliation(affiliationId) {
+    remove.call({
+      affiliationId,
+    }, displayError);
+  }
+
   renderRelatedProfiles() {
     const { connections } = this.props;
 
@@ -235,13 +245,22 @@ export default class ProfilePage extends React.Component {
   }
 
   renderAffiliations() {
-    const { affiliations } = this.props;
+    const { affiliations, user } = this.props;
 
-    let affiliatedProfiles = affiliations.map(profile => (
-      <li key={profile._id}>
-        <Link to={`/profiles/${profile._id}`}>
-          {profile.name}
+    let affiliatedProfiles = affiliations.map(affiliation => (
+      <li key={affiliation.parentId}>
+        <Link to={`/profiles/${affiliation.parentId}`}>
+          <ProfileNameContainer profileId={affiliation.parentId} />
         </Link>
+        {user ?
+          <span
+            className="delete-affiliation"
+            onClick={this.removeAffiliation.bind(this, affiliation._id)}
+            title="Delete affiliation"
+          >
+            &times;
+          </span>
+        : ''}
       </li>
     ));
 

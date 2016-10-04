@@ -37,3 +37,20 @@ Feature: Create an affiliation
     When I go to the profile page for "Affiliated friends"
     And I fill in ".affiliation-profile-edit" with "Non-Network Organization"
     Then I should not see ".autocomplete-results li"
+
+  Scenario: Users can delete affiliations
+    And I am logged in
+    When I go to the "profile" add page
+    And I fill in ".profile-name-edit" with "National Organization"
+    And I select "Organization" from the ".profile-type-edit" combobox
+    And I select "Network / Association / Union" from the ".profile-organization-types-edit" combobox
+    And I click on ".edit-profile-save"
+    And a profile with the following fields:
+      | name | Affiliated friends |
+      | about | We come together |
+    And I go to the profile page for "Affiliated friends"
+    And I fill in ".affiliation-profile-edit" with "National Organization"
+    And I click on ".autocomplete-results li"
+    And I click on ".edit-affiliation-save"
+    And I click on ".delete-affiliation"
+    Then I should not see ".affiliations li"

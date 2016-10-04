@@ -22,6 +22,7 @@ class Profile extends React.Component {
     };
 
     this.renderShowsByRoles = this.renderShowsByRoles.bind(this);
+    this.renderAffiliatedProfiles = this.renderAffiliatedProfiles.bind(this);
     this.renderPhotoAndUploader = this.renderPhotoAndUploader.bind(this);
     this.checkResizedImage = this.checkResizedImage.bind(this);
     this.onDrop = this.onDrop.bind(this);
@@ -165,8 +166,22 @@ class Profile extends React.Component {
     }
   }
 
+  renderAffiliatedProfiles() {
+    const { affiliatedProfiles } = this.props;
+
+    let affiliatedProfilesList = affiliatedProfiles.map(profile => (
+      <li key={profile._id}>
+        <Link to={`/profiles/${profile._id}`}>
+          {profile.name}
+        </Link>
+      </li>
+    ));
+
+    return <ul className="affiliated-profiles">{affiliatedProfilesList}</ul>;
+  }
+
   render() {
-    const { profile, user, showsForAuthor, showsForOrg, roles } = this.props;
+    const { profile, user, showsForAuthor, showsForOrg, roles, affiliatedProfiles } = this.props;
     const { formatMessage } = this.props.intl;
 
     const editLink = (user) ?
@@ -416,6 +431,19 @@ class Profile extends React.Component {
           : ''
         }
         {roles ? this.renderShowsByRoles() : ''}
+        {affiliatedProfiles.length > 0 ?
+          <section className="profile-affiliated-profiles">
+            <h2>
+              <FormattedMessage
+                id="profile.affiliatedProfilesHeader"
+                description="Header for affiliated profiles"
+                defaultMessage="Affiliated People"
+              />
+            </h2>
+            <div className="content">
+              {this.renderAffiliatedProfiles()}
+            </div>
+          </section> : ''}
       </article>
     );
   }
@@ -427,6 +455,7 @@ Profile.propTypes = {
   showsForAuthor: React.PropTypes.array,
   showsForOrg: React.PropTypes.array,
   roles: React.PropTypes.array,
+  affiliatedProfiles: React.PropTypes.array,
   intl: intlShape.isRequired,
 };
 

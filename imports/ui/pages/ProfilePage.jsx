@@ -59,6 +59,7 @@ export default class ProfilePage extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
     this.renderRelatedProfiles = this.renderRelatedProfiles.bind(this);
+    this.renderAffiliations = this.renderAffiliations.bind(this);
     this.renderAddAffiliationForm = this.renderAddAffiliationForm.bind(this);
     this.initializeD3Globe = this.initializeD3Globe.bind(this);
   }
@@ -222,7 +223,7 @@ export default class ProfilePage extends React.Component {
   renderRelatedProfiles() {
     const { connections } = this.props;
 
-    let relatedProfiles = connections.map(profile => (
+    let relatedProfilesList = connections.map(profile => (
       <li key={profile._id}>
         <Link to={`/profiles/${profile._id}`}>
           {profile.name}
@@ -230,10 +231,10 @@ export default class ProfilePage extends React.Component {
       </li>
     ));
 
-    return <ul className="related-profiles">{relatedProfiles}</ul>;
+    return <ul className="related-profiles">{relatedProfilesList}</ul>;
   }
 
-  renderAffiliatedProfiles() {
+  renderAffiliations() {
     const { affiliations } = this.props;
 
     let affiliatedProfiles = affiliations.map(profile => (
@@ -291,7 +292,7 @@ export default class ProfilePage extends React.Component {
 
   render() {
     // const { profile, profileExists, loading } = this.props;
-    const { profile, user, showsForAuthor, showsForOrg, roles, connections, loading } = this.props;
+    const { profile, user, showsForAuthor, showsForOrg, roles, connections, affiliations, affiliatedProfiles, loading } = this.props;
 
     const profilePageClass = classnames({
       page: true,
@@ -314,6 +315,7 @@ export default class ProfilePage extends React.Component {
             showsForAuthor={showsForAuthor}
             showsForOrg={showsForOrg}
             roles={roles}
+            affiliatedProfiles={affiliatedProfiles}
           />
           <aside className="sidebar">
             {(profile.lat && profile.lon) ?
@@ -352,7 +354,7 @@ export default class ProfilePage extends React.Component {
                   />
                 </h2>
                 <div className="content">
-                  {this.renderAffiliatedProfiles()}
+                  {this.renderAffiliations()}
                   {user ? this.renderAddAffiliationForm() : ''}
                 </div>
               </section> : ''}
@@ -372,6 +374,7 @@ ProfilePage.propTypes = {
   roles: React.PropTypes.array,
   connections: React.PropTypes.array,
   affiliations: React.PropTypes.array,
+  affiliatedProfiles: React.PropTypes.array,
   loading: React.PropTypes.bool,
   profileExists: React.PropTypes.bool,
 };

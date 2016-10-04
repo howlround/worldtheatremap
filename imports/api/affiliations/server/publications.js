@@ -15,3 +15,20 @@ Meteor.publish('affiliations.byProfile', function affiliationsbyProfile(id) {
     fields: Affiliations.publicFields,
   });
 });
+
+Meteor.publish('affiliations.anyById', function affiliationsbyProfile(id) {
+  return Affiliations.find(
+    {
+      $or: [
+        {
+          'profile._id': id,
+        },
+        {
+          parentId: id,
+        },
+      ],
+    }, {
+      fields: Affiliations.publicFields,
+    }
+  );
+});

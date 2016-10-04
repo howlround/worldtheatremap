@@ -44,19 +44,32 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
     }
   });
 
-  // Affilitions
-  const affilitionsSubscribe = Meteor.subscribe('affiliations.byProfile', id);
+  // Subscribe to all affiliation records regardless of parent or child status
+  const affilitedProfilesSubscribe = Meteor.subscribe('affiliations.anyById', id);
+
+
+  // Affilitions (this profile is the child)
+  // const affilitionsSubscribe = Meteor.subscribe('affiliations.byProfile', id);
   const affiliationIds = new Array;
-  Affiliations.find({ "profile._id": id }).map(affiliation => {
+  Affiliations.find({ 'profile._id': id }).map(affiliation => {
     // Add to both, one is for subscribing to profiles, one is for passing on just the affilitions to render
     affiliationIds.push(affiliation.parentId);
     allNecessaryProfiles.push(affiliation.parentId);
   });
 
+  // Affilited profiles (this profile is the parent)
+  // const affilitedProfilesSubscribe = Meteor.subscribe('affiliations.byParent', id);
+  const affiliatedProfileIds = new Array;
+  Affiliations.find({ parentId: id }).map(affiliation => {
+    // Add to both, one is for subscribing to profiles, one is for passing on just the affilitions to render
+    affiliatedProfileIds.push(affiliation.profile._id);
+    allNecessaryProfiles.push(affiliation.profile._id);
+  });
+
   // Get data from participant records
   //  - Roles
   //  - Shows
-  const participantRecords = Participants.find({ "profile._id": id }, { fields: Participants.publicFields }).fetch();
+  const participantRecords = Participants.find({ 'profile._id': id }, { fields: Participants.publicFields }).fetch();
 
   _.each(participantRecords, record => {
     if (!_.contains(roles, record.role)) {
@@ -126,6 +139,15 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
       fields: Profiles.autocompleteFields,
     }).fetch() : null;
 
+  const affiliatedProfiles = profile ? Profiles.find(
+    {
+      _id: {
+        $in: affiliatedProfileIds,
+      }
+    }, {
+      fields: Profiles.autocompleteFields,
+    }).fetch() : null;
+
   const loading = !(singleProfileSub.ready());
   const profileExists = !loading && !!profile;
 
@@ -138,6 +160,7 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
     roles,
     connections,
     affiliations,
+    affiliatedProfiles,
   };
 }, ProfilePage);
 

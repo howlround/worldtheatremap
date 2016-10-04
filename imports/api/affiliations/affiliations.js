@@ -31,6 +31,8 @@ function renderTextbox(locals) {
         parentValue={locals.value}
         updateParent={onChange}
         attrs={locals.attrs}
+        limit="networks"
+        addNew={false}
       />
     </div>
   );

@@ -1536,6 +1536,7 @@ Profiles.publicFields = {
 
 Profiles.autocompleteFields = {
   name: 1,
+  orgTypes: 1,
 };
 
 Factory.define('profile', Profiles, {});

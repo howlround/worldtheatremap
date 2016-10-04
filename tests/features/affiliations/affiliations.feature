@@ -7,12 +7,14 @@ Feature: Create an affiliation
 
   Background:
     Given I am on the English language home page
-@focus
+
   Scenario: As a user I want to be able to affiliate a profile with another profile
     And I am logged in
-    And a profile with the following fields:
-      | name | National Organization |
-      | about | We bring people together |
+    When I go to the "profile" add page
+    And I fill in ".profile-name-edit" with "National Organization"
+    And I select "Organization" from the ".profile-type-edit" combobox
+    And I select "Network / Association / Union" from the ".profile-organization-types-edit" combobox
+    And I click on ".edit-profile-save"
     And a profile with the following fields:
       | name | Affiliated friends |
       | about | We come together |
@@ -23,3 +25,15 @@ Feature: Create an affiliation
     Then the ".affiliations" element should contain "National Organization"
     When I go to the profile page for "National Organization"
     Then the ".affiliated-profiles" element should contain "Affiliated friends"
+
+  Scenario: Only Network / Association / Union profiles are eligible to affiliate yourself with
+    And I am logged in
+    And a profile with the following fields:
+      | name | Non-Network Organization |
+      | about | We bring people together |
+    And a profile with the following fields:
+      | name | Affiliated friends |
+      | about | We come together |
+    When I go to the profile page for "Affiliated friends"
+    And I fill in ".affiliation-profile-edit" with "Non-Network Organization"
+    Then I should not see ".autocomplete-results li"

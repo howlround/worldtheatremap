@@ -437,7 +437,7 @@ class Profile extends React.Component {
               <FormattedMessage
                 id="profile.affiliatedProfilesHeader"
                 description="Header for affiliated profiles"
-                defaultMessage="Affiliated People"
+                defaultMessage="Members"
               />
             </h2>
             <div className="content">

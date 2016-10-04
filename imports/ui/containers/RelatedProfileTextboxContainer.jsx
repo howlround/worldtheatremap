@@ -1,4 +1,4 @@
-import { Meteor } from 'meteor/meteor';
+import { TAPi18n } from 'meteor/tap:i18n';
 import { createContainer } from 'meteor/react-meteor-data';
 
 // Components
@@ -14,8 +14,19 @@ const RelatedProfileTextboxContainer = createContainer((props) => {
 
   if (search && search.length > 0) {
     const profilesSubscribe = TAPi18n.subscribe('profiles.autocompleteQuery', search);
-    const regex = new RegExp('^' + search + '.*', 'i');
-    results = Profiles.find({name: { $regex: regex }}, { limit: 5, fields: Profiles.autocompleteFields }).fetch();
+    const regex = new RegExp(`^${search}.*`, 'i');
+
+    const query = {
+      name: {
+        $regex: regex,
+      },
+    };
+
+    if (props.limit === 'networks') {
+      query.orgTypes = 'Network / Association / Union';
+    }
+
+    results = Profiles.find(query, { limit: 5, fields: Profiles.autocompleteFields }).fetch();
 
     loading = !(profilesSubscribe.ready());
   }

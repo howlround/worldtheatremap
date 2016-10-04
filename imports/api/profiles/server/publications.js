@@ -15,7 +15,6 @@ TAPi18n.publish('profiles.autocomplete', function profilesPublic() {
   });
 });
 
-
 TAPi18n.publish('profiles.autocompleteQuery', function profilesPublic(search) {
   const regex = new RegExp(`^${search}.*`, 'i');
   return Profiles.i18nFind({ name: { $regex: regex } }, {

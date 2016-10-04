@@ -103,7 +103,7 @@ export default class RelatedProfileTextbox extends React.Component {
   }
 
   render() {
-    const { attrs, results, updateParent, wrapperAttrs, disabled, loading } = this.props;
+    const { attrs, results, updateParent, wrapperAttrs, disabled, loading, addNew } = this.props;
     const { profile, focus } = this.state;
 
     const resultsItems = (results.length > 0) ? results.map(profile => {
@@ -112,7 +112,8 @@ export default class RelatedProfileTextbox extends React.Component {
       );
     }) : '';
 
-    const addProfileOption = (profile.name.length > 0) ?
+
+    const addProfileOption = (profile.name.length > 0 && addNew !== false) ?
       <li className="create-profile" onClick={ this.createProfile.bind(this, profile.name) }>
         <FormattedMessage
           id="profile.autocompleteCreate"
@@ -150,6 +151,7 @@ RelatedProfileTextbox.propTypes = {
   attrs: React.PropTypes.object,
   wrapperAttrs: React.PropTypes.object,
   updateParent: React.PropTypes.func,
+  addNew: React.PropTypes.bool,
   disabled: React.PropTypes.bool,
   loading: React.PropTypes.bool,
 };

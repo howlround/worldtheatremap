@@ -1,12 +1,18 @@
 import React from 'react';
 import { displayError } from '../helpers/errors.js';
-import { Shows } from '../../api/shows/shows.js';
-import { insert } from '../../api/shows/methods.js';
 import { _ } from 'meteor/underscore';
 import classnames from 'classnames';
-import RelatedProfile from '../../ui/components/RelatedProfile.jsx';
-import Authors from '../../ui/components/Authors.jsx';
 import { FormattedMessage } from 'react-intl';
+
+// API
+import { Shows } from '../../api/shows/shows.js';
+
+// Methods
+import { insert } from '../../api/shows/methods.js';
+
+// Components
+import Authors from '../../ui/components/Authors.jsx';
+import RelatedProfile from '../../ui/components/RelatedProfile.jsx';
 
 export default class RelatedShowTextbox extends React.Component {
   constructor(props) {
@@ -86,9 +92,6 @@ export default class RelatedShowTextbox extends React.Component {
   selectShow(show) {
     const { updateParent } = this.props;
 
-    // We are using 'id' without the underscore later so
-    // manually specify that
-    // @TODO: Refactor to only use the _id
     const newShow = show;
     newShow._id = show._id;
 

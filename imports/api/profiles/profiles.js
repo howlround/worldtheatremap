@@ -225,6 +225,14 @@ ReactSelectEthnicityRaceFactory.transformer = t.form.List.transformer;
 // orgTypes options
 const OrgTypes = [
   {
+    value: 'Cultural / Sociocultural Service',
+    label: <FormattedMessage
+      id="orgType.Cultural / Sociocultural Service"
+      description="Org Types: Cultural / Sociocultural Service"
+      defaultMessage="Cultural / Sociocultural Service"
+    />,
+  },
+  {
     value: 'Development / Residency Organization',
     label: <FormattedMessage
       id="orgType.Development / Residency Organization"
@@ -241,19 +249,11 @@ const OrgTypes = [
     />,
   },
   {
-    value: 'Cultural / Sociocultural Service',
+    value: 'Funder / Supporting Institution',
     label: <FormattedMessage
-      id="orgType.Cultural / Sociocultural Service"
-      description="Org Types: Cultural / Sociocultural Service"
-      defaultMessage="Cultural / Sociocultural Service"
-    />,
-  },
-  {
-    value: 'Producer/ Presenter',
-    label: <FormattedMessage
-      id="orgType.Producer/ Presenter"
-      description="Org Types: Producer/ Presenter"
-      defaultMessage="Producer/ Presenter"
+      id="orgType.Funder / Supporting Institution"
+      description="Org Types: Funder / Supporting Institution"
+      defaultMessage="Funder / Supporting Institution"
     />,
   },
   {
@@ -265,27 +265,35 @@ const OrgTypes = [
     />,
   },
   {
-    value: 'School / University / Training Organization',
-    label: <FormattedMessage
-      id="orgType.School / University / Training Organization"
-      description="Org Types: School / University / Training Organization"
-      defaultMessage="School / University / Training Organization"
-    />,
-  },
-  {
-    value: 'Funder / Supporting Institution',
-    label: <FormattedMessage
-      id="orgType.Funder / Supporting Institution"
-      description="Org Types: Funder / Supporting Institution"
-      defaultMessage="Funder / Supporting Institution"
-    />,
-  },
-  {
     value: 'Performing Company / Ensemble',
     label: <FormattedMessage
       id="orgType.Performing Company / Ensemble"
       description="Org Types: Performing Company / Ensemble"
       defaultMessage="Performing Company / Ensemble"
+    />,
+  },
+  {
+    value: 'Producer/ Presenter',
+    label: <FormattedMessage
+      id="orgType.Producer/ Presenter"
+      description="Org Types: Producer/ Presenter"
+      defaultMessage="Producer/ Presenter"
+    />,
+  },
+  {
+    value: 'Resource Centre',
+    label: <FormattedMessage
+      id="orgType.Resource Centre"
+      description="Org Types: Resource Centre"
+      defaultMessage="Resource Centre"
+    />,
+  },
+  {
+    value: 'School / University / Training Organization',
+    label: <FormattedMessage
+      id="orgType.School / University / Training Organization"
+      description="Org Types: School / University / Training Organization"
+      defaultMessage="School / University / Training Organization"
     />,
   },
   {
@@ -302,14 +310,6 @@ const OrgTypes = [
       id="orgType.Other"
       description="Org Types: Other"
       defaultMessage="Other"
-    />,
-  },
-  {
-    value: 'Resource Centre',
-    label: <FormattedMessage
-      id="orgType.Resource Centre"
-      description="Org Types: Resource Centre"
-      defaultMessage="Resource Centre"
     />,
   },
 ];

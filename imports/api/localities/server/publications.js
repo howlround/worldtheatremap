@@ -7,5 +7,6 @@ import { Localities } from '../localities.js';
 Meteor.publish('localities.public', function localitiesPublic() {
   return Localities.find({}, {
     fields: Localities.publicFields,
+    sort: { label: 1 },
   });
 });

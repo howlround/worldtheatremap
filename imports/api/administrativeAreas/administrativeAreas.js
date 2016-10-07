@@ -27,7 +27,7 @@ AdministrativeAreas.publicFields = {
 
 export const factory = () => {
   // Administrative Area options
-  const ExistingAdministrativeAreas = AdministrativeAreas.find().fetch();
+  const ExistingAdministrativeAreas = AdministrativeAreas.find({}, { sort: { label: 1 } }).fetch();
 
   // Administrative Area template
   const existingAdministrativeAreasTags = t.form.Form.templates.select.clone({

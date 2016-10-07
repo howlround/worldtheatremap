@@ -216,14 +216,6 @@ export const factory = () => {
       />,
     },
     {
-      value: 'LGBTQIA*',
-      label: <FormattedMessage
-        id="interest.LGBTQIA*"
-        description="Interests options: LGBTQIA*"
-        defaultMessage="LGBTQIA*"
-      />,
-    },
-    {
       value: 'Geek Theater',
       label: <FormattedMessage
         id="interest.Geek Theater"
@@ -301,6 +293,14 @@ export const factory = () => {
         id="interest.Latino-American"
         description="Interests options: Latino-American"
         defaultMessage="Latino-American"
+      />,
+    },
+    {
+      value: 'LGBTQIA*',
+      label: <FormattedMessage
+        id="interest.LGBTQIA*"
+        description="Interests options: LGBTQIA*"
+        defaultMessage="LGBTQIA*"
       />,
     },
     {

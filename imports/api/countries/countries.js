@@ -27,7 +27,7 @@ Countries.publicFields = {
 
 export const existingCountriesFactory = () => {
   // Country options
-  const ExistingCountries = Countries.find().fetch();
+  const ExistingCountries = Countries.find({}, { sort: { label: 1 } }).fetch();
 
   // Country template
   const existingCountriesTags = t.form.Form.templates.select.clone({

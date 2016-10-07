@@ -27,7 +27,7 @@ Localities.publicFields = {
 
 export const factory = () => {
   // locality options
-  const ExistingLocalities = Localities.find().fetch();
+  const ExistingLocalities = Localities.find({}, { sort: { label: 1 } }).fetch();
 
   // locality template
   const existingLocalitiesTags = t.form.Form.templates.select.clone({

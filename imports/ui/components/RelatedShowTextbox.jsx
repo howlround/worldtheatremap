@@ -156,7 +156,7 @@ export default class RelatedShowTextbox extends React.Component {
                   labelText: <FormattedMessage
                     id="forms.primaryAuthorLabel"
                     description="Label for a Primary author form field"
-                    defaultMessage="Playwright and/or Ensemble"
+                    defaultMessage="By… (Add the primary creator(s) name. Add all that apply.)"
                   />,
                 }}
               />,

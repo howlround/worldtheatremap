@@ -96,6 +96,8 @@ class ProfileEdit extends React.Component {
           },
           location: initMapLocation
         });
+
+        $('.form-group-lat .help-block').prependTo('.geographic-location-edit');
         $('<label></label>').html(label + ' <span class="field-label-modifier required">' + required + '</span>').prependTo('.geographic-location-edit');
 
         $('.find-pin').bind("geocode:dragged", (event, latLng) => {

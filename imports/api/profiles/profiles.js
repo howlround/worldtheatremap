@@ -824,7 +824,7 @@ export const profileSchema = t.struct({
 });
 
 export const profileFiltersSchema = t.struct({
-  // name: t.maybe(t.String),
+  name: t.maybe(t.String),
   selfDefinedRoles: t.maybe(t.list(t.String)),
   interests: t.maybe(t.list(t.String)),
   orgTypes: t.maybe(t.list(t.String)),

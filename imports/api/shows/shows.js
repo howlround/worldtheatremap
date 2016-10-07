@@ -113,7 +113,7 @@ export const showSchema = t.struct({
 });
 
 export const showFiltersSchema = t.struct({
-  // name: t.maybe(t.String),
+  name: t.maybe(t.String),
   interests: t.maybe(t.list(t.String)),
 });
 

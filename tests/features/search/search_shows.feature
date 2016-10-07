@@ -40,18 +40,18 @@ Feature: Filters on shows search
     And I select "African-American" from the ".interests-edit" combobox
     And the ".search-results" element should contain "Sofia"
     And the ".search-results" element should contain "Aadya"
-
-  # Scenario: Users can search for shows by name (partial/full, different case variations)
-  #   # Full name, match case
-  #   When I fill in ".show-search-text" with "Sofia"
-  #   And the ".search-results" element should contain "Sofia"
-  #   And the ".search-results" element should not contain "Aadya"
-  #   # Full name, different case
-  #   When I fill in ".show-search-text" with "sofia"
-  #   And the ".search-results" element should contain "Sofia"
-  #   # Partial name (begining), match case
-  #   When I fill in ".show-search-text" with "Sof"
-  #   And the ".search-results" element should contain "Sofia"
-  #   # Partial name (end), match case
-  #   When I fill in ".show-search-text" with "fia"
-  #   And the ".search-results" element should contain "Sofia"
+@focus
+  Scenario: Users can search for shows by name (partial/full, different case variations)
+    # Full name, match case
+    When I fill in ".show-search-text" with "Sofia"
+    And the ".search-results" element should contain "Sofia"
+    And the ".search-results" element should not contain "Aadya"
+    # Full name, different case
+    When I fill in ".show-search-text" with "sofia"
+    And the ".search-results" element should contain "Sofia"
+    # Partial name (begining), match case
+    When I fill in ".show-search-text" with "Sof"
+    And the ".search-results" element should contain "Sofia"
+    # DOES NOT MATCH: Partial name (end), match case
+    When I fill in ".show-search-text" with "fia"
+    And I should not see ".search-results"

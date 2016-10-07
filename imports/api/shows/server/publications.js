@@ -79,7 +79,7 @@ Meteor.publish('shows.search', function showsSearch(plainTextQuery, skip) {
 
   const limit = 20;
 
-  return Shows.find(plainTextQuery, {
+  return Shows.find(processedQuery, {
     fields: Shows.searchFields,
     sort: { name: 1 },
     limit,

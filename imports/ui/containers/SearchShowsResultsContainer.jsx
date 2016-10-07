@@ -35,7 +35,7 @@ const SearchShowsResultsContainer = createContainer((props) => {
 
     // Make sure privateQuery is not empty otherwise all records are returned
     if (!_.isEmpty(privateQuery)) {
-      const showsSubscribe = TAPi18n.subscribe('shows.search', plainTextQuery, skip);
+      const showsSubscribe = Meteor.subscribe('shows.search', plainTextQuery, skip);
       totalCount = Shows.find(privateQuery).count();
       results = Shows.find(
         privateQuery,

@@ -1,6 +1,7 @@
 import { TAPi18n } from 'meteor/tap:i18n';
 import React from 'react';
 import { Link } from 'react-router';
+import { _ } from 'meteor/underscore';
 
 export default class LanguageSwitcher extends React.Component {
   constructor(props) {

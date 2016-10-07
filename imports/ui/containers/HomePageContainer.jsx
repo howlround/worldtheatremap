@@ -6,6 +6,8 @@ import { Shows } from '../../api/shows/shows.js';
 import { Events } from '../../api/events/events.js';
 import { createContainer } from 'meteor/react-meteor-data';
 import HomePage from '../components/HomePage.jsx';
+import { _ } from 'meteor/underscore';
+import { get } from 'lodash';
 import moment from 'moment';
 
 const HomePageContainer = createContainer(() => {
@@ -35,9 +37,17 @@ const HomePageContainer = createContainer(() => {
   const authorsToday = [];
   const showsToday = [];
   _.each(eventsTodayWithLocations, (event) => {
-    showsToday.push(event.show._id);
-    authorsToday.push(event.organizations._id);
-    _.each(event.show.author, (author) => authorsToday.push(author._id));
+    if (get(event, 'show._id')) {
+      showsToday.push(event.show._id);
+    }
+
+    if (get(event, 'organizations._id')) {
+      authorsToday.push(event.organizations._id);
+    }
+
+    if (get(event, 'show.author[0]._id')) {
+      _.each(event.show.author, (author) => authorsToday.push(author._id));
+    }
   });
 
 

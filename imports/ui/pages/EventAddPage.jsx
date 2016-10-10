@@ -1,5 +1,8 @@
+// Utilities
 import React from 'react';
 import classnames from 'classnames';
+
+// Components
 import Event from '../components/Event.jsx';
 import EventAdd from '../components/EventAdd.jsx';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
@@ -7,18 +10,45 @@ import Message from '../components/Message.jsx';
 import Modal from '../components/Modal.jsx';
 import AuthSignIn from '../components/AuthSignIn.jsx';
 import Loading from '../components/Loading.jsx';
+import ShowAdd from '../components/ShowAdd.jsx';
 
 export default class EventAddPage extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      displayNewShowForm: false,
+      newShow: {},
+    }
+
+    this.newShowCallback = this.newShowCallback.bind(this);
+    this.displayNewShowForm = this.displayNewShowForm.bind(this);
+  }
+
+  newShowCallback(newShow) {
+    this.setState({
+      newShow,
+    });
+    this.displayNewShowForm({ displayNewShowForm: false });
+  }
+
+  displayNewShowForm(value) {
+    this.setState({ displayNewShowForm: !!value.display });
+
+    // This should display it and also handle the default value
+    // Should be able to take newShow as an argument somehow
+    if (value.newShow) {
+      this.setState({ newShow: value.newShow });
+    }
   }
 
   render() {
     const { loading, add, user } = this.props;
+    const { displayNewShowForm } = this.state;
 
     const pageClass = classnames({
       'page': true,
-      'shows-add': true,
+      'events-add': true,
     });
 
     if (loading) {
@@ -33,8 +63,17 @@ export default class EventAddPage extends React.Component {
         <div className="overlay-wrapper">
           <Modal/>
           <div className={pageClass}>
-            <EventAdd />
+            <EventAdd displayNewShowForm={this.displayNewShowForm} />
           </div>
+
+          {displayNewShowForm ?
+            <div className="overlay-wrapper">
+              <Modal/>
+              <div className="page">
+                <ShowAdd showCallback={this.newShowCallback} />
+              </div>
+            </div>
+          : ''}
         </div>
       );
     }

@@ -14,13 +14,7 @@ export default class ShowAdd extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      show: {
-        author: [
-          {}
-        ]
-      }
-    };
+    this.state = {};
 
     this.throttledAdd = _.throttle(newShow => {
       if (newShow) {
@@ -47,83 +41,36 @@ export default class ShowAdd extends React.Component {
   }
 
   handleSubmit(event) {
+    console.log('ShowAdd handleSubmit');
     event.preventDefault();
+    const { showCallback } = this.props;
     const newShow = this.refs.form.getValue();
     if (newShow) {
       const newID = this.throttledAdd(newShow);
 
-      // Redirect
-      this.context.router.push(`/shows/${ newID }`);
+      if (showCallback) {
+        showCallback(newShow);
+      } else {
+        // Redirect
+        this.context.router.push(`/events/${ newID }`);
+      }
     }
   }
 
   onChange(value, path) {
-    // @TODO: Merge with ShowEdit.jsx
-    if (path[0] == 'author' && path[2] == 'name') {
-      const search = value.author[path[1]].name;
-      const resultsElement = $('.form-group-author-' + path[1] + '-name').siblings('ul.autocomplete-results');
-
-      // Search for profiles and save to ul.show-author-edit-result
-      if (search.length > 0) {
-        // Clear any existing stored values
-        const clearValue = value;
-        clearValue.author[path[1]]._id = '';
-        this.setState({show: clearValue});
-
-        const regex = new RegExp('.*' + search + '.*', 'i');
-        const results = Profiles.find({name: { $regex: regex }}, {limit: 5}).fetch();
-
-        // Clear fields
-        resultsElement.html('');
-
-        if (results.length > 0) {
-          results.map(profile => {
-            resultsElement.append('<li><b>' + profile.name + '</b> (' + profile._id + ')</li>').find('li:last-child').click(() => {
-                const newValue = value;
-                newValue.author[path[1]].name = profile.name;
-                newValue.author[path[1]]._id = profile._id;
-                this.setState({show: newValue});
-
-                // Clear fields
-                resultsElement.html('');
-            });
-          });
-        }
-        else {
-          // Add new profile workflow
-          resultsElement.append('<li>Add Profile for <b>' + search + '</b>?</li>').find('li:last-child').click(() => {
-            // Build a new profile object
-            const newProfile = {
-              name: search,
-            }
-            // Save profile to DB
-            const newProfileID = this.throttledAddProfile(newProfile);
-            // Save the new profile to the new show state
-            const newValue = value;
-            newValue.author[path[1]].name = search;
-            newValue.author[path[1]]._id = newProfileID;
-            this.setState({show: newValue});
-
-            // Clear fields
-            resultsElement.html('');
-          });
-        }
-      }
-      else {
-        $('ul.autocomplete-results').html('');
-      }
-    }
+    this.setState(value);
   }
 
   render() {
     const formOptions = defaultFormOptions();
+
     return (
       <form className="show-edit-form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off" >
         <Form
           ref="form"
           type={showSchema}
           options={formOptions}
-          value={this.state.show}
+          value={this.state}
           onChange={this.onChange}
         />
         <div className="form-group">
@@ -138,9 +85,9 @@ export default class ShowAdd extends React.Component {
   }
 }
 
-// ShowAdd.propTypes = {
-//   show: React.PropTypes.object,
-// };
+ShowAdd.propTypes = {
+  showCallback: React.PropTypes.func,
+};
 
 ShowAdd.contextTypes = {
   router: React.PropTypes.object,

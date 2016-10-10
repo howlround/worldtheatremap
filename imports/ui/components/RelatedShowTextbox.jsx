@@ -24,7 +24,6 @@ export default class RelatedShowTextbox extends React.Component {
       show: {
         name: defaultName,
       },
-      showAuthorField: false,
       focus: false,
     };
 
@@ -81,12 +80,16 @@ export default class RelatedShowTextbox extends React.Component {
   }
 
   selectNewShow(name) {
+    const { displayNewShowForm } = this.props;
     this.setState({ focus: false });
     // User indicated they are creating a new show
     const newShow = {
       name
     }
-    this.setState({ show: newShow, showAuthorField: true });
+    this.setState({ show: newShow });
+    displayNewShowForm(newShow);
+    // this.setState({ show: newShow, showAuthorField: true });
+    // @TODO: Instead of setting showAuthorField state, call something passed down from EventAdd
   }
 
   selectShow(show) {
@@ -113,7 +116,7 @@ export default class RelatedShowTextbox extends React.Component {
 
   render() {
     const { attrs, results, updateParent, disabled, loading } = this.props;
-    const { show, showAuthorField, focus } = this.state;
+    const { show, focus } = this.state;
 
     let resultsItems = (results.length > 0) ? results.map(show => {
       return (
@@ -141,31 +144,6 @@ export default class RelatedShowTextbox extends React.Component {
       <div className={classnames(className)}>
         <input { ...attrs } value={ show.name } onChange={ this.onChange } onFocus={ this.onFocus } disabled={disabled} />
         { focus ? <ul className="autocomplete-results">{ resultsItems }{ addShowOption }</ul> : '' }
-        { showAuthorField ?
-          <RelatedProfile
-            updateParent={ this.setProfileForNewShow }
-            attrs={{
-              className: 'show-author-name-edit',
-              label: <FormattedMessage
-                id="forms.labelRequiredOrOptional"
-                description="Label for a form field with required or optional specified"
-                defaultMessage="{labelText} {optionalOrRequired}"
-                values={{
-                  optionalOrRequired: <span className="field-label-modifier required"><FormattedMessage
-                    id="forms.requiredLabel"
-                    description="Addition to label indicating a field is required"
-                    defaultMessage="(required)"
-                  /></span>,
-                  labelText: <FormattedMessage
-                    id="forms.primaryAuthorLabel"
-                    description="Label for a Primary author form field"
-                    defaultMessage="By… (Add the primary creator(s) name. Add all that apply.)"
-                  />,
-                }}
-              />,
-            }}
-            wrapperAttrs={{ className: 'nested-subfield' }}
-          /> : '' }
       </div>
     );
   }
@@ -175,6 +153,7 @@ RelatedShowTextbox.propTypes = {
   attrs: React.PropTypes.object,
   results: React.PropTypes.array,
   updateParent: React.PropTypes.func,
+  displayNewShowForm: React.PropTypes.func,
   disabled: React.PropTypes.bool,
 };
 

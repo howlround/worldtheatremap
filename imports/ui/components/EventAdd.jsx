@@ -1,14 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+// Utilities
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-form';
 import { displayError } from '../helpers/errors.js';
+import classnames from 'classnames';
 
+// API
 import { insert } from '../../api/events/methods.js';
 import { eventSchema, defaultFormOptions } from '../../api/events/forms.js';
-import { Shows } from '../../api/shows/shows.js';
+import RelatedShowTextboxContainer from '../../ui/containers/RelatedShowTextboxContainer.jsx';
+
+// Components
+import ShowAdd from '../../ui/components/ShowAdd.jsx';
 
 const Form = t.form.Form;
 
@@ -16,7 +22,9 @@ class EventAdd extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      name: '',
+    };
 
     this.throttledAdd = _.throttle(newEvent => {
       if (newEvent) {
@@ -161,35 +169,84 @@ class EventAdd extends React.Component {
   }
 
   render() {
+    const { displayNewShowForm } = this.props;
     const formOptions = defaultFormOptions();
 
-    return (
-      <form className="event-edit-form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off" >
-        <Form
-          ref="form"
-          type={eventSchema}
-          options={formOptions}
-          value={this.state}
-          onChange={this.onChange}
-        />
-        <div className="form-group">
-          <button
-            type="submit"
-            className="edit-event-save">
-            <FormattedMessage
-              id='buttons.save'
-              description='Generic save button'
-              defaultMessage='Save'
+    /* Related Show component override */
+    const relatedShowTextboxTemplate = t.form.Form.templates.textbox.clone({
+      renderTextbox: (locals) => {
+        const onChange = (evt) => {
+          locals.onChange(evt);
+          this.setState(evt);
+        };
+        return (
+          <div className="form-group">
+            <RelatedShowTextboxContainer
+              disabled={locals.disabled}
+              parentValue={this.state.name}
+              updateParent={onChange}
+              displayNewShowForm={displayNewShowForm}
+              attrs={locals.attrs}
             />
-          </button>
-        </div>
-      </form>
+          </div>
+        );
+      },
+
+      renderLabel: (locals) => {
+        const className = {
+          'control-label': true,
+          'disabled': locals.disabled,
+        }
+        return (
+          <label
+            htmlFor={locals.attrs.id}
+            className={classnames(className)}
+          >
+            {locals.label}
+          </label>
+        );
+      },
+    });
+
+    // here we are: the factory
+    class RelatedShowFactory extends t.form.Textbox {
+      getTemplate() {
+        return relatedShowTextboxTemplate;
+      }
+    }
+
+    formOptions.fields.show.factory = RelatedShowFactory;
+
+    return (
+      <div>
+        <form className="event-edit-form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off" >
+          <Form
+            ref="form"
+            type={eventSchema}
+            options={formOptions}
+            value={this.state}
+            onChange={this.onChange}
+          />
+          <div className="form-group">
+            <button
+              type="submit"
+              className="edit-event-save">
+              <FormattedMessage
+                id='buttons.save'
+                description='Generic save button'
+                defaultMessage='Save'
+              />
+            </button>
+          </div>
+        </form>
+      </div>
     )
   }
 }
 
 EventAdd.propTypes = {
   intl: intlShape.isRequired,
+  displayNewShowForm: React.PropTypes.func,
 };
 
 EventAdd.contextTypes = {

@@ -1,12 +1,16 @@
+// Utilities
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { _ } from 'meteor/underscore';
+import { FormattedMessage } from 'react-intl';
 import { displayError } from '../helpers/errors.js';
+import t from 'tcomb-form';
+
+// API
 import { insert } from '../../api/shows/methods.js';
 import { showSchema, defaultFormOptions } from '../../api/shows/shows.js';
 import { insert as insertProfile } from '../../api/profiles/methods.js';
 import { Profiles } from '../../api/profiles/profiles.js';
-import t from 'tcomb-form';
 
 const Form = t.form.Form;
 
@@ -14,7 +18,10 @@ export default class ShowAdd extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      name: this.props.defaultName,
+      author: [ null ],
+    };
 
     this.throttledAdd = _.throttle(newShow => {
       if (newShow) {
@@ -48,8 +55,14 @@ export default class ShowAdd extends React.Component {
     if (newShow) {
       const newID = this.throttledAdd(newShow);
 
+      const callbackShowObj = {
+        _id: newID,
+        name: newShow.name,
+        author: newShow.author,
+      }
+
       if (showCallback) {
-        showCallback(newShow);
+        showCallback(callbackShowObj);
       } else {
         // Redirect
         this.context.router.push(`/events/${ newID }`);
@@ -66,6 +79,13 @@ export default class ShowAdd extends React.Component {
 
     return (
       <form className="show-edit-form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off" >
+        <h1>
+          <FormattedMessage
+            id="show.showAddPageTitle"
+            description="Heading above affiliation form on events"
+            defaultMessage="Add a New Show"
+          />
+        </h1>
         <Form
           ref="form"
           type={showSchema}
@@ -77,7 +97,7 @@ export default class ShowAdd extends React.Component {
           <button
             type="submit"
             className="edit-show-save">
-            Save
+            Create Show
           </button>
         </div>
       </form>
@@ -87,6 +107,7 @@ export default class ShowAdd extends React.Component {
 
 ShowAdd.propTypes = {
   showCallback: React.PropTypes.func,
+  defaultName: React.PropTypes.string,
 };
 
 ShowAdd.contextTypes = {

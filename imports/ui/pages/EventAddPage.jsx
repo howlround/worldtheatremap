@@ -18,7 +18,9 @@ export default class EventAddPage extends React.Component {
 
     this.state = {
       displayNewShowForm: false,
-      newShow: {},
+      newShow: {
+        name: '',
+      },
     }
 
     this.newShowCallback = this.newShowCallback.bind(this);
@@ -44,7 +46,7 @@ export default class EventAddPage extends React.Component {
 
   render() {
     const { loading, add, user } = this.props;
-    const { displayNewShowForm } = this.state;
+    const { displayNewShowForm, newShow } = this.state;
 
     const pageClass = classnames({
       'page': true,
@@ -63,14 +65,30 @@ export default class EventAddPage extends React.Component {
         <div className="overlay-wrapper">
           <Modal/>
           <div className={pageClass}>
-            <EventAdd displayNewShowForm={this.displayNewShowForm} />
+            <EventAdd displayNewShowForm={this.displayNewShowForm} showObject={newShow} />
           </div>
 
           {displayNewShowForm ?
             <div className="overlay-wrapper">
               <Modal/>
-              <div className="page">
-                <ShowAdd showCallback={this.newShowCallback} />
+              <div className="page nested-overlay-page">
+                <div className="nested-overlay-page-content">
+                  <span
+                    className="overlay-close"
+                    onClick={this.displayNewShowForm.bind(this, { displayNewShowForm: false })}
+                    title="Cancel Add Show"
+                  >
+                    &times;
+                  </span>
+                  <ShowAdd defaultName={newShow.name} showCallback={this.newShowCallback} />
+                  <span
+                    className="cancel-text"
+                    onClick={this.displayNewShowForm.bind(this, { displayNewShowForm: false })}
+                    title="Cancel Add Show"
+                  >
+                    Never mind, I don't want to add a new show
+                  </span>
+                </div>
               </div>
             </div>
           : ''}

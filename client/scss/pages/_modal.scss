@@ -14,19 +14,12 @@
   color: $black;
   font-weight: bold;
   font-size: 2em;
+  cursor: pointer;
+  line-height: 1em;
 
   &:hover,
   &:focus {
     color: $gray;
-  }
-
-  @include breakpoint($narrow) {
-    color: $white;
-
-    &:hover,
-    &:focus {
-      color: $black;
-    }
   }
 }
 
@@ -34,6 +27,15 @@
   .page {
     position: absolute;
     top: 0;
+
+    @include breakpoint($narrow) {
+      position: relative;
+      top: inherit;
+    }
+  }
+
+  .page,
+  .nested-overlay-page-content {
     background-color: $light-gray;
     margin: $spacing-unit;
     padding: $spacing-unit;
@@ -44,8 +46,6 @@
     @include breakpoint($narrow) {
       @include container($narrow-width);
 
-      position: relative;
-      top: inherit;
       border: none;
       padding: $spacing-unit * 4;
       margin-top: $spacing-unit * -2;
@@ -62,4 +62,23 @@
   }
 }
 
+// Nested modals
+.overlay-wrapper {
+  .overlay-wrapper {
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+    .nested-overlay-page {
+      background-color: transparent;
+      padding: $spacing-unit;
+
+      .nested-overlay-page-content {
+        position: relative;
+        margin-top: 10px;
+        background-color: $light-gray;
+      }
+    }
+  }
+}
 

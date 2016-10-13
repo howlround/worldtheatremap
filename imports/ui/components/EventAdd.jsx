@@ -22,9 +22,7 @@ class EventAdd extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      name: '',
-    };
+    this.state = {};
 
     this.throttledAdd = _.throttle(newEvent => {
       if (newEvent) {
@@ -47,6 +45,16 @@ class EventAdd extends React.Component {
 
   componentDidUpdate() {
     this.initGoogleMap();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      show: {
+        name: nextProps.showObject.name,
+        _id: nextProps.showObject._id,
+        author: nextProps.showObject.author,
+      }
+    });
   }
 
   initGoogleMap() {
@@ -165,57 +173,22 @@ class EventAdd extends React.Component {
   }
 
   onChange(value, path) {
-    this.setState(value);
+    const { displayNewShowForm } = this.props;
+
+    if (!_.isEmpty(value.show.selectNewShow)) {
+      this.setState(value.show.selectNewShow);
+      displayNewShowForm({
+        display: true,
+        newShow: value.show.selectNewShow,
+      });
+    } else {
+      this.setState(value);
+    }
   }
 
   render() {
     const { displayNewShowForm } = this.props;
     const formOptions = defaultFormOptions();
-
-    /* Related Show component override */
-    const relatedShowTextboxTemplate = t.form.Form.templates.textbox.clone({
-      renderTextbox: (locals) => {
-        const onChange = (evt) => {
-          locals.onChange(evt);
-          this.setState(evt);
-        };
-        return (
-          <div className="form-group">
-            <RelatedShowTextboxContainer
-              disabled={locals.disabled}
-              parentValue={this.state.name}
-              updateParent={onChange}
-              displayNewShowForm={displayNewShowForm}
-              attrs={locals.attrs}
-            />
-          </div>
-        );
-      },
-
-      renderLabel: (locals) => {
-        const className = {
-          'control-label': true,
-          'disabled': locals.disabled,
-        }
-        return (
-          <label
-            htmlFor={locals.attrs.id}
-            className={classnames(className)}
-          >
-            {locals.label}
-          </label>
-        );
-      },
-    });
-
-    // here we are: the factory
-    class RelatedShowFactory extends t.form.Textbox {
-      getTemplate() {
-        return relatedShowTextboxTemplate;
-      }
-    }
-
-    formOptions.fields.show.factory = RelatedShowFactory;
 
     return (
       <div>
@@ -247,6 +220,7 @@ class EventAdd extends React.Component {
 EventAdd.propTypes = {
   intl: intlShape.isRequired,
   displayNewShowForm: React.PropTypes.func,
+  showObject: React.PropTypes.object,
 };
 
 EventAdd.contextTypes = {

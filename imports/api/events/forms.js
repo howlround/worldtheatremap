@@ -114,7 +114,9 @@ t.Date.getTcombFormFactory = () => DatePickerFactory;
 /* Related Show component override */
 const relatedShowTextboxTemplate = t.form.Form.templates.textbox.clone({
   renderTextbox: (locals) => {
-    const onChange = (evt) => locals.onChange(evt);
+    const onChange = (evt) => {
+      locals.onChange(evt);
+    };
     return (
       <div className="form-group">
         <RelatedShowTextboxContainer

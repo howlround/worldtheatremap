@@ -80,16 +80,18 @@ export default class RelatedShowTextbox extends React.Component {
   }
 
   selectNewShow(name) {
-    const { displayNewShowForm } = this.props;
+    const { updateParent } = this.props;
+
+    // Remove field focus after selection
     this.setState({ focus: false });
+
     // User indicated they are creating a new show
     const newShow = {
       name
     }
+    updateParent({ selectNewShow: newShow });
+
     this.setState({ show: newShow });
-    displayNewShowForm(newShow);
-    // this.setState({ show: newShow, showAuthorField: true });
-    // @TODO: Instead of setting showAuthorField state, call something passed down from EventAdd
   }
 
   selectShow(show) {
@@ -140,9 +142,12 @@ export default class RelatedShowTextbox extends React.Component {
       loading,
     }
 
+    // Check input value again, otherwise the lag time for setState in onChange causes it to become an uncontrolled input
+    const inputValue = (show.name !== undefined) ? show.name : '';
+
     return (
       <div className={classnames(className)}>
-        <input { ...attrs } value={ show.name } onChange={ this.onChange } onFocus={ this.onFocus } disabled={disabled} />
+        <input { ...attrs } value={ inputValue } onChange={ this.onChange } onFocus={ this.onFocus } disabled={disabled} />
         { focus ? <ul className="autocomplete-results">{ resultsItems }{ addShowOption }</ul> : '' }
       </div>
     );
@@ -153,7 +158,6 @@ RelatedShowTextbox.propTypes = {
   attrs: React.PropTypes.object,
   results: React.PropTypes.array,
   updateParent: React.PropTypes.func,
-  displayNewShowForm: React.PropTypes.func,
   disabled: React.PropTypes.bool,
 };
 

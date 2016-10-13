@@ -1,23 +1,20 @@
+// Utilities
 import React from 'react';
 import classnames from 'classnames';
-import Show from '../components/Show.jsx';
+
+// Components
 import ShowAdd from '../components/ShowAdd.jsx';
-import NotFoundPage from '../pages/NotFoundPage.jsx';
 import Message from '../components/Message.jsx';
 import Modal from '../components/Modal.jsx';
 import AuthSignIn from '../components/AuthSignIn.jsx';
 import Loading from '../components/Loading.jsx';
 
 export default class ShowAddPage extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { add, user, loading } = this.props;
 
     const pageClass = classnames({
-      'page': true,
+      page: true,
       'shows-add': true,
     });
 
@@ -31,21 +28,23 @@ export default class ShowAddPage extends React.Component {
     } else if (add && user) {
       return (
         <div className="overlay-wrapper">
-          <Modal/>
+          <Modal />
           <div className={pageClass}>
-            <ShowAdd/>
+            <ShowAdd />
           </div>
         </div>
       );
-    }
-    else {
+    } else {
       return (
         <div className="overlay-wrapper">
-          <Modal/>
+          <Modal />
           <div className="page auth">
-            <Message title="Access denied" subtitle="Sign in or register to participate in the World Theatre Map"/>
+            <Message
+              title="Access denied"
+              subtitle="Sign in or register to participate in the World Theatre Map"
+            />
             <div className="page-content">
-              <AuthSignIn/>
+              <AuthSignIn />
             </div>
           </div>
         </div>
@@ -55,6 +54,7 @@ export default class ShowAddPage extends React.Component {
 }
 
 ShowAddPage.propTypes = {
+  user: React.PropTypes.object,
   add: React.PropTypes.bool,
   loading: React.PropTypes.bool,
 };

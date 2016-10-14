@@ -191,28 +191,26 @@ class EventAdd extends React.Component {
     const formOptions = defaultFormOptions();
 
     return (
-      <div>
-        <form className="event-edit-form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off" >
-          <Form
-            ref="form"
-            type={eventSchema}
-            options={formOptions}
-            value={this.state}
-            onChange={this.onChange}
-          />
-          <div className="form-group">
-            <button
-              type="submit"
-              className="edit-event-save">
-              <FormattedMessage
-                id='buttons.save'
-                description='Generic save button'
-                defaultMessage='Save'
-              />
-            </button>
-          </div>
-        </form>
-      </div>
+      <form className="event-edit-form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off" >
+        <Form
+          ref="form"
+          type={eventSchema}
+          options={formOptions}
+          value={this.state}
+          onChange={this.onChange}
+        />
+        <div className="form-group">
+          <button
+            type="submit"
+            className="edit-event-save">
+            <FormattedMessage
+              id='buttons.save'
+              description='Generic save button'
+              defaultMessage='Save'
+            />
+          </button>
+        </div>
+      </form>
     )
   }
 }

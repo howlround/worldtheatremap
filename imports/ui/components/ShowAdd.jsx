@@ -48,7 +48,6 @@ export default class ShowAdd extends React.Component {
   }
 
   handleSubmit(event) {
-    console.log('ShowAdd handleSubmit');
     event.preventDefault();
     const { showCallback } = this.props;
     const newShow = this.refs.form.getValue();
@@ -65,7 +64,7 @@ export default class ShowAdd extends React.Component {
         showCallback(callbackShowObj);
       } else {
         // Redirect
-        this.context.router.push(`/events/${ newID }`);
+        this.context.router.push(`/shows/${ newID }`);
       }
     }
   }

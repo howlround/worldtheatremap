@@ -168,6 +168,8 @@ class EventEdit extends React.Component {
   render() {
     const formOptions = defaultFormOptions();
 
+    formOptions.fields.show.disabled = true;
+
     return (
       <form className="event-edit-form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off" >
         <Form

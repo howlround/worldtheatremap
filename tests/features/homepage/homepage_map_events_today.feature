@@ -17,6 +17,7 @@ Feature: Events taking place today should display on a map on the home page
     And I click on ".autocomplete-results li"
     And I fill in ".show-author-name-edit" with "My Favorite Playwright"
     And I click on ".autocomplete-results li"
+    And I click on ".edit-show-save"
     And I fill in ".event-organization-edit" with "Organization of the year"
     And I click on ".autocomplete-results li"
     And I select "Performance" from the ".event-type-edit" combobox
@@ -42,6 +43,7 @@ Feature: Events taking place today should display on a map on the home page
     And I click on ".autocomplete-results li"
     And I fill in ".show-author-name-edit" with "My Favorite Playwright"
     And I click on ".autocomplete-results li"
+    And I click on ".edit-show-save"
     And I fill in ".event-organization-edit" with "Organization of the year"
     And I click on ".autocomplete-results li"
     And I select "Performance" from the ".event-type-edit" combobox
@@ -67,6 +69,7 @@ Feature: Events taking place today should display on a map on the home page
     And I click on ".autocomplete-results li"
     And I fill in ".show-author-name-edit" with "My Favorite Playwright"
     And I click on ".autocomplete-results li"
+    And I click on ".edit-show-save"
     And I fill in ".event-organization-edit" with "Organization of the year"
     And I click on ".autocomplete-results li"
     And I select "Performance" from the ".event-type-edit" combobox
@@ -92,6 +95,7 @@ Feature: Events taking place today should display on a map on the home page
     And I click on ".autocomplete-results li"
     And I fill in ".show-author-name-edit" with "My Favorite Playwright"
     And I click on ".autocomplete-results li"
+    And I click on ".edit-show-save"
     And I fill in ".event-organization-edit" with "Organization of the year"
     And I click on ".autocomplete-results li"
     And I select "Performance" from the ".event-type-edit" combobox
@@ -115,6 +119,7 @@ Feature: Events taking place today should display on a map on the home page
     And I click on ".autocomplete-results li"
     And I fill in ".show-author-name-edit" with "My Favorite Playwright"
     And I click on ".autocomplete-results li"
+    And I click on ".edit-show-save"
     And I fill in ".event-organization-edit" with "Organization of the year"
     And I click on ".autocomplete-results li"
     And I select "Performance" from the ".event-type-edit" combobox

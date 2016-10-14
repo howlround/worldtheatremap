@@ -40,7 +40,7 @@ Feature: Filters on shows search
     And I select "African-American" from the ".interests-edit" combobox
     And the ".search-results" element should contain "Sofia"
     And the ".search-results" element should contain "Aadya"
-@focus
+
   Scenario: Users can search for shows by name (partial/full, different case variations)
     # Full name, match case
     When I fill in ".show-search-text" with "Sofia"

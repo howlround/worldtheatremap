@@ -5,9 +5,9 @@ textarea {
   border: 1px solid $gray;
 
   &:disabled {
-    display: none;
     border-color: $white;
     background-color: $light-gray;
+    color: $dark-tan;
   }
 }
 

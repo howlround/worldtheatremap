@@ -273,18 +273,11 @@ export default class ProfilePage extends React.Component {
 
     return (
       <form className="affiliation-edit-form" onSubmit={this.handleSubmit.bind(this)} >
-        <h3>
-          <FormattedMessage
-            id='event.affiliationFormTitle'
-            description='Heading above affiliation form on events'
-            defaultMessage='Add a New Affiliation'
-          />
-        </h3>
         <div className="help-block form-intro">
           <FormattedMessage
             id="forms.affiliationHelpText"
             description="Help text for affiliation form"
-            defaultMessage="Are you a member of a service organization? Staff at a theatre? Add affiliations here."
+            defaultMessage="Are you a member of a network / association / union? List them here"
           />
         </div>
         <Form

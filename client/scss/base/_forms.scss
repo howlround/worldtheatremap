@@ -65,6 +65,7 @@ label {
 .help-block {
   font-size: 0.8em;
   display: block;
+  margin-top: $spacing-unit;
 
   &.disabled {
     display: none;
@@ -164,4 +165,5 @@ button[type="submit"] {
 
 .form-intro {
   margin-bottom: $spacing-unit;
+  margin-top: 0;
 }

@@ -65,22 +65,30 @@ export const defaultFormOptions = () => ({
   fields: {
     profile: {
       factory: RelatedProfileFactory,
-      error: 'Profile is required',
+      error: <FormattedMessage
+        id="forms.affiliationFormError"
+        description="Error text for Affiliation name"
+        defaultMessage="Go to 'add person/organization' to make a profile for this network / association / union."
+      />,
       attrs: {
         className: 'affiliation-profile-edit',
         autoComplete: 'off',
       },
       label: <FormattedMessage
-        id="forms.participantNameLabel"
-        description="Label for Participant name"
-        defaultMessage="Name (individual or organization name)"
+        id="forms.affiliationFormLabel"
+        description="Label for Affiliation name"
+        defaultMessage="Network / Association / Union Name"
+      />,
+      help: <FormattedMessage
+        id="forms.affiliationFormHelp"
+        description="Help text for Affiliation name"
+        defaultMessage="If your network / association / union does not appear here, it doesn't have a profile yet. Go to 'add person/organization' to make one."
       />,
       disableAdd: true,
       disableRemove: true,
       disableOrder: true,
       fields: {
         name: {
-          error: 'Profile is required',
           attrs: {
             className: 'affiliation-profile-name-edit',
             autoComplete: 'off',

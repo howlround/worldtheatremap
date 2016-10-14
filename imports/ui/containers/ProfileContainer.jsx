@@ -109,11 +109,18 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
   //  - profile is listed as the local org
   const showsSubscribe = Meteor.subscribe('shows.byAuthorPlusOthers', id, showsToSubscribeTo);
 
-  const connectedProfilesSub = TAPi18n.subscribe('profiles.byId', allNecessaryProfiles);
-
   const profile = Profiles.findOne(id);
 
   const showsForAuthor = profile ? Shows.find({ "author._id": profile._id }).fetch() : null;
+  if (!_.isEmpty(showsForAuthor)) {
+    _.each(showsForAuthor, show => {
+      if (show && show.author) {
+        _.each(show.author, (author) => allNecessaryProfiles.push(author._id));
+      }
+    });
+  }
+
+  const connectedProfilesSub = TAPi18n.subscribe('profiles.byId', allNecessaryProfiles);
 
   const showsForOrg = profile ? Shows.find(
     {

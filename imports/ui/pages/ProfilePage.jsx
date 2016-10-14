@@ -2,6 +2,7 @@ import React from 'react';
 
 // Utilities
 import classnames from 'classnames';
+import { _ } from 'meteor/underscore';
 import { select, queue, json } from 'd3';
 import topojson from 'topojson';
 import { geoOrthographic, geoGraticule, geoPath, geoCentroid, geoInterpolate } from 'd3-geo';
@@ -47,8 +48,8 @@ export default class ProfilePage extends React.Component {
           profile: {
             _id: this.props.profile._id,
             name: this.props.profile.name,
-          }
-        }
+          },
+        };
 
         const newID = upsert.call({
           newAffiliation,
@@ -73,10 +74,46 @@ export default class ProfilePage extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.profile === undefined && this.props.profile && this.props.profile.lat && this.props.profile.lon) {
+    if (
+      prevProps.profile === undefined &&
+      this.props.profile &&
+      this.props.profile.lat &&
+      this.props.profile.lon
+    ) {
       this.initializeD3Globe();
-    } else if (prevProps.profile && prevProps.profile.lat && prevProps.profile.lon && this.props.profile && this.props.profile.lat && this.props.profile.lon && (prevProps.profile.lat !== this.props.profile.lat || prevProps.profile.lon !== this.props.profile.lon)) {
+    } else if (
+      prevProps.profile &&
+      prevProps.profile.lat &&
+      prevProps.profile.lon &&
+      this.props.profile &&
+      this.props.profile.lat &&
+      this.props.profile.lon &&
+      (
+        prevProps.profile.lat !== this.props.profile.lat ||
+        prevProps.profile.lon !== this.props.profile.lon
+      )
+    ) {
       this.initializeD3Globe();
+    }
+  }
+
+  onChange(value) {
+    this.setState({ affiliation: value });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    const newParent = this.refs.form.getValue();
+    if (newParent) {
+      const newID = this.throttledAdd(newParent);
+
+      if (newID) {
+        this.setState({
+          affiliation: {
+            profile: {},
+          },
+        });
+      }
     }
   }
 
@@ -204,26 +241,6 @@ export default class ProfilePage extends React.Component {
     }
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    const newParent = this.refs.form.getValue();
-    if (newParent) {
-      const newID = this.throttledAdd(newParent);
-
-      if (newID) {
-        this.setState({
-          affiliation: {
-            profile: {}
-          }
-        });
-      }
-    }
-  }
-
-  onChange(value, path) {
-    this.setState({ affiliation: value });
-  }
-
   removeAffiliation(affiliationId) {
     remove.call({
       affiliationId,
@@ -293,9 +310,9 @@ export default class ProfilePage extends React.Component {
           className="edit-affiliation-save"
         >
           <FormattedMessage
-            id='buttons.save'
-            description='Generic save button'
-            defaultMessage='Save'
+            id="buttons.save"
+            description="Generic save button"
+            defaultMessage="Save"
           />
         </button>
       </form>
@@ -304,7 +321,17 @@ export default class ProfilePage extends React.Component {
 
   render() {
     // const { profile, profileExists, loading } = this.props;
-    const { profile, user, showsForAuthor, showsForOrg, roles, connections, affiliations, affiliatedProfiles, loading } = this.props;
+    const {
+      profile,
+      user,
+      showsForAuthor,
+      showsForOrg,
+      roles,
+      connections,
+      affiliations,
+      affiliatedProfiles,
+      loading
+    } = this.props;
 
     const profilePageClass = classnames({
       page: true,

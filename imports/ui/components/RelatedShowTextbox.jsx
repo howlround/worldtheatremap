@@ -121,8 +121,9 @@ export default class RelatedShowTextbox extends React.Component {
     const { show, focus } = this.state;
 
     let resultsItems = (results.length > 0) ? results.map(show => {
+      const itemContextSeperator = show.author ? ' – ' : '';
       return (
-        <li className="select-show" key={ show._id } onClick={ this.selectShow.bind(this, show) }>{ show.name } – <span className="autocomplete-authors"><Authors authors={show.author} noLinks /></span></li>
+        <li className="select-show" key={ show._id } onClick={ this.selectShow.bind(this, show) }>{ show.name } <span className="autocomplete-item-context">{ itemContextSeperator }<Authors authors={show.author} noLinks /></span></li>
       );
     }) : '';
 

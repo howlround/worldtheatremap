@@ -107,8 +107,9 @@ export default class RelatedProfileTextbox extends React.Component {
     const { profile, focus } = this.state;
 
     const resultsItems = (results.length > 0) ? results.map(profile => {
+      const itemContextSeperator = profile.locality ? ' – ' : '';
       return (
-        <li key={ profile._id } className="select-profile" onClick={ this.selectProfile.bind(this, profile) }>{ profile.name }</li>
+        <li key={ profile._id } className="select-profile" onClick={ this.selectProfile.bind(this, profile) }>{ profile.name } <span className="autocomplete-item-context">{ itemContextSeperator }{ profile.locality }</span></li>
       );
     }) : '';
 

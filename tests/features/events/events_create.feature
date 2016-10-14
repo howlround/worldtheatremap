@@ -148,3 +148,12 @@ Feature: Create events
     And I go to the "event" add page
     And I fill in ".event-show-edit" with "Sofia"
     Then the ".autocomplete-results li" element should contain "My Favorite Playwright"
+
+  Scenario: When adding an event the suggestions for existing local organization should include the location of the profile
+    And a profile with the following fields:
+      | name | Organization of the year |
+      | locality | Muntinlupa |
+    And I am logged in
+    And I go to the "event" add page
+    And I fill in ".event-organization-edit" with "Organization of the year"
+    Then the ".autocomplete-results li" element should contain "Muntinlupa"

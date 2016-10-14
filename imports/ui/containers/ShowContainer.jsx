@@ -17,7 +17,7 @@ export default createContainer(({ params: { id } }) => {
   const eventsByShowSubscribe = Meteor.subscribe('events.byShow', id);
   const eventsByShow = Events.find({ 'show._id': id }, {
     fields: Events.publicFields,
-    sort: { startDate: 1 },
+    sort: { startDate: -1 },
   }).fetch();
 
   if (!_.isEmpty(eventsByShow)) {

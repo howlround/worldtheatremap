@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 // Utilities
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { _ } from 'meteor/underscore';
+import { get } from 'lodash';
 import t from 'tcomb-form';
 import { displayError } from '../helpers/errors.js';
 import classnames from 'classnames';
@@ -175,7 +176,7 @@ class EventAdd extends React.Component {
   onChange(value, path) {
     const { displayNewShowForm } = this.props;
 
-    if (!_.isEmpty(value.show.selectNewShow)) {
+    if (get(value, 'show.selectNewShow')) {
       this.setState(value.show.selectNewShow);
       displayNewShowForm({
         display: true,

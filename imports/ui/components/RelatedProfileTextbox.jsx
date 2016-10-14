@@ -1,6 +1,5 @@
 import React from 'react';
 import { displayError } from '../helpers/errors.js';
-import { Profiles } from '../../api/profiles/profiles.js';
 import { insert } from '../../api/profiles/methods.js';
 import { _ } from 'meteor/underscore';
 import classnames from 'classnames';
@@ -44,7 +43,7 @@ export default class RelatedProfileTextbox extends React.Component {
     this.createProfile = this.createProfile.bind(this);
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     // If the parent form was submitted clear this field
     if (!_.isEmpty(prevProps.attrs.value) && _.isEmpty(this.props.attrs.value)) {
       this.setState({
@@ -66,11 +65,15 @@ export default class RelatedProfileTextbox extends React.Component {
     this.setState({ profile: { name: search } });
   }
 
+  onFocus() {
+    this.setState({ focus: true });
+  }
+
   createProfile(name) {
     // Build a new profile object
-    let newProfile = {
-      name: name,
-    }
+    const newProfile = {
+      name,
+    };
     // Save profile to DB
     newProfile._id = this.throttledAddProfile(newProfile);
 
@@ -94,33 +97,39 @@ export default class RelatedProfileTextbox extends React.Component {
 
     updateParent({
       name: profile.name,
-      _id: profile._id
+      _id: profile._id,
     });
   }
 
-  onFocus() {
-    this.setState({ focus: true });
-  }
-
   render() {
-    const { attrs, results, updateParent, wrapperAttrs, disabled, loading, addNew } = this.props;
+    const { attrs, results, wrapperAttrs, disabled, loading, addNew } = this.props;
     const { profile, focus } = this.state;
 
-    const resultsItems = (results.length > 0) ? results.map(profile => {
-      const itemContextSeperator = profile.locality ? ' – ' : '';
+    const resultsItems = (results.length > 0) ? results.map(itemProfile => {
+      const itemContextSeperator = itemProfile.locality ? ' – ' : '';
       return (
-        <li key={ profile._id } className="select-profile" onClick={ this.selectProfile.bind(this, profile) }>{ profile.name } <span className="autocomplete-item-context">{ itemContextSeperator }{ profile.locality }</span></li>
+        <li
+          key={itemProfile._id}
+          className="select-profile"
+          onClick={this.selectProfile.bind(this, itemProfile)}
+        >
+          {itemProfile.name}
+          <span className="autocomplete-item-context">
+            {itemContextSeperator}
+            {itemProfile.locality}
+          </span>
+        </li>
       );
     }) : '';
 
 
     const addProfileOption = (profile.name.length > 0 && addNew !== false) ?
-      <li className="create-profile" onClick={ this.createProfile.bind(this, profile.name) }>
+      <li className="create-profile" onClick={this.createProfile.bind(this, profile.name)}>
         <FormattedMessage
           id="profile.autocompleteCreate"
           description="Autocomplete option to create a related profile"
           defaultMessage={`Add Profile for {name}?`}
-          values={{ name: <b>{ profile.name }</b> }}
+          values={{ name: <b>{profile.name}</b> }}
         />
       </li> : '';
 
@@ -133,12 +142,19 @@ export default class RelatedProfileTextbox extends React.Component {
         loading,
       },
     );
-    const labelClasses = classnames({ 'disabled': disabled });
+    const labelClasses = classnames({ disabled });
 
     return (
       <div className={wrapperClasses}>
-        {attrs.label ? <label className={labelClasses}>{ attrs.label }</label> : ''}
-        <input {...attrs} onFocus={this.onFocus} type="text" value={profile.name} onChange={this.onChange} disabled={disabled} />
+        {attrs.label ? <label className={labelClasses}>{attrs.label}</label> : ''}
+        <input
+          {...attrs}
+          onFocus={this.onFocus}
+          type="text"
+          value={profile.name}
+          onChange={this.onChange}
+          disabled={disabled}
+        />
         {focus ? <ul className="autocomplete-results">{resultsItems}{addProfileOption}</ul> : ''}
 
       </div>

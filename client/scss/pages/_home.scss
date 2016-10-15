@@ -4,13 +4,35 @@
   h2 {
     padding: $spacing-unit $spacing-unit * 4;
 
-    span {
-      background-color: $black;
-      padding: $spacing-unit $spacing-unit * 4;
+    background-color: $black;
+    padding: $spacing-unit $spacing-unit * 4;
+
+    @include breakpoint($narrow) {
+      background-color: transparent;
+      padding: 0;
+
+      span {
+        background-color: $black;
+        padding: $spacing-unit $spacing-unit * 4;
+      }
     }
 
     color: $white;
     font-size: 20px;
+  }
+}
+
+.homepage-intro-text {
+  color: $teal;
+  line-height: 1.2em;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  margin: $spacing-unit;
+
+  @include breakpoint($narrow) {
+    font-size: 35px;
+    margin: $spacing-unit * 4 15%;
   }
 }
 
@@ -19,17 +41,6 @@
   border-top: solid 4px $black;
   padding-bottom: $spacing-unit * 4;
   margin-top: $spacing-unit * 4;
-}
-
-.homepage-events-globe {
-  p {
-    font-size: 35px;
-    color: $teal;
-    text-align: center;
-    font-weight: bold;
-    margin: $spacing-unit * 4 15%;
-    line-height: 1.2em;
-  }
 }
 
 .homepage-events-list {

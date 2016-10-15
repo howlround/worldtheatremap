@@ -12,6 +12,12 @@
 ul.search-type {
   overflow: auto;
   border-bottom: solid 2px $teal;
+  padding: $spacing-unit;
+  padding-bottom: 0;
+
+  @include breakpoint($narrow) {
+    padding: 0;
+  }
 
   li {
     float: left;
@@ -22,10 +28,14 @@ ul.search-type {
     font-family: $oswald-font-stack;
     font-size: 15px;
     text-transform: uppercase;
-    padding: $spacing-unit ($spacing-unit * 2);
+    padding: $spacing-unit;
     background-color: $background-teal;
     color: $black;
     display: block;
+
+    @include breakpoint($narrow) {
+      padding: $spacing-unit ($spacing-unit * 2);
+    }
 
     &:hover,
     &:focus {

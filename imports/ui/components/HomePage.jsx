@@ -30,14 +30,14 @@ export default class HomePage extends React.Component {
             />
           </h2>
         </div>
-        <p>
+        <p className="homepage-intro-text">
           <FormattedMessage
             id='home.introText'
             description='Large introduction text on the home page'
             defaultMessage="The World Theatre Map is a user-generated directory and a real-time media hub of the world’s theatre community."
           />
         </p>
-        <EventsGlobe events={eventsTodayWithLocations} />
+        { !loading ? <EventsGlobe events={eventsTodayWithLocations} /> : <Loading key="loading" interiorBlock={true} />}
       </section>
     );
   }
@@ -82,36 +82,31 @@ export default class HomePage extends React.Component {
 
   render() {
     const {
-      loading,
       eventsTodayWithLocations,
     } = this.props;
 
-    if (loading) {
-      return <Loading key="loading" />;
-    } else {
-      return (
-        <div className="homepage-content-wrapper">
-          <div className="page">
-            {eventsTodayWithLocations ? this.renderTodayMap() : ''}
-            {eventsTodayWithLocations ? this.renderTodayList() : ''}
-          </div>
-          <div className="homepage-search-wrapper">
-            <div className="homepage-search-content">
-              <div className="homepage-section-header">
-                <h2>
-                  <FormattedMessage
-                    id='homepage.discoverSection'
-                    description="Search filters header on the home page"
-                    defaultMessage="Discover"
-                  />
-                </h2>
-              </div>
-              <SearchProfilesContainerDummy location={{ query: {} }} />
+    return (
+      <div className="homepage-content-wrapper">
+        <div className="page">
+          {eventsTodayWithLocations ? this.renderTodayMap() : ''}
+          {eventsTodayWithLocations ? this.renderTodayList() : ''}
+        </div>
+        <div className="homepage-search-wrapper">
+          <div className="homepage-search-content">
+            <div className="homepage-section-header">
+              <h2>
+                <FormattedMessage
+                  id='homepage.discoverSection'
+                  description="Search filters header on the home page"
+                  defaultMessage="Discover"
+                />
+              </h2>
             </div>
+            <SearchProfilesContainerDummy location={{ query: {} }} />
           </div>
         </div>
-      );
-    }
+      </div>
+    );
   }
 }
 

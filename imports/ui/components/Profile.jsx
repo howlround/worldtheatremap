@@ -53,7 +53,7 @@ class Profile extends React.Component {
       }
       updateImage.call(
         newImage
-      , display);
+      , displayError);
 
       // Reset the upload counter in case the user tries again
       this.setState({ uploadAttempts: 0 });

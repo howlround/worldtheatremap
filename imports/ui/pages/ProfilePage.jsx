@@ -376,7 +376,7 @@ export default class ProfilePage extends React.Component {
                   <FormattedMessage
                     id="profilePage.relatedPeopleHeader"
                     description="Header for related people list on the profile page sidebar"
-                    defaultMessage="Related People"
+                    defaultMessage="Related People/Organizations"
                   />
                 </h2>
                 <div className="content">

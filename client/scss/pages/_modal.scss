@@ -27,17 +27,18 @@
   .page {
     position: absolute;
     top: 0;
+    margin: $spacing-unit;
 
     @include breakpoint($narrow) {
       position: relative;
       top: inherit;
+      margin-top: $spacing-unit * -2;
     }
   }
 
   .page,
   .nested-overlay-page-content {
     background-color: $light-gray;
-    margin: $spacing-unit;
     padding: $spacing-unit;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -48,7 +49,6 @@
 
       border: none;
       padding: $spacing-unit * 4;
-      margin-top: $spacing-unit * -2;
       margin-bottom: $spacing-unit * 4;
     }
 
@@ -75,8 +75,11 @@
 
       .nested-overlay-page-content {
         position: relative;
-        margin-top: 10px;
         background-color: $light-gray;
+
+        @include breakpoint($narrow) {
+          margin-top: 35px;
+        }
       }
     }
   }

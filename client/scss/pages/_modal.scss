@@ -38,7 +38,7 @@
 
   .page,
   .nested-overlay-page-content {
-    background-color: $light-gray;
+    background-color: $off-white;
     padding: $spacing-unit;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -75,7 +75,7 @@
 
       .nested-overlay-page-content {
         position: relative;
-        background-color: $light-gray;
+        background-color: $off-white;
 
         @include breakpoint($narrow) {
           margin-top: 35px;

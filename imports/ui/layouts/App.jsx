@@ -7,6 +7,7 @@ import { FormattedMessage } from 'react-intl';
 import HomePageContainer from '../containers/HomePageContainer.jsx';
 import SearchProfilesContainerDummy from '../containers/SearchProfilesContainerDummy.jsx';
 
+import Footer from '../components/Footer.jsx';
 import LanguageSwitcher from '../components/LanguageSwitcher.jsx';
 import UserMenu from '../components/UserMenu.jsx';
 import AddMenu from '../components/AddMenu.jsx';
@@ -120,7 +121,7 @@ export default class App extends React.Component {
           ? <ConnectionNotification />
           : null}
         <LanguageSwitcher lang={lang} supportedLanguages={supportedLanguages} />
-        <div id="content-container">
+        <section id="content-container">
           {loading
             ? <Loading key="loading" />
             : clonedChildren}
@@ -128,7 +129,8 @@ export default class App extends React.Component {
             <HomePageContainer />
             : ''
           }
-        </div>
+        </section>
+        <Footer />
       </div>
     );
   }

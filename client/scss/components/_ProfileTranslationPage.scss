@@ -11,7 +11,7 @@
       color: $gray;
       position: absolute;
       padding: $spacing-unit;
-      background-color: $light-gray;
+      background-color: $off-white;
       width: 97%;
       padding-bottom: 90px;
 
@@ -29,7 +29,7 @@
     .translation-target {
       position: absolute;
       padding: $spacing-unit;
-      background-color: $light-gray;
+      background-color: $off-white;
       width: 97%;
 
       @include breakpoint($narrow) {

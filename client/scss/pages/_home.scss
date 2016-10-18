@@ -9,7 +9,6 @@
 
     @include breakpoint($narrow) {
       background-color: transparent;
-      padding: 0;
 
       span {
         background-color: $black;

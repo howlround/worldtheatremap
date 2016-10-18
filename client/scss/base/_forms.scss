@@ -6,7 +6,7 @@ textarea {
 
   &:disabled {
     border-color: $white;
-    background-color: $light-gray;
+    background-color: $off-white;
     color: $dark-tan;
   }
 }
@@ -155,7 +155,7 @@ button[type="submit"] {
   display: none;
   & > .Select-control {
     border-color: $white;
-    background-color: $light-gray;
+    background-color: $off-white;
   }
 
   .Select-placeholder {

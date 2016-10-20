@@ -1,5 +1,10 @@
 #globe {
   margin: auto;
+  max-width: 100%;
+
+  canvas {
+    max-width: 100%;
+  }
 }
 
 .events-globe {

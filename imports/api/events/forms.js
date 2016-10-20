@@ -20,11 +20,11 @@ import RelatedProfileTextboxContainer from '../../ui/containers/RelatedProfileTe
 // Event type options
 const EventType = [
   {
-    value: 'Work-in-Progress',
+    value: 'Performance',
     label: <FormattedMessage
-      id="eventType.Work-in-Progress"
-      description="Event types: Work-in-Progress"
-      defaultMessage="Work-in-Progress"
+      id="eventType.Performance"
+      description="Event types: Performance"
+      defaultMessage="Performance"
     />,
   },
   {
@@ -36,19 +36,19 @@ const EventType = [
     />,
   },
   {
+    value: 'Work-in-Progress',
+    label: <FormattedMessage
+      id="eventType.Work-in-Progress"
+      description="Event types: Work-in-Progress"
+      defaultMessage="Work-in-Progress"
+    />,
+  },
+  {
     value: 'Workshop',
     label: <FormattedMessage
       id="eventType.Workshop"
       description="Event types: Workshop"
       defaultMessage="Workshop"
-    />,
-  },
-  {
-    value: 'Performance',
-    label: <FormattedMessage
-      id="eventType.Performance"
-      description="Event types: Performance"
-      defaultMessage="Performance"
     />,
   },
 ];

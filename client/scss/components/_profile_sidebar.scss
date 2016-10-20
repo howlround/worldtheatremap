@@ -1,9 +1,7 @@
 .profile-globe {
-  padding-bottom: $spacing-unit;
-
   #globe {
     width: 200px;
-    margin: auto;
+    margin: $spacing-unit auto;
   }
 }
 

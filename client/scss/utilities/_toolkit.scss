@@ -1,0 +1,103 @@
+@mixin retina-image($image, $width, $height) {
+  @media (-webkit-min-device-pixel-ratio: 1.5),
+         (min--moz-device-pixel-ratio: 1.5),
+         (-o-min-device-pixel-ratio: 3/2),
+         (min-device-pixel-ratio: 1.5),
+         (min-resolution: 144dpi) {
+    background-image: url($image);
+    background-size: $width $height;
+  }
+}
+
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+.clearfix {
+  @include clearfix;
+}
+
+@mixin no-clearfix {
+  &:after {
+    content: none;
+    display: inline;
+    clear: none;
+  }
+}
+
+@mixin rgba($color, $value) {
+  background-color: $color;
+  background-color: rgba($color, $value);
+}
+
+@mixin item-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+@mixin image-replace {
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  word-wrap: normal;
+  background-repeat: no-repeat;
+}
+
+@mixin image-replace-link {
+  @include image-replace;
+  display: block;
+  border-bottom: none;
+}
+
+@mixin image-replace-undo {
+  text-indent: 0;
+  white-space: normal;
+  overflow: auto;
+  word-wrap: normal;
+}
+
+
+@mixin image-replace-link-undo {
+  @include image-replace-undo;
+//  display: inline;
+  height: auto;
+  width: auto;
+}
+
+@mixin item-list-menu {
+  padding: 0;
+  margin: 0;
+
+  li {
+    @include item-list;
+    @include clearfix;
+  }
+}
+
+@mixin placeholder($color: $white) {
+  &::-webkit-input-placeholder {
+    color: $color;
+  }
+
+  &:-moz-placeholder {
+    color: $color;
+  }
+
+  &::-moz-placeholder {
+    color: $color;
+  }
+
+  &:-ms-input-placeholder {
+    color: $color;
+  }
+}
+
+@mixin fix-image-line-height {
+  display: block;
+  line-height: 1px;
+}

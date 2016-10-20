@@ -98,7 +98,7 @@ export default class Footer extends React.Component {
               </li>
             </ul>
           </div>
-          <div className="footer-credits">
+          <div className="footer-credits footer-attribution">
             <FormattedMessage
               id='footer.attribution'
               description="Footer website attribution"

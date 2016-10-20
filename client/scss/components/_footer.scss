@@ -62,8 +62,10 @@ section.footer {
       text-align: inherit;
 
       @include gallery(1 of 2);
+    }
 
-      &:last-child {
+    @include breakpoint($normal) {
+      &.footer-attribution {
         text-align: right;
       }
     }
@@ -97,4 +99,81 @@ section.footer {
     color: $light-gray;
   }
 
+  ul.footer-social {
+    width: 95px;
+    margin: auto;
+
+    @include breakpoint($narrow) {
+      margin: 0;
+    }
+
+    @include breakpoint($normal) {
+      float: right;
+    }
+
+    li {
+      margin-right: $spacing-unit;
+      float: left;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .facebook {
+    width: 13px;
+    height: 27px;
+    background-image: url('/facebook-white.png');
+    margin-bottom: $spacing-unit;
+
+    @include image-replace-link;
+  }
+
+  .twitter {
+    width: 35px;
+    height: 27px;
+    background-image: url('/twitter-white.png');
+    margin-bottom: $spacing-unit;
+
+    @include image-replace-link;
+  }
+
+  .instagram {
+    width: 27px;
+    height: 27px;
+    background-image: url('/instagram-white.png');
+    margin-bottom: $spacing-unit;
+
+    @include image-replace-link;
+  }
+}
+
+a.howlround-footer-logo {
+  width: 114px;
+  height: 17px;
+  background-image: url('/Howlround_Logo_Tag.png');
+  margin-bottom: $spacing-unit;
+  margin: auto;
+  pointer: cursor;
+
+  @include image-replace-link;
+
+  @include breakpoint($narrow) {
+    margin: 0 0 $spacing-unit 0;
+  }
+}
+
+a.emerson-footer-logo {
+  width: 165px;
+  height: 22px;
+  background-image: url('/emerson.png');
+  margin: auto;
+  pointer: cursor;
+
+  @include image-replace-link;
+
+  @include breakpoint($narrow) {
+    margin: 0 0 $spacing-unit 0;
+  }
 }

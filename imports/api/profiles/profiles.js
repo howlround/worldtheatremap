@@ -1075,7 +1075,7 @@ export const defaultFormOptions = () => ({
           labelText: <FormattedMessage
             id="profile.agentLabel"
             description="Label for an Agent form field"
-            defaultMessage="Agent/Manager or Contact Person"
+            defaultMessage="Agent/Representative or Contact Person"
           />,
         }}
       />,

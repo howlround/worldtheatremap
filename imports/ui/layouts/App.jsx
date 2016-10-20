@@ -8,6 +8,7 @@ import HomePageContainer from '../containers/HomePageContainer.jsx';
 import SearchProfilesContainerDummy from '../containers/SearchProfilesContainerDummy.jsx';
 
 import Footer from '../components/Footer.jsx';
+import FooterAddPitch from '../components/FooterAddPitch.jsx';
 import LanguageSwitcher from '../components/LanguageSwitcher.jsx';
 import UserMenu from '../components/UserMenu.jsx';
 import AddMenu from '../components/AddMenu.jsx';
@@ -130,6 +131,7 @@ export default class App extends React.Component {
             : ''
           }
         </section>
+        <FooterAddPitch />
         <Footer />
       </div>
     );

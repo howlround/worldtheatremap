@@ -133,13 +133,15 @@ label {
   }
 }
 
-button[type="submit"] {
+button[type="submit"],
+.button {
   width: 100%;
   background-color: $red;
   color: $white;
   text-transform: uppercase;
   padding: $spacing-unit;
   font-weight: 700;
+  cursor: pointer;
 
   &:hover,
   &:focus {

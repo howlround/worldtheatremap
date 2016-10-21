@@ -8,30 +8,6 @@ export const factory = () => {
   // interests options
   const Interests = [
     {
-      value: 'Accessibility',
-      label: <FormattedMessage
-        id="interest.Accessibility"
-        description="Interests options: Accessibility"
-        defaultMessage="Accessibility"
-      />,
-    },
-    {
-      value: 'Adaptation',
-      label: <FormattedMessage
-        id="interest.Adaptation"
-        description="Interests options: Adaptation"
-        defaultMessage="Adaptation"
-      />,
-    },
-    {
-      value: 'African-American',
-      label: <FormattedMessage
-        id="interest.African-American"
-        description="Interests options: African-American"
-        defaultMessage="African-American"
-      />,
-    },
-    {
       value: 'African-Diaspora',
       label: <FormattedMessage
         id="interest.African-Diaspora"
@@ -40,11 +16,11 @@ export const factory = () => {
       />,
     },
     {
-      value: 'Asian-American',
+      value: 'Arab Diaspora',
       label: <FormattedMessage
-        id="interest.Asian-American"
-        description="Interests options: Asian-American"
-        defaultMessage="Asian-American"
+        id="interest.Arab Diaspora"
+        description="Interests options: Arab Diaspora"
+        defaultMessage="Arab Diaspora"
       />,
     },
     {
@@ -56,19 +32,11 @@ export const factory = () => {
       />,
     },
     {
-      value: 'Black Theatre',
+      value: 'Burlesque / Cabaret',
       label: <FormattedMessage
-        id="interest.Black Theatre"
-        description="Interests options: Black Theatre"
-        defaultMessage="Black Theatre"
-      />,
-    },
-    {
-      value: 'Burlesque',
-      label: <FormattedMessage
-        id="interest.Burlesque"
-        description="Interests options: Burlesque"
-        defaultMessage="Burlesque"
+        id="interest.Burlesque / Cabaret"
+        description="Interests options: Burlesque / Cabaret"
+        defaultMessage="Burlesque / Cabaret"
       />,
     },
     {
@@ -104,35 +72,11 @@ export const factory = () => {
       />,
     },
     {
-      value: 'Creative Placemaking',
+      value: 'Dance / Movement / Choreography',
       label: <FormattedMessage
-        id="interest.Creative Placemaking"
-        description="Interests options: Creative Placemaking"
-        defaultMessage="Creative Placemaking"
-      />,
-    },
-    {
-      value: 'Criticism',
-      label: <FormattedMessage
-        id="interest.Criticism"
-        description="Interests options: Criticism"
-        defaultMessage="Criticism"
-      />,
-    },
-    {
-      value: 'Cross-cultural Exchange',
-      label: <FormattedMessage
-        id="interest.Cross-cultural Exchange"
-        description="Interests options: Cross-cultural Exchange"
-        defaultMessage="Cross-cultural Exchange"
-      />,
-    },
-    {
-      value: 'Dance',
-      label: <FormattedMessage
-        id="interest.Cross-cultural Exchange"
-        description="Interests options: Cross-cultural Exchange"
-        defaultMessage="Cross-cultural Exchange"
+        id="interest.Dance / Movement / Choreography"
+        description="Interests options: Dance / Movement / Choreography"
+        defaultMessage="Dance / Movement / Choreography"
       />,
     },
     {
@@ -144,27 +88,11 @@ export const factory = () => {
       />,
     },
     {
-      value: 'Design',
+      value: 'Devised / Ensemble',
       label: <FormattedMessage
-        id="interest.Design"
-        description="Interests options: Design"
-        defaultMessage="Design"
-      />,
-    },
-    {
-      value: 'Devised',
-      label: <FormattedMessage
-        id="interest.Devised"
-        description="Interests options: Devised"
-        defaultMessage="Devised"
-      />,
-    },
-    {
-      value: 'Directing',
-      label: <FormattedMessage
-        id="interest.Directing"
-        description="Interests options: Directing"
-        defaultMessage="Directing"
+        id="interest.Devised / Ensemble"
+        description="Interests options: Devised / Ensemble"
+        defaultMessage="Devised / Ensemble"
       />,
     },
     {
@@ -176,19 +104,11 @@ export const factory = () => {
       />,
     },
     {
-      value: 'Diversity and Inclusion',
+      value: 'Documentary',
       label: <FormattedMessage
-        id="interest.Diversity and Inclusion"
-        description="Interests options: Diversity and Inclusion"
-        defaultMessage="Diversity and Inclusion"
-      />,
-    },
-    {
-      value: 'Documentary Theatre',
-      label: <FormattedMessage
-        id="interest.Documentary Theatre"
-        description="Interests options: Documentary Theatre"
-        defaultMessage="Documentary Theatre"
+        id="interest.Documentary"
+        description="Interests options: Documentary"
+        defaultMessage="Documentary"
       />,
     },
     {
@@ -200,14 +120,6 @@ export const factory = () => {
       />,
     },
     {
-      value: 'Ensemble',
-      label: <FormattedMessage
-        id="interest.Ensemble"
-        description="Interests options: Ensemble"
-        defaultMessage="Ensemble"
-      />,
-    },
-    {
       value: 'Experimental',
       label: <FormattedMessage
         id="interest.Experimental"
@@ -216,35 +128,11 @@ export const factory = () => {
       />,
     },
     {
-      value: 'Geek Theater',
+      value: 'Immersive',
       label: <FormattedMessage
-        id="interest.Geek Theater"
-        description="Interests options: Geek Theater"
-        defaultMessage="Geek Theater"
-      />,
-    },
-    {
-      value: 'Gender Politics',
-      label: <FormattedMessage
-        id="interest.Gender Politics"
-        description="Interests options: Gender Politics"
-        defaultMessage="Gender Politics"
-      />,
-    },
-    {
-      value: 'Hip Hop Theatre',
-      label: <FormattedMessage
-        id="interest.Hip Hop Theatre"
-        description="Interests options: Hip Hop Theatre"
-        defaultMessage="Hip Hop Theatre"
-      />,
-    },
-    {
-      value: 'Immersive Theatre',
-      label: <FormattedMessage
-        id="interest.Immersive Theatre"
-        description="Interests options: Immersive Theatre"
-        defaultMessage="Immersive Theatre"
+        id="interest.Immersive"
+        description="Interests options: Immersive"
+        defaultMessage="Immersive"
       />,
     },
     {
@@ -272,67 +160,43 @@ export const factory = () => {
       />,
     },
     {
-      value: 'Jewish Theatre',
+      value: 'Jewish Diaspora',
       label: <FormattedMessage
-        id="interest.Jewish Theatre"
-        description="Interests options: Jewish Theatre"
-        defaultMessage="Jewish Theatre"
+        id="interest.Jewish Diaspora"
+        description="Interests options: Jewish Diaspora"
+        defaultMessage="Jewish Diaspora"
       />,
     },
     {
-      value: 'Latina/o Theatre Commons',
+      value: 'Latino / Hispanic',
       label: <FormattedMessage
-        id="interest.Latina/o Theatre Commons"
-        description="Interests options: Latina/o Theatre Commons"
-        defaultMessage="Latina/o Theatre Commons"
+        id="interest.Latino / Hispanic"
+        description="Interests options: Latino / Hispanic"
+        defaultMessage="Latino / Hispanic"
       />,
     },
     {
-      value: 'Latino-American',
+      value: 'LGBTQIA* (refer to the actual theatre work)',
       label: <FormattedMessage
-        id="interest.Latino-American"
-        description="Interests options: Latino-American"
-        defaultMessage="Latino-American"
+        id="interest.LGBTQIA* (refer to the actual theatre work)"
+        description="Interests options: LGBTQIA* (refer to the actual theatre work)"
+        defaultMessage="LGBTQIA* (refer to the actual theatre work)"
       />,
     },
     {
-      value: 'LGBTQIA*',
+      value: 'Monologue / Solo Performance',
       label: <FormattedMessage
-        id="interest.LGBTQIA*"
-        description="Interests options: LGBTQIA*"
-        defaultMessage="LGBTQIA*"
+        id="interest.Monologue / Solo Performance"
+        description="Interests options: Monologue / Solo Performance"
+        defaultMessage="Monologue / Solo Performance"
       />,
     },
     {
-      value: 'Literary Management',
+      value: 'Multidisciplinary / Interdisciplinary',
       label: <FormattedMessage
-        id="interest.Literary Management"
-        description="Interests options: Literary Management"
-        defaultMessage="Literary Management"
-      />,
-    },
-    {
-      value: 'Multicultural',
-      label: <FormattedMessage
-        id="interest.Multicultural"
-        description="Interests options: Multicultural"
-        defaultMessage="Multicultural"
-      />,
-    },
-    {
-      value: 'Multidisciplinary',
-      label: <FormattedMessage
-        id="interest.Multidisciplinary"
-        description="Interests options: Multidisciplinary"
-        defaultMessage="Multidisciplinary"
-      />,
-    },
-    {
-      value: 'Music',
-      label: <FormattedMessage
-        id="interest.Music"
-        description="Interests options: Music"
-        defaultMessage="Music"
+        id="interest.Multidisciplinary / Interdisciplinary"
+        description="Interests options: Multidisciplinary / Interdisciplinary"
+        defaultMessage="Multidisciplinary / Interdisciplinary"
       />,
     },
     {
@@ -344,19 +208,19 @@ export const factory = () => {
       />,
     },
     {
+      value: 'New Technology',
+      label: <FormattedMessage
+        id="interest.New Technology"
+        description="Interests options: New Technology"
+        defaultMessage="New Technology"
+      />,
+    },
+    {
       value: 'New Work',
       label: <FormattedMessage
         id="interest.New Work"
         description="Interests options: New Work"
         defaultMessage="New Work"
-      />,
-    },
-    {
-      value: 'Object Theatre/Puppetry',
-      label: <FormattedMessage
-        id="interest.Object Theatre/Puppetry"
-        description="Interests options: Object Theatre/Puppetry"
-        defaultMessage="Object Theatre/Puppetry"
       />,
     },
     {
@@ -376,43 +240,11 @@ export const factory = () => {
       />,
     },
     {
-      value: 'Philanthropy/Funding',
-      label: <FormattedMessage
-        id="interest.Philanthropy/Funding"
-        description="Interests options: Philanthropy/Funding"
-        defaultMessage="Philanthropy/Funding"
-      />,
-    },
-    {
       value: 'Physical Theatre',
       label: <FormattedMessage
         id="interest.Physical Theatre"
         description="Interests options: Physical Theatre"
         defaultMessage="Physical Theatre"
-      />,
-    },
-    {
-      value: 'Playwright Residencies',
-      label: <FormattedMessage
-        id="interest.Playwright Residencies"
-        description="Interests options: Playwright Residencies"
-        defaultMessage="Playwright Residencies"
-      />,
-    },
-    {
-      value: 'Playwriting',
-      label: <FormattedMessage
-        id="interest.Playwriting"
-        description="Interests options: Playwriting"
-        defaultMessage="Playwriting"
-      />,
-    },
-    {
-      value: 'Poetry',
-      label: <FormattedMessage
-        id="interest.Poetry"
-        description="Interests options: Poetry"
-        defaultMessage="Poetry"
       />,
     },
     {
@@ -424,22 +256,6 @@ export const factory = () => {
       />,
     },
     {
-      value: 'Process',
-      label: <FormattedMessage
-        id="interest.Process"
-        description="Interests options: Process"
-        defaultMessage="Process"
-      />,
-    },
-    {
-      value: 'Producing',
-      label: <FormattedMessage
-        id="interest.Producing"
-        description="Interests options: Producing"
-        defaultMessage="Producing"
-      />,
-    },
-    {
       value: 'Puppetry',
       label: <FormattedMessage
         id="interest.Puppetry"
@@ -448,35 +264,19 @@ export const factory = () => {
       />,
     },
     {
-      value: 'Queer Theatre',
+      value: 'Refugee',
       label: <FormattedMessage
-        id="interest.Queer Theatre"
-        description="Interests options: Queer Theatre"
-        defaultMessage="Queer Theatre"
+        id="interest.Refugee"
+        description="Interests options: Refugee"
+        defaultMessage="Refugee"
       />,
     },
     {
-      value: 'Race',
+      value: 'Roma Diaspora',
       label: <FormattedMessage
-        id="interest.Race"
-        description="Interests options: Race"
-        defaultMessage="Race"
-      />,
-    },
-    {
-      value: 'Religion/Spirituality',
-      label: <FormattedMessage
-        id="interest.Religion/Spirituality"
-        description="Interests options: Religion/Spirituality"
-        defaultMessage="Religion/Spirituality"
-      />,
-    },
-    {
-      value: 'Rural Theatre',
-      label: <FormattedMessage
-        id="interest.Rural Theatre"
-        description="Interests options: Rural Theatre"
-        defaultMessage="Rural Theatre"
+        id="interest.Roma Diaspora"
+        description="Interests options: Roma Diaspora"
+        defaultMessage="Roma Diaspora"
       />,
     },
     {
@@ -488,14 +288,6 @@ export const factory = () => {
       />,
     },
     {
-      value: 'Shakespeare',
-      label: <FormattedMessage
-        id="interest.Shakespeare"
-        description="Interests options: Shakespeare"
-        defaultMessage="Shakespeare"
-      />,
-    },
-    {
       value: 'Site-specific',
       label: <FormattedMessage
         id="interest.Site-specific"
@@ -504,107 +296,19 @@ export const factory = () => {
       />,
     },
     {
-      value: 'Social Justice',
+      value: 'Theatre for or by Women',
       label: <FormattedMessage
-        id="interest.Social Justice"
-        description="Interests options: Social Justice"
-        defaultMessage="Social Justice"
+        id="interest.Theatre for or by Women"
+        description="Interests options: Theatre for or by Women"
+        defaultMessage="Theatre for or by Women"
       />,
     },
     {
-      value: 'Social Media',
+      value: 'Traditional / Folk',
       label: <FormattedMessage
-        id="interest.Social Media"
-        description="Interests options: Social Media"
-        defaultMessage="Social Media"
-      />,
-    },
-    {
-      value: 'Sound Design',
-      label: <FormattedMessage
-        id="interest.Sound Design"
-        description="Interests options: Sound Design"
-        defaultMessage="Sound Design"
-      />,
-    },
-    {
-      value: 'Sports',
-      label: <FormattedMessage
-        id="interest.Sports"
-        description="Interests options: Sports"
-        defaultMessage="Sports"
-      />,
-    },
-    {
-      value: 'Stage Combat',
-      label: <FormattedMessage
-        id="interest.Stage Combat"
-        description="Interests options: Stage Combat"
-        defaultMessage="Stage Combat"
-      />,
-    },
-    {
-      value: 'Stage Management',
-      label: <FormattedMessage
-        id="interest.Stage Management"
-        description="Interests options: Stage Management"
-        defaultMessage="Stage Management"
-      />,
-    },
-    {
-      value: 'Student/Youth',
-      label: <FormattedMessage
-        id="interest.Student/Youth"
-        description="Interests options: Student/Youth"
-        defaultMessage="Student/Youth"
-      />,
-    },
-    {
-      value: 'Technology',
-      label: <FormattedMessage
-        id="interest.Technology"
-        description="Interests options: Technology"
-        defaultMessage="Technology"
-      />,
-    },
-    {
-      value: 'Theatre Education/Training',
-      label: <FormattedMessage
-        id="interest.Theatre Education/Training"
-        description="Interests options: Theatre Education/Training"
-        defaultMessage="Theatre Education/Training"
-      />,
-    },
-    {
-      value: 'Theatre for Young Audiences',
-      label: <FormattedMessage
-        id="interest.Theatre for Young Audiences"
-        description="Interests options: Theatre for Young Audiences"
-        defaultMessage="Theatre for Young Audiences"
-      />,
-    },
-    {
-      value: 'Theatre History',
-      label: <FormattedMessage
-        id="interest.Theatre History"
-        description="Interests options: Theatre History"
-        defaultMessage="Theatre History"
-      />,
-    },
-    {
-      value: 'Touring',
-      label: <FormattedMessage
-        id="interest.Touring"
-        description="Interests options: Touring"
-        defaultMessage="Touring"
-      />,
-    },
-    {
-      value: 'Transgender',
-      label: <FormattedMessage
-        id="interest.Transgender"
-        description="Interests options: Transgender"
-        defaultMessage="Transgender"
+        id="interest.Traditional / Folk"
+        description="Interests options: Traditional / Folk"
+        defaultMessage="Traditional / Folk"
       />,
     },
     {
@@ -616,27 +320,11 @@ export const factory = () => {
       />,
     },
     {
-      value: 'Video Games',
+      value: 'Young People / Children / Educational',
       label: <FormattedMessage
-        id="interest.Video Games"
-        description="Interests options: Video Games"
-        defaultMessage="Video Games"
-      />,
-    },
-    {
-      value: 'Women',
-      label: <FormattedMessage
-        id="interest.Women"
-        description="Interests options: Women"
-        defaultMessage="Women"
-      />,
-    },
-    {
-      value: 'Young Audiences',
-      label: <FormattedMessage
-        id="interest.Young Audiences"
-        description="Interests options: Young Audiences"
-        defaultMessage="Young Audiences"
+        id="interest.Young People / Children / Educational"
+        description="Interests options: Young People / Children / Educational"
+        defaultMessage="Young People / Children / Educational"
       />,
     },
   ];

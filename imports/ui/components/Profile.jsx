@@ -356,7 +356,17 @@ class Profile extends React.Component {
     ].filter((val) => val).join(', ');
     const locationBlock = (<div className="profile-location">
       {cityState ? <div>{cityState}</div> : ''}
-      {profile.country ? <div className="profile-country">{profile.country}</div> : ''}</div>);
+      {profile.country ?
+        <div className="profile-country">
+          {
+            formatMessage({
+              'id': `country.${profile.country}`,
+              'description': `Country options: ${profile.country}`,
+              'defaultMessage': profile.country
+            })
+          }
+        </div> : ''}
+      </div>);
 
     return (
       <article className="profile full">

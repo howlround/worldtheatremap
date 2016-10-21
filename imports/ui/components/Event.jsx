@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { _ } from 'meteor/underscore';
-import { FormattedMessage, FormattedDate } from 'react-intl';
+import { FormattedMessage, FormattedDate, intlShape, injectIntl } from 'react-intl';
 import classnames from 'classnames';
 import { displayError } from '../helpers/errors.js';
 import { select, queue, json } from 'd3';
@@ -20,7 +20,7 @@ import { Profiles } from '../../api/profiles/profiles.js';
 
 const Form = t.form.Form;
 
-export default class Event extends React.Component {
+class Event extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -284,6 +284,7 @@ export default class Event extends React.Component {
 
   render() {
     const { event, user, participantsByEvent } = this.props;
+    const { formatMessage } = this.props.intl;
 
     const editLink = user ?
       <Link
@@ -319,7 +320,15 @@ export default class Event extends React.Component {
       });
     }
 
-    const locationLine = [event.locality, event.administrativeArea, event.country].filter(function (val) {return val;}).join(', ');
+    const locationLine = [
+      event.locality,
+      event.administrativeArea,
+      formatMessage({
+        'id': `country.${event.country}`,
+        'description': `Country options: ${event.country}`,
+        'defaultMessage': event.country
+      })
+    ].filter(function (val) {return val;}).join(', ');
 
     const articleClasses = classnames('event', 'full', {
       'with-location': event.lat && event.lon,
@@ -425,8 +434,11 @@ Event.propTypes = {
   user: React.PropTypes.object,
   onEditingChange: React.PropTypes.func,
   participantsByEvent: React.PropTypes.array,
+  intl: intlShape.isRequired,
 };
 
 Event.contextTypes = {
   router: React.PropTypes.object,
 };
+
+export default injectIntl(Event);

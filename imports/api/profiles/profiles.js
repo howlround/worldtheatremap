@@ -14,7 +14,7 @@ import ReactSelect from 'react-select';
 
 // API
 import { AllCountriesFactory } from '../../api/countries/countries.js';
-import { factory as interestsFactory } from '../../api/interests/interests.js';
+import { interestsSelectFactory, interestsCheckboxFactory } from '../../api/interests/interests.js';
 
 class ProfilesCollection extends TAPi18n.Collection {
   // insert(profile, callback) {
@@ -1231,7 +1231,7 @@ export const defaultFormOptions = () => ({
           />,
         }}
       />,
-      factory: interestsFactory(),
+      factory: interestsSelectFactory(),
     },
     orgTypes: {
       label: <FormattedMessage
@@ -1365,7 +1365,7 @@ export const filtersFormOptions = () => ({
         description="Label for Interests form field"
         defaultMessage="Interests"
       />,
-      factory: interestsFactory(),
+      factory: interestsCheckboxFactory(),
     },
     orgTypes: {
       label: <FormattedMessage
@@ -1487,7 +1487,7 @@ export const translateSourceFormOptions = () => ({
       help: 'If this profile is referencing an organization, what year was it founded?'
     },
     interests: {
-      factory: interestsFactory(),
+      factory: interestsSelectFactory(),
       disabled: true,
     },
     orgTypes: {

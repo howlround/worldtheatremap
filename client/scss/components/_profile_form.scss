@@ -5,6 +5,22 @@ form.profile-edit-form {
       display: none;
     }
   }
+
+  .checkbox-group {
+    overflow: auto;
+
+    div.checkbox {
+      margin-bottom: $spacing-unit;
+
+      @include breakpoint($narrow) {
+        @include gallery(1 of 2);
+      }
+
+      @include breakpoint($normal) {
+        @include gallery(1 of 3);
+      }
+    }
+  }
 }
 
 button.edit-profile-save {

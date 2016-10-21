@@ -169,3 +169,19 @@ button[type="submit"],
   margin-bottom: $spacing-unit;
   margin-top: 0;
 }
+
+.checkbox-group {
+  label {
+    font-size: 14px;
+    font-weight: normal;
+
+    input[type="checkbox"] {
+      margin-right: $spacing-unit;
+      float: left;
+    }
+
+    .label-text {
+      margin-left: 24px;
+    }
+  }
+}

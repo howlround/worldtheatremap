@@ -21,8 +21,8 @@ Feature: Search results content
     And I select "Algeria" from the ".country-select-edit" combobox
     And I fill in ".profile-postal-code-edit" with "16000"
     And I fill in ".profile-founding-year-edit" with "1979"
-    And I select "Musical Theatre" from the ".interests-edit" combobox
-    And I select "Improvisation" from the ".interests-edit" combobox
+    And I click on ".label-text=Musical Theatre"
+    And I click on ".label-text=Improvisation"
     And I select "Producer" from the ".profile-organization-types-edit" combobox
     And I select "Stage Director" from the ".profile-roles-edit" combobox
     And I click on ".edit-profile-save"

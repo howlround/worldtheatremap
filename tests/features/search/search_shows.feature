@@ -15,7 +15,7 @@ Feature: Filters on shows search
     And I fill in ".show-author-name-edit" with "My Favorite Playwright"
     And I click on ".autocomplete-results li"
     And I fill in ".show-about-edit" with "Most popular name in Italy"
-    And I select "Musical Theatre" from the ".interests-edit" combobox
+    And I click on ".label-text=Musical Theatre"
     And I click on ".edit-show-save"
     # Add Second Show
     And I go to the "show" add page
@@ -23,7 +23,7 @@ Feature: Filters on shows search
     And I fill in ".show-author-name-edit" with "My Favorite Playwright"
     And I click on ".autocomplete-results li"
     And I fill in ".show-about-edit" with "Most popular name in India"
-    And I select "African-American" from the ".interests-edit" combobox
+    And I click on ".label-text=African-Diaspora"
     And I click on ".edit-show-save"
     And I go to the "shows" search page
     And the ".search-type .active" element should contain "Shows"
@@ -37,7 +37,7 @@ Feature: Filters on shows search
 
   Scenario: Choosing multiple interests should match two different shows that each have one of the interests
     When I select "Musical Theatre" from the ".interests-edit" combobox
-    And I select "African-American" from the ".interests-edit" combobox
+    And I select "African-Diaspora" from the ".interests-edit" combobox
     And the ".search-results" element should contain "Sofia"
     And the ".search-results" element should contain "Aadya"
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { _ } from 'meteor/underscore';
+import classnames from 'classnames';
 
 export default class Checkboxes extends React.Component {
   constructor(props) {
@@ -38,7 +39,12 @@ export default class Checkboxes extends React.Component {
   }
 
   render() {
-    const { options, name, values } = this.props;
+    const { options, name, values, disabled } = this.props;
+
+    const wrapperClass = {
+      'checkbox-group': true,
+      disabled,
+    }
 
     const checkboxes = _.map(options, (option, index) => {
     const checked = this.state[option.value];
@@ -52,6 +58,7 @@ export default class Checkboxes extends React.Component {
               name={option.value}
               checked={checked}
               onChange={this.onChange}
+              disabled={disabled}
             />
             <div className="label-text">
               {option.label}
@@ -62,7 +69,7 @@ export default class Checkboxes extends React.Component {
     });
 
     return (
-      <div className="checkbox-group">
+      <div className={classnames(wrapperClass)}>
         {checkboxes}
       </div>
     );
@@ -74,4 +81,5 @@ Checkboxes.propTypes = {
   values: React.PropTypes.array,
   name: React.PropTypes.string,
   onChange: React.PropTypes.func,
+  disabled: React.PropTypes.bool,
 };

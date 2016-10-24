@@ -184,4 +184,8 @@ button[type="submit"],
       margin-left: 24px;
     }
   }
+
+  &.disabled {
+    display: none;
+  }
 }

@@ -164,7 +164,8 @@ const EthnicityRace = [
     />,
   },
 ];
-// Ethnicity/Race template
+
+// Ethnicity/Race Select template
 const EthnicityRaceTags = t.form.Form.templates.select.clone({
   renderLabel: (locals) => {
     const className = {
@@ -216,14 +217,71 @@ const EthnicityRaceTags = t.form.Form.templates.select.clone({
     );
   },
 });
+
+// Ethnicity/Race Select template
+const EthnicityRaceCheckboxes = t.form.Form.templates.select.clone({
+  renderLabel: (locals) => {
+    const className = {
+      'control-label': true,
+      'disabled': locals.disabled,
+    }
+    return (
+      <label
+        title='For Individual profiles only'
+        htmlFor={locals.attrs.id}
+        className={classnames(className)}
+      >
+        {locals.label}
+      </label>
+    );
+  },
+
+  renderSelect: (locals) => {
+    return (
+      <Checkboxes
+        options={EthnicityRace}
+        values={locals.value}
+        name="ethnicity-race"
+        onChange={locals.onChange}
+        disabled={locals.disabled}
+      />
+    );
+  },
+
+  renderHelp: (locals) => {
+    const className = {
+      'help-block': true,
+      'disabled': locals.disabled,
+    }
+
+    return (
+      <span
+        id={`${locals.attrs.id}-tip`}
+        className={classnames(className)}
+      >
+        {locals.help}
+      </span>
+    );
+  },
+});
+
 // Ethnicity/Race Factory
-class ReactSelectEthnicityRaceFactory extends t.form.Component {
+class EthnicityRaceReactSelectFactory extends t.form.Component {
   getTemplate() {
-    return EthnicityRaceTags;
+    return EthnicityRaceCheckboxes;
   }
 }
+
+// Ethnicity/Race Factory
+class EthnicityRaceCheckboxesFactory extends t.form.Component {
+  getTemplate() {
+    return EthnicityRaceCheckboxes;
+  }
+}
+
 // Ethnicity/Race transformer
-ReactSelectEthnicityRaceFactory.transformer = t.form.List.transformer;
+EthnicityRaceReactSelectFactory.transformer = t.form.List.transformer;
+EthnicityRaceCheckboxesFactory.transformer = t.form.List.transformer;
 
 // orgTypes options
 const OrgTypes = [
@@ -931,7 +989,7 @@ export const defaultFormOptions = () => ({
           />,
         }}
       />,
-      factory: ReactSelectEthnicityRaceFactory,
+      factory: EthnicityRaceCheckboxesFactory,
       help: <FormattedMessage
         id="forms.ethnicityRaceHelpText"
         description="Help text for Ethnicity/Race map field"

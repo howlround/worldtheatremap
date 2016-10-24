@@ -1,3 +1,4 @@
+@profiles
 Feature: Select gender options on profile
 
   As a user

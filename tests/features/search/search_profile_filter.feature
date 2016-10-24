@@ -21,8 +21,8 @@ Feature: Filters on profile search
     And I click on ".label-text=African-Diaspora"
     And I select "Producer" from the ".profile-organization-types-edit" combobox
     And I select "Venue" from the ".profile-organization-types-edit" combobox
-    And I select "Stage Director" from the ".profile-roles-edit" combobox
-    And I select "Administrator" from the ".profile-roles-edit" combobox
+    And I click on ".label-text=Stage Director"
+    And I click on ".label-text=Administrator"
     And I click on ".edit-profile-save"
     And I go to the "profiles" search page
     And I should not see ".search-results"

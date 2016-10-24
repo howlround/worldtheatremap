@@ -659,6 +659,57 @@ const Roles = [
 ];
 
 // selfDefinedRoles template
+const rolesCheckboxes = t.form.Form.templates.select.clone({
+  renderLabel: (locals) => {
+    const className = {
+      'control-label': true,
+      'disabled': locals.disabled,
+    }
+    return (
+      <label
+        title='For Individual profiles only'
+        htmlFor={locals.attrs.id}
+        className={classnames(className)}
+      >
+        {locals.label}
+      </label>
+    );
+  },
+
+  renderSelect: (locals) => {
+    function onChange(options) {
+      const values = (options || []).map(({ value }) => value)
+      locals.onChange(values)
+    }
+    return (
+      <Checkboxes
+        options={Roles}
+        values={locals.value}
+        name="roles"
+        onChange={locals.onChange}
+        disabled={locals.disabled}
+      />
+    );
+  },
+
+  renderHelp: (locals) => {
+    const className = {
+      'help-block': true,
+      'disabled': locals.disabled,
+    }
+
+    return (
+      <span
+        id={`${locals.attrs.id}-tip`}
+        className={classnames(className)}
+      >
+        {locals.help}
+      </span>
+    );
+  },
+});
+
+// selfDefinedRoles template
 const rolesTags = t.form.Form.templates.select.clone({
   renderLabel: (locals) => {
     const className = {
@@ -712,14 +763,22 @@ const rolesTags = t.form.Form.templates.select.clone({
 });
 
 // selfDefinedRoles factory function
-class ReactSelectRolesFactory extends t.form.Component {
+class RolesCheckboxesFactory extends t.form.Component {
+  getTemplate() {
+    return rolesCheckboxes;
+  }
+}
+
+// selfDefinedRoles factory function
+class RolesReactSelectFactory extends t.form.Component {
   getTemplate() {
     return rolesTags;
   }
 }
 
 // selfDefinedRoles transformer
-ReactSelectRolesFactory.transformer = t.form.List.transformer;
+RolesCheckboxesFactory.transformer = t.form.List.transformer;
+RolesReactSelectFactory.transformer = t.form.List.transformer;
 
 // Gender options
 const Genders = [
@@ -1332,7 +1391,7 @@ export const defaultFormOptions = () => ({
           />,
         }}
       />,
-      factory: ReactSelectRolesFactory,
+      factory: RolesCheckboxesFactory,
     },
     gender: {
       label: <FormattedMessage
@@ -1442,7 +1501,7 @@ export const filtersFormOptions = () => ({
         description="Label for the Roles form field"
         defaultMessage="What does this person do in the theatre?"
       />,
-      factory: ReactSelectRolesFactory,
+      factory: RolesReactSelectFactory,
     },
     gender: {
       label: <FormattedMessage
@@ -1556,7 +1615,7 @@ export const translateSourceFormOptions = () => ({
       disabled: true,
     },
     selfDefinedRoles: {
-      factory: ReactSelectRolesFactory,
+      factory: RolesReactSelectFactory,
       disabled: true,
     },
     gender: {

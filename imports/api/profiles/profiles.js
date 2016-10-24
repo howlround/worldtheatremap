@@ -16,6 +16,9 @@ import ReactSelect from 'react-select';
 import { AllCountriesFactory } from '../../api/countries/countries.js';
 import { interestsSelectFactory, interestsCheckboxFactory } from '../../api/interests/interests.js';
 
+// Components
+import Checkboxes from '../../ui/components/Checkboxes.jsx';
+
 class ProfilesCollection extends TAPi18n.Collection {
   // insert(profile, callback) {
   //   const ourProfile = profile;
@@ -1231,7 +1234,7 @@ export const defaultFormOptions = () => ({
           />,
         }}
       />,
-      factory: interestsSelectFactory(),
+      factory: interestsCheckboxFactory(),
     },
     orgTypes: {
       label: <FormattedMessage
@@ -1365,7 +1368,7 @@ export const filtersFormOptions = () => ({
         description="Label for Interests form field"
         defaultMessage="Interests"
       />,
-      factory: interestsCheckboxFactory(),
+      factory: interestsSelectFactory(),
     },
     orgTypes: {
       label: <FormattedMessage

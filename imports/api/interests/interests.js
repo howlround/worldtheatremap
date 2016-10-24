@@ -331,7 +331,7 @@ const Interests = [
 ];
 
 // interests template
-const interestsTags = t.form.Form.templates.select.clone({
+const interestsCheckboxes = t.form.Form.templates.select.clone({
   renderSelect: (locals) => {
     return (
       <Checkboxes
@@ -344,7 +344,7 @@ const interestsTags = t.form.Form.templates.select.clone({
   },
 });
 
-const interestsCheckboxes = t.form.Form.templates.select.clone({
+const interestsTags = t.form.Form.templates.select.clone({
   renderSelect: (locals) => {
     function onChange(options) {
       const values = (options || []).map(({ value }) => value);

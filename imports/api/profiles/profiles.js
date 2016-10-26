@@ -869,6 +869,54 @@ const Genders = [
 ];
 
 // Gender template
+const gendersCheckboxes = t.form.Form.templates.select.clone({
+  renderLabel: (locals) => {
+    const className = {
+      'control-label': true,
+      'disabled': locals.disabled,
+    }
+    return (
+      <label
+        title='For Individual profiles only'
+        htmlFor={locals.attrs.id}
+        className={classnames(className)}
+      >
+        {locals.label}
+      </label>
+    );
+  },
+
+  renderSelect: (locals) => {
+    return (
+      <Checkboxes
+        options={Genders}
+        values={locals.value}
+        name="gender"
+        onChange={locals.onChange}
+        disabled={locals.disabled}
+      />
+    );
+  },
+
+  renderHelp: (locals) => {
+    const className = {
+      'help-block': true,
+      'disabled': locals.disabled,
+    }
+
+    return (
+      <span
+        id={`${locals.attrs.id}-tip`}
+        className={classnames(className)}
+      >
+        {locals.help}
+      </span>
+    );
+  },
+});
+
+
+// Gender template
 const gendersTags = t.form.Form.templates.select.clone({
   renderLabel: (locals) => {
     const className = {
@@ -926,14 +974,23 @@ const gendersTags = t.form.Form.templates.select.clone({
 });
 
 // Gender factory function
-class ReactSelectGendersFactory extends t.form.Component {
+class GendersCheckboxesFactory extends t.form.Component {
+  getTemplate() {
+    return gendersCheckboxes;
+  }
+}
+
+
+// Gender factory function
+class GendersReactSelectFactory extends t.form.Component {
   getTemplate() {
     return gendersTags;
   }
 }
 
 // Gender transformer
-ReactSelectGendersFactory.transformer = t.form.List.transformer;
+GendersCheckboxesFactory.transformer = t.form.List.transformer;
+GendersReactSelectFactory.transformer = t.form.List.transformer;
 
 // Get field labels to change based on disabled value
 const disabledOrgFieldTemplate = t.form.Form.templates.textbox.clone({
@@ -1463,7 +1520,7 @@ export const defaultFormOptions = () => ({
           />,
         }}
       />,
-      factory: ReactSelectGendersFactory,
+      factory: GendersCheckboxesFactory,
     },
   },
 });
@@ -1561,7 +1618,7 @@ export const filtersFormOptions = () => ({
         description="Label for the Gender form field"
         defaultMessage="Gender"
       />,
-      factory: ReactSelectGendersFactory,
+      factory: GendersReactSelectFactory,
     },
   },
 });
@@ -1671,7 +1728,7 @@ export const translateSourceFormOptions = () => ({
       disabled: true,
     },
     gender: {
-      factory: ReactSelectGendersFactory,
+      factory: GendersReactSelectFactory,
       disabled: true,
     },
   },

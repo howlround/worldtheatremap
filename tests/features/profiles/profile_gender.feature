@@ -17,7 +17,7 @@ Feature: Select gender options on profile
     And I fill in ".profile-locality-edit" with "Tirana"
     And I fill in ".profile-administrative-area-edit" with "Tirana County"
     And I select "Albania" from the ".country-select-edit" combobox
-    And I select "Female" from the ".profile-gender-edit" combobox
+    And I click on ".gender-label-text=Female"
     And I click on ".edit-profile-save"
     Then the ".profile-gender" element should contain "Female"
 
@@ -30,7 +30,7 @@ Feature: Select gender options on profile
     And I fill in ".profile-locality-edit" with "Tirana"
     And I fill in ".profile-administrative-area-edit" with "Tirana County"
     And I select "Albania" from the ".country-select-edit" combobox
-    And I select "Female" from the ".profile-gender-edit" combobox
-    And I select "Another Identity" from the ".profile-gender-edit" combobox
+    And I click on ".gender-label-text=Female"
+    And I click on ".gender-label-text=Another Identity"
     And I click on ".edit-profile-save"
     Then the ".profile-gender" element should contain "Female and Another Identity"

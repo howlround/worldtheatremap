@@ -60,7 +60,7 @@ export default class Checkboxes extends React.Component {
               onChange={this.onChange}
               disabled={disabled}
             />
-            <div className="label-text">
+            <div className={`label-text ${name}-label-text`}>
               {option.label}
             </div>
           </label>

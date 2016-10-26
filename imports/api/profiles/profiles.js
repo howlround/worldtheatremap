@@ -334,11 +334,11 @@ const OrgTypes = [
     />,
   },
   {
-    value: 'Producer/ Presenter',
+    value: 'Producer / Presenter',
     label: <FormattedMessage
-      id="orgType.Producer/ Presenter"
-      description="Org Types: Producer/ Presenter"
-      defaultMessage="Producer/ Presenter"
+      id="orgType.Producer / Presenter"
+      description="Org Types: Producer / Presenter"
+      defaultMessage="Producer / Presenter"
     />,
   },
   {
@@ -374,6 +374,53 @@ const OrgTypes = [
     />,
   },
 ];
+
+// orgTypes template
+const orgTypesCheckboxes = t.form.Form.templates.select.clone({
+  renderLabel: (locals) => {
+    const className = {
+      'control-label': true,
+      'disabled': locals.disabled,
+    }
+    return (
+      <label
+        title='For Organizational profiles only'
+        htmlFor={locals.attrs.id}
+        className={classnames(className)}
+      >
+        {locals.label}
+      </label>
+    );
+  },
+
+  renderSelect: (locals) => {
+    return (
+      <Checkboxes
+        options={OrgTypes}
+        values={locals.value}
+        name="organization-types"
+        onChange={locals.onChange}
+        disabled={locals.disabled}
+      />
+    );
+  },
+
+  renderHelp: (locals) => {
+    const className = {
+      'help-block': true,
+      'disabled': locals.disabled,
+    }
+
+    return (
+      <span
+        id={`${locals.attrs.id}-tip`}
+        className={classnames(className)}
+      >
+        {locals.help}
+      </span>
+    );
+  },
+});
 
 // orgTypes template
 const orgTypesTags = t.form.Form.templates.select.clone({
@@ -429,14 +476,23 @@ const orgTypesTags = t.form.Form.templates.select.clone({
 });
 
 // orgTypes factory function
-class ReactSelectOrgTypesFactory extends t.form.Component {
+class OrgTypesCheckboxesFactory extends t.form.Component {
+  getTemplate() {
+    return orgTypesCheckboxes;
+  }
+}
+
+
+// orgTypes factory function
+class OrgTypesReactSelectFactory extends t.form.Component {
   getTemplate() {
     return orgTypesTags;
   }
 }
 
 // orgTypes transformer
-ReactSelectOrgTypesFactory.transformer = t.form.List.transformer;
+OrgTypesCheckboxesFactory.transformer = t.form.List.transformer;
+OrgTypesReactSelectFactory.transformer = t.form.List.transformer;
 
 // selfDefinedRoles options
 const Roles = [
@@ -677,10 +733,6 @@ const rolesCheckboxes = t.form.Form.templates.select.clone({
   },
 
   renderSelect: (locals) => {
-    function onChange(options) {
-      const values = (options || []).map(({ value }) => value)
-      locals.onChange(values)
-    }
     return (
       <Checkboxes
         options={Roles}
@@ -1371,7 +1423,7 @@ export const defaultFormOptions = () => ({
           />,
         }}
       />,
-      factory: ReactSelectOrgTypesFactory,
+      factory: OrgTypesCheckboxesFactory,
     },
     selfDefinedRoles: {
       label: <FormattedMessage
@@ -1493,7 +1545,7 @@ export const filtersFormOptions = () => ({
         description="Label for an Organization Type form field"
         defaultMessage="What kind of organization is this?"
       />,
-      factory: ReactSelectOrgTypesFactory,
+      factory: OrgTypesReactSelectFactory,
     },
     selfDefinedRoles: {
       label: <FormattedMessage
@@ -1611,7 +1663,7 @@ export const translateSourceFormOptions = () => ({
       disabled: true,
     },
     orgTypes: {
-      factory: ReactSelectOrgTypesFactory,
+      factory: OrgTypesReactSelectFactory,
       disabled: true,
     },
     selfDefinedRoles: {

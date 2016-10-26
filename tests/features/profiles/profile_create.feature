@@ -32,7 +32,7 @@ Feature: Create organization profiles
     And I fill in ".profile-social-edit" with "Facebook: facebook.com/fatima"
     And I fill in ".profile-founding-year-edit" with "1979"
     And I click on ".label-text=Musical Theatre"
-    And I select "Producer" from the ".profile-organization-types-edit" combobox
+    And I click on ".organization-types-label-text=Producer / Presenter"
     And I click on ".label-text=Stage Director"
     And I click on ".edit-profile-save"
     Then the ".profile-name" element should contain "Fatima"

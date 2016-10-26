@@ -19,8 +19,8 @@ Feature: Filters on profile search
     And I fill in ".profile-postal-code-edit" with "16000"
     And I click on ".label-text=Musical Theatre"
     And I click on ".label-text=African-Diaspora"
-    And I select "Producer" from the ".profile-organization-types-edit" combobox
-    And I select "Venue" from the ".profile-organization-types-edit" combobox
+    And I click on ".organization-types-label-text=Producer / Presenter"
+    And I click on ".organization-types-label-text=Venue"
     And I click on ".label-text=Stage Director"
     And I click on ".label-text=Administrator"
     And I click on ".edit-profile-save"
@@ -99,7 +99,7 @@ Feature: Filters on profile search
     And I fill in ".profile-locality-edit" with "Kuala Lumpur"
     And I fill in ".profile-administrative-area-edit" with "Kuala Lumpur"
     And I select "Malaysia" from the ".country-select-edit" combobox
-    And I select "Venue" from the ".profile-organization-types-edit" combobox
+    And I click on ".organization-types-label-text=Venue"
     And I click on ".edit-profile-save"
     And I go to the "profiles" search page
     And I should not see ".search-results"

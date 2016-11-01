@@ -10,7 +10,7 @@ import classnames from 'classnames';
 import { FormattedMessage } from 'react-intl';
 
 // API
-import { factory as interestsFactory } from '../../api/interests/interests.js';
+import { interestsCheckboxFactory, interestsSelectFactory } from '../../api/interests/interests.js';
 
 // Containers
 import RelatedProfileTextboxContainer from '../../ui/containers/RelatedProfileTextboxContainer.jsx';
@@ -234,7 +234,7 @@ export const defaultFormOptions = () => ({
           />,
         }}
       />,
-      factory: interestsFactory(),
+      factory: interestsCheckboxFactory(),
     },
   },
 });
@@ -255,7 +255,7 @@ export const filtersFormOptions = () => ({
         description="Label for Interests form field"
         defaultMessage="Interests"
       />,
-      factory: interestsFactory(),
+      factory: interestsSelectFactory(),
     },
   },
 });

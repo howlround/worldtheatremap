@@ -993,7 +993,7 @@ GendersCheckboxesFactory.transformer = t.form.List.transformer;
 GendersReactSelectFactory.transformer = t.form.List.transformer;
 
 // Get field labels to change based on disabled value
-const disabledOrgFieldTemplate = t.form.Form.templates.textbox.clone({
+const disabledFieldTemplate = t.form.Form.templates.textbox.clone({
   renderLabel: (locals) => {
     const className = {
       'control-label': true,
@@ -1001,7 +1001,7 @@ const disabledOrgFieldTemplate = t.form.Form.templates.textbox.clone({
     }
     return (
       <label
-        title='For Organizational profiles only'
+        title="Select profile type"
         htmlFor={locals.attrs.id}
         className={classnames(className)}
       >
@@ -1033,6 +1033,7 @@ export const profileSchema = t.struct({
   name: t.String, // Required
   gender: t.maybe(t.list(t.String)),
   ethnicityRace: t.maybe(t.list(t.String)),
+  ethnicityRaceDisplay: t.maybe(t.String),
   selfDefinedRoles: t.maybe(t.list(t.String)),
   foundingYear: t.maybe(t.String),
   orgTypes: t.maybe(t.list(t.String)),
@@ -1161,8 +1162,36 @@ export const defaultFormOptions = () => ({
       help: <FormattedMessage
         id="forms.ethnicityRaceHelpText"
         description="Help text for Ethnicity/Race map field"
-        defaultMessage="If you are filling out a profile for another person we encourage you not to guess. If you are USA-based, we encourage you to fill answer out these questions for research purposes. (Select all that apply. Refer to https://en.wikipedia.org/wiki/Race_and_ethnicity_in_the_United_States for definitions)"
+        defaultMessage="If you are filling out a profile for another person we encourage you not to guess. If you are USA-based, we encourage you to fill answer out these questions for research purposes. This information will not be displayed on the profile, but selecting options in this field will cause the profile to be searchable by Ethnicity/Race. (Select all that apply. Refer to https://en.wikipedia.org/wiki/Race_and_ethnicity_in_the_United_States for definitions)"
       />,
+    },
+    ethnicityRaceDisplay: {
+      template: disabledFieldTemplate,
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.ethnicityRaceDisplayLabel"
+            description="Label for a Ethnicity/Race Display form field"
+            defaultMessage="How should Ethnicity/Race be displayed on this profile?"
+          />,
+        }}
+      />,
+      help: <FormattedMessage
+        id="forms.ethnicityRaceDisplayHelp"
+        description="Help text Ethnicity/Race Display"
+        defaultMessage="If you would like any Ethnicity/Race information to appear on your profile, you may enter it here. Regardless of selections above, only information you enter here will be displayed on the profile."
+      />,
+      attrs: {
+        className: 'profile-display-ethnicity-edit',
+      }
     },
     streetAddress: {
       label: <FormattedMessage
@@ -1419,7 +1448,7 @@ export const defaultFormOptions = () => ({
       />,
     },
     foundingYear: {
-      template: disabledOrgFieldTemplate,
+      template: disabledFieldTemplate,
       label: <FormattedMessage
         id="forms.labelRequiredOrOptional"
         description="Label for a form field with required or optional specified"
@@ -1742,6 +1771,7 @@ Profiles.publicFields = {
   about: 1,
   profileType: 1,
   ethnicityRace: 1,
+  ethnicityRaceDisplay: 1,
   image: 1,
   streetAddress: 1,
   locality: 1,

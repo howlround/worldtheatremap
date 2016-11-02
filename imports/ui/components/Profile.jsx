@@ -384,6 +384,8 @@ class Profile extends React.Component {
                 <div className="profile-roles" title="Roles">{selfDefinedRoles}</div> : ''}
               {!_.isEmpty(profile.gender) ?
                 <div className="profile-gender" title="Gender">{genders}</div> : ''}
+              {!_.isEmpty(profile.ethnicityRaceDisplay) ?
+                <div className="profile-ethnicity-race-display">{profile.ethnicityRaceDisplay}</div> : ''}
               {!_.isEmpty(profile.orgTypes) ?
                 <div
                   className="profile-organization-types"

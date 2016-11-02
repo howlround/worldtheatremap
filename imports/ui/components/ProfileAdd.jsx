@@ -166,6 +166,7 @@ class ProfileAdd extends React.Component {
     if (!_.contains(profileType, 'Individual')) {
       formOptions.fields.gender.disabled = true;
       formOptions.fields.ethnicityRace.disabled = true;
+      formOptions.fields.ethnicityRaceDisplay.disabled = true;
       formOptions.fields.selfDefinedRoles.disabled = true;
     }
 

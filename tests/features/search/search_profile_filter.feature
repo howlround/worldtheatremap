@@ -45,7 +45,7 @@ Feature: Filters on profile search
     And I fill in ".profile-locality-edit" with "Kuala Lumpur"
     And I fill in ".profile-administrative-area-edit" with "Kuala Lumpur"
     And I select "Malaysia" from the ".country-select-edit" combobox
-    And I select "Performer" from the ".profile-roles-edit" combobox
+    And I click on ".roles-label-text=Performer"
     And I click on ".edit-profile-save"
     And I go to the "profiles" search page
     And I should not see ".search-results"
@@ -72,12 +72,12 @@ Feature: Filters on profile search
     And I fill in ".profile-locality-edit" with "Kuala Lumpur"
     And I fill in ".profile-administrative-area-edit" with "Kuala Lumpur"
     And I select "Malaysia" from the ".country-select-edit" combobox
-    And I click on ".label-text=Adaptation"
+    And I click on ".label-text=Opera"
     And I click on ".edit-profile-save"
     And I go to the "profiles" search page
     And I should not see ".search-results"
     When I select "African-Diaspora" from the ".interests-edit" combobox
-    And I select "Adaptation" from the ".interests-edit" combobox
+    And I select "Opera" from the ".interests-edit" combobox
     And the ".search-results" element should contain "Fatima"
     And the ".search-results" element should contain "Nor"
 

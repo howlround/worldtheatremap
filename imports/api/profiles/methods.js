@@ -4,6 +4,7 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-validation';
+import { check } from 'meteor/check'
 
 import { Profiles, profileSchema } from './profiles.js';
 
@@ -87,12 +88,54 @@ export const insert = new ValidatedMethod({
       }
     }
 
-    // @TODO: Change Update function to match
-    return Profiles.insertTranslations(newProfile, {
+    const insertedProfileID = Profiles.insertTranslations(newProfile, {
         es: {
           name: newProfile.name,
         },
     });
+
+    // Translate about field
+    var result = HTTP.call('GET', 'https://www.googleapis.com/language/translate/v2', {
+      params: {
+        key: 'AIzaSyDd5wMMzFJAoaDt4WN9TIr5QXM1M7zCz7A',
+        q: newProfile.about,
+        source: 'en',
+        target: 'es',
+      }
+    },
+    (error, result) => {
+      if (result.statusCode == 200) {
+        const translatedText = result.data.data.translations[0].translatedText;
+        Meteor.call('profiles.updateTranslation', {
+          targetLang,
+          insertedProfileID,
+          translatedDoc: {
+            es: {
+              about: translatedText,
+            },
+          },
+        });
+      }
+    });
+
+    // @TODO: Change Update function to match
+    return insertedProfileID;
+  },
+});
+
+export const updateTranslation = new ValidatedMethod({
+  name: 'profiles.updateTranslation',
+  validate({ translatedDoc }) {
+    var pattern = { es: { about: Match.Maybe(String) } };
+    check(translatedDoc, pattern);
+  },
+  run({ insertedProfileID, translatedDoc, targetLang }) {
+    if (!this.userId) {
+      throw new Meteor.Error('profiles.updateTranslation.accessDenied',
+        'You must be logged in to complete this operation.');
+    }
+
+    return Profiles.updateTranslations(insertedProfileID, translatedDoc);
   },
 });
 
@@ -107,7 +150,6 @@ export const updateImage = new ValidatedMethod({
       throw new Meteor.Error('profiles.updateImage.accessDenied',
         'You must be logged in to complete this operation.');
     }
-
 
     const profile = Profiles.findOne(profileId);
     const imageWide = image.replace('https://wtm-dev-images', 'https://wtm-dev-images-resized');
@@ -189,6 +231,7 @@ export const remove = new ValidatedMethod({
 // Get profile of all method names on Profiles
 const PROFILES_METHODS = _.pluck([
   insert,
+  updateTranslation,
   update,
   translate,
   remove,

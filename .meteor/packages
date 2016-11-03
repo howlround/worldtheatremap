@@ -8,7 +8,7 @@
 meteor-base@1.0.4
 ecmascript@0.5.8_1
 es5-shim@4.6.14_1
-check@1.2.3
+check
 tracker@1.1.0
 
 # standard libraries
@@ -65,3 +65,4 @@ tap:i18n-db
 mdg:seo
 service-configuration@1.0.10
 shell-server
+http

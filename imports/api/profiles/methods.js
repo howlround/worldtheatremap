@@ -26,7 +26,10 @@ export const insert = new ValidatedMethod({
       throw new ValidationError(result.firstError());
     }
   },
-  run({ newProfile, targetLang }) {
+  run({ newProfile, locale }) {
+    let source = 'en';
+    let target = 'es';
+
     if (!this.userId) {
       throw new Meteor.Error('profiles.insert.accessDenied',
         'You must be logged in to complete this operation.');
@@ -53,7 +56,10 @@ export const insert = new ValidatedMethod({
     // [Viewing English + ]Target: Spanish
     //  - Save name, and all tags, and image to english; everything minus tags to spanish
 
-    if (targetLang && targetLang === 'es') {
+    if (locale && locale === 'es') {
+      source = 'es';
+      target = 'en';
+
       const baseDoc = {
         name: newProfile.name,
       }
@@ -99,19 +105,23 @@ export const insert = new ValidatedMethod({
       params: {
         key: 'AIzaSyDd5wMMzFJAoaDt4WN9TIr5QXM1M7zCz7A',
         q: newProfile.about,
-        source: 'en',
-        target: 'es',
+        source,
+        target,
       }
     },
     (error, result) => {
       if (result.statusCode == 200) {
         const translatedText = result.data.data.translations[0].translatedText;
+
         Meteor.call('profiles.updateTranslation', {
-          targetLang,
+          locale,
           insertedProfileID,
           translatedDoc: {
-            es: {
+            [target]: {
               about: translatedText,
+            },
+            [source]: {
+              about: newProfile.about,
             },
           },
         });
@@ -126,10 +136,15 @@ export const insert = new ValidatedMethod({
 export const updateTranslation = new ValidatedMethod({
   name: 'profiles.updateTranslation',
   validate({ translatedDoc }) {
-    var pattern = { es: { about: Match.Maybe(String) } };
-    check(translatedDoc, pattern);
+    var patternES = { es: { about: Match.Maybe(String) } };
+    var patternEN = { en: { about: Match.Maybe(String) } };
+    var patternBoth = {
+      en: { about: Match.Maybe(String) },
+      es: { about: Match.Maybe(String) }
+    };
+    check(translatedDoc, Match.OneOf(patternEN, patternES, patternBoth));
   },
-  run({ insertedProfileID, translatedDoc, targetLang }) {
+  run({ insertedProfileID, translatedDoc, locale }) {
     if (!this.userId) {
       throw new Meteor.Error('profiles.updateTranslation.accessDenied',
         'You must be logged in to complete this operation.');

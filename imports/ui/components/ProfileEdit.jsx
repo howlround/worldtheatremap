@@ -14,9 +14,9 @@ class ProfileEdit extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = this.props.profile;
-
     const { locale } = this.props.intl;
+
+    this.state = this.props.profile;
 
     this.throttledUpdate = _.throttle(newProfile => {
       if (newProfile) {

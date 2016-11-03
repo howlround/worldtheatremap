@@ -15,12 +15,15 @@ class ProfileAdd extends React.Component {
   constructor(props) {
     super(props);
 
+    const { locale } = this.props.intl;
+
     this.state = {};
 
     this.throttledAdd = _.throttle(newProfile => {
       if (newProfile) {
         const newID = insert.call({
           newProfile,
+          locale,
         }, displayError);
 
         return newID;

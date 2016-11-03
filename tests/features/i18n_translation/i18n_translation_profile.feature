@@ -27,7 +27,15 @@ Feature: Translate profile fields
     And the ".profile-name" element should contain "Simona"
     And the ".profile-about" element should contain "Most popular name in Mexico (2013)"
 
-  # Scenario: Creating a profile in Spanish
+  Scenario: Creating a profile in Spanish should automatically translate the about field into English
+    And I am logged in
+    And I click on ".language-switcher [name=es]"
+    And I go to the "profile" add page
+    And I fill in ".profile-name-edit" with "Ximena"
+    And I fill in ".profile-about-edit" with "El nombre más popular en México"
+    And I click on ".edit-profile-save"
+    And I click on ".language-switcher [name=en]"
+    And the ".profile-about" element should contain "The most popular name in Mexico"
 
   Scenario: When creating a new profile the about field should be automatically translated
     And I am logged in

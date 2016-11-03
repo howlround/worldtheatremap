@@ -101,32 +101,34 @@ export const insert = new ValidatedMethod({
     });
 
     // Translate about field
-    var result = HTTP.call('GET', 'https://www.googleapis.com/language/translate/v2', {
-      params: {
-        key: 'AIzaSyDd5wMMzFJAoaDt4WN9TIr5QXM1M7zCz7A',
-        q: newProfile.about,
-        source,
-        target,
-      }
-    },
-    (error, result) => {
-      if (result.statusCode == 200) {
-        const translatedText = result.data.data.translations[0].translatedText;
+    if (newProfile.about) {
+      var result = HTTP.call('GET', 'https://www.googleapis.com/language/translate/v2', {
+        params: {
+          key: 'AIzaSyDd5wMMzFJAoaDt4WN9TIr5QXM1M7zCz7A',
+          q: newProfile.about,
+          source,
+          target,
+        }
+      },
+      (error, result) => {
+        if (result.statusCode == 200) {
+          const translatedText = result.data.data.translations[0].translatedText;
 
-        Meteor.call('profiles.updateTranslation', {
-          locale,
-          insertedProfileID,
-          translatedDoc: {
-            [target]: {
-              about: translatedText,
+          Meteor.call('profiles.updateTranslation', {
+            locale,
+            insertedProfileID,
+            translatedDoc: {
+              [target]: {
+                about: translatedText,
+              },
+              [source]: {
+                about: newProfile.about,
+              },
             },
-            [source]: {
-              about: newProfile.about,
-            },
-          },
-        });
-      }
-    });
+          });
+        }
+      });
+    }
 
     // @TODO: Change Update function to match
     return insertedProfileID;

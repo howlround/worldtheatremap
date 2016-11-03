@@ -15,28 +15,26 @@ Feature: Translate profile fields
     And I select "Individual" from the ".profile-type-edit" combobox
     And I fill in ".profile-about-edit" with "Most popular name in Mexico (2013)"
     And I click on ".edit-profile-save"
-    When I click on ".translate-link"
-    And I fill in ".translation-target .profile-name-edit" with "Ximena"
-    And I fill in ".translation-target .profile-about-edit" with "La mayoría nombre popular en México (2013)"
-    And I click on ".translation-target .edit-profile-save"
-    # Make sure it's not just overwriting base language
-    Then the ".profile-name" element should contain "Simona"
-    And the ".profile-about" element should contain "Most popular name in Mexico (2013)"
-    And I click on ".language-switcher [name=es]"
-    And the ".profile-name" element should contain "Ximena"
+    When I click on ".language-switcher [name=es]"
+    And I follow ".edit-link"
+    And I fill in ".profile-name-edit" with "Ximena"
+    And I fill in ".profile-about-edit" with "La mayoría nombre popular en México (2013)"
+    And I click on ".edit-profile-save"
+    Then the ".profile-name" element should contain "Ximena"
     And the ".profile-about" element should contain "La mayoría nombre popular en México (2013)"
+    # Make sure it's not just overwriting base language
+    And I click on ".language-switcher [name=en]"
+    And the ".profile-name" element should contain "Simona"
+    And the ".profile-about" element should contain "Most popular name in Mexico (2013)"
 
-  Scenario: The translate page should display the translation next time it loaded
+  # Scenario: Creating a profile in Spanish
+
+  Scenario: When creating a new profile the about field should be automatically translated
     And I am logged in
     And I go to the "profile" add page
     And I fill in ".profile-name-edit" with "Simona"
     And I select "Individual" from the ".profile-type-edit" combobox
-    And I fill in ".profile-about-edit" with "Most popular name in Mexico (2013)"
+    And I fill in ".profile-about-edit" with "The most popular name in Mexico"
     And I click on ".edit-profile-save"
-    And I click on ".translate-link"
-    And I fill in ".translation-target .profile-name-edit" with "Ximena"
-    And I fill in ".translation-target .profile-about-edit" with "La mayoría nombre popular en México (2013)"
-    And I click on ".translation-target .edit-profile-save"
-    When I click on ".translate-link"
-    Then the ".translation-target .profile-name-edit" field should have the value "Ximena"
-    And the ".translation-target .profile-about-edit" field should have the value "La mayoría nombre popular en México (2013)"
+    And I click on ".language-switcher [name=es]"
+    And the ".profile-about" element should contain "El nombre más popular en México"

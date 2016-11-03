@@ -16,11 +16,14 @@ class ProfileEdit extends React.Component {
 
     this.state = this.props.profile;
 
+    const { locale } = this.props.intl;
+
     this.throttledUpdate = _.throttle(newProfile => {
       if (newProfile) {
         update.call({
           profileId: this.props.profile._id,
           newProfile,
+          lang: locale,
         }, displayError);
 
         // @TODO:Update this profile name in all plays and events

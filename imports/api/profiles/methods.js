@@ -172,7 +172,7 @@ export const update = new ValidatedMethod({
       throw new ValidationError(result.firstError());
     }
   },
-  run({ profileId, newProfile }) {
+  run({ profileId, newProfile, lang }) {
     if (!this.userId) {
       throw new Meteor.Error('profiles.update.accessDenied',
         'You must be logged in to complete this operation.');
@@ -188,9 +188,10 @@ export const update = new ValidatedMethod({
       upsertCountry.call({ country: newProfile.country });
     }
 
-    Profiles.update(profileId, {
-      $set: newProfile,
-    });
+    const doc = {};
+    doc[lang] = newProfile
+
+    Profiles.updateTranslations(profileId, doc);
   },
 });
 

@@ -221,21 +221,6 @@ class Profile extends React.Component {
       </Link>
     : '';
 
-    const translateLink = (user) ?
-      <Link
-        to={`/profiles/${ profile._id }/translate/es`}
-        key={`${profile._id}-translate`}
-        title={`Translate ${profile.name}`}
-        className="translate-link"
-      >
-        <FormattedMessage
-          id="ui.translate"
-          description='Generic translate link'
-          defaultMessage='Translate'
-        />
-      </Link>
-    : '';
-
     let Shows;
     if (showsForAuthor && showsForAuthor.length) {
       Shows = showsForAuthor.map(show => (
@@ -406,10 +391,9 @@ class Profile extends React.Component {
                 <div className="profile-interests" title="Interests">{interests}</div> : ''}
             </div>
           </div>
-          {editLink || translateLink ?
+          {editLink ?
             <div className="edit-links">
               {editLink}
-              {translateLink}
             </div>
             : ''
           }
@@ -425,10 +409,9 @@ class Profile extends React.Component {
             </h2>
             {/* <div dangerouslySetInnerHTML={{__html: profile.about}} /> */}
             {profile.about}
-            {editLink || translateLink ?
+            {editLink ?
               <div className="edit-links">
                 {editLink}
-                {translateLink}
               </div>
               : ''
             }

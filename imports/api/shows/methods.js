@@ -25,32 +25,23 @@ export const insert = new ValidatedMethod({
 
     let source = 'en';
     let target = 'es';
+    let translations = {};
 
     if (locale && locale === 'es') {
       // Source language is Spanish
       // Translate to English
       source = 'es';
       target = 'en';
-
-      const baseDoc = {
-        name: newShow.name,
-      }
-
-      if (!_.isEmpty(newShow.interests)) {
-        baseDoc.interests = newShow.interests;
-        delete newShow.interests;
-      }
-
-      const translatedDoc = newShow;
     } else {
       // Source language is English, either by default or specifically stated
-      const baseDoc = newShow;
-      const translatedDoc = {
-        name: newShow.name,
+      translations = {
+        es: {
+          name: newShow.name,
+        },
       }
     }
 
-    const insertedShowID = Shows.insertTranslations(newShow);
+    const insertedShowID = Shows.insertTranslations(newShow, translations);
 
     // Translate about field
     if (newShow.about && Meteor.settings.GoogleTranslateAPIKey) {

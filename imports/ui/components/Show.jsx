@@ -2,18 +2,19 @@ import React from 'react';
 import { Link } from 'react-router';
 import { insert } from '../../api/shows/methods.js';
 import classNames from 'classnames';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import Authors from '../components/Authors.jsx';
 import EventTeaser from '../components/EventTeaser.jsx';
 import EventsMiniGlobe from '../components/EventsMiniGlobe.jsx';
 
-export default class Show extends React.Component {
+class Show extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
     const { show, user, eventsByShow } = this.props;
+    const { formatMessage } = this.props.intl;
 
     const editLink = user ?
       <Link
@@ -51,7 +52,18 @@ export default class Show extends React.Component {
           seperator = ' and ';
         }
       }
-      return <span key={interest}>{interest}{seperator}</span>
+      return (
+        <span key={interest}>
+          {
+            formatMessage({
+              'id': `interest.${interest}`,
+              'defaultMessage': interest,
+              'description': `Interests option: ${interest}`
+            })
+          }
+          {seperator}
+        </span>
+      );
     }) : false;
 
     const articleClasses = classNames('show', 'full', {
@@ -126,8 +138,11 @@ Show.propTypes = {
   eventsByShow: React.PropTypes.array,
   user: React.PropTypes.object,
   onEditingChange: React.PropTypes.func,
+  intl: intlShape.isRequired,
 };
 
 Show.contextTypes = {
   router: React.PropTypes.object,
 };
+
+export default injectIntl(Show);

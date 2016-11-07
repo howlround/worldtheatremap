@@ -101,10 +101,10 @@ export const insert = new ValidatedMethod({
     });
 
     // Translate about field
-    if (newProfile.about) {
+    if (newProfile.about && Meteor.settings.GoogleTranslateAPIKey) {
       var result = HTTP.call('GET', 'https://www.googleapis.com/language/translate/v2', {
         params: {
-          key: 'AIzaSyDd5wMMzFJAoaDt4WN9TIr5QXM1M7zCz7A',
+          key: Meteor.settings.GoogleTranslateAPIKey,
           q: newProfile.about,
           source,
           target,

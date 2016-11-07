@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { _ } from 'meteor/underscore';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { displayError } from '../helpers/errors.js';
 import t from 'tcomb-form';
 
@@ -14,9 +14,11 @@ import { Profiles } from '../../api/profiles/profiles.js';
 
 const Form = t.form.Form;
 
-export default class ShowAdd extends React.Component {
+class ShowAdd extends React.Component {
   constructor(props) {
     super(props);
+
+    const { locale } = this.props.intl;
 
     this.state = {
       name: this.props.defaultName,
@@ -27,6 +29,7 @@ export default class ShowAdd extends React.Component {
       if (newShow) {
         const newID = insert.call({
           newShow,
+          locale,
         }, displayError);
 
         return newID;
@@ -107,8 +110,11 @@ export default class ShowAdd extends React.Component {
 ShowAdd.propTypes = {
   showCallback: React.PropTypes.func,
   defaultName: React.PropTypes.string,
+  intl: intlShape.isRequired,
 };
 
 ShowAdd.contextTypes = {
   router: React.PropTypes.object,
 };
+
+export default injectIntl(ShowAdd);

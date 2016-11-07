@@ -27,13 +27,13 @@ export const insert = new ValidatedMethod({
     }
   },
   run({ newProfile, locale }) {
-    let source = 'en';
-    let target = 'es';
-
     if (!this.userId) {
       throw new Meteor.Error('profiles.insert.accessDenied',
         'You must be logged in to complete this operation.');
     }
+
+    let source = 'en';
+    let target = 'es';
 
     if (!_.isEmpty(newProfile.locality)) {
       upsertLocality.call({ locality: newProfile.locality });

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { _ } from 'meteor/underscore';
 import { displayError } from '../helpers/errors.js';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import {
   update,
   remove,
@@ -13,9 +13,11 @@ import t from 'tcomb-form';
 
 const Form = t.form.Form;
 
-export default class ShowEdit extends React.Component {
+class ShowEdit extends React.Component {
   constructor(props) {
     super(props);
+
+    const { locale } = this.props.intl;
 
     this.state = {
       show: this.props.show,
@@ -26,6 +28,7 @@ export default class ShowEdit extends React.Component {
         update.call({
           showId: this.props.show._id,
           newShow,
+          lang: locale,
         }, displayError);
       }
     }, 300);
@@ -124,8 +127,11 @@ export default class ShowEdit extends React.Component {
 ShowEdit.propTypes = {
   show: React.PropTypes.object,
   onEditingChange: React.PropTypes.func,
+  intl: intlShape.isRequired,
 };
 
 ShowEdit.contextTypes = {
   router: React.PropTypes.object,
 };
+
+export default injectIntl(ShowEdit);

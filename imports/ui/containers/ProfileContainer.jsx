@@ -107,7 +107,7 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
   //  - profile is author
   //  - profile is a participant
   //  - profile is listed as the local org
-  const showsSubscribe = Meteor.subscribe('shows.byAuthorPlusOthers', id, showsToSubscribeTo);
+  const showsSubscribe = TAPi18n.subscribe('shows.byAuthorPlusOthers', id, showsToSubscribeTo);
 
   const profile = Profiles.findOne(id);
 

@@ -9,7 +9,7 @@ import { Shows } from '../../api/shows/shows.js';
 
 const RelatedShowTextboxContainer = createContainer((props) => {
   let parentValue = _.clone(props.parentValue);
-  const showSubscribe = (!_.isEmpty(props.parentValue)) ? Meteor.subscribe('shows.singleById', parentValue._id) : null;
+  const showSubscribe = (!_.isEmpty(props.parentValue)) ? TAPi18n.subscribe('shows.singleById', parentValue._id) : null;
   const updatedShowName = Shows.find({ _id: props.parentValue._id }, { fields: { name: 1 } }).fetch();
   if (!_.isNull(showSubscribe) && !_.isEmpty(updatedShowName) && updatedShowName.length > 0) {
     parentValue.name = updatedShowName[0].name
@@ -21,7 +21,7 @@ const RelatedShowTextboxContainer = createContainer((props) => {
   let loading = false;
 
   if (search && search.length > 0) {
-    const showsSubscribe = Meteor.subscribe('shows.autocompleteQuery', search);
+    const showsSubscribe = TAPi18n.subscribe('shows.autocompleteQuery', search);
     const regex = new RegExp('^' + search + '.*', 'i');
     results = Shows.find({name: { $regex: regex }}, { limit: 5, fields: Shows.autocompleteFields }).fetch();
 

@@ -9,7 +9,7 @@ import { Shows } from '../../api/shows/shows.js';
 
 const ShowNameContainer = createContainer((props) => {
   const { showId } = props;
-  // const showsSub = Meteor.subscribe('shows.singleNameById', showId);
+  // const showsSub = TAPi18n.subscribe('shows.singleNameById', showId);
   // const loading = !(showsSub.ready());
   const loading = false;
 

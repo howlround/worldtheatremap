@@ -16,13 +16,43 @@ export const insert = new ValidatedMethod({
       throw new ValidationError(result.firstError());
     }
   },
-  run({ newShow }) {
+  run({ newShow, locale }) {
     if (!this.userId) {
       throw new Meteor.Error('shows.insert.accessDenied',
         'You must be logged in to complete this operation.');
     }
 
-    return Shows.insert(newShow);
+    if (locale && locale === 'es') {
+      source = 'es';
+      target = 'en';
+
+      const baseDoc = {
+        name: newShow.name,
+      }
+
+      if (!_.isEmpty(newShow.interests)) {
+        baseDoc.interests = newShow.interests;
+        delete newShow.interests;
+      }
+
+      const translatedDoc = newShow;
+    } else {
+      // Target language is English, either by default or specifically stated
+      const baseDoc = newShow;
+      const translatedDoc = {
+        name: newShow.name,
+      }
+    }
+
+    const insertedShowID = Shows.insertTranslations(newShow, {
+        es: {
+          name: newShow.name,
+        },
+    });
+
+    // @TODO: Google Translate
+
+    return insertedShowID;
   },
 });
 
@@ -35,14 +65,16 @@ export const update = new ValidatedMethod({
       throw new ValidationError(result.firstError());
     }
   },
-  run({ showId, newShow }) {
+  run({ showId, newShow, lang }) {
     if (!this.userId) {
       throw new Meteor.Error('shows.insert.accessDenied',
         'You must be logged in to complete this operation.');
     }
-    Shows.update(showId, {
-      $set: newShow,
-    });
+
+    const doc = {};
+    doc[lang] = newShow;
+
+    Shows.updateTranslations(showId, doc);
   },
 });
 

@@ -37,7 +37,7 @@ Feature: Translate profile fields
     And I click on ".language-switcher [name=en]"
     And the ".profile-about" element should contain "The most popular name in Mexico"
 
-  Scenario: If the profile field is blank it should not be translated
+  Scenario: If the profile about field is blank it should not be translated
     And I am logged in
     And I go to the "profile" add page
     And I fill in ".profile-name-edit" with "Simona"

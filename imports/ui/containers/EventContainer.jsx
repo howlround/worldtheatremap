@@ -35,7 +35,7 @@ export default createContainer(({ params: { id } }) => {
   const authorsSubscribe = TAPi18n.subscribe('profiles.byId', profileIds);
 
   const showId = (event && event.show && event.show._id) ? event.show._id : null;
-  const showSubscribe = Meteor.subscribe('shows.singleById', showId);
+  const showSubscribe = TAPi18n.subscribe('shows.singleById', showId);
 
   const loading = !(
     singleEventSubscription.ready() &&

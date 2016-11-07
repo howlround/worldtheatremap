@@ -1,5 +1,5 @@
 // Meteor
-import { Mongo } from 'meteor/mongo';
+import { TAPi18n } from 'meteor/tap:i18n';
 
 // Forms
 import React from 'react';
@@ -16,15 +16,15 @@ import { interestsCheckboxFactory, interestsSelectFactory } from '../../api/inte
 import RelatedProfileTextboxContainer from '../../ui/containers/RelatedProfileTextboxContainer.jsx';
 
 
-class ShowsCollection extends Mongo.Collection {
-  insert(show, callback) {
-    const ourShow = show;
+class ShowsCollection extends TAPi18n.Collection {
+  // insert(show, callback) {
+  //   const ourShow = show;
 
-    return super.insert(ourShow, callback);
-  }
-  remove(selector, callback) {
-    return super.remove(selector, callback);
-  }
+  //   return super.insert(ourShow, callback);
+  // }
+  // remove(selector, callback) {
+  //   return super.remove(selector, callback);
+  // }
 }
 
 export const Shows = new ShowsCollection('Shows');

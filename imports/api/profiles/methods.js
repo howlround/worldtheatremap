@@ -206,7 +206,7 @@ export const update = new ValidatedMethod({
     }
 
     const doc = {};
-    doc[lang] = newProfile
+    doc[lang] = newProfile;
 
     Profiles.updateTranslations(profileId, doc);
   },

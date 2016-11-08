@@ -7,29 +7,26 @@ Feature: Related profiles on profile pages
 
   Background:
     Given I am on the English language home page
+    And I am logged in
     And a profile with the following fields:
       | name | My Favorite Playwright |
-    And I am logged in
-    And I go to the "show" add page
-    And I fill in ".show-name-edit" with "Sofia"
-    And I fill in ".show-author-name-edit" with "My Favorite Playwright"
-    And I click on ".autocomplete-results li"
-    And I fill in ".show-about-edit" with "Most popular name in Italy"
-    And I click on ".edit-show-save"
-    And I go to the "event" add page
+    When I go to the "event" add page
     And I fill in ".event-show-edit" with "Sofia"
     And I click on ".autocomplete-results li"
+    And I fill in ".show-author-name-edit" with "My Favorite Playwright"
+    And I click on ".autocomplete-results li"
+    And I click on ".edit-show-save"
     And I fill in ".event-organization-edit" with "Organization of the year"
     And I click on ".autocomplete-results li"
     And I select "Performance" from the ".event-type-edit" combobox
-    And I fill in ".event-about-edit" with "http://google.com"
-    And I fill in "[name=lat]" with "-36.03133177633187"
-    And I fill in "[name=lon]" with "-72.0703125"
     And I click on ".form-group-startDate input"
     And I click on ".react-datepicker__day=1"
     And I click on ".form-group-endDate input"
+    And I click on ".react-datepicker__navigation--next"
     And I click on ".react-datepicker__day=15"
-    And I select "Coral Sea Islands" from the ".country-select-edit" combobox
+    And I select "India" from the ".country-select-edit" combobox
+    And I fill in "[name=lat]" with "-36.03133177633187"
+    And I fill in "[name=lon]" with "-72.0703125"
     And I click on ".edit-event-save"
     And a profile with the following fields:
       | name | Il Regista |
@@ -51,6 +48,16 @@ Feature: Related profiles on profile pages
   Scenario: As a user viewing a profile I should see other profiles they are related to
     When I go to the profile page for "Il Regista"
     Then the ".related-profiles" element should contain "Il Curatore"
+
+  @i18n
+  Scenario: Related profiles should display in the correct language
+    When I click on ".language-switcher [name=es]"
+    And I go to the profile page for "Il Curatore"
+    And I follow ".edit-link"
+    And I fill in ".profile-name-edit" with "Conservador"
+    And I click on ".edit-profile-save"
+    When I go to the profile page for "Il Regista"
+    Then the ".related-profiles" element should contain "Conservador"
 
   Scenario: Primary authors should be listed as related profiles
     When I go to the profile page for "Il Regista"

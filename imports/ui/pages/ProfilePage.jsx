@@ -253,7 +253,7 @@ export default class ProfilePage extends React.Component {
     let relatedProfilesList = connections.map(profile => (
       <li key={profile._id}>
         <Link to={`/profiles/${profile._id}`}>
-          {profile.name}
+          <ProfileNameContainer profileId={profile._id} />
         </Link>
       </li>
     ));

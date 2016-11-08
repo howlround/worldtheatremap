@@ -18,7 +18,8 @@ const ProfileNameContainer = createContainer((props) => {
     {
       _id: profileId,
     }, {
-      fields: { name: 1 },
+      fields: { name: 1, i18n: 1 },
+      limit: 1,
     }).fetch()[0];
 
   const profileExists = !loading && !!profileName;

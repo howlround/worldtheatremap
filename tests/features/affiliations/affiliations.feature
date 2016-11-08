@@ -54,3 +54,26 @@ Feature: Create an affiliation
     And I click on ".edit-affiliation-save"
     And I click on ".delete-affiliation"
     Then I should not see ".affiliations li"
+
+  @i18n
+  Scenario: Profile names should display in the correct langauge in Affiliation lists
+    And I am logged in
+    And a profile with the following fields:
+      | name | Affiliated friends |
+      | about | We come together |
+    When I go to the "profile" add page
+    And I fill in ".profile-name-edit" with "National Organization"
+    And I select "Organization" from the ".profile-type-edit" combobox
+    And I click on ".organization-types-label-text=Network / Association / Union"
+    And I click on ".edit-profile-save"
+    And I go to the profile page for "Affiliated friends"
+    And I fill in ".affiliation-profile-edit" with "National Organization"
+    And I click on ".autocomplete-results li"
+    And I click on ".edit-affiliation-save"
+    When I go to the profile page for "National Organization"
+    And I click on ".language-switcher [name=es]"
+    And I follow ".edit-link"
+    And I fill in ".profile-name-edit" with "Organización Nacional"
+    And I click on ".edit-profile-save"
+    And I go to the profile page for "Affiliated friends"
+    Then the ".affiliations" element should contain "Organización Nacional"

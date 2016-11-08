@@ -268,6 +268,7 @@ Shows.publicFields = {
   author: 1,
   about: 1,
   interests: 1,
+  source: 1,
 };
 
 Shows.searchFields = {

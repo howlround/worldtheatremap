@@ -1791,6 +1791,7 @@ Profiles.publicFields = {
   orgTypes: 1,
   selfDefinedRoles: 1,
   gender: 1,
+  source: 1,
 };
 
 Profiles.autocompleteFields = {

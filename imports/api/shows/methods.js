@@ -41,6 +41,9 @@ export const insert = new ValidatedMethod({
       }
     }
 
+    // Save source language
+    newShow.source = source;
+
     const insertedShowID = Shows.insertTranslations(newShow, translations);
 
     // Translate about field

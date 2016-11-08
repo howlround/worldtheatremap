@@ -14,7 +14,7 @@ class Show extends React.Component {
 
   render() {
     const { show, user, eventsByShow } = this.props;
-    const { formatMessage } = this.props.intl;
+    const { formatMessage, locale } = this.props.intl;
 
     const editLink = user ?
       <Link
@@ -97,7 +97,7 @@ class Show extends React.Component {
             </div>
           </div>
         </section>
-        {show.about ?
+        {!_.isEmpty(show.about) ?
           <section className="show-about">
             <h2>
               <FormattedMessage
@@ -111,6 +111,15 @@ class Show extends React.Component {
             <div className="edit-links">
               {editLink}
             </div>
+            { !_.isEmpty(show.source) && show.source !== locale ?
+              <div className="machine-translation-warning">
+                <FormattedMessage
+                  id="translation.possibleMachineTranslationWarning"
+                  description="Text informing user that the text was possibly machine translated"
+                  defaultMessage="This text was written in another language and was originally machine translated. If you would like to make improvements to the translation please edit this page."
+                />
+              </div> : ''
+            }
           </section> : ''
         }
         {(eventsByShow && eventsByShow.length) ?

@@ -54,3 +54,13 @@ Feature: Translate profile fields
     And I click on ".edit-profile-save"
     And I click on ".language-switcher [name=es]"
     And the ".profile-about" element should contain "El nombre más popular en México"
+
+  Scenario: Profiles should record the source language
+    And I am logged in
+    And I go to the "profile" add page
+    And I fill in ".profile-name-edit" with "Simona"
+    And I select "Individual" from the ".profile-type-edit" combobox
+    And I fill in ".profile-about-edit" with "The most popular name in Mexico"
+    And I click on ".edit-profile-save"
+    And I click on ".language-switcher [name=es]"
+    Then I should see the ".machine-translation-warning" element

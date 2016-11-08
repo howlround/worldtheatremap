@@ -94,6 +94,9 @@ export const insert = new ValidatedMethod({
       }
     }
 
+    // Save source language
+    newProfile.source = source;
+
     const insertedProfileID = Profiles.insertTranslations(newProfile, {
         es: {
           name: newProfile.name,

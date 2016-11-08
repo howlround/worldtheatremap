@@ -204,7 +204,7 @@ class Profile extends React.Component {
 
   render() {
     const { profile, user, showsForAuthor, showsForOrg, roles, affiliatedProfiles } = this.props;
-    const { formatMessage } = this.props.intl;
+    const { formatMessage, locale } = this.props.intl;
 
     const editLink = (user) ?
       <Link
@@ -398,7 +398,7 @@ class Profile extends React.Component {
             : ''
           }
         </section>
-        {profile.about ?
+        {!_.isEmpty(profile.about) ?
           <section className="profile-about">
             <h2>
               <FormattedMessage
@@ -414,6 +414,15 @@ class Profile extends React.Component {
                 {editLink}
               </div>
               : ''
+            }
+            { !_.isEmpty(profile.source) && profile.source !== locale ?
+              <div className="machine-translation-warning">
+                <FormattedMessage
+                  id="translation.possibleMachineTranslationWarning"
+                  description="Text informing user that the text was possibly machine translated"
+                  defaultMessage="This text was written in another language and was originally machine translated. If you would like to make improvements to the translation please edit this page."
+                />
+              </div> : ''
             }
           </section> : ''
         }

@@ -329,6 +329,7 @@
   "forms.participantHelpText": "Las personas y organizaciones que hicieron caso suceden: actores, equipo, producción o el apoyo a las organizaciones, etc. Todo el mundo que se ven en el programa o el programa de mano para este evento.",
   "buttons.save": "Guardar",
   "event.aboutSectionHeader": "Aobre",
+  "translation.possibleMachineTranslationWarning": "Este texto fue escrito en otro idioma y fue originalmente traducido por la máquina. Si desea realizar mejoras en la traducción, modifique esta página.",
   "event.participantsCountHeader": "{participantsCount, number} {participantsCount, plural, one {Participante} other {Participantes}}",
   "navigation.siteName": "Mapa Mundial de Teatro",
   "footer.howlroundCredit": "Un proyecto de {howlround}",

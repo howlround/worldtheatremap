@@ -49,13 +49,13 @@ Feature: Translate show fields
     And a profile with the following fields:
       | name | My Favorite Playwright |
     And I am logged in
-    And I click on ".language-switcher [name=es]"
     When I go to the "show" add page
     And I fill in ".show-name-edit" with "Sofía"
     And I fill in ".show-author-name-edit" with "My Favorite Playwright"
     And I click on ".autocomplete-results li"
     And I fill in ".show-about-edit" with "Most popular name in Argentina"
     And I click on ".edit-show-save"
+    And I click on ".language-switcher [name=es]"
     And I follow ".edit-link"
     And I click on ".label-text=Teatro Musical"
     And I click on ".edit-show-save"

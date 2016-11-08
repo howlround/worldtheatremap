@@ -83,9 +83,10 @@ Feature: Create events
     And the ".event-location" element should contain "Massachusetts, United States"
 
   Scenario: Events should display the primary author for the related show
-    And a profile with the following fields:
-      | name | My Favorite Playwright |
     And I am logged in
+    And I go to the "profile" add page
+    And I fill in ".profile-name-edit" with "My Favorite Playwright"
+    And I click on ".edit-profile-save"
     And I go to the "show" add page
     And I fill in ".show-name-edit" with "Sofia"
     And I fill in ".show-author-name-edit" with "My Favorite Playwright"

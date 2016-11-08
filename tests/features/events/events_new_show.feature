@@ -33,6 +33,43 @@ Feature: Create events for a show that doesn't exist yet
     Then the "h1.page-title" element should contain "Althea"
     And the ".event-authorship" element should contain "My Favorite Playwright"
 
+  @i18n
+  Scenario: Events should display the primary author and local organization for the related show in the current language of the user
+    And I am logged in
+    And a profile with the following fields:
+      | name | My Favorite Playwright |
+    When I go to the "event" add page
+    And I fill in ".event-show-edit" with "Althea"
+    And I click on ".autocomplete-results li"
+    And I fill in ".show-author-name-edit" with "My Favorite Playwright"
+    And I click on ".autocomplete-results li"
+    And I click on ".edit-show-save"
+    And I fill in ".event-organization-edit" with "Organization of the year"
+    And I click on ".autocomplete-results li"
+    And I select "Performance" from the ".event-type-edit" combobox
+    And I click on ".form-group-startDate input"
+    And I click on ".react-datepicker__day=1"
+    And I click on ".form-group-endDate input"
+    And I click on ".react-datepicker__navigation--next"
+    And I click on ".react-datepicker__day=15"
+    And I select "India" from the ".country-select-edit" combobox
+    And I fill in "[name=lat]" with "-36.03133177633187"
+    And I fill in "[name=lon]" with "-72.0703125"
+    And I click on ".edit-event-save"
+    When I click on ".language-switcher [name=es]"
+    And I go to the profile page for "My Favorite Playwright"
+    And I follow ".edit-link"
+    And I fill in ".profile-name-edit" with "Este es mi dramaturgo favorito"
+    And I click on ".edit-profile-save"
+    When I go to the profile page for "Organization of the year"
+    And I follow ".edit-link"
+    And I fill in ".profile-name-edit" with "Organización del año"
+    And I click on ".edit-profile-save"
+    And I go to the show page for "Althea"
+    And I click on ".event-name a"
+    Then the ".event-authorship" element should contain "Este es mi dramaturgo favorito"
+    And the ".event-organizations" element should contain "Organización del año"
+
   Scenario: Users should be able to add events for a show that is not in the system yet and also has a new author
     And I am logged in
     When I go to the "event" add page

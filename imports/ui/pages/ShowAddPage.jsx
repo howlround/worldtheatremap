@@ -1,6 +1,7 @@
 // Utilities
 import React from 'react';
 import classnames from 'classnames';
+import Helmet from 'react-helmet';
 
 // Components
 import ShowAdd from '../components/ShowAdd.jsx';
@@ -22,6 +23,7 @@ export default class ShowAddPage extends React.Component {
       return (
         <div className="overlay-wrapper">
           <Modal />
+          <Helmet title="Add Show" />
           <Loading key="loading" />
         </div>
       );
@@ -30,6 +32,7 @@ export default class ShowAddPage extends React.Component {
         <div className="overlay-wrapper">
           <Modal />
           <div className={pageClass}>
+            <Helmet title="Add Show" titleTemplate="%s | World Theatre Map" />
             <ShowAdd />
           </div>
         </div>
@@ -44,6 +47,7 @@ export default class ShowAddPage extends React.Component {
               subtitle="Sign in or register to participate in the World Theatre Map"
             />
             <div className="page-content">
+              <Helmet title="Sign in to add a show" />
               <AuthSignIn />
             </div>
           </div>

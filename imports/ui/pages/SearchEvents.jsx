@@ -2,6 +2,7 @@ import React from 'react';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-form';
 import { FormattedMessage } from 'react-intl';
+import Helmet from 'react-helmet';
 
 // API
 import { eventFiltersSchema, filtersFormOptions } from '../../api/events/forms.js';
@@ -112,6 +113,7 @@ export default class SearchEvents extends React.Component {
             <SearchTypeNav />
             <div className="search-type-content">
               <div className="search-filters">
+                <Helmet title="Search Events" titleTemplate="%s | World Theatre Map" />
                 <h3>
                   <FormattedMessage
                     id="search.filterByHeader"

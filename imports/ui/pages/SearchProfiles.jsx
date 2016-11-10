@@ -4,6 +4,7 @@ import ReactSelect from 'react-select';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-form';
 import { intlShape, injectIntl } from 'react-intl';
+import Helmet from 'react-helmet';
 
 // API
 import { Profiles, profileFiltersSchema, filtersFormOptions } from '../../api/profiles/profiles.js';
@@ -126,6 +127,10 @@ class SearchProfiles extends React.Component {
             <SearchTypeNav />
             <div className="search-type-content">
               <div className="search-filters">
+                {!dummyForm ?
+                  <Helmet title="Search Profiles" titleTemplate="%s | World Theatre Map" />
+                  : ''
+                }
                 <form className="profile-filters-form">
                   <Form
                     ref="form"

@@ -356,7 +356,6 @@ class Profile extends React.Component {
     return (
       <article className="profile full">
         <section>
-
           {this.renderPhotoAndUploader()}
           <div className="profile-content-wrapper">
             <h1 className="profile-name page-title">

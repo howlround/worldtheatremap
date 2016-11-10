@@ -1,13 +1,16 @@
+// Utilities
 import React from 'react';
 import classnames from 'classnames';
-import ProfileEdit from '../components/ProfileEdit.jsx';
+import { Link } from 'react-router';
+import Helmet from 'react-helmet';
 
+// Components
+import ProfileEdit from '../components/ProfileEdit.jsx';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
 import Message from '../components/Message.jsx';
 import Modal from '../components/Modal.jsx';
 import AuthSignIn from '../components/AuthSignIn.jsx';
 import Loading from '../components/Loading.jsx';
-import { Link } from 'react-router';
 
 export default class ModalPage extends React.Component {
   render() {
@@ -33,6 +36,7 @@ export default class ModalPage extends React.Component {
         <div className="overlay-wrapper">
           <Modal />
           <div className={profilePageClass}>
+            <Helmet title={`Edit ${profile.name}`} />
             <ProfileEdit
               profile={profile}
             />
@@ -56,6 +60,7 @@ export default class ModalPage extends React.Component {
               subtitle="Sign in or register to participate in the World Theatre Map"
             />
             <div className="page-content">
+              <Helmet title="Sign in to edit this profile" />
               <AuthSignIn />
             </div>
           </div>

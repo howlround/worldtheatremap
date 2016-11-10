@@ -1,7 +1,6 @@
 import React from 'react';
+import Helmet from 'react-helmet';
 import classnames from 'classnames';
-// import ListHeader from '../components/ListHeader.jsx';
-// import TodoItem from '../components/TodoItem.jsx';
 import Profile from '../components/Profile.jsx';
 import ProfileAdd from '../components/ProfileAdd.jsx';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
@@ -28,6 +27,7 @@ export default class ProfileAddPage extends React.Component {
         <div className="overlay-wrapper">
           <Modal/>
           <div className={pageClass}>
+            <Helmet title="Add Profile" titleTemplate="%s | World Theatre Map" />
             <ProfileAdd/>
           </div>
         </div>
@@ -40,6 +40,7 @@ export default class ProfileAddPage extends React.Component {
           <div className="page auth">
             <Message title="Access denied" subtitle="Sign in or register to participate in the World Theatre Map"/>
             <div className="page-content">
+              <Helmet title="Sign in to add a profile" />
               <AuthSignIn/>
             </div>
           </div>

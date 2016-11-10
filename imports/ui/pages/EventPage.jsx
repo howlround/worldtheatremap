@@ -1,6 +1,10 @@
+// Utilities
 import React from 'react';
 import { Link } from 'react-router';
 import classnames from 'classnames';
+import Helmet from 'react-helmet';
+
+// Components
 import Event from '../components/Event.jsx';
 import EventEdit from '../components/EventEdit.jsx';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
@@ -64,6 +68,7 @@ export default class EventPage extends React.Component {
         <div className="overlay-wrapper">
           <Modal/>
           <div className={eventPageClass}>
+            <Helmet title={`Edit Event: ${event.organizations.name} presents ${event.show.name}`} />
             <EventEdit
               event={event}
               onEditingChange={this.onEditingChange}
@@ -96,6 +101,7 @@ export default class EventPage extends React.Component {
     else {
       return (
         <div className={eventPageClass}>
+          <Helmet title={`${event.organizations.name} presents ${event.show.name}`} />
           <Event
             event={event}
             user={user}

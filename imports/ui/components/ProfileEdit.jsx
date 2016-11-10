@@ -172,6 +172,7 @@ class ProfileEdit extends React.Component {
 
   render() {
     const { profileType } = this.state;
+
     let formOptions = defaultFormOptions();
     if (!_.contains(profileType, 'Individual')) {
       formOptions.fields.gender.disabled = true;

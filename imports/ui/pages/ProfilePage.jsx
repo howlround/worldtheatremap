@@ -1,6 +1,7 @@
 import React from 'react';
 
 // Utilities
+import Helmet from 'react-helmet';
 import classnames from 'classnames';
 import { _ } from 'meteor/underscore';
 import { select, queue, json } from 'd3';
@@ -348,6 +349,7 @@ export default class ProfilePage extends React.Component {
     } else {
       return (
         <div className={profilePageClass}>
+          <Helmet title={profile.name} />
           <Profile
             profile={profile}
             user={user}

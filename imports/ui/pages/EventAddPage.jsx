@@ -1,6 +1,7 @@
 // Utilities
 import React from 'react';
 import classnames from 'classnames';
+import Helmet from 'react-helmet';
 
 // Components
 import Event from '../components/Event.jsx';
@@ -65,6 +66,7 @@ export default class EventAddPage extends React.Component {
         <div className="overlay-wrapper">
           <Modal/>
           <div className={pageClass}>
+            <Helmet title="Add Event" titleTemplate="%s | World Theatre Map" />
             <EventAdd displayNewShowForm={this.displayNewShowForm} showObject={newShow} />
           </div>
 
@@ -102,6 +104,7 @@ export default class EventAddPage extends React.Component {
           <div className="page auth">
             <Message title="Access denied" subtitle="Sign in or register to participate in the World Theatre Map"/>
             <div className="page-content">
+              <Helmet title="Sign in to add an event" />
               <AuthSignIn/>
             </div>
           </div>

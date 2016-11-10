@@ -2,6 +2,7 @@ import React from 'react';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-form';
 import { intlShape, injectIntl } from 'react-intl';
+import Helmet from 'react-helmet';
 
 // API
 import { showFiltersSchema, filtersFormOptions } from '../../api/shows/shows.js';
@@ -112,6 +113,7 @@ class SearchShows extends React.Component {
             <SearchTypeNav />
             <div className="search-type-content">
               <div className="search-filters">
+                <Helmet title="Search Shows" titleTemplate="%s | World Theatre Map" />
                 <form className="show-filters-form">
                   <Form
                     ref="form"

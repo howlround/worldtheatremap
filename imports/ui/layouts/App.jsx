@@ -1,5 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
+import Helmet from 'react-helmet';
 import { Link } from 'react-router';
 
 import { FormattedMessage } from 'react-intl';
@@ -75,6 +76,18 @@ export default class App extends React.Component {
 
     return (
       <div id="container" className={menuOpen ? 'menu-open' : ''}>
+        <Helmet
+          htmlAttributes={{ lang }}
+          // titleTemplate="%s | World Theatre Map"
+          defaultTitle="World Theatre Map"
+          meta={[
+            {"name": "description", "content": "The World Theatre Map is a user-generated directory of the world's theatre community (makers, workers, companies, institutions) and a real-time media hub of its projects, events, performances, conversations, ideas."},
+            {"property": "og:type", "content": "article"}
+          ]}
+          link={[
+            {"rel": "canonical", "href": "https://worldtheatremap.org"},
+          ]}
+        />
         <a
           className="skip-to-content"
           href="#content-container"

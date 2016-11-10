@@ -1,7 +1,10 @@
+// Utilities
 import React from 'react';
 import classnames from 'classnames';
-// import ListHeader from '../components/ListHeader.jsx';
-// import TodoItem from '../components/TodoItem.jsx';
+import { Link } from 'react-router';
+import Helmet from 'react-helmet';
+
+// Components
 import Show from '../components/Show.jsx';
 import ShowEdit from '../components/ShowEdit.jsx';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
@@ -9,7 +12,6 @@ import Message from '../components/Message.jsx';
 import Modal from '../components/Modal.jsx';
 import AuthSignIn from '../components/AuthSignIn.jsx';
 import Loading from '../components/Loading.jsx';
-import { Link } from 'react-router';
 
 export default class ShowPage extends React.Component {
   constructor(props) {
@@ -58,6 +60,7 @@ export default class ShowPage extends React.Component {
         <div className="overlay-wrapper">
           <Modal/>
           <div className={showPageClass}>
+            <Helmet title={`Edit ${show.name}`} />
             <ShowEdit
               show={show}
               onEditingChange={this.onEditingChange}
@@ -80,6 +83,7 @@ export default class ShowPage extends React.Component {
           <div className="page auth">
             <Message title="Access denied" subtitle="Sign in or register to participate in the World Theatre Map"/>
             <div className="page-content">
+              <Helmet title="Sign in to edit this show" />
               <AuthSignIn/>
             </div>
           </div>
@@ -89,6 +93,7 @@ export default class ShowPage extends React.Component {
     else {
       return (
         <div className={showPageClass}>
+          <Helmet title={show.name} />
           <Show
             show={show}
             eventsByShow={eventsByShow}

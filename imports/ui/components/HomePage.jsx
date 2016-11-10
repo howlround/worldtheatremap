@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meteor } from 'meteor/meteor';
+import Helmet from 'react-helmet';
 import { Link } from 'react-router';
 
 import { FormattedMessage } from 'react-intl';
@@ -12,32 +12,37 @@ import EventTeaserWithShow from '../components/EventTeaserWithShow.jsx';
 import Loading from '../components/Loading.jsx';
 
 export default class HomePage extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   renderTodayMap() {
     const { eventsTodayWithLocations, loading } = this.props;
 
     return (
       <section className="homepage-events-globe">
         <div className="homepage-section-header">
+          <Helmet title="World Theatre Map Home" titleTemplate="%s" />
           <h2>
             <FormattedMessage
-              id='home.todayGlobeHeader'
-              description='Header for home page events globe'
+              id="home.todayGlobeHeader"
+              description="Header for home page events globe"
               defaultMessage="What's Happening Today"
             />
           </h2>
         </div>
         <p className="homepage-intro-text">
           <FormattedMessage
-            id='home.introText'
-            description='Large introduction text on the home page'
+            id="home.introText"
+            description="Large introduction text on the home page"
             defaultMessage="The World Theatre Map is a user-generated directory and a real-time media hub of the world’s theatre community."
           />
         </p>
-        { !loading ? <EventsGlobe events={eventsTodayWithLocations} /> : <Loading key="loading" interiorBlock={true} />}
+        {loading ?
+          <Loading key="loading" interiorBlock /> : ''
+        }
+        {!loading ?
+          <EventsGlobe
+            events={eventsTodayWithLocations}
+          />
+          : ''
+        }
       </section>
     );
   }
@@ -96,7 +101,7 @@ export default class HomePage extends React.Component {
             <div className="homepage-section-header">
               <h2>
                 <FormattedMessage
-                  id='homepage.discoverSection'
+                  id="homepage.discoverSection"
                   description="Search filters header on the home page"
                   defaultMessage="Discover"
                 />

@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
 
 // Utilities
@@ -334,6 +335,8 @@ export default class ProfilePage extends React.Component {
       loading,
     } = this.props;
 
+    const baseUrl = Meteor.absoluteUrl(false, { secure: true });
+
     const profilePageClass = classnames({
       page: true,
     });
@@ -354,7 +357,7 @@ export default class ProfilePage extends React.Component {
             meta={[
               { property: 'og:title', content: profile.name },
               { property: 'og:type', content: 'article' },
-              { property: 'og:url', content: `https://worldtheatremap.org/profiles/${profile._id}` },
+              { property: 'og:url', content: `${baseUrl}profiles/${profile._id}` },
             ]}
           />
           {profile.about ?

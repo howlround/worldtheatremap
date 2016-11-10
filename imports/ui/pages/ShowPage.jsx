@@ -1,4 +1,5 @@
 // Utilities
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import classnames from 'classnames';
 import { Link } from 'react-router';
@@ -40,6 +41,7 @@ export default class ShowPage extends React.Component {
     // const { show, showExists, loading } = this.props;
     const { loading, show, user, eventsByShow } = this.props;
     const { editing } = this.state;
+    const baseUrl = Meteor.absoluteUrl(false, { secure: true });
 
     const showPageClass = classnames({
       'page': true,
@@ -65,7 +67,7 @@ export default class ShowPage extends React.Component {
               meta={[
                 { property: 'og:title', content: show.name },
                 { property: 'og:type', content: 'article' },
-                { property: 'og:url', content: `https://worldtheatremap.org/shows/${show._id}` },
+                { property: 'og:url', content: `${baseUrl}shows/${show._id}` },
               ]}
             />
             {show.about ?

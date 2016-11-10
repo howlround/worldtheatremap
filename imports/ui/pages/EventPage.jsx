@@ -1,4 +1,5 @@
 // Utilities
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { Link } from 'react-router';
 import classnames from 'classnames';
@@ -40,6 +41,7 @@ export default class EventPage extends React.Component {
     // const { event, eventExists, loading } = this.props;
     const { loading, event, user, participantsByEvent, loadingFullApp } = this.props;
     const { editing } = this.state;
+    const baseUrl = Meteor.absoluteUrl(false, { secure: true });
 
     const eventPageClass = classnames({
       'page': true,
@@ -108,7 +110,7 @@ export default class EventPage extends React.Component {
             meta={[
               { property: 'og:title', content: `${event.organizations.name} presents ${event.show.name}` },
               { property: 'og:type', content: 'article' },
-              { property: 'og:url', content: `https://worldtheatremap.org/events/${event._id}` },
+              { property: 'og:url', content: `${baseUrl}events/${event._id}` },
             ]}
           />
           <Event

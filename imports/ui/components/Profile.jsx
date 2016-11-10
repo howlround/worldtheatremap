@@ -167,7 +167,7 @@ class Profile extends React.Component {
     else if (profile.imageWide) {
       return (
         <div className="profile-image-wrapper">
-          <img className="profile-image" width="200px" height="200px" src={ profile.imageWide } />
+          <img className="profile-image" src={ profile.imageWide } />
         </div>
       );
     }

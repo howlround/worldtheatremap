@@ -113,7 +113,7 @@ export default class SearchEvents extends React.Component {
             <SearchTypeNav />
             <div className="search-type-content">
               <div className="search-filters">
-                <Helmet title="Search Events" titleTemplate="%s | World Theatre Map" />
+                <Helmet title="Search Events" />
                 <h3>
                   <FormattedMessage
                     id="search.filterByHeader"

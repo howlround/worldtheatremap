@@ -128,7 +128,7 @@ class SearchProfiles extends React.Component {
             <div className="search-type-content">
               <div className="search-filters">
                 {!dummyForm ?
-                  <Helmet title="Search Profiles" titleTemplate="%s | World Theatre Map" />
+                  <Helmet title="Search Profiles" />
                   : ''
                 }
                 <form className="profile-filters-form">

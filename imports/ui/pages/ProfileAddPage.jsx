@@ -27,7 +27,7 @@ export default class ProfileAddPage extends React.Component {
         <div className="overlay-wrapper">
           <Modal/>
           <div className={pageClass}>
-            <Helmet title="Add Profile" titleTemplate="%s | World Theatre Map" />
+            <Helmet title="Add Profile" />
             <ProfileAdd/>
           </div>
         </div>

@@ -66,7 +66,7 @@ export default class EventAddPage extends React.Component {
         <div className="overlay-wrapper">
           <Modal/>
           <div className={pageClass}>
-            <Helmet title="Add Event" titleTemplate="%s | World Theatre Map" />
+            <Helmet title="Add Event" />
             <EventAdd displayNewShowForm={this.displayNewShowForm} showObject={newShow} />
           </div>
 

@@ -19,7 +19,7 @@ export default class AuthJoinPage extends React.Component {
         <Modal/>
         <div className="page auth">
           <div className="page-content">
-            <Helmet title="Join" titleTemplate="%s | World Theatre Map" />
+            <Helmet title="Join" />
             <AuthJoin/>
           </div>
         </div>

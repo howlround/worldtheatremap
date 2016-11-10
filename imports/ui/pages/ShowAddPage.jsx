@@ -32,7 +32,7 @@ export default class ShowAddPage extends React.Component {
         <div className="overlay-wrapper">
           <Modal />
           <div className={pageClass}>
-            <Helmet title="Add Show" titleTemplate="%s | World Theatre Map" />
+            <Helmet title="Add Show" />
             <ShowAdd />
           </div>
         </div>

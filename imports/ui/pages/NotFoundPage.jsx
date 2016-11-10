@@ -8,7 +8,7 @@ const NotFoundPage = () => (
     <nav>
       <MobileMenu/>
     </nav>
-    <Helmet title="Page Not Found" titleTemplate="%s | World Theatre Map" />
+    <Helmet title="Page Not Found" />
     <Message title="Page not found"/>
   </div>
 );

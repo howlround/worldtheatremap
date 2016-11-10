@@ -21,9 +21,6 @@ export default class HomePage extends React.Component {
           <Helmet
             title="World Theatre Map Home"
             titleTemplate="%s"
-            meta={[
-              {property: 'og:type', content: 'website'}
-            ]}
           />
           <h2>
             <FormattedMessage

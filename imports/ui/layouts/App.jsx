@@ -76,7 +76,7 @@ export default class App extends React.Component {
       <div id="container" className={menuOpen ? 'menu-open' : ''}>
         <Helmet
           htmlAttributes={{ lang }}
-          // titleTemplate="%s | World Theatre Map"
+          titleTemplate="%s | World Theatre Map"
           defaultTitle="World Theatre Map"
           meta={[
             { name: 'description', content: 'The World Theatre Map is a user-generated directory of the world\'s theatre community (makers, workers, companies, institutions) and a real-time media hub of its projects, events, performances, conversations, ideas.' },

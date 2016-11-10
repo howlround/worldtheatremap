@@ -19,7 +19,7 @@ export default class AuthSignInPage extends React.Component {
         <Modal/>
         <div className="page auth">
           <div className="page-content">
-            <Helmet title="Sign In" titleTemplate="%s | World Theatre Map" />
+            <Helmet title="Sign In" />
             <AuthSignIn/>
           </div>
         </div>

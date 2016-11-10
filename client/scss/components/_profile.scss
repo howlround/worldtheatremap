@@ -36,6 +36,11 @@ article.profile.full {
     width: 200px;
   }
 
+  .profile-image {
+    display: block;
+    margin: auto;
+  }
+
   .profile-metadata {
     .profile-interests {
       margin-top: $spacing-unit * 2;

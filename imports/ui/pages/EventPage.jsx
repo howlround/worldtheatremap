@@ -108,7 +108,7 @@ export default class EventPage extends React.Component {
           <Helmet
             title={`${event.organizations.name} presents ${event.show.name}`}
             meta={[
-              { property: 'og:title', content: `${event.organizations.name} presents ${event.show.name}` },
+              { property: 'og:title', content: `${event.organizations.name} presents ${event.show.name} | World Theatre Map` },
               { property: 'og:type', content: 'article' },
               { property: 'og:url', content: `${baseUrl}events/${event._id}` },
             ]}

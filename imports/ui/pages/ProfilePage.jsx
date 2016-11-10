@@ -355,7 +355,7 @@ export default class ProfilePage extends React.Component {
           <Helmet
             title={profile.name}
             meta={[
-              { property: 'og:title', content: profile.name },
+              { property: 'og:title', content: `${profile.name} | World Theatre Map` },
               { property: 'og:type', content: 'article' },
               { property: 'og:url', content: `${baseUrl}profiles/${profile._id}` },
             ]}

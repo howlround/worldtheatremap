@@ -65,7 +65,7 @@ export default class ShowPage extends React.Component {
             <Helmet
               title={`Edit ${show.name}`}
               meta={[
-                { property: 'og:title', content: show.name },
+                { property: 'og:title', content: `${show.name} | World Theatre Map` },
                 { property: 'og:type', content: 'article' },
                 { property: 'og:url', content: `${baseUrl}shows/${show._id}` },
               ]}
@@ -110,7 +110,14 @@ export default class ShowPage extends React.Component {
     else {
       return (
         <div className={showPageClass}>
-          <Helmet title={show.name} />
+          <Helmet
+            title={show.name}
+            meta={[
+              { property: 'og:title', content: `${show.name} | World Theatre Map` },
+              { property: 'og:type', content: 'article' },
+              { property: 'og:url', content: `${baseUrl}shows/${show._id}` },
+            ]}
+          />
           <Show
             show={show}
             eventsByShow={eventsByShow}

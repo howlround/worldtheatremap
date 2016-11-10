@@ -368,10 +368,10 @@ export default class ProfilePage extends React.Component {
               ]}
             /> : ''
           }
-          {profile.imageWide ?
+          {profile.image ?
             <Helmet
               meta={[
-                { property: 'og:image', content: profile.imageWide },
+                { property: 'og:image', content: profile.image },
               ]}
             /> : ''
           }

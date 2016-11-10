@@ -80,6 +80,7 @@ export default class App extends React.Component {
           defaultTitle="World Theatre Map"
           meta={[
             { name: 'description', content: 'The World Theatre Map is a user-generated directory of the world\'s theatre community (makers, workers, companies, institutions) and a real-time media hub of its projects, events, performances, conversations, ideas.' },
+            { property: 'fb:app_id', content: '662843947226126' },
             { property: 'og:type', content: 'website' },
             { property: 'og:url', content: Meteor.absoluteUrl(false, { secure: true }) },
             { property: 'og:title', content: 'World Theatre Map' },

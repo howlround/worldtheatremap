@@ -331,7 +331,7 @@ export default class ProfilePage extends React.Component {
       connections,
       affiliations,
       affiliatedProfiles,
-      loading
+      loading,
     } = this.props;
 
     const profilePageClass = classnames({
@@ -349,7 +349,29 @@ export default class ProfilePage extends React.Component {
     } else {
       return (
         <div className={profilePageClass}>
-          <Helmet title={profile.name} />
+          <Helmet
+            title={profile.name}
+            meta={[
+              { property: 'og:title', content: profile.name },
+              { property: 'og:type', content: 'article' },
+              { property: 'og:url', content: `https://worldtheatremap.org/profiles/${profile._id}` },
+            ]}
+          />
+          {profile.about ?
+            <Helmet
+              meta={[
+                { name: 'description', content: profile.about },
+                { property: 'og:description', content: profile.about },
+              ]}
+            /> : ''
+          }
+          {profile.imageWide ?
+            <Helmet
+              meta={[
+                { property: 'og:image', content: profile.imageWide },
+              ]}
+            /> : ''
+          }
           <Profile
             profile={profile}
             user={user}

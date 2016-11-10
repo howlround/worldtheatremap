@@ -60,7 +60,22 @@ export default class ShowPage extends React.Component {
         <div className="overlay-wrapper">
           <Modal/>
           <div className={showPageClass}>
-            <Helmet title={`Edit ${show.name}`} />
+            <Helmet
+              title={`Edit ${show.name}`}
+              meta={[
+                { property: 'og:title', content: show.name },
+                { property: 'og:type', content: 'article' },
+                { property: 'og:url', content: `https://worldtheatremap.org/shows/${show._id}` },
+              ]}
+            />
+            {show.about ?
+              <Helmet
+                meta={[
+                  { name: 'description', content: show.about },
+                  { property: 'og:description', content: show.about },
+                ]}
+              /> : ''
+            }
             <ShowEdit
               show={show}
               onEditingChange={this.onEditingChange}

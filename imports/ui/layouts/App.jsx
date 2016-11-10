@@ -1,21 +1,19 @@
+// Utilities
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router';
-
 import { FormattedMessage } from 'react-intl';
 
+// Containers
 import HomePageContainer from '../containers/HomePageContainer.jsx';
-import SearchProfilesContainerDummy from '../containers/SearchProfilesContainerDummy.jsx';
 
+// Components
 import Footer from '../components/Footer.jsx';
 import FooterAddPitch from '../components/FooterAddPitch.jsx';
 import LanguageSwitcher from '../components/LanguageSwitcher.jsx';
 import UserMenu from '../components/UserMenu.jsx';
 import AddMenu from '../components/AddMenu.jsx';
-import EventsGlobe from '../components/EventsGlobe.jsx';
-import EventTeaserWithShow from '../components/EventTeaserWithShow.jsx';
-
 import ConnectionNotification from '../components/ConnectionNotification.jsx';
 import Loading from '../components/Loading.jsx';
 
@@ -81,11 +79,12 @@ export default class App extends React.Component {
           // titleTemplate="%s | World Theatre Map"
           defaultTitle="World Theatre Map"
           meta={[
-            {"name": "description", "content": "The World Theatre Map is a user-generated directory of the world's theatre community (makers, workers, companies, institutions) and a real-time media hub of its projects, events, performances, conversations, ideas."},
-            {"property": "og:type", "content": "article"}
-          ]}
-          link={[
-            {"rel": "canonical", "href": "https://worldtheatremap.org"},
+            { name: 'description', content: 'The World Theatre Map is a user-generated directory of the world\'s theatre community (makers, workers, companies, institutions) and a real-time media hub of its projects, events, performances, conversations, ideas.' },
+            { property: 'og:type', content: 'website' },
+            { property: 'og:url', content: 'https://worldtheatremap.org' },
+            { property: 'og:title', content: 'World Theatre Map' },
+            { property: 'og:image', content: 'https://s3.amazonaws.com/wtm-static/wtm-share-2016-11-10.png' },
+            { property: 'og:description', content: 'The World Theatre Map is a user-generated directory of the world\'s theatre community (makers, workers, companies, institutions) and a real-time media hub of its projects, events, performances, conversations, ideas.' },
           ]}
         />
         <a
@@ -102,7 +101,7 @@ export default class App extends React.Component {
               className="home"
             >
               <FormattedMessage
-                id='navigation.siteName'
+                id="navigation.siteName"
                 description="Site Name"
                 defaultMessage="World Theatre Map"
               />
@@ -123,7 +122,7 @@ export default class App extends React.Component {
                 className="menu-parent"
               >
                 <FormattedMessage
-                  id='navigation.directory'
+                  id="navigation.directory"
                   description="Directory menu"
                   defaultMessage="Directory"
                 />

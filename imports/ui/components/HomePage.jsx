@@ -18,7 +18,13 @@ export default class HomePage extends React.Component {
     return (
       <section className="homepage-events-globe">
         <div className="homepage-section-header">
-          <Helmet title="World Theatre Map Home" titleTemplate="%s" />
+          <Helmet
+            title="World Theatre Map Home"
+            titleTemplate="%s"
+            meta={[
+              {property: 'og:type', content: 'website'}
+            ]}
+          />
           <h2>
             <FormattedMessage
               id="home.todayGlobeHeader"

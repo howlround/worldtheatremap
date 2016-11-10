@@ -68,7 +68,9 @@ export default class EventPage extends React.Component {
         <div className="overlay-wrapper">
           <Modal/>
           <div className={eventPageClass}>
-            <Helmet title={`Edit Event: ${event.organizations.name} presents ${event.show.name}`} />
+            <Helmet
+              title={`Edit Event: ${event.organizations.name} presents ${event.show.name}`}
+            />
             <EventEdit
               event={event}
               onEditingChange={this.onEditingChange}
@@ -101,7 +103,14 @@ export default class EventPage extends React.Component {
     else {
       return (
         <div className={eventPageClass}>
-          <Helmet title={`${event.organizations.name} presents ${event.show.name}`} />
+          <Helmet
+            title={`${event.organizations.name} presents ${event.show.name}`}
+            meta={[
+              { property: 'og:title', content: `${event.organizations.name} presents ${event.show.name}` },
+              { property: 'og:type', content: 'article' },
+              { property: 'og:url', content: `https://worldtheatremap.org/events/${event._id}` },
+            ]}
+          />
           <Event
             event={event}
             user={user}

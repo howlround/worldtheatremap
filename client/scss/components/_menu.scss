@@ -74,6 +74,15 @@
 }
 
 .user-menu {
+  .menu-parent {
+    @include retina-image('/user-icon_2x.png', 22px, 30px);
+    background-repeat: no-repeat;
+    width: 22px;
+    background-position: 50%;
+
+    @include image-replace;
+  }
+
   @include breakpoint($narrow) {
     background-color: $light-red;
   }

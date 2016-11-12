@@ -16,7 +16,7 @@ module.exports = function() {
     browser.click('button[type="submit"]');
 
     browser.waitUntil(function () {
-      return browser.getText('.user-menu .menu-parent') === 'REGINOLD'
+      return browser.getText('.user-menu .menu-parent') !== 'SIGNUP/IN'
     }, 5000, 'Not logged in');
   });
 

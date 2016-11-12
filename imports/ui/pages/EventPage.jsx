@@ -132,6 +132,17 @@ export default class EventPage extends React.Component {
 
             <div className="page-actions-share">
               <a
+                href={`https://twitter.com/intent/tweet?text=${event.organizations.name} presents ${event.show.name} — World Theatre Map ${baseUrl}profiles/${event._id} %23howlround @HowlRound @WorldTheatreMap`}
+                className="twitter-share"
+                target="_blank"
+              >
+                <FormattedMessage
+                  id="pageActions.tweet"
+                  description="Twitter Share Text"
+                  defaultMessage="Tweet"
+                />
+              </a>
+              <a
                 href={`https://www.facebook.com/dialog/share?app_id=662843947226126&display=popup&href=${baseUrl}events/${event._id}&redirect_uri=${baseUrl}events/${event._id}`}
                 className="facebook-share"
               >

@@ -15,10 +15,16 @@
   a {
     padding: $spacing-unit;
     color: $white;
+    margin-left: $spacing-unit / 2;
 
     &:hover,
     &:focus {
       background-color: $gray;
+    }
+
+    span {
+      background-repeat: no-repeat;
+      background-position: left center;
     }
   }
 
@@ -27,10 +33,16 @@
 
     span {
       @include retina-image('/facebook-white.png', 4px, 11px);
-
-      background-repeat: no-repeat;
-      background-position: left center;
       padding-left: 10px;
+    }
+  }
+
+  .twitter-share {
+    background-color: #1da1f2;
+
+    span {
+      @include retina-image('/twitter-white.png', 13px, 10px);
+      padding-left: 20px;
     }
   }
 }

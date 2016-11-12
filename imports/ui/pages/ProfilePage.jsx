@@ -391,6 +391,17 @@ export default class ProfilePage extends React.Component {
 
             <div className="page-actions-share">
               <a
+                href={`https://twitter.com/intent/tweet?text=${profile.name} on the World Theatre Map ${baseUrl}profiles/${profile._id} %23howlround @HowlRound @WorldTheatreMap`}
+                className="twitter-share"
+                target="_blank"
+              >
+                <FormattedMessage
+                  id="pageActions.tweet"
+                  description="Twitter Share Text"
+                  defaultMessage="Tweet"
+                />
+              </a>
+              <a
                 href={`https://www.facebook.com/dialog/share?app_id=662843947226126&display=popup&href=${baseUrl}profiles/${profile._id}&redirect_uri=${baseUrl}profiles/${profile._id}`}
                 className="facebook-share"
               >

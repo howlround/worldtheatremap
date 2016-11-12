@@ -226,21 +226,6 @@ class Profile extends React.Component {
       </Link>
     : '';
 
-    const longEditLink = (
-      <Link
-        to={`/profiles/${profile._id}/edit`}
-        key={`${profile._id}-edit`}
-        title={`Edit ${profile.name}`}
-        className="verbose-edit-link"
-      >
-        <FormattedMessage
-          id="ui.edit"
-          description="Verbose edit link"
-          defaultMessage="Edit details"
-        />
-      </Link>
-    );
-
     let Shows;
     if (showsForAuthor && showsForAuthor.length) {
       Shows = showsForAuthor.map(show => (

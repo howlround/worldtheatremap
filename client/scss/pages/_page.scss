@@ -1,8 +1,8 @@
 .page {
-  padding-top: $spacing-unit;
+  // padding-top: $spacing-unit;
 
   @include breakpoint($narrow) {
-    padding-top: $spacing-unit * 4;
+    // padding-top: $spacing-unit * 4;
     margin-bottom: $spacing-unit * 4;
   }
 }

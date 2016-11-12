@@ -375,6 +375,33 @@ export default class ProfilePage extends React.Component {
               ]}
             /> : ''
           }
+          <div className="page-actions">
+            <Link
+              to={`/profiles/${profile._id}/edit`}
+              key={`${profile._id}-edit`}
+              title={`Edit ${profile.name}`}
+              className="page-edit-link"
+            >
+              <FormattedMessage
+                id="ui.pageEdit"
+                description="Page edit link"
+                defaultMessage="Edit details"
+              />
+            </Link>
+
+            <div className="page-actions-share">
+              <a
+                href={`https://www.facebook.com/dialog/share?app_id=662843947226126&display=popup&href=${baseUrl}profiles/${profile._id}&redirect_uri=${baseUrl}profiles/${profile._id}`}
+                className="facebook-share"
+              >
+                <FormattedMessage
+                  id="pageActions.share"
+                  description="Facebook Share Text"
+                  defaultMessage="Share"
+                />
+              </a>
+            </div>
+          </div>
           <Profile
             profile={profile}
             user={user}

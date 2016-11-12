@@ -1,0 +1,36 @@
+.page-actions {
+  font-size: 13px;
+  padding: $spacing-unit 0;
+
+  a {
+    padding: $spacing-unit 0;
+  }
+}
+
+.page-actions-share {
+  float: right;
+  font-size: 11px;
+  text-transform: uppercase;
+
+  a {
+    padding: $spacing-unit;
+    color: $white;
+
+    &:hover,
+    &:focus {
+      background-color: $gray;
+    }
+  }
+
+  .facebook-share {
+    background-color: #3b5998;
+
+    span {
+      @include retina-image('/facebook-white.png', 4px, 11px);
+
+      background-repeat: no-repeat;
+      background-position: left center;
+      padding-left: 10px;
+    }
+  }
+}

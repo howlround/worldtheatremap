@@ -36,6 +36,38 @@ class Profile extends React.Component {
     this.onDrop = this.onDrop.bind(this);
   }
 
+  onDrop(files) {
+    this.setState({ newImageLoaded: false });
+
+    // Upload file using Slingshot Directive
+    const uploader = new Slingshot.Upload('myFileUploads');
+
+    // Track Progress
+    const computation = Tracker.autorun(() => {
+      if (!isNaN(uploader.progress())) {
+        const progressNumber = Math.floor(uploader.progress() * 100);
+        this.setState({ progress: progressNumber });
+
+        if (progressNumber > 0 && progressNumber < 100) {
+          this.setState({ uploading: true });
+        } else {
+          this.setState({ uploading: false });
+        }
+      }
+    });
+
+    uploader.send(files[0], (error, url) => {
+      computation.stop(); // Stop progress tracking on upload finish
+      if (error) {
+        this.setState({ progress: 0 }); // reset progress state
+        this.setState({ uploadError: true });
+      } else {
+        // Wait until the Lambda script has finished resizing
+        this.checkResizedImage(url);
+      }
+    });
+  }
+
   checkResizedImage(src) {
     const { profile } = this.props;
     const { uploadAttempts } = this.state;
@@ -81,44 +113,10 @@ class Profile extends React.Component {
     img.src = resizedImageSrc; // fires off loading of image
   }
 
-  onDrop(files) {
-    this.setState({ newImageLoaded: false });
-
-    // Upload file using Slingshot Directive
-    const uploader = new Slingshot.Upload('myFileUploads');
-
-    // Track Progress
-    const computation = Tracker.autorun(() => {
-      if (!isNaN(uploader.progress())) {
-        const progressNumber = Math.floor(uploader.progress() * 100);
-        this.setState({ progress: progressNumber });
-
-        if (progressNumber > 0 && progressNumber < 100) {
-          this.setState({ uploading: true });
-        } else {
-          this.setState({ uploading: false });
-        }
-      }
-    });
-
-    uploader.send(files[0], (error, url) => {
-      computation.stop(); // Stop progress tracking on upload finish
-      if (error) {
-        this.setState({ progress: 0 }); // reset progress state
-        this.setState({ uploadError: true });
-      } else {
-        // Wait until the Lambda script has finished resizing
-        this.checkResizedImage(url);
-      }
-    });
-  }
-
-  renderShowsByRoles() {
-    const { profile, roles } = this.props;
-
-    return (
-      roles.map(role => <ShowsByRole key={role} role={role} profile={profile} />)
-    );
+  removeAffiliation(affiliationId) {
+    remove.call({
+      affiliationId,
+    }, displayError);
   }
 
   renderPhotoAndUploader() {
@@ -178,10 +176,12 @@ class Profile extends React.Component {
     }
   }
 
-  removeAffiliation(affiliationId) {
-    remove.call({
-      affiliationId,
-    }, displayError);
+  renderShowsByRoles() {
+    const { profile, roles } = this.props;
+
+    return (
+      roles.map(role => <ShowsByRole key={role} role={role} profile={profile} />)
+    );
   }
 
   renderAffiliatedProfiles() {

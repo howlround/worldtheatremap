@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import classNames from 'classnames';
@@ -44,13 +45,13 @@ class Profile extends React.Component {
 
     const cycleTime = 1000;
 
-    let img = new Image();
-    img.onload = function() {
+    const img = new Image();
+    img.onload = function () {
       // code to set the src on success
       const newImage = {
         profileId: profile._id,
-        image: originalSrc
-      }
+        image: originalSrc,
+      };
       updateImage.call(
         newImage
       , displayError);
@@ -59,11 +60,11 @@ class Profile extends React.Component {
       this.setState({ uploadAttempts: 0 });
 
       // Remove the Almost done... message
-      this.setState({ newImageLoaded: true});
+      this.setState({ newImageLoaded: true });
     };
 
     img.onload = img.onload.bind(this);
-    img.onerror = function() {
+    img.onerror = function () {
       const nextAttempt = uploadAttempts + 1;
       this.setState({ uploadAttempts: nextAttempt });
       // doesn't exist or error loading
@@ -71,8 +72,7 @@ class Profile extends React.Component {
         setTimeout(() => {
           this.checkResizedImage(originalSrc);
         }, cycleTime, originalSrc);
-      }
-      else {
+      } else {
         this.setState({ uploadError: true });
       }
     };
@@ -82,37 +82,33 @@ class Profile extends React.Component {
   }
 
   onDrop(files) {
-    const { profile } = this.props;
+    this.setState({ newImageLoaded: false });
 
-    this.setState({ newImageLoaded: false});
+    // Upload file using Slingshot Directive
+    const uploader = new Slingshot.Upload('myFileUploads');
 
-    //Upload file using Slingshot Directive
-    let uploader = new Slingshot.Upload( "myFileUploads");
-
-    uploader.send( files[0], ( error, url ) => {
-
-      computation.stop(); //Stop progress tracking on upload finish
-      if ( error ) {
-        this.setState({ progress: 0}); //reset progress state
-        this.setState({ uploadError: true });
-      } else {
-        // Wait until the Lambda script has finished resizing
-        this.checkResizedImage(url);
-      }
-    });
-
-    //Track Progress
-    let computation = Tracker.autorun(() => {
-      if(!isNaN(uploader.progress())) {
+    // Track Progress
+    const computation = Tracker.autorun(() => {
+      if (!isNaN(uploader.progress())) {
         const progressNumber = Math.floor(uploader.progress() * 100);
         this.setState({ progress: progressNumber });
 
         if (progressNumber > 0 && progressNumber < 100) {
           this.setState({ uploading: true });
-        }
-        else {
+        } else {
           this.setState({ uploading: false });
         }
+      }
+    });
+
+    uploader.send(files[0], (error, url) => {
+      computation.stop(); // Stop progress tracking on upload finish
+      if (error) {
+        this.setState({ progress: 0 }); // reset progress state
+        this.setState({ uploadError: true });
+      } else {
+        // Wait until the Lambda script has finished resizing
+        this.checkResizedImage(url);
       }
     });
   }
@@ -127,49 +123,58 @@ class Profile extends React.Component {
 
   renderPhotoAndUploader() {
     const { progress, uploading, newImageLoaded, uploadError } = this.state;
-    const { profile, user } = this.props;
+    const { profile } = this.props;
     const DropzoneStyleOverride = {};
     const targetClasses = classNames('dropzone-target', {
       'existing-image': profile.imageWide,
-      'empty-image': !profile.imageWide
+      'empty-image': !profile.imageWide,
     });
 
     if (Meteor.user()) {
       return (
         <div className="profile-image-wrapper">
-          <Dropzone onDrop={this.onDrop} style={DropzoneStyleOverride} className={targetClasses} activeClassName="dropzone-target-active">
-            { profile.imageWide ?
-              <img className="profile-image" src={ profile.imageWide } />
-              : '' }
+          <Dropzone
+            onDrop={this.onDrop}
+            style={DropzoneStyleOverride}
+            className={targetClasses}
+            activeClassName="dropzone-target-active"
+          >
+            {profile.imageWide ?
+              <img className="profile-image" src={profile.imageWide} />
+              : ''}
             <div className="dropzone-help-text">
               <FormattedMessage
                 id="profile.imageDropHelpText"
-                description='Help text for adding an image to a profile'
-                defaultMessage='To upload a new photo click or drag a photo here.'
+                description="Help text for adding an image to a profile"
+                defaultMessage="To upload a new photo click or drag a photo here."
               />
             </div>
           </Dropzone>
-          { uploading ?
-            <div className="profile-image-uploading">Uploading: { progress }%</div> : '' }
-          { (uploading == false && progress == 100 && newImageLoaded == false && uploadError == false) ?
-            <div className="profile-image-uploading">Almost done...</div> : '' }
-          { (uploadError == true) ?
+          {uploading ?
+            <div className="profile-image-uploading">Uploading: {progress}%</div> : ''}
+          {(uploading === false &&
+            progress === 100 &&
+            newImageLoaded === false &&
+            uploadError === false) ?
+            <div className="profile-image-uploading">Almost done...</div> : ''}
+          {(uploadError === true) ?
             <div className="profile-image-uploading error">
               <FormattedMessage
                 id="profile.imageUploadingError"
-                description='Help text when there is an error uploading an image to a profile'
-                defaultMessage='There was an error, please try again'
+                description="Help text when there is an error uploading an image to a profile"
+                defaultMessage="There was an error, please try again"
               />
-            </div> : '' }
+            </div> : ''}
         </div>
       );
-    }
-    else if (profile.imageWide) {
+    } else if (profile.imageWide) {
       return (
         <div className="profile-image-wrapper">
-          <img className="profile-image" src={ profile.imageWide } />
+          <img className="profile-image" src={profile.imageWide} />
         </div>
       );
+    } else {
+      return '';
     }
   }
 
@@ -208,18 +213,33 @@ class Profile extends React.Component {
 
     const editLink = (user) ?
       <Link
-        to={`/profiles/${ profile._id }/edit`}
+        to={`/profiles/${profile._id}/edit`}
         key={`${profile._id}-edit`}
         title={`Edit ${profile.name}`}
         className="edit-link"
       >
         <FormattedMessage
           id="ui.edit"
-          description='Generic edit link'
-          defaultMessage='Edit'
+          description="Generic edit link"
+          defaultMessage="Edit"
         />
       </Link>
     : '';
+
+    const longEditLink = (
+      <Link
+        to={`/profiles/${profile._id}/edit`}
+        key={`${profile._id}-edit`}
+        title={`Edit ${profile.name}`}
+        className="verbose-edit-link"
+      >
+        <FormattedMessage
+          id="ui.edit"
+          description="Verbose edit link"
+          defaultMessage="Edit details"
+        />
+      </Link>
+    );
 
     let Shows;
     if (showsForAuthor && showsForAuthor.length) {
@@ -245,14 +265,12 @@ class Profile extends React.Component {
 
     const interests = (profile.interests) ? profile.interests.map((interest, index, array) => {
       let seperator = ', ';
-      if (index == array.length - 1) {
+      if (index === array.length - 1) {
         seperator = '';
-      }
-      else if (index == array.length - 2) {
+      } else if (index === array.length - 2) {
         if (array.length > 2) {
           seperator = ', and ';
-        }
-        else {
+        } else {
           seperator = ' and ';
         }
       }
@@ -260,9 +278,9 @@ class Profile extends React.Component {
         <span key={interest}>
           {
             formatMessage({
-              'id': `interest.${interest}`,
-              'defaultMessage': interest,
-              'description': `Interests option: ${interest}`
+              id: `interest.${interest}`,
+              defaultMessage: interest,
+              description: `Interests option: ${interest}`,
             })
           }
           {seperator}
@@ -285,9 +303,9 @@ class Profile extends React.Component {
         <span key={orgType}>
           {
             formatMessage({
-              'id': `orgType.${orgType}`,
-              'defaultMessage': orgType,
-              'description': `Interests option: ${orgType}`
+              id: `orgType.${orgType}`,
+              defaultMessage: orgType,
+              description: `Interests option: ${orgType}`,
             })
           }
           {seperator}
@@ -311,9 +329,9 @@ class Profile extends React.Component {
           <span key={selfDefinedRole}>
             {
               formatMessage({
-                'id': `selfDefinedRole.${selfDefinedRole}`,
-                'defaultMessage': selfDefinedRole,
-                'description': `Interests option: ${selfDefinedRole}`
+                id: `selfDefinedRole.${selfDefinedRole}`,
+                defaultMessage: selfDefinedRole,
+                description: `Interests option: ${selfDefinedRole}`,
               })
             }
             {seperator}
@@ -345,9 +363,9 @@ class Profile extends React.Component {
         <div className="profile-country">
           {
             formatMessage({
-              'id': `country.${profile.country}`,
-              'description': `Country options: ${profile.country}`,
-              'defaultMessage': profile.country
+              id: `country.${profile.country}`,
+              description: `Country options: ${profile.country}`,
+              defaultMessage: profile.country,
             })
           }
         </div> : ''}
@@ -369,7 +387,9 @@ class Profile extends React.Component {
               {!_.isEmpty(profile.gender) ?
                 <div className="profile-gender" title="Gender">{genders}</div> : ''}
               {!_.isEmpty(profile.ethnicityRaceDisplay) ?
-                <div className="profile-ethnicity-race-display">{profile.ethnicityRaceDisplay}</div> : ''}
+                <div className="profile-ethnicity-race-display">
+                  {profile.ethnicityRaceDisplay}
+                </div> : ''}
               {!_.isEmpty(profile.orgTypes) ?
                 <div
                   className="profile-organization-types"
@@ -414,7 +434,7 @@ class Profile extends React.Component {
               </div>
               : ''
             }
-            { !_.isEmpty(profile.source) && profile.source !== locale ?
+            {!_.isEmpty(profile.source) && profile.source !== locale ?
               <div className="machine-translation-warning">
                 <FormattedMessage
                   id="translation.possibleMachineTranslationWarning"

@@ -2,8 +2,9 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import classnames from 'classnames';
-import { Link } from 'react-router';
 import Helmet from 'react-helmet';
+import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router';
 
 // Components
 import Show from '../components/Show.jsx';
@@ -118,6 +119,33 @@ export default class ShowPage extends React.Component {
               { property: 'og:url', content: `${baseUrl}shows/${show._id}` },
             ]}
           />
+          <div className="page-actions">
+            <Link
+              to={`/shows/${show._id}/edit`}
+              key={`${show._id}-edit`}
+              title={`Edit ${show.name}`}
+              className="page-edit-link"
+            >
+              <FormattedMessage
+                id="ui.pageEdit"
+                description="Page edit link"
+                defaultMessage="Edit details"
+              />
+            </Link>
+
+            <div className="page-actions-share">
+              <a
+                href={`https://www.facebook.com/dialog/share?app_id=662843947226126&display=popup&href=${baseUrl}shows/${show._id}&redirect_uri=${baseUrl}shows/${show._id}`}
+                className="facebook-share"
+              >
+                <FormattedMessage
+                  id="pageActions.share"
+                  description="Facebook Share Text"
+                  defaultMessage="Share"
+                />
+              </a>
+            </div>
+          </div>
           <Show
             show={show}
             eventsByShow={eventsByShow}

@@ -1,9 +1,10 @@
 // Utilities
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
-import { Link } from 'react-router';
 import classnames from 'classnames';
 import Helmet from 'react-helmet';
+import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router';
 
 // Components
 import Event from '../components/Event.jsx';
@@ -113,6 +114,35 @@ export default class EventPage extends React.Component {
               { property: 'og:url', content: `${baseUrl}events/${event._id}` },
             ]}
           />
+          <div className="page-actions">
+            <Link
+              to={`/events/${ event._id }/edit`}
+              key={event._id}
+              title={event.name}
+              className="edit-link"
+              activeClassName="active"
+              onChange={this.onChange}
+            >
+              <FormattedMessage
+                id="ui.pageEdit"
+                description="Page edit link"
+                defaultMessage="Edit details"
+              />
+            </Link>
+
+            <div className="page-actions-share">
+              <a
+                href={`https://www.facebook.com/dialog/share?app_id=662843947226126&display=popup&href=${baseUrl}events/${event._id}&redirect_uri=${baseUrl}events/${event._id}`}
+                className="facebook-share"
+              >
+                <FormattedMessage
+                  id="pageActions.share"
+                  description="Facebook Share Text"
+                  defaultMessage="Share"
+                />
+              </a>
+            </div>
+          </div>
           <Event
             event={event}
             user={user}

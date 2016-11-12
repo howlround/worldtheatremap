@@ -5,7 +5,8 @@ export default class Loading extends React.Component {
   render() {
     const { interiorBlock } = this.props;
     const className = {
-      'interior-loading-block': interiorBlock,
+      'interior-loading-block': true,
+      // 'interior-loading-block': interiorBlock,
     }
 
     return (

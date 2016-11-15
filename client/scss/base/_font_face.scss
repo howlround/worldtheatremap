@@ -41,14 +41,14 @@
   font-style: normal;
 }
 
-// // Bold italic
-// @font-face {
-//   font-family: 'Open Sans';
-//   src: url('/font/OpenSans-BoldItalic.ttf') format('truetype');
-//   font-weight: bold;
-//   font-weight: 700;
-//   font-style: italic;
-// }
+// Bold italic
+@font-face {
+  font-family: 'Open Sans';
+  src: url('/font/OpenSans-BoldItalic.ttf') format('truetype');
+  font-weight: bold;
+  font-weight: 700;
+  font-style: italic;
+}
 
 // ExtraBold
 @font-face {

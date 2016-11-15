@@ -239,6 +239,11 @@ module.exports = function() {
     }, data);
   });
 
+  this.When(/^I switch tabs$/, function () {
+    browser.pause(1000);
+    browser.switchTab(browser.getTabIds()[1]);
+  });
+
   this.Before(function () {
     // make sure the DDP connection is not logged in before clearing the database
     server.call('logout');

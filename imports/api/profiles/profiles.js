@@ -1051,6 +1051,7 @@ export const profileSchema = t.struct({
   administrativeArea: t.maybe(t.String), // Province, Region, State
   country: t.maybe(t.String),
   postalCode: t.maybe(t.String),
+  howlroundPosts: t.maybe(t.String),
 });
 
 export const profileFiltersSchema = t.struct({
@@ -1469,7 +1470,11 @@ export const defaultFormOptions = () => ({
       attrs: {
         className: 'profile-founding-year-edit',
       },
-      help: 'If this profile is referencing an organization, what year was it founded?'
+      help: <FormattedMessage
+        id="forms.foundingYearHelpText"
+        description="Help text for an optional Founding Year form field"
+        defaultMessage="If this profile is referencing an organization, what year was it founded?"
+      />,
     },
     interests: {
       label: <FormattedMessage
@@ -1550,6 +1555,33 @@ export const defaultFormOptions = () => ({
         }}
       />,
       factory: GendersCheckboxesFactory,
+    },
+    howlroundPosts: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.howlroundPostsLabel"
+            description="Label for HowlRound Posts form field"
+            defaultMessage="HowlRound Posts"
+          />,
+        }}
+      />,
+      attrs: {
+        className: 'profile-howlround-posts-edit',
+      },
+      help: <FormattedMessage
+        id="forms.HowlroundPostsHelpText"
+        description="Help text for an optional HowlRound Posts form field"
+        defaultMessage="Enter search terms here to display relevant HowlRound posts. http://howlround.com/search"
+      />,
     },
   },
 });
@@ -1792,6 +1824,9 @@ Profiles.publicFields = {
   selfDefinedRoles: 1,
   gender: 1,
   source: 1,
+  howlroundPosts: 1,
+  savedHowlroundPosts: 1,
+  howlroundPostsUrl: 1,
 };
 
 Profiles.autocompleteFields = {

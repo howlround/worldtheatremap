@@ -4,14 +4,17 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-validation';
-import { check } from 'meteor/check'
+import { check } from 'meteor/check';
 
+// API
 import { Profiles, profileSchema } from './profiles.js';
 
 // Methods
 import { upsert as upsertLocality } from '../localities/methods.js';
 import { upsert as upsertAdministrativeArea } from '../administrativeAreas/methods.js';
 import { upsert as upsertCountry } from '../countries/methods.js';
+
+let cheerio = require('cheerio');
 
 const PROFILE_ID_ONLY = new SimpleSchema({
   profileId: { type: String },
@@ -92,6 +95,11 @@ export const insert = new ValidatedMethod({
       const translatedDoc = {
         name: newProfile.name,
       }
+    }
+
+    // If the profile.howlroundPosts field is not filled out, use the profile name
+    if (_.isEmpty(newProfile.howlroundPosts)) {
+      newProfile.howlroundPosts = newProfile.name;
     }
 
     // Save source language
@@ -249,6 +257,54 @@ export const remove = new ValidatedMethod({
   },
 });
 
+export const getHowlRoundPosts = new ValidatedMethod({
+  name: 'profiles.getHowlRoundPosts',
+  validate({ searchText, _id }) {
+    check(searchText, String);
+    check(_id, String);
+  },
+  run({ searchText, _id }) {
+    // if (!this.userId) {
+    //   throw new Meteor.Error('profiles.getHowlRoundPosts.accessDenied',
+    //     'You must be logged in to complete this operation.');
+    // }
+
+    if (Meteor.isServer) {
+      var result = HTTP.call(
+        'GET',
+        'http://howlround.com/search',
+        {
+          params: {
+            search_api_views_fulltext: searchText,
+          }
+        },
+        (error, result) => {
+          if (result.statusCode === 200) {
+            const posts = [];
+
+            let $ = cheerio.load(result.content);
+            $('.views-field-title a').each((i, el) => {
+              const relativeUrl = $(el).attr('href');
+              $(el).attr('href', `http://howlround.com${relativeUrl}`);
+              $(el).attr('target', '_blank');
+            });
+            $('.views-row').slice(0, 3).each((i, el) => {
+              posts.push($(el).html());
+            });
+
+            Profiles.update(_id, {
+              $set: {
+                savedHowlroundPosts: posts,
+                howlroundPostsUrl: `http://howlround.com/search?search_api_views_fulltext=${searchText}`,
+              },
+            });
+          }
+        }
+      );
+    }
+  },
+});
+
 // Get profile of all method names on Profiles
 const PROFILES_METHODS = _.pluck([
   insert,
@@ -256,6 +312,7 @@ const PROFILES_METHODS = _.pluck([
   update,
   translate,
   remove,
+  getHowlRoundPosts,
 ], 'name');
 
 if (Meteor.isServer) {

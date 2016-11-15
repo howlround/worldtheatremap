@@ -7,4 +7,6 @@ Meteor.startup( () => {
   BrowserPolicy.content.allowOriginForAll( 's3.amazonaws.com' );
   // Allow images from the new play map server
   BrowserPolicy.content.allowOriginForAll( 'newplaymap.org' );
+  // Pulling HowlRound posts
+  BrowserPolicy.content.allowOriginForAll( 'howlround.com' );
 })

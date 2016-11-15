@@ -10,6 +10,9 @@ import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 // Components
 import ShowTeaser from '../components/ShowTeaser.jsx';
 import ShowsByRole from '../components/ShowsByRole.jsx';
+import HowlRoundPosts from '../components/HowlRoundPosts.jsx';
+
+// Containers
 import ProfileNameContainer from '../containers/ProfileNameContainer.jsx';
 
 // API
@@ -356,6 +359,8 @@ class Profile extends React.Component {
         </div> : ''}
       </div>);
 
+    const howlRoundSearch = profile.howlroundPosts ? profile.howlroundPosts : '';
+
     return (
       <article className="profile full">
         <section>
@@ -474,6 +479,12 @@ class Profile extends React.Component {
               {this.renderAffiliatedProfiles()}
             </div>
           </section> : ''}
+        <HowlRoundPosts
+          searchText={howlRoundSearch}
+          existingPosts={profile.savedHowlroundPosts}
+          _id={profile._id}
+          url={profile.howlroundPostsUrl}
+        />
       </article>
     );
   }

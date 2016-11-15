@@ -1,0 +1,49 @@
+.howlround-post {
+  font-size: 13px;
+  margin-bottom: $spacing-unit * 2;
+
+  .post-header {
+    font-size: 17px;
+    font-weight: bold;
+
+    a {
+      color: $black;
+
+      &:hover,
+      &:focus {
+        color: $gray;
+      }
+    }
+  }
+
+  .views-field-author-pictures {
+    float: left;
+    margin-right: $spacing-unit;
+
+    img {
+      -webkit-border-radius: 20px 20px;
+      -moz-border-radius: 20px / 20px;
+      border-radius: 20px / 20px;
+
+      &+ img {
+        margin-left: 5px;
+      }
+    }
+  }
+
+  .views-field-author-names {
+    color: $light-gray;
+  }
+
+  .views-field-body-summary {
+    margin-top: $spacing-unit / 2;
+
+    p {
+      line-height: 1.5em;
+    }
+  }
+
+  .views-field-created {
+    color: $gray;
+  }
+}

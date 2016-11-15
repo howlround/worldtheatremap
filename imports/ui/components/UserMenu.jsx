@@ -46,7 +46,7 @@ export default class UserMenu extends React.Component {
 
     return (
       <div className="user-menu menu-container menu-right" onMouseEnter={this.open} onMouseLeave={this.close}>
-        <a href="#" className="menu-parent" onClick={this.toggle}>
+        <a href="#" className="menu-parent logged-in" onClick={this.toggle}>
           {emailLocalPart}
         </a>
         { open ?

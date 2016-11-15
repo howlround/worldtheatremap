@@ -1,5 +1,5 @@
 @profiles
-Feature: Create organization profiles
+Feature: Create profiles
 
   As a user
   I want to create new profiles

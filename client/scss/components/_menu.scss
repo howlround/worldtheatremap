@@ -74,7 +74,7 @@
 }
 
 .user-menu {
-  .menu-parent {
+  .menu-parent.logged-in {
     @include retina-image('/user-icon_2x.png', 22px, 30px);
     background-repeat: no-repeat;
     width: 22px;

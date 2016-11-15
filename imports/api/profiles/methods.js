@@ -282,11 +282,16 @@ export const getHowlRoundPosts = new ValidatedMethod({
           if (result.statusCode === 200) {
             const posts = [];
 
-            let $ = cheerio.load(result.content);
+            let $ = cheerio.load(result.content, {
+                normalizeWhitespace: true,
+            });
 
             // Do not save results if no results were found
             // (HowlRound returns misc results if nothing matches the query)
-            if ($('.messages.warning').length === 0) {
+            // Check if the search box on howlround contains the terms.
+            // That's the only clue I could find, the drupal message
+            // isn't in the markup for some reason
+            if ($('#edit-search-api-views-fulltext').val() === searchText) {
               $('.views-field-title a').each((i, el) => {
                 const relativeUrl = $(el).attr('href');
                 $(el).attr('href', `http://howlround.com${relativeUrl}`);

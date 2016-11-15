@@ -1051,7 +1051,7 @@ export const profileSchema = t.struct({
   administrativeArea: t.maybe(t.String), // Province, Region, State
   country: t.maybe(t.String),
   postalCode: t.maybe(t.String),
-  howlroundPosts: t.maybe(t.String),
+  howlroundPostSearchText: t.maybe(t.String),
 });
 
 export const profileFiltersSchema = t.struct({
@@ -1556,7 +1556,7 @@ export const defaultFormOptions = () => ({
       />,
       factory: GendersCheckboxesFactory,
     },
-    howlroundPosts: {
+    howlroundPostSearchText: {
       label: <FormattedMessage
         id="forms.labelRequiredOrOptional"
         description="Label for a form field with required or optional specified"
@@ -1824,7 +1824,7 @@ Profiles.publicFields = {
   selfDefinedRoles: 1,
   gender: 1,
   source: 1,
-  howlroundPosts: 1,
+  howlroundPostSearchText: 1,
   savedHowlroundPosts: 1,
   howlroundPostsUrl: 1,
 };

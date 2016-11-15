@@ -136,6 +136,10 @@ module.exports = function() {
     client.waitForVisible(element, 40000, true);
   });
 
+  this.When(/^I wait for "([^"]*)" ms$/, function (wait) {
+    browser.pause(wait);
+  });
+
   this.When(/^I go to the profile page for "([^"]*)"$/, function (name, callback) {
     // Look up the profile with this name
     const profile = server.execute((name, callback) => {

@@ -283,21 +283,26 @@ export const getHowlRoundPosts = new ValidatedMethod({
             const posts = [];
 
             let $ = cheerio.load(result.content);
-            $('.views-field-title a').each((i, el) => {
-              const relativeUrl = $(el).attr('href');
-              $(el).attr('href', `http://howlround.com${relativeUrl}`);
-              $(el).attr('target', '_blank');
-            });
-            $('.views-row').slice(0, 3).each((i, el) => {
-              posts.push($(el).html());
-            });
 
-            Profiles.update(_id, {
-              $set: {
-                savedHowlroundPosts: posts,
-                howlroundPostsUrl: `http://howlround.com/search?search_api_views_fulltext=${searchText}`,
-              },
-            });
+            // Do not save results if no results were found
+            // (HowlRound returns misc results if nothing matches the query)
+            if ($('.messages.warning').length === 0) {
+              $('.views-field-title a').each((i, el) => {
+                const relativeUrl = $(el).attr('href');
+                $(el).attr('href', `http://howlround.com${relativeUrl}`);
+                $(el).attr('target', '_blank');
+              });
+              $('.views-row').slice(0, 3).each((i, el) => {
+                posts.push($(el).html());
+              });
+
+              Profiles.update(_id, {
+                $set: {
+                  savedHowlroundPosts: posts,
+                  howlroundPostsUrl: `http://howlround.com/search?search_api_views_fulltext=${searchText}`,
+                },
+              });
+            }
           }
         }
       );

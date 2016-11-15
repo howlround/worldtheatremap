@@ -33,3 +33,12 @@ Feature: Howlround posts related to profiles
     And I fill in ".profile-name-edit" with "Fatima may well be a more localized phenomenon"
     And I click on ".edit-profile-save"
     Then the ".howlround-posts" element should contain "The Here & Now Project: Divide"
+
+  Scenario: If the HowlRound posts search terms have no matches then nothing should be displayed
+    And I am logged in
+    When I go to the "profile" add page
+    And I fill in ".profile-name-edit" with "Fatima"
+    And I fill in ".profile-howlround-posts-edit" with "SoSpecificThatReallyNothingShouldReturn"
+    And I click on ".edit-profile-save"
+    When I go to the profile page for "Fatima"
+    Then I should not see ".howlround-posts"

@@ -9,4 +9,5 @@ Meteor.startup( () => {
   BrowserPolicy.content.allowOriginForAll( 'newplaymap.org' );
   // Pulling HowlRound posts
   BrowserPolicy.content.allowOriginForAll( 'howlround.com' );
+  BrowserPolicy.content.allowOriginForAll( '*.howlround.com' );
 })

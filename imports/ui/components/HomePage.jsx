@@ -1,14 +1,16 @@
+// Utilities
 import React from 'react';
 import Helmet from 'react-helmet';
+import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
 
-import { FormattedMessage } from 'react-intl';
-
+// Containers
 import SearchProfilesContainerDummy from '../containers/SearchProfilesContainerDummy.jsx';
 
+// Components
 import EventsGlobe from '../components/EventsGlobe.jsx';
 import EventTeaserWithShow from '../components/EventTeaserWithShow.jsx';
-
+import HowlRoundPostFeatured from '../components/HowlRoundPostFeatured.jsx';
 import Loading from '../components/Loading.jsx';
 
 export default class HomePage extends React.Component {
@@ -91,7 +93,16 @@ export default class HomePage extends React.Component {
   render() {
     const {
       eventsTodayWithLocations,
+      howlroundPosts,
     } = this.props;
+
+    const renderedHowlroundPosts = _.map(howlroundPosts, (item) => (
+        <HowlRoundPostFeatured
+          post={item.post}
+          key={item.post.url}
+        />
+      )
+    );
 
     return (
       <div className="homepage-content-wrapper">
@@ -113,6 +124,20 @@ export default class HomePage extends React.Component {
             <SearchProfilesContainerDummy location={{ query: {} }} />
           </div>
         </div>
+        <div className="homepage-howlround-wrapper">
+          <div className="homepage-howlround-content">
+            <div className="homepage-section-header">
+              <h2>
+                <FormattedMessage
+                  id="homepage.howlroundSection"
+                  description="HowlRound header on the home page"
+                  defaultMessage="From HowlRound"
+                />
+              </h2>
+            </div>
+            {renderedHowlroundPosts}
+          </div>
+        </div>
       </div>
     );
   }
@@ -126,6 +151,7 @@ HomePage.propTypes = {
   eventsTodayCount: React.PropTypes.number,
   startDate: React.PropTypes.instanceOf(Date),
   endDate: React.PropTypes.instanceOf(Date),
+  howlroundPosts: React.PropTypes.array,
 };
 
 HomePage.contextTypes = {

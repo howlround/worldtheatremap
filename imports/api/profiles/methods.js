@@ -257,64 +257,6 @@ export const remove = new ValidatedMethod({
   },
 });
 
-export const getHowlRoundPosts = new ValidatedMethod({
-  name: 'profiles.getHowlRoundPosts',
-  validate({ searchText, _id }) {
-    check(searchText, String);
-    check(_id, String);
-  },
-  run({ searchText, _id }) {
-    // if (!this.userId) {
-    //   throw new Meteor.Error('profiles.getHowlRoundPosts.accessDenied',
-    //     'You must be logged in to complete this operation.');
-    // }
-
-    if (Meteor.isServer) {
-      var result = HTTP.call(
-        'GET',
-        'http://howlround.com/search',
-        {
-          params: {
-            search_api_views_fulltext: searchText,
-          }
-        },
-        (error, result) => {
-          if (result.statusCode === 200) {
-            const posts = [];
-
-            let $ = cheerio.load(result.content, {
-                normalizeWhitespace: true,
-            });
-
-            // Do not save results if no results were found
-            // (HowlRound returns misc results if nothing matches the query)
-            // Check if the search box on howlround contains the terms.
-            // That's the only clue I could find, the drupal message
-            // isn't in the markup for some reason
-            if ($('#edit-search-api-views-fulltext').val() === searchText) {
-              $('.views-field-title a').each((i, el) => {
-                const relativeUrl = $(el).attr('href');
-                $(el).attr('href', `http://howlround.com${relativeUrl}`);
-                $(el).attr('target', '_blank');
-              });
-              $('.views-row').slice(0, 3).each((i, el) => {
-                posts.push($(el).html());
-              });
-
-              Profiles.update(_id, {
-                $set: {
-                  savedHowlroundPosts: posts,
-                  howlroundPostsUrl: `http://howlround.com/search?search_api_views_fulltext=${searchText}`,
-                },
-              });
-            }
-          }
-        }
-      );
-    }
-  },
-});
-
 // Get profile of all method names on Profiles
 const PROFILES_METHODS = _.pluck([
   insert,
@@ -322,7 +264,6 @@ const PROFILES_METHODS = _.pluck([
   update,
   translate,
   remove,
-  getHowlRoundPosts,
 ], 'name');
 
 if (Meteor.isServer) {

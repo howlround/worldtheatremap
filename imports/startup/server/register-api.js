@@ -33,3 +33,9 @@ import '../../api/countries/server/publications.js';
 // Administrative Area
 import '../../api/administrativeAreas/methods.js';
 import '../../api/administrativeAreas/server/publications.js';
+
+// HowlRound API
+import '../../api/howlround/methods.js';
+
+// Variables
+import '../../api/variables/server/publications.js';

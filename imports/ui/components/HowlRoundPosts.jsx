@@ -10,14 +10,14 @@ export default class HowlRoundPosts extends React.Component {
 
     const { searchText, _id } = this.props;
 
-    Meteor.call('profiles.getHowlRoundPosts', { searchText, _id });
+    Meteor.call('howlround.searchPosts', { searchText, _id });
   }
 
   componentWillReceiveProps(nextProps) {
     const { searchText, _id } = this.props;
 
     if (searchText !== nextProps.searchText) {
-      Meteor.call('profiles.getHowlRoundPosts', { searchText: nextProps.searchText, _id });
+      Meteor.call('howlround.searchPosts', { searchText: nextProps.searchText, _id });
     }
   }
 

@@ -87,3 +87,103 @@
     text-transform: uppercase;
   }
 }
+
+.homepage-howlround-content {
+  border-top: solid 4px $black;
+  border-bottom: solid 4px $black;
+  overflow: auto;
+
+  .homepage-section-header {
+    @include breakpoint($narrow) {
+      position: relative;
+      z-index: 1;
+      margin-bottom: -50px;
+    }
+
+    h2 {
+      margin-bottom: 0;
+    }
+  }
+
+  .howlround-post-featured {
+    position: relative;
+    color: $white;
+
+    @include breakpoint($narrow) {
+      @include span(1 of 3 inside no-gutters);
+
+      &:nth-child(3n+1) {
+        @include last;
+      }
+    }
+
+    a.howlround-post-title {
+      font-weight: bold;
+      color: $white;
+      font-size: 15px;
+
+      &:hover,
+      &:focus {
+        color: $light-gray;
+      }
+    }
+
+    .howlround-post-color-overlay {
+      background-color: $color-ancillary;
+      opacity: 0.75;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+    &:nth-child(2n+1) {
+      .howlround-post-color-overlay {
+        background-color: $red;
+      }
+
+      a.howlround-post-title {
+        &:hover,
+        &:focus {
+          color: $black;
+        }
+      }
+    }
+
+
+    &:nth-child(3n+1) {
+      .howlround-post-color-overlay {
+        background-color: $teal;
+      }
+
+      a.howlround-post-title {
+        &:hover,
+        &:focus {
+          color: $black;
+        }
+      }
+    }
+
+    img {
+      width: 100%;
+      display: block;
+    }
+
+    .howlround-post-content {
+      position: absolute;
+      bottom: 0;
+      padding: $spacing-unit;
+    }
+
+    .howlround-post-date {
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .howlround-post-authors {
+      font-size: 14px;
+      font-style: italic;
+    }
+  }
+}

@@ -52,6 +52,44 @@ Feature: Create events
     And the ".event-location" element should contain "Buenos Aires, Argentina"
     And the ".event-organizations" element should contain "Organization of the year"
 
+  Scenario: Users should be able to create an event with all the fields offline (doesn't need google maps)
+    And a profile with the following fields:
+      | name | My Favorite Playwright |
+    And a profile with the following fields:
+      | name | Organization of the year |
+    And I am logged in
+    And I go to the "show" add page
+    And I fill in ".show-name-edit" with "Sofia"
+    And I fill in ".show-author-name-edit" with "My Favorite Playwright"
+    And I click on ".autocomplete-results li"
+    And I fill in ".show-about-edit" with "Most popular name in Italy"
+    And I click on ".edit-show-save"
+    When I go to the "event" add page
+    And I fill in ".event-show-edit" with "Sofia"
+    And I click on ".autocomplete-results li"
+    And I fill in ".event-organization-edit" with "Organization of the year"
+    And I click on ".autocomplete-results li"
+    And I select "Performance" from the ".event-type-edit" combobox
+    And I fill in ".event-about-edit" with "http://google.com"
+    And I click on ".form-group-startDate input"
+    And I click on ".react-datepicker__day=1"
+    And I click on ".form-group-endDate input"
+    And I click on ".react-datepicker__day=15"
+    And I fill in "[name=lat]" with "-36.03133177633187"
+    And I fill in "[name=lon]" with "-72.0703125"
+    And I fill in ".event-street-address-edit" with "Brandsen 805"
+    And I fill in ".event-locality-edit" with "Buenos Aires"
+    And I select "Argentina" from the ".country-select-edit" combobox
+    And I fill in ".event-postal-code-edit" with "1161"
+    And I click on ".edit-event-save"
+    Then the "h1.page-title" element should contain "Sofia"
+    And the ".event-about" element should contain "google.com"
+    And the ".event-type" element should contain "Performance"
+    And the ".event-date-range" element should contain the date range for day "1" to day "15" of this month
+    And I should see the "#globe" element
+    And the ".event-location" element should contain "Buenos Aires, Argentina"
+    And the ".event-organizations" element should contain "Organization of the year presents"
+
   Scenario: Users who use the text box on the location map when adding an event should have the other address fields prepopulated
     And a profile with the following fields:
       | name | My Favorite Playwright |

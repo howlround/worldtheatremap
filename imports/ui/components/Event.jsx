@@ -343,6 +343,12 @@ class Event extends React.Component {
             </div> : ''
           }
           <div className="event-main-info">
+            { event.organizations ?
+              <div className="event-organizations">
+                <Link to={`/profiles/${ event.organizations._id }`}>
+                  <ProfileNameContainer profileId={event.organizations._id} />
+                </Link> <span className="event-organizations-presents">Presents</span>
+              </div>: ''}
             <h1 className="event-name page-title">
               <Link
                 to={`/shows/${ event.show._id }`}
@@ -363,12 +369,6 @@ class Event extends React.Component {
               <h3 className="event-type">
                 {event.eventType}
               </h3>
-              { event.organizations ?
-                <div className="event-organizations">
-                  <Link to={`/profiles/${ event.organizations._id }`}>
-                    <ProfileNameContainer profileId={event.organizations._id} />
-                  </Link>
-                </div>: ''}
               {typeof locationLine != 'undefined' ?
                 <div className="event-location">{ locationLine }</div> : ''}
               {event.startDate && event.endDate ?

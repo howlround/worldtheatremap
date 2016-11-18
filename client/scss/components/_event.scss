@@ -9,27 +9,27 @@ article.event {
   }
 
   .event-name {
-    a {
-      color: $dark-tan;
-
-      &:hover,
-      &:focus {
-        color: $gray;
-      }
-    }
+    font-size: 36px;
+    line-height: 40px;
   }
 
-  .event-authorship {
-    color: $dark-tan;
+  .event-organizations {
+    font-size: 18px;
+    line-height: 24px;
+  }
 
-    a {
-      color: $dark-tan;
+  .event-organizations-presents {
+    text-transform: uppercase;
+    font-size: 15px;
+  }
 
-      &:hover,
-      &:focus {
-        color: $gray;
-      }
-    }
+  .event-type {
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+
+  .event-location {
+    line-height: 21px;
   }
 }
 

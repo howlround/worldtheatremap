@@ -129,8 +129,12 @@
     }
 
     .howlround-post-color-overlay {
-      background-color: $color-ancillary;
-      opacity: 0.15;
+      background: rgb(28,63,83); /* Old browsers */
+      background: -moz-linear-gradient(top, rgba(28,63,83,0.3) 40%, rgba(28,63,83,1) 100%); /* FF3.6-15 */
+      background: -webkit-linear-gradient(top, rgba(28,63,83,0.3) 40%,rgba(28,63,83,1) 100%); /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(to bottom, rgba(28,63,83,0.3) 40%,rgba(28,63,83,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      // background-color: $color-ancillary;
+      opacity: 0.8;
       position: absolute;
       top: 0;
       left: 0;
@@ -140,7 +144,11 @@
 
     &:nth-child(2n+1) {
       .howlround-post-color-overlay {
-        background-color: $red;
+        // background-color: $red;
+        background: rgb(200,61,40.3); /* Old browsers */
+        background: -moz-linear-gradient(top, rgba(200,61,40,0.3) 40%, rgba(200,61,40,1) 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(top, rgba(200,61,40,0.3) 40%,rgba(200,61,40,1) 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom, rgba(200,61,40,0.3) 40%,rgba(200,61,40,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
       }
 
       a.howlround-post-title {
@@ -154,7 +162,11 @@
 
     &:nth-child(3n+1) {
       .howlround-post-color-overlay {
-        background-color: $teal;
+        // background-color: $teal;
+        background: rgb(28,180,176); /* Old browsers */
+        background: -moz-linear-gradient(top, rgba(28,180,176,0.3) 40%, rgba(28,180,176,1) 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(top, rgba(28,180,176,0.3) 40%,rgba(28,180,176,1) 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom, rgba(28,180,176,0.3) 40%,rgba(28,180,176,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
       }
 
       a.howlround-post-title {

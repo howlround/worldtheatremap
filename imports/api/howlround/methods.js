@@ -86,7 +86,7 @@ export const howlroundGetPosts = new ValidatedMethod({
     if (Meteor.isServer) {
       var result = HTTP.call(
         'GET',
-        'http://staging.howlround.com/featured/json',
+        'http://howlround.com/posts/json',
         {},
         (error, result) => {
           if (error) {

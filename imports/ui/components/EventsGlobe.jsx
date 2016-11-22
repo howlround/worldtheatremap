@@ -1,5 +1,4 @@
 import React from 'react';
-import classnames from 'classnames';
 import { select, queue, json, transition } from 'd3';
 import topojson from 'topojson';
 import { geoOrthographic, geoGraticule, geoPath, geoCentroid, geoInterpolate } from 'd3-geo';

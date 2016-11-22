@@ -33,6 +33,7 @@ Feature: Events taking place today should display on a map on the home page
     And I click on ".edit-event-save"
     And I am on the home page
     Then the ".events-globe .event-show-name" element should contain "Althea"
+    And the ".events-globe .event-organizations" element should contain "Organization of the year PRESENTS"
 
   Scenario: Events that start before today and end before today should not display on the home page globe
     And I am logged in

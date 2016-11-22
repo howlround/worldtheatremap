@@ -278,7 +278,15 @@ class Event extends React.Component {
       const aboutText = aboutRaw.replace(stripHttpExp, '');
       const aboutLink = <a href={`http://${aboutText}`}>{aboutText}</a>;
 
-      return <a href={`http://${aboutText}`}>{aboutText}</a>;
+      return (
+        <a href={`http://${aboutText}`}>
+          <FormattedMessage
+            id="event.moreInfoLinkText"
+            description="Link text for event more info link"
+            defaultMessage="More information"
+          />
+        </a>
+      );
     }
   }
 
@@ -387,27 +395,17 @@ class Event extends React.Component {
                     day='numeric'
                   />
                 </div> : ''}
+              {event.about ?
+                <div className="event-about">
+                  {this.renderAboutLink()}
+                </div> : ''
+              }
             </div>
           </div>
           <div className="edit-links">
             {editLink}
           </div>
         </section>
-        {event.about ?
-          <section className="event-about">
-            <h2>
-              <FormattedMessage
-                id='event.aboutSectionHeader'
-                description='Header above about text on events'
-                defaultMessage='About'
-              />
-            </h2>
-            {event.about ? this.renderAboutLink() : ''}
-            <div className="edit-links">
-              {editLink}
-            </div>
-          </section> : ''
-        }
         { user || participants ?
           <section className="event-participants">
             <h2>

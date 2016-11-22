@@ -11,7 +11,7 @@ class ProfileName extends React.Component {
     }
 
     return (
-      <span className={classNames}>
+      <span className={classnames(classNames)}>
         {profileExists ?
           profileName.name
           : ''

@@ -31,6 +31,10 @@ article.event {
   .event-location {
     line-height: 21px;
   }
+
+  .event-date-range {
+    margin-bottom: $spacing-unit;
+  }
 }
 
 article.event.with-location {
@@ -72,9 +76,51 @@ article.event-teaser-with-show {
     line-height: 1.5em;
   }
 
+  .event-organizations {
+    font-size: 17px;
+    line-height: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+
+  .event-organizations-presents {
+    font-size: 15px;
+    font-weight: normal;
+    text-transform: uppercase;
+  }
+
+  .event-show-name {
+    font-size: 17px;
+    line-height: 20px;
+  }
+
+  .event-authorship {
+    font-size: 17px;
+    line-height: 20px;
+    margin-bottom: 15px;
+  }
+
   .event-type {
     text-transform: uppercase;
     font-size: 13px;
+  }
+
+  .event-location {
+    font-size: 13px;
+  }
+
+  .event-view-link {
+    background-color: $red;
+    padding: $spacing-unit;
+    color: $white;
+    display: inline-block;
+    margin-top: 15px;
+
+    &:hover,
+    &:focus {
+      background-color: $teal;
+      color: $white;
+    }
   }
 }
 
@@ -82,12 +128,22 @@ article.event-teaser-with-show {
   article.event-teaser-with-show {
     overflow: auto;
 
+    .event-main-info {
+      @include breakpoint($narrow) {
+        position: relative;
+      }
+    }
+
     .event-type {
       font-size: 11px;
       color: $gray;
+      float: left;
+      clear: both;
 
       @include breakpoint($narrow) {
-        float: right;
+        position: absolute;
+        top: 0;
+        right: 0;
       }
     }
 
@@ -99,14 +155,19 @@ article.event-teaser-with-show {
 
     .event-authorship {
       float: left;
-      line-height: 1.9em;
+      line-height: 1.5em;
       margin-right: $spacing-unit / 2;
+      margin-bottom: 0;
     }
 
     .event-organizations {
-      float: left;
-      clear: both;
       font-size: 13px;
+      margin-bottom: 0;
+    }
+
+    .event-organizations-presents {
+      font-size: 13px;
+      text-transform: none;
     }
 
     .event-location {
@@ -121,6 +182,22 @@ article.event-teaser-with-show {
       float: left;
       color: $gray;
       margin-right: $spacing-unit * 2;
+    }
+
+    .event-view-link {
+      background-color: transparent;
+      padding: 0;
+      color: $red;
+      display: inline-block;
+      margin-top: 0;
+      float: right;
+      font-weight: bold;
+
+      &:hover,
+      &:focus {
+        background-color: transparent;
+        color: $gray;
+      }
     }
   }
 }

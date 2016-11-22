@@ -11,7 +11,7 @@ export default class HowlRoundPostFeatured extends React.Component {
         <div className="howlround-post-color-overlay" />
         <div className="howlround-post-content">
           <div className="howlround-post-date">
-            {post.post_date}
+            {post.created}
           </div>
           <a
             href={post.url}

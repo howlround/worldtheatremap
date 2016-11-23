@@ -2,15 +2,16 @@ import { Meteor } from 'meteor/meteor';
 import React from 'react';
 
 // Utilities
-import Helmet from 'react-helmet';
 import classnames from 'classnames';
-import { _ } from 'meteor/underscore';
-import { select, queue, json } from 'd3';
+import Helmet from 'react-helmet';
 import topojson from 'topojson';
+import { _ } from 'meteor/underscore';
+import { displayError } from '../helpers/errors.js';
+import { FormattedMessage } from 'react-intl';
 import { geoOrthographic, geoGraticule, geoPath, geoCentroid, geoInterpolate } from 'd3-geo';
 import { Link } from 'react-router';
-import { FormattedMessage } from 'react-intl';
-import { displayError } from '../helpers/errors.js';
+import { OutboundLink } from 'react-ga';
+import { select, queue, json } from 'd3';
 
 // Forms
 import t from 'tcomb-form';
@@ -390,19 +391,20 @@ export default class ProfilePage extends React.Component {
             </Link>
 
             <div className="page-actions-share">
-              <a
-                href={`https://twitter.com/intent/tweet?text=${profile.name} on the World Theatre Map ${baseUrl}profiles/${profile._id} %23howlround @HowlRound @WorldTheatreMap`}
+              <OutboundLink
+                eventLabel="twitter-share"
+                to={`https://twitter.com/intent/tweet?text=${profile.name} on the World Theatre Map ${baseUrl}profiles/${profile._id} %23howlround @HowlRound @WorldTheatreMap`}
                 className="twitter-share"
-                target="_blank"
               >
                 <FormattedMessage
                   id="pageActions.tweet"
                   description="Twitter Share Text"
                   defaultMessage="Tweet"
                 />
-              </a>
-              <a
-                href={`https://www.facebook.com/dialog/share?app_id=662843947226126&display=popup&href=${baseUrl}profiles/${profile._id}&redirect_uri=${baseUrl}profiles/${profile._id}`}
+              </OutboundLink>
+              <OutboundLink
+                eventLabel="facebook-share"
+                to={`https://www.facebook.com/dialog/share?app_id=662843947226126&display=popup&href=${baseUrl}profiles/${profile._id}&redirect_uri=${baseUrl}profiles/${profile._id}`}
                 className="facebook-share"
               >
                 <FormattedMessage
@@ -410,7 +412,7 @@ export default class ProfilePage extends React.Component {
                   description="Facebook Share Text"
                   defaultMessage="Share"
                 />
-              </a>
+              </OutboundLink>
             </div>
           </div>
           <Profile

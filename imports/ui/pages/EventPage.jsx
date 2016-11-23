@@ -1,10 +1,11 @@
 // Utilities
 import { Meteor } from 'meteor/meteor';
-import React from 'react';
 import classnames from 'classnames';
 import Helmet from 'react-helmet';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
+import { OutboundLink } from 'react-ga';
 
 // Components
 import Event from '../components/Event.jsx';
@@ -131,19 +132,20 @@ export default class EventPage extends React.Component {
             </Link>
 
             <div className="page-actions-share">
-              <a
-                href={`https://twitter.com/intent/tweet?text=${event.organizations.name} presents ${event.show.name} — World Theatre Map ${baseUrl}profiles/${event._id} %23howlround @HowlRound @WorldTheatreMap`}
+              <OutboundLink
+                eventLabel="twitter-share"
+                to={`https://twitter.com/intent/tweet?text=${event.organizations.name} presents ${event.show.name} — World Theatre Map ${baseUrl}profiles/${event._id} %23howlround @HowlRound @WorldTheatreMap`}
                 className="twitter-share"
-                target="_blank"
               >
                 <FormattedMessage
                   id="pageActions.tweet"
                   description="Twitter Share Text"
                   defaultMessage="Tweet"
                 />
-              </a>
-              <a
-                href={`https://www.facebook.com/dialog/share?app_id=662843947226126&display=popup&href=${baseUrl}events/${event._id}&redirect_uri=${baseUrl}events/${event._id}`}
+              </OutboundLink>
+              <OutboundLink
+                eventLabel="facebook-share"
+                to={`https://www.facebook.com/dialog/share?app_id=662843947226126&display=popup&href=${baseUrl}events/${event._id}&redirect_uri=${baseUrl}events/${event._id}`}
                 className="facebook-share"
               >
                 <FormattedMessage
@@ -151,7 +153,7 @@ export default class EventPage extends React.Component {
                   description="Facebook Share Text"
                   defaultMessage="Share"
                 />
-              </a>
+              </OutboundLink>
             </div>
           </div>
           <Event

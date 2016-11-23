@@ -1,14 +1,15 @@
 import { Meteor } from 'meteor/meteor';
 import { render, unmountComponentAtNode } from 'react-dom';
 
-import moment from 'moment';
 import 'moment/locale/es';
-import { TAPi18n } from 'meteor/tap:i18n';
-import { addLocaleData } from 'react-intl'
 import en from 'react-intl/locale-data/en'
 import es from 'react-intl/locale-data/es'
-
+import moment from 'moment';
+import ReactGA from 'react-ga';
+import { addLocaleData } from 'react-intl'
 import { renderRoutes, loadTranslation } from '../imports/startup/client/routes.jsx';
+import { Session } from 'meteor/session';
+import { TAPi18n } from 'meteor/tap:i18n';
 
 import '/imports/startup/client';
 
@@ -33,8 +34,11 @@ const initiateRender = () => {
       TAPi18n.setLanguage(locale);
       moment.locale(locale);
 
+      // Locale / Language
+      ReactGA.ga('set', 'dimension2', locale);
+
       const messages = loadTranslation( { locale });
-      render(renderRoutes({ locale, messages }), this.container)
+      render(renderRoutes({ locale, messages }), this.container);
     },
 
     unmount: function() {
@@ -55,6 +59,19 @@ Meteor.startup(() => {
       'en',
       'es'
   ];
+
+  ReactGA.initialize(Meteor.settings.public.GoogleAnalytics);
+  // Locale / Language
+  const locale = localStorage.getItem('locale') || 'en';
+  ReactGA.ga('set', 'dimension2', locale);
+  // Logged in
+  ReactGA.ga('set', 'dimension1', !!Session.get('userId'));
+  ReactGA.set({
+    page: window.location.pathname + window.location.search,
+    title: '',
+    userId: Session.get('userId'),
+  });
+  ReactGA.pageview(window.location.pathname + window.location.search);
 
   if (global.Intl) {
     // Determine if the built-in `Intl` has the locale data we need.

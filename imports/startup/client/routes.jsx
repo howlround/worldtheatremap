@@ -1,9 +1,10 @@
 import React from 'react';
-import { Router, Route, IndexRedirect, browserHistory, useRouterHistory } from 'react-router';
 import createBrowserHistory from 'history/lib/createBrowserHistory'
-import { stringify, parse } from 'qs'
-
+import ReactGA from 'react-ga';
 import { IntlProvider } from 'react-intl';
+import { Router, Route, IndexRedirect, browserHistory, useRouterHistory } from 'react-router';
+import { Session } from 'meteor/session';
+import { stringify, parse } from 'qs'
 
 // route components
 import AppContainer from '../../ui/containers/AppContainer.jsx';
@@ -28,8 +29,17 @@ import SearchShowsContainer from '../../ui/containers/SearchShowsContainer.jsx';
 
 // Use this to handle arrays in the query params
 // https://github.com/reactjs/react-router/issues/939#issuecomment-215988002
-const stringifyQuery = query => stringify(query, { arrayFormat: 'brackets', encode: false})
-const customHistory = useRouterHistory(createBrowserHistory)({ parseQueryString: parse, stringifyQuery })
+const stringifyQuery = query => stringify(query, { arrayFormat: 'brackets', encode: false});
+const customHistory = useRouterHistory(createBrowserHistory)({ parseQueryString: parse, stringifyQuery });
+
+customHistory.listen(location => {
+  ReactGA.set({
+    page: location.pathname + location.search,
+    title: '',
+    userId: Session.get('userId'),
+  });
+  ReactGA.pageview(location.pathname + location.search);
+});
 
 export const loadTranslation = ({ locale }) => {
   let messages = {};

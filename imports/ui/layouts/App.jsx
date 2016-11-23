@@ -140,7 +140,7 @@ export default class App extends React.Component {
             ? <Loading key="loading" />
             : clonedChildren}
           {(!clonedChildren && !loading) ?
-            <HomePageContainer />
+            <HomePageContainer user={user} />
             : ''
           }
         </section>

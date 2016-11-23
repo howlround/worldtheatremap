@@ -33,6 +33,7 @@
     "react-datepicker": "^0.29.0",
     "react-dom": "^15.0.0",
     "react-dropzone": "^3.5.3",
+    "react-ga": "^2.1.2",
     "react-helmet": "^3.2.2",
     "react-intl": "^2.1.5",
     "react-router": "^2.0.0",

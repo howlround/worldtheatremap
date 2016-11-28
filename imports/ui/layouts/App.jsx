@@ -7,6 +7,8 @@ import { FormattedMessage } from 'react-intl';
 
 // Containers
 import HomePageContainer from '../containers/HomePageContainer.jsx';
+// Containers
+import SiteStatisticsContainer from '../containers/SiteStatisticsContainer.jsx';
 
 // Components
 import Footer from '../components/Footer.jsx';
@@ -145,6 +147,7 @@ export default class App extends React.Component {
           }
         </section>
         <FooterAddPitch />
+        <SiteStatisticsContainer />
         <Footer />
       </div>
     );

@@ -39,3 +39,6 @@ import '../../api/howlround/methods.js';
 
 // Variables
 import '../../api/variables/server/publications.js';
+
+// Counts
+import '../../api/counts/server/publications.js';

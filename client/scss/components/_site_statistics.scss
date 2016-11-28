@@ -1,0 +1,22 @@
+.site-statistics {
+  background-color: $dark-gray;
+  padding: $spacing-unit * 2 0;
+  color: $white;
+
+  h2 {
+    color: $white;
+    text-align: center;
+    font-size: 17px;
+  }
+
+  .footer-content {
+    overflow: auto;
+    border-top: 1px solid $off-white;
+    padding-top: $spacing-unit;
+
+    @include breakpoint($narrow) {
+      border-top: none;
+      padding-top: 0;
+    }
+  }
+}

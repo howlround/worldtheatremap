@@ -2,6 +2,7 @@
 
 import { Meteor } from 'meteor/meteor';
 
+// API
 import { Variables } from '../variables.js';
 
 Meteor.publish('variables.get', function variablesGet(ids) {

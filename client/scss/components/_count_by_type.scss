@@ -1,0 +1,15 @@
+.count-by-type {
+  @include gallery(1 of 3);
+
+  text-align: center;
+
+  .count {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .type {
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+}

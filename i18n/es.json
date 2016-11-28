@@ -1,4 +1,10 @@
 {
+  "stats.oneProfile": "Perfil",
+  "stats.otherProfiles": "Perfiles",
+  "stats.oneEvent": "Evento",
+  "stats.otherEvents": "Eventos",
+  "stats.oneShow": "Presentación",
+  "stats.otherShows": "Presentaciones",
   "forms.affiliationFormError": "Ir a 'añadir persona / organización' para hacer un perfil para esta red / asociación / unión.",
   "forms.affiliationFormLabel": "Nombre de Red / Asociación / Unión",
   "forms.affiliationFormHelp": "Si la red / asociación / unión no aparece aquí, no tiene ningún perfil. Ir a 'añadir persona / organización' para hacer uno.",

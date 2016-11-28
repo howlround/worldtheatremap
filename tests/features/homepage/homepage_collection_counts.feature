@@ -14,4 +14,4 @@ Feature: Collection counts on home page
     And I fill in ".profile-name-edit" with "Fatima"
     And I click on ".edit-profile-save"
     And I am on the English language home page
-    Then the ".profiles-count .count" element should contain "1"
+    Then the ".theatremakers-count .count" element should contain "1"

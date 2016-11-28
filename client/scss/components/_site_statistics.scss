@@ -11,12 +11,7 @@
 
   .footer-content {
     overflow: auto;
-    border-top: 1px solid $off-white;
+    border-top: 1px solid $light-gray;
     padding-top: $spacing-unit;
-
-    @include breakpoint($narrow) {
-      border-top: none;
-      padding-top: 0;
-    }
   }
 }

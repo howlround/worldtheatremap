@@ -21,7 +21,7 @@ export default class HomePage extends React.Component {
       <section className="homepage-events-globe">
         <div className="homepage-section-header">
           <Helmet
-            title="World Theatre Map Home"
+            title="World Theatre Map"
             titleTemplate="%s"
           />
           <h2>

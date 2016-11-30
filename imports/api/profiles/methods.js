@@ -48,6 +48,8 @@ export const insert = new ValidatedMethod({
       upsertCountry.call({ country: newProfile.country });
     }
 
+    // @TODO: Update the user record for this.userId and increment the contentAdded field
+
     // The permutations of viewing language and target language:
     // (After doing this we will conflate "Viewing in" and "Target" for now. They can be split apart later if required.)
     // [Viewing: Spanish + ]Target: Spanish
@@ -188,6 +190,8 @@ export const updateImage = new ValidatedMethod({
         imageWide,
       },
     });
+
+    // @TODO: Update the user record for this.userId and increment the contentEdited field
   },
 });
 
@@ -220,6 +224,8 @@ export const update = new ValidatedMethod({
     doc[lang] = newProfile;
 
     Profiles.updateTranslations(profileId, doc);
+
+    // @TODO: Update the user record for this.userId and increment the contentEdited field
   },
 });
 
@@ -254,6 +260,8 @@ export const remove = new ValidatedMethod({
     }
 
     Profiles.remove(profileId);
+
+    // @TODO: Update the user record for this.userId and increment the contentEdited field
   },
 });
 

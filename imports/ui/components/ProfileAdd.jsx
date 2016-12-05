@@ -17,7 +17,9 @@ class ProfileAdd extends React.Component {
 
     const { locale } = this.props.intl;
 
-    this.state = {};
+    this.state = {
+      ethnicityRace: [ null ],
+    };
 
     this.throttledAdd = _.throttle(newProfile => {
       if (newProfile) {
@@ -169,7 +171,6 @@ class ProfileAdd extends React.Component {
     if (!_.contains(profileType, 'Individual')) {
       formOptions.fields.gender.disabled = true;
       formOptions.fields.ethnicityRace.disabled = true;
-      formOptions.fields.ethnicityRaceDisplay.disabled = true;
       formOptions.fields.selfDefinedRoles.disabled = true;
     }
 

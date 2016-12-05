@@ -341,6 +341,20 @@ class Profile extends React.Component {
       return (<span key={gender}>{gender}{seperator}</span>);
     }) : false;
 
+    let ethnicityRaceDisplay = (profile.ethnicityRace) ? profile.ethnicityRace.map((ethnicityRace, index, array) => {
+      let seperator = ', ';
+      if (index === array.length - 1) {
+        seperator = '';
+      } else if (index === array.length - 2) {
+        if (array.length > 2) {
+          seperator = ', and ';
+        } else {
+          seperator = ' and ';
+        }
+      }
+      return (<span key={ethnicityRace}>{ethnicityRace}{seperator}</span>);
+    }) : false;
+
     const cityState = [
       profile.locality,
       profile.administrativeArea,
@@ -374,9 +388,9 @@ class Profile extends React.Component {
                 <div className="profile-roles" title="Roles">{selfDefinedRoles}</div> : ''}
               {!_.isEmpty(profile.gender) ?
                 <div className="profile-gender" title="Gender">{genders}</div> : ''}
-              {!_.isEmpty(profile.ethnicityRaceDisplay) ?
-                <div className="profile-ethnicity-race-display">
-                  {profile.ethnicityRaceDisplay}
+              {!_.isEmpty(ethnicityRaceDisplay) ?
+                <div className="profile-ethnicity-race-display" title="Ethnicity/Race">
+                  {ethnicityRaceDisplay}
                 </div> : ''}
               {!_.isEmpty(profile.orgTypes) ?
                 <div

@@ -6,6 +6,12 @@ form.profile-edit-form {
     }
   }
 
+  fieldset.disabled {
+    .row {
+      display: none;
+    }
+  }
+
   .checkbox-group {
     overflow: auto;
 

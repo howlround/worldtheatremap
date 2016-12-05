@@ -49,8 +49,22 @@ Profiles.deny({
 // React Select integration: https://github.com/gcanti/tcomb-form/issues/249
 // Profile type options
 const ProfileType = [
-  {value: "Individual", label: "Individual"},
-  {value: "Organization", label: "Organization"},
+  {
+    value: 'Individual',
+    label: <FormattedMessage
+      id="profileType.Individual"
+      description="Profile Type: Individual"
+      defaultMessage="Individual"
+    />,
+  },
+  {
+    value: 'Organization',
+    label: <FormattedMessage
+      id="profileType.Organization"
+      description="Profile Type: Organization"
+      defaultMessage="Organization"
+    />,
+  },
 ];
 // Profile type template
 const ProfileTypeTags = t.form.Form.templates.select.clone({
@@ -1112,7 +1126,11 @@ export const defaultFormOptions = () => ({
       attrs: {
         className: 'profile-name-edit',
       },
-      error: 'Name is required',
+      error: <FormattedMessage
+        id="forms.profileNameError"
+        description="Error for a Profile name form field"
+        defaultMessage="Name is required"
+      />,
     },
     about: {
       label: <FormattedMessage
@@ -1711,7 +1729,11 @@ export const translateSourceFormOptions = () => ({
       attrs: {
         className: 'profile-name-edit',
       },
-      error: 'Name is required',
+      error: <FormattedMessage
+        id="forms.profileNameError"
+        description="Error for a Profile name form field"
+        defaultMessage="Name is required"
+      />,
     },
     about: {
       type: 'textarea',
@@ -1723,7 +1745,11 @@ export const translateSourceFormOptions = () => ({
     profileType: {
       factory: ReactSelectProfileTypeFactory,
       disabled: true,
-      help: 'Is this profile representing an individual or an organization? Can be both if applicable. '
+      help: <FormattedMessage
+        id="forms.profileTypeHelpText"
+        description="Help text for profile type field"
+        defaultMessage="Is this profile representing an individual or an organization? Can be both if applicable."
+      />,
     },
     streetAddress: {
       attrs: {

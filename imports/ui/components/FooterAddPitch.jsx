@@ -12,8 +12,20 @@ export default class FooterAddPitch extends React.Component {
             description="Footer text prompting the user to add more content"
             defaultMessage="The World Theatre Map is a {directory} of the world's theatre community (makers, workers, companies, institutions) and a {hub} of its projects, events, performances, conversations, ideas."
             values={{
-              directory: <strong>user-generated directory</strong>,
-              hub: <strong>real-time media hub</strong>,
+              directory: <strong>
+                <FormattedMessage
+                  id="footer.addPitchDirectoryText"
+                  description="Emphisized directory text in add pitch"
+                  defaultMessage="user-generated directory"
+                />
+              </strong>,
+              hub: <strong>
+                <FormattedMessage
+                  id="footer.addPitchHubText"
+                  description="Emphisized hub text in add pitch"
+                  defaultMessage="real-time media hub"
+                />
+              </strong>
             }}
           />
 

@@ -84,7 +84,7 @@ export default class Footer extends React.Component {
                 <a className="twitter" href="http://twitter.com/HowlRound">Twitter</a>
               </li>
               <li>
-                <a className="instagram" href="http://instagram.com/HowlRound">Instagram</a>
+                <a className="instagram" href="http://instagram.com/howlround_commons">Instagram</a>
               </li>
             </ul>
           </div>

@@ -200,9 +200,9 @@ class ProfileEdit extends React.Component {
           className="edit-profile-save"
         >
           <FormattedMessage
-            id='buttons.save'
-            description='Generic save button'
-            defaultMessage='Save'
+            id="buttons.save"
+            description="Generic save button"
+            defaultMessage="Save"
           />
         </button>
       </form>

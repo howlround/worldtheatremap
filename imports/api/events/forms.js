@@ -242,7 +242,11 @@ export const defaultFormOptions = () => ({
   fields: {
     show: {
       factory: RelatedShowFactory,
-      error: 'Show is required',
+      error: <FormattedMessage
+        id="forms.showNameError"
+        description="Error for a Show name form field"
+        defaultMessage="Show name is required"
+      />,
       label: <FormattedMessage
         id="forms.labelRequiredOrOptional"
         description="Label for a form field with required or optional specified"
@@ -347,7 +351,11 @@ export const defaultFormOptions = () => ({
           />,
         }}
       />,
-      error: 'Start date is required',
+      error: <FormattedMessage
+        id="forms.eventStartDateError"
+        description="Error message for start date form field on events forms"
+        defaultMessage="Start date is required"
+      />,
       attrs: {
         className: 'event-start-date-edit',
       },
@@ -370,7 +378,11 @@ export const defaultFormOptions = () => ({
           />,
         }}
       />,
-      error: 'End date is required',
+      error: <FormattedMessage
+        id="forms.eventEndDateError"
+        description="Error message for End date form field on events forms"
+        defaultMessage="End date is required"
+      />,
       attrs: {
         className: 'event-end-date-edit',
       },
@@ -487,7 +499,11 @@ export const defaultFormOptions = () => ({
       attrs: {
         className: 'event-country-edit',
       },
-      error: 'Country is required',
+      error: <FormattedMessage
+        id="forms.eventCountryError"
+        description="Error message for country form field on events forms"
+        defaultMessage="Country is required"
+      />,
     },
     postalCode: {
       label: <FormattedMessage
@@ -521,7 +537,11 @@ export const defaultFormOptions = () => ({
         description="Help text for set pin field"
         defaultMessage="We use the google places database to help us find locations. If the location you are searching for is not in the database don't worry! You can place the pin where you want and manually enter the address in the fields below."
       />,
-      error: 'You must select a location for this event',
+      error: <FormattedMessage
+        id="forms.eventLocationError"
+        description="Error message for location select form field on events forms"
+        defaultMessage="You must select a location for this event"
+      />,
     },
     lon: {
       auto: 'none',
@@ -588,7 +608,11 @@ export const filtersFormOptions = () => ({
         description="Label for a Event type form field"
         defaultMessage="Event type"
       />,
-      error: 'Event type is required',
+      error: <FormattedMessage
+        id="forms.eventTypeError"
+        description="Error message for Event type select form field on events forms"
+        defaultMessage="Event type is required"
+      />,
       attrs: {
         className: 'event-type-edit',
       },

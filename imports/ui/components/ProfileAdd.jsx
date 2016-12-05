@@ -190,7 +190,13 @@ class ProfileAdd extends React.Component {
         <button
           type="submit"
           className="edit-profile-save"
-        >Save</button>
+        >
+          <FormattedMessage
+            id="buttons.save"
+            description="Generic save button"
+            defaultMessage="Save"
+          />
+        </button>
       </form>
     );
   }

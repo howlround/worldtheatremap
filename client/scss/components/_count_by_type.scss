@@ -2,7 +2,7 @@
   @include gallery(1 of 3);
 
   @include breakpoint($narrow) {
-    @include gallery(1 of 6);
+    @include gallery(1 of 5);
   }
 
   text-align: center;

@@ -10,8 +10,7 @@ import { Events } from '../../events/events.js';
 
 Meteor.publish('counts.collections', function() {
   const self = this;
-  let countProfiles = 0;
-  let countArtists = 0;
+  let countTheatremakers = 0;
   let countOrganizations = 0;
   let countShows = 0;
   let countEvents = 0;
@@ -21,29 +20,16 @@ Meteor.publish('counts.collections', function() {
   // have run. Until then, we don't want to send a lot of
   // `self.changed()` messages - hence tracking the
   // `initializing` state.
-  const handleProfiles = Profiles.find({}).observeChanges({
+  const handleTheatremakers = Profiles.find({"profileType": "Individual"}).observeChanges({
     added: function() {
-      countProfiles++;
+      countTheatremakers++;
       if (!initializing) {
-        self.changed('Counts', 'Theatremakers', { count: countProfiles });
+        self.changed('Counts', 'Theatremakers', { count: countTheatremakers });
       }
     },
     removed: function() {
-      countProfiles--;
-      self.changed('Counts', 'Theatremakers', { count: countProfiles });
-    },
-    // don't care about changed
-  });
-  const handleArtists = Profiles.find({"profileType": "Individual"}).observeChanges({
-    added: function() {
-      countArtists++;
-      if (!initializing) {
-        self.changed('Counts', 'Artists', { count: countArtists });
-      }
-    },
-    removed: function() {
-      countArtists--;
-      self.changed('Counts', 'Artists', { count: countArtists });
+      countTheatremakers--;
+      self.changed('Counts', 'Theatremakers', { count: countTheatremakers });
     },
     // don't care about changed
   });
@@ -116,8 +102,7 @@ Meteor.publish('counts.collections', function() {
   // observeChanges has returned, and mark the subscription as
   // ready.
   initializing = false;
-  self.added('Counts', 'Theatremakers', { count: countProfiles });
-  self.added('Counts', 'Artists', { count: countArtists });
+  self.added('Counts', 'Theatremakers', { count: countTheatremakers });
   self.added('Counts', 'Organizations', { count: countOrganizations });
   self.added('Counts', 'Shows', { count: countShows });
   self.added('Counts', 'Events', { count: countEvents });
@@ -127,8 +112,7 @@ Meteor.publish('counts.collections', function() {
   // Stopping a subscription automatically takes
   // care of sending the client any removed messages.
   self.onStop(() => {
-    handleProfiles.stop();
-    handleArtists.stop();
+    handleTheatremakers.stop();
     handleOrganizations.stop();
     handleShows.stop();
     handleEvents.stop();

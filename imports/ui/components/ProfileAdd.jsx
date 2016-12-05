@@ -7,7 +7,7 @@ import t from 'tcomb-form';
 import { displayError } from '../helpers/errors.js';
 
 import { insert } from '../../api/profiles/methods.js';
-import { profileSchema, defaultFormOptions } from '../../api/profiles/profiles.js';
+import { profileFormSchema, defaultFormOptions } from '../../api/profiles/profiles.js';
 
 const Form = t.form.Form;
 
@@ -17,9 +17,7 @@ class ProfileAdd extends React.Component {
 
     const { locale } = this.props.intl;
 
-    this.state = {
-      ethnicityRace: [ null ],
-    };
+    this.state = {};
 
     this.throttledAdd = _.throttle(newProfile => {
       if (newProfile) {
@@ -183,7 +181,7 @@ class ProfileAdd extends React.Component {
       <form className="profile-edit-form" onSubmit={this.handleSubmit.bind(this)} >
         <Form
           ref="form"
-          type={profileSchema}
+          type={profileFormSchema}
           options={formOptions}
           onChange={this.onChange}
           value={this.state}

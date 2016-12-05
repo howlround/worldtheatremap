@@ -1047,6 +1047,30 @@ export const profileSchema = t.struct({
   howlroundPostSearchText: t.maybe(t.String),
 });
 
+export const profileFormSchema = t.struct({
+  profileType: t.maybe(t.list(t.String)), // Required
+  name: t.String, // Required
+  gender: t.maybe(t.list(t.String)),
+  ethnicityRace: t.maybe(t.list(t.String)),
+  selfDefinedRoles: t.maybe(t.list(t.String)),
+  foundingYear: t.maybe(t.String),
+  orgTypes: t.maybe(t.list(t.String)),
+  interests: t.maybe(t.list(t.String)),
+  about: t.maybe(t.String),
+  email: t.maybe(t.String),
+  phone: t.maybe(t.String),
+  website: t.maybe(t.String),
+  agent: t.maybe(t.String),
+  social: t.maybe(t.String),
+  lat: t.maybe(t.String),
+  lon: t.maybe(t.String),
+  streetAddress: t.maybe(t.String),
+  locality: t.maybe(t.String), // City
+  administrativeArea: t.maybe(t.String), // Province, Region, State
+  country: t.maybe(t.String),
+  postalCode: t.maybe(t.String),
+});
+
 export const profileFiltersSchema = t.struct({
   name: t.maybe(t.String),
   selfDefinedRoles: t.maybe(t.list(t.String)),

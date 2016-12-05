@@ -105,9 +105,9 @@ export const insert = new ValidatedMethod({
       }
     }
 
-    // If the profile.howlroundPosts field is not filled out, use the profile name
-    if (_.isEmpty(newProfile.howlroundPosts)) {
-      newProfile.howlroundPosts = newProfile.name;
+    // If the profile.howlroundPostSearchText field is not filled out, use the profile name
+    if (_.isEmpty(newProfile.howlroundPostSearchText)) {
+      newProfile.howlroundPostSearchText = newProfile.name;
     }
 
     // Save source language

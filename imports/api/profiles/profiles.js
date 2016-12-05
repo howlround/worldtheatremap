@@ -339,27 +339,19 @@ OrgTypesReactSelectFactory.transformer = t.form.List.transformer;
 // selfDefinedRoles options
 const Roles = [
   {
-    value: 'Actor',
+    value: 'Administrator, Manager, Producer',
     label: <FormattedMessage
-      id="role.Actor"
-      description="Roles options: Actor"
-      defaultMessage="Actor"
+      id="role.Administrator, Manager, Producer"
+      description="Roles options: Administrator, Manager, Producer"
+      defaultMessage="Administrator, Manager, Producer"
     />,
   },
   {
-    value: 'Administrator',
+    value: 'Agent, Representative',
     label: <FormattedMessage
-      id="role.Administrator"
-      description="Roles options: Administrator"
-      defaultMessage="Administrator"
-    />,
-  },
-  {
-    value: 'Agent / Manager',
-    label: <FormattedMessage
-      id="role.Agent / Manager"
-      description="Roles options: Agent / Manager"
-      defaultMessage="Agent / Manager"
+      id="role.Agent, Representative"
+      description="Roles options: Agent, Representative"
+      defaultMessage="Agent, Representative"
     />,
   },
   {
@@ -368,22 +360,6 @@ const Roles = [
       id="role.Choreographer"
       description="Roles options: Choreographer"
       defaultMessage="Choreographer"
-    />,
-  },
-  {
-    value: 'Composer',
-    label: <FormattedMessage
-      id="role.Composer"
-      description="Roles options: Composer"
-      defaultMessage="Composer"
-    />,
-  },
-  {
-    value: 'Costume Designer',
-    label: <FormattedMessage
-      id="role.Costume Designer"
-      description="Roles options: Costume Designer"
-      defaultMessage="Costume Designer"
     />,
   },
   {
@@ -408,6 +384,70 @@ const Roles = [
       id="role.Designer"
       description="Roles options: Designer"
       defaultMessage="Designer"
+    />,
+  },
+  {
+    value: 'Designer: Costume',
+    label: <FormattedMessage
+      id="role.Designer: Costume"
+      description="Roles options: Designer: Costume"
+      defaultMessage="Designer: Costume"
+    />,
+  },
+  {
+    value: 'Designer: Lighting',
+    label: <FormattedMessage
+      id="role.Designer: Lighting"
+      description="Roles options: Designer: Lighting"
+      defaultMessage="Designer: Lighting"
+    />,
+  },
+  {
+    value: 'Designer: Projection',
+    label: <FormattedMessage
+      id="role.Designer: Projection"
+      description="Roles options: Designer: Projection"
+      defaultMessage="Designer: Projection"
+    />,
+  },
+  {
+    value: 'Designer: Props',
+    label: <FormattedMessage
+      id="role.Designer: Props"
+      description="Roles options: Designer: Props"
+      defaultMessage="Designer: Props"
+    />,
+  },
+  {
+    value: 'Designer: Puppets',
+    label: <FormattedMessage
+      id="role.Designer: Puppets"
+      description="Roles options: Designer: Puppets"
+      defaultMessage="Designer: Puppets"
+    />,
+  },
+  {
+    value: 'Designer: Scenic',
+    label: <FormattedMessage
+      id="role.Designer: Scenic"
+      description="Roles options: Designer: Scenic"
+      defaultMessage="Designer: Scenic"
+    />,
+  },
+  {
+    value: 'Designer: Sound',
+    label: <FormattedMessage
+      id="role.Designer: Sound"
+      description="Roles options: Designer: Sound"
+      defaultMessage="Designer: Sound"
+    />,
+  },
+  {
+    value: 'Director',
+    label: <FormattedMessage
+      id="role.Director"
+      description="Roles options: Director"
+      defaultMessage="Director"
     />,
   },
   {
@@ -443,19 +483,11 @@ const Roles = [
     />,
   },
   {
-    value: 'Lighting Designer',
+    value: 'Music Composer',
     label: <FormattedMessage
-      id="role.Lighting Designer"
-      description="Roles options: Lighting Designer"
-      defaultMessage="Lighting Designer"
-    />,
-  },
-  {
-    value: 'Musician',
-    label: <FormattedMessage
-      id="role.Musician"
-      description="Roles options: Musician"
-      defaultMessage="Musician"
+      id="role.Music Composer"
+      description="Roles options: Music Composer"
+      defaultMessage="Music Composer"
     />,
   },
   {
@@ -475,19 +507,35 @@ const Roles = [
     />,
   },
   {
+    value: 'Performer: Dancer',
+    label: <FormattedMessage
+      id="role.Performer: Dancer"
+      description="Roles options: Performer: Dancer"
+      defaultMessage="Performer: Dancer"
+    />,
+  },
+  {
+    value: 'Performer: Musician',
+    label: <FormattedMessage
+      id="role.Performer: Musician"
+      description="Roles options: Performer: Musician"
+      defaultMessage="Performer: Musician"
+    />,
+  },
+  {
+    value: 'Performer: Singer',
+    label: <FormattedMessage
+      id="role.Performer: Singer"
+      description="Roles options: Performer: Singer"
+      defaultMessage="Performer: Singer"
+    />,
+  },
+  {
     value: 'Playwright',
     label: <FormattedMessage
       id="role.Playwright"
       description="Roles options: Playwright"
       defaultMessage="Playwright"
-    />,
-  },
-  {
-    value: 'Producer',
-    label: <FormattedMessage
-      id="role.Producer"
-      description="Roles options: Producer"
-      defaultMessage="Producer"
     />,
   },
   {
@@ -520,22 +568,6 @@ const Roles = [
       id="role.Singer"
       description="Roles options: Singer"
       defaultMessage="Singer"
-    />,
-  },
-  {
-    value: 'Sound Designer',
-    label: <FormattedMessage
-      id="role.Sound Designer"
-      description="Roles options: Sound Designer"
-      defaultMessage="Sound Designer"
-    />,
-  },
-  {
-    value: 'Stage Director',
-    label: <FormattedMessage
-      id="role.Stage Director"
-      description="Roles options: Stage Director"
-      defaultMessage="Stage Director"
     />,
   },
   {
@@ -1101,7 +1133,11 @@ export const defaultFormOptions = () => ({
         }}
       />,
       factory: ReactSelectProfileTypeFactory,
-      help: 'Is this profile representing an individual or an organization? Can be both if applicable.',
+      help: <FormattedMessage
+        id="forms.profileTypeHelpText"
+        description="Help text for profile type field"
+        defaultMessage="Is this profile representing an individual or an organization? Can be both if applicable."
+      />,
     },
     ethnicityRace: {
       label: <FormattedMessage

@@ -36,14 +36,6 @@ const EventType = [
     />,
   },
   {
-    value: 'Work-in-Progress',
-    label: <FormattedMessage
-      id="eventType.Work-in-Progress"
-      description="Event types: Work-in-Progress"
-      defaultMessage="Work-in-Progress"
-    />,
-  },
-  {
     value: 'Workshop',
     label: <FormattedMessage
       id="eventType.Workshop"

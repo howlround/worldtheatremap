@@ -40,6 +40,15 @@ Shows.deny({
 /* Author component override */
 // Author
 const relatedProfileTextboxTemplate = t.form.Form.templates.textbox.clone({
+  renderVertical: (locals) => {
+    return [
+      disabledFieldTemplate.renderLabel(locals),
+      disabledFieldTemplate.renderHelp(locals),
+      disabledFieldTemplate.renderError(locals),
+      disabledFieldTemplate.renderTextbox(locals),
+    ]
+  },
+
   renderTextbox: (locals) => {
     // @TODO: Investigate locals.path for multiple. Also something like locals.onChange({0: evt})
     const onChange = (evt) => locals.onChange(evt);

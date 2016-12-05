@@ -13,6 +13,7 @@ Feature: Filters on profile search
     And I select "Individual" from the ".profile-type-edit" combobox
     And I select "Organization" from the ".profile-type-edit" combobox
     And I fill in ".profile-about-edit" with "Most popular name in Algeria (census, 2010)"
+    And I fill in ".profile-ethnicity-edit" with "Self Identity"
     And I fill in ".profile-locality-edit" with "Algiers"
     And I fill in ".profile-administrative-area-edit" with "Algiers Province"
     And I select "Algeria" from the ".country-select-edit" combobox
@@ -204,3 +205,8 @@ Feature: Filters on profile search
   Scenario: When there are only a few results no pager should be displayed
     When I fill in ".profile-postal-code-edit" with "16000"
     Then I should not see ".search-results-pager"
+
+  # Ethnicity/Race
+  Scenario: Users can filter profiles by Ethnicity/Race
+    When I select "Self Identity" from the ".ethnicity-select-edit" combobox
+    Then the ".search-results" element should contain "Fatima"

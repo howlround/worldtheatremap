@@ -7,9 +7,10 @@ const SearchProfilesContainer = createContainer((props) => {
   const localitiesSubscribe = Meteor.subscribe('localities.public');
   const countriesSubscribe = Meteor.subscribe('countries.public');
   const administrativeAreasSubscribe = Meteor.subscribe('administrativeAreas.public');
+  const ethnicitiesSub = Meteor.subscribe('ethnicities.public');
 
   return {
-    loading: !(localitiesSubscribe.ready() && countriesSubscribe.ready() && administrativeAreasSubscribe.ready()),
+    loading: !(localitiesSubscribe.ready() && countriesSubscribe.ready() && administrativeAreasSubscribe.ready() && ethnicitiesSub.ready()),
   };
 }, SearchProfiles);
 

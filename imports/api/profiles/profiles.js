@@ -88,6 +88,16 @@ const ProfileTypeTags = t.form.Form.templates.select.clone({
     );
   },
 });
+
+ProfileTypeTags.renderVertical = (locals) => {
+  return [
+    ProfileTypeTags.renderLabel(locals),
+    ProfileTypeTags.renderHelp(locals),
+    ProfileTypeTags.renderError(locals),
+    ProfileTypeTags.renderSelect(locals),
+  ]
+};
+
 // Profile type Factory
 class ReactSelectProfileTypeFactory extends t.form.Component {
   getTemplate() {
@@ -96,192 +106,6 @@ class ReactSelectProfileTypeFactory extends t.form.Component {
 }
 // Profile type transformer
 ReactSelectProfileTypeFactory.transformer = t.form.List.transformer;
-
-// Ethnicity/Race options
-const EthnicityRace = [
-  {
-    value: 'Asian American',
-    label: <FormattedMessage
-      id="ethnicityRaceOptions.Asian American"
-      description="Ethnicity/Race options: Asian American"
-      defaultMessage="Asian American"
-    />,
-  },
-  {
-    value: 'Black or African American',
-    label: <FormattedMessage
-      id="ethnicityRaceOptions.Black or African American"
-      description="Ethnicity/Race options: Black or African American"
-      defaultMessage="Black or African American"
-    />,
-  },
-  {
-    value: 'Hispanic or Latino origin',
-    label: <FormattedMessage
-      id="ethnicityRaceOptions.Hispanic or Latino origin"
-      description="Ethnicity/Race options: Hispanic or Latino origin"
-      defaultMessage="Hispanic or Latino origin"
-    />,
-  },
-  {
-    value: 'Middle Eastern American',
-    label: <FormattedMessage
-      id="ethnicityRaceOptions.Middle Eastern American"
-      description="Ethnicity/Race options: Middle Eastern American"
-      defaultMessage="Middle Eastern American"
-    />,
-  },
-  {
-    value: 'Native American or Alaska Native',
-    label: <FormattedMessage
-      id="ethnicityRaceOptions.Native American or Alaska Native"
-      description="Ethnicity/Race options: Native American or Alaska Native"
-      defaultMessage="Native American or Alaska Native"
-    />,
-  },
-  {
-    value: 'Native Hawaiians or Other Pacific Islander',
-    label: <FormattedMessage
-      id="ethnicityRaceOptions.Native Hawaiians or Other Pacific Islander"
-      description="Ethnicity/Race options: Native Hawaiians or Other Pacific Islander"
-      defaultMessage="Native Hawaiians or Other Pacific Islander"
-    />,
-  },
-  {
-    value: 'White American, European American',
-    label: <FormattedMessage
-      id="ethnicityRaceOptions.White American, European American"
-      description="Ethnicity/Race options: White American, European American"
-      defaultMessage="White American, European American"
-    />,
-  },
-  {
-    value: 'Other',
-    label: <FormattedMessage
-      id="ethnicityRaceOptions.Other"
-      description="Ethnicity/Race options: Other"
-      defaultMessage="Other"
-    />,
-  },
-];
-
-// Ethnicity/Race Select template
-const EthnicityRaceTags = t.form.Form.templates.select.clone({
-  renderLabel: (locals) => {
-    const className = {
-      'control-label': true,
-      'disabled': locals.disabled,
-    }
-    return (
-      <label
-        title='For Individual profiles only'
-        htmlFor={locals.attrs.id}
-        className={classnames(className)}
-      >
-        {locals.label}
-      </label>
-    );
-  },
-
-  renderSelect: (locals) => {
-    function onChange(options) {
-      const values = (options || []).map(({value}) => value)
-      locals.onChange(values)
-    }
-    return (
-      <ReactSelect
-        multi
-        autoBlur
-        disabled={locals.disabled}
-        options={EthnicityRace}
-        value={locals.value}
-        onChange={onChange}
-        className="profile-ethnicity-race-edit"
-      />
-    );
-  },
-
-  renderHelp: (locals) => {
-    const className = {
-      'help-block': true,
-      'disabled': locals.disabled,
-    }
-
-    return (
-      <span
-        id={`${locals.attrs.id}-tip`}
-        className={classnames(className)}
-      >
-        {locals.help}
-      </span>
-    );
-  },
-});
-
-// Ethnicity/Race Select template
-const EthnicityRaceCheckboxes = t.form.Form.templates.select.clone({
-  renderLabel: (locals) => {
-    const className = {
-      'control-label': true,
-      'disabled': locals.disabled,
-    }
-    return (
-      <label
-        title='For Individual profiles only'
-        htmlFor={locals.attrs.id}
-        className={classnames(className)}
-      >
-        {locals.label}
-      </label>
-    );
-  },
-
-  renderSelect: (locals) => {
-    return (
-      <Checkboxes
-        options={EthnicityRace}
-        values={locals.value}
-        name="ethnicity-race"
-        onChange={locals.onChange}
-        disabled={locals.disabled}
-      />
-    );
-  },
-
-  renderHelp: (locals) => {
-    const className = {
-      'help-block': true,
-      'disabled': locals.disabled,
-    }
-
-    return (
-      <span
-        id={`${locals.attrs.id}-tip`}
-        className={classnames(className)}
-      >
-        {locals.help}
-      </span>
-    );
-  },
-});
-
-// Ethnicity/Race Factory
-class EthnicityRaceReactSelectFactory extends t.form.Component {
-  getTemplate() {
-    return EthnicityRaceCheckboxes;
-  }
-}
-
-// Ethnicity/Race Factory
-class EthnicityRaceCheckboxesFactory extends t.form.Component {
-  getTemplate() {
-    return EthnicityRaceCheckboxes;
-  }
-}
-
-// Ethnicity/Race transformer
-EthnicityRaceReactSelectFactory.transformer = t.form.List.transformer;
-EthnicityRaceCheckboxesFactory.transformer = t.form.List.transformer;
 
 // orgTypes options
 const OrgTypes = [
@@ -422,6 +246,15 @@ const orgTypesCheckboxes = t.form.Form.templates.select.clone({
   },
 });
 
+orgTypesCheckboxes.renderVertical = (locals) => {
+  return [
+    orgTypesCheckboxes.renderLabel(locals),
+    orgTypesCheckboxes.renderHelp(locals),
+    orgTypesCheckboxes.renderError(locals),
+    orgTypesCheckboxes.renderSelect(locals),
+  ]
+};
+
 // orgTypes template
 const orgTypesTags = t.form.Form.templates.select.clone({
   renderLabel: (locals) => {
@@ -474,6 +307,15 @@ const orgTypesTags = t.form.Form.templates.select.clone({
     );
   },
 });
+
+orgTypesTags.renderVertical = (locals) => {
+  return [
+    orgTypesTags.renderLabel(locals),
+    orgTypesTags.renderHelp(locals),
+    orgTypesTags.renderError(locals),
+    orgTypesTags.renderSelect(locals),
+  ]
+};
 
 // orgTypes factory function
 class OrgTypesCheckboxesFactory extends t.form.Component {
@@ -761,6 +603,15 @@ const rolesCheckboxes = t.form.Form.templates.select.clone({
   },
 });
 
+rolesCheckboxes.renderVertical = (locals) => {
+  return [
+    rolesCheckboxes.renderLabel(locals),
+    rolesCheckboxes.renderHelp(locals),
+    rolesCheckboxes.renderError(locals),
+    rolesCheckboxes.renderSelect(locals),
+  ]
+};
+
 // selfDefinedRoles template
 const rolesTags = t.form.Form.templates.select.clone({
   renderLabel: (locals) => {
@@ -813,6 +664,15 @@ const rolesTags = t.form.Form.templates.select.clone({
     );
   },
 });
+
+rolesTags.renderVertical = (locals) => {
+  return [
+    rolesTags.renderLabel(locals),
+    rolesTags.renderHelp(locals),
+    rolesTags.renderError(locals),
+    rolesTags.renderSelect(locals),
+  ]
+};
 
 // selfDefinedRoles factory function
 class RolesCheckboxesFactory extends t.form.Component {
@@ -915,6 +775,14 @@ const gendersCheckboxes = t.form.Form.templates.select.clone({
   },
 });
 
+gendersCheckboxes.renderVertical = (locals) => {
+  return [
+    gendersCheckboxes.renderLabel(locals),
+    gendersCheckboxes.renderHelp(locals),
+    gendersCheckboxes.renderError(locals),
+    gendersCheckboxes.renderSelect(locals),
+  ]
+};
 
 // Gender template
 const gendersTags = t.form.Form.templates.select.clone({
@@ -973,6 +841,15 @@ const gendersTags = t.form.Form.templates.select.clone({
   },
 });
 
+gendersTags.renderVertical = (locals) => {
+  return [
+    gendersTags.renderLabel(locals),
+    gendersTags.renderHelp(locals),
+    gendersTags.renderError(locals),
+    gendersTags.renderSelect(locals),
+  ]
+};
+
 // Gender factory function
 class GendersCheckboxesFactory extends t.form.Component {
   getTemplate() {
@@ -993,7 +870,29 @@ GendersCheckboxesFactory.transformer = t.form.List.transformer;
 GendersReactSelectFactory.transformer = t.form.List.transformer;
 
 // Get field labels to change based on disabled value
+const genericFieldTemplate = t.form.Form.templates.textbox.clone({
+  renderVertical: (locals) => {
+    return [
+      genericFieldTemplate.renderLabel(locals),
+      genericFieldTemplate.renderHelp(locals),
+      genericFieldTemplate.renderError(locals),
+      genericFieldTemplate.renderTextbox(locals),
+    ]
+  },
+});
+
+
+// Get field labels to change based on disabled value
 const disabledFieldTemplate = t.form.Form.templates.textbox.clone({
+  renderVertical: (locals) => {
+    return [
+      disabledFieldTemplate.renderLabel(locals),
+      disabledFieldTemplate.renderHelp(locals),
+      disabledFieldTemplate.renderError(locals),
+      disabledFieldTemplate.renderTextbox(locals),
+    ]
+  },
+
   renderLabel: (locals) => {
     const className = {
       'control-label': true,
@@ -1063,8 +962,6 @@ const disabledListTemplate = t.form.Form.templates.list.clone({
       'disabled': locals.disabled,
     }
 
-    console.log(locals);
-
     return (
       <label
         title="Select profile type"
@@ -1128,6 +1025,7 @@ export const profileFiltersSchema = t.struct({
   country: t.maybe(t.String),
   postalCode: t.maybe(t.String),
   gender: t.maybe(t.String),
+  ethnicityRace: t.maybe(t.list(t.String)),
 });
 
 export const translateFormSchema = t.struct({
@@ -1225,6 +1123,11 @@ export const defaultFormOptions = () => ({
       />,
       template: disabledListTemplate,
       // factory: EthnicityRaceCheckboxesFactory,
+      help: <FormattedMessage
+        id="forms.DemographicHelpText"
+        description="Help text for demographic form fields instructing the user not to guess"
+        defaultMessage="We encourage you not to guess. If you are not sure, leave these blank."
+      />,
       item: {
         attrs: {
           className: 'profile-ethnicity-edit',
@@ -1375,6 +1278,7 @@ export const defaultFormOptions = () => ({
           />,
         }}
       />,
+      template: genericFieldTemplate,
       attrs: {
         className: 'profile-agent-edit',
       },
@@ -1402,6 +1306,7 @@ export const defaultFormOptions = () => ({
           />,
         }}
       />,
+      template: genericFieldTemplate,
       attrs: {
         className: 'profile-phone-edit',
       },
@@ -1475,6 +1380,7 @@ export const defaultFormOptions = () => ({
         }}
       />,
       type: 'textarea',
+      template: genericFieldTemplate,
       attrs: {
         rows: '10',
         className: 'profile-social-edit',
@@ -1591,6 +1497,11 @@ export const defaultFormOptions = () => ({
           />,
         }}
       />,
+      help: <FormattedMessage
+        id="forms.DemographicHelpText"
+        description="Help text for demographic form fields instructing the user not to guess"
+        defaultMessage="We encourage you not to guess. If you are not sure, leave these blank."
+      />,
       factory: GendersCheckboxesFactory,
     },
     howlroundPostSearchText: {
@@ -1611,6 +1522,7 @@ export const defaultFormOptions = () => ({
           />,
         }}
       />,
+      template: genericFieldTemplate,
       attrs: {
         className: 'profile-howlround-posts-edit',
       },
@@ -1709,6 +1621,15 @@ export const filtersFormOptions = () => ({
         defaultMessage="What does this person do in the theatre?"
       />,
       factory: RolesReactSelectFactory,
+    },
+    ethnicityRace: {
+      // The Factory function is applied later to allow reactive options
+      label: <FormattedMessage
+        id="forms.ethnicityRaceLabel"
+        description="Label for the Ethnicity/Race form field"
+        defaultMessage="How does this person identify their ethnicity/race/cultural identity?"
+      />,
+      // factory: RolesReactSelectFactory,
     },
     gender: {
       label: <FormattedMessage

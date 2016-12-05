@@ -20,6 +20,12 @@ const SearchProfilesResultsContainer = createContainer((props) => {
       };
     }
 
+    if (query.ethnicityRace && query.ethnicityRace instanceof Array) {
+      privateQuery.ethnicityRace = {
+        $in: query.ethnicityRace
+      };
+    }
+
     if (query.interests && query.interests instanceof Array) {
       privateQuery.interests = {
         $in: query.interests

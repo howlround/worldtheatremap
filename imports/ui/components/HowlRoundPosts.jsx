@@ -35,7 +35,13 @@ export default class HowlRoundPosts extends React.Component {
     if (!_.isEmpty(existingPosts)) {
       return (
         <section className="howlround-posts">
-          <h2>HowlRound Posts</h2>
+          <h2>
+            <FormattedMessage
+              id="profile.howlroundPostsHeader"
+              description="HowlRound posts header"
+              defaultMessage="HowlRound Posts"
+            />
+          </h2>
           {existingPostsMarkup}
           <a
             href={url}

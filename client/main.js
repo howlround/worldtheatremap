@@ -30,7 +30,18 @@ const initiateRender = () => {
     },
 
     render: function() {
-      var locale = this.getLocale();
+      const supportedLanguages = TAPi18n.getLanguages();
+
+      const localePath = window.location.pathname;
+      const localeCode = localePath.split('/')[1];
+      let localeCodeVerified = false;
+
+      if (_.has(supportedLanguages, localeCode)) {
+        localeCodeVerified = true;
+        // const neutralPath = localePath.substring(localeCode.length + 1);
+      }
+
+      var locale = (localeCodeVerified === true) ? localeCode : this.getLocale();
       TAPi18n.setLanguage(locale);
       moment.locale(locale);
 

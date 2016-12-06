@@ -53,9 +53,10 @@ export const loadTranslation = ({ locale }) => {
 export const renderRoutes = ({ locale, messages }) => (
   <IntlProvider locale={locale} key={locale} messages={messages}>
     <Router history={customHistory}>
-      <Route path="/" component={AppContainer}>
-        <Route path="en" component={LangaugeRedirect} />
-        <Route path="es" component={LangaugeRedirect} />
+      <Route path="/">
+        <IndexRedirect to="en"/>
+      </Route>
+      <Route path="/:locale" component={AppContainer}>
         <Route path="profiles">
           <IndexRedirect to="add"/>
           <Route path="add" component={ProfileAddContainer}/>

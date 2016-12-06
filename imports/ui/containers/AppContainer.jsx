@@ -17,6 +17,7 @@ const AppContainer = createContainer(() => {
   // Language
   // const lang = TAPi18n.getLanguage();
   const lang = window.AppState.getLocale();
+
   const supportedLanguages = TAPi18n.getLanguages();
 
   const user = Meteor.user();

@@ -20,7 +20,7 @@ class EventTeaserWithShow extends React.Component {
             <div className="event-organizations">
               <Link to={`/${locale}/profiles/${ event.organizations._id }`}>
                 <ProfileNameContainer profileId={event.organizations._id} />
-              </Link> <span className="event-organizations-presents">Presents</span>
+              </Link>
             </div>: ''}
           <h3 className="event-show-name">
             <Link to={`/${locale}/shows/${ event.show._id }`} key={event.show._id}>

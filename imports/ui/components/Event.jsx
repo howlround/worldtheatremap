@@ -355,7 +355,7 @@ class Event extends React.Component {
               <div className="event-organizations">
                 <Link to={`/${locale}/profiles/${ event.organizations._id }`}>
                   <ProfileNameContainer profileId={event.organizations._id} />
-                </Link> <span className="event-organizations-presents">Presents</span>
+                </Link>
               </div>: ''}
             <h1 className="event-name page-title">
               <Link

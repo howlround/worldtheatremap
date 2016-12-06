@@ -18,11 +18,6 @@ article.event {
     line-height: 24px;
   }
 
-  .event-organizations-presents {
-    text-transform: uppercase;
-    font-size: 15px;
-  }
-
   .event-type {
     font-size: 14px;
     text-transform: uppercase;
@@ -81,12 +76,6 @@ article.event-teaser-with-show {
     line-height: 20px;
     font-weight: bold;
     margin-bottom: 15px;
-  }
-
-  .event-organizations-presents {
-    font-size: 15px;
-    font-weight: normal;
-    text-transform: uppercase;
   }
 
   .event-show-name {
@@ -163,11 +152,6 @@ article.event-teaser-with-show {
     .event-organizations {
       font-size: 13px;
       margin-bottom: 0;
-    }
-
-    .event-organizations-presents {
-      font-size: 13px;
-      text-transform: none;
     }
 
     .event-location {

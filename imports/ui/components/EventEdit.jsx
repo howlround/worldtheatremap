@@ -145,6 +145,8 @@ class EventEdit extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    const { locale } = this.props.intl;
+
     const formValues = this.refs.form.getValue();
     let newEvent = this.state;
 
@@ -157,7 +159,7 @@ class EventEdit extends React.Component {
       // Only change editing state if validation passed
       this.props.onEditingChange(this.props.event._id, false);
       const { router } = this.context;
-      router.push(`/events/${ this.props.event._id }`);
+      router.push(`/${locale}/events/${ this.props.event._id }`);
     }
   }
 

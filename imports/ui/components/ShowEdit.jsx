@@ -84,6 +84,9 @@ class ShowEdit extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+
+    const { locale } = this.props.intl;
+
     const newShow = this.refs.form.getValue();
     if (newShow) {
       this.throttledUpdate(newShow);
@@ -91,7 +94,7 @@ class ShowEdit extends React.Component {
       // Only change editing state if validation passed
       this.props.onEditingChange(this.props.show._id, false);
       const { router } = this.context;
-      router.push(`/shows/${ this.props.show._id }`);
+      router.push(`/${locale}/shows/${ this.props.show._id }`);
     }
   }
 

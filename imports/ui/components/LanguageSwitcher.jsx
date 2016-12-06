@@ -1,7 +1,7 @@
-import { TAPi18n } from 'meteor/tap:i18n';
 import React from 'react';
-import { Link } from 'react-router';
 import { _ } from 'meteor/underscore';
+import { Link } from 'react-router';
+import { TAPi18n } from 'meteor/tap:i18n';
 
 export default class LanguageSwitcher extends React.Component {
   constructor(props) {
@@ -30,20 +30,25 @@ export default class LanguageSwitcher extends React.Component {
 
   renderLangLinks() {
     const { switchOptions } = this.state;
+
     return (_.map(_.pairs(switchOptions), (pair) => {
       // console.log(lang);
-      const langCode = pair[0];
-      const langLocalName = pair[1].name;
+      const localeCode = pair[0];
+      const localeLocalName = pair[1].name;
+
+      const localePath = window.location.pathname;
+      const neutralPath = localePath.substring(localeCode.length + 1);
 
       return (
-        <a key={langCode} name={langCode} onClick={
+        <a key={localeCode} name={localeCode} onClick={
           (e) => {
             e.preventDefault();
-            window.AppState.setLocale(langCode);
+            this.context.router.push(`/${localeCode}${neutralPath}${window.location.search}`);
+            window.AppState.setLocale(localeCode);
             window.AppState.rerender();
           }
         }>
-          {langLocalName}
+          {localeLocalName}
         </a>
       );
     }));
@@ -61,4 +66,8 @@ export default class LanguageSwitcher extends React.Component {
 LanguageSwitcher.propTypes = {
   lang: React.PropTypes.string,
   supportedLanguages: React.PropTypes.object,
+};
+
+LanguageSwitcher.contextTypes = {
+  router: React.PropTypes.object,
 };

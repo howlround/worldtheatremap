@@ -161,12 +161,14 @@ class ProfileEdit extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
+    const { locale } = this.props.intl;
+
     const newProfile = this.refs.form.getValue();
     if (newProfile) {
       this.throttledUpdate(newProfile);
 
       const { router } = this.context;
-      router.push(`/profiles/${this.props.profile._id}`);
+      router.push(`/${locale}/profiles/${this.props.profile._id}`);
     }
   }
 

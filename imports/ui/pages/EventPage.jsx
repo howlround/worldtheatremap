@@ -42,7 +42,7 @@ class EventPage extends React.Component {
   render() {
     // const { event, eventExists, loading } = this.props;
     const { loading, event, user, participantsByEvent, loadingFullApp } = this.props;
-    const { locale } = this.props.intl;
+    const { formatMessage, locale } = this.props.intl;
     const { editing } = this.state;
     const baseUrl = Meteor.absoluteUrl(false, { secure: true });
 

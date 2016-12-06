@@ -336,12 +336,24 @@ class ProfilePage extends React.Component {
       affiliatedProfiles,
       loading,
     } = this.props;
-    const { locale } = this.props.intl;
+    const { formatMessage, locale } = this.props.intl;
 
     const baseUrl = Meteor.absoluteUrl(false, { secure: true });
 
     const profilePageClass = classnames({
       page: true,
+    });
+
+    const siteName = formatMessage({
+      'id': 'navigation.siteName',
+      'defaultMessage': 'World Theatre Map',
+      'description': 'Site name',
+    });
+
+    const profileLinkText = formatMessage({
+      'id': 'share.profileLinkText',
+      'defaultMessage': 'on the',
+      'description': 'Linking text between the profile name and the site name',
     });
 
     if (loading) {
@@ -358,9 +370,9 @@ class ProfilePage extends React.Component {
           <Helmet
             title={profile.name}
             meta={[
-              { property: 'og:title', content: `${profile.name} | World Theatre Map` },
+              { property: 'og:title', content: `${profile.name} | ${siteName}` },
               { property: 'og:type', content: 'article' },
-              { property: 'og:url', content: `${baseUrl}profiles/${profile._id}` },
+              { property: 'og:url', content: `${baseUrl}${locale}/profiles/${profile._id}` },
             ]}
           />
           {profile.about ?
@@ -395,7 +407,7 @@ class ProfilePage extends React.Component {
             <div className="page-actions-share">
               <OutboundLink
                 eventLabel="twitter-share"
-                to={`https://twitter.com/intent/tweet?text=${profile.name} on the World Theatre Map ${baseUrl}profiles/${profile._id} %23howlround @HowlRound @WorldTheatreMap`}
+                to={`https://twitter.com/intent/tweet?text=${profile.name} ${profileLinkText} ${siteName} ${baseUrl}${locale}/profiles/${profile._id} %23howlround @HowlRound @WorldTheatreMap`}
                 className="twitter-share"
               >
                 <FormattedMessage
@@ -406,7 +418,7 @@ class ProfilePage extends React.Component {
               </OutboundLink>
               <OutboundLink
                 eventLabel="facebook-share"
-                to={`https://www.facebook.com/dialog/share?app_id=662843947226126&display=popup&href=${baseUrl}profiles/${profile._id}&redirect_uri=${baseUrl}profiles/${profile._id}`}
+                to={`https://www.facebook.com/dialog/share?app_id=662843947226126&display=popup&href=${baseUrl}${locale}/profiles/${profile._id}&redirect_uri=${baseUrl}${locale}/profiles/${profile._id}`}
                 className="facebook-share"
               >
                 <FormattedMessage

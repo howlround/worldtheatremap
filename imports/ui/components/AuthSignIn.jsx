@@ -13,6 +13,7 @@ class AuthSignIn extends React.Component {
 
   onSubmit(event) {
     event.preventDefault();
+    const { locale } = this.props.intl;
     const email = this.refs.email.value;
     const password = this.refs.password.value;
     const errors = {};
@@ -46,7 +47,7 @@ class AuthSignIn extends React.Component {
       else {
         // @TODO: If the path is /signin then redirect
         // otherwise let the person stay where they were
-        this.context.router.push('/');
+        this.context.router.push(`/${locale}`);
       }
     });
   }
@@ -61,15 +62,15 @@ class AuthSignIn extends React.Component {
       <div className="wrapper-auth">
         <h1 className="title-auth">
           <FormattedMessage
-            id='auth.signInTitle'
-            description='Title for the Sign In screen'
+            id="auth.signInTitle"
+            description="Title for the Sign In screen"
             defaultMessage="Sign In"
           />
         </h1>
         <p className="subtitle-auth" >
           <FormattedMessage
-            id='auth.signInSubTitle'
-            description='Subtitle for the Sign In screen'
+            id="auth.signInSubTitle"
+            description="Subtitle for the Sign In screen"
             defaultMessage="Signing in allows you to add and edit profiles and events"
           />
         </p>
@@ -117,7 +118,13 @@ class AuthSignIn extends React.Component {
             />
           </button>
         </form>
-        <Link to={`/${locale}/join`} className="link-auth-alt">Need an account? Join Now.</Link>
+        <Link to={`/${locale}/join`} className="link-auth-alt">
+          <FormattedMessage
+            id="auth.linkToJoin"
+            description="Link to join instead of sign in"
+            defaultMessage="Need an account? Join Now"
+          />
+        </Link>
       </div>
     );
   }

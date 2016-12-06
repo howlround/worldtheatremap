@@ -81,20 +81,26 @@ class App extends React.Component {
       'description': 'Site name',
     });
 
+    const siteDescription = formatMessage({
+      'id': 'site.description',
+      'defaultMessage': 'The World Theatre Map is a user-generated directory of the world\'s theatre community (makers, workers, companies, institutions) and a real-time media hub of its projects, events, performances, conversations, ideas.',
+      'description': 'General description of the site',
+    });
+
     return (
       <div id="container" className={menuOpen ? 'menu-open' : ''}>
         <Helmet
-          htmlAttributes={{ lang }}
+          htmlAttributes={{ locale }}
           titleTemplate={`%s | ${siteName}`}
           defaultTitle={`${siteName}`}
           meta={[
-            { name: 'description', content: 'The World Theatre Map is a user-generated directory of the world\'s theatre community (makers, workers, companies, institutions) and a real-time media hub of its projects, events, performances, conversations, ideas.' },
+            { name: 'description', content: siteDescription },
             { property: 'fb:app_id', content: '662843947226126' },
             { property: 'og:type', content: 'website' },
-            { property: 'og:url', content: Meteor.absoluteUrl(false, { secure: true }) },
-            { property: 'og:title', content: 'World Theatre Map' },
+            { property: 'og:url', content: `${Meteor.absoluteUrl(false, { secure: true })}${locale}` },
+            { property: 'og:title', content: siteName },
             { property: 'og:image', content: 'https://s3.amazonaws.com/wtm-static/wtm-share-2016-11-10.png' },
-            { property: 'og:description', content: 'The World Theatre Map is a user-generated directory of the world\'s theatre community (makers, workers, companies, institutions) and a real-time media hub of its projects, events, performances, conversations, ideas.' },
+            { property: 'og:description', content: siteDescription },
           ]}
         />
         <a

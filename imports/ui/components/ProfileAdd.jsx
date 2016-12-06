@@ -154,12 +154,14 @@ class ProfileAdd extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
+    const { locale } = this.props.intl;
+
     const newProfile = this.refs.form.getValue();
     if (newProfile) {
       const newID = this.throttledAdd(newProfile);
 
       // Redirect
-      this.context.router.push(`/profiles/${ newID }`);
+      this.context.router.push(`/${locale}/profiles/${newID}`);
     }
   }
 

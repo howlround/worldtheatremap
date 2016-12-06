@@ -52,6 +52,12 @@ class EventPage extends React.Component {
       editing,
     });
 
+    const siteName = formatMessage({
+      'id': 'navigation.siteName',
+      'defaultMessage': 'World Theatre Map',
+      'description': 'Site name',
+    });
+
     if (editing && loading) {
       return (
         <div className="overlay-wrapper">
@@ -111,9 +117,9 @@ class EventPage extends React.Component {
           <Helmet
             title={`${event.organizations.name} presents ${event.show.name}`}
             meta={[
-              { property: 'og:title', content: `${event.organizations.name} presents ${event.show.name} | World Theatre Map` },
+              { property: 'og:title', content: `${event.organizations.name} — ${event.show.name} | ${siteName}` },
               { property: 'og:type', content: 'article' },
-              { property: 'og:url', content: `${baseUrl}events/${event._id}` },
+              { property: 'og:url', content: `${baseUrl}${locale}/events/${event._id}` },
             ]}
           />
           <div className="page-actions">
@@ -135,7 +141,7 @@ class EventPage extends React.Component {
             <div className="page-actions-share">
               <OutboundLink
                 eventLabel="twitter-share"
-                to={`https://twitter.com/intent/tweet?text=${event.organizations.name} presents ${event.show.name} — World Theatre Map ${baseUrl}profiles/${event._id} %23howlround @HowlRound @WorldTheatreMap`}
+                to={`https://twitter.com/intent/tweet?text=${event.organizations.name} — ${event.show.name} — ${siteName} ${baseUrl}${locale}/profiles/${event._id} %23howlround @HowlRound @WorldTheatreMap`}
                 className="twitter-share"
               >
                 <FormattedMessage
@@ -146,7 +152,7 @@ class EventPage extends React.Component {
               </OutboundLink>
               <OutboundLink
                 eventLabel="facebook-share"
-                to={`https://www.facebook.com/dialog/share?app_id=662843947226126&display=popup&href=${baseUrl}events/${event._id}&redirect_uri=${baseUrl}events/${event._id}`}
+                to={`https://www.facebook.com/dialog/share?app_id=662843947226126&display=popup&href=${baseUrl}${locale}/events/${event._id}&redirect_uri=${baseUrl}${locale}/events/${event._id}`}
                 className="facebook-share"
               >
                 <FormattedMessage

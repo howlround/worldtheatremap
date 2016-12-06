@@ -159,6 +159,7 @@ class EventAdd extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    const { locale } = this.props.intl;
     const formValues = this.refs.form.getValue();
     let newEvent = this.state;
 
@@ -169,7 +170,7 @@ class EventAdd extends React.Component {
       const newID = this.throttledAdd(newEvent);
 
       // Redirect
-      this.context.router.push(`/events/${ newID }`);
+      this.context.router.push(`/${locale}/events/${newID}`);
     }
   }
 

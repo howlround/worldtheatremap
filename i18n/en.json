@@ -422,6 +422,7 @@
   "auth.signInTitle": "Sign In",
   "auth.signInSubTitle": "Signing in allows you to add and edit profiles and events",
   "auth.signInButton": "Sign in",
+  "auth.linkToJoin": "Need an account? Join Now",
   "connection.title": "Trying to connect",
   "connection.description": "There seems to be a connection issue",
   "event.participantFormTitle": "Add a New Participant",

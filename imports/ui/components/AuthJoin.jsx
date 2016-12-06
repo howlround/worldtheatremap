@@ -12,6 +12,7 @@ class AuthJoin extends React.Component {
 
   onSubmit(event) {
     event.preventDefault();
+    const { locale } = this.props.intl;
     const email = this.refs.email.value;
     const password = this.refs.password.value;
     const confirm = this.refs.confirm.value;
@@ -54,7 +55,7 @@ class AuthJoin extends React.Component {
         });
       }
       else {
-        this.context.router.push('/');
+        this.context.router.push(`/${locale}`);
       }
     });
   }

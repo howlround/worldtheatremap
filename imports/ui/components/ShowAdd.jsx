@@ -53,6 +53,8 @@ class ShowAdd extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const { showCallback } = this.props;
+    const { locale } = this.props.intl;
+
     const newShow = this.refs.form.getValue();
     if (newShow) {
       const newID = this.throttledAdd(newShow);
@@ -67,7 +69,7 @@ class ShowAdd extends React.Component {
         showCallback(callbackShowObj);
       } else {
         // Redirect
-        this.context.router.push(`/shows/${ newID }`);
+        this.context.router.push(`/${locale}/shows/${newID}`);
       }
     }
   }

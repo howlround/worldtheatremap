@@ -8,7 +8,7 @@ export default class LanguageRedirect extends React.Component {
     const locale = this.props.route.path;
     window.AppState.setLocale(locale);
     window.AppState.rerender();
-    this.context.router.push('/');
+    this.context.router.push(`/${locale}`);
   }
 
   render() {

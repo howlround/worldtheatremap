@@ -16,12 +16,19 @@ import Loading from '../components/Loading.jsx';
 class HomePage extends React.Component {
   renderTodayMap() {
     const { eventsTodayWithLocations, loading } = this.props;
+    const { formatMessage } = this.props.intl;
+
+    const siteName = formatMessage({
+      'id': 'navigation.siteName',
+      'defaultMessage': 'World Theatre Map',
+      'description': 'Site name',
+    });
 
     return (
       <section className="homepage-events-globe">
         <div className="homepage-section-header">
           <Helmet
-            title="World Theatre Map"
+            title={siteName}
             titleTemplate="%s"
           />
           <h2>

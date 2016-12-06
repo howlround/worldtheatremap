@@ -1,7 +1,7 @@
 // Utilities
 import React from 'react';
 import Helmet from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
 
 // Containers
@@ -13,7 +13,7 @@ import EventTeaserWithShow from '../components/EventTeaserWithShow.jsx';
 import HowlRoundPostFeatured from '../components/HowlRoundPostFeatured.jsx';
 import Loading from '../components/Loading.jsx';
 
-export default class HomePage extends React.Component {
+class HomePage extends React.Component {
   renderTodayMap() {
     const { eventsTodayWithLocations, loading } = this.props;
 
@@ -54,6 +54,7 @@ export default class HomePage extends React.Component {
 
   renderTodayList() {
     const { eventsTodayWithLocations, eventsTodayCount, startDate, endDate, loading } = this.props;
+    const { locale } = this.props.intl;
 
     if (!loading && eventsTodayWithLocations) {
       return (
@@ -74,7 +75,7 @@ export default class HomePage extends React.Component {
             ))}
           </ul>
           <Link
-            to={{ pathname: '/search/events', query: { startDate, endDate } }}
+            to={{ pathname: `/${locale}/search/events`, query: { startDate, endDate } }}
             className="events-today-view-all"
           >
             <FormattedMessage
@@ -152,8 +153,11 @@ HomePage.propTypes = {
   startDate: React.PropTypes.instanceOf(Date),
   endDate: React.PropTypes.instanceOf(Date),
   howlroundPosts: React.PropTypes.array,
+  intl: intlShape.isRequired,
 };
 
 HomePage.contextTypes = {
   router: React.PropTypes.object,
 };
+
+export default injectIntl(HomePage);

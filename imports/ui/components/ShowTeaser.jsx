@@ -1,22 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import Authors from '../components/Authors.jsx';
 import ShowNameContainer from '../containers/ShowNameContainer.jsx';
 
-export default class ShowTeaser extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
+class ShowTeaser extends React.Component {
   render() {
     const { show } = this.props;
+    const { locale } = this.props.intl;
 
     return (
       <article className="show-teaser">
         <div className="show-main-info">
           <h3 className="show-name">
-            <Link to={`/shows/${ show._id }`} key={show._id}>
+            <Link to={`/${locale}/shows/${ show._id }`} key={show._id}>
               <ShowNameContainer showId={show._id} />
             </Link>
           </h3>
@@ -36,8 +33,11 @@ export default class ShowTeaser extends React.Component {
 
 ShowTeaser.propTypes = {
   show: React.PropTypes.object,
+  intl: intlShape.isRequired,
 };
 
 ShowTeaser.contextTypes = {
   router: React.PropTypes.object,
 };
+
+export default injectIntl(ShowTeaser);

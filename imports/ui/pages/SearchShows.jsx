@@ -67,9 +67,11 @@ class SearchShows extends React.Component {
   }
 
   onChange(value) {
+    const { locale } = this.props.intl;
+
     this.setState(value);
     this.context.router.push({
-      pathname: '/search/shows',
+      pathname: `/${locale}/search/shows`,
       query: value,
     });
   }

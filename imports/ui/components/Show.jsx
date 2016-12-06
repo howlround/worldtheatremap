@@ -18,7 +18,7 @@ class Show extends React.Component {
 
     const editLink = user ?
       <Link
-        to={`/shows/${ show._id }/edit`}
+        to={`/${locale}/shows/${ show._id }/edit`}
         key={show._id}
         title={show.name}
         className="edit-link"

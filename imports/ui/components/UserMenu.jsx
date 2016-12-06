@@ -1,7 +1,8 @@
 import React from 'react';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
 
-export default class UserMenu extends React.Component {
+class UserMenu extends React.Component {
   constructor(props) {
     super(props);
 
@@ -51,7 +52,13 @@ export default class UserMenu extends React.Component {
         </a>
         { open ?
           <div className="menu-children">
-            <a href="#" className="menu-logout" onClick={logout}>Logout</a>
+            <a href="#" className="menu-logout" onClick={logout}>
+              <FormattedMessage
+                id='navigation.logout'
+                description="Logout Text"
+                defaultMessage="Logout"
+              />
+            </a>
           </div> : ''
         }
       </div>
@@ -59,9 +66,17 @@ export default class UserMenu extends React.Component {
   }
 
   renderLoggedOut() {
+    const { locale } = this.props.intl;
+
     return (
       <div className="user-menu menu-container menu-right">
-        <Link to="/signin" className="menu-parent" onClick={this.close}>Signup/In</Link>
+        <Link to={`/${locale}/signin`} className="menu-parent" onClick={this.close}>
+          <FormattedMessage
+            id='navigation.signIn'
+            description="Signup/In Text"
+            defaultMessage="Signup/In"
+          />
+        </Link>
       </div>
     );
   }
@@ -88,4 +103,7 @@ UserMenu.propTypes = {
   logout: React.PropTypes.func,
   hideDropDown: React.PropTypes.func,
   forceCloseDropDown: React.PropTypes.object,
+  intl: intlShape.isRequired,
 };
+
+export default injectIntl(UserMenu);

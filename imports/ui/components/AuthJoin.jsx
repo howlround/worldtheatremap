@@ -60,7 +60,7 @@ class AuthJoin extends React.Component {
   }
 
   render() {
-    const { formatMessage } = this.props.intl;
+    const { formatMessage, locale } = this.props.intl;
     const { errors } = this.state;
     const errorMessages = Object.keys(errors).map(key => errors[key]);
     const errorClass = key => errors[key] && 'error';
@@ -69,15 +69,15 @@ class AuthJoin extends React.Component {
       <div className="wrapper-auth">
         <h1 className="title-auth">
           <FormattedMessage
-            id='auth.joinTitle'
-            description='Title for the Join screen'
+            id="auth.joinTitle"
+            description="Title for the Join screen"
             defaultMessage="Join"
           />
         </h1>
         <p className="subtitle-auth" >
           <FormattedMessage
-            id='auth.joinSubTitle'
-            description='Subtitle for the Join screen'
+            id="auth.joinSubTitle"
+            description="Subtitle for the Join screen"
             defaultMessage="Joining allows you to add and edit profiles and events"
           />
         </p>
@@ -141,10 +141,10 @@ class AuthJoin extends React.Component {
             />
           </button>
         </form>
-        <Link to="/signin" className="link-auth-alt">
+        <Link to={`/${locale}/signin`} className="link-auth-alt">
           <FormattedMessage
-            id='auth.linkToSignIn'
-            description='Link to sign in instead of join'
+            id="auth.linkToSignIn"
+            description="Link to sign in instead of join"
             defaultMessage="Have an account? Sign in"
           />
         </Link>

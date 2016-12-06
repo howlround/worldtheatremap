@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router';
 import ReactSelect from 'react-select';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-form';
@@ -91,10 +90,11 @@ class SearchProfiles extends React.Component {
   }
 
   onChange(value) {
+    const { locale } = this.props.intl;
     // @TODO: Maybe pass this down in SearchProfilesResultsContainer to page faster
     this.setState(value);
     this.context.router.push({
-      pathname: '/search/profiles',
+      pathname: `/${locale}/search/profiles`,
       query: value
     });
   }
@@ -122,7 +122,12 @@ class SearchProfiles extends React.Component {
         'description': 'Placeholder text for the profile name field on search filters'
       });
 
-      // @TODO: Refactor filters form to be a component?
+      const searchProfilesPageTitle = formatMessage({
+        'id': 'searchProfiles.pageTitle',
+        'defaultMessage': 'Search Profiles',
+        'description': 'Page title for the profiles search page',
+      });
+
       return (
         <div className="search page">
           <section>
@@ -130,7 +135,7 @@ class SearchProfiles extends React.Component {
             <div className="search-type-content">
               <div className="search-filters">
                 {!dummyForm ?
-                  <Helmet title="Search Profiles" />
+                  <Helmet title={searchProfilesPageTitle} />
                   : ''
                 }
                 <form className="profile-filters-form">

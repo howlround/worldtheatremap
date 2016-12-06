@@ -1,15 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { FormattedDate } from 'react-intl';
+import { FormattedDate, intlShape, injectIntl } from 'react-intl';
 import ProfileNameContainer from '../containers/ProfileNameContainer.jsx';
 
-export default class EventTeaser extends React.Component {
+class EventTeaser extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
     const { event } = this.props;
+    const { locale } = this.props.intl;
 
     const locationLine = [event.locality, event.administrativeArea, event.country].filter(function (val) {return val;}).join(', ');
 
@@ -17,11 +18,11 @@ export default class EventTeaser extends React.Component {
       <article className="event-teaser">
         <div className="event-main-info">
           <h3 className="event-name">
-            <Link to={`/events/${ event._id }`} key={event._id}>{event.eventType}</Link>
+            <Link to={`/${locale}/events/${ event._id }`} key={event._id}>{event.eventType}</Link>
           </h3>
           { event.organizations ?
             <div className="event-organizations">
-              <Link to={`/profiles/${ event.organizations._id }`}>
+              <Link to={`/${locale}/profiles/${ event.organizations._id }`}>
                 <ProfileNameContainer profileId={event.organizations._id} />
               </Link>
             </div>: ''}
@@ -51,8 +52,11 @@ export default class EventTeaser extends React.Component {
 
 EventTeaser.propTypes = {
   event: React.PropTypes.object,
+  intl: intlShape.isRequired,
 };
 
 EventTeaser.contextTypes = {
   router: React.PropTypes.object,
 };
+
+export default injectIntl(EventTeaser);

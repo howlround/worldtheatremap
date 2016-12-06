@@ -7,7 +7,7 @@ import Helmet from 'react-helmet';
 import topojson from 'topojson';
 import { _ } from 'meteor/underscore';
 import { displayError } from '../helpers/errors.js';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { geoOrthographic, geoGraticule, geoPath, geoCentroid, geoInterpolate } from 'd3-geo';
 import { Link } from 'react-router';
 import { OutboundLink } from 'react-ga';
@@ -33,7 +33,7 @@ import { affiliationFormSchema, defaultFormOptions } from '../../api/affiliation
 
 const Form = t.form.Form;
 
-export default class ProfilePage extends React.Component {
+class ProfilePage extends React.Component {
   constructor(props) {
     super(props);
 
@@ -252,10 +252,11 @@ export default class ProfilePage extends React.Component {
 
   renderRelatedProfiles() {
     const { connections } = this.props;
+    const { locale } = this.props.intl;
 
     let relatedProfilesList = connections.map(profile => (
       <li key={profile._id}>
-        <Link to={`/profiles/${profile._id}`}>
+        <Link to={`/${locale}/profiles/${profile._id}`}>
           <ProfileNameContainer profileId={profile._id} />
         </Link>
       </li>
@@ -266,10 +267,11 @@ export default class ProfilePage extends React.Component {
 
   renderAffiliations() {
     const { affiliations, user } = this.props;
+    const { locale } = this.props.intl;
 
     let affiliatedProfiles = affiliations.map(affiliation => (
       <li key={affiliation.parentId}>
-        <Link to={`/profiles/${affiliation.parentId}`}>
+        <Link to={`/${locale}/profiles/${affiliation.parentId}`}>
           <ProfileNameContainer profileId={affiliation.parentId} />
         </Link>
         {user ?
@@ -323,7 +325,6 @@ export default class ProfilePage extends React.Component {
   }
 
   render() {
-    // const { profile, profileExists, loading } = this.props;
     const {
       profile,
       user,
@@ -335,6 +336,7 @@ export default class ProfilePage extends React.Component {
       affiliatedProfiles,
       loading,
     } = this.props;
+    const { locale } = this.props.intl;
 
     const baseUrl = Meteor.absoluteUrl(false, { secure: true });
 
@@ -378,7 +380,7 @@ export default class ProfilePage extends React.Component {
           }
           <div className="page-actions">
             <Link
-              to={`/profiles/${profile._id}/edit`}
+              to={`/${locale}/profiles/${profile._id}/edit`}
               key={`${profile._id}-edit`}
               title={`Edit ${profile.name}`}
               className="page-edit-link"
@@ -484,3 +486,9 @@ ProfilePage.propTypes = {
   loading: React.PropTypes.bool,
   profileExists: React.PropTypes.bool,
 };
+
+ProfilePage.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(ProfilePage);

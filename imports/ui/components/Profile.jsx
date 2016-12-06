@@ -189,10 +189,11 @@ class Profile extends React.Component {
 
   renderAffiliatedProfiles() {
     const { affiliatedProfiles, user } = this.props;
+    const { locale } = this.props.intl;
 
     let affiliatedProfilesList = affiliatedProfiles.map(affiliation => (
       <li key={affiliation.profile._id}>
-        <Link to={`/profiles/${affiliation.profile._id}`}>
+        <Link to={`/${locale}/profiles/${affiliation.profile._id}`}>
           <ProfileNameContainer profileId={affiliation.profile._id} />
         </Link>
         {user ?
@@ -216,7 +217,7 @@ class Profile extends React.Component {
 
     const editLink = (user) ?
       <Link
-        to={`/profiles/${profile._id}/edit`}
+        to={`/${locale}/profiles/${profile._id}/edit`}
         key={`${profile._id}-edit`}
         title={`Edit ${profile.name}`}
         className="edit-link"

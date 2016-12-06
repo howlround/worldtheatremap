@@ -69,8 +69,8 @@ const HomePageContainer = createContainer(() => {
   const showsTodaySubscribe = TAPi18n.subscribe('shows.multipleById', showsToday);
 
   // Language
-  // const lang = TAPi18n.getLanguage();
-  const lang = window.AppState.getLocale();
+  // const locale = TAPi18n.getLanguage();
+  const locale = window.AppState.getLocale();
   const supportedLanguages = TAPi18n.getLanguages();
 
   return {
@@ -82,7 +82,7 @@ const HomePageContainer = createContainer(() => {
     startDate,
     endDate,
     howlroundPosts,
-    lang,
+    locale,
     supportedLanguages,
   };
 }, HomePage);

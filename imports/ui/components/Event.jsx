@@ -292,11 +292,11 @@ class Event extends React.Component {
 
   render() {
     const { event, user, participantsByEvent } = this.props;
-    const { formatMessage } = this.props.intl;
+    const { formatMessage, locale } = this.props.intl;
 
     const editLink = user ?
       <Link
-        to={`/events/${ event._id }/edit`}
+        to={`/${locale}/events/${ event._id }/edit`}
         key={event._id}
         title={event.name}
         className="edit-link"
@@ -317,7 +317,7 @@ class Event extends React.Component {
         return <li key={participant._id} className="event-participant-list-item">
           <h3 className="event-participant-name">
             <Link
-              to={`/profiles/${ participant.profile._id }`}
+              to={`/${locale}/profiles/${ participant.profile._id }`}
               title={participant.profile.name}
             >
               <ProfileNameContainer profileId={participant.profile._id} />
@@ -353,13 +353,13 @@ class Event extends React.Component {
           <div className="event-main-info">
             { event.organizations ?
               <div className="event-organizations">
-                <Link to={`/profiles/${ event.organizations._id }`}>
+                <Link to={`/${locale}/profiles/${ event.organizations._id }`}>
                   <ProfileNameContainer profileId={event.organizations._id} />
                 </Link> <span className="event-organizations-presents">Presents</span>
               </div>: ''}
             <h1 className="event-name page-title">
               <Link
-                to={`/shows/${ event.show._id }`}
+                to={`/${locale}/shows/${ event.show._id }`}
                 title={event.show.name}
               >
                 <ShowNameContainer showId={event.show._id} />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-form';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import Helmet from 'react-helmet';
 
 // API
@@ -19,7 +19,7 @@ import Loading from '../components/Loading.jsx';
 
 const Form = t.form.Form;
 
-export default class SearchEvents extends React.Component {
+class SearchEvents extends React.Component {
   constructor(props) {
     super(props);
 
@@ -70,9 +70,11 @@ export default class SearchEvents extends React.Component {
   }
 
   onChange(value) {
+    const { locale } = this.props.intl;
+
     this.setState(value);
     this.context.router.push({
-      pathname: '/search/events',
+      pathname: `/${locale}/search/events`,
       query: value,
     });
   }
@@ -147,4 +149,7 @@ SearchEvents.contextTypes = {
 SearchEvents.propTypes = {
   loading: React.PropTypes.bool,
   location: React.PropTypes.object,
+  intl: intlShape.isRequired,
 };
+
+export default injectIntl(SearchEvents);

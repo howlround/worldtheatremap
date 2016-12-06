@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 
-export default class AddMenu extends React.Component {
+class AddMenu extends React.Component {
   constructor(props) {
     super(props);
 
@@ -50,6 +50,7 @@ export default class AddMenu extends React.Component {
   }
 
   render() {
+    const { locale } = this.props.intl;
     const { open } = this.state;
     return (
       <div className="add-menu menu-container menu-right" onMouseEnter={this.open} onMouseLeave={this.close}>
@@ -62,14 +63,14 @@ export default class AddMenu extends React.Component {
         </a>
         { open ?
           <div className="add-options menu-children">
-            <Link to="/profiles/add" className="add-profile" onClick={this.close}>
+            <Link to={`/${locale}/profiles/add`} className="add-profile" onClick={this.close}>
               <FormattedMessage
                 id="navigation.addProfile"
                 description="Add menu item for a Profile"
                 defaultMessage="Add Person / Organization"
               />
             </Link>
-            <Link to="/events/add" className="add-event" onClick={this.close}>
+            <Link to={`/${locale}/events/add`} className="add-event" onClick={this.close}>
               <FormattedMessage
                 id="navigation.addEvent"
                 description="Add menu item for an Event"
@@ -86,4 +87,7 @@ export default class AddMenu extends React.Component {
 AddMenu.propTypes = {
   hideDropDown: React.PropTypes.func,
   forceCloseDropDown: React.PropTypes.object,
+  intl: intlShape.isRequired,
 };
+
+export default injectIntl(AddMenu);

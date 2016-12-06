@@ -9,10 +9,6 @@ import Modal from '../components/Modal.jsx';
 import AuthJoin from '../components/AuthJoin.jsx';
 
 export default class AuthJoinPage extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className="overlay-wrapper">
@@ -20,7 +16,7 @@ export default class AuthJoinPage extends React.Component {
         <div className="page auth">
           <div className="page-content">
             <Helmet title="Join" />
-            <AuthJoin/>
+            <AuthJoin />
           </div>
         </div>
       </div>

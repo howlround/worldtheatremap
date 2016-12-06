@@ -9,7 +9,7 @@ import ProfileNameContainer from '../containers/ProfileNameContainer.jsx';
 class EventTeaserWithShow extends React.Component {
   render() {
     const { event } = this.props;
-    const { formatMessage } = this.props.intl;
+    const { formatMessage, locale } = this.props.intl;
 
     const locationLine = [ event.locality, event.administrativeArea, event.country ].filter(function (val) {return val;}).join(', ');
 
@@ -18,12 +18,12 @@ class EventTeaserWithShow extends React.Component {
         <div className="event-main-info">
           { event.organizations ?
             <div className="event-organizations">
-              <Link to={`/profiles/${ event.organizations._id }`}>
+              <Link to={`/${locale}/profiles/${ event.organizations._id }`}>
                 <ProfileNameContainer profileId={event.organizations._id} />
               </Link> <span className="event-organizations-presents">Presents</span>
             </div>: ''}
           <h3 className="event-show-name">
-            <Link to={`/shows/${ event.show._id }`} key={event.show._id}>
+            <Link to={`/${locale}/shows/${ event.show._id }`} key={event.show._id}>
               <ShowNameContainer showId={event.show._id} />
             </Link>
           </h3>
@@ -63,7 +63,7 @@ class EventTeaserWithShow extends React.Component {
               />
             </div> : ''}
           <Link
-            to={`/events/${ event._id }`}
+            to={`/${locale}/events/${ event._id }`}
             className="event-view-link"
             key={event._id}
           >
@@ -81,6 +81,7 @@ class EventTeaserWithShow extends React.Component {
 
 EventTeaserWithShow.propTypes = {
   event: React.PropTypes.object,
+  intl: intlShape.isRequired,
 };
 
 EventTeaserWithShow.contextTypes = {

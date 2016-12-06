@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 
-export default class Footer extends React.Component {
+class Footer extends React.Component {
   render() {
+    const { locale } = this.props.intl;
+
     return (
       <section className="footer">
         <div className="footer-content">
@@ -30,7 +32,7 @@ export default class Footer extends React.Component {
             <ul className="footer-navigation">
               <li>
                 <Link
-                  to="search"
+                  to={`/${locale}/search`}
                 >
                   <FormattedMessage
                     id='navigation.searchFooter'
@@ -41,7 +43,7 @@ export default class Footer extends React.Component {
               </li>
               <li>
                 <Link
-                  to="about"
+                  to={`/${locale}/about`}
                 >
                   <FormattedMessage
                     id='navigation.aboutFooter'
@@ -52,7 +54,7 @@ export default class Footer extends React.Component {
               </li>
               <li>
                 <Link
-                  to="terms-of-use"
+                  to={`/${locale}/terms-of-use`}
                 >
                   <FormattedMessage
                     id='navigation.termsFooter'
@@ -113,3 +115,9 @@ export default class Footer extends React.Component {
     );
   }
 }
+
+Footer.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(Footer);

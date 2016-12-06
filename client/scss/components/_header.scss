@@ -25,7 +25,7 @@ a.home {
 
   @include breakpoint($narrow) {
     text-align: inherit;
-    width: 330px;
+    padding-right: 22px;
     float: left;
     background-color: $dark-red;
     border-right: 1px solid $background-red;

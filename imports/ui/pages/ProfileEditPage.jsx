@@ -1,8 +1,9 @@
 // Utilities
 import React from 'react';
 import classnames from 'classnames';
-import { Link } from 'react-router';
 import Helmet from 'react-helmet';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
+import { Link } from 'react-router';
 
 // Components
 import ProfileEdit from '../components/ProfileEdit.jsx';
@@ -12,9 +13,10 @@ import Modal from '../components/Modal.jsx';
 import AuthSignIn from '../components/AuthSignIn.jsx';
 import Loading from '../components/Loading.jsx';
 
-export default class ModalPage extends React.Component {
+class ProfileEditPage extends React.Component {
   render() {
     const { profile, user, loading } = this.props;
+    const { locale } = this.props.intl;
 
     const profilePageClass = classnames({
       page: true,
@@ -42,7 +44,7 @@ export default class ModalPage extends React.Component {
             />
           </div>
           <Link
-            to={`/profiles/${profile._id}`}
+            to={`/${locale}/profiles/${profile._id}`}
             title="Back"
             className="overlay-close"
           >
@@ -70,7 +72,7 @@ export default class ModalPage extends React.Component {
   }
 }
 
-ModalPage.propTypes = {
+ProfileEditPage.propTypes = {
   profile: React.PropTypes.object,
   editing: React.PropTypes.string,
   user: React.PropTypes.object,
@@ -79,4 +81,7 @@ ModalPage.propTypes = {
   connections: React.PropTypes.array,
   loading: React.PropTypes.bool,
   profileExists: React.PropTypes.bool,
+  intl: intlShape.isRequired,
 };
+
+export default injectIntl(ProfileEditPage);

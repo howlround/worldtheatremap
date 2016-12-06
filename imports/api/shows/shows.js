@@ -42,10 +42,10 @@ Shows.deny({
 const relatedProfileTextboxTemplate = t.form.Form.templates.textbox.clone({
   renderVertical: (locals) => {
     return [
-      disabledFieldTemplate.renderLabel(locals),
-      disabledFieldTemplate.renderHelp(locals),
-      disabledFieldTemplate.renderError(locals),
-      disabledFieldTemplate.renderTextbox(locals),
+      relatedProfileTextboxTemplate.renderLabel(locals),
+      relatedProfileTextboxTemplate.renderHelp(locals),
+      relatedProfileTextboxTemplate.renderError(locals),
+      relatedProfileTextboxTemplate.renderTextbox(locals),
     ]
   },
 

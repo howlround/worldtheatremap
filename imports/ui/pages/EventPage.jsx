@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import classnames from 'classnames';
 import Helmet from 'react-helmet';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
 import { OutboundLink } from 'react-ga';
 
@@ -16,7 +16,7 @@ import Modal from '../components/Modal.jsx';
 import AuthSignIn from '../components/AuthSignIn.jsx';
 import Loading from '../components/Loading.jsx';
 
-export default class EventPage extends React.Component {
+class EventPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,6 +42,7 @@ export default class EventPage extends React.Component {
   render() {
     // const { event, eventExists, loading } = this.props;
     const { loading, event, user, participantsByEvent, loadingFullApp } = this.props;
+    const { locale } = this.props.intl;
     const { editing } = this.state;
     const baseUrl = Meteor.absoluteUrl(false, { secure: true });
 
@@ -82,7 +83,7 @@ export default class EventPage extends React.Component {
             />
           </div>
           <Link
-            to={`/events/${ event._id }`}
+            to={`/${locale}/events/${ event._id }`}
             title='Back'
             className="overlay-close"
           >
@@ -117,7 +118,7 @@ export default class EventPage extends React.Component {
           />
           <div className="page-actions">
             <Link
-              to={`/events/${ event._id }/edit`}
+              to={`/${locale}/events/${ event._id }/edit`}
               key={event._id}
               title={event.name}
               className="edit-link"
@@ -175,5 +176,7 @@ EventPage.propTypes = {
   participantsByEvent: React.PropTypes.array,
   loading: React.PropTypes.bool,
   loadingFullApp: React.PropTypes.bool,
-  // eventExists: React.PropTypes.bool,
+  intl: intlShape.isRequired,
 };
+
+export default injectIntl(EventPage);

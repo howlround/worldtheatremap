@@ -11,7 +11,7 @@ class ProfileSearchResult extends React.Component {
 
   render() {
     const { profile } = this.props;
-    const { formatMessage } = this.props.intl;
+    const { formatMessage, locale } = this.props.intl;
 
     const interests = (profile.interests) ? profile.interests.map((interest, index, array) => {
       let seperator = ', ';
@@ -79,7 +79,7 @@ class ProfileSearchResult extends React.Component {
         {/* A photo could go here */}
         <div className="profile-content-wrapper">
           <Link
-            to={`/profiles/${ profile._id }`}
+            to={`/${locale}/profiles/${ profile._id }`}
             title={profile.name}
             className="profile-name"
             activeClassName="active"
@@ -135,6 +135,7 @@ class ProfileSearchResult extends React.Component {
 
 ProfileSearchResult.propTypes = {
   profile: React.PropTypes.object,
+  intl: intlShape.isRequired,
 };
 
 ProfileSearchResult.contextTypes = {

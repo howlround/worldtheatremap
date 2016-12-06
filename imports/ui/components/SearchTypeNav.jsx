@@ -1,17 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 
-export default class SearchTypeNav extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
+class SearchTypeNav extends React.Component {
   render() {
+    const { locale } = this.props.intl;
+
     return (
       <ul className="search-type">
         <li>
-          <Link to="/search/profiles" activeClassName="active">
+          <Link to={`/${locale}/search/profiles`} activeClassName="active">
             <FormattedMessage
               id="searchNav.profiles"
               description="Profile Search Tab"
@@ -20,7 +18,7 @@ export default class SearchTypeNav extends React.Component {
           </Link>
         </li>
         <li>
-          <Link to="/search/events" activeClassName="active">
+          <Link to={`/${locale}/search/events`} activeClassName="active">
             <FormattedMessage
               id="searchNav.events"
               description="Event Search Tab"
@@ -29,7 +27,7 @@ export default class SearchTypeNav extends React.Component {
           </Link>
         </li>
         <li>
-          <Link to="/search/shows" activeClassName="active">
+          <Link to={`/${locale}/search/shows`} activeClassName="active">
             <FormattedMessage
               id="searchNav.shows"
               description="Show Search Tab"
@@ -41,3 +39,9 @@ export default class SearchTypeNav extends React.Component {
     );
   }
 }
+
+SearchTypeNav.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(SearchTypeNav);

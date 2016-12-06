@@ -52,7 +52,7 @@ class AuthSignIn extends React.Component {
   }
 
   render() {
-    const { formatMessage } = this.props.intl;
+    const { formatMessage, locale } = this.props.intl;
     const { errors } = this.state;
     const errorMessages = Object.keys(errors).map(key => errors[key]);
     const errorClass = key => errors[key] && 'error';
@@ -117,7 +117,7 @@ class AuthSignIn extends React.Component {
             />
           </button>
         </form>
-        <Link to="/join" className="link-auth-alt">Need an account? Join Now.</Link>
+        <Link to={`/${locale}/join`} className="link-auth-alt">Need an account? Join Now.</Link>
       </div>
     );
   }

@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import classnames from 'classnames';
 import Helmet from 'react-helmet';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
 import { OutboundLink } from 'react-ga';
 
@@ -16,11 +16,11 @@ import Modal from '../components/Modal.jsx';
 import AuthSignIn from '../components/AuthSignIn.jsx';
 import Loading from '../components/Loading.jsx';
 
-export default class ShowPage extends React.Component {
+class ShowPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      editing: this.props.editing ? this.props.show._id : null
+      editing: this.props.editing ? this.props.show._id : null,
     };
     this.onEditingChange = this.onEditingChange.bind(this);
   }
@@ -43,10 +43,11 @@ export default class ShowPage extends React.Component {
     // const { show, showExists, loading } = this.props;
     const { loading, show, user, eventsByShow } = this.props;
     const { editing } = this.state;
+    const { locale } = this.props.intl;
     const baseUrl = Meteor.absoluteUrl(false, { secure: true });
 
     const showPageClass = classnames({
-      'page': true,
+      page: true,
       'shows-show': true,
       editing,
     });
@@ -57,19 +58,19 @@ export default class ShowPage extends React.Component {
       );
     } else if (!show) {
       return (
-        <NotFoundPage/>
+        <NotFoundPage />
       );
     } else if (editing && user) {
       return (
         <div className="overlay-wrapper">
-          <Modal/>
+          <Modal />
           <div className={showPageClass}>
             <Helmet
               title={`Edit ${show.name}`}
               meta={[
                 { property: 'og:title', content: `${show.name} | World Theatre Map` },
                 { property: 'og:type', content: 'article' },
-                { property: 'og:url', content: `${baseUrl}shows/${show._id}` },
+                { property: 'og:url', content: `${baseUrl}${locale}/shows/${show._id}` },
               ]}
             />
             {show.about ?
@@ -86,30 +87,31 @@ export default class ShowPage extends React.Component {
             />
           </div>
           <Link
-            to={`/shows/${ show._id }`}
-            title='Back'
+            to={`/${locale}/shows/${show._id}`}
+            title="Back"
             className="overlay-close"
           >
             &times;
           </Link>
         </div>
       );
-    }
-    else if (editing) {
+    } else if (editing) {
       return (
         <div className="overlay-wrapper">
-          <Modal/>
+          <Modal />
           <div className="page auth">
-            <Message title="Access denied" subtitle="Sign in or register to participate in the World Theatre Map"/>
+            <Message
+              title="Access denied"
+              subtitle="Sign in or register to participate in the World Theatre Map"
+            />
             <div className="page-content">
               <Helmet title="Sign in to edit this show" />
-              <AuthSignIn/>
+              <AuthSignIn />
             </div>
           </div>
         </div>
-      )
-    }
-    else {
+      );
+    } else {
       return (
         <div className={showPageClass}>
           <Helmet
@@ -117,12 +119,12 @@ export default class ShowPage extends React.Component {
             meta={[
               { property: 'og:title', content: `${show.name} | World Theatre Map` },
               { property: 'og:type', content: 'article' },
-              { property: 'og:url', content: `${baseUrl}shows/${show._id}` },
+              { property: 'og:url', content: `${baseUrl}${locale}/shows/${show._id}` },
             ]}
           />
           <div className="page-actions">
             <Link
-              to={`/shows/${show._id}/edit`}
+              to={`/${locale}/shows/${show._id}/edit`}
               key={`${show._id}-edit`}
               title={`Edit ${show.name}`}
               className="page-edit-link"
@@ -137,7 +139,7 @@ export default class ShowPage extends React.Component {
             <div className="page-actions-share">
               <OutboundLink
                 eventLabel="twitter-share"
-                to={`https://twitter.com/intent/tweet?text=${show.name} on the World Theatre Map ${baseUrl}profiles/${show._id} %23howlround @HowlRound @WorldTheatreMap`}
+                to={`https://twitter.com/intent/tweet?text=${show.name} on the World Theatre Map ${baseUrl}${locale}/profiles/${show._id} %23howlround @HowlRound @WorldTheatreMap`}
                 className="twitter-share"
               >
                 <FormattedMessage
@@ -148,7 +150,7 @@ export default class ShowPage extends React.Component {
               </OutboundLink>
               <OutboundLink
                 eventLabel="facebook-share"
-                to={`https://www.facebook.com/dialog/share?app_id=662843947226126&display=popup&href=${baseUrl}shows/${show._id}&redirect_uri=${baseUrl}shows/${show._id}`}
+                to={`https://www.facebook.com/dialog/share?app_id=662843947226126&display=popup&href=${baseUrl}${locale}/shows/${show._id}&redirect_uri=${baseUrl}${locale}/shows/${show._id}`}
                 className="facebook-share"
               >
                 <FormattedMessage
@@ -178,4 +180,7 @@ ShowPage.propTypes = {
   user: React.PropTypes.object,
   loading: React.PropTypes.bool,
   showExists: React.PropTypes.bool,
+  intl: intlShape.isRequired,
 };
+
+export default injectIntl(ShowPage);

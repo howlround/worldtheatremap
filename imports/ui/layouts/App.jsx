@@ -3,7 +3,7 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 
 // Containers
 import HomePageContainer from '../containers/HomePageContainer.jsx';
@@ -21,7 +21,7 @@ import Loading from '../components/Loading.jsx';
 
 const CONNECTION_ISSUE_TIMEOUT = 5000;
 
-export default class App extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -56,6 +56,7 @@ export default class App extends React.Component {
   render() {
     // @TODO: Need tests for search on the home page
     const { showConnectionIssue, forceCloseDropDown } = this.state;
+    const { formatMessage, locale } = this.props.intl;
     const {
       user,
       connected,
@@ -74,12 +75,18 @@ export default class App extends React.Component {
       user,
     });
 
+    const siteName = formatMessage({
+      'id': 'navigation.siteName',
+      'defaultMessage': 'World Theatre Map',
+      'description': 'Site name',
+    });
+
     return (
       <div id="container" className={menuOpen ? 'menu-open' : ''}>
         <Helmet
           htmlAttributes={{ lang }}
-          titleTemplate="%s | World Theatre Map"
-          defaultTitle="World Theatre Map"
+          titleTemplate={`%s | ${siteName}`}
+          defaultTitle={`${siteName}`}
           meta={[
             { name: 'description', content: 'The World Theatre Map is a user-generated directory of the world\'s theatre community (makers, workers, companies, institutions) and a real-time media hub of its projects, events, performances, conversations, ideas.' },
             { property: 'fb:app_id', content: '662843947226126' },
@@ -100,7 +107,7 @@ export default class App extends React.Component {
         <header id="header">
           <section id="menu">
             <Link
-              to="/"
+              to={`/${locale}`}
               className="home"
             >
               <FormattedMessage
@@ -121,7 +128,7 @@ export default class App extends React.Component {
             />
             <div className="menu-right menu-container menu-with-divider">
               <Link
-                to="search"
+                to={`/${locale}/search`}
                 className="menu-parent"
               >
                 <FormattedMessage
@@ -164,8 +171,11 @@ App.propTypes = {
   params: React.PropTypes.object,    // parameters of the current route
   lang: React.PropTypes.string,
   supportedLanguages: React.PropTypes.object,
+  intl: intlShape.isRequired,
 };
 
 App.contextTypes = {
   router: React.PropTypes.object,
 };
+
+export default injectIntl(App);

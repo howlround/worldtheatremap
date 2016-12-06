@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 
-export default class FooterAddPitch extends React.Component {
+class FooterAddPitch extends React.Component {
   render() {
+    const { locale } = this.props.intl;
+
     return (
       <section className="footer-add-pitch">
         <div className="footer-content">
@@ -29,7 +31,7 @@ export default class FooterAddPitch extends React.Component {
             }}
           />
 
-          <Link to="/profiles/add" className="footer-add-button button">
+          <Link to={`/${locale}/profiles/add`} className="footer-add-button button">
             <FormattedMessage
               id="footer.addPitchButton"
               description="Footer text prompting the user to add more content"
@@ -41,3 +43,9 @@ export default class FooterAddPitch extends React.Component {
     );
   }
 }
+
+FooterAddPitch.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(FooterAddPitch);

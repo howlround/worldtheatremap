@@ -342,6 +342,12 @@ class Event extends React.Component {
       'with-location': event.lat && event.lon,
     });
 
+    const eventType = formatMessage({
+      'id': `eventType.${event.eventType}`,
+      'description': `Event types: ${event.eventType}`,
+      'defaultMessage': event.eventType
+    });
+
     return (
       <article className={articleClasses}>
         <section>
@@ -375,10 +381,10 @@ class Event extends React.Component {
             </div>
             <div className="event-details">
               <h3 className="event-type">
-                {event.eventType}
+                {eventType}
               </h3>
               {typeof locationLine != 'undefined' ?
-                <div className="event-location">{ locationLine }</div> : ''}
+                <div className="event-location">{locationLine}</div> : ''}
               {event.startDate && event.endDate ?
                 <div className="event-date-range date">
                   <FormattedDate

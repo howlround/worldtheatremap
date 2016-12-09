@@ -2,6 +2,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import Helmet from 'react-helmet';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 
 // Components
 import Event from '../components/Event.jsx';
@@ -13,7 +14,7 @@ import AuthSignIn from '../components/AuthSignIn.jsx';
 import Loading from '../components/Loading.jsx';
 import ShowAdd from '../components/ShowAdd.jsx';
 
-export default class EventAddPage extends React.Component {
+class EventAddPage extends React.Component {
   constructor(props) {
     super(props);
 
@@ -47,6 +48,7 @@ export default class EventAddPage extends React.Component {
 
   render() {
     const { loading, add, user } = this.props;
+    const { formatMessage } = this.props.intl;
     const { displayNewShowForm, newShow } = this.state;
 
     const pageClass = classnames({
@@ -123,4 +125,7 @@ export default class EventAddPage extends React.Component {
 EventAddPage.propTypes = {
   add: React.PropTypes.bool,
   loading: React.PropTypes.bool,
+  intl: intlShape.isRequired,
 };
+
+export default injectIntl(EventAddPage);

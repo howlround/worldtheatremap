@@ -108,6 +108,12 @@ class SearchShows extends React.Component {
         'description': 'Placeholder text for the show name field on search filters'
       });
 
+      const siteName = formatMessage({
+        'id': 'navigation.siteName',
+        'defaultMessage': 'World Theatre Map',
+        'description': 'Site name',
+      });
+
       // @TODO: Refactor filters form to be a component?
       return (
         <div className="search page">
@@ -115,7 +121,7 @@ class SearchShows extends React.Component {
             <SearchTypeNav />
             <div className="search-type-content">
               <div className="search-filters">
-                <Helmet title="Search Shows" titleTemplate="%s | World Theatre Map" />
+                <Helmet title="Search Shows" titleTemplate={`%s | ${siteName}`} />
                 <form className="show-filters-form">
                   <Form
                     ref="form"

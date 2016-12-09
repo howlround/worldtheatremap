@@ -54,6 +54,12 @@ export default class EventAddPage extends React.Component {
       'events-add': true,
     });
 
+    const translatableTitle = formatMessage({
+      'id': 'navigation.addEvent',
+      'defaultMessage': 'Add Event',
+      'description': 'Add menu item for an Event',
+    });
+
     if (loading) {
       return (
         <div className="overlay-wrapper">
@@ -66,7 +72,7 @@ export default class EventAddPage extends React.Component {
         <div className="overlay-wrapper">
           <Modal/>
           <div className={pageClass}>
-            <Helmet title="Add Event" />
+            <Helmet title={translatableTitle} />
             <EventAdd displayNewShowForm={this.displayNewShowForm} showObject={newShow} />
           </div>
 

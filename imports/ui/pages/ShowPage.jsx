@@ -52,6 +52,12 @@ class ShowPage extends React.Component {
       editing,
     });
 
+    const siteName = formatMessage({
+      'id': 'navigation.siteName',
+      'defaultMessage': 'World Theatre Map',
+      'description': 'Site name',
+    });
+
     if (loading) {
       return (
         <Loading key="loading" />
@@ -68,7 +74,7 @@ class ShowPage extends React.Component {
             <Helmet
               title={`Edit ${show.name}`}
               meta={[
-                { property: 'og:title', content: `${show.name} | World Theatre Map` },
+                { property: 'og:title', content: `${show.name} | ${siteName}` },
                 { property: 'og:type', content: 'article' },
                 { property: 'og:url', content: `${baseUrl}${locale}/shows/${show._id}` },
               ]}

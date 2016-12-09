@@ -23,7 +23,7 @@ class ProfileEdit extends React.Component {
         update.call({
           profileId: this.props.profile._id,
           newProfile,
-          lang: locale,
+          locale,
         }, displayError);
 
         // @TODO:Update this profile name in all plays and events

@@ -4,7 +4,7 @@ import { Profiles } from '../../api/profiles/profiles.js';
 import { createContainer } from 'meteor/react-meteor-data';
 import ProfileTranslatePage from '../pages/ProfileTranslatePage.jsx';
 
-const ProfileTranslateContainer = createContainer(({ params: { id, lang } }) => {
+const ProfileTranslateContainer = createContainer(({ params: { id, locale } }) => {
   const singleProfileSubscription = TAPi18n.subscribe('profiles.singleById', id);
   const profile = Profiles.findOne(id);
   const profileExists = !loading && !!profile;
@@ -14,7 +14,7 @@ const ProfileTranslateContainer = createContainer(({ params: { id, lang } }) => 
     profile,
     editing: profileExists ? profile._id : null,
     // shows: [],
-    lang,
+    locale,
   };
 }, ProfileTranslatePage);
 

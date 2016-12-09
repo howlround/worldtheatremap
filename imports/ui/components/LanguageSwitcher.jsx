@@ -11,7 +11,7 @@ export default class LanguageSwitcher extends React.Component {
     const switchOptions = this.props.supportedLanguages;
 
     // Remove current language
-    delete switchOptions[this.props.lang];
+    delete switchOptions[this.props.locale];
 
     this.state = {
       switchOptions
@@ -23,7 +23,7 @@ export default class LanguageSwitcher extends React.Component {
     const switchOptions = this.props.supportedLanguages;
 
     // Remove current language
-    delete switchOptions[this.props.lang];
+    delete switchOptions[this.props.locale];
 
     this.setState({switchOptions});
   }
@@ -32,7 +32,7 @@ export default class LanguageSwitcher extends React.Component {
     const { switchOptions } = this.state;
 
     return (_.map(_.pairs(switchOptions), (pair) => {
-      // console.log(lang);
+      // console.log(locale);
       const localeCode = pair[0];
       const localeLocalName = pair[1].name;
 
@@ -64,7 +64,7 @@ export default class LanguageSwitcher extends React.Component {
 }
 
 LanguageSwitcher.propTypes = {
-  lang: React.PropTypes.string,
+  locale: React.PropTypes.string,
   supportedLanguages: React.PropTypes.object,
 };
 

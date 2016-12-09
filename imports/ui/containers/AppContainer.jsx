@@ -14,10 +14,6 @@ import { Shows } from '../../api/shows/shows.js';
 import { Events } from '../../api/events/events.js';
 
 const AppContainer = createContainer(() => {
-  // Language
-  // const lang = TAPi18n.getLanguage();
-  const lang = window.AppState.getLocale();
-
   const supportedLanguages = TAPi18n.getLanguages();
 
   const user = Meteor.user();
@@ -34,7 +30,6 @@ const AppContainer = createContainer(() => {
     user,
     connected: Meteor.status().connected,
     menuOpen: Session.get('menuOpen'),
-    lang,
     supportedLanguages,
   };
 }, App);

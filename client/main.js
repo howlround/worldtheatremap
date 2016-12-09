@@ -24,9 +24,9 @@ const initiateRender = () => {
       return localStorage.getItem('locale') || 'en';
     },
 
-    setLocale: function(lang) {
-      localStorage.setItem('locale', lang);
-      moment.locale(lang);
+    setLocale: function(locale) {
+      localStorage.setItem('locale', locale);
+      moment.locale(locale);
     },
 
     render: function() {

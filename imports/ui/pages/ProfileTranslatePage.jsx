@@ -15,14 +15,14 @@ export default class ProfileTranslatePage extends React.Component {
   constructor(props) {
     super(props);
 
-    const { lang } = this.props;
+    const { locale } = this.props;
 
-    TAPi18n.setLanguage(lang);
+    TAPi18n.setLanguage(locale);
   }
   componentWillReceiveProps(nextProps) {
-    const { profile, user, loading, lang } = nextProps;
+    const { profile, user, loading, locale } = nextProps;
 
-    if (!nextProps.loading && nextProps.lang !== 'es') {
+    if (!nextProps.loading && nextProps.locale !== 'es') {
       if (profile) {
         this.context.router.push(`/profiles/${ profile._id }`);
       }
@@ -36,9 +36,9 @@ export default class ProfileTranslatePage extends React.Component {
   }
 
   switchToTarget() {
-    const { lang } = this.props;
+    const { locale } = this.props;
 
-    TAPi18n.setLanguage(lang);
+    TAPi18n.setLanguage(locale);
   }
 
   switchToSource() {
@@ -46,9 +46,9 @@ export default class ProfileTranslatePage extends React.Component {
   }
 
   render() {
-    const { profile, user, loading, lang } = this.props;
+    const { profile, user, loading, locale } = this.props;
     const currentLanguage = TAPi18n.getLanguage();
-    const targetLangInfo = TAPi18n.getLanguages()[lang];
+    const targetLangInfo = TAPi18n.getLanguages()[locale];
 
     const profilePageClass = classnames({
       page: true,
@@ -133,7 +133,7 @@ ProfileTranslatePage.propTypes = {
   connections: React.PropTypes.array,
   loading: React.PropTypes.bool,
   profileExists: React.PropTypes.bool,
-  lang: React.PropTypes.string,
+  locale: React.PropTypes.string,
 };
 
 ProfileTranslatePage.contextTypes = {

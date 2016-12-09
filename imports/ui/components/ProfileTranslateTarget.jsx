@@ -19,7 +19,7 @@ export default class ProfileEdit extends React.Component {
         translate.call({
           profileId: this.props.profile._id,
           newProfile,
-          lang: 'es',
+          locale: 'es',
         }, displayError);
 
         // @TODO:Update this profile name in all plays and events

@@ -54,41 +54,69 @@ export const renderRoutes = ({ locale, messages }) => (
   <IntlProvider locale={locale} key={locale} messages={messages}>
     <Router history={customHistory}>
       <Route path="/">
-        <IndexRedirect to="en"/>
+        <IndexRedirect to={`${locale}`} />
+        <Route path="profiles/add">
+          <IndexRedirect to={`/${locale}/profiles/add`} />
+        </Route>
+        <Route path="shows/add">
+          <IndexRedirect to={`/${locale}/shows/add`} />
+        </Route>
+        <Route path="events/add">
+          <IndexRedirect to={`/${locale}/events/add`} />
+        </Route>
+        <Route path="signin">
+          <IndexRedirect to={`/${locale}/signin`} />
+        </Route>
+        <Route path="join">
+          <IndexRedirect to={`/${locale}/join`} />
+        </Route>
+        <Route path="logout" component={LogoutPage} />
+        <Route path="search">
+          <IndexRedirect to={`/${locale}/search/profiles`} />
+          <Route path="profiles">
+            <IndexRedirect to={`/${locale}/search/profiles`} />
+          </Route>
+          <Route path="events">
+            <IndexRedirect to={`/${locale}/search/events`} />
+          </Route>
+          <Route path="shows">
+            <IndexRedirect to={`/${locale}/search/shows`} />
+          </Route>
+        </Route>
       </Route>
       <Route path="/:locale" component={AppContainer}>
         <Route path="profiles">
-          <IndexRedirect to="add"/>
-          <Route path="add" component={ProfileAddContainer}/>
-          <Route path=":id" component={ProfileContainer}/>
-          <Route path=":id/edit" component={ProfileEditContainer}/>
+          <IndexRedirect to="add" />
+          <Route path="add" component={ProfileAddContainer} />
+          <Route path=":id" component={ProfileContainer} />
+          <Route path=":id/edit" component={ProfileEditContainer} />
           <Route path=":id/translate">
-            <IndexRedirect to="es"/>
-            <Route path=":lang" component={ProfileTranslateContainer}/>
+            <IndexRedirect to="es" />
+            <Route path=":locale" component={ProfileTranslateContainer} />
           </Route>
         </Route>
         <Route path="shows">
-          <IndexRedirect to="add"/>
-          <Route path="add" component={ShowAddContainer}/>
-          <Route path=":id" component={ShowContainer}/>
-          <Route path=":id/edit" component={ShowEditContainer}/>
+          <IndexRedirect to="add" />
+          <Route path="add" component={ShowAddContainer} />
+          <Route path=":id" component={ShowContainer} />
+          <Route path=":id/edit" component={ShowEditContainer} />
         </Route>
         <Route path="events">
-          <IndexRedirect to="add"/>
-          <Route path="add" component={EventAddContainer}/>
-          <Route path=":id" component={EventContainer}/>
-          <Route path=":id/edit" component={EventEditContainer}/>
+          <IndexRedirect to="add" />
+          <Route path="add" component={EventAddContainer} />
+          <Route path=":id" component={EventContainer} />
+          <Route path=":id/edit" component={EventEditContainer} />
         </Route>
-        <Route path="signin" component={AuthSignInPage}/>
-        <Route path="join" component={AuthJoinPage}/>
-        <Route path="logout" component={LogoutPage}/>
+        <Route path="signin" component={AuthSignInPage} />
+        <Route path="join" component={AuthJoinPage} />
+        <Route path="logout" component={LogoutPage} />
         <Route path="search">
-          <IndexRedirect to="profiles"/>
-          <Route path="profiles" component={SearchProfilesContainer}/>
-          <Route path="events" component={SearchEventsContainer}/>
-          <Route path="shows" component={SearchShowsContainer}/>
+          <IndexRedirect to="profiles" />
+          <Route path="profiles" component={SearchProfilesContainer} />
+          <Route path="events" component={SearchEventsContainer} />
+          <Route path="shows" component={SearchShowsContainer} />
         </Route>
-        <Route path="*" component={NotFoundPage}/>
+        <Route path="*" component={NotFoundPage} />
       </Route>
     </Router>
   </IntlProvider>

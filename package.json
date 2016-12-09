@@ -11,7 +11,8 @@
     "test-watch": "meteor test --driver-package practicalmeteor:mocha --port 3100",
     "test-app-watch": "meteor test --full-app --driver-package practicalmeteor:mocha --port 3100",
     "lint": "eslint .",
-    "chimp-watch": "chimp --ddp=http://localhost:3000 --watch --mocha --path=tests",
+    "chimp-watch": "chimp --ddp=http://localhost:3000 --watch --path=tests",
+    "chimp-watch-phantom": "chimp --ddp=http://localhost:3000 --watch --path=tests --browser=phantomjs",
     "translate": "babel-node .scripts/translate.js"
   },
   "dependencies": {

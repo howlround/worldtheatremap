@@ -64,7 +64,6 @@ class App extends React.Component {
       menuOpen,
       children,
       location,
-      lang,
       supportedLanguages,
     } = this.props;
 
@@ -149,7 +148,7 @@ class App extends React.Component {
         {showConnectionIssue && !connected
           ? <ConnectionNotification />
           : null}
-        <LanguageSwitcher lang={lang} supportedLanguages={supportedLanguages} />
+        <LanguageSwitcher locale={locale} supportedLanguages={supportedLanguages} />
         <section id="content-container">
           {loading
             ? <Loading key="loading" />
@@ -175,7 +174,6 @@ App.propTypes = {
   children: React.PropTypes.element, // matched child route component
   location: React.PropTypes.object,  // current router location
   params: React.PropTypes.object,    // parameters of the current route
-  lang: React.PropTypes.string,
   supportedLanguages: React.PropTypes.object,
   intl: intlShape.isRequired,
 };

@@ -210,7 +210,7 @@ export const update = new ValidatedMethod({
       throw new ValidationError(result.firstError());
     }
   },
-  run({ profileId, newProfile, lang }) {
+  run({ profileId, newProfile, locale }) {
     if (!this.userId) {
       throw new Meteor.Error('profiles.update.accessDenied',
         'You must be logged in to complete this operation.');
@@ -232,7 +232,7 @@ export const update = new ValidatedMethod({
     }
 
     const doc = {};
-    doc[lang] = newProfile;
+    doc[locale] = newProfile;
 
     Profiles.updateTranslations(profileId, doc);
 
@@ -249,7 +249,7 @@ export const translate = new ValidatedMethod({
       throw new ValidationError(result.firstError());
     }
   },
-  run({ profileId, lang, newProfile }) {
+  run({ profileId, locale, newProfile }) {
     if (!this.userId) {
       throw new Meteor.Error('profiles.translate.accessDenied',
         'You must be logged in to complete this operation.');

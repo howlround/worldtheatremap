@@ -6,13 +6,13 @@ RegExp.escape = function(str) {
 
 module.exports = function() {
   this.Given(/^I am logged in$/, function () {
-    browser.url('http://localhost:3000/join');
-    browser.waitForExist('input[name="email"]', 2000);
+    browser.url('http://localhost:3000/en/join');
+    browser.waitForExist('input[name="email"]', 3000);
     browser.setValue('input[name="email"]', 'reginold@worldtheatremap.org');
     browser.setValue('input[name="password"]', 'letme1n3');
     browser.setValue('input[name="confirm"]', 'letme1n3');
 
-    browser.waitForExist('button[type="submit"]', 2000);
+    browser.waitForExist('button[type="submit"]', 3000);
     browser.click('button[type="submit"]');
 
     browser.waitUntil(function () {
@@ -29,7 +29,7 @@ module.exports = function() {
   });
 
   this.Given(/^I log in with the email "([^"]*)" and the password "([^"]*)"$/, function (email, password) {
-    browser.url('http://localhost:3000/signin');
+    browser.url('http://localhost:3000/en/signin');
     browser.waitForExist('input[name="email"]', 2000);
     browser.setValue('input[name="email"]', email);
     browser.setValue('input[name="password"]', password);
@@ -49,13 +49,14 @@ module.exports = function() {
   });
 
   this.Given(/^I am on the English language home page$/, function () {
-    browser.url('http://localhost:3000');
-    if (browser.getText('.language-switcher') === "English") {
-      browser.url('http://localhost:3000/en');
-      browser.waitUntil(function () {
-        return browser.getText('.language-switcher') === 'Español'
-      }, 5000, 'Site is not being viewed in English');
-    }
+    browser.url('http://localhost:3000/en');
+    // browser.url('http://localhost:3000');
+    // if (browser.getText('.language-switcher') === "English") {
+    //   browser.url('http://localhost:3000/en');
+    //   browser.waitUntil(function () {
+    //     return browser.getText('.language-switcher') === 'Español'
+    //   }, 5000, 'Site is not being viewed in English');
+    // }
   });
 
   this.When(/^I follow "([^"]*)"$/, function (element) {
@@ -154,7 +155,10 @@ module.exports = function() {
       callback(new Error('No profile exists with the name ' + name));
     }
 
-    browser.url('http://localhost:3000/profiles/' + profile._id);
+    const locale = browser.execute(() => window.AppState.getLocale());
+
+    // browser.url('http://localhost:3000/profiles/' + profile._id);
+    browser.url(`http://localhost:3000/${locale.value}/profiles/${profile._id}`);
 
     // Check if we are on the correct page
     // const processedName = RegExp('/' + name + '/i');

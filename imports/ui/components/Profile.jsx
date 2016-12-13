@@ -467,9 +467,9 @@ class Profile extends React.Component {
           <section className="profile-shows">
             <h2>
               <FormattedMessage
-                id="profile.showsByOrgHeader"
+                id="show.history"
                 description="Section header for show for which this profile is the local organization"
-                defaultMessage="Local Organization"
+                defaultMessage="Show History"
               />
             </h2>
             <ul>

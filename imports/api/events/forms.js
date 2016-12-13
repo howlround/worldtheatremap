@@ -299,16 +299,11 @@ export const defaultFormOptions = () => ({
             defaultMessage="(required)"
           /></span>,
           labelText: <FormattedMessage
-            id="forms.eventLocalOrgsLabel"
-            description="Label for Local organizations form field on events forms"
-            defaultMessage="Local Organization Name"
+            id="forms.eventLocalOrgsHelpText"
+            description="Help text for Local organizations form field on events forms"
+            defaultMessage="List the Producing, Presenting, Festival, or Development Organization"
           />,
         }}
-      />,
-      help: <FormattedMessage
-        id="forms.eventLocalOrgsHelpText"
-        description="Help text for Local organizations form field on events forms"
-        defaultMessage="List the Producing, Presenting, Festival, or Development Organization."
       />,
       attrs: {
         className: 'event-organization-edit',

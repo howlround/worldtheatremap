@@ -193,7 +193,7 @@
   "forms.requiredLabel": "(requerido)",
   "forms.showNameLabel": "Nombre del evento",
   "forms.eventLocalOrgsLabel": "Nombre de la organización local",
-  "forms.eventLocalOrgsHelpText": "Listar la, presentación, Festival, u Organización de Desarrollo de Producción.",
+  "forms.eventLocalOrgsHelpText": "Listar la, presentación, Festival, u Organización de Desarrollo de Producción",
   "forms.eventLocalOrgsError": "Se requiere Local Nombre de la Organización",
   "forms.startDateLabel": "Fecha de inicio",
   "forms.endDateLabel": "Fecha final",

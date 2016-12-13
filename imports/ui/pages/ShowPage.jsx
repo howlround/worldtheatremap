@@ -43,7 +43,7 @@ class ShowPage extends React.Component {
     // const { show, showExists, loading } = this.props;
     const { loading, show, user, eventsByShow } = this.props;
     const { editing } = this.state;
-    const { locale } = this.props.intl;
+    const { formatMessage, locale } = this.props.intl;
     const baseUrl = Meteor.absoluteUrl(false, { secure: true });
 
     const showPageClass = classnames({

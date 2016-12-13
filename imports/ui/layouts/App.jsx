@@ -98,8 +98,15 @@ class App extends React.Component {
             { property: 'og:type', content: 'website' },
             { property: 'og:url', content: `${Meteor.absoluteUrl(false, { secure: true })}${locale}` },
             { property: 'og:title', content: siteName },
-            { property: 'og:image', content: 'https://s3.amazonaws.com/wtm-static/wtm-share-2016-11-10.png' },
+            { property: 'og:image', content: `https://s3.amazonaws.com/wtm-static/wtm-share-fb-2016-12-13-${locale}.jpg` },
             { property: 'og:description', content: siteDescription },
+            { property: 'twitter:card', content: 'summary_large_image'},
+            { property: 'twitter:site', content: '@WorldTheatreMap' },
+            { property: 'twitter:title', content: siteName },
+            { property: 'twitter:description', content: siteDescription },
+            { property: 'twitter:creator', content: '@WorldTheatreMap' },
+            { property: 'twitter:image', content: `https://s3.amazonaws.com/wtm-static/wtm-share-tw-2016-12-13-${locale}.jpg` },
+            { property: 'twitter:domain', content: `${Meteor.absoluteUrl(false, { secure: true })}` },
           ]}
         />
         <a

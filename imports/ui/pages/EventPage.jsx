@@ -118,6 +118,7 @@ class EventPage extends React.Component {
             title={`${event.organizations.name} presents ${event.show.name}`}
             meta={[
               { property: 'og:title', content: `${event.organizations.name} — ${event.show.name} | ${siteName}` },
+              { property: 'twitter:title', content: `${event.organizations.name} — ${event.show.name} | ${siteName}` },
               { property: 'og:type', content: 'article' },
               { property: 'og:url', content: `${baseUrl}${locale}/events/${event._id}` },
             ]}

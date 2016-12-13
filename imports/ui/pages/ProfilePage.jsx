@@ -371,6 +371,7 @@ class ProfilePage extends React.Component {
             title={profile.name}
             meta={[
               { property: 'og:title', content: `${profile.name} | ${siteName}` },
+              { property: 'twitter:title', content: `${profile.name} | ${siteName}` },
               { property: 'og:type', content: 'article' },
               { property: 'og:url', content: `${baseUrl}${locale}/profiles/${profile._id}` },
             ]}
@@ -380,13 +381,16 @@ class ProfilePage extends React.Component {
               meta={[
                 { name: 'description', content: profile.about },
                 { property: 'og:description', content: profile.about },
+                { property: 'twitter:description', content: profile.about },
               ]}
             /> : ''
           }
           {profile.image ?
             <Helmet
               meta={[
+                { property: 'twitter:card', content: 'summary'},
                 { property: 'og:image', content: profile.image },
+                { property: 'twitter:image', content: profile.image },
               ]}
             /> : ''
           }

@@ -75,6 +75,7 @@ class ShowPage extends React.Component {
               title={`Edit ${show.name}`}
               meta={[
                 { property: 'og:title', content: `${show.name} | ${siteName}` },
+                { property: 'twitter:title', content: `${show.name} | ${siteName}` },
                 { property: 'og:type', content: 'article' },
                 { property: 'og:url', content: `${baseUrl}${locale}/shows/${show._id}` },
               ]}
@@ -84,6 +85,7 @@ class ShowPage extends React.Component {
                 meta={[
                   { name: 'description', content: show.about },
                   { property: 'og:description', content: show.about },
+                  { property: 'twitter:description', content: show.about },
                 ]}
               /> : ''
             }
@@ -123,11 +125,21 @@ class ShowPage extends React.Component {
           <Helmet
             title={show.name}
             meta={[
-              { property: 'og:title', content: `${show.name} | World Theatre Map` },
+              { property: 'og:title', content: `${show.name} | ${siteName}` },
+              { property: 'twitter:title', content: `${show.name} | ${siteName}` },
               { property: 'og:type', content: 'article' },
               { property: 'og:url', content: `${baseUrl}${locale}/shows/${show._id}` },
             ]}
           />
+          {show.about ?
+            <Helmet
+              meta={[
+                { name: 'description', content: show.about },
+                { property: 'og:description', content: show.about },
+                { property: 'twitter:description', content: show.about },
+              ]}
+            /> : ''
+          }
           <div className="page-actions">
             <Link
               to={`/${locale}/shows/${show._id}/edit`}

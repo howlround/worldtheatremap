@@ -57,9 +57,14 @@ export default class RelatedShowTextbox extends React.Component {
     const { updateParent } = this.props;
 
     const search = value.target.value;
-    updateParent({
-      name: search,
-    });
+    const accentedCharacterstoExclude = '´ˆ`˜¨';
+    const excludeRegex = new RegExp(`[${accentedCharacterstoExclude}]`);
+
+    if (_.isEmpty(search.match(excludeRegex))) {
+      updateParent({
+        name: search,
+      });
+    }
     this.setState({ show: { name: search } });
   }
 

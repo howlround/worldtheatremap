@@ -16,7 +16,7 @@ TAPi18n.publish('shows.autocomplete', function showsPublic() {
 });
 
 TAPi18n.publish('shows.autocompleteQuery', function showsPublic(search) {
-  const regex = new RegExp(`^${search}.*`, 'i');
+  const regex = new RegExp(`.*${search}.*`, 'i');
   return Shows.i18nFind({ name: { $regex: regex } }, {
     fields: Shows.autocompleteFields,
   });
@@ -74,7 +74,7 @@ TAPi18n.publish('shows.search', function showsSearch(plainTextQuery, skip) {
   const processedQuery = _.clone(plainTextQuery);
 
   if (plainTextQuery.name) {
-    processedQuery.name = new RegExp(`^${plainTextQuery.name}.*`, 'i');
+    processedQuery.name = new RegExp(`.*${plainTextQuery.name}.*`, 'i');
   }
 
   const limit = 20;

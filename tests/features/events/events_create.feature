@@ -1,4 +1,4 @@
-@events
+@events @focus
 Feature: Create events
 
   As a user
@@ -45,7 +45,7 @@ Feature: Create events
     And I fill in ".event-postal-code-edit" with "1161"
     And I click on ".edit-event-save"
     Then the "h1.page-title" element should contain "Sofia"
-    And the ".event-about" element should contain "google.com"
+    And the ".event-about" element should contain "More information"
     And the ".event-type" element should contain "Performance"
     And the ".event-date-range" element should contain the date range for day "1" to day "15" of this month
     And I should see the "#globe" element
@@ -83,7 +83,7 @@ Feature: Create events
     And I fill in ".event-postal-code-edit" with "1161"
     And I click on ".edit-event-save"
     Then the "h1.page-title" element should contain "Sofia"
-    And the ".event-about" element should contain "google.com"
+    And the ".event-about" element should contain "More information"
     And the ".event-type" element should contain "Performance"
     And the ".event-date-range" element should contain the date range for day "1" to day "15" of this month
     And I should see the "#globe" element

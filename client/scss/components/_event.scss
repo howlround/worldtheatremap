@@ -72,10 +72,9 @@ article.event-teaser-with-show {
   }
 
   .event-organizations {
-    font-size: 17px;
+    font-size: 15px;
     line-height: 20px;
     font-weight: bold;
-    margin-bottom: 15px;
   }
 
   .event-show-name {
@@ -84,14 +83,22 @@ article.event-teaser-with-show {
   }
 
   .event-authorship {
-    font-size: 17px;
+    font-size: 15px;
     line-height: 20px;
-    margin-bottom: 15px;
   }
 
   .event-type {
     text-transform: uppercase;
     font-size: 13px;
+    display: inline-block;
+  }
+
+  .event-type-seperator {
+    margin-right: $spacing-unit / 2;
+  }
+
+  .event-date-range {
+    display: inline-block;
   }
 
   .event-location {
@@ -124,15 +131,22 @@ article.event-teaser-with-show {
     }
 
     .event-type {
-      font-size: 11px;
+      font-size: 13px;
       color: $gray;
       float: left;
       clear: both;
 
       @include breakpoint($narrow) {
         position: absolute;
+        font-size: 11px;
         top: 0;
         right: 0;
+      }
+    }
+
+    .event-type-seperator {
+      @include breakpoint($narrow) {
+        display: none;
       }
     }
 
@@ -140,18 +154,22 @@ article.event-teaser-with-show {
       float: left;
       line-height: 1.5em;
       margin-right: $spacing-unit / 2;
+      font-size: 17px;
     }
 
     .event-authorship {
       float: left;
       line-height: 1.5em;
+      font-size: 17px;
       margin-right: $spacing-unit / 2;
       margin-bottom: 0;
     }
 
     .event-organizations {
-      font-size: 13px;
       margin-bottom: 0;
+      float: left;
+      clear: both;
+      line-height: 24px;
     }
 
     .event-location {
@@ -163,6 +181,7 @@ article.event-teaser-with-show {
     }
 
     .event-date-range {
+      display: block;
       float: left;
       color: $gray;
       margin-right: $spacing-unit * 2;

@@ -16,12 +16,6 @@ class EventTeaserWithShow extends React.Component {
     return (
       <article className="event-teaser-with-show">
         <div className="event-main-info">
-          { event.organizations ?
-            <div className="event-organizations">
-              <Link to={`/${locale}/profiles/${ event.organizations._id }`}>
-                <ProfileNameContainer profileId={event.organizations._id} />
-              </Link>
-            </div>: ''}
           <h3 className="event-show-name">
             <Link to={`/${locale}/shows/${ event.show._id }`} key={event.show._id}>
               <ShowNameContainer showId={event.show._id} />
@@ -35,6 +29,14 @@ class EventTeaserWithShow extends React.Component {
               values={{ authors: <Authors authors={event.show.author} /> }}
             />
           </div>
+          { event.organizations ?
+            <div className="event-organizations">
+              <Link to={`/${locale}/profiles/${ event.organizations._id }`}>
+                <ProfileNameContainer profileId={event.organizations._id} />
+              </Link>
+            </div>: ''}
+          {typeof locationLine !== 'undefined' ?
+            <div className="event-location">{locationLine}</div> : ''}
           <div className="event-type">
             {
               formatMessage({
@@ -43,9 +45,8 @@ class EventTeaserWithShow extends React.Component {
                 'description': `Interests option: ${event.eventType}`
               })
             }
+            <span className="event-type-seperator">:</span>
           </div>
-          {typeof locationLine !== 'undefined' ?
-            <div className="event-location">{locationLine}</div> : ''}
           {event.startDate && event.endDate ?
             <div className="event-date-range date">
               <FormattedDate

@@ -74,12 +74,12 @@ const SearchProfilesResultsContainer = createContainer((props) => {
     const plainTextQuery = _.clone(privateQuery);
 
     if (query.postalCode) {
-      privateQuery.postalCode = new RegExp(`^${query.postalCode}.*`, 'i');
+      privateQuery.postalCode = new RegExp(`.*${query.postalCode}.*`, 'i');
       plainTextQuery.postalCode = query.postalCode;
     }
 
     if (query.name) {
-      privateQuery.name = new RegExp(`^${query.name}.*`, 'i');
+      privateQuery.name = new RegExp(`.*${query.name}.*`, 'i');
       plainTextQuery.name = query.name;
       // privateQuery.name = new RegExp(query.name, 'i');
     }

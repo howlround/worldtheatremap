@@ -20,14 +20,14 @@ Feature: Search box on profile search
   Scenario: Users can search for profiles by name (partial/full, different case variations)
     # Full name, match case
     When I fill in ".profile-search-text" with "Fatima"
-    And the ".search-results" element should contain "Fatima"
+    Then the ".search-results" element should contain "Fatima"
     And the ".search-results" element should not contain "Aadya"
     # Full name, different case
     When I fill in ".profile-search-text" with "fatima"
-    And the ".search-results" element should contain "Fatima"
+    Then the ".search-results" element should contain "Fatima"
     # Partial name (begining), match case
     When I fill in ".profile-search-text" with "Fat"
-    And the ".search-results" element should contain "Fatima"
-    # DOES NOT MATCH: Partial name (end), match case
+    Then the ".search-results" element should contain "Fatima"
+    # Partial name (end), match case
     When I fill in ".profile-search-text" with "ima"
-    And I should not see ".search-results"
+    Then the ".search-results" element should contain "Fatima"

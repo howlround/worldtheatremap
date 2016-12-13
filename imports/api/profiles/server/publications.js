@@ -16,7 +16,7 @@ TAPi18n.publish('profiles.autocomplete', function profilesPublic() {
 });
 
 TAPi18n.publish('profiles.autocompleteQuery', function profilesPublic(search) {
-  const regex = new RegExp(`^${search}.*`, 'i');
+  const regex = new RegExp(`.*${search}.*`, 'i');
   return Profiles.i18nFind({ name: { $regex: regex } }, {
     fields: Profiles.autocompleteFields,
   });
@@ -26,11 +26,11 @@ TAPi18n.publish('profiles.search', function profilesSearch(plainTextQuery, skip)
   const processedQuery = _.clone(plainTextQuery);
 
   if (plainTextQuery.name) {
-    processedQuery.name = new RegExp(`^${plainTextQuery.name}.*`, 'i');
+    processedQuery.name = new RegExp(`.*${plainTextQuery.name}.*`, 'i');
   }
 
   if (plainTextQuery.postalCode) {
-    processedQuery.postalCode = new RegExp(`^${plainTextQuery.postalCode}.*`, 'i');
+    processedQuery.postalCode = new RegExp(`.*${plainTextQuery.postalCode}.*`, 'i');
   }
 
   const limit = 20;

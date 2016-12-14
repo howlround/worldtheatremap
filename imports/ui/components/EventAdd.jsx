@@ -14,9 +14,6 @@ import { insert } from '../../api/events/methods.js';
 import { eventSchema, defaultFormOptions } from '../../api/events/forms.js';
 import RelatedShowTextboxContainer from '../../ui/containers/RelatedShowTextboxContainer.jsx';
 
-// Components
-import ShowAdd from '../../ui/components/ShowAdd.jsx';
-
 const Form = t.form.Form;
 
 class EventAdd extends React.Component {

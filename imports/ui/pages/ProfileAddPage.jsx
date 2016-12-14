@@ -25,10 +25,17 @@ export default class ProfileAddPage extends React.Component {
     if (add && user) {
       return (
         <div className="overlay-wrapper">
-          <Modal/>
+          <Modal />
           <div className={pageClass}>
             <Helmet title="Add Profile" />
-            <ProfileAdd/>
+            <span
+              className="overlay-close"
+              onClick={this.context.router.goBack}
+              title="Back"
+            >
+              &times;
+            </span>
+            <ProfileAdd />
           </div>
         </div>
       );
@@ -36,12 +43,12 @@ export default class ProfileAddPage extends React.Component {
     else {
       return (
         <div className="overlay-wrapper">
-          <Modal/>
+          <Modal />
           <div className="page auth">
             <Message title="Access denied" subtitle="Sign in or register to participate in the World Theatre Map"/>
             <div className="page-content">
               <Helmet title="Sign in to add a profile" />
-              <AuthSignIn/>
+              <AuthSignIn />
             </div>
           </div>
         </div>
@@ -53,4 +60,8 @@ export default class ProfileAddPage extends React.Component {
 ProfileAddPage.propTypes = {
   add: React.PropTypes.bool,
   user: React.PropTypes.object,
+};
+
+ProfileAddPage.contextTypes = {
+  router: React.PropTypes.object,
 };

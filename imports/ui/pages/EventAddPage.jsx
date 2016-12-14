@@ -75,12 +75,19 @@ class EventAddPage extends React.Component {
           <Modal/>
           <div className={pageClass}>
             <Helmet title={translatableTitle} />
+            <span
+              className="overlay-close"
+              onClick={this.context.router.goBack}
+              title="Back"
+            >
+              &times;
+            </span>
             <EventAdd displayNewShowForm={this.displayNewShowForm} showObject={newShow} />
           </div>
 
           {displayNewShowForm ?
             <div className="overlay-wrapper">
-              <Modal/>
+              <Modal />
               <div className="page nested-overlay-page">
                 <div className="nested-overlay-page-content">
                   <span
@@ -126,6 +133,10 @@ EventAddPage.propTypes = {
   add: React.PropTypes.bool,
   loading: React.PropTypes.bool,
   intl: intlShape.isRequired,
+};
+
+EventAddPage.contextTypes = {
+  router: React.PropTypes.object,
 };
 
 export default injectIntl(EventAddPage);

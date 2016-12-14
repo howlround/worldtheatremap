@@ -33,6 +33,13 @@ export default class ShowAddPage extends React.Component {
           <Modal />
           <div className={pageClass}>
             <Helmet title="Add Show" />
+            <span
+              className="overlay-close"
+              onClick={this.context.router.goBack}
+              title="Back"
+            >
+              &times;
+            </span>
             <ShowAdd />
           </div>
         </div>
@@ -61,4 +68,8 @@ ShowAddPage.propTypes = {
   user: React.PropTypes.object,
   add: React.PropTypes.bool,
   loading: React.PropTypes.bool,
+};
+
+ShowAddPage.contextTypes = {
+  router: React.PropTypes.object,
 };

@@ -1,21 +1,32 @@
 import React from 'react';
 import classnames from 'classnames';
+import { Link } from 'react-router';
+import { intlShape, injectIntl } from 'react-intl';
 
 class ProfileName extends React.Component {
   render() {
-    const { profileName, profileExists } = this.props;
+    const { profileName, profileId, defaultName, profileExists, noLinks } = this.props;
+    const { locale } = this.props.intl;
 
     const classNames = {
       'profile-name': true,
       'profile-exists': profileExists,
     }
 
+    let output = '';
+    if (!profileExists) {
+      output = defaultName;
+    } else if (noLinks) {
+      output = profileName.name;
+    } else {
+      output = <Link to={`/${locale}/profiles/${ profileId }`} className="show-author">
+        {profileName.name}
+      </Link>
+    }
+
     return (
       <span className={classnames(classNames)}>
-        {profileExists ?
-          profileName.name
-          : ''
-        }
+        {output}
       </span>
     );
   }
@@ -31,4 +42,4 @@ ProfileName.contextTypes = {
   router: React.PropTypes.object,
 };
 
-export default ProfileName;
+export default injectIntl(ProfileName);

@@ -8,7 +8,7 @@ import ProfileName from '../components/ProfileName.jsx';
 import { Profiles } from '../../api/profiles/profiles.js';
 
 const ProfileNameContainer = createContainer((props) => {
-  const { profileId } = props;
+  const { profileId, defaultName, noLinks } = props;
   // const profilesSub = TAPi18n.subscribe('profiles.singleById', profileId);
 
   // const loading = !(profilesSub.ready());
@@ -26,7 +26,10 @@ const ProfileNameContainer = createContainer((props) => {
 
   return {
     loading,
+    profileId,
     profileName,
+    defaultName,
+    noLinks,
     profileExists,
   };
 }, ProfileName);

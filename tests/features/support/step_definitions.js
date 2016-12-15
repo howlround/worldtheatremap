@@ -168,6 +168,21 @@ module.exports = function() {
     callback();
   });
 
+  this.Then(/^there should be no profile with the name "([^"]*)"$/, function (name, callback) {
+    // Look up the profile with this name
+    const profile = server.execute((name, callback) => {
+      const { Meteor } = require('meteor/meteor');
+      const { Profiles } = require('/imports/api/profiles/profiles.js');
+      const profile = Profiles._collection.findOne({name: name});
+
+      return profile;
+    }, name);
+
+    if (profile) {
+      callback(new Error(`Profile exists with the name ${name} but should not.`));
+    }
+  });
+
   this.When(/^I go to the show page for "([^"]*)"$/, function (name, callback) {
     // Look up the show with this name
     const show = server.execute((name, callback) => {
@@ -251,6 +266,13 @@ module.exports = function() {
     browser.pause(1000);
     browser.switchTab(browser.getTabIds()[1]);
   });
+
+  // this.When(/^I accept the alert$/, function () {
+  //   // browser.waitUntil(function () {
+  //   //   return browser.alertText();
+  //   // }, 5000, 'No alert found');
+  //   client.alertAccept();
+  // });
 
   this.Before(function () {
     // make sure the DDP connection is not logged in before clearing the database

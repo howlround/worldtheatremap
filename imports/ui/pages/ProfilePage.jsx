@@ -30,6 +30,7 @@ import NotFoundPage from '../pages/NotFoundPage.jsx';
 // API
 import { upsert, remove } from '../../api/affiliations/methods.js';
 import { affiliationFormSchema, defaultFormOptions } from '../../api/affiliations/affiliations.js';
+import { remove as removeProfile } from '../../api/profiles/methods.js';
 
 const Form = t.form.Form;
 
@@ -63,7 +64,18 @@ class ProfilePage extends React.Component {
       }
     }, 300);
 
+    this.throttledRemoveProfile = _.throttle(profileId => {
+      if (profileId) {
+        removeProfile.call({
+          profileId,
+        }, displayError);
+
+        return true;
+      }
+    }, 300);
+
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.confirmDelete = this.confirmDelete.bind(this);
     this.onChange = this.onChange.bind(this);
     this.removeAffiliation = this.removeAffiliation.bind(this);
     this.renderRelatedProfiles = this.renderRelatedProfiles.bind(this);
@@ -117,6 +129,17 @@ class ProfilePage extends React.Component {
           },
         });
       }
+    }
+  }
+
+  confirmDelete(_id) {
+    const { locale } = this.props.intl;
+
+    const confirm = window.confirm('Delete');
+    if (confirm === true) {
+      this.throttledRemoveProfile(_id);
+
+      this.context.router.push(`/${locale}`);
     }
   }
 
@@ -407,6 +430,20 @@ class ProfilePage extends React.Component {
                 defaultMessage="Edit details"
               />
             </Link>
+            { user ?
+              <a
+                title={`Delete ${profile.name}`}
+                className="page-delete-link"
+                onClick={this.confirmDelete.bind(this, profile._id)}
+              >
+                <FormattedMessage
+                  id="ui.pageDelete"
+                  description="Page delete link"
+                  defaultMessage="Delete"
+                />
+              </a>
+              : ''
+            }
 
             <div className="page-actions-share">
               <OutboundLink
@@ -501,10 +538,11 @@ ProfilePage.propTypes = {
   affiliatedProfiles: React.PropTypes.array,
   loading: React.PropTypes.bool,
   profileExists: React.PropTypes.bool,
+  intl: intlShape.isRequired,
 };
 
-ProfilePage.propTypes = {
-  intl: intlShape.isRequired,
+ProfilePage.contextTypes = {
+  router: React.PropTypes.object,
 };
 
 export default injectIntl(ProfilePage);

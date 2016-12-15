@@ -1,4 +1,4 @@
-@events @focus
+@events
 Feature: Create events
 
   As a user

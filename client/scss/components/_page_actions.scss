@@ -1,9 +1,16 @@
 .page-actions {
   font-size: 13px;
   padding: $spacing-unit 0;
+  overflow: auto;
 
   a {
     padding: $spacing-unit 0;
+  }
+}
+
+.page-actions-edit {
+  a {
+    margin-right: $spacing-unit;
   }
 }
 

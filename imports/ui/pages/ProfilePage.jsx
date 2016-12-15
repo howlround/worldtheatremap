@@ -133,9 +133,15 @@ class ProfilePage extends React.Component {
   }
 
   confirmDelete(_id) {
-    const { locale } = this.props.intl;
+    const { locale, formatMessage } = this.props.intl;
 
-    const confirm = window.confirm('Delete');
+    const deleteConfirmText = formatMessage({
+      'id': 'profile.deleteConfirmText',
+      'defaultMessage': 'Delete this profile?',
+      'description': 'Text confirming deleting a profile',
+    });
+
+    const confirm = window.confirm(deleteConfirmText);
     if (confirm === true) {
       this.throttledRemoveProfile(_id);
 
@@ -418,33 +424,35 @@ class ProfilePage extends React.Component {
             /> : ''
           }
           <div className="page-actions">
-            <Link
-              to={`/${locale}/profiles/${profile._id}/edit`}
-              key={`${profile._id}-edit`}
-              title={`Edit ${profile.name}`}
-              className="page-edit-link"
-            >
-              <FormattedMessage
-                id="ui.pageEdit"
-                description="Page edit link"
-                defaultMessage="Edit details"
-              />
-            </Link>
-            { user ?
-              <a
-                title={`Delete ${profile.name}`}
-                className="page-delete-link"
-                onClick={this.confirmDelete.bind(this, profile._id)}
+            <div className="page-actions-edit">
+              <Link
+                to={`/${locale}/profiles/${profile._id}/edit`}
+                key={`${profile._id}-edit`}
+                title={`Edit ${profile.name}`}
+                className="page-edit-link"
               >
                 <FormattedMessage
-                  id="ui.pageDelete"
-                  description="Page delete link"
-                  defaultMessage="Delete"
+                  id="ui.pageEdit"
+                  description="Page edit link"
+                  defaultMessage="Edit details"
                 />
-              </a>
-              : ''
-            }
-
+              </Link>
+              { user ?
+                <a
+                  href="#"
+                  title={`Delete ${profile.name}`}
+                  className="page-delete-link"
+                  onClick={this.confirmDelete.bind(this, profile._id)}
+                >
+                  <FormattedMessage
+                    id="ui.pageDelete"
+                    description="Page delete link"
+                    defaultMessage="Delete"
+                  />
+                </a>
+                : ''
+              }
+            </div>
             <div className="page-actions-share">
               <OutboundLink
                 eventLabel="twitter-share"

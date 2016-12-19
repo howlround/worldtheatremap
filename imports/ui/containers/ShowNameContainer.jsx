@@ -8,7 +8,7 @@ import ShowName from '../components/ShowName.jsx';
 import { Shows } from '../../api/shows/shows.js';
 
 const ShowNameContainer = createContainer((props) => {
-  const { showId } = props;
+  const { showId, defaultName } = props;
   // const showsSub = TAPi18n.subscribe('shows.singleNameById', showId);
   // const loading = !(showsSub.ready());
   const loading = false;
@@ -25,6 +25,7 @@ const ShowNameContainer = createContainer((props) => {
   return {
     loading,
     showName,
+    defaultName,
     showExists,
   };
 }, ShowName);

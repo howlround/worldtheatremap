@@ -395,7 +395,7 @@
   "profileSearchResult.orgTypesLabel": "¿Qué tipo de organización es este?",
   "profileSearchResult.interestsLabel": "Intereses",
   "profile.autocompleteCreate": "Añadir perfil de {name}?",
-  "profile.deleteConfirmText": "Delete this profile?",
+  "ui.deleteConfirmText": "Are you sure you want to delete this content? This action can not be undone.",
   "show.autocompleteCreate": "Añadir juego a {name}?",
   "show.about": "Aobre",
   "show.history": "Mostrar historial",

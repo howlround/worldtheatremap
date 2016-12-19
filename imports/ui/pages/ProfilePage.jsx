@@ -136,9 +136,9 @@ class ProfilePage extends React.Component {
     const { locale, formatMessage } = this.props.intl;
 
     const deleteConfirmText = formatMessage({
-      'id': 'profile.deleteConfirmText',
-      'defaultMessage': 'Delete this profile?',
-      'description': 'Text confirming deleting a profile',
+      'id': 'ui.deleteConfirmText',
+      'defaultMessage': 'Are you sure you want to delete this content? This action can not be undone.',
+      'description': 'Text confirming deleting content',
     });
 
     const confirm = window.confirm(deleteConfirmText);

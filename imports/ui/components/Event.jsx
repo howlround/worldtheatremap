@@ -362,12 +362,7 @@ class Event extends React.Component {
                 <ProfileNameContainer profileId={event.organizations._id} defaultName={event.organizations.name} />
               </div>: ''}
             <h1 className="event-name page-title">
-              <Link
-                to={`/${locale}/shows/${ event.show._id }`}
-                title={event.show.name}
-              >
-                <ShowNameContainer showId={event.show._id} />
-              </Link>
+              <ShowNameContainer showId={event.show._id} defaultName={event.show.name} />
             </h1>
             <div className="event-authorship">
               <FormattedMessage

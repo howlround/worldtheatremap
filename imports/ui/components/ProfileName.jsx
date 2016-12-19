@@ -21,7 +21,7 @@ class ProfileName extends React.Component {
     } else {
       output = <Link to={`/${locale}/profiles/${ profileId }`} className="show-author">
         {profileName.name}
-      </Link>
+      </Link>;
     }
 
     return (
@@ -36,6 +36,7 @@ ProfileName.propTypes = {
   profileName: React.PropTypes.object,
   loading: React.PropTypes.bool,
   profileExists: React.PropTypes.bool,
+  intl: intlShape.isRequired,
 };
 
 ProfileName.contextTypes = {

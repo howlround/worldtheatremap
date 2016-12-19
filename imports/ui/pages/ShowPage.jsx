@@ -1,8 +1,10 @@
-// Utilities
 import { Meteor } from 'meteor/meteor';
+import React from 'react';
+
+// Utilities
 import classnames from 'classnames';
 import Helmet from 'react-helmet';
-import React from 'react';
+import { displayError } from '../helpers/errors.js';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
 import { OutboundLink } from 'react-ga';
@@ -16,12 +18,28 @@ import Modal from '../components/Modal.jsx';
 import AuthSignIn from '../components/AuthSignIn.jsx';
 import Loading from '../components/Loading.jsx';
 
+// API
+import { remove } from '../../api/shows/methods.js';
+
 class ShowPage extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       editing: this.props.editing ? this.props.show._id : null,
     };
+
+    this.throttledRemove = _.throttle(showId => {
+      if (showId) {
+        remove.call({
+          showId,
+        }, displayError);
+
+        return true;
+      }
+    }, 300);
+
+    this.confirmDelete = this.confirmDelete.bind(this);
     this.onEditingChange = this.onEditingChange.bind(this);
   }
 
@@ -37,6 +55,23 @@ class ShowPage extends React.Component {
     this.setState({
       editing: editing ? id : null,
     });
+  }
+
+  confirmDelete(_id) {
+    const { locale, formatMessage } = this.props.intl;
+
+    const deleteConfirmText = formatMessage({
+      'id': 'ui.deleteConfirmText',
+      'defaultMessage': 'Are you sure you want to delete this content? This action can not be undone.',
+      'description': 'Text confirming deleting content',
+    });
+
+    const confirm = window.confirm(deleteConfirmText);
+    if (confirm === true) {
+      this.throttledRemove(_id);
+
+      this.context.router.push(`/${locale}`);
+    }
   }
 
   render() {
@@ -141,19 +176,35 @@ class ShowPage extends React.Component {
             /> : ''
           }
           <div className="page-actions">
-            <Link
-              to={`/${locale}/shows/${show._id}/edit`}
-              key={`${show._id}-edit`}
-              title={`Edit ${show.name}`}
-              className="page-edit-link"
-            >
-              <FormattedMessage
-                id="ui.pageEdit"
-                description="Page edit link"
-                defaultMessage="Edit details"
-              />
-            </Link>
-
+            <div className="page-actions-edit">
+              <Link
+                to={`/${locale}/shows/${show._id}/edit`}
+                key={`${show._id}-edit`}
+                title={`Edit ${show.name}`}
+                className="page-edit-link"
+              >
+                <FormattedMessage
+                  id="ui.pageEdit"
+                  description="Page edit link"
+                  defaultMessage="Edit details"
+                />
+              </Link>
+              { user ?
+                <a
+                  href="#"
+                  title={`Delete ${show.name}`}
+                  className="page-delete-link"
+                  onClick={this.confirmDelete.bind(this, show._id)}
+                >
+                  <FormattedMessage
+                    id="ui.pageDelete"
+                    description="Page delete link"
+                    defaultMessage="Delete"
+                  />
+                </a>
+                : ''
+              }
+            </div>
             <div className="page-actions-share">
               <OutboundLink
                 eventLabel="twitter-share"
@@ -199,6 +250,10 @@ ShowPage.propTypes = {
   loading: React.PropTypes.bool,
   showExists: React.PropTypes.bool,
   intl: intlShape.isRequired,
+};
+
+ShowPage.contextTypes = {
+  router: React.PropTypes.object,
 };
 
 export default injectIntl(ShowPage);

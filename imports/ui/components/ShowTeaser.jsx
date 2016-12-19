@@ -13,9 +13,7 @@ class ShowTeaser extends React.Component {
       <article className="show-teaser">
         <div className="show-main-info">
           <h3 className="show-name">
-            <Link to={`/${locale}/shows/${ show._id }`} key={show._id}>
-              <ShowNameContainer showId={show._id} />
-            </Link>
+            <ShowNameContainer showId={show._id} defaultName={show.name} />
           </h3>
           <div className="show-authorship">
             <FormattedMessage

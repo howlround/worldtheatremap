@@ -8,6 +8,10 @@ import { check } from 'meteor/check'
 
 import { Shows, showSchema } from './shows.js';
 
+const SHOW_ID_ONLY = new SimpleSchema({
+  showId: { type: String },
+}).validator();
+
 export const insert = new ValidatedMethod({
   name: 'shows.insert',
   validate({ newShow }) {
@@ -154,17 +158,33 @@ export const update = new ValidatedMethod({
   },
 });
 
+export const remove = new ValidatedMethod({
+  name: 'shows.remove',
+  validate: SHOW_ID_ONLY,
+  run({ showId }) {
+    if (!this.userId) {
+      throw new Meteor.Error('shows.remove.accessDenied',
+        'You must be logged in to complete this operation.');
+    }
+
+    Shows.remove(showId);
+
+    // @TODO: Update the user record for this.userId and increment the contentEdited field
+  },
+});
+
 // Get list of all method names on Shows
-const PLAYS_METHODS = _.pluck([
+const SHOWS_METHODS = _.pluck([
   insert,
   update,
+  remove,
 ], 'name');
 
 if (Meteor.isServer) {
   // Only allow 5 show operations per connection per second
   DDPRateLimiter.addRule({
     name(name) {
-      return _.contains(PLAYS_METHODS, name);
+      return _.contains(SHOWS_METHODS, name);
     },
 
     // Rate limit per connection ID

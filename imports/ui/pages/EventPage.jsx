@@ -82,19 +82,19 @@ class EventPage extends React.Component {
             <Helmet
               title={`Edit Event: ${event.organizations.name} presents ${event.show.name}`}
             />
+            <Link
+              to={`/${locale}/events/${ event._id }`}
+              title='Back'
+              className="overlay-close"
+            >
+              &times;
+            </Link>
             <EventEdit
               event={event}
               onEditingChange={this.onEditingChange}
               loadingFullApp={loadingFullApp}
             />
           </div>
-          <Link
-            to={`/${locale}/events/${ event._id }`}
-            title='Back'
-            className="overlay-close"
-          >
-            &times;
-          </Link>
         </div>
       );
     }

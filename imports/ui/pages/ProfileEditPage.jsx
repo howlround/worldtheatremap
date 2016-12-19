@@ -39,17 +39,17 @@ class ProfileEditPage extends React.Component {
           <Modal />
           <div className={profilePageClass}>
             <Helmet title={`Edit ${profile.name}`} />
+            <Link
+              to={`/${locale}/profiles/${profile._id}`}
+              title="Back"
+              className="overlay-close"
+            >
+              &times;
+            </Link>
             <ProfileEdit
               profile={profile}
             />
           </div>
-          <Link
-            to={`/${locale}/profiles/${profile._id}`}
-            title="Back"
-            className="overlay-close"
-          >
-            &times;
-          </Link>
         </div>
       );
     } else {

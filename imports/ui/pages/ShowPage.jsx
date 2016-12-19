@@ -89,18 +89,18 @@ class ShowPage extends React.Component {
                 ]}
               /> : ''
             }
+            <Link
+              to={`/${locale}/shows/${show._id}`}
+              title="Back"
+              className="overlay-close"
+            >
+              &times;
+            </Link>
             <ShowEdit
               show={show}
               onEditingChange={this.onEditingChange}
             />
           </div>
-          <Link
-            to={`/${locale}/shows/${show._id}`}
-            title="Back"
-            className="overlay-close"
-          >
-            &times;
-          </Link>
         </div>
       );
     } else if (editing) {

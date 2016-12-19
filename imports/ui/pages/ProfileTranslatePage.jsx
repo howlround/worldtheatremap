@@ -83,6 +83,13 @@ export default class ProfileTranslatePage extends React.Component {
         <div className="overlay-wrapper">
           <Modal />
           <div className={profilePageClass}>
+            <Link
+              to={`/profiles/${profile._id}`}
+              title="Back"
+              className="overlay-close"
+            >
+              &times;
+            </Link>
             <div className={sourceClassNames} onClick={this.switchToSource}>
               <h2>English (for reference)</h2>
               <ProfileTranslateSource
@@ -96,13 +103,6 @@ export default class ProfileTranslatePage extends React.Component {
               />
             </div>
           </div>
-          <Link
-            to={`/profiles/${profile._id}`}
-            title="Back"
-            className="overlay-close"
-          >
-            &times;
-          </Link>
         </div>
       );
     } else {

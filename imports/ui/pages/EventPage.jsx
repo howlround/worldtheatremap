@@ -1,8 +1,10 @@
-// Utilities
 import { Meteor } from 'meteor/meteor';
+import React from 'react';
+
+// Utilities
 import classnames from 'classnames';
 import Helmet from 'react-helmet';
-import React from 'react';
+import { displayError } from '../helpers/errors.js';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
 import { OutboundLink } from 'react-ga';
@@ -16,12 +18,28 @@ import Modal from '../components/Modal.jsx';
 import AuthSignIn from '../components/AuthSignIn.jsx';
 import Loading from '../components/Loading.jsx';
 
+// API
+import { remove } from '../../api/events/methods.js';
+
 class EventPage extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       editing: this.props.editing ? this.props.event._id : null
     };
+
+    this.throttledRemove = _.throttle(eventId => {
+      if (eventId) {
+        remove.call({
+          eventId,
+        }, displayError);
+
+        return true;
+      }
+    }, 300);
+
+    this.confirmDelete = this.confirmDelete.bind(this);
     this.onEditingChange = this.onEditingChange.bind(this);
   }
 
@@ -36,6 +54,23 @@ class EventPage extends React.Component {
       this.setState({
         editing: nextProps.editing,
       });
+    }
+  }
+
+  confirmDelete(_id) {
+    const { locale, formatMessage } = this.props.intl;
+
+    const deleteConfirmText = formatMessage({
+      'id': 'ui.deleteConfirmText',
+      'defaultMessage': 'Are you sure you want to delete this content? This action can not be undone.',
+      'description': 'Text confirming deleting content',
+    });
+
+    const confirm = window.confirm(deleteConfirmText);
+    if (confirm === true) {
+      this.throttledRemove(_id);
+
+      this.context.router.push(`/${locale}`);
     }
   }
 
@@ -124,20 +159,37 @@ class EventPage extends React.Component {
             ]}
           />
           <div className="page-actions">
-            <Link
-              to={`/${locale}/events/${ event._id }/edit`}
-              key={event._id}
-              title={event.name}
-              className="edit-link"
-              activeClassName="active"
-              onChange={this.onChange}
-            >
-              <FormattedMessage
-                id="ui.pageEdit"
-                description="Page edit link"
-                defaultMessage="Edit details"
-              />
-            </Link>
+            <div className="page-actions-edit">
+              <Link
+                to={`/${locale}/events/${ event._id }/edit`}
+                key={event._id}
+                title={event.name}
+                className="edit-link"
+                activeClassName="active"
+                onChange={this.onChange}
+              >
+                <FormattedMessage
+                  id="ui.pageEdit"
+                  description="Page edit link"
+                  defaultMessage="Edit details"
+                />
+              </Link>
+              { user ?
+                <a
+                  href="#"
+                  title={`Delete ${event.name}`}
+                  className="page-delete-link"
+                  onClick={this.confirmDelete.bind(this, event._id)}
+                >
+                  <FormattedMessage
+                    id="ui.pageDelete"
+                    description="Page delete link"
+                    defaultMessage="Delete"
+                  />
+                </a>
+                : ''
+              }
+            </div>
 
             <div className="page-actions-share">
               <OutboundLink
@@ -184,6 +236,10 @@ EventPage.propTypes = {
   loading: React.PropTypes.bool,
   loadingFullApp: React.PropTypes.bool,
   intl: intlShape.isRequired,
+};
+
+EventPage.contextTypes = {
+  router: React.PropTypes.object,
 };
 
 export default injectIntl(EventPage);

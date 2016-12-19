@@ -32,9 +32,7 @@ class EventTeaserWithShow extends React.Component {
           </div>
           { event.organizations ?
             <div className="event-organizations">
-              <Link to={`/${locale}/profiles/${ event.organizations._id }`}>
-                <ProfileNameContainer profileId={event.organizations._id} />
-              </Link>
+              <ProfileNameContainer profileId={event.organizations._id} />
             </div>: ''}
           {typeof locationLine !== 'undefined' ?
             <div className="event-location">{locationLine}</div> : ''}

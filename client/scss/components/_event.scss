@@ -225,3 +225,13 @@ ul.event-participant-list {
     margin-top: 6px;
   }
 }
+
+.delete-participant {
+  cursor: pointer;
+  margin-left: $spacing-unit / 2;
+
+  &:focus,
+  &:hover {
+    color: $gray;
+  }
+}

@@ -285,9 +285,10 @@ class ProfilePage extends React.Component {
 
     let relatedProfilesList = connections.map(profile => (
       <li key={profile._id}>
-        <Link to={`/${locale}/profiles/${profile._id}`}>
-          <ProfileNameContainer profileId={profile._id} />
-        </Link>
+        <ProfileNameContainer
+          profileId={profile._id}
+          defaultName={profile.name}
+        />
       </li>
     ));
 
@@ -300,9 +301,7 @@ class ProfilePage extends React.Component {
 
     let affiliatedProfiles = affiliations.map(affiliation => (
       <li key={affiliation.parentId}>
-        <Link to={`/${locale}/profiles/${affiliation.parentId}`}>
-          <ProfileNameContainer profileId={affiliation.parentId} />
-        </Link>
+        <ProfileNameContainer profileId={affiliation.parentId} />
         {user ?
           <span
             className="delete-affiliation"

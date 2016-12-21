@@ -13,7 +13,7 @@ import Authors from '../components/Authors.jsx';
 import ProfileNameContainer from '../containers/ProfileNameContainer.jsx';
 import ShowNameContainer from '../containers/ShowNameContainer.jsx';
 
-import { insert } from '../../api/participants/methods.js';
+import { insert, remove } from '../../api/participants/methods.js';
 import { participantFormSchema, defaultFormOptions } from '../../api/participants/participants.js';
 import { insert as insertProfile } from '../../api/profiles/methods.js';
 import { Profiles } from '../../api/profiles/profiles.js';
@@ -64,8 +64,8 @@ class Event extends React.Component {
     // this.createNewParticipant = this.createNewParticipant.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.removeParticipant = this.removeParticipant.bind(this);
     this.renderParticipantAdd = this.renderParticipantAdd.bind(this);
-    this.renderParticipantEdit = this.renderParticipantEdit.bind(this);
     this.initializeD3Globe = this.initializeD3Globe.bind(this);
     this.renderAboutLink = this.renderAboutLink.bind(this);
   }
@@ -142,8 +142,10 @@ class Event extends React.Component {
     );
   }
 
-  renderParticipantEdit() {
-
+  removeParticipant(participantId) {
+    remove.call({
+      participantId,
+    }, displayError);
   }
 
   initializeD3Globe() {
@@ -316,12 +318,16 @@ class Event extends React.Component {
       participants = participantsByEvent.map(participant => {
         return <li key={participant._id} className="event-participant-list-item">
           <h3 className="event-participant-name">
-            <Link
-              to={`/${locale}/profiles/${ participant.profile._id }`}
-              title={participant.profile.name}
-            >
-              <ProfileNameContainer profileId={participant.profile._id} />
-            </Link>
+            <ProfileNameContainer profileId={participant.profile._id} defaultName={participant.profile.name} />
+            {user ?
+              <span
+                className="delete-participant"
+                onClick={this.removeParticipant.bind(this, participant._id)}
+                title="Remove participant from this event"
+              >
+                &times;
+              </span>
+            : ''}
           </h3>
           <div className="event-participant-role">{participant.role}</div>
         </li>

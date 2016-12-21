@@ -1,13 +1,14 @@
 import React from 'react';
 import classnames from 'classnames';
-import { select, queue, json, transition } from 'd3';
-import topojson from 'topojson';
-import { geoOrthographic, geoGraticule, geoPath, geoCentroid, geoInterpolate } from 'd3-geo';
-import Profile from '../components/Profile.jsx';
 import EventTeaserWithShow from '../components/EventTeaserWithShow.jsx';
 import Message from '../components/Message.jsx';
-import { Link } from 'react-router';
+import Profile from '../components/Profile.jsx';
+import topojson from 'topojson';
 import { _ } from 'meteor/underscore';
+import { FormattedMessage } from 'react-intl';
+import { geoOrthographic, geoGraticule, geoPath, geoCentroid, geoInterpolate } from 'd3-geo';
+import { Link } from 'react-router';
+import { select, queue, json, transition } from 'd3';
 
 export default class EventsMiniGlobe extends React.Component {
   constructor(props) {
@@ -228,11 +229,34 @@ export default class EventsMiniGlobe extends React.Component {
   }
 
   render() {
-    const { currentEvent } = this.state;
+    const { currentEvent, paused } = this.state;
 
     return (
       <div className="show-globe">
         <div id="globe"></div>
+        {paused ?
+          <span
+            className="stop-button stopped"
+            onClick={this.continue}
+          >
+            <FormattedMessage
+              id='animation.continue'
+              description="Globe pause button: Continue"
+              defaultMessage="Continue"
+            />
+          </span>
+          :
+          <span
+            className="stop-button"
+            onClick={this.pause}
+          >
+            <FormattedMessage
+              id='animation.pause'
+              description="Globe pause button: Pause"
+              defaultMessage="Pause"
+            />
+          </span>
+        }
       </div>
     );
   }

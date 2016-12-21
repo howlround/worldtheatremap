@@ -58,5 +58,18 @@ article.show.with-location {
     float: left;
     margin-right: $spacing-unit * 2;
     width: 200px;
+
+    .stop-button {
+      float: none;
+      text-align: center;
+      width: 100%;
+      display: block;
+      color: $light-gray;
+
+      &:focus,
+      &:hover {
+        color: $gray;
+      }
+    }
   }
 }

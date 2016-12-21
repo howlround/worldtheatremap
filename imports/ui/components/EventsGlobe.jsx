@@ -1,12 +1,13 @@
 import React from 'react';
-import { select, queue, json, transition } from 'd3';
-import topojson from 'topojson';
-import { geoOrthographic, geoGraticule, geoPath, geoCentroid, geoInterpolate } from 'd3-geo';
-import Profile from '../components/Profile.jsx';
 import EventTeaserWithShow from '../components/EventTeaserWithShow.jsx';
 import Message from '../components/Message.jsx';
-import { Link } from 'react-router';
+import Profile from '../components/Profile.jsx';
+import topojson from 'topojson';
 import { _ } from 'meteor/underscore';
+import { FormattedMessage } from 'react-intl';
+import { geoOrthographic, geoGraticule, geoPath, geoCentroid, geoInterpolate } from 'd3-geo';
+import { Link } from 'react-router';
+import { select, queue, json, transition } from 'd3';
 
 export default class EventsGlobe extends React.Component {
   constructor(props) {
@@ -14,12 +15,15 @@ export default class EventsGlobe extends React.Component {
 
     this.state = {
       paused: false,
+      stopped: false,
     }
 
     this.initializeD3Globe = this.initializeD3Globe.bind(this);
     this.globeReady = this.globeReady.bind(this);
     this.pause = this.pause.bind(this);
     this.continue = this.continue.bind(this);
+    this.start = this.start.bind(this);
+    this.stop = this.stop.bind(this);
   }
 
   componentDidMount() {
@@ -79,7 +83,7 @@ export default class EventsGlobe extends React.Component {
       transition()
         .duration(1250)
         .on("start", () => {
-          if (this.state.paused != true) {
+          if (this.state.paused !== true && this.state.stopped !== true) {
             i = (i + 1) % n;
             this.setState({ currentEvent: eventLocations[i].properties });
           }
@@ -220,9 +224,17 @@ export default class EventsGlobe extends React.Component {
     this.setState({ paused: false });
   }
 
+  start() {
+    this.setState({ stopped: false });
+  }
+
+  stop() {
+    this.setState({ stopped: true });
+  }
+
   render() {
     const { events } = this.props;
-    const { currentEvent } = this.state;
+    const { currentEvent, stopped } = this.state;
 
     return (
       <div className="events-globe">
@@ -230,6 +242,29 @@ export default class EventsGlobe extends React.Component {
           <div id="globe"></div> : ''
         }
         {events && events.length && currentEvent ? <div className="event-info-wrapper"><div className="event-info" onMouseOver={ this.pause } onMouseLeave={ this.continue }><EventTeaserWithShow event={ currentEvent } /></div></div> : '' }
+        {stopped ?
+          <span
+            className="stop-button stopped"
+            onClick={this.start}
+          >
+            <FormattedMessage
+              id='animation.continue'
+              description="Globe pause button: Continue"
+              defaultMessage="Continue"
+            />
+          </span>
+          :
+          <span
+            className="stop-button"
+            onClick={this.stop}
+          >
+            <FormattedMessage
+              id='animation.pause'
+              description="Globe pause button: Pause"
+              defaultMessage="Pause"
+            />
+          </span>
+        }
       </div>
     );
   }

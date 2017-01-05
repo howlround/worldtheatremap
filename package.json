@@ -13,6 +13,8 @@
     "lint": "eslint .",
     "chimp-watch": "chimp --ddp=http://localhost:3000 --watch --path=tests",
     "chimp-watch-phantom": "chimp --ddp=http://localhost:3000 --watch --path=tests --browser=phantomjs",
+    "chimp": "chimp --ddp=http://localhost:3000 --path=tests",
+    "chimp-phantom": "chimp --ddp=http://localhost:3000 --path=tests --browser=phantomjs",
     "translate": "babel-node .scripts/translate.js"
   },
   "dependencies": {

@@ -12,7 +12,7 @@ class FooterAddPitch extends React.Component {
           <FormattedMessage
             id='footer.addPitchText'
             description="Footer text prompting the user to add more content"
-            defaultMessage="The World Theatre Map is a {directory} of the world's theatre community (makers, workers, companies, institutions) and a {hub} of its projects, events, performances, conversations, ideas."
+            defaultMessage="The World Theatre Map is a {directory} and {hub} of the global theatre community."
             values={{
               directory: <strong>
                 <FormattedMessage
@@ -25,7 +25,7 @@ class FooterAddPitch extends React.Component {
                 <FormattedMessage
                   id="footer.addPitchHubText"
                   description="Emphisized hub text in add pitch"
-                  defaultMessage="real-time media hub"
+                  defaultMessage="real time map"
                 />
               </strong>
             }}

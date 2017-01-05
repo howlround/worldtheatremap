@@ -43,7 +43,7 @@ class HomePage extends React.Component {
           <FormattedMessage
             id="home.introText"
             description="Large introduction text on the home page"
-            defaultMessage="The World Theatre Map is a user-generated directory and a real-time media hub of the world’s theatre community."
+            defaultMessage="The World Theatre Map is a user-generated directory and real time map of the global theatre community."
           />
         </p>
         {loading ?

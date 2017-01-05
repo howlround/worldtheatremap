@@ -1040,6 +1040,7 @@ export const profileSchema = t.struct({
   profileType: t.maybe(t.list(t.String)), // Required
   name: t.String, // Required
   gender: t.maybe(t.list(t.String)),
+  genderOther: t.maybe(t.list(t.String)),
   ethnicityRace: t.maybe(t.list(t.String)),
   selfDefinedRoles: t.maybe(t.list(t.String)),
   foundingYear: t.maybe(t.String),
@@ -1065,6 +1066,7 @@ export const profileFormSchema = t.struct({
   profileType: t.maybe(t.list(t.String)), // Required
   name: t.String, // Required
   gender: t.maybe(t.list(t.String)),
+  genderOther: t.maybe(t.list(t.String)),
   ethnicityRace: t.maybe(t.list(t.String)),
   selfDefinedRoles: t.maybe(t.list(t.String)),
   foundingYear: t.maybe(t.String),
@@ -1582,6 +1584,31 @@ export const defaultFormOptions = () => ({
       />,
       factory: GendersCheckboxesFactory,
     },
+    genderOther: {
+      template: disabledListTemplate,
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.genderOtherLabel"
+            description="Label for the Another Identify Gender form field"
+            defaultMessage="Additional values to display in Gender section of profile"
+          />,
+        }}
+      />,
+      help: <FormattedMessage
+        id="forms.genderOtherHelpText"
+        description="Help text Another identity text field"
+        defaultMessage="Please enter a value to display on the profile."
+      />,
+    },
     howlroundPostSearchText: {
       label: <FormattedMessage
         id="forms.labelRequiredOrOptional"
@@ -1866,6 +1893,7 @@ Profiles.publicFields = {
   orgTypes: 1,
   selfDefinedRoles: 1,
   gender: 1,
+  genderOther: 1,
   source: 1,
   howlroundPostSearchText: 1,
   savedHowlroundPosts: 1,

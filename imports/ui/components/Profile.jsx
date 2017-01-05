@@ -328,7 +328,23 @@ class Profile extends React.Component {
         );
       }) : false;
 
-    let genders = (profile.gender) ? profile.gender.map((gender, index, array) => {
+    let gendersArray = [];
+    if (!_.isEmpty(profile.gender)) {
+      gendersArray = _.filter(profile.gender, gender => {
+        return gender !== 'Another Identity';
+      });
+
+      if (!_.isEmpty(profile.genderOther)) {
+        _.each(profile.genderOther, gender => {
+          gendersArray.push(gender);
+        })
+      }
+    }
+
+    // Make sure new genders list is alphabetized
+    gendersArray.sort();
+
+    let genders = (!_.isEmpty(gendersArray)) ? gendersArray.map((gender, index, array) => {
       let seperator = ', ';
       if (index === array.length - 1) {
         seperator = '';

@@ -43,8 +43,24 @@ class ProfileAdd extends React.Component {
     this.initGoogleMap();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     this.initGoogleMap();
+
+    const { prevGender } = prevState;
+    const { gender, genderOther } = this.state;
+
+    if (!_.isEmpty(gender) && prevGender !== gender) {
+      if (!_.contains(gender, 'Another Identity')) {
+        this.setState({
+          genderOther: null,
+        });
+      }
+      else if (_.isEmpty(genderOther)) {
+        this.setState({
+          genderOther: [ null ],
+        });
+      }
+    }
   }
 
   initGoogleMap() {
@@ -165,10 +181,16 @@ class ProfileAdd extends React.Component {
   }
 
   render() {
-    const { profileType } = this.state;
+    const { profileType, gender } = this.state;
     let formOptions = defaultFormOptions();
+
+    if (!_.contains(gender, 'Another Identity')) {
+      formOptions.fields.genderOther.disabled = true;
+    }
+
     if (!_.contains(profileType, 'Individual')) {
       formOptions.fields.gender.disabled = true;
+      formOptions.fields.genderOther.disabled = true;
       formOptions.fields.ethnicityRace.disabled = true;
       formOptions.fields.selfDefinedRoles.disabled = true;
     }

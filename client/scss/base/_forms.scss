@@ -54,6 +54,8 @@ fieldset.disabled {
 
 label {
   font-weight: 700;
+  margin-bottom: $spacing-unit;
+  display: block;
 
   &.disabled {
     color: $dark-tan;
@@ -75,6 +77,8 @@ label {
   font-size: 0.8em;
   display: block;
   margin-top: $spacing-unit;
+  margin-bottom: $spacing-unit;
+  line-height: 1.4em;
 
   &.disabled {
     display: none;

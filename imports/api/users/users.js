@@ -203,9 +203,9 @@ export const defaultFormOptions = () => ({
         country: {
           factory: AllCountriesFactory(true),
           label: <FormattedMessage
-            id="auth.lastLabel"
-            description="Field label for last name field on the join form"
-            defaultMessage="Last Name"
+            id="forms.countryLabel"
+            description="Field label for country name field on the join form"
+            defaultMessage="Country"
           />,
         },
         referrer: {

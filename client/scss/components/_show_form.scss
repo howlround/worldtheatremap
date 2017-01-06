@@ -7,8 +7,6 @@
     overflow: auto;
 
     div.checkbox {
-      margin-bottom: $spacing-unit;
-
       @include breakpoint($narrow) {
         @include gallery(1 of 2);
       }

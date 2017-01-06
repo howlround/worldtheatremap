@@ -1,37 +1,37 @@
 import React from 'react';
-import { Link } from 'react-router';
+import t from 'tcomb-form';
 import { Accounts } from 'meteor/accounts-base';
+import { displayError } from '../helpers/errors.js';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
+import { get } from 'lodash';
+import { Link } from 'react-router';
+
+// API
+import { userSchema, defaultFormOptions } from '../../api/users/users.js';
+
+const Form = t.form.Form;
 
 class AuthJoin extends React.Component {
   constructor(props) {
     super(props);
     this.state = { errors: {} };
+
     this.onSubmit = this.onSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onChange(value) {
+    this.setState(value);
   }
 
   onSubmit(event) {
     event.preventDefault();
     const { locale } = this.props.intl;
-    const email = this.refs.email.value;
-    const password = this.refs.password.value;
-    const confirm = this.refs.confirm.value;
+    const user = this.refs.form.getValue();
+    const password = get(user, 'password');
+    const confirm = get(user, 'confirm');
     const errors = {};
 
-    if (!email) {
-      errors.email = <FormattedMessage
-        id='auth.errorsEmail'
-        description='Field validation error when user does not enter an email on an auth form'
-        defaultMessage='Email required'
-      />
-    }
-    if (!password) {
-      errors.password = <FormattedMessage
-        id='auth.errorsPassword'
-        description='Field validation error when user does not enter a password on an auth form'
-        defaultMessage='Password required'
-      />
-    }
     if (confirm !== password) {
       errors.confirm = <FormattedMessage
         id='auth.errorsConfirm'
@@ -45,19 +45,22 @@ class AuthJoin extends React.Component {
       return;
     }
 
-    Accounts.createUser({
-      email,
-      password,
-    }, err => {
-      if (err) {
-        this.setState({
-          errors: { none: err.reason },
+    if (user) {
+      const result = t.validate(user, userSchema);
+
+      if (result.isValid()) {
+        Accounts.createUser(user, err => {
+          if (err) {
+            this.setState({
+              errors: { none: err.reason },
+            });
+          }
+          else {
+            this.context.router.push(`/${locale}`);
+          }
         });
       }
-      else {
-        this.context.router.push(`/${locale}`);
-      }
-    });
+    }
   }
 
   render() {
@@ -65,6 +68,8 @@ class AuthJoin extends React.Component {
     const { errors } = this.state;
     const errorMessages = Object.keys(errors).map(key => errors[key]);
     const errorClass = key => errors[key] && 'error';
+
+    let formOptions = defaultFormOptions();
 
     return (
       <div className="wrapper-auth">
@@ -82,59 +87,25 @@ class AuthJoin extends React.Component {
             defaultMessage="Joining allows you to add and edit profiles and events"
           />
         </p>
-        <form onSubmit={this.onSubmit}>
+
+        <form className="account-join-form" onSubmit={this.onSubmit.bind(this)}>
           <div className="list-errors">
             {errorMessages.map(msg => (
               <div className="list-item" key={msg}>{msg}</div>
             ))}
           </div>
-          <div className={`input-symbol ${errorClass('email')}`}>
-            <input
-              type="email"
-              name="email"
-              ref="email"
-              placeholder="Your Email"
-              placeholder={
-                formatMessage({
-                  'id': 'auth.emailLabel',
-                  'defaultMessage': 'Your Email',
-                  'description': 'Placeholder text for email field'
-                })
-              }
-            />
-            <span className="icon-email" title="Your Email"></span>
-          </div>
-          <div className={`input-symbol ${errorClass('password')}`}>
-            <input
-              type="password"
-              name="password"
-              ref="password"
-              placeholder={
-                formatMessage({
-                  'id': 'auth.passwordLabel',
-                  'defaultMessage': 'Password',
-                  'description': 'Placeholder text for password field'
-                })
-              }
-            />
-            <span className="icon-lock" title="Password"></span>
-          </div>
-          <div className={`input-symbol ${errorClass('confirm')}`}>
-            <input
-              type="password"
-              name="confirm"
-              ref="confirm"
-              placeholder={
-                formatMessage({
-                  'id': 'auth.passwordConfirmLabel',
-                  'defaultMessage': 'Confirm Password',
-                  'description': 'Placeholder text for confirm password field'
-                })
-              }
-            />
-            <span className="icon-lock" title="Confirm Password"></span>
-          </div>
-          <button type="submit">
+          <Form
+            ref="form"
+            type={userSchema}
+            options={formOptions}
+            onChange={this.onChange}
+            value={this.state}
+          />
+
+          <button
+            type="submit"
+            className="account-join-save"
+          >
             <FormattedMessage
               id='auth.joinButton'
               description='Button on the Join Now form'
@@ -142,6 +113,7 @@ class AuthJoin extends React.Component {
             />
           </button>
         </form>
+
         <Link to={`/${locale}/signin`} className="link-auth-alt">
           <FormattedMessage
             id="auth.linkToSignIn"

@@ -15,7 +15,7 @@ import { upsert as upsertEthnicity } from '../ethnicities/methods.js';
 import { upsert as upsertAdministrativeArea } from '../administrativeAreas/methods.js';
 import { upsert as upsertCountry } from '../countries/methods.js';
 
-let cheerio = require('cheerio');
+// let cheerio = require('cheerio');
 
 const PROFILE_ID_ONLY = new SimpleSchema({
   profileId: { type: String },

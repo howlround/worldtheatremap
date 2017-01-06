@@ -11,6 +11,9 @@ import ReactSelect from 'react-select';
 // API
 import { AllCountriesFactory } from '../../api/countries/countries.js';
 
+// Components
+import Checkboxes from '../../ui/components/Checkboxes.jsx';
+
 const profile = t.struct({
   first: t.String, // Required
   last: t.String, // Required
@@ -25,6 +28,106 @@ export const userSchema = t.struct({
   confirm: t.String, // Required
   profile,
 });
+
+// referrer options
+const Referrer = [
+  {
+    value: 'From the HowlRound.com website',
+    label: <FormattedMessage
+      id="referrer.From the HowlRound.com website"
+      description="Referrer: From the HowlRound.com website"
+      defaultMessage="From the HowlRound.com website"
+    />,
+  },
+  {
+    value: 'Word of mouth',
+    label: <FormattedMessage
+      id="referrer.Word of mouth"
+      description="Referrer: Word of mouth"
+      defaultMessage="Word of mouth"
+    />,
+  },
+  {
+    value: 'Social media',
+    label: <FormattedMessage
+      id="referrer.Social media"
+      description="Referrer: Social media"
+      defaultMessage="Social media"
+    />,
+  },
+  {
+    value: 'Google or other web search ',
+    label: <FormattedMessage
+      id="referrer.Google or other web search "
+      description="Referrer: Google or other web search "
+      defaultMessage="Google or other web search "
+    />,
+  },
+  {
+    value: 'Other',
+    label: <FormattedMessage
+      id="referrer.Other"
+      description="Referrer: Other"
+      defaultMessage="Other"
+    />,
+  },
+];
+
+// referrer template
+const referrerCheckboxes = t.form.Form.templates.select.clone({
+  renderLabel: (locals) => {
+    const className = {
+      'control-label': true,
+      'disabled': locals.disabled,
+    }
+    return (
+      <label
+        htmlFor={locals.attrs.id}
+        className={classnames(className)}
+      >
+        {locals.label}
+      </label>
+    );
+  },
+
+  renderSelect: (locals) => {
+    return (
+      <Checkboxes
+        options={Referrer}
+        values={locals.value}
+        name="referrer-options"
+        onChange={locals.onChange}
+        disabled={locals.disabled}
+      />
+    );
+  },
+
+  renderHelp: (locals) => {
+    const className = {
+      'help-block': true,
+      'disabled': locals.disabled,
+    }
+
+    return (
+      <span
+        id={`${locals.attrs.id}-tip`}
+        className={classnames(className)}
+      >
+        {locals.help}
+      </span>
+    );
+  },
+});
+
+// referrer factory function
+class ReferrerCheckboxesFactory extends t.form.Component {
+  getTemplate() {
+    return referrerCheckboxes;
+  }
+}
+
+// referrer transformer
+ReferrerCheckboxesFactory.transformer = t.form.List.transformer;
 
 export const defaultFormOptions = () => ({
   fields: {
@@ -70,5 +173,15 @@ export const defaultFormOptions = () => ({
         defaultMessage='Please confirm your password'
       />
     },
+    profile: {
+      fields: {
+        country: {
+          factory: AllCountriesFactory(true),
+        },
+        referrer: {
+          factory: ReferrerCheckboxesFactory,
+        }
+      }
+    }
   }
 });

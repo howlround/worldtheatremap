@@ -63,7 +63,7 @@ export const existingCountriesFactory = () => {
   return ReactSelectExistingCountriesFactory;
 };
 
-export const AllCountriesFactory = () => {
+export const AllCountriesFactory = (multiValue = false) => {
   // allCountries options
   const AllCountries = [
     {
@@ -2176,14 +2176,20 @@ export const AllCountriesFactory = () => {
   const allCountriesTags = t.form.Form.templates.select.clone({
     renderSelect: (locals) => {
       function onChange(options) {
-        if (options) {
-          locals.onChange(options.value);
+        if (multiValue === true) {
+          const values = (options || []).map(({ value }) => value);
+          locals.onChange(values);
         } else {
-          locals.onChange(null);
+          if (options) {
+            locals.onChange(options.value);
+          } else {
+            locals.onChange(null);
+          }
         }
       }
       return (
         <ReactSelect
+          multi={multiValue}
           autoBlur
           options={AllCountries}
           value={locals.value}

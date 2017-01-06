@@ -10,6 +10,7 @@ import ReactSelect from 'react-select';
 
 // API
 import { AllCountriesFactory } from '../../api/countries/countries.js';
+import { disabledFieldTemplate } from '../../api/profiles/profiles.js';
 
 // Components
 import Checkboxes from '../../ui/components/Checkboxes.jsx';
@@ -68,7 +69,7 @@ const Referrer = [
     label: <FormattedMessage
       id="referrer.Other"
       description="Referrer: Other"
-      defaultMessage="Other"
+      defaultMessage="Other:"
     />,
   },
 ];
@@ -168,18 +169,56 @@ export const defaultFormOptions = () => ({
       />,
       attrs: {},
       error: <FormattedMessage
-        id='auth.errorsConfirm'
-        description='Field validation error when user does not enter a confirmation password on the join form'
-        defaultMessage='Please confirm your password'
-      />
+        id="auth.errorsConfirm"
+        description="Field validation error when user does not enter a confirmation password on the join form"
+        defaultMessage="Please confirm your password"
+      />,
     },
     profile: {
       fields: {
+        first: {
+          label: <FormattedMessage
+            id="auth.firstLabel"
+            description="Field label for first name field on the join form"
+            defaultMessage="First Name"
+          />,
+          error: <FormattedMessage
+            id="auth.firstError"
+            description="Field validation error when user does not enter a first name value on the join form"
+            defaultMessage="First Name is required"
+          />,
+        },
+        last: {
+          label: <FormattedMessage
+            id="auth.lastLabel"
+            description="Field label for last name field on the join form"
+            defaultMessage="Last Name"
+          />,
+          error: <FormattedMessage
+            id="auth.lastError"
+            description="Field validation error when user does not enter a last name value on the join form"
+            defaultMessage="Last Name is required"
+          />,
+        },
         country: {
           factory: AllCountriesFactory(true),
+          label: <FormattedMessage
+            id="auth.lastLabel"
+            description="Field label for last name field on the join form"
+            defaultMessage="Last Name"
+          />,
         },
         referrer: {
           factory: ReferrerCheckboxesFactory,
+          label: <FormattedMessage
+            id="auth.referrerLabel"
+            description="Field label for referrer field on the join form"
+            defaultMessage="How did you hear about the World Theatre Map?"
+          />,
+        },
+        referrerOther: {
+          template: disabledFieldTemplate,
+          auto: 'none',
         }
       }
     }

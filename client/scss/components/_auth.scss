@@ -29,3 +29,12 @@
     font-size: 0.8em;
   }
 }
+
+.account-join-form {
+  legend {
+    display: none;
+  }
+  .form-group-depth-2 {
+    margin-bottom: 20px;
+  }
+}

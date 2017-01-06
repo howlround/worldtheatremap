@@ -5,6 +5,7 @@ textarea {
   border: 1px solid $gray;
 
   &:disabled {
+    display: none;
     border-color: $white;
     background-color: $off-white;
     color: $dark-tan;
@@ -23,7 +24,6 @@ input[type="password"] {
     color: $color-complementary;
   }
 
-  border: none;
   border-radius: 0;
   box-sizing: border-box;
   color: $black;
@@ -35,6 +35,12 @@ input[type="password"] {
 // Remove chrome/saf autofill yellow background
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 1000px $white inset;
+}
+
+fieldset.disabled {
+  .row {
+    display: none;
+  }
 }
 
 .loading {

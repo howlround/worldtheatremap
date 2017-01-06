@@ -1,17 +1,4 @@
 form.profile-edit-form {
-  input[type="text"],
-  textarea {
-    &:disabled {
-      display: none;
-    }
-  }
-
-  fieldset.disabled {
-    .row {
-      display: none;
-    }
-  }
-
   .checkbox-group {
     overflow: auto;
 

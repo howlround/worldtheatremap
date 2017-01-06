@@ -1,5 +1,6 @@
 import React from 'react';
 import t from 'tcomb-form';
+import { _ } from 'meteor/underscore';
 import { Accounts } from 'meteor/accounts-base';
 import { displayError } from '../helpers/errors.js';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
@@ -65,11 +66,14 @@ class AuthJoin extends React.Component {
 
   render() {
     const { formatMessage, locale } = this.props.intl;
-    const { errors } = this.state;
+    const { errors, profile } = this.state;
     const errorMessages = Object.keys(errors).map(key => errors[key]);
     const errorClass = key => errors[key] && 'error';
 
     let formOptions = defaultFormOptions();
+    if (!_.contains(get(profile, 'referrer'), 'Other')) {
+      formOptions.fields.profile.fields.referrerOther.disabled = true;
+    }
 
     return (
       <div className="wrapper-auth">

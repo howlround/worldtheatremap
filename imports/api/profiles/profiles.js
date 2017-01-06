@@ -929,7 +929,7 @@ const genericFieldTemplate = t.form.Form.templates.textbox.clone({
 
 
 // Get field labels to change based on disabled value
-const disabledFieldTemplate = t.form.Form.templates.textbox.clone({
+export const disabledFieldTemplate = t.form.Form.templates.textbox.clone({
   renderVertical: (locals) => {
     return [
       disabledFieldTemplate.renderLabel(locals),

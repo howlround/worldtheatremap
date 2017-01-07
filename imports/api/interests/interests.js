@@ -9,11 +9,11 @@ import Checkboxes from '../../ui/components/Checkboxes.jsx';
 // interests options
 const Interests = [
   {
-    value: 'African-Diaspora',
+    value: 'African Diaspora',
     label: <FormattedMessage
-      id="interest.African-Diaspora"
-      description="Interests options: African-Diaspora"
-      defaultMessage="African-Diaspora"
+      id="interest.African Diaspora"
+      description="Interests options: African Diaspora"
+      defaultMessage="African Diaspora"
     />,
   },
   {
@@ -25,11 +25,11 @@ const Interests = [
     />,
   },
   {
-    value: 'Asian-Diaspora',
+    value: 'Asian Diaspora',
     label: <FormattedMessage
-      id="interest.Asian-Diaspora"
-      description="Interests options: Asian-Diaspora"
-      defaultMessage="Asian-Diaspora"
+      id="interest.Asian Diaspora"
+      description="Interests options: Asian Diaspora"
+      defaultMessage="Asian Diaspora"
     />,
   },
   {
@@ -177,11 +177,11 @@ const Interests = [
     />,
   },
   {
-    value: 'LGBTQIA* (refer to the actual theatre work)',
+    value: 'LGBTQIA*',
     label: <FormattedMessage
-      id="interest.LGBTQIA* (refer to the actual theatre work)"
-      description="Interests options: LGBTQIA* (refer to the actual theatre work)"
-      defaultMessage="LGBTQIA* (refer to the actual theatre work)"
+      id="interest.LGBTQIA*"
+      description="Interests options: LGBTQIA*"
+      defaultMessage="LGBTQIA*"
     />,
   },
   {

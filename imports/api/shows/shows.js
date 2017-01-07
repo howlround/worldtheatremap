@@ -237,9 +237,9 @@ export const defaultFormOptions = () => ({
             defaultMessage="(optional)"
           /></span>,
           labelText: <FormattedMessage
-            id="forms.interestsLabel"
+            id="forms.showInterestsLabel"
             description="Label for Interests form field"
-            defaultMessage="Interests"
+            defaultMessage="Describe this show. Select all that apply."
           />,
         }}
       />,
@@ -260,9 +260,9 @@ export const filtersFormOptions = () => ({
     },
     interests: {
       label: <FormattedMessage
-        id="forms.interestsLabel"
+        id="forms.showInterestsLabel"
         description="Label for Interests form field"
-        defaultMessage="Interests"
+        defaultMessage="Describe this show. Select all that apply."
       />,
       factory: interestsSelectFactory(),
     },

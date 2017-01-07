@@ -321,6 +321,7 @@
   "forms.foundingYearLabel": "Año de fundación",
   "forms.foundingYearHelpText": "Si este perfil se refiere a una organización, ¿en que año fue fundada?",
   "forms.interestsLabel": "Intereses",
+  "forms.showInterestsLabel": "Describe this show. Select all that apply.",
   "forms.orgTypesLabel": "¿Qué tipo de organización es esta?",
   "forms.rolesLabel": "¿Qué hace esta persona en el teatro?",
   "forms.ethnicityRaceLabel": "¿Cómo identifica esta persona su etnia / raza / identidad cultural?",

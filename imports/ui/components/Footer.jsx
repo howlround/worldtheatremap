@@ -6,6 +6,13 @@ class Footer extends React.Component {
   render() {
     const { locale } = this.props.intl;
 
+    let ccURL = 'http://creativecommons.org';
+    switch (locale) {
+      case 'es':
+        ccURL = 'http://es.creativecommons.org/blog/licencias';
+        break;
+    }
+
     return (
       <section className="footer">
         <div className="footer-content">
@@ -71,7 +78,7 @@ class Footer extends React.Component {
               description="Creative commons copyright text"
               defaultMessage="All content is free cultural work available to you under a {creativeCommons} Attribution 4.0 International License (CC BY 4.0). Attribute the original author and {howlround} when you repost and remix! Take the free and open-source World Theatre Map code on {github}."
               values={{
-                creativeCommons: <a href="http://creativecommons.com">Creative Commons</a>,
+                creativeCommons: <a href={ccURL}>Creative Commons</a>,
                 howlround: <a href="http://howlround.com">HowlRound.com</a>,
                 github: <a href="http://github.com">GitHub</a>,
               }}

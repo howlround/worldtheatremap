@@ -1,21 +1,26 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import classnames from 'classnames';
+import { intlShape, injectIntl } from 'react-intl';
+
+// Pages
+import NotFoundPage from '../pages/NotFoundPage.jsx';
+
+// Components
 import Profile from '../components/Profile.jsx';
 import ProfileAdd from '../components/ProfileAdd.jsx';
-import NotFoundPage from '../pages/NotFoundPage.jsx';
-import Message from '../components/Message.jsx';
+import AccessDeniedMessage from '../components/AccessDeniedMessage.jsx';
 import Modal from '../components/Modal.jsx';
 import AuthSignIn from '../components/AuthSignIn.jsx';
 
-
-export default class ProfileAddPage extends React.Component {
+class ProfileAddPage extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
     const { add, user } = this.props;
+    const { formatMessage } = this.props.intl;
 
     const pageClass = classnames({
       'page': true,
@@ -45,7 +50,7 @@ export default class ProfileAddPage extends React.Component {
         <div className="overlay-wrapper">
           <Modal />
           <div className="page auth">
-            <Message title="Access denied" subtitle="Sign in or register to participate in the World Theatre Map"/>
+            <AccessDeniedMessage />
             <div className="page-content">
               <Helmet title="Sign in to add a profile" />
               <AuthSignIn />
@@ -60,8 +65,11 @@ export default class ProfileAddPage extends React.Component {
 ProfileAddPage.propTypes = {
   add: React.PropTypes.bool,
   user: React.PropTypes.object,
+  intl: intlShape.isRequired,
 };
 
 ProfileAddPage.contextTypes = {
   router: React.PropTypes.object,
 };
+
+export default injectIntl(ProfileAddPage);

@@ -5,7 +5,7 @@ import ProfileTranslateSource from '../components/ProfileTranslateSource.jsx';
 import ProfileTranslateTarget from '../components/ProfileTranslateTarget.jsx';
 
 import NotFoundPage from '../pages/NotFoundPage.jsx';
-import Message from '../components/Message.jsx';
+import AccessDeniedMessage from '../components/AccessDeniedMessage.jsx';
 import Modal from '../components/Modal.jsx';
 import AuthSignIn from '../components/AuthSignIn.jsx';
 import Loading from '../components/Loading.jsx';
@@ -110,10 +110,7 @@ export default class ProfileTranslatePage extends React.Component {
         <div className="overlay-wrapper">
           <Modal />
           <div className="page auth">
-            <Message
-              title="Access denied"
-              subtitle="Sign in or register to participate in the World Theatre Map"
-            />
+            <AccessDeniedMessage />
             <div className="page-content">
               <AuthSignIn />
             </div>

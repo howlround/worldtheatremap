@@ -352,6 +352,8 @@
   "auth.passwordLabel": "Contraseña",
   "auth.joinButton": "Registrar",
   "auth.linkToSignIn": "¿Tiene una cuenta? Inicie su sesión aquí",
+  "auth.accessDeniedTitle": "Acceso denegado",
+  "auth.accessDeniedSubtitle": "Inicie sesión o regístrese para participar en el Mapa Mundial de Teatro",
   "show.authorsFinalSeperator": "y",
   "auth.signInTitle": "Iniciar Sesión",
   "auth.signInSubTitle": "Al iniciar la sesión podra a adir y editar perfiles y eventos",

@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 
 // Components
 import ShowAdd from '../components/ShowAdd.jsx';
-import Message from '../components/Message.jsx';
+import AccessDeniedMessage from '../components/AccessDeniedMessage.jsx';
 import Modal from '../components/Modal.jsx';
 import AuthSignIn from '../components/AuthSignIn.jsx';
 import Loading from '../components/Loading.jsx';
@@ -49,10 +49,7 @@ export default class ShowAddPage extends React.Component {
         <div className="overlay-wrapper">
           <Modal />
           <div className="page auth">
-            <Message
-              title="Access denied"
-              subtitle="Sign in or register to participate in the World Theatre Map"
-            />
+            <AccessDeniedMessage />
             <div className="page-content">
               <Helmet title="Sign in to add a show" />
               <AuthSignIn />

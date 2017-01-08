@@ -26,6 +26,9 @@ import '../../api/relatedRecords/server/publications.js';
 import '../../api/localities/methods.js';
 import '../../api/localities/server/publications.js';
 
+// Languages
+import '../../api/languages/methods.js';
+import '../../api/languages/server/publications.js';
 
 // Ethnicities
 import '../../api/ethnicities/methods.js';

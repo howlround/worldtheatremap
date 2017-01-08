@@ -8,6 +8,8 @@ import { check } from 'meteor/check'
 
 import { Shows, showSchema } from './shows.js';
 
+import { upsert as upsertLanguage } from '../languages/methods.js';
+
 const SHOW_ID_ONLY = new SimpleSchema({
   showId: { type: String },
 }).validator();
@@ -49,6 +51,12 @@ export const insert = new ValidatedMethod({
     newShow.source = source;
 
     const insertedShowID = Shows.insertTranslations(newShow, translations);
+
+    if (!_.isEmpty(newShow.languages)) {
+      _.each(newShow.languages, language => {
+        upsertLanguage.call({ language });
+      });
+    }
 
     // Translate about field
     if (newShow.about && Meteor.settings.GoogleTranslateAPIKey) {
@@ -152,6 +160,12 @@ export const update = new ValidatedMethod({
     } else {
       // Target language is English, either by default or specifically stated
       doc['en'] = newShow;
+    }
+
+    if (!_.isEmpty(newShow.languages)) {
+      _.each(newShow.languages, language => {
+        upsertLanguage.call({ language });
+      });
     }
 
     Shows.updateTranslations(showId, doc);

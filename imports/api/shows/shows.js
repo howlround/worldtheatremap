@@ -12,7 +12,7 @@ import { FormattedMessage } from 'react-intl';
 // API
 import { interestsCheckboxFactory, interestsSelectFactory } from '../../api/interests/interests.js';
 import { AllCountriesFactory } from '../../api/countries/countries.js';
-import { AllLanguagesFactory } from '../../api/languages/languages.js';
+import { AllLanguagesFactory, existingLanguagesFactory } from '../../api/languages/languages.js';
 
 // Containers
 import RelatedProfileTextboxContainer from '../../ui/containers/RelatedProfileTextboxContainer.jsx';
@@ -297,7 +297,7 @@ export const filtersFormOptions = () => ({
       />,
     },
     languages: {
-      factory: AllLanguagesFactory(true),
+      factory: existingLanguagesFactory(),
       label: <FormattedMessage
         id="forms.languagesLabel"
         description="Field label for Languages label on shows"

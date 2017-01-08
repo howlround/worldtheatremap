@@ -12,6 +12,7 @@ import { FormattedMessage } from 'react-intl';
 // API
 import { interestsCheckboxFactory, interestsSelectFactory } from '../../api/interests/interests.js';
 import { AllCountriesFactory } from '../../api/countries/countries.js';
+import { AllLanguagesFactory } from '../../api/languages/languages.js';
 
 // Containers
 import RelatedProfileTextboxContainer from '../../ui/containers/RelatedProfileTextboxContainer.jsx';
@@ -121,12 +122,14 @@ export const showSchema = t.struct({
   about: t.maybe(t.String),
   interests: t.maybe(t.list(t.String)),
   country: t.maybe(t.list(t.String)),
+  languages: t.maybe(t.list(t.String)),
 });
 
 export const showFiltersSchema = t.struct({
   name: t.maybe(t.String),
   interests: t.maybe(t.list(t.String)),
   country: t.maybe(t.list(t.String)),
+  languages: t.maybe(t.list(t.String)),
 });
 
 // @TODO: Replace with RelatedProfile
@@ -256,6 +259,14 @@ export const defaultFormOptions = () => ({
         defaultMessage="Country of origin"
       />,
     },
+    languages: {
+      factory: AllLanguagesFactory(true),
+      label: <FormattedMessage
+        id="forms.languagesLabel"
+        description="Field label for Languages label on shows"
+        defaultMessage="Languages"
+      />,
+    },
   },
 });
 
@@ -285,6 +296,14 @@ export const filtersFormOptions = () => ({
         defaultMessage="Country of origin"
       />,
     },
+    languages: {
+      factory: AllLanguagesFactory(true),
+      label: <FormattedMessage
+        id="forms.languagesLabel"
+        description="Field label for Languages label on shows"
+        defaultMessage="Languages"
+      />,
+    },
   },
 });
 
@@ -298,6 +317,7 @@ Shows.publicFields = {
   interests: 1,
   source: 1,
   country: 1,
+  languages: 1,
 };
 
 Shows.searchFields = {
@@ -305,6 +325,7 @@ Shows.searchFields = {
   author: 1,
   interests: 1,
   country: 1,
+  languages: 1,
 };
 
 Shows.autocompleteFields = {

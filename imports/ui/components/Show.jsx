@@ -66,6 +66,60 @@ class Show extends React.Component {
       );
     }) : false;
 
+    const countries = (show.country) ? show.country.map((country, index, array) => {
+      let seperator = ', ';
+      if (index == array.length - 1) {
+        seperator = '';
+      }
+      else if (index == array.length - 2) {
+        if (array.length > 2) {
+          seperator = ', and ';
+        }
+        else {
+          seperator = ' and ';
+        }
+      }
+      return (
+        <span key={country}>
+          {
+            formatMessage({
+              'id': `country.${country}`,
+              'defaultMessage': country,
+              'description': `Country options: ${country}`
+            })
+          }
+          {seperator}
+        </span>
+      );
+    }) : false;
+
+    const languages = (show.languages) ? show.languages.map((language, index, array) => {
+      let seperator = ', ';
+      if (index == array.length - 1) {
+        seperator = '';
+      }
+      else if (index == array.length - 2) {
+        if (array.length > 2) {
+          seperator = ', and ';
+        }
+        else {
+          seperator = ' and ';
+        }
+      }
+      return (
+        <span key={language}>
+          {
+            formatMessage({
+              'id': `language.${language}`,
+              'defaultMessage': language,
+              'description': `Language option: ${language}`
+            })
+          }
+          {seperator}
+        </span>
+      );
+    }) : false;
+
     const articleClasses = classNames('show', 'full', {
       'with-location': eventsByShow && eventsByShow.length,
     });
@@ -91,6 +145,16 @@ class Show extends React.Component {
             <div className="show-metadata metadata">
               { !_.isEmpty(show.interests) ?
                 <div className="show-interests" title="Interests">{ interests }</div> : '' }
+            </div>
+            <div className="show-metadata metadata">
+              <div>
+                { !_.isEmpty(show.country) ?
+                  <div className="show-interests" title="Country of origin">{ countries }</div> : '' }
+              </div>
+              <div>
+                { !_.isEmpty(show.languages) ?
+                  <div className="show-interests" title="Languages">{ languages }</div> : '' }
+              </div>
             </div>
             <div className="edit-links">
               {editLink}

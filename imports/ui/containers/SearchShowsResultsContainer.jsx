@@ -27,6 +27,12 @@ const SearchShowsResultsContainer = createContainer((props) => {
       };
     }
 
+    if (query.languages && query.languages instanceof Array) {
+      privateQuery.languages = {
+        $in: query.languages,
+      };
+    }
+
     if (query.page) {
       skip = Number(query.page) * 20;
     }

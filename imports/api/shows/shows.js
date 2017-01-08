@@ -11,6 +11,7 @@ import { FormattedMessage } from 'react-intl';
 
 // API
 import { interestsCheckboxFactory, interestsSelectFactory } from '../../api/interests/interests.js';
+import { AllCountriesFactory } from '../../api/countries/countries.js';
 
 // Containers
 import RelatedProfileTextboxContainer from '../../ui/containers/RelatedProfileTextboxContainer.jsx';
@@ -119,11 +120,13 @@ export const showSchema = t.struct({
   author: t.refinement(t.list(showAuthorSchema), atLeastOne),
   about: t.maybe(t.String),
   interests: t.maybe(t.list(t.String)),
+  country: t.maybe(t.list(t.String)),
 });
 
 export const showFiltersSchema = t.struct({
   name: t.maybe(t.String),
   interests: t.maybe(t.list(t.String)),
+  country: t.maybe(t.list(t.String)),
 });
 
 // @TODO: Replace with RelatedProfile
@@ -245,6 +248,14 @@ export const defaultFormOptions = () => ({
       />,
       factory: interestsCheckboxFactory(),
     },
+    country: {
+      factory: AllCountriesFactory(true),
+      label: <FormattedMessage
+        id="forms.countryOfOriginLabel"
+        description="Field label for country of origin label on shows"
+        defaultMessage="Country of origin"
+      />,
+    },
   },
 });
 
@@ -266,6 +277,14 @@ export const filtersFormOptions = () => ({
       />,
       factory: interestsSelectFactory(),
     },
+    country: {
+      factory: AllCountriesFactory(true),
+      label: <FormattedMessage
+        id="forms.countryOfOriginLabel"
+        description="Field label for country of origin label on shows"
+        defaultMessage="Country of origin"
+      />,
+    },
   },
 });
 
@@ -278,12 +297,14 @@ Shows.publicFields = {
   about: 1,
   interests: 1,
   source: 1,
+  country: 1,
 };
 
 Shows.searchFields = {
   name: 1,
   author: 1,
   interests: 1,
+  country: 1,
 };
 
 Shows.autocompleteFields = {

@@ -7,25 +7,27 @@ import { Session } from 'meteor/session';
 import { stringify, parse } from 'qs'
 
 // route components
+import AboutPage from '../../ui/pages/AboutPage.jsx';
 import AppContainer from '../../ui/containers/AppContainer.jsx';
+import AuthJoinPage from '../../ui/pages/AuthJoinPage.jsx';
+import AuthSignInPage from '../../ui/pages/AuthSignInPage.jsx';
+import EventAddContainer from '../../ui/containers/EventAddContainer.jsx';
+import EventContainer from '../../ui/containers/EventContainer.jsx';
+import EventEditContainer from '../../ui/containers/EventEditContainer.jsx';
 import LangaugeRedirect from '../../ui/pages/LangaugeRedirect.jsx';
+import LogoutPage from '../../ui/pages/LogoutPage.jsx';
+import NotFoundPage from '../../ui/pages/NotFoundPage.jsx';
+import ProfileAddContainer from '../../ui/containers/ProfileAddContainer.jsx';
+import ProfileContainer from '../../ui/containers/ProfileContainer.jsx';
+import ProfileEditContainer from '../../ui/containers/ProfileEditContainer.jsx';
+import ProfileTranslateContainer from '../../ui/containers/ProfileTranslateContainer.jsx';
+import SearchEventsContainer from '../../ui/containers/SearchEventsContainer.jsx';
+import SearchProfilesContainer from '../../ui/containers/SearchProfilesContainer.jsx';
+import SearchShowsContainer from '../../ui/containers/SearchShowsContainer.jsx';
 import ShowAddContainer from '../../ui/containers/ShowAddContainer.jsx';
 import ShowContainer from '../../ui/containers/ShowContainer.jsx';
 import ShowEditContainer from '../../ui/containers/ShowEditContainer.jsx';
-import ProfileContainer from '../../ui/containers/ProfileContainer.jsx';
-import ProfileAddContainer from '../../ui/containers/ProfileAddContainer.jsx';
-import ProfileEditContainer from '../../ui/containers/ProfileEditContainer.jsx';
-import ProfileTranslateContainer from '../../ui/containers/ProfileTranslateContainer.jsx';
-import EventContainer from '../../ui/containers/EventContainer.jsx';
-import EventAddContainer from '../../ui/containers/EventAddContainer.jsx';
-import EventEditContainer from '../../ui/containers/EventEditContainer.jsx';
-import AuthSignInPage from '../../ui/pages/AuthSignInPage.jsx';
-import AuthJoinPage from '../../ui/pages/AuthJoinPage.jsx';
-import LogoutPage from '../../ui/pages/LogoutPage.jsx';
-import NotFoundPage from '../../ui/pages/NotFoundPage.jsx';
-import SearchProfilesContainer from '../../ui/containers/SearchProfilesContainer.jsx';
-import SearchEventsContainer from '../../ui/containers/SearchEventsContainer.jsx';
-import SearchShowsContainer from '../../ui/containers/SearchShowsContainer.jsx';
+import TermsOfUsePage from '../../ui/pages/TermsOfUsePage.jsx';
 
 // Use this to handle arrays in the query params
 // https://github.com/reactjs/react-router/issues/939#issuecomment-215988002
@@ -70,6 +72,12 @@ export const renderRoutes = ({ locale, messages }) => (
         <Route path="join">
           <IndexRedirect to={`/${locale}/join`} />
         </Route>
+        <Route path="about">
+          <IndexRedirect to={`/${locale}/about`} />
+        </Route>
+        <Route path="terms-of-use">
+          <IndexRedirect to={`/${locale}/terms-of-use`} />
+        </Route>
         <Route path="logout" component={LogoutPage} />
         <Route path="search">
           <IndexRedirect to={`/${locale}/search/profiles`} />
@@ -109,6 +117,8 @@ export const renderRoutes = ({ locale, messages }) => (
         </Route>
         <Route path="signin" component={AuthSignInPage} />
         <Route path="join" component={AuthJoinPage} />
+        <Route path="about" component={AboutPage} />
+        <Route path="terms-of-use" component={TermsOfUsePage} />
         <Route path="logout" component={LogoutPage} />
         <Route path="search">
           <IndexRedirect to="profiles" />

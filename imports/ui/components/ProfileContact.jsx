@@ -31,7 +31,7 @@ class ProfileContact extends React.Component {
 
     if (profileContactArray.length > 0 || profileSocialArray.length > 0) {
       return (
-        <section>
+        <section className="profile-contact">
           <h2>Contact Info</h2>
           {profileContactArray.length > 0 ?
             <div className="content">
@@ -56,13 +56,11 @@ class ProfileContact extends React.Component {
                     'description': 'Email field label for the profile sidebar'
                   })
                 } /> : ''}
-              {profile.website ? <FieldWrapper content={profile.website} className={`profile-website`} label={
-                  formatMessage({
-                    'id': 'profile.websiteLabel',
-                    'defaultMessage': 'Website',
-                    'description': 'Website field label for the profile sidebar'
-                  })
-                } /> : ''}
+              {profile.website ?
+                <a href={`//${profile.website}`}>
+                  {profile.website}
+                </a>
+              : ''}
             </div>
             : ''
           }
@@ -70,7 +68,7 @@ class ProfileContact extends React.Component {
           {profileSocialArray.length > 0 ?
             <div className="content">
               {profile.facebook ?
-                <a href={profile.facebook} className="profile-facebook social-link">
+                <a href={`https://${profile.facebook}`} className="profile-facebook social-link">
                   <FormattedMessage
                     id="forms.facebookLabel"
                     description="Label for the facebook form field"
@@ -80,20 +78,12 @@ class ProfileContact extends React.Component {
                 : ''}
               {profile.twitter ?
                 <a href={`https://twitter.com/${profile.twitter}`} className="profile-twitter social-link">
-                  <FormattedMessage
-                    id="forms.twitterLabel"
-                    description="Label for the twitter form field"
-                    defaultMessage="Twitter"
-                  />
+                  @{profile.twitter}
                 </a>
                 : ''}
               {profile.instagram ?
                 <a href={`https://instagram.com/${profile.instagram}`} className="profile-instagram social-link">
-                  <FormattedMessage
-                    id="forms.instagramLabel"
-                    description="Label for the instagram form field"
-                    defaultMessage="Instagram"
-                  />
+                  @{profile.instagram}
                 </a>
                 : ''}
               {profile.social ?

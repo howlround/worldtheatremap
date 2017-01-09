@@ -1500,7 +1500,7 @@ export const defaultFormOptions = () => ({
       help: <FormattedMessage
         id="forms.twitterHelpText"
         description="Help text for Twitter field"
-        defaultMessage="Please inter the Twitter handle related to this profile (do NOT include the @)."
+        defaultMessage="Please enter the Twitter handle related to this profile (do NOT include the @)."
       />,
     },
     instagram: {
@@ -1528,7 +1528,7 @@ export const defaultFormOptions = () => ({
       help: <FormattedMessage
         id="forms.instagramHelpText"
         description="Help text for Instragram field"
-        defaultMessage="Please inter the Instragram account name related to this profile (do NOT include the @)."
+        defaultMessage="Please enter the Instragram account name related to this profile (do NOT include the @)."
       />,
     },
     social: {

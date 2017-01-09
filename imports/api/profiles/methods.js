@@ -113,6 +113,19 @@ export const insert = new ValidatedMethod({
     // Save source language
     newProfile.source = source;
 
+    if (!_.isEmpty(newProfile.facebook)) {
+      const stripHttpExp = RegExp('^(https?:|)\/\/');
+      newProfile.facebook = newProfile.facebook.replace(stripHttpExp, '');
+    }
+    if (!_.isEmpty(newProfile.twitter)) {
+      const stripHttpExp = RegExp('^(https?:|)\/\/twitter.com/');
+      newProfile.twitter = newProfile.twitter.replace(stripHttpExp, '').replace('@', '');
+    }
+    if (!_.isEmpty(newProfile.instagram)) {
+      const stripHttpExp = RegExp('^(https?:|)\/\/instagram.com/');
+      newProfile.instagram = newProfile.instagram.replace(stripHttpExp, '').replace('@', '');
+    }
+
     const insertedProfileID = Profiles.insertTranslations(newProfile, {
         es: {
           name: newProfile.name,
@@ -229,6 +242,19 @@ export const update = new ValidatedMethod({
     }
     if (!_.isEmpty(newProfile.country)) {
       upsertCountry.call({ country: newProfile.country });
+    }
+
+    if (!_.isEmpty(newProfile.facebook)) {
+      const stripHttpExp = RegExp('^(https?:|)\/\/');
+      newProfile.facebook = newProfile.facebook.replace(stripHttpExp, '');
+    }
+    if (!_.isEmpty(newProfile.twitter)) {
+      const stripHttpExp = RegExp('^(https?:|)\/\/twitter.com/');
+      newProfile.twitter = newProfile.twitter.replace(stripHttpExp, '').replace('@', '');
+    }
+    if (!_.isEmpty(newProfile.instagram)) {
+      const stripHttpExp = RegExp('^(https?:|)\/\/instagram.com/');
+      newProfile.instagram = newProfile.instagram.replace(stripHttpExp, '').replace('@', '');
     }
 
     const doc = {};

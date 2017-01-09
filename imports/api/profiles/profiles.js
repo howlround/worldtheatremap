@@ -1051,6 +1051,9 @@ export const profileSchema = t.struct({
   phone: t.maybe(t.String),
   website: t.maybe(t.String),
   agent: t.maybe(t.String),
+  facebook: t.maybe(t.String),
+  twitter: t.maybe(t.String),
+  instagram: t.maybe(t.String),
   social: t.maybe(t.String),
   lat: t.maybe(t.String),
   lon: t.maybe(t.String),
@@ -1077,6 +1080,9 @@ export const profileFormSchema = t.struct({
   phone: t.maybe(t.String),
   website: t.maybe(t.String),
   agent: t.maybe(t.String),
+  facebook: t.maybe(t.String),
+  twitter: t.maybe(t.String),
+  instagram: t.maybe(t.String),
   social: t.maybe(t.String),
   lat: t.maybe(t.String),
   lon: t.maybe(t.String),
@@ -1440,6 +1446,90 @@ export const defaultFormOptions = () => ({
       attrs: {
         className: 'profile-website-edit',
       },
+    },
+    facebook: {
+      template: genericFieldTemplate,
+      attrs: {
+        className: 'profile-facebook-edit',
+      },
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.facebookLabel"
+            description="Label for the facebook form field"
+            defaultMessage="Facebook"
+          />,
+        }}
+      />,
+      help: <FormattedMessage
+        id="forms.facebookHelpText"
+        description="Help text for Facebook field"
+        defaultMessage="Please enter the URL for the Facebook profile for this person or organization."
+      />,
+    },
+    twitter: {
+      template: genericFieldTemplate,
+      attrs: {
+        className: 'profile-twitter-edit',
+      },
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.twitterLabel"
+            description="Label for the twitter form field"
+            defaultMessage="Twitter"
+          />,
+        }}
+      />,
+      help: <FormattedMessage
+        id="forms.twitterHelpText"
+        description="Help text for Twitter field"
+        defaultMessage="Please inter the Twitter handle related to this profile (do NOT include the @)."
+      />,
+    },
+    instagram: {
+      template: genericFieldTemplate,
+      attrs: {
+        className: 'profile-instagram-edit',
+      },
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.instagramLabel"
+            description="Label for the instagram form field"
+            defaultMessage="Instragram"
+          />,
+        }}
+      />,
+      help: <FormattedMessage
+        id="forms.instagramHelpText"
+        description="Help text for Instragram field"
+        defaultMessage="Please inter the Instragram account name related to this profile (do NOT include the @)."
+      />,
     },
     social: {
       label: <FormattedMessage
@@ -1888,6 +1978,9 @@ Profiles.publicFields = {
   email: 1,
   website: 1,
   social: 1,
+  facebook: 1,
+  twitter: 1,
+  instagram: 1,
   foundingYear: 1,
   interests: 1,
   orgTypes: 1,

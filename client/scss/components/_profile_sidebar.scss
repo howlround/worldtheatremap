@@ -10,3 +10,27 @@
     margin-bottom: $spacing-unit;
   }
 }
+
+.social-link {
+  display: block;
+  background-repeat: no-repeat;
+  background-position: left center;
+  font-weight: 700;
+  padding-left: 20px;
+  margin-bottom: $spacing-unit;
+  line-height: 18px;
+
+  &.profile-facebook {
+    background-image: url('/facebook.png');
+    background-position: 5px center;
+  }
+
+  &.profile-twitter {
+    background-image: url('/twitter.png');
+  }
+
+  &.profile-instagram {
+    background-image: url('/instagram.png');
+  }
+
+}

@@ -21,11 +21,12 @@ a.home {
   color: $white;
   font-size: 27px;
   font-weight: 900;
-  line-height: $header-height;
+  padding: $spacing-unit 0;
 
   @include breakpoint($narrow) {
+    line-height: $header-height;
     text-align: inherit;
-    padding-right: 22px;
+    padding: 0 22px 0 0;
     float: left;
     background-color: $dark-red;
     border-right: 1px solid $background-red;
@@ -37,5 +38,23 @@ a.home {
 
   &:hover {
     color: $white;
+  }
+
+  .beta-label {
+    color: $background-red;
+    font-weight: normal;
+    font-style: italic;
+    font-size: 0.6em;
+    vertical-align: super;
+  }
+}
+
+html[locale="es"] {
+  a.home {
+    font-size: 22px;
+
+    @include breakpoint($normal) {
+      font-size: 27px;
+    }
   }
 }

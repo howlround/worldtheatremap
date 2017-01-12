@@ -74,7 +74,8 @@ const HomePageContainer = createContainer(() => {
   const supportedLanguages = TAPi18n.getLanguages();
 
   return {
-    loading: !(eventsTodayWithLocationsSubscribe.ready() && authorsTodaySubscribe.ready() && showsTodaySubscribe.ready()),
+    // loading: !(eventsTodayWithLocationsSubscribe.ready() && authorsTodaySubscribe.ready() && showsTodaySubscribe.ready()),
+    loading: !(eventsTodayWithLocationsSubscribe.ready()),
     connected: Meteor.status().connected,
     menuOpen: Session.get('menuOpen'),
     eventsTodayWithLocations,

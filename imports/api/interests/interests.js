@@ -249,11 +249,11 @@ const Interests = [
     />,
   },
   {
-    value: 'Political/Social',
+    value: 'Political / Social',
     label: <FormattedMessage
-      id="interest.Political/Social"
-      description="Interests options: Political/Social"
-      defaultMessage="Political/Social"
+      id="interest.Political / Social"
+      description="Interests options: Political / Social"
+      defaultMessage="Political / Social"
     />,
   },
   {
@@ -313,11 +313,11 @@ const Interests = [
     />,
   },
   {
-    value: 'Translations/Adaptations',
+    value: 'Translations / Adaptations',
     label: <FormattedMessage
-      id="interest.Translations/Adaptations"
-      description="Interests options: Translations/Adaptations"
-      defaultMessage="Translations/Adaptations"
+      id="interest.Translations / Adaptations"
+      description="Interests options: Translations / Adaptations"
+      defaultMessage="Translations / Adaptations"
     />,
   },
   {

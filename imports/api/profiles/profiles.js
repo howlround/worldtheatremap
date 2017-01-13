@@ -561,22 +561,6 @@ const Roles = [
     />,
   },
   {
-    value: 'Projection Design',
-    label: <FormattedMessage
-      id="role.Projection Design"
-      description="Roles options: Projection Design"
-      defaultMessage="Projection Design"
-    />,
-  },
-  {
-    value: 'Set Designer',
-    label: <FormattedMessage
-      id="role.Set Designer"
-      description="Roles options: Set Designer"
-      defaultMessage="Set Designer"
-    />,
-  },
-  {
     value: 'Singer',
     label: <FormattedMessage
       id="role.Singer"

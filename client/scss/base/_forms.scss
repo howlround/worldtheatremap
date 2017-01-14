@@ -206,3 +206,18 @@ button[type="submit"],
     display: none;
   }
 }
+
+.fieldset-depth-0 {
+  & > .alert-danger {
+    position: fixed;
+    text-align: center;
+    background-color: $red;
+    color: $white;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: $spacing-unit;
+    z-index: 1;
+    opacity: 0.8;
+  }
+}

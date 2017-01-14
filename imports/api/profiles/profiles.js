@@ -1096,6 +1096,11 @@ export const translateFormSchema = t.struct({
 });
 
 export const defaultFormOptions = () => ({
+  error: <FormattedMessage
+    id="forms.pageError"
+    description="Generic page-level message for a form error"
+    defaultMessage="Please fill in all required fields."
+  />,
   fields: {
     name: {
       label: <FormattedMessage
@@ -1505,14 +1510,14 @@ export const defaultFormOptions = () => ({
           labelText: <FormattedMessage
             id="forms.instagramLabel"
             description="Label for the instagram form field"
-            defaultMessage="Instragram"
+            defaultMessage="Instagram"
           />,
         }}
       />,
       help: <FormattedMessage
         id="forms.instagramHelpText"
-        description="Help text for Instragram field"
-        defaultMessage="Please enter the Instragram account name related to this profile (do NOT include the @)."
+        description="Help text for Instagram field"
+        defaultMessage="Please enter the Instagram account name related to this profile (do NOT include the @)."
       />,
     },
     social: {
@@ -1681,6 +1686,11 @@ export const defaultFormOptions = () => ({
         id="forms.genderOtherHelpText"
         description="Help text Another identity text field"
         defaultMessage="Please enter a value to display on the profile."
+      />,
+      error: <FormattedMessage
+        id="forms.genderOtherError"
+        description="Error for Gender Other form field"
+        defaultMessage="What would you like displayed on the profile?"
       />,
     },
     howlroundPostSearchText: {

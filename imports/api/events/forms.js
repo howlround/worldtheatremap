@@ -239,6 +239,11 @@ export const eventFiltersSchema = t.struct({
 });
 
 export const defaultFormOptions = () => ({
+  error: <FormattedMessage
+    id="forms.pageError"
+    description="Generic page-level message for a form error"
+    defaultMessage="Please fill in all required fields."
+  />,
   fields: {
     show: {
       factory: RelatedShowFactory,

@@ -142,6 +142,11 @@ const authorLayout = (author) => (
 );
 
 export const defaultFormOptions = () => ({
+  error: <FormattedMessage
+    id="forms.pageError"
+    description="Generic page-level message for a form error"
+    defaultMessage="Please fill in all required fields."
+  />,
   fields: {
     name: {
       label: <FormattedMessage

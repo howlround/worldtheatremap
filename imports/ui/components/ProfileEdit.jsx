@@ -53,17 +53,18 @@ class ProfileEdit extends React.Component {
     const { prevGender } = prevState;
     const { gender, genderOther } = this.state;
 
-    if (!_.isEmpty(gender) && prevGender !== gender) {
-      if (!_.contains(gender, 'Another Identity')) {
-        this.setState({
-          genderOther: null,
-        });
-      }
-      else if (_.isEmpty(genderOther)) {
-        this.setState({
-          genderOther: [ null ],
-        });
-      }
+    // Any time Another identity is not checked AND it is not null, set it to null
+    if (genderOther !== null && !_.contains(gender, 'Another Identity')) {
+      this.setState({
+        genderOther: null,
+      });
+    }
+
+    // Any time Another identity is checked but there is nothing in the other field, get it to [ null ] to display an empty field
+    if (_.isEmpty(genderOther) && genderOther !== [ null ] && _.contains(gender, 'Another Identity')) {
+      this.setState({
+        genderOther: [ null ],
+      });
     }
   }
 

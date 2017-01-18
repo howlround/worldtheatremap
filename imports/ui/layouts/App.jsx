@@ -184,6 +184,15 @@ class App extends React.Component {
         <FooterAddPitch />
         <SiteStatisticsContainer />
         <Footer />
+        <div className="feedback-link">
+          <a href="https://worldtheatremap.useresponse.com" target="_blank">
+            <FormattedMessage
+              id="navigation.feedbackLink"
+              description="Link to feedback site"
+              defaultMessage="Give feedback"
+            />
+          </a>
+        </div>
       </div>
     );
   }

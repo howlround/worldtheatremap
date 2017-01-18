@@ -7,11 +7,11 @@
       font-weight: bold;
       text-transform: uppercase;
       display: block;
-      padding: 0 21px;
+      padding: 0 18px;
       color: $white;
 
       @include breakpoint($normal) {
-        padding: 0 28px;
+        padding: 0 24px;
       }
 
       @include breakpoint($wide) {
@@ -86,6 +86,7 @@
     @include retina-image('/user-icon_2x.png', 22px, 30px);
     background-repeat: no-repeat;
     width: 22px;
+    height: $header-height;
     background-position: 50%;
 
     @include image-replace;

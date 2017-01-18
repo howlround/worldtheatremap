@@ -42,13 +42,13 @@ class UserMenu extends React.Component {
   renderLoggedIn() {
     const { open } = this.state;
     const { user, logout } = this.props;
-    const email = user.emails[0].address;
-    const emailLocalPart = email.substring(0, email.indexOf('@'));
+    // const email = user.emails[0].address;
+    // const emailLocalPart = email.substring(0, email.indexOf('@'));
 
     return (
       <div className="user-menu menu-container menu-right" onMouseEnter={this.open} onMouseLeave={this.close}>
         <a href="#" className="menu-parent logged-in" onClick={this.toggle}>
-          {emailLocalPart}
+          {/*emailLocalPart*/}
         </a>
         { open ?
           <div className="menu-children">

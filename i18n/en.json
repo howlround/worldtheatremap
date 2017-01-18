@@ -1,4 +1,5 @@
 {
+  "forms.selectPlaceholder": "Select...",
   "forms.affiliationFormError": "Go to 'add person/organization' to make a profile for this network / association / union.",
   "forms.affiliationFormLabel": "Network / Association / Union Name",
   "forms.affiliationFormHelp": "If your network / association / union does not appear here, it doesn't have a profile yet. Go to 'add person/organization' to make one.",
@@ -336,7 +337,6 @@
   "interest.Traditional / Folk": "Traditional / Folk",
   "interest.Translations / Adaptations": "Translations / Adaptations",
   "interest.Young People / Children / Educational": "Young People / Children / Educational",
-  "forms.selectPlaceholder": "Select...",
   "language.Abkhazian": "Abkhazian",
   "language.Acehnese": "Acehnese",
   "language.Adyghe": "Adyghe",
@@ -797,6 +797,7 @@
   "navigation.signIn": "Signup/In",
   "navigation.directory": "Directory",
   "navigation.about": "About",
+  "navigation.feedbackLink": "Give feedback",
   "ui.pageEdit": "Edit details",
   "ui.pageDelete": "Delete",
   "pageActions.tweet": "Tweet",

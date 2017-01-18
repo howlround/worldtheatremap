@@ -60,6 +60,7 @@ section.footer {
     @include breakpoint($narrow) {
       max-width: inherit;
       text-align: inherit;
+      margin-bottom: 0;
 
       @include gallery(1 of 2);
     }

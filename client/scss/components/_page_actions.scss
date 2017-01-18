@@ -22,6 +22,8 @@
   text-transform: uppercase;
 
   a {
+    float: left;
+    display: block;
     padding: $spacing-unit;
     color: $white;
     margin-left: $spacing-unit / 2;

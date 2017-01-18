@@ -6,7 +6,6 @@ import classnames from 'classnames';
 // Forms
 import React from 'react';
 import t from 'tcomb-form';
-import ReactSelect from 'react-select';
 
 // API
 import { AllCountriesFactory } from '../../api/countries/countries.js';

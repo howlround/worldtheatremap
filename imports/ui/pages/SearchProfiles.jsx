@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactSelect from 'react-select';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-form';
 import { intlShape, injectIntl } from 'react-intl';

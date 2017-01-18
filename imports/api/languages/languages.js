@@ -27,6 +27,12 @@ Languages.publicFields = {
 };
 
 export const existingLanguagesFactory = () => {
+  const placeholder = <FormattedMessage
+    id="forms.selectPlaceholder"
+    description="Select widget placeholder"
+    defaultMessage="Select..."
+  />;
+
   // Langauge options
   const ExistingLanguages = Languages.find({}, { sort: { label: 1 } }).fetch();
 
@@ -45,6 +51,7 @@ export const existingLanguagesFactory = () => {
           value={locals.value}
           onChange={onChange}
           className="language-select-edit"
+          placeholder={placeholder}
         />
       );
     },
@@ -2411,6 +2418,13 @@ export const AllLanguagesFactory = (multiValue = false) => {
           }
         }
       }
+
+      const placeholder = <FormattedMessage
+        id="forms.selectPlaceholder"
+        description="Select widget placeholder"
+        defaultMessage="Select..."
+      />;
+
       return (
         <ReactSelect
           multi={multiValue}
@@ -2419,6 +2433,7 @@ export const AllLanguagesFactory = (multiValue = false) => {
           value={locals.value}
           onChange={onChange}
           className="language-select-edit"
+          placeholder={placeholder}
         />
       );
     },

@@ -37,6 +37,13 @@ export const existingCountriesFactory = () => {
         const values = (options || []).map(({ value }) => value);
         locals.onChange(values);
       }
+
+      const placeholder = <FormattedMessage
+        id="forms.selectPlaceholder"
+        description="Select widget placeholder"
+        defaultMessage="Select..."
+      />;
+
       return (
         <ReactSelect
           multi
@@ -45,6 +52,7 @@ export const existingCountriesFactory = () => {
           value={locals.value}
           onChange={onChange}
           className="country-select-edit"
+          placeholder={placeholder}
         />
       );
     },
@@ -2187,6 +2195,13 @@ export const AllCountriesFactory = (multiValue = false) => {
           }
         }
       }
+
+      const placeholder = <FormattedMessage
+        id="forms.selectPlaceholder"
+        description="Select widget placeholder"
+        defaultMessage="Select..."
+      />;
+
       return (
         <ReactSelect
           multi={multiValue}
@@ -2195,6 +2210,7 @@ export const AllCountriesFactory = (multiValue = false) => {
           value={locals.value}
           onChange={onChange}
           className="country-select-edit"
+          placeholder={placeholder}
         />
       );
     },

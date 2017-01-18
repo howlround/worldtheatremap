@@ -2,6 +2,7 @@
 import { Mongo } from 'meteor/mongo';
 import React from 'react';
 import ReactSelect from 'react-select';
+import { FormattedMessage } from 'react-intl';
 import t from 'tcomb-form';
 
 class AdministrativeAreasCollection extends Mongo.Collection {
@@ -36,6 +37,13 @@ export const factory = () => {
         const values = (options || []).map(({ value }) => value);
         locals.onChange(values);
       }
+
+      const placeholder = <FormattedMessage
+        id="forms.selectPlaceholder"
+        description="Select widget placeholder"
+        defaultMessage="Select..."
+      />;
+
       return (
         <ReactSelect
           multi
@@ -44,6 +52,7 @@ export const factory = () => {
           value={locals.value}
           onChange={onChange}
           className="administrative-area-select-edit"
+          placeholder={placeholder}
         />
       );
     },

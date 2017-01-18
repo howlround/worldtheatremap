@@ -54,6 +54,13 @@ const EventTypeTags = t.form.Form.templates.select.clone({
         locals.onChange(null);
       }
     }
+
+    const placeholder = <FormattedMessage
+      id="forms.selectPlaceholder"
+      description="Select widget placeholder"
+      defaultMessage="Select..."
+    />;
+
     return (
       <ReactSelect
         autoBlur
@@ -61,6 +68,7 @@ const EventTypeTags = t.form.Form.templates.select.clone({
         value={locals.value}
         onChange={onChange}
         className="event-type-edit"
+        placeholder={placeholder}
       />
     );
   },

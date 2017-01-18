@@ -73,6 +73,13 @@ const ProfileTypeTags = t.form.Form.templates.select.clone({
       const values = (options || []).map(({value}) => value)
       locals.onChange(values)
     }
+
+    const placeholder = <FormattedMessage
+      id="forms.selectPlaceholder"
+      description="Select widget placeholder"
+      defaultMessage="Select..."
+    />;
+
     return (
       <ReactSelect
         multi
@@ -82,6 +89,7 @@ const ProfileTypeTags = t.form.Form.templates.select.clone({
         value={locals.value}
         onChange={onChange}
         className="profile-type-edit"
+        placeholder={placeholder}
       />
     );
   },
@@ -292,6 +300,13 @@ const orgTypesTags = t.form.Form.templates.select.clone({
       const values = (options || []).map(({value}) => value)
       locals.onChange(values)
     }
+
+    const placeholder = <FormattedMessage
+      id="forms.selectPlaceholder"
+      description="Select widget placeholder"
+      defaultMessage="Select..."
+    />;
+
     return (
       <ReactSelect
         multi
@@ -301,6 +316,7 @@ const orgTypesTags = t.form.Form.templates.select.clone({
         value={locals.value}
         onChange={onChange}
         className="profile-organization-types-edit"
+        placeholder={placeholder}
       />
     );
   },
@@ -665,6 +681,13 @@ const rolesTags = t.form.Form.templates.select.clone({
       const values = (options || []).map(({ value }) => value)
       locals.onChange(values)
     }
+
+    const placeholder = <FormattedMessage
+      id="forms.selectPlaceholder"
+      description="Select widget placeholder"
+      defaultMessage="Select..."
+    />;
+
     return (
       <ReactSelect
         multi
@@ -674,6 +697,7 @@ const rolesTags = t.form.Form.templates.select.clone({
         value={locals.value}
         onChange={onChange}
         className="profile-roles-edit"
+        placeholder={placeholder}
       />
     );
   },
@@ -841,6 +865,13 @@ const gendersTags = t.form.Form.templates.select.clone({
       const values = (options || []).map(({ value }) => value);
       locals.onChange(values);
     }
+
+    const placeholder = <FormattedMessage
+      id="forms.selectPlaceholder"
+      description="Select widget placeholder"
+      defaultMessage="Select..."
+    />;
+
     return (
       <ReactSelect
         multi
@@ -850,6 +881,7 @@ const gendersTags = t.form.Form.templates.select.clone({
         value={locals.value}
         onChange={onChange}
         className="profile-gender-edit"
+        placeholder={placeholder}
       />
     );
   },

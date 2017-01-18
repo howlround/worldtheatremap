@@ -351,6 +351,12 @@ const interestsTags = t.form.Form.templates.select.clone({
       locals.onChange(values);
     }
 
+    const placeholder = <FormattedMessage
+      id="forms.selectPlaceholder"
+      description="Select widget placeholder"
+      defaultMessage="Select..."
+    />;
+
     return (
       <ReactSelect
         multi
@@ -359,6 +365,7 @@ const interestsTags = t.form.Form.templates.select.clone({
         value={locals.value}
         onChange={onChange}
         className="interests-edit"
+        placeholder={placeholder}
       />
     );
   },

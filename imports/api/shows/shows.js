@@ -172,7 +172,28 @@ export const defaultFormOptions = () => ({
       error: 'Name is required',
     },
     author: {
-      error: 'At least one author is required',
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier required"><FormattedMessage
+            id="forms.requiredLabel"
+            description="Addition to label indicating a field is required"
+            defaultMessage="(required)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.primaryAuthorLabel"
+            description="Label for a Primary author form field"
+            defaultMessage="By… (Add the primary creator(s) name. Add all that apply.)"
+          />,
+        }}
+      />,
+      error: <FormattedMessage
+        id="forms.showAuthorError"
+        description="Error for show author field"
+        defaultMessage="At least one author is required"
+      />,
       item: {
         attrs: {
           className: 'show-author-name-edit',
@@ -181,24 +202,6 @@ export const defaultFormOptions = () => ({
         // template: authorLayout,
         fields: {
           name: {
-            label: <FormattedMessage
-              id="forms.labelRequiredOrOptional"
-              description="Label for a form field with required or optional specified"
-              defaultMessage="{labelText} {optionalOrRequired}"
-              values={{
-                optionalOrRequired: <span className="field-label-modifier required"><FormattedMessage
-                  id="forms.requiredLabel"
-                  description="Addition to label indicating a field is required"
-                  defaultMessage="(required)"
-                /></span>,
-                labelText: <FormattedMessage
-                  id="forms.primaryAuthorLabel"
-                  description="Label for a Primary author form field"
-                  defaultMessage="By… (Add the primary creator(s) name. Add all that apply.)"
-                />,
-              }}
-            />,
-            error: 'Primary authorship is required',
             attrs: {
               className: 'show-author-name-edit',
               autoComplete: 'off',

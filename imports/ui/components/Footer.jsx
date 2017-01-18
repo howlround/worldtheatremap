@@ -76,11 +76,10 @@ class Footer extends React.Component {
             <FormattedMessage
               id='navigation.creativeCommons'
               description="Creative commons copyright text"
-              defaultMessage="All content is free cultural work available to you under a {creativeCommons} Attribution 4.0 International License (CC BY 4.0). Attribute the original author and {howlround} when you repost and remix! Take the free and open-source World Theatre Map code on {github}."
+              defaultMessage="All content is free cultural work available to you under a {creativeCommons} Attribution 4.0 International License (CC BY 4.0). Attribute the original author and {howlround} when you repost and remix!"
               values={{
                 creativeCommons: <a href={ccURL}>Creative Commons</a>,
                 howlround: <a href="http://howlround.com">HowlRound.com</a>,
-                github: <a href="http://github.com">GitHub</a>,
               }}
             />
           </div>

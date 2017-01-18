@@ -10,9 +10,17 @@ class EventTeaser extends React.Component {
 
   render() {
     const { event } = this.props;
-    const { locale } = this.props.intl;
+    const { formatMessage, locale } = this.props.intl;
 
-    const locationLine = [event.locality, event.administrativeArea, event.country].filter(function (val) {return val;}).join(', ');
+    const locationLine = [
+      event.locality,
+      event.administrativeArea,
+      formatMessage({
+        'id': `country.${event.country}`,
+        'defaultMessage': event.country,
+        'description': `Country options: ${event.country}`
+      })
+    ].filter(function (val) {return val;}).join(', ');
 
     return (
       <article className="event-teaser">

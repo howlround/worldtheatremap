@@ -675,7 +675,7 @@
   "navigation.searchFooter": "Buscar en el mapa",
   "navigation.aboutFooter": "Sobre el proyecto",
   "navigation.termsFooter": "Términos de Uso",
-  "navigation.creativeCommons": "Todo el contenido es obra cultural libre disponible en virtud de un {creativeCommons} Atribución 4.0 Licencia Internacional (CC BY 4.0). Atribuir al autor original y {howlround} cuando volver a publicar y remezcla! Tome el código Mapa del mundo del teatro libre y de código abierto en {github}.",
+  "navigation.creativeCommons": "Todo el contenido es obra cultural libre disponible en virtud de un {creativeCommons} Atribución 4.0 Licencia Internacional (CC BY 4.0). Atribuir al autor original y {howlround} cuando volver a publicar y remezcla!",
   "site.description": "El Teatro Mapa del Mundo es un directorio generado por sus usuarios de la comunidad teatral del mundo (fabricantes, trabajadores, empresas, instituciones) y un centro de medios en tiempo real de sus proyectos, eventos, presentaciones, conversaciones, ideas.",
   "footer.attribution": "Creado por {mosswood}",
   "footer.addPitchText": "El Mapa Mundial de Teatro es un {directory} y un {hub} de la comunidad teatral del mundo.",

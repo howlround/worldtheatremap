@@ -627,7 +627,7 @@
   "forms.ethnicityRaceLabel": "¿Cómo identifica esta persona su etnia / raza / identidad cultural?",
   "forms.genderLabel": "Género",
   "forms.genderOtherLabel": "Additional values to display in Gender section of profile",
-  "forms.genderOtherHelpText": "Please enter a value to display on the profile.",
+  "forms.genderOtherHelpText": "Introduzca un valor para mostrarlo en el perfil.",
   "forms.genderOtherError": "¿Qué te gustaría mostrar en el perfil?",
   "forms.howlroundPostsLabel": "Publicaciones de HowlRound",
   "forms.HowlroundPostsHelpText": "Ingrese términos de búsqueda aquí para exponer publicaciones relevantes de HowlRound. http://howlround.com/search",

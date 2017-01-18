@@ -90,7 +90,7 @@ class Footer extends React.Component {
                 <a className="facebook" href="http://facebook.com/HowlRound">Facebook</a>
               </li>
               <li>
-                <a className="twitter" href="http://twitter.com/HowlRound">Twitter</a>
+                <a className="twitter" href="http://twitter.com/worldtheatremap">Twitter</a>
               </li>
               <li>
                 <a className="instagram" href="http://instagram.com/howlround_commons">Instagram</a>

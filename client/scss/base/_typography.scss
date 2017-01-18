@@ -35,3 +35,17 @@ a {
 em {
   font-style: italic;
 }
+
+p {
+  line-height: 1.4em;
+}
+
+ol {
+  list-style-type: decimal;
+  padding-left: 20px;
+
+  li {
+    margin-bottom: $spacing-unit;
+    line-height: 1.4em;
+  }
+}

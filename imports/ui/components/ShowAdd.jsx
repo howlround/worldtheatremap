@@ -5,6 +5,7 @@ import { _ } from 'meteor/underscore';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { displayError } from '../helpers/errors.js';
 import t from 'tcomb-form';
+import i18nES from 'tcomb-form/lib/i18n/es';
 
 // API
 import { insert } from '../../api/shows/methods.js';
@@ -79,7 +80,14 @@ class ShowAdd extends React.Component {
   }
 
   render() {
+    const { locale } = this.props.intl;
     const formOptions = defaultFormOptions();
+
+    switch (locale) {
+      case 'es':
+        Form.i18n = i18nES;
+        break;
+    }
 
     return (
       <form className="show-edit-form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off" >

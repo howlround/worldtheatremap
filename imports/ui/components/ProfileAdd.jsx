@@ -3,6 +3,7 @@ import React from 'react';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-form';
+import i18nES from 'tcomb-form/lib/i18n/es';
 import { displayError } from '../helpers/errors.js';
 
 import { insert } from '../../api/profiles/methods.js';
@@ -183,6 +184,7 @@ class ProfileAdd extends React.Component {
 
   render() {
     const { profileType, gender } = this.state;
+    const { locale } = this.props.intl;
     let formOptions = defaultFormOptions();
 
     if (!_.contains(gender, 'Another Identity')) {
@@ -199,6 +201,12 @@ class ProfileAdd extends React.Component {
     if (!_.contains(profileType, 'Organization')) {
       formOptions.fields.foundingYear.disabled = true;
       formOptions.fields.orgTypes.disabled = true;
+    }
+
+    switch (locale) {
+      case 'es':
+        Form.i18n = i18nES;
+        break;
     }
 
     return (

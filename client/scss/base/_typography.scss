@@ -48,4 +48,20 @@ ol {
     margin-bottom: $spacing-unit;
     line-height: 1.4em;
   }
+
+  ol {
+    list-style-type: lower-roman;
+  }
+
+  ol.ordered-list-letters {
+    list-style-type: upper-alpha;
+
+    ol {
+      list-style-type: lower-alpha;
+    }
+
+    ol.ordered-list-numbers {
+      list-style-type: decimal;
+    }
+  }
 }

@@ -154,6 +154,18 @@ class App extends React.Component {
                 />
               </Link>
             </div>
+            <div className="menu-right menu-container menu-with-divider">
+              <Link
+                to={`/${locale}/about`}
+                className="menu-parent"
+              >
+                <FormattedMessage
+                  id="navigation.about"
+                  description="About menu"
+                  defaultMessage="About"
+                />
+              </Link>
+            </div>
           </section>
         </header>
         {showConnectionIssue && !connected

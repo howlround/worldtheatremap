@@ -7,8 +7,16 @@
       font-weight: bold;
       text-transform: uppercase;
       display: block;
-      padding: 0 34px;
+      padding: 0 21px;
       color: $white;
+
+      @include breakpoint($normal) {
+        padding: 0 28px;
+      }
+
+      @include breakpoint($wide) {
+        padding: 0 34px;
+      }
 
       &:hover,
       &:focus {

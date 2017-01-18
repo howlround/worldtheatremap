@@ -794,6 +794,7 @@
   "navigation.logout": "Logout",
   "navigation.signIn": "Signup/In",
   "navigation.directory": "Directory",
+  "navigation.about": "About",
   "ui.pageEdit": "Edit details",
   "ui.pageDelete": "Delete",
   "pageActions.tweet": "Tweet",

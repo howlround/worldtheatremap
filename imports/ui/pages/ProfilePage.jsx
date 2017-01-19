@@ -6,6 +6,7 @@ import classnames from 'classnames';
 import Helmet from 'react-helmet';
 import topojson from 'topojson';
 import { _ } from 'meteor/underscore';
+import { get } from 'lodash';
 import { displayError } from '../helpers/errors.js';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { geoOrthographic, geoGraticule, geoPath, geoCentroid, geoInterpolate } from 'd3-geo';
@@ -89,25 +90,7 @@ class ProfilePage extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (
-      prevProps.profile === undefined &&
-      this.props.profile &&
-      this.props.profile.lat &&
-      this.props.profile.lon
-    ) {
-      this.initializeD3Globe();
-    } else if (
-      prevProps.profile &&
-      prevProps.profile.lat &&
-      prevProps.profile.lon &&
-      this.props.profile &&
-      this.props.profile.lat &&
-      this.props.profile.lon &&
-      (
-        prevProps.profile.lat !== this.props.profile.lat ||
-        prevProps.profile.lon !== this.props.profile.lon
-      )
-    ) {
+    if (get(this.props, 'profile.lat') && get(this.props, 'profile.lon')) {
       this.initializeD3Globe();
     }
   }

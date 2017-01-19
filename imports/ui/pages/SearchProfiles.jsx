@@ -100,7 +100,7 @@ class SearchProfiles extends React.Component {
 
   render() {
     const { loading, dummyForm } = this.props;
-    const { formatMessage } = this.props.intl;
+    const { formatMessage, locale } = this.props.intl;
 
     if (loading) {
       // Don't display loading screen if using the form away from the directory page
@@ -113,7 +113,7 @@ class SearchProfiles extends React.Component {
       let formOptions = filtersFormOptions();
       formOptions.fields.locality.factory = localitiesFactory();
       formOptions.fields.ethnicityRace.factory = ethnicitiesFactory();
-      formOptions.fields.country.factory = existingCountriesFactory();
+      formOptions.fields.country.factory = existingCountriesFactory(locale);
       formOptions.fields.administrativeArea.factory = administrativeAreasFactory();
       formOptions.fields.name.attrs.placeholder = formatMessage({
         'id': 'searchProfiles.placeholder',

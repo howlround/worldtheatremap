@@ -5,7 +5,7 @@ import SearchProfiles from '../pages/SearchProfiles.jsx';
 
 const SearchProfilesContainer = createContainer((props) => {
   const localitiesSubscribe = Meteor.subscribe('localities.public');
-  const countriesSubscribe = Meteor.subscribe('countries.public');
+  const countriesSubscribe = TAPi18n.subscribe('countries.public');
   const administrativeAreasSubscribe = Meteor.subscribe('administrativeAreas.public');
   const ethnicitiesSub = Meteor.subscribe('ethnicities.public');
 

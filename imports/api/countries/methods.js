@@ -22,11 +22,12 @@ export const upsert = new ValidatedMethod({
         'You must be logged in to complete this operation.');
     }
 
-    const countryObject = {
-      label: country,
-      value: country
-    }
-    return Countries.upsert(countryObject, countryObject);
+    // @TODO: Replace this with function to update profile, show, or event fields on country record instead
+    // const countryObject = {
+    //   label: country,
+    //   value: country
+    // }
+    // return Countries.upsert(countryObject, countryObject);
   },
 });
 

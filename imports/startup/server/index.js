@@ -14,5 +14,8 @@ import './mongo-index.js';
 // Browser policy
 import './browser-policy.js';
 
-// Browser policy
+// File restrictions
 import './file-restrictions.js';
+
+// Country prepopulate
+import './country-prepopulate.js';

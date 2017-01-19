@@ -5,7 +5,7 @@ import SearchProfiles from '../pages/SearchProfiles.jsx';
 
 const SearchProfilesContainerDummy = createContainer(() => {
   const localitiesSubscribe = Meteor.subscribe('localities.public');
-  const countriesSubscribe = Meteor.subscribe('countries.public');
+  const countriesSubscribe = TAPi18n.subscribe('countries.public');
   const administrativeAreasSubscribe = Meteor.subscribe('administrativeAreas.public');
   const loading = !(localitiesSubscribe.ready() && countriesSubscribe.ready() && administrativeAreasSubscribe.ready());
   return {

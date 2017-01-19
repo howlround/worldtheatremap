@@ -6,10 +6,11 @@ import ProfileEditPage from '../pages/ProfileEditPage.jsx';
 
 export default createContainer(({ params: { id } }) => {
   const singleProfileSubscription = TAPi18n.subscribe('profiles.singleById', id);
+  const countriesSubscribe = TAPi18n.subscribe('countries.public');
   const profile = Profiles.findOne(id);
   const profileExists = !loading && !!profile;
   GoogleMaps.load({ key: 'AIzaSyCJleIzga_bAKO6Gwkzz2rlxnQ7T_f2xGM', libraries: 'places' });
-  const loading = !(singleProfileSubscription.ready() && GoogleMaps.loaded());
+  const loading = !(singleProfileSubscription.ready() && countriesSubscribe.ready() && GoogleMaps.loaded());
   return {
     loading,
     profile,

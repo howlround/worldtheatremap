@@ -97,6 +97,7 @@ class SearchEvents extends React.Component {
   render() {
     // const { event, eventExists, loading } = this.props;
     const { loading } = this.props;
+    const { locale } = this.props.intl;
 
     if (loading) {
       return (
@@ -105,7 +106,7 @@ class SearchEvents extends React.Component {
     } else {
       let formOptions = filtersFormOptions();
       formOptions.fields.locality.factory = localitiesFactory();
-      formOptions.fields.country.factory = existingCountriesFactory();
+      formOptions.fields.country.factory = existingCountriesFactory(locale);
       formOptions.fields.administrativeArea.factory = administrativeAreasFactory();
 
       // @TODO: Refactor filters form to be a component?

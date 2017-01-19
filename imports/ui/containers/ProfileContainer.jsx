@@ -76,8 +76,8 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
   _.each(participantRecords, record => {
     if (!_.contains(roles, record.role)) {
       roles.push(record.role);
-      showsToSubscribeTo.push(record.event.show._id);
     }
+    showsToSubscribeTo.push(record.event.show._id);
   });
 
   // Get shows where this user is the local org for an event

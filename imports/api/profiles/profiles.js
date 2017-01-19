@@ -577,14 +577,6 @@ const Roles = [
     />,
   },
   {
-    value: 'Singer',
-    label: <FormattedMessage
-      id="role.Singer"
-      description="Roles options: Singer"
-      defaultMessage="Singer"
-    />,
-  },
-  {
     value: 'Student',
     label: <FormattedMessage
       id="role.Student"

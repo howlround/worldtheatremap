@@ -1146,20 +1146,20 @@ const AllCountries = [
     },
   },
   {
-    value: 'Korea, North',
-    label: 'Korea, North',
+    value: 'North Korea',
+    label: 'North Korea',
     i18n: {
       es: {
-        label: 'Corea (del Norte)',
+        label: 'Corea del Norte',
       },
     },
   },
   {
-    value: 'Korea, South',
-    label: 'Korea, South',
+    value: 'South Korea',
+    label: 'South Korea',
     i18n: {
       es: {
-        label: 'Corea (del Sur)',
+        label: 'Corea del Sur',
       },
     },
   },
@@ -2087,6 +2087,15 @@ const AllCountries = [
     i18n: {
       es: {
         label: 'Siria',
+      },
+    },
+  },
+  {
+    value: 'Taiwan',
+    label: 'Taiwan',
+    i18n: {
+      es: {
+        label: 'Taiwán',
       },
     },
   },

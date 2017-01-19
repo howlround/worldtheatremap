@@ -12,6 +12,9 @@ import classnames from 'classnames';
 // API
 import { insert } from '../../api/events/methods.js';
 import { eventSchema, defaultFormOptions } from '../../api/events/forms.js';
+import { AllCountriesFactory } from '../../api/countries/countries.js';
+
+// Containers
 import RelatedShowTextboxContainer from '../../ui/containers/RelatedShowTextboxContainer.jsx';
 
 const Form = t.form.Form;
@@ -187,7 +190,10 @@ class EventAdd extends React.Component {
 
   render() {
     const { displayNewShowForm } = this.props;
+    const { locale } = this.props.intl;
     const formOptions = defaultFormOptions();
+
+    formOptions.fields.country.factory = AllCountriesFactory(locale);
 
     return (
       <form className="event-edit-form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off" >

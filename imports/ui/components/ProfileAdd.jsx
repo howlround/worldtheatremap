@@ -8,6 +8,7 @@ import { displayError } from '../helpers/errors.js';
 
 import { insert } from '../../api/profiles/methods.js';
 import { profileFormSchema, defaultFormOptions } from '../../api/profiles/profiles.js';
+import { AllCountriesFactory } from '../../api/countries/countries.js';
 
 const Form = t.form.Form;
 
@@ -203,6 +204,8 @@ class ProfileAdd extends React.Component {
       formOptions.fields.orgTypes.disabled = true;
     }
 
+    formOptions.fields.country.factory = AllCountriesFactory(locale);
+
     switch (locale) {
       case 'es':
         Form.i18n = i18nES;
@@ -235,7 +238,7 @@ class ProfileAdd extends React.Component {
 }
 
 ProfileAdd.propTypes = {
-  googpleMapsReady: React.PropTypes.bool,
+  googleMapsReady: React.PropTypes.bool,
   intl: intlShape.isRequired,
 };
 

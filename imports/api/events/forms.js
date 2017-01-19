@@ -11,7 +11,7 @@ import moment from 'moment';
 import DatePicker from 'react-datepicker';
 
 // API
-import { AllCountriesFactory } from '../../api/countries/countries.js';
+// import { AllCountriesFactory } from '../../api/countries/countries.js';
 
 // Containers
 import RelatedShowTextboxContainer from '../../ui/containers/RelatedShowTextboxContainer.jsx';
@@ -486,7 +486,7 @@ export const defaultFormOptions = () => ({
       },
     },
     country: {
-      factory: AllCountriesFactory(),
+      // factory: AllCountriesFactory(),
       label: <FormattedMessage
         id="forms.labelRequiredOrOptional"
         description="Label for a form field with required or optional specified"

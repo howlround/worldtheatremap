@@ -4,8 +4,9 @@ import SearchShows from '../pages/SearchShows.jsx';
 
 export default createContainer(() => {
   const languagesSubscribe = Meteor.subscribe('languages.public');
-  const loading = false;
+  const countriesSubscribe = TAPi18n.subscribe('countries.public');
+  const loading = !(countriesSubscribe.ready() && languagesSubscribe.ready());
   return {
-    loading: !(languagesSubscribe.ready()),
+    loading,
   };
 }, SearchShows);

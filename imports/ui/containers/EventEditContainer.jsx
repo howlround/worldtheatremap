@@ -6,9 +6,10 @@ import EventPage from '../pages/EventPage.jsx';
 
 const EventEditContainer = createContainer(({ params: { id } }) => {
   const singleEventSubscription = Meteor.subscribe('events.single', id);
+  const countriesSubscribe = TAPi18n.subscribe('countries.public');
   const event = Events.findOne(id);
   GoogleMaps.load({ key: 'AIzaSyCJleIzga_bAKO6Gwkzz2rlxnQ7T_f2xGM', libraries: 'places' });
-  const loading = !(singleEventSubscription.ready() && GoogleMaps.loaded());
+  const loading = !(singleEventSubscription.ready() && countriesSubscribe.ready() && GoogleMaps.loaded());
   const eventExists = !loading && !!event;
   return {
     loading,

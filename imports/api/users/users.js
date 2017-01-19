@@ -8,7 +8,7 @@ import React from 'react';
 import t from 'tcomb-form';
 
 // API
-import { AllCountriesFactory } from '../../api/countries/countries.js';
+// import { AllCountriesFactory } from '../../api/countries/countries.js';
 import { disabledFieldTemplate } from '../../api/profiles/profiles.js';
 
 // Components
@@ -200,7 +200,7 @@ export const defaultFormOptions = () => ({
           />,
         },
         country: {
-          factory: AllCountriesFactory(true),
+          // factory: AllCountriesFactory(true),
           label: <FormattedMessage
             id="forms.countryLabel"
             description="Field label for country name field on the join form"

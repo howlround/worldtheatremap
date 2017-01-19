@@ -3,10 +3,12 @@ import React from 'react';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-form';
+import i18nES from 'tcomb-form/lib/i18n/es';
 import { displayError } from '../helpers/errors.js';
 
 import { update } from '../../api/profiles/methods.js';
 import { profileFormSchema, defaultFormOptions } from '../../api/profiles/profiles.js';
+import { AllCountriesFactory } from '../../api/countries/countries.js';
 
 const Form = t.form.Form;
 
@@ -190,6 +192,7 @@ class ProfileEdit extends React.Component {
   }
 
   render() {
+    const { locale } = this.props.intl;
     const { profileType, gender } = this.state;
     let formOptions = defaultFormOptions();
 
@@ -207,6 +210,14 @@ class ProfileEdit extends React.Component {
     if (!_.contains(profileType, 'Organization')) {
       formOptions.fields.foundingYear.disabled = true;
       formOptions.fields.orgTypes.disabled = true;
+    }
+
+    formOptions.fields.country.factory = AllCountriesFactory(locale);
+
+    switch (locale) {
+      case 'es':
+        Form.i18n = i18nES;
+        break;
     }
 
     return (
@@ -236,7 +247,7 @@ class ProfileEdit extends React.Component {
 
 ProfileEdit.propTypes = {
   profile: React.PropTypes.object,
-  googpleMapsReady: React.PropTypes.bool,
+  googleMapsReady: React.PropTypes.bool,
   intl: intlShape.isRequired,
 };
 

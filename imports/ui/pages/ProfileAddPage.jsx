@@ -11,6 +11,7 @@ import Profile from '../components/Profile.jsx';
 import ProfileAdd from '../components/ProfileAdd.jsx';
 import AccessDeniedMessage from '../components/AccessDeniedMessage.jsx';
 import Modal from '../components/Modal.jsx';
+import Loading from '../components/Loading.jsx';
 import AuthSignIn from '../components/AuthSignIn.jsx';
 
 class ProfileAddPage extends React.Component {
@@ -19,7 +20,7 @@ class ProfileAddPage extends React.Component {
   }
 
   render() {
-    const { add, user } = this.props;
+    const { add, loading, user } = this.props;
     const { formatMessage } = this.props.intl;
 
     const pageClass = classnames({
@@ -27,7 +28,14 @@ class ProfileAddPage extends React.Component {
       'profiles-add': true,
     });
 
-    if (add && user) {
+    if (loading) {
+      return (
+        <div className="overlay-wrapper">
+          <Modal />
+          <Loading key="loading" />
+        </div>
+      );
+    } else if (add && user) {
       return (
         <div className="overlay-wrapper">
           <Modal />
@@ -64,6 +72,7 @@ class ProfileAddPage extends React.Component {
 
 ProfileAddPage.propTypes = {
   add: React.PropTypes.bool,
+  loading: React.PropTypes.bool,
   user: React.PropTypes.object,
   intl: intlShape.isRequired,
 };

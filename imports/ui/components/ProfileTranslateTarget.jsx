@@ -157,7 +157,7 @@ export default class ProfileEdit extends React.Component {
 
 ProfileEdit.propTypes = {
   profile: React.PropTypes.object,
-  googpleMapsReady: React.PropTypes.bool,
+  googleMapsReady: React.PropTypes.bool,
 };
 
 ProfileEdit.contextTypes = {

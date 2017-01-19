@@ -9,7 +9,7 @@ import { stringify, parse } from 'qs'
 // route components
 import AboutPage from '../../ui/pages/AboutPage.jsx';
 import AppContainer from '../../ui/containers/AppContainer.jsx';
-import AuthJoinPage from '../../ui/pages/AuthJoinPage.jsx';
+import AuthJoinContainer from '../../ui/containers/AuthJoinContainer.jsx';
 import AuthSignInPage from '../../ui/pages/AuthSignInPage.jsx';
 import EventAddContainer from '../../ui/containers/EventAddContainer.jsx';
 import EventContainer from '../../ui/containers/EventContainer.jsx';
@@ -116,7 +116,7 @@ export const renderRoutes = ({ locale, messages }) => (
           <Route path=":id/edit" component={EventEditContainer} />
         </Route>
         <Route path="signin" component={AuthSignInPage} />
-        <Route path="join" component={AuthJoinPage} />
+        <Route path="join" component={AuthJoinContainer} />
         <Route path="about" component={AboutPage} />
         <Route path="terms-of-use" component={TermsOfUsePage} />
         <Route path="logout" component={LogoutPage} />

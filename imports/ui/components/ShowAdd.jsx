@@ -10,6 +10,7 @@ import i18nES from 'tcomb-form/lib/i18n/es';
 // API
 import { insert } from '../../api/shows/methods.js';
 import { showSchema, defaultFormOptions } from '../../api/shows/shows.js';
+import { AllCountriesFactory } from '../../api/countries/countries.js';
 import { insert as insertProfile } from '../../api/profiles/methods.js';
 import { Profiles } from '../../api/profiles/profiles.js';
 
@@ -82,6 +83,8 @@ class ShowAdd extends React.Component {
   render() {
     const { locale } = this.props.intl;
     const formOptions = defaultFormOptions();
+
+    formOptions.fields.country.factory = AllCountriesFactory(locale, true);
 
     switch (locale) {
       case 'es':

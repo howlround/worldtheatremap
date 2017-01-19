@@ -8,8 +8,10 @@ import {
   remove,
 } from '../../api/shows/methods.js';
 import { showSchema, defaultFormOptions } from '../../api/shows/shows.js';
+import { AllCountriesFactory } from '../../api/countries/countries.js';
 import { Profiles } from '../../api/profiles/profiles.js';
 import t from 'tcomb-form';
+import i18nES from 'tcomb-form/lib/i18n/es';
 
 const Form = t.form.Form;
 
@@ -100,7 +102,16 @@ class ShowEdit extends React.Component {
 
   render() {
     const { show } = this.props;
+    const { locale } = this.props.intl;
     const formOptions = defaultFormOptions();
+
+    formOptions.fields.country.factory = AllCountriesFactory(locale, true);
+
+    switch (locale) {
+      case 'es':
+        Form.i18n = i18nES;
+        break;
+    }
 
     return (
       <form className="show-edit-form" onSubmit={this.handleSubmit.bind(this)} >

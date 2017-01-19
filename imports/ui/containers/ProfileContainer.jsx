@@ -32,7 +32,7 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
   // Connections
   const connectionsSubscribe = Meteor.subscribe('relatedRecords.byProfile', id);
   let connectionIds = new Array;
-  const relatedProfiles = RelatedRecords.find({ "profiles": id }).map(relatedRecord => {
+  const relatedProfiles = RelatedRecords.find({ "profiles": id }, { limit: 25 }).map(relatedRecord => {
     for (let i = relatedRecord.profiles.length - 1; i >= 0; i--) {
       if (relatedRecord.profiles[i] === id) {
         continue;

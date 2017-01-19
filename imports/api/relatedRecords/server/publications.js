@@ -19,5 +19,6 @@ import { RelatedRecords } from '../relatedRecords.js';
 Meteor.publish('relatedRecords.byProfile', function relatedRecordsbyProfile(id) {
   return RelatedRecords.find({'profiles': id}, {
     fields: RelatedRecords.publicFields,
+    limit: 25,
   });
 });

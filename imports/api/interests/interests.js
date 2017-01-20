@@ -185,6 +185,14 @@ const Interests = [
     />,
   },
   {
+    value: 'Migration',
+    label: <FormattedMessage
+      id="interest.Migration"
+      description="Interests options: Migration"
+      defaultMessage="Migration"
+    />,
+  },
+  {
     value: 'Monologue / Solo Performance',
     label: <FormattedMessage
       id="interest.Monologue / Solo Performance"

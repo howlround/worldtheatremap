@@ -2,10 +2,16 @@ import React from 'react';
 import { Link } from 'react-router';
 import { insert } from '../../api/shows/methods.js';
 import classNames from 'classnames';
+import marked from 'marked';
+import sanitizeHtml from 'sanitize-html';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import Authors from '../components/Authors.jsx';
 import EventTeaser from '../components/EventTeaser.jsx';
 import EventsMiniGlobe from '../components/EventsMiniGlobe.jsx';
+
+marked.setOptions({
+  tables: false,
+});
 
 class Show extends React.Component {
   constructor(props) {
@@ -170,8 +176,10 @@ class Show extends React.Component {
                 defaultMessage="About"
               />
             </h2>
-            {/*<div dangerouslySetInnerHTML={{__html: show.about}} />*/}
-            {show.about}
+            <div
+              className="markdown-formatted"
+              dangerouslySetInnerHTML={{__html: sanitizeHtml(marked(show.about))}}
+            />
             <div className="edit-links">
               {editLink}
             </div>

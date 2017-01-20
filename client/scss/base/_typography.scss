@@ -38,6 +38,7 @@ em {
 
 p {
   line-height: 1.4em;
+  margin-bottom: $spacing-unit;
 }
 
 ol {
@@ -61,6 +62,29 @@ ol {
     }
 
     ol.ordered-list-numbers {
+      list-style-type: decimal;
+    }
+  }
+}
+
+.markdown-formatted {
+  ul,
+  ol {
+    padding-left: 20px;
+
+    li {
+      margin-bottom: $spacing-unit;
+    }
+  }
+
+  ul {
+    li {
+      list-style-type: disc;
+    }
+  }
+
+  ol {
+    li {
       list-style-type: decimal;
     }
   }

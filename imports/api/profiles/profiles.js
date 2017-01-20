@@ -923,7 +923,7 @@ class GendersReactSelectFactory extends t.form.Component {
 GendersCheckboxesFactory.transformer = t.form.List.transformer;
 GendersReactSelectFactory.transformer = t.form.List.transformer;
 
-// Get field labels to change based on disabled value
+// Reorder field elements
 const genericFieldTemplate = t.form.Form.templates.textbox.clone({
   renderVertical: (locals) => {
     return [
@@ -934,7 +934,6 @@ const genericFieldTemplate = t.form.Form.templates.textbox.clone({
     ]
   },
 });
-
 
 // Get field labels to change based on disabled value
 export const disabledFieldTemplate = t.form.Form.templates.textbox.clone({
@@ -1154,6 +1153,7 @@ export const defaultFormOptions = () => ({
       />,
     },
     about: {
+      template: genericFieldTemplate,
       label: <FormattedMessage
         id="forms.labelRequiredOrOptional"
         description="Label for a form field with required or optional specified"
@@ -1170,6 +1170,11 @@ export const defaultFormOptions = () => ({
             defaultMessage="About"
           />,
         }}
+      />,
+      help: <FormattedMessage
+        id="forms.markdownHelpText"
+        description="Help text markdown fields"
+        defaultMessage="To make italic text wrap words or phrases in asterisks. For example: *this will be italic*. Typing URLs will automatically become links if you include the http://."
       />,
       type: 'textarea',
       attrs: {

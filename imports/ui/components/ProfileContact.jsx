@@ -1,7 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router';
-import FieldWrapper from '../components/FieldWrapper.jsx';
+import marked from 'marked';
+import sanitizeHtml from 'sanitize-html';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
+
+import FieldWrapper from '../components/FieldWrapper.jsx';
+
+marked.setOptions({
+  tables: false,
+});
 
 class ProfileContact extends React.Component {
   constructor(props) {
@@ -87,10 +94,9 @@ class ProfileContact extends React.Component {
                 </a>
                 : ''}
               {profile.social ?
-                <FieldWrapper
-                  content={profile.social}
-                  className="profile-social"
-                />
+                <div className="profile-social">
+                  <div dangerouslySetInnerHTML={{__html: sanitizeHtml(marked(profile.social))}} />
+                </div>
                 : ''}
             </div>
             : ''

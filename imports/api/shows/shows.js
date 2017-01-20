@@ -38,6 +38,17 @@ Shows.deny({
   remove() { return true; },
 });
 
+// Reorder field elements
+const genericFieldTemplate = t.form.Form.templates.textbox.clone({
+  renderVertical: (locals) => {
+    return [
+      genericFieldTemplate.renderLabel(locals),
+      genericFieldTemplate.renderHelp(locals),
+      genericFieldTemplate.renderError(locals),
+      genericFieldTemplate.renderTextbox(locals),
+    ]
+  },
+});
 
 /* Author component override */
 // Author
@@ -216,6 +227,7 @@ export const defaultFormOptions = () => ({
       },
     },
     about: {
+      template: genericFieldTemplate,
       label: <FormattedMessage
         id="forms.labelRequiredOrOptional"
         description="Label for a form field with required or optional specified"
@@ -232,6 +244,11 @@ export const defaultFormOptions = () => ({
             defaultMessage="About"
           />,
         }}
+      />,
+      help: <FormattedMessage
+        id="forms.markdownHelpText"
+        description="Help text markdown fields"
+        defaultMessage="To make italic text wrap words or phrases in asterisks. For example: *this will be italic*. Typing URLs will automatically become links if you include the http://."
       />,
       type: 'textarea',
       attrs: {

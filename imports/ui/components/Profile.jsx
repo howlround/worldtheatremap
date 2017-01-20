@@ -2,6 +2,8 @@ import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import classNames from 'classnames';
+import marked from 'marked';
+import sanitizeHtml from 'sanitize-html';
 import { _ } from 'meteor/underscore';
 import { Link } from 'react-router';
 import { displayError } from '../helpers/errors.js';
@@ -18,6 +20,10 @@ import ProfileNameContainer from '../containers/ProfileNameContainer.jsx';
 // API
 import { updateImage } from '../../api/profiles/methods.js';
 import { remove } from '../../api/affiliations/methods.js';
+
+marked.setOptions({
+  tables: false,
+});
 
 class Profile extends React.Component {
   constructor(props) {
@@ -445,8 +451,10 @@ class Profile extends React.Component {
                 defaultMessage="About"
               />
             </h2>
-            {/* <div dangerouslySetInnerHTML={{__html: profile.about}} /> */}
-            {profile.about}
+            <div
+              className="markdown-formatted"
+              dangerouslySetInnerHTML={{__html: sanitizeHtml(marked(profile.about))}}
+            />
             {editLink ?
               <div className="edit-links">
                 {editLink}

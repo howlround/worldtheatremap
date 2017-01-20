@@ -78,6 +78,9 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
       roles.push(record.role);
     }
     showsToSubscribeTo.push(record.event.show._id);
+
+    // Add Show authors
+    _.each(record.event.show.author, (author) => allNecessaryProfiles.push(author._id));
   });
 
   // Get shows where this user is the local org for an event

@@ -57,7 +57,7 @@ class ProfileContact extends React.Component {
                   })
                 } /> : ''}
               {profile.website ?
-                <a href={`//${profile.website}`}>
+                <a href={`http://${profile.website}`}>
                   {profile.website}
                 </a>
               : ''}

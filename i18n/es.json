@@ -598,6 +598,7 @@
   "gender.Another Identity": "Otra identidad",
   "forms.profileNameLabel": "Nombre del perfil",
   "forms.profileAboutLabel": "Sobre el Perfil",
+  "forms.markdownHelpText": "Para hacer que el texto en cursiva envuelva palabras o frases en asteriscos. Por ejemplo: *esto será en cursiva*. Las URL de escritura se convertirán automáticamente en enlaces si se incluye http://.",
   "forms.profileTypeLabel": "¿Qué tipo de perfil es este",
   "forms.profileTypeHelpText": "¿Está representando este perfil a un individuo o organización?",
   "forms.profileEthnicityRaceLabel": "Si este es tu perfil, puedes elegir mostrar tu etnia / raza / identidad cultural",

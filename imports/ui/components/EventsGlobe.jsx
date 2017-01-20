@@ -116,6 +116,15 @@ export default class EventsGlobe extends React.Component {
             c.stroke();
             c.fill();
 
+            // Background dots
+            // projection.clipAngle(180);
+            // _.each(eventLocations, dot => {
+            //   c.fillStyle = "#b3e6e4";
+            //   c.beginPath();
+            //   path(dot);
+            //   c.fill();
+            // });
+
             // Background Grid
             projection.clipAngle(180);
             // c.strokeStyle = "#deffff";
@@ -147,6 +156,15 @@ export default class EventsGlobe extends React.Component {
             c.beginPath();
             path(borders);
             c.stroke();
+
+            // Other dots
+            projection.clipAngle(90);
+            _.each(eventLocations, dot => {
+              c.fillStyle = "#1c3f53";
+              c.beginPath();
+              path(dot);
+              c.fill();
+            });
 
             // Dot
             c.fillStyle = "#ef4606";

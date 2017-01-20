@@ -17,7 +17,7 @@ import Checkboxes from '../../ui/components/Checkboxes.jsx';
 const profile = t.struct({
   first: t.String, // Required
   last: t.String, // Required
-  country: t.maybe(t.list(t.String)),
+  country: t.list(t.String),
   referrer: t.maybe(t.list(t.String)),
   referrerOther: t.maybe(t.String),
 });
@@ -134,9 +134,21 @@ export const defaultFormOptions = () => ({
     email: {
       type: 'email',
       label: <FormattedMessage
-        id="auth.emailLabel"
-        description="Label for email field"
-        defaultMessage="Your Email"
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier required"><FormattedMessage
+            id="forms.requiredLabel"
+            description="Addition to label indicating a field is required"
+            defaultMessage="(required)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="auth.emailLabel"
+            description="Label for email field"
+            defaultMessage="Your Email"
+          />,
+        }}
       />,
       attrs: {},
       error: <FormattedMessage
@@ -148,9 +160,21 @@ export const defaultFormOptions = () => ({
     password: {
       type: 'password',
       label: <FormattedMessage
-        id="auth.passwordLabel"
-        description="Label for password field"
-        defaultMessage="Password"
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier required"><FormattedMessage
+            id="forms.requiredLabel"
+            description="Addition to label indicating a field is required"
+            defaultMessage="(required)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="auth.passwordLabel"
+            description="Label for password field"
+            defaultMessage="Password"
+          />,
+        }}
       />,
       attrs: {},
       error: <FormattedMessage
@@ -162,9 +186,21 @@ export const defaultFormOptions = () => ({
     confirm: {
       type: 'password',
       label: <FormattedMessage
-        id="auth.passwordConfirmLabel"
-        description="Label confirm password field"
-        defaultMessage="Confirm Password"
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier required"><FormattedMessage
+            id="forms.requiredLabel"
+            description="Addition to label indicating a field is required"
+            defaultMessage="(required)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="auth.passwordConfirmLabel"
+            description="Label confirm password field"
+            defaultMessage="Confirm Password"
+          />,
+        }}
       />,
       attrs: {},
       error: <FormattedMessage
@@ -177,9 +213,21 @@ export const defaultFormOptions = () => ({
       fields: {
         first: {
           label: <FormattedMessage
-            id="auth.firstLabel"
-            description="Field label for first name field on the join form"
-            defaultMessage="First Name"
+            id="forms.labelRequiredOrOptional"
+            description="Label for a form field with required or optional specified"
+            defaultMessage="{labelText} {optionalOrRequired}"
+            values={{
+              optionalOrRequired: <span className="field-label-modifier required"><FormattedMessage
+                id="forms.requiredLabel"
+                description="Addition to label indicating a field is required"
+                defaultMessage="(required)"
+              /></span>,
+              labelText: <FormattedMessage
+                id="auth.firstLabel"
+                description="Field label for first name field on the join form"
+                defaultMessage="First Name"
+              />,
+            }}
           />,
           error: <FormattedMessage
             id="auth.firstError"
@@ -189,9 +237,21 @@ export const defaultFormOptions = () => ({
         },
         last: {
           label: <FormattedMessage
-            id="auth.lastLabel"
-            description="Field label for last name field on the join form"
-            defaultMessage="Last Name"
+            id="forms.labelRequiredOrOptional"
+            description="Label for a form field with required or optional specified"
+            defaultMessage="{labelText} {optionalOrRequired}"
+            values={{
+              optionalOrRequired: <span className="field-label-modifier required"><FormattedMessage
+                id="forms.requiredLabel"
+                description="Addition to label indicating a field is required"
+                defaultMessage="(required)"
+              /></span>,
+              labelText: <FormattedMessage
+                id="auth.lastLabel"
+                description="Field label for last name field on the join form"
+                defaultMessage="Last Name"
+              />,
+            }}
           />,
           error: <FormattedMessage
             id="auth.lastError"
@@ -200,19 +260,54 @@ export const defaultFormOptions = () => ({
           />,
         },
         country: {
+          // hasError: true,
           // factory: AllCountriesFactory(true),
           label: <FormattedMessage
-            id="forms.countryLabel"
-            description="Field label for country name field on the join form"
-            defaultMessage="Country"
+            id="forms.labelRequiredOrOptional"
+            description="Label for a form field with required or optional specified"
+            defaultMessage="{labelText} {optionalOrRequired}"
+            values={{
+              optionalOrRequired: <span className="field-label-modifier required"><FormattedMessage
+                id="forms.requiredLabel"
+                description="Addition to label indicating a field is required"
+                defaultMessage="(required)"
+              /></span>,
+              labelText: <FormattedMessage
+                id="forms.countryLabel"
+                description="Field label for country name field on the join form"
+                defaultMessage="Country"
+              />,
+            }}
+          />,
+          error: <FormattedMessage
+            id="auth.countryError"
+            description="Field validation error when user does not enter a country value on the join form"
+            defaultMessage="Country is required"
+          />,
+          help: <FormattedMessage
+            id="auth.countryHelp"
+            description="Help text for country field on the join form"
+            defaultMessage="You may choose more than one."
           />,
         },
         referrer: {
           factory: ReferrerCheckboxesFactory,
           label: <FormattedMessage
-            id="auth.referrerLabel"
-            description="Field label for referrer field on the join form"
-            defaultMessage="How did you hear about the World Theatre Map?"
+            id="forms.labelRequiredOrOptional"
+            description="Label for a form field with required or optional specified"
+            defaultMessage="{labelText} {optionalOrRequired}"
+            values={{
+              optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+                id="forms.optionalLabel"
+                description="Addition to label indicating a field is optional"
+                defaultMessage="(optional)"
+              /></span>,
+              labelText: <FormattedMessage
+                id="auth.referrerLabel"
+                description="Field label for referrer field on the join form"
+                defaultMessage="How did you hear about the World Theatre Map?"
+              />,
+            }}
           />,
         },
         referrerOther: {

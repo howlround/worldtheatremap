@@ -635,6 +635,8 @@
   "auth.firstError": "El nombre es requerido",
   "auth.lastLabel": "Apellido",
   "auth.lastError": "El apellido es requerido",
+  "auth.countryError": "El campo País es requerido",
+  "auth.countryHelp": "Puede elegir más de uno.",
   "auth.referrerLabel": "¿Cómo supo sobre el Mapa Mundial del Teatro?",
   "navigation.addMenu": "+ Añadir",
   "navigation.addProfile": "Añadir Persona/Organización",

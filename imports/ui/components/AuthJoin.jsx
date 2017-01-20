@@ -7,6 +7,9 @@ import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { get } from 'lodash';
 import { Link } from 'react-router';
 
+// Components
+import Loading from '../components/Loading.jsx';
+
 // API
 import { userSchema, defaultFormOptions } from '../../api/users/users.js';
 import { AllCountriesFactory } from '../../api/countries/countries.js';
@@ -16,7 +19,10 @@ const Form = t.form.Form;
 class AuthJoin extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { errors: {} };
+    this.state = {
+      errors: {},
+      loading: false,
+    };
 
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -51,10 +57,17 @@ class AuthJoin extends React.Component {
       const result = t.validate(user, userSchema);
 
       if (result.isValid()) {
+        // Set loading to true
+        this.setState({
+          loading: true,
+        });
+
         Accounts.createUser(user, err => {
           if (err) {
+            // Set loading to false to deal with errors
             this.setState({
               errors: { none: err.reason },
+              loading: false,
             });
           }
           else {
@@ -67,7 +80,7 @@ class AuthJoin extends React.Component {
 
   render() {
     const { formatMessage, locale } = this.props.intl;
-    const { errors, profile } = this.state;
+    const { errors, profile, loading } = this.state;
     const errorMessages = Object.keys(errors).map(key => errors[key]);
     const errorClass = key => errors[key] && 'error';
 
@@ -94,39 +107,47 @@ class AuthJoin extends React.Component {
           />
         </p>
 
-        <form className="account-join-form" onSubmit={this.onSubmit.bind(this)}>
-          <div className="list-errors">
-            {errorMessages.map(msg => (
-              <div className="list-item" key={msg}>{msg}</div>
-            ))}
+        {loading ?
+          <Loading key="loading" />
+        : ''}
+
+        {!loading ?
+          <div>
+            <form className="account-join-form" onSubmit={this.onSubmit.bind(this)}>
+              <div className="list-errors">
+                {errorMessages.map(msg => (
+                  <div className="list-item" key={msg}>{msg}</div>
+                ))}
+              </div>
+              <Form
+                ref="form"
+                type={userSchema}
+                options={formOptions}
+                onChange={this.onChange}
+                value={this.state}
+              />
+
+              <button
+                type="submit"
+                className="account-join-save"
+              >
+                <FormattedMessage
+                  id='auth.joinButton'
+                  description='Button on the Join Now form'
+                  defaultMessage="Join Now"
+                />
+              </button>
+            </form>
+
+            <Link to={`/${locale}/signin`} className="link-auth-alt">
+              <FormattedMessage
+                id="auth.linkToSignIn"
+                description="Link to sign in instead of join"
+                defaultMessage="Have an account? Sign in"
+              />
+            </Link>
           </div>
-          <Form
-            ref="form"
-            type={userSchema}
-            options={formOptions}
-            onChange={this.onChange}
-            value={this.state}
-          />
-
-          <button
-            type="submit"
-            className="account-join-save"
-          >
-            <FormattedMessage
-              id='auth.joinButton'
-              description='Button on the Join Now form'
-              defaultMessage="Join Now"
-            />
-          </button>
-        </form>
-
-        <Link to={`/${locale}/signin`} className="link-auth-alt">
-          <FormattedMessage
-            id="auth.linkToSignIn"
-            description="Link to sign in instead of join"
-            defaultMessage="Have an account? Sign in"
-          />
-        </Link>
+        : ''}
       </div>
     );
   }

@@ -49,6 +49,7 @@ const initiateRender = () => {
       ReactGA.ga('set', 'dimension2', locale);
 
       const messages = loadTranslation( { locale });
+
       render(renderRoutes({ locale, messages }), this.container);
     },
 

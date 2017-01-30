@@ -27,6 +27,9 @@ export const insert = new ValidatedMethod({
         'You must be logged in to complete this operation.');
     }
 
+    // Record that this user added new content
+    Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentAddedCount": 1 } });
+
     // @TODO: Put entire Show object in
     return Events.insert(newEvent);
   },
@@ -54,13 +57,8 @@ export const update = new ValidatedMethod({
       delete newEvent._id;
     }
 
-    // if (!event.editableBy(this.userId)) {
-    //   throw new Meteor.Error('events.update.accessDenied',
-    //     'You don\'t have permission to edit this event.');
-    // }
-
-    // XXX the security check above is not atomic, so in theory a race condition could
-    // result in exposing private data
+    // Record that this user edited content
+    Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentEditedCount": 1 } });
 
     Events.update(eventId, {
       $set: newEvent,
@@ -76,6 +74,9 @@ export const remove = new ValidatedMethod({
       throw new Meteor.Error('events.remove.accessDenied',
         'You must be logged in to complete this operation.');
     }
+
+    // Record that this user edited content
+    Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentEditedCount": 1 } });
 
     Events.remove(eventId);
   },

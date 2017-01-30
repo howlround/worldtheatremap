@@ -50,6 +50,9 @@ export const insert = new ValidatedMethod({
     // Save source language
     newShow.source = source;
 
+    // Record that this user added new content
+    Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentAddedCount": 1 } });
+
     const insertedShowID = Shows.insertTranslations(newShow, translations);
 
     if (!_.isEmpty(newShow.languages)) {
@@ -168,6 +171,9 @@ export const update = new ValidatedMethod({
       });
     }
 
+    // Record that this user edited content
+    Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentEditedCount": 1 } });
+
     Shows.updateTranslations(showId, doc);
   },
 });
@@ -183,7 +189,8 @@ export const remove = new ValidatedMethod({
 
     Shows.remove(showId);
 
-    // @TODO: Update the user record for this.userId and increment the contentEdited field
+    // Record that this user edited content
+    Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentEditedCount": 1 } });
   },
 });
 

@@ -54,7 +54,8 @@ export const insert = new ValidatedMethod({
       upsertCountry.call({ country: newProfile.country });
     }
 
-    // @TODO: Update the user record for this.userId and increment the contentAdded field
+    // Record that this user added new content
+    Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentAddedCount": 1 } });
 
     // The permutations of viewing language and target language:
     // (After doing this we will conflate "Viewing in" and "Target" for now. They can be split apart later if required.)
@@ -203,6 +204,9 @@ export const updateImage = new ValidatedMethod({
     const profile = Profiles.findOne(profileId);
     const imageWide = image.replace('https://wtm-dev-images', 'https://wtm-dev-images-resized');
 
+    // Record that this user edited content
+    Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentEditedCount": 1 } });
+
     Profiles.update(profile._id, {
       $set: {
         image,
@@ -260,6 +264,9 @@ export const update = new ValidatedMethod({
     const doc = {};
     doc[locale] = newProfile;
 
+    // Record that this user added new content
+    Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentEditedCount": 1 } });
+
     Profiles.updateTranslations(profileId, doc);
 
     // @TODO: Update the user record for this.userId and increment the contentEdited field
@@ -295,6 +302,9 @@ export const remove = new ValidatedMethod({
       throw new Meteor.Error('profiles.remove.accessDenied',
         'You must be logged in to complete this operation.');
     }
+
+    // Record that this user edit content
+    Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentEditedCount": 1 } });
 
     Profiles.remove(profileId);
 

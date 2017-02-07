@@ -106,10 +106,7 @@ export const insert = new ValidatedMethod({
       }
     }
 
-    // If the profile.howlroundPostSearchText field is not filled out, use the profile name
-    if (_.isEmpty(newProfile.howlroundPostSearchText)) {
-      newProfile.howlroundPostSearchText = newProfile.name;
-    }
+    newProfile.howlroundPostSearchText = newProfile.name;
 
     // Save source language
     newProfile.source = source;
@@ -263,6 +260,9 @@ export const update = new ValidatedMethod({
 
     const doc = {};
     doc[locale] = newProfile;
+
+    // Update howlround search text if name changes
+    newProfile.howlroundPostSearchText = newProfile.name;
 
     // Record that this user added new content
     Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentEditedCount": 1 } });

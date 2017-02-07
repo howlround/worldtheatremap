@@ -1576,7 +1576,7 @@ export const defaultFormOptions = () => ({
       help: <FormattedMessage
         id="forms.profileSocialHelpText"
         description="Help text for an optional Social form field"
-        defaultMessage="Add a label and a link. Put each link on a new line. For example: Facebook: https://www.facebook.com/myprofile"
+        defaultMessage="Add a label and a link. Enter a blank line between each link. For example: LinkedIn: https://www.linkedin.com/my_profile"
       />,
     },
     foundingYear: {

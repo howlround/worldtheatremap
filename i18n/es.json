@@ -615,7 +615,7 @@
   "forms.instagramLabel": "Instagram",
   "forms.instagramHelpText": "Por favor ingrese el nombre de la cuenta de Instagram relacionado con este perfil (NO incluya el @).",
   "profile.socialLabel": "Otros medios de comunicación",
-  "forms.profileSocialHelpText": "Añada un titulo y un enlace. Coloque cada enlace en una línea nueva. Por ejemplo: Facebook: https://www.facebook.com/mi_perfil",
+  "forms.profileSocialHelpText": "Añada un titulo y un enlace. Deja una linea en blanco entre cada uno. Coloque cada enlace en una línea nueva. Por ejemplo: LinkedIn: https://www.linkedin.com/mi_perfil",
   "forms.foundingYearLabel": "Año que se fundó la organización",
   "forms.foundingYearHelpText": "Si este perfil se refiere a una organización, ¿en que año fue fundada?",
   "forms.interestsLabel": "Intereses",

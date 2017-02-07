@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { _ } from 'meteor/underscore';
+import escapeRegExp from 'lodash.escaperegexp';
 import { Profiles } from '../../api/profiles/profiles.js';
 import SearchProfilesResults from '../components/SearchProfilesResults.jsx';
 
@@ -74,12 +75,12 @@ const SearchProfilesResultsContainer = createContainer((props) => {
     const plainTextQuery = _.clone(privateQuery);
 
     if (query.postalCode) {
-      privateQuery.postalCode = new RegExp(`.*${query.postalCode}.*`, 'i');
+      privateQuery.postalCode = new RegExp(`.*${escapeRegExp(query.postalCode)}.*`, 'i');
       plainTextQuery.postalCode = query.postalCode;
     }
 
     if (query.name) {
-      privateQuery.name = new RegExp(`.*${query.name}.*`, 'i');
+      privateQuery.name = new RegExp(`.*${escapeRegExp(query.name)}.*`, 'i');
       plainTextQuery.name = query.name;
       // privateQuery.name = new RegExp(query.name, 'i');
     }

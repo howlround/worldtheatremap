@@ -9,14 +9,14 @@ TAPi18n.publish('shows.public', function showsPublic() {
   });
 });
 
-TAPi18n.publish('shows.autocomplete', function showsPublic() {
+TAPi18n.publish('shows.autocomplete', function showsAutocomplete() {
   return Shows.i18nFind({}, {
     fields: Shows.autocompleteFields,
   });
 });
 
-TAPi18n.publish('shows.autocompleteQuery', function showsPublic(search) {
-  const regex = new RegExp(`.*${search}.*`, 'i');
+TAPi18n.publish('shows.autocompleteQuery', function showsAutocompleteQuery(search) {
+  const regex = new RegExp(`.*${escapeRegExp(search)}.*`, 'i');
   return Shows.i18nFind({ name: { $regex: regex } }, {
     fields: Shows.autocompleteFields,
   });
@@ -29,7 +29,7 @@ TAPi18n.publish('shows.byAuthor', function showsById(authorId) {
 });
 
 
-TAPi18n.publish('shows.byAuthorPlusOthers', function showsById(authorId, additionalIds) {
+TAPi18n.publish('shows.byAuthorPlusOthers', function showsByAuthorPlusOthers(authorId, additionalIds) {
   return Shows.i18nFind(
     {
       $or: [
@@ -50,20 +50,20 @@ TAPi18n.publish('shows.byAuthorPlusOthers', function showsById(authorId, additio
   );
 });
 
-TAPi18n.publish('shows.multipleById', function showsById(ids) {
+TAPi18n.publish('shows.multipleById', function showsMultipleById(ids) {
   return Shows.i18nFind({ _id: { $in: ids } }, {
     fields: Shows.publicFields,
   });
 });
 
-TAPi18n.publish('shows.singleById', function showsById(id) {
+TAPi18n.publish('shows.singleById', function showsSingleById(id) {
   return Shows.i18nFind({ _id: id }, {
     fields: Shows.publicFields,
     limit: 1,
   });
 });
 
-TAPi18n.publish('shows.singleNameById', function showsById(id) {
+TAPi18n.publish('shows.singleNameById', function showsSingleNameById(id) {
   return Shows.i18nFind({ _id: id }, {
     fields: { name: 1 },
     limit: 1,
@@ -74,7 +74,7 @@ TAPi18n.publish('shows.search', function showsSearch(plainTextQuery, skip) {
   const processedQuery = _.clone(plainTextQuery);
 
   if (plainTextQuery.name) {
-    processedQuery.name = new RegExp(`.*${plainTextQuery.name}.*`, 'i');
+    processedQuery.name = new RegExp(`.*${escapeRegExp(plainTextQuery.name)}.*`, 'i');
   }
 
   const limit = 20;

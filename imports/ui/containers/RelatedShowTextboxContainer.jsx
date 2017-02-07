@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
+import escapeRegExp from 'lodash.escaperegexp';
 
 // Components
 import RelatedShowTextbox from '../components/RelatedShowTextbox.jsx';
@@ -22,7 +23,7 @@ const RelatedShowTextboxContainer = createContainer((props) => {
 
   if (search && search.length > 0) {
     const showsSubscribe = TAPi18n.subscribe('shows.autocompleteQuery', search);
-    const regex = new RegExp(`.*${search}.*`, 'i');
+    const regex = new RegExp(`.*${escapeRegExp(search)}.*`, 'i');
     results = Shows.find({name: { $regex: regex }}, { limit: 5, fields: Shows.autocompleteFields }).fetch();
 
     // Subscribe to show authors (from multiple shows)

@@ -1,5 +1,6 @@
 import { TAPi18n } from 'meteor/tap:i18n';
 import { createContainer } from 'meteor/react-meteor-data';
+import escapeRegExp from 'lodash.escaperegexp';
 
 // Components
 import RelatedProfileTextbox from '../components/RelatedProfileTextbox.jsx';
@@ -14,7 +15,7 @@ const RelatedProfileTextboxContainer = createContainer((props) => {
 
   if (search && search.length > 0) {
     const profilesSubscribe = TAPi18n.subscribe('profiles.autocompleteQuery', search);
-    const regex = new RegExp(`.*${search}.*`, 'i');
+    const regex = new RegExp(`.*${escapeRegExp(search)}.*`, 'i');
 
     const query = {
       name: {

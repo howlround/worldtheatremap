@@ -4,6 +4,7 @@ import { displayError } from '../helpers/errors.js';
 import { Profiles } from '../../api/profiles/profiles.js';
 import { insert } from '../../api/profiles/methods.js';
 import { _ } from 'meteor/underscore';
+import escapeRegExp from 'lodash.escaperegexp';
 import classnames from 'classnames';
 import { FormattedMessage } from 'react-intl';
 
@@ -68,7 +69,7 @@ export default class RelatedProfile extends React.Component {
 
     if (search.length > 0) {
       // const profilesSubscribe = TAPi18n.subscribe('profiles.searchNames', { name: search });
-      const regex = new RegExp('.*' + search + '.*', 'i');
+      const regex = new RegExp(`.*${escapeRegExp(search)}.*`, 'i');
       // const results = Profiles.find({name: { $regex: regex }}, {limit: 5, fields: Profiles.publicFields,}).fetch();
       const results = Profiles.find({name: { $regex: regex }}, {limit: 5, fields: { name: 1 }}).fetch();
       // profilesSubscribe.stop();

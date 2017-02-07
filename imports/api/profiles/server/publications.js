@@ -2,6 +2,7 @@
 import { TAPi18n } from 'meteor/tap:i18n';
 import { Profiles } from '../profiles.js';
 import { _ } from 'meteor/underscore';
+import escapeRegExp from 'lodash.escaperegexp';
 
 TAPi18n.publish('profiles.public', function profilesPublic() {
   return Profiles.i18nFind({}, {
@@ -9,14 +10,14 @@ TAPi18n.publish('profiles.public', function profilesPublic() {
   });
 });
 
-TAPi18n.publish('profiles.autocomplete', function profilesPublic() {
+TAPi18n.publish('profiles.autocomplete', function profilesAutocomplete() {
   return Profiles.i18nFind({}, {
     fields: { name: 1 },
   });
 });
 
-TAPi18n.publish('profiles.autocompleteQuery', function profilesPublic(search) {
-  const regex = new RegExp(`.*${search}.*`, 'i');
+TAPi18n.publish('profiles.autocompleteQuery', function profilesAutocompleteQuery(search) {
+  const regex = new RegExp(`.*${escapeRegExp(search)}.*`, 'i');
   return Profiles.i18nFind({ name: { $regex: regex } }, {
     fields: Profiles.autocompleteFields,
   });
@@ -26,11 +27,11 @@ TAPi18n.publish('profiles.search', function profilesSearch(plainTextQuery, skip)
   const processedQuery = _.clone(plainTextQuery);
 
   if (plainTextQuery.name) {
-    processedQuery.name = new RegExp(`.*${plainTextQuery.name}.*`, 'i');
+    processedQuery.name = new RegExp(`.*${escapeRegExp(plainTextQuery.name)}.*`, 'i');
   }
 
   if (plainTextQuery.postalCode) {
-    processedQuery.postalCode = new RegExp(`.*${plainTextQuery.postalCode}.*`, 'i');
+    processedQuery.postalCode = new RegExp(`.*${escapeRegExp(plainTextQuery.postalCode)}.*`, 'i');
   }
 
   const limit = 20;
@@ -43,7 +44,7 @@ TAPi18n.publish('profiles.search', function profilesSearch(plainTextQuery, skip)
   });
 });
 
-TAPi18n.publish('profiles.searchNames', function profilesSearch(query, requestedPage) {
+TAPi18n.publish('profiles.searchNames', function profilesSearchNames(query, requestedPage) {
   const processedQuery = _.clone(query);
 
   if (processedQuery.name) {

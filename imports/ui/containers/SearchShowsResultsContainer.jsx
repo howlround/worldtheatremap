@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { _ } from 'meteor/underscore';
+import escapeRegExp from 'lodash.escaperegexp';
 import { Shows } from '../../api/shows/shows.js';
 import SearchShowsResults from '../components/SearchShowsResults.jsx';
 
@@ -41,7 +42,7 @@ const SearchShowsResultsContainer = createContainer((props) => {
     const plainTextQuery = _.clone(privateQuery);
 
     if (query.name) {
-      privateQuery.name = new RegExp(`.*${query.name}.*`, 'i');
+      privateQuery.name = new RegExp(`.*${escapeRegExp(query.name)}.*`, 'i');
       plainTextQuery.name = query.name;
     }
 

@@ -27,7 +27,7 @@ class AboutPage extends React.Component {
           The World Theatre Map is a user-generated directory and real time map of the global theatre community. It’s a digital <a href="https://en.wikipedia.org/wiki/Commons-based_peer_production">commons</a>, free and open to all. The World Theatre Map aims to make the field visible to itself by providing a collectively-owned, people-powered infrastructure to connect isolated theatremakers to vital information resources and knowledge.
         </p>
         <p>
-          The World Theatre Map is a project of <a href="http://www.howlround.com/">HowlRound</a>, a knowledge commons by and for the theatre community. We are launching <a href="http://www.worldtheatremap.org/">The World Theatre Map</a> with the support of the Global Theater Initiative, a partnership between <a href="http://www.tcg.org/">Theatre Communications Group</a> and the <a href="https://globallab.georgetown.edu/">Laboratory for Global Performance and Politics</a>.
+          <a href="http://www.howlround.com/">HowlRound</a> has developed and is launching <a href="https://www.worldtheatremap.org/en">The World Theatre Map</a> in collaboration with the Global Theater Initiative, a partnership between <a href="http://www.tcg.org/default.aspx">Theatre Communications Group</a> and the <a href="https://globallab.georgetown.edu/">Laboratory for Global Performance and Politics</a>
         </p>
         <h3>Who is it for?</h3>
         <p>
@@ -95,7 +95,7 @@ class AboutPage extends React.Component {
           El Mapa Mundial de Teatro es un directorio y un mapa creado por usuarios que ubica, en tiempo real, a la comunidad de teatro a nivel mundial. Es un espacio común digital, libre y abierto a todos. El Mapa Mundial de Teatro intenta hacer que el campo sea visible para sí mismo ofreciendo una infraestructura de propiedad colectiva, impulsada por personas, para conectar a los teatros y artistas aislados con los vitales recursos y conocimientos de información.
         </p>
         <p>
-          El Mapa Mundial de Teatro es un proyecto de <a href="http://www.howlround.com/">HowlRound</a>, un espacio de conocimiento digital por y para la comunidad de teatro. Estamos lanzando el <a href="http://www.worldtheatremap.org/es">Mapa Mundial de Teatro</a> con el apoyo de la Global Theater Initiative, una asociación entre <a href="http://www.tcg.org/">Theatre Communications Group</a> y el <a href="https://globallab.georgetown.edu/">Laboratory for Global Performance and Politics</a>.
+          <a href="http://www.howlround.com/">HowlRound</a> ha desarrollado y está lanzando el <a href="http://www.worldtheatremap.org/es">Mapa Mundial de Teatro</a> en colaboración con el Global Theatre Initiative, una asociación entre el <a href="http://www.tcg.org/default.aspx">Theatre Communications Group</a> y el <a href="https://globallab.georgetown.edu/">Laboratory for Global Performance and Politics</a>.
         </p>
         <h3>¿Para quién?</h3>
         <p>

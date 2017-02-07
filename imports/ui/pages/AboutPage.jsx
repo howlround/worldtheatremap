@@ -92,7 +92,7 @@ class AboutPage extends React.Component {
         <Helmet title="¿Qué es el Mapa Mundial del Teatro?" />
         <h3>¿Qué es el Mapa Mundial del Teatro?</h3>
         <p>
-          El Mapa Mundial de Teatro es un directorio generado por el usuario y un mapa en tiempo real de la comunidad teatral en el mundo. Es un espacio común digital, libre y abierto a todos. El Mapa Mundial de Teatro intenta hacer que el campo sea visible para sí mismo ofreciendo una infraestructura de propiedad colectiva, impulsada por personas, para conectar a los teatros y artistas aislados con los vitales recursos y conocimientos de información.
+          El Mapa Mundial de Teatro es un directorio y un mapa creado por usuarios que ubica, en tiempo real, a la comunidad de teatro a nivel mundial. Es un espacio común digital, libre y abierto a todos. El Mapa Mundial de Teatro intenta hacer que el campo sea visible para sí mismo ofreciendo una infraestructura de propiedad colectiva, impulsada por personas, para conectar a los teatros y artistas aislados con los vitales recursos y conocimientos de información.
         </p>
         <p>
           El Mapa Mundial de Teatro es un proyecto de <a href="http://www.howlround.com/">HowlRound</a>, un espacio de conocimiento digital por y para la comunidad de teatro. Estamos lanzando el <a href="http://www.worldtheatremap.org/es">Mapa Mundial de Teatro</a> con el apoyo de la Global Theater Initiative, una asociación entre <a href="http://www.tcg.org/">Theatre Communications Group</a> y el <a href="https://globallab.georgetown.edu/">Laboratory for Global Performance and Politics</a>.

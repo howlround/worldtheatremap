@@ -686,7 +686,7 @@
   "footer.addPitchHubText": "mapa en tiempo real",
   "footer.addPitchButton": "Añadir al Mapa",
   "home.todayGlobeHeader": "Lo que está ocurriendo hoy",
-  "home.introText": "El Mapa Mundial de Teatro es un directorio generado por los usuarios y un mapa en tiempo real de la comunidad teatral del mundo.",
+  "home.introText": "El Mapa Mundial de Teatro es un directorio y un mapa creado por usuarios que ubica, en tiempo real, a la comunidad de teatro a nivel mundial.",
   "homepage.autocompleteCreate": "{eventsTodayCount, number} {eventsTodayCount, plural, one {Evento Sucediendo} other {Eventos Que Suceden}} Hoy",
   "home.todayEventsMoreLink": "Ver todos los eventos de hoy",
   "homepage.discoverSection": "Descubrir",

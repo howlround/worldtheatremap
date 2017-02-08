@@ -2,6 +2,7 @@
 import { TAPi18n } from 'meteor/tap:i18n';
 import { Shows } from '../shows.js';
 import { _ } from 'meteor/underscore';
+import escapeRegExp from 'lodash.escaperegexp';
 
 TAPi18n.publish('shows.public', function showsPublic() {
   return Shows.i18nFind({}, {

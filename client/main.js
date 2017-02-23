@@ -32,6 +32,7 @@ const initiateRender = () => {
     render: function() {
       const supportedLanguages = TAPi18n.getLanguages();
 
+      // https://alicoding.com/language-code-url-in-react-intl/
       const localePath = window.location.pathname;
       const localeCode = localePath.split('/')[1];
       let localeCodeVerified = false;

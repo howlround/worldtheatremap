@@ -7,7 +7,7 @@ import i18nES from 'tcomb-form/lib/i18n/es';
 import { displayError } from '../helpers/errors.js';
 
 import { insert } from '../../api/profiles/methods.js';
-import { profileFormSchema, defaultFormOptions } from '../../api/profiles/profiles.js';
+import { profileFormSchema, defaultFormOptions, DuplicateProfileFactory } from '../../api/profiles/profiles.js';
 import { AllCountriesFactory } from '../../api/countries/countries.js';
 
 const Form = t.form.Form;
@@ -205,6 +205,7 @@ class ProfileAdd extends React.Component {
     }
 
     formOptions.fields.country.factory = AllCountriesFactory(locale);
+    formOptions.fields.name.factory = DuplicateProfileFactory;
 
     switch (locale) {
       case 'es':

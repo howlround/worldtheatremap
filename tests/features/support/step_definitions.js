@@ -12,6 +12,14 @@ module.exports = function() {
     browser.setValue('input[name="password"]', 'letme1n3');
     browser.setValue('input[name="confirm"]', 'letme1n3');
 
+    browser.setValue('input[name="profile[first]"]', 'Reginold');
+    browser.setValue('input[name="profile[last]"]', 'Author');
+
+    // Country
+    browser.waitForExist('.country-select-edit', 5000);
+    browser.setValue('.country-select-edit' + ' input', 'Belize');
+    browser.click('.Select-option');
+
     browser.waitForExist('button[type="submit"]', 3000);
     browser.click('button[type="submit"]');
 
@@ -278,7 +286,7 @@ module.exports = function() {
     // make sure the DDP connection is not logged in before clearing the database
     server.call('logout');
     server.execute(function () {
-      Package['xolvio:cleaner'].resetDatabase();
+      Package['xolvio:cleaner'].resetDatabase({ excludedCollections: ['Countries'] });
     });
     browser.pause(100);
   });

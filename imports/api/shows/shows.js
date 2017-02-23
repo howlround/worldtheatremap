@@ -17,7 +17,6 @@ import { AllLanguagesFactory, existingLanguagesFactory } from '../../api/languag
 // Containers
 import RelatedProfileTextboxContainer from '../../ui/containers/RelatedProfileTextboxContainer.jsx';
 
-
 class ShowsCollection extends TAPi18n.Collection {
   // insert(show, callback) {
   //   const ourShow = show;

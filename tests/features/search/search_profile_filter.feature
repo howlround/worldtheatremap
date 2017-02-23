@@ -22,7 +22,7 @@ Feature: Filters on profile search
     And I click on ".label-text=African-Diaspora"
     And I click on ".organization-types-label-text=Producer / Presenter"
     And I click on ".organization-types-label-text=Venue"
-    And I click on ".label-text=Stage Director"
+    And I click on ".label-text=Director"
     And I click on ".label-text=Administrator"
     And I click on ".edit-profile-save"
     And I go to the "profiles" search page
@@ -30,11 +30,11 @@ Feature: Filters on profile search
 
   # Roles
   Scenario: Users can filter profiles by role
-    When I select "Stage Director" from the ".profile-roles-edit" combobox
+    When I select "Director" from the ".profile-roles-edit" combobox
     And the ".search-results" element should contain "Fatima"
 
   Scenario: Choosing multiple roles should match a profile that has both roles
-    When I select "Stage Director" from the ".profile-roles-edit" combobox
+    When I select "Director" from the ".profile-roles-edit" combobox
     When I select "Administrator" from the ".profile-roles-edit" combobox
     And the ".search-results" element should contain "Fatima"
 
@@ -50,7 +50,7 @@ Feature: Filters on profile search
     And I click on ".edit-profile-save"
     And I go to the "profiles" search page
     And I should not see ".search-results"
-    When I select "Stage Director" from the ".profile-roles-edit" combobox
+    When I select "Director" from the ".profile-roles-edit" combobox
     When I select "Performer" from the ".profile-roles-edit" combobox
     And the ".search-results" element should contain "Fatima"
     And the ".search-results" element should contain "Nor"

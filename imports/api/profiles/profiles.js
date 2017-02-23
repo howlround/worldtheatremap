@@ -19,6 +19,9 @@ import { interestsSelectFactory, interestsCheckboxFactory } from '../../api/inte
 // Components
 import Checkboxes from '../../ui/components/Checkboxes.jsx';
 
+// Containers
+import DuplicateProfileTextboxContainer from '../../ui/containers/DuplicateProfileTextboxContainer.jsx';
+
 class ProfilesCollection extends TAPi18n.Collection {
   // insert(profile, callback) {
   //   const ourProfile = profile;
@@ -923,6 +926,73 @@ class GendersReactSelectFactory extends t.form.Component {
 GendersCheckboxesFactory.transformer = t.form.List.transformer;
 GendersReactSelectFactory.transformer = t.form.List.transformer;
 
+// Prevent duplicates on profile name
+const duplicateProfileTextboxTemplate = t.form.Form.templates.textbox.clone({
+  renderVertical: (locals) => {
+    return [
+      duplicateProfileTextboxTemplate.renderLabel(locals),
+      duplicateProfileTextboxTemplate.renderHelp(locals),
+      duplicateProfileTextboxTemplate.renderError(locals),
+      duplicateProfileTextboxTemplate.renderTextbox(locals),
+    ]
+  },
+
+  renderTextbox: (locals) => {
+    // @TODO: Investigate locals.path for multiple. Also something like locals.onChange({0: evt})
+    const onChange = (evt) => locals.onChange(evt);
+    const parentValue = (locals.value !== '') ? locals.value : {};
+
+    return (
+      <div className="form-group">
+        <DuplicateProfileTextboxContainer
+          disabled={locals.disabled}
+          parentValue={parentValue}
+          updateParent={onChange}
+          attrs={locals.attrs}
+        />
+      </div>
+    );
+  },
+
+  renderLabel: (locals) => {
+    const className = {
+      'control-label': true,
+      'disabled': locals.disabled,
+    }
+    return (
+      <label
+        htmlFor={locals.attrs.id}
+        className={classnames(className)}
+      >
+        {locals.label}
+      </label>
+    );
+  },
+
+  renderHelp: (locals) => {
+    const className = {
+      'help-block': true,
+      'disabled': locals.disabled,
+    }
+
+    return (
+      <span
+        id={`${locals.attrs.id}-tip`}
+        className={classnames(className)}
+      >
+        {locals.help}
+      </span>
+    );
+  },
+});
+
+// Prevent duplicates on profile name: factory
+export class DuplicateProfileFactory extends t.form.Textbox {
+  getTemplate() {
+    return duplicateProfileTextboxTemplate;
+  }
+}
+
 // Reorder field elements
 const genericFieldTemplate = t.form.Form.templates.textbox.clone({
   renderVertical: (locals) => {
@@ -1126,6 +1196,7 @@ export const defaultFormOptions = () => ({
   />,
   fields: {
     name: {
+      // factory: DuplicateProfileFactory,
       label: <FormattedMessage
         id="forms.labelRequiredOrOptional"
         description="Label for a form field with required or optional specified"
@@ -1145,6 +1216,7 @@ export const defaultFormOptions = () => ({
       />,
       attrs: {
         className: 'profile-name-edit',
+        autoComplete: 'off',
       },
       error: <FormattedMessage
         id="forms.profileNameError"

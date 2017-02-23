@@ -8,5 +8,14 @@ ul.autocomplete-results {
     &:hover {
       background-color: $gray;
     }
+
+    &.autocomplete-results-help {
+      font-style: italic;
+      cursor: inherit;
+
+      &:hover {
+        background-color: $dark-tan;
+      }
+    }
   }
 }

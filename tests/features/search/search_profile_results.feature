@@ -24,14 +24,14 @@ Feature: Search results content
     And I click on ".label-text=Musical Theatre"
     And I click on ".label-text=Improvisation"
     And I click on ".organization-types-label-text=Producer / Presenter"
-    And I click on ".label-text=Stage Director"
+    And I click on ".label-text=Director"
     And I click on ".edit-profile-save"
     When I go to the "profiles" search page
-    And I select "Stage Director" from the ".profile-roles-edit" combobox
+    And I select "Director" from the ".profile-roles-edit" combobox
     And the ".search-results" element should contain "Fatima"
     And the ".search-results" element should contain "Location: Algiers, Algiers Province, Algeria"
     And the ".search-results" element should contain "Interests: Improvisation and Musical Theatre"
-    And the ".search-results" element should contain "Roles: Stage Director"
+    And the ".search-results" element should contain "Roles: Director"
     And the ".search-results" element should contain "Organization types: Producer"
 
   Scenario: Empty fields should not be displayed on search results
@@ -39,11 +39,11 @@ Feature: Search results content
     And I fill in ".profile-name-edit" with "Fatima"
     And I select "Individual" from the ".profile-type-edit" combobox
     And I fill in ".profile-about-edit" with "Most popular name in Algeria (census, 2010)"
-    And I click on ".label-text=Stage Director"
+    And I click on ".label-text=Director"
     And I select "India" from the ".country-select-edit" combobox
     And I click on ".edit-profile-save"
     When I go to the "profiles" search page
-    And I select "Stage Director" from the ".profile-roles-edit" combobox
+    And I select "Director" from the ".profile-roles-edit" combobox
     And the ".search-results" element should contain "Fatima"
     And the ".search-results" element should not contain "Interests:"
     And the ".search-results" element should not contain "Organization types:"

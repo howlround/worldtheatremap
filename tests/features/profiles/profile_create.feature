@@ -21,7 +21,7 @@ Feature: Create profiles
     And I select "Organization" from the ".profile-type-edit" combobox
     And I fill in ".profile-about-edit" with "Most popular name in Algeria (census, 2010)"
     And I fill in ".profile-agent-edit" with "Secret Agent"
-    And I click on ".label-text=Asian American"
+    And I click on ".label-text=Asian Diaspora"
     And I fill in ".profile-locality-edit" with "Algiers"
     And I fill in ".profile-administrative-area-edit" with "Algiers Province"
     And I select "Algeria" from the ".country-select-edit" combobox
@@ -31,9 +31,8 @@ Feature: Create profiles
     And I fill in ".profile-website-edit" with "cc.cc"
     And I fill in ".profile-social-edit" with "Facebook: facebook.com/fatima"
     And I fill in ".profile-founding-year-edit" with "1979"
-    And I click on ".label-text=Musical Theatre"
     And I click on ".organization-types-label-text=Producer / Presenter"
-    And I click on ".label-text=Stage Director"
+    And I click on ".label-text=Director"
     And I click on ".edit-profile-save"
     Then the ".profile-name" element should contain "Fatima"
     And the ".profile-about" element should contain "Most popular name in Algeria (census, 2010)"
@@ -42,12 +41,12 @@ Feature: Create profiles
     And the ".profile-country" element should contain "Algeria"
     And the ".profile-phone" element should contain "(212) 903-1170"
     And the ".profile-email" element should contain "c@cc.cc"
-    And the ".profile-website" element should contain "cc.cc"
+    And the ".profile-contact" element should contain "cc.cc"
     And the ".profile-social" element should contain "facebook.com/fatima"
     And the ".profile-founding-year" element should contain "1979"
-    And the ".profile-interests" element should contain "Musical Theatre"
+    And the ".profile-interests" element should contain "Asian Diaspora"
     And the ".profile-organization-types" element should contain "Producer"
-    And the ".profile-roles" element should contain "Stage Director"
+    And the ".profile-roles" element should contain "Director"
 
   @chromeOnly
   Scenario: Users should be able to upload an image to their profile (FAILS IN PHANTOMJS)
@@ -59,6 +58,16 @@ Feature: Create profiles
     And I should wait and see the ".profile-image-uploading" element
     And I should wait extra long until ".profile-image-uploading" is not visible
     Then the ".profile-image" element should contain the image "sharks_med.jpg"
+
+  Scenario: Profile name field should warn users if they are creating that may be a duplicate
+    And I am logged in
+    And I go to the "profile" add page
+    And I fill in ".profile-name-edit" with "Fatima"
+    And I click on ".edit-profile-save"
+    When I go to the "profile" add page
+    And I fill in ".profile-name-edit" with "Fatim"
+    Then the ".autocomplete-results li" element should contain "Would you like to edit one of these existing profiles instead?"
+    Then the ".autocomplete-results li" element should contain "Fatima"
 
   # Scenario: Dependent fields on profile for individuals
   #   And I am logged in

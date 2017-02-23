@@ -17,7 +17,8 @@
   }
 
   @include breakpoint($narrow) {
-    font-size: 12px;
+    opacity: 0.8;
+    font-size: 24px;
     font-weight: normal;
     position: fixed;
     right: 0;

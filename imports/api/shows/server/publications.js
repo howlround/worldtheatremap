@@ -20,6 +20,7 @@ TAPi18n.publish('shows.autocompleteQuery', function showsAutocompleteQuery(searc
   const regex = new RegExp(`.*${escapeRegExp(search)}.*`, 'i');
   return Shows.i18nFind({ name: { $regex: regex } }, {
     fields: Shows.autocompleteFields,
+    limit: 5,
   });
 });
 

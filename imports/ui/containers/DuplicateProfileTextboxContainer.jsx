@@ -9,7 +9,7 @@ import DuplicateProfileTextbox from '../components/DuplicateProfileTextbox.jsx';
 import { Profiles } from '../../api/profiles/profiles.js';
 
 const DuplicateProfileTextboxContainer = createContainer((props) => {
-  const search = props.parentValue.name;
+  const search = props.parentValue;
   let results = [];
   let loading = false;
 

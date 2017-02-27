@@ -57,11 +57,10 @@ class DuplicateProfileTextbox extends React.Component {
 
   onChange(value) {
     const { updateParent } = this.props;
-
     const search = value.target.value;
-    updateParent({
-      name: search,
-    });
+
+    updateParent(search);
+
     this.setState({ profile: { name: search } });
   }
 
@@ -96,8 +95,7 @@ class DuplicateProfileTextbox extends React.Component {
       );
     }) : '';
 
-    // ¿Desea editar uno de estos perfiles ya existentes?
-    const autocompleteHelp = (profile.name.length > 0 && addNew !== false) ?
+    const autocompleteHelp = (profile.name.length > 0 && addNew !== false && results.length > 0) ?
       <li className="autocomplete-results-help">
         <FormattedMessage
           id="profile.autocompleteDuplicate"

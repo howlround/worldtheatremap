@@ -63,11 +63,23 @@ Feature: Create profiles
     And I am logged in
     And I go to the "profile" add page
     And I fill in ".profile-name-edit" with "Fatima"
+    And I fill in ".profile-locality-edit" with "Algiers"
     And I click on ".edit-profile-save"
     When I go to the "profile" add page
     And I fill in ".profile-name-edit" with "Fatim"
     Then the ".autocomplete-results li" element should contain "Would you like to edit one of these existing profiles instead?"
     Then the ".autocomplete-results li" element should contain "Fatima"
+    And the ".autocomplete-results li" element should contain "Algiers"
+
+  Scenario: Profile name field should not warn users about duplicates if there are no possible matches
+    And I am logged in
+    And I go to the "profile" add page
+    And I fill in ".profile-name-edit" with "Fatima"
+    And I fill in ".profile-locality-edit" with "Algiers"
+    And I click on ".edit-profile-save"
+    When I go to the "profile" add page
+    And I fill in ".profile-name-edit" with "Fatimamlina"
+    Then I should not see ".autocomplete-results li"
 
   # Scenario: Dependent fields on profile for individuals
   #   And I am logged in

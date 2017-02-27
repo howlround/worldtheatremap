@@ -20,7 +20,6 @@ import NotFoundPage from '../../ui/pages/NotFoundPage.jsx';
 import ProfileAddContainer from '../../ui/containers/ProfileAddContainer.jsx';
 import ProfileContainer from '../../ui/containers/ProfileContainer.jsx';
 import ProfileEditContainer from '../../ui/containers/ProfileEditContainer.jsx';
-import ProfileTranslateContainer from '../../ui/containers/ProfileTranslateContainer.jsx';
 import SearchEventsContainer from '../../ui/containers/SearchEventsContainer.jsx';
 import SearchProfilesContainer from '../../ui/containers/SearchProfilesContainer.jsx';
 import SearchShowsContainer from '../../ui/containers/SearchShowsContainer.jsx';
@@ -57,14 +56,41 @@ export const renderRoutes = ({ locale, messages }) => (
     <Router history={customHistory}>
       <Route path="/">
         <IndexRedirect to={`${locale}`} />
-        <Route path="profiles/add">
-          <IndexRedirect to={`/${locale}/profiles/add`} />
+        <Route path="profiles">
+          <IndexRedirect to={`/${locale}/profiles`} />
+          <Route path="add">
+            <IndexRedirect to={`/${locale}/profiles/add`} />
+          </Route>
+          <Route path=":id">
+            <IndexRedirect to={`/${locale}/profiles/:id`} />
+          </Route>
+          <Route path=":id/edit">
+            <IndexRedirect to={`/${locale}/profiles/:id/edit`} />
+          </Route>
         </Route>
-        <Route path="shows/add">
-          <IndexRedirect to={`/${locale}/shows/add`} />
+        <Route path="shows">
+          <IndexRedirect to={`/${locale}/shows`} />
+          <Route path="add">
+            <IndexRedirect to={`/${locale}/shows/add`} />
+          </Route>
+          <Route path=":id">
+            <IndexRedirect to={`/${locale}/shows/:id`} />
+          </Route>
+          <Route path=":id/edit">
+            <IndexRedirect to={`/${locale}/shows/:id/edit`} />
+          </Route>
         </Route>
-        <Route path="events/add">
-          <IndexRedirect to={`/${locale}/events/add`} />
+        <Route path="events">
+          <IndexRedirect to={`/${locale}/events`} />
+          <Route path="add">
+            <IndexRedirect to={`/${locale}/events/add`} />
+          </Route>
+          <Route path=":id">
+            <IndexRedirect to={`/${locale}/events/:id`} />
+          </Route>
+          <Route path=":id/edit">
+            <IndexRedirect to={`/${locale}/events/:id/edit`} />
+          </Route>
         </Route>
         <Route path="signin">
           <IndexRedirect to={`/${locale}/signin`} />
@@ -98,10 +124,6 @@ export const renderRoutes = ({ locale, messages }) => (
           <Route path="add" component={ProfileAddContainer} />
           <Route path=":id" component={ProfileContainer} />
           <Route path=":id/edit" component={ProfileEditContainer} />
-          <Route path=":id/translate">
-            <IndexRedirect to="es" />
-            <Route path=":locale" component={ProfileTranslateContainer} />
-          </Route>
         </Route>
         <Route path="shows">
           <IndexRedirect to="add" />

@@ -940,7 +940,7 @@ const duplicateProfileTextboxTemplate = t.form.Form.templates.textbox.clone({
   renderTextbox: (locals) => {
     // @TODO: Investigate locals.path for multiple. Also something like locals.onChange({0: evt})
     const onChange = (evt) => locals.onChange(evt);
-    const parentValue = (locals.value !== '') ? locals.value : {};
+    const parentValue = (locals.value !== '') ? locals.value : '';
 
     return (
       <div className="form-group">

@@ -19,11 +19,8 @@ class DuplicateProfileTextbox extends React.Component {
     };
 
     if (parentValue) {
-      if (parentValue.name) {
-        this.state.profile.name = parentValue.name;
-      }
-      if (parentValue._id) {
-        this.state.profile._id = parentValue._id;
+      if (parentValue) {
+        this.state.profile.name = parentValue;
       }
     }
 
@@ -134,7 +131,7 @@ class DuplicateProfileTextbox extends React.Component {
 }
 
 DuplicateProfileTextbox.propTypes = {
-  parentValue: React.PropTypes.object,
+  parentValue: React.PropTypes.string,
   results: React.PropTypes.array,
   attrs: React.PropTypes.object,
   wrapperAttrs: React.PropTypes.object,

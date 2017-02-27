@@ -26,6 +26,7 @@ const initiateRender = () => {
 
     setLocale: function(locale) {
       localStorage.setItem('locale', locale);
+      TAPi18n.setLanguage(locale);
       moment.locale(locale);
     },
 
@@ -43,8 +44,7 @@ const initiateRender = () => {
       }
 
       var locale = (localeCodeVerified === true) ? localeCode : this.getLocale();
-      TAPi18n.setLanguage(locale);
-      moment.locale(locale);
+      this.setLocale(locale);
 
       // Locale / Language
       ReactGA.ga('set', 'dimension2', locale);

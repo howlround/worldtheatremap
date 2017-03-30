@@ -44,11 +44,22 @@ export default class RelatedProfileTextbox extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    const { parentValue, attrs } = this.props;
     // If the parent form was submitted clear this field
-    if (!_.isEmpty(prevProps.attrs.value) && _.isEmpty(this.props.attrs.value)) {
+    if (!_.isEmpty(prevProps.attrs.value) && _.isEmpty(attrs.value)) {
       this.setState({
         profile: {
           name: '',
+        },
+        results: {},
+      });
+    }
+    // If the parent value updates make sure to update fields
+    else if (_.has(parentValue, 'name') && _.has(parentValue, '_id') && this.state.profile._id !== parentValue._id) {
+      this.setState({
+        profile: {
+          name: parentValue.name,
+          _id: parentValue._id,
         },
         results: {},
       });

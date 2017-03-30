@@ -17,8 +17,6 @@ Feature: Edit events
     And I fill in ".show-about-edit" with "Most popular name in Italy"
     And I click on ".edit-show-save"
     And I go to the "event" add page
-    And I fill in ".event-show-edit" with "Sofia"
-    And I click on ".autocomplete-results li"
     And I fill in ".event-organization-edit" with "Organization of the year"
     And I click on ".autocomplete-results li"
     And I select "Performance" from the ".event-type-edit" combobox
@@ -30,6 +28,8 @@ Feature: Edit events
     And I fill in "[name=lat]" with "-36.03133177633187"
     And I fill in "[name=lon]" with "-72.0703125"
     And I select "Coral Sea Islands" from the ".country-select-edit" combobox
+    And I fill in ".event-show-edit" with "Sofia"
+    And I click on ".autocomplete-results li"
     And I click on ".edit-event-save"
 
   Scenario: Users should be able to edit basic information for an event
@@ -47,7 +47,7 @@ Feature: Edit events
     And I select "Coral Sea Islands" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
     Then the "h1.page-title" element should contain "Sofia"
-    And the ".event-about" element should contain "facebook.com"
+    And the ".event-about" element should contain "More information"
     And the ".event-date-range" element should contain the date range for day "2" to day "18" of this month
 
   # Scenario: Users should be able to edit the show and the author on an event edit form

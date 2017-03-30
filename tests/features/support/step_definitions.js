@@ -116,7 +116,10 @@ module.exports = function() {
 
   this.Then(/^the "([^"]*)" field should have the value "([^"]*)"$/, function (element, text) {
     browser.waitForExist(element, 2000);
-    expect(client.getValue(element)).toEqual(text);
+
+    browser.waitUntil(function () {
+      return client.getValue(element) === text
+    }, 5000, `${element} does not contain ${text}`);
   });
 
   this.When(/^I choose the "([^"]*)" file for the "([^"]*)" field$/, function (fileName, fieldInput) {

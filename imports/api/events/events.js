@@ -65,10 +65,12 @@ class EventsCollection extends Mongo.Collection {
       upsertCountry.call({ country: ourEvent.country });
     }
 
-    relatedRecordReconcileEvent({
-      event: ourEvent,
-      profileId: ourEvent.organizations._id,
-    });
+    if (_.has(ourEvent, 'organizations._id')) {
+      relatedRecordReconcileEvent({
+        event: ourEvent,
+        profileId: ourEvent.organizations._id,
+      });
+    }
 
     // @TODO: Save author information to event
     //        Or maybe check to make sure the correct author is passed in?

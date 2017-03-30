@@ -88,11 +88,13 @@ Feature: Create events
     And the ".event-date-range" element should contain the date range for day "1" to day "15" of this month
     And I should see the "#globe" element
     And the ".event-location" element should contain "Buenos Aires, Argentina"
-    And the ".event-organizations" element should contain "Organization of the year presents"
+    And the ".event-organizations" element should contain "Organization of the year"
 
   Scenario: Users who use the text box on the location map when adding an event should have the other address fields prepopulated
     And a profile with the following fields:
       | name | My Favorite Playwright |
+    And a profile with the following fields:
+      | name | Organization of the year |
     And I am logged in
     And I go to the "show" add page
     And I fill in ".show-name-edit" with "Sofia"
@@ -132,8 +134,6 @@ Feature: Create events
     And I fill in ".show-about-edit" with "Most popular name in Italy"
     And I click on ".edit-show-save"
     When I go to the "event" add page
-    And I fill in ".event-show-edit" with "Sofia"
-    And I click on ".autocomplete-results li"
     And I fill in ".event-organization-edit" with "Organization of the year"
     And I click on ".autocomplete-results li"
     And I select "Performance" from the ".event-type-edit" combobox
@@ -145,6 +145,8 @@ Feature: Create events
     And I fill in "[name=lat]" with "-36.03133177633187"
     And I fill in "[name=lon]" with "-72.0703125"
     And I select "Coral Sea Islands" from the ".country-select-edit" combobox
+    And I fill in ".event-show-edit" with "Sof"
+    And I click on ".autocomplete-results li"
     And I click on ".edit-event-save"
     Then the ".event-name" element should contain "Sofia"
     Then the ".event-type" element should contain "Performance"

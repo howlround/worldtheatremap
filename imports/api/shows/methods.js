@@ -7,6 +7,7 @@ import t from 'tcomb-validation';
 import { check } from 'meteor/check'
 
 import { Shows, showSchema } from './shows.js';
+import { Events } from '../events/events.js';
 
 import { upsert as upsertLanguage } from '../languages/methods.js';
 
@@ -175,6 +176,28 @@ export const update = new ValidatedMethod({
     Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentEditedCount": 1 } });
 
     Shows.updateTranslations(showId, doc);
+
+    // Make sure all events are updated with new info (name, authors)
+    // Events.update(eventId, {
+    //   $set: newEvent,
+    // });
+    Events.update(
+      {
+        'show._id': showId,
+      },
+      {
+        $set: {
+          show: {
+            _id: showId,
+            name: newShow.name,
+            author: newShow.author,
+          },
+        }
+      },
+      {
+        multi: true
+      }
+    );
   },
 });
 

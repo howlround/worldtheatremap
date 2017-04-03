@@ -11,6 +11,7 @@ import classnames from 'classnames';
 import React from 'react';
 import t from 'tcomb-form';
 import ReactSelect from 'react-select';
+import DatePicker from 'react-datepicker';
 
 // API
 // import { AllCountriesFactory } from '../../api/countries/countries.js';
@@ -1121,6 +1122,41 @@ const disabledListTemplate = t.form.Form.templates.list.clone({
   }
 });
 
+/* Date component override */
+// For some reason the event form options are overriding this?
+// Not sure why.
+//
+// function renderDate(locals) {
+//   const onChange = (dateMoment) => {
+//     if (_.isNull(dateMoment)) {
+//       locals.onChange(null);
+//     } else {
+//       locals.onChange(dateMoment.toDate());
+//     }
+//   };
+
+//   const selected = locals.value ? moment(locals.value) : null;
+// console.log(locals.disabled);
+//   return (
+//     <DatePicker
+//       disabled={true}
+//       selected={selected}
+//       onChange={onChange}
+//       isClearable
+//     />
+//   );
+// }
+
+// const dateTemplate = t.form.Form.templates.date.clone({ renderDate });
+
+// class DatePickerFactory extends t.form.Component {
+//   getTemplate() {
+//     return dateTemplate;
+//   }
+// }
+
+// t.Date.getTcombFormFactory = () => DatePickerFactory;
+
 export const profileSchema = t.struct({
   profileType: t.maybe(t.list(t.String)), // Required
   name: t.String, // Required
@@ -1130,6 +1166,8 @@ export const profileSchema = t.struct({
   selfDefinedRoles: t.maybe(t.list(t.String)),
   foundingYear: t.maybe(t.String),
   orgTypes: t.maybe(t.list(t.String)),
+  startDate: t.maybe(t.Date),
+  endDate: t.maybe(t.Date),
   interests: t.maybe(t.list(t.String)),
   about: t.maybe(t.String),
   email: t.maybe(t.String),
@@ -1159,6 +1197,8 @@ export const profileFormSchema = t.struct({
   selfDefinedRoles: t.maybe(t.list(t.String)),
   foundingYear: t.maybe(t.String),
   orgTypes: t.maybe(t.list(t.String)),
+  startDate: t.maybe(t.Date),
+  endDate: t.maybe(t.Date),
   interests: t.maybe(t.list(t.String)),
   about: t.maybe(t.String),
   email: t.maybe(t.String),
@@ -1193,6 +1233,8 @@ export const profileFiltersSchema = t.struct({
 
 export const profileFestivalsFiltersSchema = t.struct({
   name: t.maybe(t.String),
+  startDate: t.maybe(t.Date),
+  endDate: t.maybe(t.Date),
   interests: t.maybe(t.list(t.String)),
   locality: t.maybe(t.String), // City
   administrativeArea: t.maybe(t.String), // Province, Region, State
@@ -1325,6 +1367,60 @@ export const defaultFormOptions = () => ({
         attrs: {
           className: 'profile-ethnicity-edit',
         }
+      },
+    },
+    startDate: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.startDateLabel"
+            description="Label for a Start date form field"
+            defaultMessage="Start date"
+          />,
+        }}
+      />,
+      error: <FormattedMessage
+        id="forms.eventStartDateError"
+        description="Error message for start date form field on events forms"
+        defaultMessage="Start date is required"
+      />,
+      attrs: {
+        className: 'event-start-date-edit',
+      },
+    },
+    endDate: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.endDateLabel"
+            description="Label for a End date form field"
+            defaultMessage="End date"
+          />,
+        }}
+      />,
+      error: <FormattedMessage
+        id="forms.eventEndDateError"
+        description="Error message for End date form field on events forms"
+        defaultMessage="End date is required"
+      />,
+      attrs: {
+        className: 'event-end-date-edit',
       },
     },
     streetAddress: {
@@ -2077,6 +2173,8 @@ Profiles.publicFields = {
   profileType: 1,
   ethnicityRace: 1,
   image: 1,
+  startDate: 1,
+  endDate: 1,
   streetAddress: 1,
   locality: 1,
   administrativeArea: 1,

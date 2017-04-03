@@ -212,6 +212,11 @@ class ProfileEdit extends React.Component {
       formOptions.fields.orgTypes.disabled = true;
     }
 
+    if (!_.contains(profileType, 'Festival')) {
+      formOptions.fields.startDate.disabled = true;
+      formOptions.fields.endDate.disabled = true;
+    }
+
     formOptions.fields.country.factory = AllCountriesFactory(locale);
 
     switch (locale) {

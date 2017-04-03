@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { _ } from 'meteor/underscore';
 import { Link } from 'react-router';
-import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
+import { FormattedMessage, FormattedDate, intlShape, injectIntl } from 'react-intl';
 
 class ProfileSearchResult extends React.Component {
   constructor(props) {
@@ -126,6 +126,22 @@ class ProfileSearchResult extends React.Component {
                     defaultMessage="Interests"
                   />:
                 </span> { interests }</div> : '' }
+            {(profile.startDate && profile.endDate) ?
+              <div className="profile-date-range date">
+                <FormattedDate
+                  value={profile.startDate}
+                  year='numeric'
+                  month='short'
+                  day='numeric'
+                />
+                <span> – </span>
+                <FormattedDate
+                  value={profile.endDate}
+                  year='numeric'
+                  month='short'
+                  day='numeric'
+                />
+              </div> : ''}
           </div>
         </div>
       </article>

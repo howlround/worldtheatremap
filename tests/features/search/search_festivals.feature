@@ -47,3 +47,20 @@ Feature: Festival Search
     When I fill in ".profile-search-text" with "Festival"
     Then the ".search-results" element should not contain "National Festival Organizers"
     And the ".search-results" element should contain "National Festival of Festivals 2010"
+
+  Scenario: Users should be able to search festivals by date
+    And I am logged in
+    When I go to the "profile" add page
+    And I fill in ".profile-name-edit" with "National Festival of Festivals 2010"
+    And I select "Festival" from the ".profile-type-edit" combobox
+    And I click on ".form-group-startDate input"
+    And I click on ".react-datepicker__day=1"
+    And I click on ".form-group-endDate input"
+    And I click on ".react-datepicker__day=15"
+    And I click on ".edit-profile-save"
+    And I go to the "festivals" search page
+    When I click on ".form-group-startDate input"
+    And I click on ".react-datepicker__day=1"
+    And I click on ".form-group-endDate input"
+    And I click on ".react-datepicker__day=15"
+    Then the ".search-results" element should contain "National Festival of Festivals 2010"

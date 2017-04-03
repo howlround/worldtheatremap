@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { _ } from 'meteor/underscore';
 import escapeRegExp from 'lodash.escaperegexp';
+import moment from 'moment';
 import { Profiles } from '../../api/profiles/profiles.js';
 import SearchProfilesResults from '../components/SearchProfilesResults.jsx';
 
@@ -70,6 +71,18 @@ const SearchProfilesResultsContainer = createContainer((props) => {
     if (query.gender && query.gender instanceof Array) {
       privateQuery.gender = {
         $in: query.gender
+      };
+    }
+
+    if (query.startDate) {
+      privateQuery.endDate = {
+        $gte: moment(query.startDate).startOf('day').toDate(),
+      };
+    }
+
+    if (query.endDate) {
+      privateQuery.startDate = {
+        $lte: moment(query.endDate).endOf('day').toDate(),
       };
     }
 

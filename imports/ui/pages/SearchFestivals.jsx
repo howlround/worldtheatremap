@@ -28,11 +28,6 @@ class SearchFestivals extends React.Component {
     if (this.props.location && this.props.location.query) {
       const cleanQuery = {};
 
-      // Always filter by festivals
-      if (!_.isEmpty(this.props.location.query)) {
-        cleanQuery['profileType'] = [ 'Festival' ];
-      }
-
       _.each(this.props.location.query, (val, key) => {
         // If next has a value, add it
         if (!_.isEmpty(val)) {
@@ -44,9 +39,13 @@ class SearchFestivals extends React.Component {
       _.each(this.props.location.query, (val, key) => {
         if (_.isEmpty(this.props.location.query[key]) && !_.isEmpty(val)) {
           cleanQuery[key] = null;
-
         }
       });
+
+      // Always filter by festivals
+      if (!_.isEmpty(cleanQuery)) {
+        cleanQuery['profileType'] = [ 'Festival' ];
+      }
 
       this.state = cleanQuery;
     } else {

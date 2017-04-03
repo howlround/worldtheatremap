@@ -207,9 +207,7 @@ class Profile extends React.Component {
 
     let affiliatedProfilesList = affiliatedProfiles.map(affiliation => (
       <li key={affiliation.profile._id}>
-        <Link to={`/${locale}/profiles/${affiliation.profile._id}`}>
-          <ProfileNameContainer profileId={affiliation.profile._id} />
-        </Link>
+        <ProfileNameContainer profileId={affiliation.profile._id} />
         {user ?
           <span
             className="delete-affiliation"
@@ -231,9 +229,7 @@ class Profile extends React.Component {
 
     let festivalProfilesList = festivalProfiles.map(festival => (
       <li key={festival.profile._id}>
-        <Link to={`/${locale}/profiles/${festival.profile._id}`}>
-          <ProfileNameContainer profileId={festival.profile._id} />
-        </Link>
+        <ProfileNameContainer profileId={festival.profile._id} />
         {user ?
           <span
             className="delete-affiliation"

@@ -81,27 +81,69 @@ class ReactSelectEventTypeFactory extends t.form.Component {
 }
 
 /* Date component override */
-function renderDate(locals) {
-  const onChange = (dateMoment) => {
-    if (_.isNull(dateMoment)) {
-      locals.onChange(null);
-    } else {
-      locals.onChange(dateMoment.toDate());
+const dateTemplate = t.form.Form.templates.date.clone({
+  renderVertical: (locals) => {
+    return [
+      dateTemplate.renderLabel(locals),
+      dateTemplate.renderHelp(locals),
+      dateTemplate.renderError(locals),
+      dateTemplate.renderDate(locals),
+    ]
+  },
+
+  renderDate(locals) {
+    const onChange = (dateMoment) => {
+      if (_.isNull(dateMoment)) {
+        locals.onChange(null);
+      } else {
+        locals.onChange(dateMoment.toDate());
+      }
+    };
+
+    const selected = locals.value ? moment(locals.value) : null;
+
+    return (
+      <DatePicker
+        disabled={locals.disabled}
+        selected={selected}
+        onChange={onChange}
+        isClearable
+      />
+    );
+  },
+
+  renderLabel: (locals) => {
+    const className = {
+      'control-label': true,
+      'disabled': locals.disabled,
     }
-  };
+    return (
+      <label
+        title="Select profile type"
+        htmlFor={locals.attrs.id}
+        className={classnames(className)}
+      >
+        {locals.label}
+      </label>
+    );
+  },
 
-  const selected = locals.value ? moment(locals.value) : null;
+  renderHelp: (locals) => {
+    const className = {
+      'help-block': true,
+      'disabled': locals.disabled,
+    }
 
-  return (
-    <DatePicker
-      selected={selected}
-      onChange={onChange}
-      isClearable
-    />
-  );
-}
-
-const dateTemplate = t.form.Form.templates.date.clone({ renderDate });
+    return (
+      <span
+        id={`${locals.attrs.id}-tip`}
+        className={classnames(className)}
+      >
+        {locals.help}
+      </span>
+    );
+  }
+});
 
 class DatePickerFactory extends t.form.Component {
   getTemplate() {

@@ -30,7 +30,12 @@ import NotFoundPage from '../pages/NotFoundPage.jsx';
 
 // API
 import { upsert, remove } from '../../api/affiliations/methods.js';
+import {
+  upsert as upsertFestivalOrganizer,
+  remove as removeFestivalOrganizer
+} from '../../api/festivalOrganizers/methods.js';
 import { affiliationFormSchema, defaultFormOptions } from '../../api/affiliations/affiliations.js';
+import { festivalOrganizerFormSchema, defaultFormOptions as festivalOrganizerFormOptions } from '../../api/festivalOrganizers/festivalOrganizers.js';
 import { remove as removeProfile } from '../../api/profiles/methods.js';
 
 const Form = t.form.Form;
@@ -43,9 +48,12 @@ class ProfilePage extends React.Component {
       affiliation: {
         profile: {},
       },
+      festivalOrganizer: {
+        profile: {},
+      },
     };
 
-    this.throttledAdd = _.throttle(newParent => {
+    this.throttledAffiliationAdd = _.throttle(newParent => {
       if (newParent) {
         // Create Affiliation record
         const parent = newParent.profile;
@@ -65,6 +73,26 @@ class ProfilePage extends React.Component {
       }
     }, 300);
 
+    this.throttledFestivalAdd = _.throttle(newParent => {
+      if (newParent) {
+        // Create Festival Organizer record
+        const parent = newParent.profile;
+        const newFestivalOrganizer = {
+          profile: {
+            _id: this.props.profile._id,
+            name: this.props.profile.name,
+          },
+        };
+
+        const newID = upsertFestivalOrganizer.call({
+          newFestivalOrganizer,
+          parent,
+        }, displayError);
+
+        return newID;
+      }
+    }, 300);
+
     this.throttledRemoveProfile = _.throttle(profileId => {
       if (profileId) {
         removeProfile.call({
@@ -75,13 +103,23 @@ class ProfilePage extends React.Component {
       }
     }, 300);
 
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.affiliationHandleSubmit = this.affiliationHandleSubmit.bind(this);
+    this.festivalHandleSubmit = this.festivalHandleSubmit.bind(this);
     this.confirmDelete = this.confirmDelete.bind(this);
-    this.onChange = this.onChange.bind(this);
-    this.removeAffiliation = this.removeAffiliation.bind(this);
+    this.affiliationOnChange = this.affiliationOnChange.bind(this);
+
     this.renderRelatedProfiles = this.renderRelatedProfiles.bind(this);
+
+    this.affiliationOnChange = this.affiliationOnChange.bind(this);
     this.renderAffiliations = this.renderAffiliations.bind(this);
     this.renderAddAffiliationForm = this.renderAddAffiliationForm.bind(this);
+    this.removeAffiliation = this.removeAffiliation.bind(this);
+
+    this.festivalOnChange = this.festivalOnChange.bind(this);
+    this.renderFestivalOrganizers = this.renderFestivalOrganizers.bind(this);
+    this.renderAddFestivalOrganizerForm = this.renderAddFestivalOrganizerForm.bind(this);
+    this.removeFestivalOrganizer = this.removeFestivalOrganizer.bind(this);
+
     this.initializeD3Globe = this.initializeD3Globe.bind(this);
   }
 
@@ -95,19 +133,39 @@ class ProfilePage extends React.Component {
     }
   }
 
-  onChange(value) {
+  affiliationOnChange(value) {
     this.setState({ affiliation: value });
   }
 
-  handleSubmit(event) {
+  festivalOnChange(value) {
+    this.setState({ festivalOrganizer: value });
+  }
+
+  affiliationHandleSubmit(event) {
     event.preventDefault();
-    const newParent = this.refs.form.getValue();
+    const newParent = this.refs.affiliationForm.getValue();
     if (newParent) {
-      const newID = this.throttledAdd(newParent);
+      const newID = this.throttledAffiliationAdd(newParent);
 
       if (newID) {
         this.setState({
           affiliation: {
+            profile: {},
+          },
+        });
+      }
+    }
+  }
+
+  festivalHandleSubmit(event) {
+    event.preventDefault();
+    const newParent = this.refs.festivalOrganizerForm.getValue();
+    if (newParent) {
+      const newID = this.throttledFestivalAdd(newParent);
+
+      if (newID) {
+        this.setState({
+          festivalOrganizer: {
             profile: {},
           },
         });
@@ -256,12 +314,6 @@ class ProfilePage extends React.Component {
     }
   }
 
-  removeAffiliation(affiliationId) {
-    remove.call({
-      affiliationId,
-    }, displayError);
-  }
-
   renderRelatedProfiles() {
     const { connections } = this.props;
     const { locale } = this.props.intl;
@@ -305,7 +357,7 @@ class ProfilePage extends React.Component {
     const { affiliation } = this.state;
 
     return (
-      <form className="affiliation-edit-form" onSubmit={this.handleSubmit.bind(this)} >
+      <form className="affiliation-edit-form" onSubmit={this.affiliationHandleSubmit.bind(this)} >
         <div className="help-block form-intro">
           <FormattedMessage
             id="forms.affiliationHelpText"
@@ -314,11 +366,11 @@ class ProfilePage extends React.Component {
           />
         </div>
         <Form
-          ref="form"
+          ref="affiliationForm"
           type={affiliationFormSchema}
           value={affiliation}
           options={formOptions}
-          onChange={this.onChange}
+          onChange={this.affiliationOnChange}
         />
 
         <button
@@ -335,6 +387,75 @@ class ProfilePage extends React.Component {
     );
   }
 
+  removeAffiliation(affiliationId) {
+    remove.call({
+      affiliationId,
+    }, displayError);
+  }
+
+  renderFestivalOrganizers() {
+    const { festivalOrganizers, user } = this.props;
+    const { locale } = this.props.intl;
+
+    let festivalProfiles = festivalOrganizers.map(festivalOrganizer => (
+      <li key={festivalOrganizer.parentId}>
+        <ProfileNameContainer profileId={festivalOrganizer.parentId} />
+        {user ?
+          <span
+            className="delete-affiliation"
+            onClick={this.removeFestivalOrganizer.bind(this, festivalOrganizer._id)}
+            title="Delete festival organizer affiliation"
+          >
+            &times;
+          </span>
+        : ''}
+      </li>
+    ));
+
+    return <ul className="festival-organizers">{festivalProfiles}</ul>;
+  }
+
+  renderAddFestivalOrganizerForm() {
+    const formOptions = festivalOrganizerFormOptions();
+    const { festivalOrganizer } = this.state;
+
+    return (
+      <form className="festival-organizer-edit-form" onSubmit={this.festivalHandleSubmit.bind(this)} >
+        <div className="help-block form-intro">
+          <FormattedMessage
+            id="forms.festivalOrganizerHelpText"
+            description="Help text for festivalOrganizer form"
+            defaultMessage="Is this festival hosted or organized by other organizations? List them here."
+          />
+        </div>
+        <Form
+          ref="festivalOrganizerForm"
+          type={festivalOrganizerFormSchema}
+          value={festivalOrganizer}
+          options={formOptions}
+          onChange={this.festivalOnChange}
+        />
+
+        <button
+          type="submit"
+          className="edit-festival-organizer-save"
+        >
+          <FormattedMessage
+            id="buttons.save"
+            description="Generic save button"
+            defaultMessage="Save"
+          />
+        </button>
+      </form>
+    );
+  }
+
+  removeFestivalOrganizer(festivalOrganizerId) {
+    removeFestivalOrganizer.call({
+      festivalOrganizerId,
+    }, displayError);
+  }
+
   render() {
     const {
       profile,
@@ -345,6 +466,8 @@ class ProfilePage extends React.Component {
       connections,
       affiliations,
       affiliatedProfiles,
+      festivalProfiles,
+      festivalOrganizers,
       loading,
     } = this.props;
     const { formatMessage, locale } = this.props.intl;
@@ -467,6 +590,7 @@ class ProfilePage extends React.Component {
             showsForOrg={showsForOrg}
             roles={roles}
             affiliatedProfiles={affiliatedProfiles}
+            festivalProfiles={festivalProfiles}
           />
           <aside className="sidebar">
             {(profile.lat && profile.lon) ?
@@ -509,6 +633,20 @@ class ProfilePage extends React.Component {
                   {user ? this.renderAddAffiliationForm() : ''}
                 </div>
               </section> : ''}
+            {_.contains(profile.profileType, 'Festival') && (user || festivalOrganizers.length > 0) ?
+              <section>
+                <h2>
+                  <FormattedMessage
+                    id="profilePage.festivalOrganizerHeader"
+                    description="Header for affiliation list and form on the profile page sidebar"
+                    defaultMessage="Festival Organizers"
+                  />
+                </h2>
+                <div className="content">
+                  {this.renderFestivalOrganizers()}
+                  {user ? this.renderAddFestivalOrganizerForm() : ''}
+                </div>
+              </section> : ''}
             </aside>
         </div>
       );
@@ -526,6 +664,8 @@ ProfilePage.propTypes = {
   connections: React.PropTypes.array,
   affiliations: React.PropTypes.array,
   affiliatedProfiles: React.PropTypes.array,
+  feativalOrganizers: React.PropTypes.array,
+  festivalProfiles: React.PropTypes.array,
   loading: React.PropTypes.bool,
   profileExists: React.PropTypes.bool,
   intl: intlShape.isRequired,

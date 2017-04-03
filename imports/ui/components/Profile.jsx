@@ -20,6 +20,7 @@ import ProfileNameContainer from '../containers/ProfileNameContainer.jsx';
 // API
 import { updateImage } from '../../api/profiles/methods.js';
 import { remove } from '../../api/affiliations/methods.js';
+import { remove as removeFestivalAffiliation } from '../../api/festivalOrganizers/methods.js';
 
 marked.setOptions({
   tables: false,
@@ -40,6 +41,7 @@ class Profile extends React.Component {
     this.renderShowsByRoles = this.renderShowsByRoles.bind(this);
     this.removeAffiliation = this.removeAffiliation.bind(this);
     this.renderAffiliatedProfiles = this.renderAffiliatedProfiles.bind(this);
+    this.renderFestivalProfiles = this.renderFestivalProfiles.bind(this);
     this.renderPhotoAndUploader = this.renderPhotoAndUploader.bind(this);
     this.checkResizedImage = this.checkResizedImage.bind(this);
     this.onDrop = this.onDrop.bind(this);
@@ -125,6 +127,12 @@ class Profile extends React.Component {
   removeAffiliation(affiliationId) {
     remove.call({
       affiliationId,
+    }, displayError);
+  }
+
+  removeFestivalAffiliation(festivalOrganizerId) {
+    removeFestivalAffiliation.call({
+      festivalOrganizerId,
     }, displayError);
   }
 
@@ -217,8 +225,40 @@ class Profile extends React.Component {
     return <ul className="affiliated-profiles">{affiliatedProfilesList}</ul>;
   }
 
+  renderFestivalProfiles() {
+    const { festivalProfiles, user } = this.props;
+    const { locale } = this.props.intl;
+
+    let festivalProfilesList = festivalProfiles.map(festival => (
+      <li key={festival.profile._id}>
+        <Link to={`/${locale}/profiles/${festival.profile._id}`}>
+          <ProfileNameContainer profileId={festival.profile._id} />
+        </Link>
+        {user ?
+          <span
+            className="delete-affiliation"
+            onClick={this.removeFestivalAffiliation.bind(this, festival._id)}
+            title="Delete festival affiliation"
+          >
+            &times;
+          </span>
+        : ''}
+      </li>
+    ));
+
+    return <ul className="affiliated-festivals">{festivalProfilesList}</ul>;
+  }
+
   render() {
-    const { profile, user, showsForAuthor, showsForOrg, roles, affiliatedProfiles } = this.props;
+    const {
+      profile,
+      user,
+      showsForAuthor,
+      showsForOrg,
+      roles,
+      affiliatedProfiles,
+      festivalProfiles,
+    } = this.props;
     const { formatMessage, locale } = this.props.intl;
 
     const editLink = (user) ?
@@ -516,6 +556,19 @@ class Profile extends React.Component {
               {this.renderAffiliatedProfiles()}
             </div>
           </section> : ''}
+        {festivalProfiles.length > 0 ?
+          <section className="profile-festival-profiles">
+            <h2>
+              <FormattedMessage
+                id="profile.festivalProfilesHeader"
+                description="Header for festival profiles"
+                defaultMessage="Festivals"
+              />
+            </h2>
+            <div className="content">
+              {this.renderFestivalProfiles()}
+            </div>
+          </section> : ''}
         {!_.isEmpty(profile.howlroundPostSearchText) ?
           <HowlRoundPosts
             searchText={profile.howlroundPostSearchText}
@@ -537,6 +590,7 @@ Profile.propTypes = {
   showsForOrg: React.PropTypes.array,
   roles: React.PropTypes.array,
   affiliatedProfiles: React.PropTypes.array,
+  festivalProfiles: React.PropTypes.array,
   intl: intlShape.isRequired,
 };
 

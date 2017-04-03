@@ -9,6 +9,7 @@ import ProfilePage from '../pages/ProfilePage.jsx';
 
 // Collections
 import { Affiliations } from '../../api/affiliations/affiliations.js';
+import { FestivalOrganizers } from '../../api/festivalOrganizers/festivalOrganizers.js';
 import { RelatedRecords } from '../../api/relatedRecords/relatedRecords.js';
 import { Participants } from '../../api/participants/participants.js';
 import { Shows } from '../../api/shows/shows.js';
@@ -28,6 +29,7 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
   const singleProfileSub = TAPi18n.subscribe('profiles.singleById', id);
   const participantsSubscribe = Meteor.subscribe('participants.byProfile', id);
   const affiliationsSubscribe = Meteor.subscribe('affiliations.byProfile', id);
+  // const festivalOrganizersSubscribe = Meteor.subscribe('festivalOrganizers.byProfile', id);
 
   // Connections
   const connectionsSubscribe = Meteor.subscribe('relatedRecords.byProfile', id);
@@ -47,6 +49,8 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
   // Subscribe to all affiliation records regardless of parent or child status
   const affilitedProfilesSubscribe = Meteor.subscribe('affiliations.anyById', id);
 
+  // Subscribe to all festivalOrganizer records regardless of parent or child status
+  const festivalProfilesSubscribe = Meteor.subscribe('festivalOrganizers.anyById', id);
 
   // Affilitions (this profile is the child)
   // const affilitionsSubscribe = Meteor.subscribe('affiliations.byProfile', id);
@@ -66,6 +70,26 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
     // affiliatedProfileIds.push(affiliation.profile._id);
     allNecessaryProfiles.push(affiliation.profile._id);
     return affiliation;
+  });
+
+  // FestivalOrganizers (this profile is the child)
+  // const festivalOrganizerSubscribe = Meteor.subscribe('festivalOrganizers.byProfile', id);
+  // const festivalOrganizerIds = new Array;
+  const festivalOrganizers = FestivalOrganizers.find({ 'profile._id': id }).map(festivalOrganizer => {
+    // Add to both, one is for subscribing to profiles, one is for passing on just the festivalOrganizer to render
+    // festivalOrganizerIds.push(festivalOrganizer.parentId);
+    allNecessaryProfiles.push(festivalOrganizer.parentId);
+    return festivalOrganizer;
+  });
+
+  // Affilited profiles (this profile is the parent)
+  // const affilitedProfilesSubscribe = Meteor.subscribe('festivalOrganizers.byParent', id);
+  // const affiliatedProfileIds = new Array;
+  const festivalProfiles = FestivalOrganizers.find({ parentId: id }).map(festivalOrganizer => {
+    // Add to both, one is for subscribing to profiles, one is for passing on just the affilitions to render
+    // affiliatedProfileIds.push(festivalOrganizer.profile._id);
+    allNecessaryProfiles.push(festivalOrganizer.profile._id);
+    return festivalOrganizer;
   });
 
   // Get data from participant records
@@ -173,6 +197,8 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
     connections,
     affiliations,
     affiliatedProfiles,
+    festivalOrganizers,
+    festivalProfiles,
   };
 }, ProfilePage);
 

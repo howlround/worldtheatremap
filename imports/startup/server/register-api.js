@@ -14,6 +14,11 @@ import '../../api/events/server/publications.js';
 import '../../api/affiliations/methods.js';
 import '../../api/affiliations/server/publications.js';
 
+
+// Festival Organizers
+import '../../api/festivalOrganizers/methods.js';
+import '../../api/festivalOrganizers/server/publications.js';
+
 // Participants
 import '../../api/participants/methods.js';
 import '../../api/participants/server/publications.js';

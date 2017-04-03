@@ -68,6 +68,14 @@ const ProfileType = [
       defaultMessage="Organization"
     />,
   },
+  {
+    value: 'Festival',
+    label: <FormattedMessage
+      id="profileType.Festival"
+      description="Profile Type: Festival"
+      defaultMessage="Festival"
+    />,
+  },
 ];
 // Profile type template
 const ProfileTypeTags = t.form.Form.templates.select.clone({

@@ -23,6 +23,7 @@ import ProfileEditContainer from '../../ui/containers/ProfileEditContainer.jsx';
 import SearchEventsContainer from '../../ui/containers/SearchEventsContainer.jsx';
 import SearchProfilesContainer from '../../ui/containers/SearchProfilesContainer.jsx';
 import SearchShowsContainer from '../../ui/containers/SearchShowsContainer.jsx';
+import SearchFestivalsContainer from '../../ui/containers/SearchFestivalsContainer.jsx';
 import ShowAddContainer from '../../ui/containers/ShowAddContainer.jsx';
 import ShowContainer from '../../ui/containers/ShowContainer.jsx';
 import ShowEditContainer from '../../ui/containers/ShowEditContainer.jsx';
@@ -116,6 +117,9 @@ export const renderRoutes = ({ locale, messages }) => (
           <Route path="shows">
             <IndexRedirect to={`/${locale}/search/shows`} />
           </Route>
+          <Route path="festivals">
+            <IndexRedirect to={`/${locale}/search/festivals`} />
+          </Route>
         </Route>
       </Route>
       <Route path="/:locale" component={AppContainer}>
@@ -147,6 +151,7 @@ export const renderRoutes = ({ locale, messages }) => (
           <Route path="profiles" component={SearchProfilesContainer} />
           <Route path="events" component={SearchEventsContainer} />
           <Route path="shows" component={SearchShowsContainer} />
+          <Route path="festivals" component={SearchFestivalsContainer} />
         </Route>
         <Route path="*" component={NotFoundPage} />
       </Route>

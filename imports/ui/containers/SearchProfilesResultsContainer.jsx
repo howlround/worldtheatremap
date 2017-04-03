@@ -15,6 +15,12 @@ const SearchProfilesResultsContainer = createContainer((props) => {
     // Use an internal query so nothing strange gets passed straight through
     let privateQuery = {};
 
+    if (query.profileType && query.profileType instanceof Array) {
+      privateQuery.profileType = {
+        $in: query.profileType
+      };
+    }
+
     if (query.selfDefinedRoles && query.selfDefinedRoles instanceof Array) {
       privateQuery.selfDefinedRoles = {
         $in: query.selfDefinedRoles

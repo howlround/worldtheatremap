@@ -35,6 +35,15 @@ class SearchTypeNav extends React.Component {
             />
           </Link>
         </li>
+        <li>
+          <Link to={`/${locale}/search/festivals`} activeClassName="active">
+            <FormattedMessage
+              id="searchNav.festivals"
+              description="Festival Search Tab"
+              defaultMessage="Festivals"
+            />
+          </Link>
+        </li>
       </ul>
     );
   }

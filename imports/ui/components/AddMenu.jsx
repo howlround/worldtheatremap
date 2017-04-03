@@ -67,7 +67,7 @@ class AddMenu extends React.Component {
               <FormattedMessage
                 id="navigation.addProfile"
                 description="Add menu item for a Profile"
-                defaultMessage="Add Person / Organization"
+                defaultMessage="Add Person / Organization / Festival"
               />
             </Link>
             <Link to={`/${locale}/events/add`} className="add-event" onClick={this.close}>

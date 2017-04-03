@@ -27,6 +27,13 @@ Feature: Festival Search
     Then I should not see ".not-found"
     And the ".search-type .active" element should contain "Festivals"
 
+  Scenario: Festival search should have the appropriate filter options
+    And I go to the "festivals" search page
+    Then I should not see ".profile-roles-edit"
+    And I should not see ".profile-organization-types-edit"
+    And I should not see ".profile-gender-edit"
+    And I should not see ".fieldset-ethnicityRace"
+
   Scenario: Only Festivals should display in festival tab search
     And I am logged in
     When I go to the "profile" add page

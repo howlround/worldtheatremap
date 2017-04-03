@@ -1191,6 +1191,15 @@ export const profileFiltersSchema = t.struct({
   ethnicityRace: t.maybe(t.list(t.String)),
 });
 
+export const profileFestivalsFiltersSchema = t.struct({
+  name: t.maybe(t.String),
+  interests: t.maybe(t.list(t.String)),
+  locality: t.maybe(t.String), // City
+  administrativeArea: t.maybe(t.String), // Province, Region, State
+  country: t.maybe(t.String),
+  postalCode: t.maybe(t.String),
+});
+
 export const translateFormSchema = t.struct({
   name: t.String, // Required,
   about: t.String,

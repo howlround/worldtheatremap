@@ -5,7 +5,7 @@ import { intlShape, injectIntl } from 'react-intl';
 import Helmet from 'react-helmet';
 
 // API
-import { Profiles, profileFiltersSchema, filtersFormOptions } from '../../api/profiles/profiles.js';
+import { Profiles, profileFestivalsFiltersSchema, filtersFormOptions } from '../../api/profiles/profiles.js';
 import { Localities, factory as localitiesFactory } from '../../api/localities/localities.js';
 import { Countries, existingCountriesFactory } from '../../api/countries/countries.js';
 import { AdministrativeAreas, factory as administrativeAreasFactory } from '../../api/administrativeAreas/administrativeAreas.js';
@@ -26,10 +26,12 @@ class SearchFestivals extends React.Component {
     super(props);
 
     if (this.props.location && this.props.location.query) {
+      const cleanQuery = {};
+
       // Always filter by festivals
-      const cleanQuery = {
-        profileType: [ 'Festival' ],
-      };
+      if (!_.isEmpty(this.props.location.query)) {
+        cleanQuery['profileType'] = [ 'Festival' ];
+      }
 
       _.each(this.props.location.query, (val, key) => {
         // If next has a value, add it
@@ -123,15 +125,15 @@ class SearchFestivals extends React.Component {
       formOptions.fields.country.factory = existingCountriesFactory(locale);
       formOptions.fields.administrativeArea.factory = administrativeAreasFactory();
       formOptions.fields.name.attrs.placeholder = formatMessage({
-        'id': 'searchProfiles.placeholder',
-        'defaultMessage': 'Search for profiles by name',
-        'description': 'Placeholder text for the profile name field on search filters'
+        'id': 'searchFestivals.placeholder',
+        'defaultMessage': 'Search for festivals by name',
+        'description': 'Placeholder text for the festival name field on search filters'
       });
 
       const searchProfilesPageTitle = formatMessage({
-        'id': 'searchProfiles.pageTitle',
-        'defaultMessage': 'Search Profiles',
-        'description': 'Page title for the profiles search page',
+        'id': 'searchFestivals.pageTitle',
+        'defaultMessage': 'Search Festivals',
+        'description': 'Page title for the festivals search page',
       });
 
       return (
@@ -147,7 +149,7 @@ class SearchFestivals extends React.Component {
                 <form className="profile-filters-form">
                   <Form
                     ref="form"
-                    type={profileFiltersSchema}
+                    type={profileFestivalsFiltersSchema}
                     options={formOptions}
                     onChange={this.onChange}
                     value={this.state}

@@ -74,6 +74,7 @@ class SearchProfiles extends React.Component {
   }
 
   renderProfiles() {
+    const { locale } = this.props.intl;
     const query = this.state;
 
     const cleanQuery = {};
@@ -84,7 +85,11 @@ class SearchProfiles extends React.Component {
     });
 
     return (
-      <SearchProfilesResultsContainer query={cleanQuery}  updateQuery={this.onChange} />
+      <SearchProfilesResultsContainer
+        query={cleanQuery}
+        updateQuery={this.onChange}
+        locale={locale}
+      />
     );
   }
 

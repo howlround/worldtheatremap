@@ -31,3 +31,22 @@ Feature: Search box on profile search
     # Partial name (end), match case
     When I fill in ".profile-search-text" with "ima"
     Then the ".search-results" element should contain "Fatima"
+
+  @i18n
+  Scenario: Users can search for profiles by their translated name
+    And I click on ".language-switcher [name=es]"
+    And I go to the profile page for "Fatima"
+    And I follow ".edit-link"
+    And I fill in ".profile-name-edit" with "Ximena"
+    And I click on ".edit-profile-save"
+    And I go to the "profiles" search page
+    When I fill in ".profile-search-text" with "Ximena"
+    Then the ".search-results" element should not contain "Fatima"
+    Then the ".search-results" element should contain "Ximena"
+
+  @i18n
+  Scenario: If a profile does not have a translation then it should be searchable by it's original name when viewing in another language
+    And I click on ".language-switcher [name=es]"
+    And I go to the "profiles" search page
+    When I fill in ".profile-search-text" with "fatima"
+    Then the ".search-results" element should contain "Fatima"

@@ -6,7 +6,7 @@ import { Profiles } from '../../api/profiles/profiles.js';
 import SearchProfilesResults from '../components/SearchProfilesResults.jsx';
 
 const SearchProfilesResultsContainer = createContainer((props) => {
-  const { query, updateQuery } = props;
+  const { query, updateQuery, locale } = props;
   let loading = false;
   let skip = 0;
   let results = [];
@@ -82,7 +82,6 @@ const SearchProfilesResultsContainer = createContainer((props) => {
     if (query.name) {
       privateQuery.name = new RegExp(`.*${escapeRegExp(query.name)}.*`, 'i');
       plainTextQuery.name = query.name;
-      // privateQuery.name = new RegExp(query.name, 'i');
     }
 
     // Make sure privateQuery is not empty otherwise all records are returned
@@ -91,9 +90,13 @@ const SearchProfilesResultsContainer = createContainer((props) => {
       // Another pattern would be to keep the skip here but then instead of skip on the server
       // use a limit of (skip + limit). That would load all pages up to the current page
       // for faster rendering of previous pages.
-      const profilesSubscribe = TAPi18n.subscribe('profiles.search', plainTextQuery, skip);
+      // Also, since there are only 20 results max no need to add the query here.
+      // We are altering the query based on locale so better
+      // to keep the complex switch in one place
+      const profilesSubscribe = TAPi18n.subscribe('profiles.search', plainTextQuery, skip, locale);
       results = Profiles.find(
-        privateQuery,
+        {},
+        // privateQuery,
         {
           sort: {
             name: 1,

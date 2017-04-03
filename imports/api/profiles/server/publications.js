@@ -24,11 +24,17 @@ TAPi18n.publish('profiles.autocompleteQuery', function profilesAutocompleteQuery
   });
 });
 
-TAPi18n.publish('profiles.search', function profilesSearch(plainTextQuery, skip) {
+TAPi18n.publish('profiles.search', function profilesSearch(plainTextQuery, skip, locale) {
   const processedQuery = _.clone(plainTextQuery);
 
   if (plainTextQuery.name) {
-    processedQuery.name = new RegExp(`.*${escapeRegExp(plainTextQuery.name)}.*`, 'i');
+    if (!_.isEmpty(locale) && locale !== 'en') {
+      const i18nKey = `i18n.${locale}.name`;
+      delete processedQuery.name;
+      processedQuery[i18nKey] = new RegExp(`.*${escapeRegExp(plainTextQuery.name)}.*`, 'i');
+    } else {
+      processedQuery.name = new RegExp(`.*${escapeRegExp(plainTextQuery.name)}.*`, 'i');
+    }
   }
 
   if (plainTextQuery.postalCode) {

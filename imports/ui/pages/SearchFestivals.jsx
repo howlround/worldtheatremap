@@ -73,6 +73,11 @@ class SearchFestivals extends React.Component {
         }
       });
 
+      // Always filter by festivals
+      if (!_.isEmpty(cleanQuery)) {
+        cleanQuery['profileType'] = [ 'Festival' ];
+      }
+
       this.setState(cleanQuery);
     }
   }

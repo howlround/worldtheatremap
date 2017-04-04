@@ -6,9 +6,27 @@
 }
 
 .affiliations,
-.festival-organizers {
+.festival-organizers,
+.affiliated-festivals {
   li {
-    margin-bottom: $spacing-unit;
+    padding-bottom: $spacing-unit;
+    clear: both;
+    overflow: auto;
+
+    h3 {
+      float: left;
+    }
+
+    .delete-affiliation {
+      float: right;
+      display: none;
+    }
+
+    &:hover {
+      .delete-affiliation {
+        display: inherit;
+      }
+    }
   }
 }
 

@@ -605,6 +605,20 @@ class ProfilePage extends React.Component {
                 <div id="globe"></div>
               </section> : ''
             }
+            {_.contains(profile.profileType, 'Festival') && (user || festivalOrganizers.length > 0) ?
+              <section>
+                <h2>
+                  <FormattedMessage
+                    id="profilePage.festivalOrganizerHeader"
+                    description="Header for affiliation list and form on the profile page sidebar"
+                    defaultMessage="Festival Organizers"
+                  />
+                </h2>
+                <div className="content">
+                  {this.renderFestivalOrganizers()}
+                  {user ? this.renderAddFestivalOrganizerForm() : ''}
+                </div>
+              </section> : ''}
             <ProfileContact profile={profile} />
             {connections.length > 0 ?
               <section>
@@ -631,20 +645,6 @@ class ProfilePage extends React.Component {
                 <div className="content">
                   {this.renderAffiliations()}
                   {user ? this.renderAddAffiliationForm() : ''}
-                </div>
-              </section> : ''}
-            {_.contains(profile.profileType, 'Festival') && (user || festivalOrganizers.length > 0) ?
-              <section>
-                <h2>
-                  <FormattedMessage
-                    id="profilePage.festivalOrganizerHeader"
-                    description="Header for affiliation list and form on the profile page sidebar"
-                    defaultMessage="Festival Organizers"
-                  />
-                </h2>
-                <div className="content">
-                  {this.renderFestivalOrganizers()}
-                  {user ? this.renderAddFestivalOrganizerForm() : ''}
                 </div>
               </section> : ''}
             </aside>

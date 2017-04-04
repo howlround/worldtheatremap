@@ -1239,7 +1239,6 @@ export const profileFestivalsFiltersSchema = t.struct({
   locality: t.maybe(t.String), // City
   administrativeArea: t.maybe(t.String), // Province, Region, State
   country: t.maybe(t.String),
-  postalCode: t.maybe(t.String),
 });
 
 export const translateFormSchema = t.struct({

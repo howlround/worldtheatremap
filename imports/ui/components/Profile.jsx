@@ -229,7 +229,9 @@ class Profile extends React.Component {
 
     let festivalProfilesList = festivalProfiles.map(festival => (
       <li key={festival.profile._id}>
-        <ProfileNameContainer profileId={festival.profile._id} />
+        <h3>
+          <ProfileNameContainer profileId={festival.profile._id} />
+        </h3>
         {user ?
           <span
             className="delete-affiliation"
@@ -508,6 +510,19 @@ class Profile extends React.Component {
             }
           </section> : ''
         }
+        {festivalProfiles.length > 0 ?
+          <section className="profile-festival-profiles">
+            <h2>
+              <FormattedMessage
+                id="profile.festivalProfilesHeader"
+                description="Header for festival profiles"
+                defaultMessage="Festivals"
+              />
+            </h2>
+            <div className="content">
+              {this.renderFestivalProfiles()}
+            </div>
+          </section> : ''}
         {(showsForAuthor && showsForAuthor.length) ?
           <section className="profile-shows">
             <h2>
@@ -550,19 +565,6 @@ class Profile extends React.Component {
             </h2>
             <div className="content">
               {this.renderAffiliatedProfiles()}
-            </div>
-          </section> : ''}
-        {festivalProfiles.length > 0 ?
-          <section className="profile-festival-profiles">
-            <h2>
-              <FormattedMessage
-                id="profile.festivalProfilesHeader"
-                description="Header for festival profiles"
-                defaultMessage="Festivals"
-              />
-            </h2>
-            <div className="content">
-              {this.renderFestivalProfiles()}
             </div>
           </section> : ''}
         {!_.isEmpty(profile.howlroundPostSearchText) ?

@@ -19,3 +19,6 @@ import './file-restrictions.js';
 
 // Country prepopulate
 import './country-prepopulate.js';
+
+// Content prepopulate
+import './content-prepopulate.js';

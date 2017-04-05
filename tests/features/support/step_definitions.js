@@ -52,6 +52,38 @@ module.exports = function() {
     expect(browser.getText('.login-link-text')).toEqual('Sign in ▾');
   });
 
+  this.Given(/^I am logged in as an administrator$/, function () {
+    browser.url('http://localhost:3000/logout');
+
+    Random = require('meteor-random');
+    const email = Random.id(5) + '@' + Random.id(8) + '.com';
+    const password = Random.id(5);
+
+    const userObject = {
+      username: Random.id(),
+      email,
+      password,
+    }
+
+    server.execute((userObject) => {
+      const { Meteor } = require('meteor/meteor');
+      const { Accounts } = require('meteor/accounts-base');
+      try{
+        const newID = Accounts.createUser(userObject);
+        Roles.addUsersToRoles(newID, 'admin', Roles.GLOBAL_GROUP);
+      }catch(e){}
+    }, userObject);
+
+    browser.url('http://localhost:3000/en/signin');
+    browser.waitForExist('input[name="email"]', 2000);
+    browser.setValue('input[name="email"]', email);
+    browser.setValue('input[name="password"]', password);
+
+    browser.waitForExist('button[type="submit"]', 2000);
+    browser.click('button[type="submit"]');
+    browser.pause(100);
+   });
+
   this.Given(/^I am on the home page$/, function () {
     browser.url('http://localhost:3000');
   });
@@ -65,6 +97,10 @@ module.exports = function() {
     //     return browser.getText('.language-switcher') === 'Español'
     //   }, 5000, 'Site is not being viewed in English');
     // }
+  });
+
+  this.Given(/^I go to "([^"]*)"$/, function (path) {
+    browser.url(`http://localhost:3000${path}`);
   });
 
   this.When(/^I follow "([^"]*)"$/, function (element) {
@@ -289,7 +325,7 @@ module.exports = function() {
     // make sure the DDP connection is not logged in before clearing the database
     server.call('logout');
     server.execute(function () {
-      Package['xolvio:cleaner'].resetDatabase({ excludedCollections: ['Countries'] });
+      Package['xolvio:cleaner'].resetDatabase({ excludedCollections: ['Countries', 'Content'] });
     });
     browser.pause(100);
   });

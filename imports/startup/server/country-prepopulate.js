@@ -2380,7 +2380,6 @@ const AllCountries = [
   },
 ];
 
-
 Meteor.startup(() => {
   // if (Countries.find().count() === 0) {
     console.log('Re-populating country database...');

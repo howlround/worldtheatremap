@@ -43,6 +43,10 @@ import '../../api/ethnicities/server/publications.js';
 import '../../api/countries/methods.js';
 import '../../api/countries/server/publications.js';
 
+// Content
+import '../../api/content/methods.js';
+import '../../api/content/server/publications.js';
+
 // Administrative Area
 import '../../api/administrativeAreas/methods.js';
 import '../../api/administrativeAreas/server/publications.js';

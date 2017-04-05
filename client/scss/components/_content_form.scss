@@ -1,0 +1,10 @@
+.content-edit-form {
+  input[type="text"] {
+    &:disabled {
+      display: inherit;
+      border-color: $white;
+      background-color: $off-white;
+      color: $dark-gray;
+    }
+  }
+}

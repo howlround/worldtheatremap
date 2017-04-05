@@ -17,6 +17,18 @@ import DatePicker from 'react-datepicker';
 import RelatedShowTextboxContainer from '../../ui/containers/RelatedShowTextboxContainer.jsx';
 import RelatedProfileTextboxContainer from '../../ui/containers/RelatedProfileTextboxContainer.jsx';
 
+// Reorder field elements
+const genericFieldTemplate = t.form.Form.templates.textbox.clone({
+  renderVertical: (locals) => {
+    return [
+      genericFieldTemplate.renderLabel(locals),
+      genericFieldTemplate.renderHelp(locals),
+      genericFieldTemplate.renderError(locals),
+      genericFieldTemplate.renderTextbox(locals),
+    ]
+  },
+});
+
 // Event type options
 const EventType = [
   {
@@ -600,6 +612,7 @@ export const defaultFormOptions = () => ({
       },
     },
     about: {
+      template: genericFieldTemplate,
       label: <FormattedMessage
         id="forms.labelRequiredOrOptional"
         description="Label for a form field with required or optional specified"
@@ -613,7 +626,7 @@ export const defaultFormOptions = () => ({
           labelText: <FormattedMessage
             id="forms.eventAboutLabel"
             description="Label for a Event About form field"
-            defaultMessage="About"
+            defaultMessage="Add an external link about this event"
           />,
         }}
       />,

@@ -1747,7 +1747,7 @@ export const defaultFormOptions = () => ({
           labelText: <FormattedMessage
             id="profile.socialLabel"
             description="Label for a Social form field"
-            defaultMessage="Social"
+            defaultMessage="Additional Links"
           />,
         }}
       />,

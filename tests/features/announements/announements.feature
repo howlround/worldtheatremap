@@ -14,7 +14,28 @@ Feature: Annoucement system
     And I press ".edit-content-save"
     Then the ".announcement" element should contain "New Announcement!"
 
-  Scenario: Clearing the announcement body field removes the announcement block from the site
-  Scenario: Auth
-  Scenario: Formatting
+  Scenario: Admins can use basic formatting in announcements
+    And I am logged in as an administrator
+    And I go to "/announcement"
+    And I fill in ".content-body-edit" with "New *Announcement*!"
+    And I press ".edit-content-save"
+    Then the ".announcement" element should not contain "New *Announcement*!"
+
+  Scenario: Logged in users that are not admins should not see the form to edit announcements
+    And I am logged in
+    And I go to "/announcement"
+    And the ".wrapper-message" element should contain "Sign in or register to participate in the World Theatre Map"
+
+  @i18n
   Scenario: i18n
+    And I am logged in as an administrator
+    And I go to "/announcement"
+    And I fill in ".content-body-edit" with "New Announcement!"
+    And I press ".edit-content-save"
+    When I click on ".language-switcher [name=es]"
+    And I go to "/announcement"
+    And I fill in ".content-body-edit" with "¡Nuevo Anuncio!"
+    And I press ".edit-content-save"
+    Then the ".announcement" element should contain "¡Nuevo Anuncio!"
+    When I click on ".language-switcher [name=en]"
+    Then the ".announcement" element should contain "New Announcement!"

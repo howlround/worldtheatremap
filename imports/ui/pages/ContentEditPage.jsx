@@ -15,7 +15,7 @@ import Loading from '../components/Loading.jsx';
 
 class ContentEditPage extends React.Component {
   render() {
-    const { content, user, loading } = this.props;
+    const { content, user, access, loading } = this.props;
     const { locale } = this.props.intl;
 
     const pageClass = classnames({
@@ -33,7 +33,7 @@ class ContentEditPage extends React.Component {
       return (
         <NotFoundPage />
       );
-    } else if (user) {
+    } else if (user && access) {
       return (
         <div className="overlay-wrapper">
           <Modal />

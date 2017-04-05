@@ -8,10 +8,12 @@ const AnnouncementEditContainer = createContainer(() => {
   const singleContentSubscription = TAPi18n.subscribe('content.singleByTitle', 'Announcement');
   const content = Content.findOne({ title: 'Announcement' });
   const loading = !(singleContentSubscription.ready());
-  const contentExists = !loading && !!content;
+  const access = Roles.userIsInRole(Meteor.userId(), ['admin']);
+
   return {
     loading,
     content,
+    access,
   };
 }, ContentEditPage);
 

@@ -57,7 +57,8 @@ class ContentEdit extends React.Component {
           ref="form"
           type={contentSchema}
           options={formOptions}
-          value={this.props.content}
+          onChange={this.onChange}
+          value={this.state}
         />
 
         <button

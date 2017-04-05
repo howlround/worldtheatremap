@@ -1,0 +1,9 @@
+.announcement {
+  text-align: center;
+  padding: $spacing-unit * 2;
+  background-color: $dark-tan;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}

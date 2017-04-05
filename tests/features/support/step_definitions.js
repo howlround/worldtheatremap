@@ -158,6 +158,11 @@ module.exports = function() {
     }, 5000, `${element} does not contain ${text}`);
   });
 
+  this.Given(/^I clear the "([^"]*)" field$/, function (element) {
+    browser.waitForExist(element, 2000);
+    browser.setValue(element, '');
+  });
+
   this.When(/^I choose the "([^"]*)" file for the "([^"]*)" field$/, function (fileName, fieldInput) {
     browser.waitForExist(fieldInput, 2000);
     client.chooseFile(fieldInput, process.cwd() + '/tests/files/' + fileName);

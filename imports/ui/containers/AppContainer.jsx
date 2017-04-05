@@ -9,14 +9,18 @@ import { TAPi18n } from 'meteor/tap:i18n';
 import App from '../layouts/App.jsx';
 
 // API
-import { Profiles } from '../../api/profiles/profiles.js';
-import { Shows } from '../../api/shows/shows.js';
-import { Events } from '../../api/events/events.js';
+import { Content } from '../../api/content/content.js';
 
 const AppContainer = createContainer(() => {
   const supportedLanguages = TAPi18n.getLanguages();
-
   const user = Meteor.user();
+  const announcementSubscription = TAPi18n.subscribe('content.singleByTitle', 'Announcement');
+  const announcement = Content.findOne({
+    title: 'Announcement',
+    body: {
+      $ne: null,
+    },
+  });
 
   if (user) {
     Session.set('userId', user.emails[0].address);
@@ -28,6 +32,7 @@ const AppContainer = createContainer(() => {
 
   return {
     user,
+    announcement,
     connected: Meteor.status().connected,
     menuOpen: Session.get('menuOpen'),
     supportedLanguages,

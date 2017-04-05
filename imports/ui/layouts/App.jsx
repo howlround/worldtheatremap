@@ -1,9 +1,12 @@
 // Utilities
-import React from 'react';
 import { Meteor } from 'meteor/meteor';
+import React from 'react';
 import Helmet from 'react-helmet';
-import { Link } from 'react-router';
+import marked from 'marked';
+import sanitizeHtml from 'sanitize-html';
+import { _ } from 'meteor/underscore';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import { Link } from 'react-router';
 
 // Containers
 import HomePageContainer from '../containers/HomePageContainer.jsx';
@@ -21,6 +24,10 @@ import Loading from '../components/Loading.jsx';
 
 const CONNECTION_ISSUE_TIMEOUT = 5000;
 
+marked.setOptions({
+  tables: false,
+});
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -32,6 +39,7 @@ class App extends React.Component {
 
     this.logout = this.logout.bind(this);
     this.hideDropDown = this.hideDropDown.bind(this);
+    this.renderAnnouncement = this.renderAnnouncement.bind(this);
   }
 
   componentDidMount() {
@@ -50,6 +58,19 @@ class App extends React.Component {
       this.setState({ forceCloseDropDown: { AddMenu: value, UserMenu: false } });
     } else if (menu === 'UserMenu') {
       this.setState({ forceCloseDropDown: { UserMenu: value, AddMenu: false } });
+    }
+  }
+
+  renderAnnouncement() {
+    const { announcement } = this.props;
+
+    if (announcement && _.has(announcement, 'body')) {
+      return (
+        <div
+          className="markdown-formatted announcement"
+          dangerouslySetInnerHTML={{__html: sanitizeHtml(marked(announcement.body))}}
+        />
+      );
     }
   }
 
@@ -168,6 +189,9 @@ class App extends React.Component {
             </div>
           </section>
         </header>
+        <section>
+          {this.renderAnnouncement()}
+        </section>
         {showConnectionIssue && !connected
           ? <ConnectionNotification />
           : null}
@@ -203,6 +227,7 @@ App.propTypes = {
   connected: React.PropTypes.bool,   // server connection status
   loading: React.PropTypes.bool,     // subscription status
   menuOpen: React.PropTypes.bool,    // is side menu open?
+  announcement: React.PropTypes.object,
   children: React.PropTypes.element, // matched child route component
   location: React.PropTypes.object,  // current router location
   params: React.PropTypes.object,    // parameters of the current route

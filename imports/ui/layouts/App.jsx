@@ -63,13 +63,25 @@ class App extends React.Component {
 
   renderAnnouncement() {
     const { announcement } = this.props;
+    const { locale } = this.props.intl;
+    const access = Roles.userIsInRole(Meteor.userId(), ['admin']);
 
     if (announcement && _.has(announcement, 'body')) {
       return (
-        <div
-          className="markdown-formatted announcement"
-          dangerouslySetInnerHTML={{__html: sanitizeHtml(marked(announcement.body))}}
-        />
+        <div className="announcement">
+          {access ?
+            <Link
+              to={`/${locale}/announcement`}
+              className="edit-announcement"
+            >
+              Edit
+            </Link>
+          : ''}
+          <div
+            className="markdown-formatted"
+            dangerouslySetInnerHTML={{__html: sanitizeHtml(marked(announcement.body))}}
+          />
+        </div>
       );
     }
   }

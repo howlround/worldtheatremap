@@ -112,7 +112,11 @@ class ShowAdd extends React.Component {
           <button
             type="submit"
             className="edit-show-save">
-            Create Show
+            <FormattedMessage
+              id="show.showAddSubmit"
+              description="Submit button for Events Add form"
+              defaultMessage="Create Show"
+            />
           </button>
         </div>
       </form>

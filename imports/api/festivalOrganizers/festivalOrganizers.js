@@ -67,7 +67,7 @@ export const defaultFormOptions = () => ({
       error: <FormattedMessage
         id="forms.festivalOrganizerFormError"
         description="Error text for FestivalOrganizer name"
-        defaultMessage="Go to 'add person/organization' to make a profile for this network / association / union."
+        defaultMessage="Go to 'add person/organization' to make a profile for this profile."
       />,
       attrs: {
         className: 'festival-organizer-profile-edit',

@@ -103,7 +103,11 @@ class EventAddPage extends React.Component {
                     onClick={this.displayNewShowForm.bind(this, { displayNewShowForm: false })}
                     title="Cancel Add Show"
                   >
-                    Never mind, I don't want to add a new show
+                    <FormattedMessage
+                      id="show.eventAddCancel"
+                      description="Cancel text for New Show from Events Add form"
+                      defaultMessage="Never mind, I don't want to add a new show"
+                    />
                   </span>
                 </div>
               </div>

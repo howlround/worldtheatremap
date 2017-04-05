@@ -91,6 +91,8 @@ label {
   cursor: pointer;
   color: $red;
   text-decoration: none;
+  display: block;
+  margin-top: $spacing-unit;
 
   &:hover,
   &:focus {

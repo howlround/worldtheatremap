@@ -527,6 +527,8 @@
   "home.todayGlobeHeader": "Lo que está ocurriendo hoy",
   "home.introText": "El Mapa Mundial de Teatro es un directorio y un mapa creado por usuarios que ubica, en tiempo real, a la comunidad de teatro a nivel mundial.",
   "homepage.autocompleteCreate": "{eventsTodayCount, number} {eventsTodayCount, plural, one {Evento Sucediendo} other {Eventos Que Suceden}} Hoy",
+  "search.loadingText": "Cargando",
+  "search.emptyText": "No hay resultados",
   "home.todayEventsMoreLink": "Ver todos los eventos de hoy",
   "homepage.discoverSection": "Descubrir",
   "homepage.howlroundSection": "De HowlRound",

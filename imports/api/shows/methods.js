@@ -178,26 +178,25 @@ export const update = new ValidatedMethod({
     Shows.updateTranslations(showId, doc);
 
     // Make sure all events are updated with new info (name, authors)
-    // Events.update(eventId, {
-    //   $set: newEvent,
-    // });
-    Events.update(
-      {
-        'show._id': showId,
-      },
-      {
-        $set: {
-          show: {
-            _id: showId,
-            name: newShow.name,
-            author: newShow.author,
-          },
+    const relatedEvents = Events.find({ 'show._id': showId }, { fields: { _id: 1 } }).fetch();
+    const relatedEventIDs = _.pluck(relatedEvents, '_id');
+
+    _.each(relatedEventIDs, eventID => {
+      const updateCount = Events.update(
+        {
+          _id: eventID,
+        },
+        {
+          $set: {
+            show: {
+              _id: showId,
+              name: newShow.name,
+              author: newShow.author,
+            },
+          }
         }
-      },
-      {
-        multi: true
-      }
-    );
+      );
+    });
   },
 });
 

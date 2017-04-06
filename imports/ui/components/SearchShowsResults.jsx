@@ -1,6 +1,8 @@
 import React from 'react';
 import { _ } from 'meteor/underscore';
 import ShowTeaser from '../components/ShowTeaser.jsx';
+import SearchResultsEmptyText from '../components/SearchResultsEmptyText.jsx';
+import SearchResultsLoading from '../components/SearchResultsLoading.jsx';
 
 export default class SearchShowsResults extends React.Component {
   constructor(props) {
@@ -9,7 +11,12 @@ export default class SearchShowsResults extends React.Component {
 
   render() {
     const { results, loading } = this.props;
-    if (!loading && !_.isEmpty(results)) {
+
+    if (loading) {
+      return (
+        <SearchResultsLoading />
+      );
+    } else if (!_.isEmpty(results)) {
       return(
         <ul className="search-results">
           { results.map(result => (
@@ -21,7 +28,9 @@ export default class SearchShowsResults extends React.Component {
       );
     }
     else {
-      return (null);
+      return (
+        <SearchResultsEmptyText />
+      );
     }
   }
 }

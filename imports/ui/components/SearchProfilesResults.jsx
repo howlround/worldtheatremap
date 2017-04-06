@@ -2,6 +2,8 @@ import React from 'react';
 import { _ } from 'meteor/underscore';
 import ProfileSearchResult from '../components/ProfileSearchResult.jsx';
 import SearchResultsPager from '../components/SearchResultsPager.jsx';
+import SearchResultsEmptyText from '../components/SearchResultsEmptyText.jsx';
+import SearchResultsLoading from '../components/SearchResultsLoading.jsx';
 
 export default class SearchProfilesResults extends React.Component {
   constructor(props) {
@@ -11,7 +13,11 @@ export default class SearchProfilesResults extends React.Component {
   render() {
     const { results, loading, skip, query, updateQuery } = this.props;
 
-    if (!loading && !_.isEmpty(results)) {
+    if (loading) {
+      return (
+        <SearchResultsLoading />
+      );
+    } else if (!_.isEmpty(results)) {
       return (
         <div className="search-results-wrapper">
           <ul className="search-results">
@@ -24,9 +30,10 @@ export default class SearchProfilesResults extends React.Component {
           <SearchResultsPager count={results.length} skip={skip} query={query} updateQuery={updateQuery} />
         </div>
       );
-    }
-    else {
-      return (null);
+    } else {
+      return (
+        <SearchResultsEmptyText />
+      );
     }
   }
 }

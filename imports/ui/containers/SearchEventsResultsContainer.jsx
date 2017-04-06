@@ -58,6 +58,7 @@ const SearchEventsResultsContainer = createContainer((props) => {
 
     if (!_.isEmpty(privateQuery)) {
       const eventsSubscribe = Meteor.subscribe('events.search', privateQuery, skip);
+      loading = !eventsSubscribe.ready();
       results = Events.find(
         privateQuery,
         {

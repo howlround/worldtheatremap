@@ -113,6 +113,7 @@ const SearchProfilesResultsContainer = createContainer((props) => {
       // We are altering the query based on locale so better
       // to keep the complex switch in one place
       const profilesSubscribe = TAPi18n.subscribe('profiles.search', plainTextQuery, skip, locale);
+      loading = !profilesSubscribe.ready();
       results = Profiles.find(
         {},
         // privateQuery,

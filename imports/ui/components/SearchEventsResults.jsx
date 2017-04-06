@@ -2,6 +2,8 @@ import React from 'react';
 import { _ } from 'meteor/underscore';
 import EventTeaserWithShow from '../components/EventTeaserWithShow.jsx';
 import SearchResultsPager from '../components/SearchResultsPager.jsx';
+import SearchResultsEmptyText from '../components/SearchResultsEmptyText.jsx';
+import SearchResultsLoading from '../components/SearchResultsLoading.jsx';
 
 export default class SearchEventsResults extends React.Component {
   constructor(props) {
@@ -10,7 +12,11 @@ export default class SearchEventsResults extends React.Component {
 
   render() {
     const { results, loading, skip, query, updateQuery } = this.props;
-    if (!loading && !_.isEmpty(results)) {
+    if (loading) {
+      return (
+        <SearchResultsLoading />
+      );
+    } else if (!_.isEmpty(results)) {
       return(
         <div className="search-results-wrapper">
           <ul className="search-results">
@@ -25,7 +31,9 @@ export default class SearchEventsResults extends React.Component {
       );
     }
     else {
-      return (null);
+      return (
+        <SearchResultsEmptyText />
+      );
     }
   }
 }

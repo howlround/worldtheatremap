@@ -462,6 +462,7 @@ class ProfilePage extends React.Component {
       user,
       showsForAuthor,
       showsForOrg,
+      eventsByShowByOrg,
       roles,
       connections,
       affiliations,
@@ -588,6 +589,7 @@ class ProfilePage extends React.Component {
             user={user}
             showsForAuthor={showsForAuthor}
             showsForOrg={showsForOrg}
+            eventsByShowByOrg={eventsByShowByOrg}
             roles={roles}
             affiliatedProfiles={affiliatedProfiles}
             festivalProfiles={festivalProfiles}
@@ -660,6 +662,7 @@ ProfilePage.propTypes = {
   user: React.PropTypes.object,
   showsForAuthor: React.PropTypes.array,
   showsForOrg: React.PropTypes.array,
+  eventsByShowByOrg: React.PropTypes.array,
   roles: React.PropTypes.array,
   connections: React.PropTypes.array,
   affiliations: React.PropTypes.array,

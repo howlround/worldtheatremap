@@ -40,6 +40,7 @@ class Show extends React.Component {
         <li key={event._id}>
           <EventTeaser
             event={event}
+            displayOrg={true}
           />
         </li>
       ));

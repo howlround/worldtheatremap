@@ -1,13 +1,91 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
+import {
+  FormattedMessage,
+  FormattedNumber,
+  FormattedPlural,
+  intlShape,
+  injectIntl
+} from 'react-intl';
+
+// Components
 import Authors from '../components/Authors.jsx';
+import EventTeaser from '../components/EventTeaser.jsx';
+
+// Containers
 import ShowNameContainer from '../containers/ShowNameContainer.jsx';
 
 class ShowTeaser extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      open: false,
+    }
+
+    this.toggle = this.toggle.bind(this);
+    this.eventsToggleLink = this.eventsToggleLink.bind(this);
+  }
+
+  toggle(e) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    this.setState({
+      open: !this.state.open,
+    });
+  }
+
+  eventsToggleLink() {
+    const { eventsByShow } = this.props;
+
+    return (
+      <a href="#" className="show-events-toggle" onClick={this.toggle}>
+        <span className="count">
+          <FormattedNumber
+            value={eventsByShow.length}
+          />
+        </span>
+        &nbsp;
+        <span className="type">
+          <FormattedPlural
+            value={eventsByShow.length}
+            one={
+              <FormattedMessage
+                id="singular.event"
+                description="Singular for view events on show teaser"
+                defaultMessage="Event"
+              />
+            }
+            other={
+              <FormattedMessage
+                id="plural.events"
+                description="Plural for view events on show teaser"
+                defaultMessage="Events"
+              />
+            }
+          />
+        </span>
+      </a>
+    );
+  }
+
   render() {
-    const { show } = this.props;
+    const { show, eventsByShow } = this.props;
+    const { open } = this.state;
     const { locale } = this.props.intl;
+
+    let events;
+    if (eventsByShow && eventsByShow.length) {
+      events = eventsByShow.map(event => (
+        <li key={event._id}>
+          <EventTeaser
+            event={event}
+            displayOrg={false}
+          />
+        </li>
+      ));
+    }
 
     return (
       <article className="show-teaser">
@@ -23,7 +101,14 @@ class ShowTeaser extends React.Component {
               values={{ authors: <Authors authors={show.author} /> }}
             />
           </div>
+
+          {events ? this.eventsToggleLink() : ''}
         </div>
+        {open ?
+          <ul className="show-events">
+            {events}
+          </ul>
+        : ''}
       </article>
     );
   }
@@ -31,6 +116,7 @@ class ShowTeaser extends React.Component {
 
 ShowTeaser.propTypes = {
   show: React.PropTypes.object,
+  eventsByShow: React.PropTypes.array,
   intl: intlShape.isRequired,
 };
 

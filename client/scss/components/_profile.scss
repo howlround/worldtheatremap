@@ -5,7 +5,7 @@ article.profile {
 }
 
 section.profile-shows {
-  ul {
+  & > ul {
     @include results-listing;
   }
 }

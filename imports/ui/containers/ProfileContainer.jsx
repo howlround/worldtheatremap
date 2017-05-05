@@ -19,6 +19,7 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
   let roles = new Array;
   let showsToSubscribeTo = new Array;
   let showIdsByOrg = new Array;
+  let eventsByShowByOrg = new Array;
   // const allNecessaryProfiles = _.clone(connectionIds);
   const allNecessaryProfiles = new Array;
   // Add the author themselves to save a subscription
@@ -103,6 +104,9 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
     }
     showsToSubscribeTo.push(record.event.show._id);
 
+    // @TODO: Subscribe to each event also.
+    // @TODO: What about the other profiles related to that event?
+
     // Add Show authors
     _.each(record.event.show.author, (author) => allNecessaryProfiles.push(author._id));
   });
@@ -110,12 +114,9 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
   // Get shows where this user is the local org for an event
   //  - Get all events where this user is the local org
   //  - Add any show to showsToSubscribeTo;
-  const eventsByOrgSub = Meteor.subscribe('events.idsByOrg', id);
+  const eventsByOrgSub = Meteor.subscribe('events.byOrg', id);
   const eventsByOrg = Events.find({'organizations._id': id}, {
-    fields: {
-      show: 1,
-      organizations: 1,
-    },
+    fields: Events.publicFields,
     sort: { startDate: 1 }
   }).fetch();
 
@@ -126,6 +127,12 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
         showIdsByOrg.push(event.show._id);
 
         _.each(event.show.author, (author) => allNecessaryProfiles.push(author._id));
+
+        // Populate eventsByShowByOrg
+        if (_.isEmpty(eventsByShowByOrg[event.show._id])) {
+          eventsByShowByOrg[event.show._id] = new Array;
+        }
+        eventsByShowByOrg[event.show._id].push(event);
       }
     });
   }
@@ -193,6 +200,7 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
     profileExists,
     showsForAuthor,
     showsForOrg,
+    eventsByShowByOrg,
     roles,
     connections,
     affiliations,

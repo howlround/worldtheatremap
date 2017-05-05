@@ -1,6 +1,5 @@
 import React from 'react';
 import classnames from 'classnames';
-import EventTeaserWithShow from '../components/EventTeaserWithShow.jsx';
 import Message from '../components/Message.jsx';
 import Profile from '../components/Profile.jsx';
 import topojson from 'topojson';

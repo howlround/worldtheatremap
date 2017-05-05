@@ -22,7 +22,7 @@ class EventTeaserWithShow extends React.Component {
     ].filter(function (val) {return val;}).join(', ');
 
     return (
-      <article className="event-teaser-with-show">
+      <article className="event-teaser event-teaser-with-show">
         <div className="event-main-info">
           <h3 className="event-show-name">
             <ShowNameContainer
@@ -40,36 +40,41 @@ class EventTeaserWithShow extends React.Component {
           </div>
           { event.organizations ?
             <div className="event-organizations">
-              <ProfileNameContainer profileId={event.organizations._id} />
+              <ProfileNameContainer
+                profileId={event.organizations._id}
+                defaultName={event.organizations.name}
+              />
             </div>: ''}
           {typeof locationLine !== 'undefined' ?
             <div className="event-location">{locationLine}</div> : ''}
-          <div className="event-type">
-            {
-              formatMessage({
-                'id': `eventType.${event.eventType}`,
-                'defaultMessage': event.eventType,
-                'description': `Interests option: ${event.eventType}`
-              })
-            }
-            <span className="event-type-seperator">:</span>
+          <div className="event-metadata">
+            <div className="event-type">
+              {
+                formatMessage({
+                  'id': `eventType.${event.eventType}`,
+                  'defaultMessage': event.eventType,
+                  'description': `Interests option: ${event.eventType}`
+                })
+              }
+              <span className="event-type-seperator">:</span>
+            </div>
+            {event.startDate && event.endDate ?
+              <div className="event-date-range date">
+                <FormattedDate
+                  value={event.startDate}
+                  year='numeric'
+                  month='short'
+                  day='numeric'
+                />
+                <span> – </span>
+                <FormattedDate
+                  value={event.endDate}
+                  year='numeric'
+                  month='short'
+                  day='numeric'
+                />
+              </div> : ''}
           </div>
-          {event.startDate && event.endDate ?
-            <div className="event-date-range date">
-              <FormattedDate
-                value={event.startDate}
-                year='numeric'
-                month='short'
-                day='numeric'
-              />
-              <span> – </span>
-              <FormattedDate
-                value={event.endDate}
-                year='numeric'
-                month='short'
-                day='numeric'
-              />
-            </div> : ''}
           <Link
             to={`/${locale}/events/${ event._id }`}
             className="event-view-link"

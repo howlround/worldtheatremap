@@ -28,6 +28,38 @@ article.show-teaser {
       }
     }
   }
+
+  .show-events-toggle {
+    @include secondary-view-link;
+
+    margin-left: 5px;
+    float: right;
+    line-height: 1.75em;
+  }
+
+  ul.show-events {
+    & > li {
+      margin-bottom: $spacing-unit * 2;
+      margin-top: $spacing-unit * 2;
+      padding-left: $spacing-unit * 3;
+
+      @include retina-image('/listing-icon-events.png', 12px, 14px);
+      background-repeat: no-repeat;
+      background-position: 4px 5px;
+    }
+
+    article.event-teaser {
+      .event-view-link {
+        @include secondary-view-link;
+
+        float: none;
+
+        &:after {
+          content: " »";
+        }
+      }
+    }
+  }
 }
 
 article.show.full {

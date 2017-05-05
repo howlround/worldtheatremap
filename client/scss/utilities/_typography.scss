@@ -2,3 +2,17 @@
   letter-spacing: .3em;
   text-transform: uppercase;
 }
+
+@mixin secondary-view-link {
+  font-size: 13px;
+  background-color: inherit;
+  padding: 0;
+  color: $gray;
+  font-weight: bold;
+  margin-top: 5px;
+
+  &:hover,
+  &:focus {
+    color: $medium-gray;
+  }
+}

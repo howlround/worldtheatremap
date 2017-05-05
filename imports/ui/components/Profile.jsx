@@ -253,6 +253,7 @@ class Profile extends React.Component {
       user,
       showsForAuthor,
       showsForOrg,
+      eventsByShowByOrg,
       roles,
       affiliatedProfiles,
       festivalProfiles,
@@ -291,6 +292,7 @@ class Profile extends React.Component {
         <li key={show._id}>
           <ShowTeaser
             show={show}
+            eventsByShow={eventsByShowByOrg[show._id]}
           />
         </li>
       ));
@@ -586,6 +588,7 @@ Profile.propTypes = {
   user: React.PropTypes.object,
   showsForAuthor: React.PropTypes.array,
   showsForOrg: React.PropTypes.array,
+  eventsByShowByOrg: React.PropTypes.array,
   roles: React.PropTypes.array,
   affiliatedProfiles: React.PropTypes.array,
   festivalProfiles: React.PropTypes.array,

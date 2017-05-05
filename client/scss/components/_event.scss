@@ -63,12 +63,8 @@ section.show-events {
 article.event-teaser {
   .event-main-info {
     line-height: 1.5em;
-  }
-}
-
-article.event-teaser-with-show {
-  .event-main-info {
-    line-height: 1.5em;
+    overflow: hidden;
+    position: relative;
   }
 
   .event-organizations {
@@ -109,13 +105,17 @@ article.event-teaser-with-show {
     background-color: $red;
     padding: $spacing-unit;
     color: $white;
-    display: inline-block;
+    float: right;
     margin-top: 15px;
 
     &:hover,
     &:focus {
       background-color: $teal;
       color: $white;
+    }
+
+    @include breakpoint($narrow) {
+      float: left;
     }
   }
 }

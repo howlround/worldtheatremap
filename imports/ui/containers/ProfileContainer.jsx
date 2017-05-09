@@ -19,6 +19,8 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
   let roles = new Array;
   let showsToSubscribeTo = new Array;
   let showIdsByOrg = new Array;
+  let eventIdsByProfile = new Array;
+  let eventsByShowByRole = new Array;
   let eventsByShowByOrg = new Array;
   // const allNecessaryProfiles = _.clone(connectionIds);
   const allNecessaryProfiles = new Array;
@@ -96,6 +98,7 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
   // Get data from participant records
   //  - Roles
   //  - Shows
+  //  - Events
   const participantRecords = Participants.find({ 'profile._id': id }, { fields: Participants.publicFields }).fetch();
 
   _.each(participantRecords, record => {
@@ -104,21 +107,43 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
     }
     showsToSubscribeTo.push(record.event.show._id);
 
-    // @TODO: Subscribe to each event also.
-    // @TODO: What about the other profiles related to that event?
+    // Subscribe to each event also.
+    eventIdsByProfile[record.event._id] = record.event._id;
+
+    // Also store all events by role to display later
+    if (!_.has(eventsByShowByRole, record.role)) {
+      eventsByShowByRole[record.role] = new Array;
+    }
+
+    if (!_.has(eventsByShowByRole[record.role], record.event.show._id)) {
+      eventsByShowByRole[record.role][record.event.show._id] = new Array;
+    }
+    eventsByShowByRole[record.role][record.event.show._id].push(record.event);
+
+    // Populate eventsByShowByOrg
+    // @TODO: Merge eventsByShowByRole and eventsByShowByOrg
+    // turn this into eventsByShowByRole['organization'][record.event.show._id]
+    if (_.isEmpty(eventsByShowByOrg[record.event.show._id])) {
+      eventsByShowByOrg[record.event.show._id] = new Array;
+    }
+    eventsByShowByOrg[record.event.show._id].push(record.event);
+
 
     // Add Show authors
     _.each(record.event.show.author, (author) => allNecessaryProfiles.push(author._id));
+    // Add Event organizations
+    _.each(record.event.organizations, (organization) => allNecessaryProfiles.push(organization._id));
   });
 
   // Get shows where this user is the local org for an event
   //  - Get all events where this user is the local org
   //  - Add any show to showsToSubscribeTo;
-  const eventsByOrgSub = Meteor.subscribe('events.byOrg', id);
+  const eventsByOrgSub = Meteor.subscribe('events.byOrgPlusIds', id, eventIdsByProfile);
   const eventsByOrg = Events.find({'organizations._id': id}, {
     fields: Events.publicFields,
     sort: { startDate: 1 }
   }).fetch();
+
 
   if (!_.isEmpty(eventsByOrg)) {
     _.each(eventsByOrg, event => {
@@ -201,6 +226,7 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
     showsForAuthor,
     showsForOrg,
     eventsByShowByOrg,
+    eventsByShowByRole,
     roles,
     connections,
     affiliations,

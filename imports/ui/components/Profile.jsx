@@ -194,10 +194,17 @@ class Profile extends React.Component {
   }
 
   renderShowsByRoles() {
-    const { profile, roles } = this.props;
+    const { profile, roles, eventsByShowByRole } = this.props;
 
     return (
-      roles.map(role => <ShowsByRole key={role} role={role} profile={profile} />)
+      roles.map(role => (
+        <ShowsByRole
+          key={role}
+          role={role}
+          profile={profile}
+          eventsByShow={eventsByShowByRole[role]}
+        />
+      ))
     );
   }
 
@@ -589,6 +596,7 @@ Profile.propTypes = {
   showsForAuthor: React.PropTypes.array,
   showsForOrg: React.PropTypes.array,
   eventsByShowByOrg: React.PropTypes.array,
+  eventsByShowByRole: React.PropTypes.array,
   roles: React.PropTypes.array,
   affiliatedProfiles: React.PropTypes.array,
   festivalProfiles: React.PropTypes.array,

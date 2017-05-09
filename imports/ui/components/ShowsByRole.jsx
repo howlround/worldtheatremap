@@ -1,4 +1,5 @@
 import React from 'react';
+import { _ } from 'meteor/underscore';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import { Participants } from '../../api/participants/participants.js';
@@ -10,7 +11,7 @@ export default class ShowsByRole extends React.Component {
   }
 
   render() {
-    const { profile, role } = this.props;
+    const { profile, role, eventsByShow } = this.props;
 
     // Get all of the events this profile has for this role, sorted by show
     // @TODO: Make sure this is reactive. Maybe make a container for this step
@@ -21,10 +22,19 @@ export default class ShowsByRole extends React.Component {
 
     let Shows;
     if (participantByProfileByRole && participantByProfileByRole.length) {
-      Shows = participantByProfileByRole.map(participantRecord => (
-        <li key={participantRecord.event.show._id}>
+      // We just need one record for each show. The eventsByShow
+      // prop will give us each event
+      let reduceByShow = new Array;
+      _.each(participantByProfileByRole, participantRecord => {
+        if (!_.findWhere(reduceByShow, { name: participantRecord.event.show.name})) {
+          reduceByShow.push(participantRecord.event.show);
+        }
+      });
+      Shows = reduceByShow.map(participantShow => (
+        <li key={participantShow._id}>
           <ShowTeaser
-            show={participantRecord.event.show}
+            show={participantShow}
+            eventsByShow={eventsByShow[participantShow._id]}
           />
         </li>
       ));
@@ -51,4 +61,5 @@ export default class ShowsByRole extends React.Component {
 ShowsByRole.propTypes = {
   profile: React.PropTypes.object,
   role: React.PropTypes.string,
+  eventsByShow: React.PropTypes.array,
 };

@@ -1,6 +1,7 @@
 /* eslint-disable prefer-arrow-callback */
-
 import { Meteor } from 'meteor/meteor';
+import { TAPi18n } from 'meteor/tap:i18n';
+import { _ } from 'meteor/underscore';
 
 // API
 import { Counts } from '../../counts/counts.js';
@@ -8,7 +9,7 @@ import { Profiles } from '../../profiles/profiles.js';
 import { Shows } from '../../shows/shows.js';
 import { Events } from '../../events/events.js';
 
-Meteor.publish('counts.collections', function() {
+Meteor.publish('counts.collections', function countsCollections() {
   const self = this;
   let countTheatremakers = 0;
   let countOrganizations = 0;

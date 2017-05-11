@@ -11,7 +11,7 @@ import { Link } from 'react-router';
 // Containers
 import HomePageContainer from '../containers/HomePageContainer.jsx';
 // Containers
-import SiteStatisticsContainer from '../containers/SiteStatisticsContainer.jsx';
+import ContentCountsContainer from '../containers/ContentCountsContainer.jsx';
 
 // Components
 import Footer from '../components/Footer.jsx';
@@ -218,7 +218,7 @@ class App extends React.Component {
           }
         </section>
         <FooterAddPitch />
-        <SiteStatisticsContainer />
+        <ContentCountsContainer />
         <Footer />
         <div className="feedback-link">
           <a href="https://worldtheatremap.useresponse.com" target="_blank">

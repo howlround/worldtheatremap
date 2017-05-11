@@ -1,17 +1,9 @@
-.site-statistics {
-  background-color: $dark-gray;
-  padding: $spacing-unit * 2 0;
-  color: $white;
+table.site-statistics {
+  margin-top: $spacing-unit * 2;
+  width: 100%;
 
-  h2 {
-    color: $white;
-    text-align: center;
-    font-size: 17px;
-  }
-
-  .footer-content {
-    overflow: auto;
-    border-top: 1px solid $light-gray;
-    padding-top: $spacing-unit;
+  th,
+  td {
+    padding: 5px;
   }
 }

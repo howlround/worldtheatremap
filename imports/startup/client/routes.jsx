@@ -29,6 +29,7 @@ import ShowContainer from '../../ui/containers/ShowContainer.jsx';
 import ShowEditContainer from '../../ui/containers/ShowEditContainer.jsx';
 import TermsOfUsePage from '../../ui/pages/TermsOfUsePage.jsx';
 import AnnouncementEditContainer from '../../ui/containers/AnnouncementEditContainer.jsx';
+import SiteStatisticsContainer from '../../ui/containers/SiteStatisticsContainer.jsx';
 
 // Use this to handle arrays in the query params
 // https://github.com/reactjs/react-router/issues/939#issuecomment-215988002
@@ -109,6 +110,9 @@ export const renderRoutes = ({ locale, messages }) => (
         <Route path="announcement">
           <IndexRedirect to={`/${locale}/announcement`} />
         </Route>
+        <Route path="site-statistics">
+          <IndexRedirect to={`/${locale}/site-statistics`} />
+        </Route>
         <Route path="logout" component={LogoutPage} />
         <Route path="search">
           <IndexRedirect to={`/${locale}/search/profiles`} />
@@ -150,6 +154,7 @@ export const renderRoutes = ({ locale, messages }) => (
         <Route path="about" component={AboutPage} />
         <Route path="terms-of-use" component={TermsOfUsePage} />
         <Route path="announcement" component={AnnouncementEditContainer} />
+        <Route path="site-statistics" component={SiteStatisticsContainer} />
         <Route path="logout" component={LogoutPage} />
         <Route path="search">
           <IndexRedirect to="profiles" />

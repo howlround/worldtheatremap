@@ -32,7 +32,6 @@ export default class LanguageSwitcher extends React.Component {
     const { switchOptions } = this.state;
 
     return (_.map(_.pairs(switchOptions), (pair) => {
-      // console.log(locale);
       const localeCode = pair[0];
       const localeLocalName = pair[1].name;
 

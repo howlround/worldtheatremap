@@ -14,7 +14,6 @@ import '../../api/events/server/publications.js';
 import '../../api/affiliations/methods.js';
 import '../../api/affiliations/server/publications.js';
 
-
 // Festival Organizers
 import '../../api/festivalOrganizers/methods.js';
 import '../../api/festivalOrganizers/server/publications.js';
@@ -59,3 +58,6 @@ import '../../api/variables/server/publications.js';
 
 // Counts
 import '../../api/counts/server/publications.js';
+
+// Stats
+import '../../api/stats/server/publications.js';

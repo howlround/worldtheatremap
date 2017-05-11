@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 // Components
 import CountByType from '../components/CountByType.jsx';
 
-class SiteStatistics extends React.Component {
+class ContentCounts extends React.Component {
   render() {
     const { counts } = this.props;
 
@@ -17,7 +17,7 @@ class SiteStatistics extends React.Component {
     ));
 
     return (
-      <div className="site-statistics">
+      <div className="content-counts">
         <h2>
           <FormattedMessage
             id="footer.siteStatisticsHeader"
@@ -33,8 +33,8 @@ class SiteStatistics extends React.Component {
   }
 }
 
-SiteStatistics.propTypes = {
+ContentCounts.propTypes = {
   counts: React.PropTypes.array,
 };
 
-export default SiteStatistics;
+export default ContentCounts;

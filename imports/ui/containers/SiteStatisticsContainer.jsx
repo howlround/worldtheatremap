@@ -2,18 +2,18 @@
 import { createContainer } from 'meteor/react-meteor-data';
 
 // Components
-import SiteStatistics from '../components/SiteStatistics.jsx';
+import SiteStatisticsPage from '../pages/SiteStatisticsPage.jsx';
 
 // API
-import { Counts } from '../../api/counts/counts.js';
+import { Stats } from '../../api/stats/stats.js';
 
-const SiteStatisticsContainer = createContainer(() => {
-  const countsSub = Meteor.subscribe('counts.collections');
-  const counts = Counts.find().fetch();
+const ContentCountsContainer = createContainer(() => {
+  const statsSub = Meteor.subscribe('stats.analytics');
+  const OriginalLanguage = Stats.findOne('Original Language');
 
   return {
-    counts,
+    OriginalLanguage,
   };
-}, SiteStatistics);
+}, SiteStatisticsPage);
 
-export default SiteStatisticsContainer;
+export default ContentCountsContainer;

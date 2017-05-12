@@ -10,9 +10,13 @@ import { Stats } from '../../api/stats/stats.js';
 const ContentCountsContainer = createContainer(() => {
   const statsSub = Meteor.subscribe('stats.analytics');
   const OriginalLanguage = Stats.findOne('Original Language');
+  const EventsByCountry = Stats.findOne('Events by Country');
+  const TheatremakersByCountry = Stats.findOne('Theatremakers by Country');
 
   return {
     OriginalLanguage,
+    EventsByCountry,
+    TheatremakersByCountry,
   };
 }, SiteStatisticsPage);
 

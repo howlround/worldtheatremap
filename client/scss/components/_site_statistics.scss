@@ -2,6 +2,16 @@ table.site-statistics {
   margin-top: $spacing-unit * 2;
   width: 100%;
 
+  tbody {
+    margin-top: $spacing-unit;
+  }
+
+  .table-header {
+    th {
+      padding-top: $spacing-unit;
+    }
+  }
+
   th,
   td {
     padding: 5px;

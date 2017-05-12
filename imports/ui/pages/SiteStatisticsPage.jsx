@@ -17,12 +17,12 @@ class SiteStatisticsPage extends React.Component {
     super(props);
   }
 
-  extractPercentageValues(statObject) {
+  extractLanguagePercentageValues(statObject) {
     if (typeof statObject == 'undefined') {
       return <tr></tr>;
     }
 
-    let row = _.map(statObject.count, (count, key) => (
+    let row = _.map(statObject.items, (count, key) => (
       <td key={key} className={key}>
         <FormattedNumber
           value={count/statObject.total}
@@ -39,7 +39,41 @@ class SiteStatisticsPage extends React.Component {
     );
   }
 
-  renderStatisticsTable() {
+  extractPercentageValues(statObject) {
+    if (typeof statObject == 'undefined') {
+      return <tr></tr>;
+    }
+
+    let row = _.map(statObject.items, item => (
+      <td key={item.label} className={slugify(item.label)}>
+        <FormattedNumber
+          value={item.value/statObject.total}
+          style="percent"
+        />
+      </td>
+    ));
+
+    return (
+      <tr className={slugify(statObject._id)}>
+        <th>{statObject._id}</th>
+        {row}
+      </tr>
+    );
+  }
+
+  extractHeaders(statObject, key) {
+    if (typeof statObject == 'undefined') {
+      return <th></th>;
+    }
+
+    const header = _.map(statObject.items, (item) => (
+      <th key={item[key]}>{item[key]}</th>
+    ));
+
+    return header;
+  }
+
+  renderLanguageStatisticsTable() {
     const { OriginalLanguage } = this.props;
 
     const supportedLocaleKeys = new Array;
@@ -49,16 +83,33 @@ class SiteStatisticsPage extends React.Component {
     });
 
     const header = _.map(supportedLanguages, (locale) => (
-      <th key={locale.name}>{locale.name}</th>
+      <th key={locale.name}>
+        {locale.name}
+      </th>
     ));
 
     return (
-      <table className="site-statistics">
-        <thead>
-          <tr><th></th>{header}</tr>
-          {this.extractPercentageValues(OriginalLanguage)}
-        </thead>
-      </table>
+      <tbody>
+        <tr className="table-header"><th></th>{header}</tr>
+        {this.extractLanguagePercentageValues(OriginalLanguage)}
+      </tbody>
+    );
+  }
+
+  renderCountryStatisticsTable() {
+    const {
+      EventsByCountry,
+      TheatremakersByCountry,
+    } = this.props;
+
+    const header = this.extractHeaders(EventsByCountry, 'label');
+
+    return (
+      <tbody>
+        <tr className="table-header"><th></th>{header}</tr>
+        {this.extractPercentageValues(EventsByCountry)}
+        {this.extractPercentageValues(TheatremakersByCountry)}
+      </tbody>
     );
   }
 
@@ -72,7 +123,10 @@ class SiteStatisticsPage extends React.Component {
           <Helmet title="Site Statistics" />
           <h1 className="page-title">Site Statistics</h1>
           <div className="page-content">
-            {this.renderStatisticsTable()}
+            <table className="site-statistics">
+              {this.renderLanguageStatisticsTable()}
+              {this.renderCountryStatisticsTable()}
+            </table>
           </div>
         </div>
       );
@@ -97,6 +151,8 @@ SiteStatisticsPage.propTypes = {
   intl: intlShape.isRequired,
   user: React.PropTypes.object,
   OriginalLanguage: React.PropTypes.object,
+  EventsByCountry: React.PropTypes.object,
+  TheatremakersByCountry: React.PropTypes.object,
 };
 
 SiteStatisticsPage.contextTypes = {

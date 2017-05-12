@@ -15,8 +15,10 @@ Meteor.publish('stats.analytics', function statsAnalytics() {
   let countOriginalLanguageTotal = 0;
   let countEventsByUS = { us: 0, other: 0 };
   let countEventsTotal = 0;
-  let countIndividalsByUS = { us: 0, other: 0 };
+  let countIndividualsByUS = { us: 0, other: 0 };
   let countIndividualsTotal = 0;
+  let countOrganizationsByUS = { us: 0, other: 0 };
+  let countOrganizationsTotal = 0;
   const supportedLanguages = TAPi18n.getLanguages();
   _.each(supportedLanguages, (key, locale) => {
     countOriginalLanguage[locale] = 0;
@@ -35,7 +37,7 @@ Meteor.publish('stats.analytics', function statsAnalytics() {
       if (!initializing) {
         self.changed(
           'Stats',
-          'Original Language',
+          'Content Original Language',
           {
             count: countOriginalLanguage,
             total: countOriginalLanguageTotal,
@@ -46,11 +48,11 @@ Meteor.publish('stats.analytics', function statsAnalytics() {
       // Individuals by US/Other
       if (_.contains(fields.profileType, 'Individual')) {
         if (fields.country === 'United States') {
-          countIndividalsByUS.us++;
+          countIndividualsByUS.us++;
           countIndividualsTotal++; // Only get percentage of profiles reporting a country
         }
         else {
-          countIndividalsByUS.other++;
+          countIndividualsByUS.other++;
           countIndividualsTotal++; // Only get percentage of profiles reporting a country
         }
         if (!initializing) {
@@ -61,14 +63,46 @@ Meteor.publish('stats.analytics', function statsAnalytics() {
               items: [
                 {
                   label: 'United States',
-                  value: countIndividalsByUS.us,
+                  value: countIndividualsByUS.us,
                 },
                 {
                   label: 'Other Countries',
-                  value: countIndividalsByUS.other,
+                  value: countIndividualsByUS.other,
                 },
               ],
               total: countIndividualsTotal,
+            }
+          );
+        }
+      }
+
+      // Individuals by US/Other
+      // Second IF statement because a profile could be both
+      if (_.contains(fields.profileType, 'Organization')) {
+        if (fields.country === 'United States') {
+          countOrganizationsByUS.us++;
+          countOrganizationsTotal++; // Only get percentage of profiles reporting a country
+        }
+        else {
+          countOrganizationsByUS.other++;
+          countOrganizationsTotal++; // Only get percentage of profiles reporting a country
+        }
+        if (!initializing) {
+          self.changed(
+            'Stats',
+            'Organizations by Country',
+            {
+              items: [
+                {
+                  label: 'United States',
+                  value: countOrganizationsByUS.us,
+                },
+                {
+                  label: 'Other Countries',
+                  value: countOrganizationsByUS.other,
+                },
+              ],
+              total: countOrganizationsTotal,
             }
           );
         }
@@ -83,7 +117,7 @@ Meteor.publish('stats.analytics', function statsAnalytics() {
       if (!initializing) {
         self.changed(
           'Stats',
-          'Original Language',
+          'Content Original Language',
           {
             count: countOriginalLanguage,
             total: countOriginalLanguageTotal,
@@ -130,7 +164,7 @@ Meteor.publish('stats.analytics', function statsAnalytics() {
   initializing = false;
   self.added(
     'Stats',
-    'Original Language',
+    'Content Original Language',
     {
       items: countOriginalLanguage,
       total: countOriginalLanguageTotal,
@@ -160,14 +194,31 @@ Meteor.publish('stats.analytics', function statsAnalytics() {
       items: [
         {
           label: 'United States',
-          value: countIndividalsByUS.us,
+          value: countIndividualsByUS.us,
         },
         {
           label: 'Other Countries',
-          value: countIndividalsByUS.other,
+          value: countIndividualsByUS.other,
         },
       ],
       total: countIndividualsTotal,
+    }
+  );
+  self.added(
+    'Stats',
+    'Organizations by Country',
+    {
+      items: [
+        {
+          label: 'United States',
+          value: countOrganizationsByUS.us,
+        },
+        {
+          label: 'Other Countries',
+          value: countOrganizationsByUS.other,
+        },
+      ],
+      total: countOrganizationsTotal,
     }
   );
   self.ready();

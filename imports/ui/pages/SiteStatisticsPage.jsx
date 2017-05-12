@@ -100,6 +100,7 @@ class SiteStatisticsPage extends React.Component {
     const {
       EventsByCountry,
       TheatremakersByCountry,
+      OrganizationsByCountry,
     } = this.props;
 
     const header = this.extractHeaders(EventsByCountry, 'label');
@@ -109,6 +110,7 @@ class SiteStatisticsPage extends React.Component {
         <tr className="table-header"><th></th>{header}</tr>
         {this.extractPercentageValues(EventsByCountry)}
         {this.extractPercentageValues(TheatremakersByCountry)}
+        {this.extractPercentageValues(OrganizationsByCountry)}
       </tbody>
     );
   }
@@ -153,6 +155,7 @@ SiteStatisticsPage.propTypes = {
   OriginalLanguage: React.PropTypes.object,
   EventsByCountry: React.PropTypes.object,
   TheatremakersByCountry: React.PropTypes.object,
+  OrganizationsByCountry: React.PropTypes.object,
 };
 
 SiteStatisticsPage.contextTypes = {

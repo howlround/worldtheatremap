@@ -43,7 +43,29 @@ Feature: Analytics page
     And I click on ".edit-event-save"
     And I am logged in as an administrator
     And I go to "/site-statistics"
-    And the ".original-language .en" element should contain "100%"
-    And the ".original-language .es" element should contain "0%"
+    And the ".content-original-language .en" element should contain "100%"
+    And the ".content-original-language .es" element should contain "0%"
 
-  Scenario: The analytics page displays the percentage profiles that are US-based vs non-US-based
+  Scenario: The analytics page displays the percentage individual profiles that are US-based vs non-US-based
+    And I am logged in
+    When I go to the "profile" add page
+    And I fill in ".profile-name-edit" with "My Favorite Playwright"
+    And I select "Individual" from the ".profile-type-edit" combobox
+    And I select "Algeria" from the ".country-select-edit" combobox
+    And I click on ".edit-profile-save"
+    And I am logged in as an administrator
+    And I go to "/site-statistics"
+    And the ".theatremakers-by-country .united-states" element should contain "0%"
+    And the ".theatremakers-by-country .other-countries" element should contain "100%"
+
+  Scenario: The analytics page displays the percentage organization profiles that are US-based vs non-US-based
+    And I am logged in
+    When I go to the "profile" add page
+    And I fill in ".profile-name-edit" with "My Favorite Playwright"
+    And I select "Organization" from the ".profile-type-edit" combobox
+    And I select "Algeria" from the ".country-select-edit" combobox
+    And I click on ".edit-profile-save"
+    And I am logged in as an administrator
+    And I go to "/site-statistics"
+    And the ".organizations-by-country .united-states" element should contain "0%"
+    And the ".organizations-by-country .other-countries" element should contain "100%"

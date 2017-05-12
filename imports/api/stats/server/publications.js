@@ -32,21 +32,23 @@ Meteor.publish('stats.analytics', function statsAnalytics() {
   const handleProfiles = Profiles.find({}).observeChanges({
     added: function(id, fields) {
       // Content by language
-      countOriginalLanguage[fields.source]++;
-      countOriginalLanguageTotal++;
-      if (!initializing) {
-        self.changed(
-          'Stats',
-          'Content Original Language',
-          {
-            count: countOriginalLanguage,
-            total: countOriginalLanguageTotal,
-          }
-        );
+      if (!_.isEmpty(fields.source)) {
+        countOriginalLanguage[fields.source]++;
+        countOriginalLanguageTotal++;
+        if (!initializing) {
+          self.changed(
+            'Stats',
+            'Content Original Language',
+            {
+              count: countOriginalLanguage,
+              total: countOriginalLanguageTotal,
+            }
+          );
+        }
       }
 
       // Individuals by US/Other
-      if (_.contains(fields.profileType, 'Individual')) {
+      if (_.contains(fields.profileType, 'Individual') && !_.isEmpty(fields.country)) {
         if (fields.country === 'United States') {
           countIndividualsByUS.us++;
           countIndividualsTotal++; // Only get percentage of profiles reporting a country
@@ -78,7 +80,7 @@ Meteor.publish('stats.analytics', function statsAnalytics() {
 
       // Individuals by US/Other
       // Second IF statement because a profile could be both
-      if (_.contains(fields.profileType, 'Organization')) {
+      if (_.contains(fields.profileType, 'Organization')  && !_.isEmpty(fields.country)) {
         if (fields.country === 'United States') {
           countOrganizationsByUS.us++;
           countOrganizationsTotal++; // Only get percentage of profiles reporting a country
@@ -112,48 +114,52 @@ Meteor.publish('stats.analytics', function statsAnalytics() {
   });
   const handleShows = Shows.find({}).observeChanges({
     added: function(id, fields) {
-      countOriginalLanguage[fields.source]++;
-      countOriginalLanguageTotal++;
-      if (!initializing) {
-        self.changed(
-          'Stats',
-          'Content Original Language',
-          {
-            count: countOriginalLanguage,
-            total: countOriginalLanguageTotal,
-          }
-        );
+      if (!_.isEmpty(fields.source)) {
+        countOriginalLanguage[fields.source]++;
+        countOriginalLanguageTotal++;
+        if (!initializing) {
+          self.changed(
+            'Stats',
+            'Content Original Language',
+            {
+              count: countOriginalLanguage,
+              total: countOriginalLanguageTotal,
+            }
+          );
+        }
       }
     },
     // don't care about removed or changed
   });
   const handleEvents = Events.find({}).observeChanges({
     added: function(id, fields) {
-      if (fields.country === 'United States') {
-        countEventsByUS.us++;
-      }
-      else {
-        countEventsByUS.other++;
-      }
-      countEventsTotal++;
-      if (!initializing) {
-        self.changed(
-          'Stats',
-          'Events by Country',
-          {
-            items: [
-              {
-                label: 'United States',
-                value: countEventsByUS.us,
-              },
-              {
-                label: 'Other Countries',
-                value: countEventsByUS.other,
-              },
-            ],
-            total: countEventsTotal,
-          }
-        );
+      if (!_.isEmpty(fields.country)) {
+        if (fields.country === 'United States') {
+          countEventsByUS.us++;
+        }
+        else {
+          countEventsByUS.other++;
+        }
+        countEventsTotal++;
+        if (!initializing) {
+          self.changed(
+            'Stats',
+            'Events by Country',
+            {
+              items: [
+                {
+                  label: 'United States',
+                  value: countEventsByUS.us,
+                },
+                {
+                  label: 'Other Countries',
+                  value: countEventsByUS.other,
+                },
+              ],
+              total: countEventsTotal,
+            }
+          );
+        }
       }
     },
     // don't care about removed or changed

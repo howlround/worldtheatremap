@@ -118,6 +118,7 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
     if (!_.has(eventsByShowByRole[record.role], record.event.show._id)) {
       eventsByShowByRole[record.role][record.event.show._id] = new Array;
     }
+    // .push is ok here because there shouldn't be the same role on the same event
     eventsByShowByRole[record.role][record.event.show._id].push(record.event);
 
     // Populate eventsByShowByOrg
@@ -126,7 +127,8 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
     if (_.isEmpty(eventsByShowByOrg[record.event.show._id])) {
       eventsByShowByOrg[record.event.show._id] = new Array;
     }
-    eventsByShowByOrg[record.event.show._id].push(record.event);
+    // If anything about this gets loaded twice make sure to have unique events.
+    eventsByShowByOrg[record.event.show._id][record.event._id] = record.event;
 
 
     // Add Show authors

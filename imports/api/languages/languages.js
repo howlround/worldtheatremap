@@ -1906,6 +1906,14 @@ export const AllLanguagesFactory = (multiValue = false) => {
       />,
     },
     {
+      value: 'Sign Language',
+      label: <FormattedMessage
+        id="language.Sign Language"
+        description="Language options: Sign Language"
+        defaultMessage="Sign Language"
+      />,
+    },
+    {
       value: 'Silesian',
       label: <FormattedMessage
         id="language.Silesian"

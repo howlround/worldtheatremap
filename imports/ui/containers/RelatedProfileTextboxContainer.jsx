@@ -14,7 +14,7 @@ const RelatedProfileTextboxContainer = createContainer((props) => {
   let loading = false;
 
   if (search && search.length > 0) {
-    const profilesSubscribe = TAPi18n.subscribe('profiles.autocompleteQuery', search);
+    const profilesSubscribe = TAPi18n.subscribe('profiles.autocompleteQuery', search, props.limit);
     const regex = new RegExp(`.*${escapeRegExp(search)}.*`, 'i');
 
     const query = {

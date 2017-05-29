@@ -16,9 +16,21 @@ TAPi18n.publish('profiles.autocomplete', function profilesAutocomplete() {
   });
 });
 
-TAPi18n.publish('profiles.autocompleteQuery', function profilesAutocompleteQuery(search) {
+TAPi18n.publish('profiles.autocompleteQuery', function profilesAutocompleteQuery(search, limitKey) {
   const regex = new RegExp(`.*${escapeRegExp(search)}.*`, 'i');
-  return Profiles.i18nFind({ name: { $regex: regex } }, {
+
+  const query = { name: { $regex: regex } };
+
+  switch (limitKey) {
+    case 'networks':
+      query.orgTypes = { $in: [ 'Network / Association / Union' ] };
+      break;
+    case 'notFestivals':
+      query.profileType = { $ne: 'Festival' };
+      break;
+  }
+
+  return Profiles.i18nFind(query, {
     fields: Profiles.autocompleteFields,
     limit: 5,
   });

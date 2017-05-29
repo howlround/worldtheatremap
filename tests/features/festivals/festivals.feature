@@ -33,6 +33,19 @@ Feature: Festival System
     When I go to the profile page for "National Festival Organizers"
     Then the ".affiliated-festivals" element should contain "National Festival of Festivals 2010"
 
+  Scenario: Other festivals should not display as options in the parent organization autocomplete
+    And I am logged in
+    When I go to the "profile" add page
+    And I fill in ".profile-name-edit" with "National Festival of Festivals 2010"
+    And I select "Festival" from the ".profile-type-edit" combobox
+    And I click on ".edit-profile-save"
+    And a profile with the following fields:
+      | name | National Festival Organizers |
+      | about | We fest |
+    When I go to the profile page for "National Festival of Festivals 2010"
+    And I fill in ".festival-organizer-profile-edit" with "National Festival"
+    Then the ".autocomplete-results li" element should not contain "National Festival of Festivals 2010"
+
   Scenario: Users can delete festival organizer affiliations
     And I am logged in
     When I go to the "profile" add page

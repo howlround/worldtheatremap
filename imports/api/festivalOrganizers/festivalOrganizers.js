@@ -31,6 +31,7 @@ function renderTextbox(locals) {
         parentValue={locals.value}
         updateParent={onChange}
         attrs={locals.attrs}
+        limit="notFestivals"
         addNew={false}
       />
     </div>

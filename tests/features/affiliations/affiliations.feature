@@ -11,8 +11,8 @@ Feature: Create an affiliation
   Scenario: As a user I want to be able to affiliate a profile with another profile
     And I am logged in
     When I go to the "profile" add page
-    And I fill in ".profile-name-edit" with "National Organization"
     And I select "Organization" from the ".profile-type-edit" combobox
+    And I fill in ".profile-name-edit" with "National Organization"
     And I click on ".organization-types-label-text=Network / Association / Union"
     And I click on ".edit-profile-save"
     And a profile with the following fields:
@@ -41,9 +41,9 @@ Feature: Create an affiliation
   Scenario: Users can delete affiliations
     And I am logged in
     When I go to the "profile" add page
-    And I fill in ".profile-name-edit" with "National Organization"
     And I select "Organization" from the ".profile-type-edit" combobox
     And I click on ".organization-types-label-text=Network / Association / Union"
+    And I fill in ".profile-name-edit" with "National Organization"
     And I click on ".edit-profile-save"
     And a profile with the following fields:
       | name | Affiliated friends |

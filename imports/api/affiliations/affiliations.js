@@ -82,7 +82,7 @@ export const defaultFormOptions = () => ({
       help: <FormattedMessage
         id="forms.affiliationFormHelp"
         description="Help text for Affiliation name"
-        defaultMessage="If your network / association / union does not appear here, it doesn't have a profile yet. Go to 'add person/organization' to make one."
+        defaultMessage="Check 'Network / Association / Union' in the section of the organization's profile form called: 'What kind of organization is this?'"
       />,
       disableAdd: true,
       disableRemove: true,

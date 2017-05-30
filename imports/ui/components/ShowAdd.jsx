@@ -9,7 +9,7 @@ import i18nES from 'tcomb-form/lib/i18n/es';
 // API
 import { insert } from '../../api/shows/methods.js';
 import { showSchema, defaultFormOptions } from '../../api/shows/shows.js';
-import { AllCountriesFactory } from '../../api/countries/countries.js';
+import { allCountriesFactory } from '../../api/countries/countries.js';
 import { insert as insertProfile } from '../../api/profiles/methods.js';
 
 const Form = t.form.Form;
@@ -87,16 +87,19 @@ class ShowAdd extends React.Component {
     const { locale } = this.props.intl;
     const formOptions = defaultFormOptions();
 
-    formOptions.fields.country.factory = AllCountriesFactory(locale, true);
+    formOptions.fields.country.factory = allCountriesFactory(locale, true);
 
     switch (locale) {
       case 'es':
         Form.i18n = i18nES;
         break;
+      default:
+        // Use default tcomb settings
+        break;
     }
 
     return (
-      <form className="show-edit-form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off" >
+      <form className="show-edit-form" onSubmit={this.handleSubmit} autoComplete="off" >
         <h1>
           <FormattedMessage
             id="show.showAddPageTitle"

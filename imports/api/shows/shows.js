@@ -11,7 +11,7 @@ import { FormattedMessage } from 'react-intl';
 
 // API
 import { interestsCheckboxFactory, interestsSelectFactory } from '../../api/interests/interests.js';
-// import { AllCountriesFactory } from '../../api/countries/countries.js';
+// import { allCountriesFactory } from '../../api/countries/countries.js';
 import { AllLanguagesFactory, existingLanguagesFactory } from '../../api/languages/languages.js';
 
 // Containers
@@ -276,7 +276,7 @@ export const defaultFormOptions = () => ({
       factory: interestsCheckboxFactory(),
     },
     country: {
-      // factory: AllCountriesFactory(true),
+      // factory: allCountriesFactory(true),
       label: <FormattedMessage
         id="forms.countryOfOriginLabel"
         description="Field label for country of origin label on shows"
@@ -313,7 +313,7 @@ export const filtersFormOptions = () => ({
       factory: interestsSelectFactory(),
     },
     country: {
-      // factory: AllCountriesFactory(true),
+      // factory: allCountriesFactory(true),
       label: <FormattedMessage
         id="forms.countryOfOriginLabel"
         description="Field label for country of origin label on shows"

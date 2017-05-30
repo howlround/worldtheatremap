@@ -14,7 +14,7 @@ import ReactSelect from 'react-select';
 import DatePicker from 'react-datepicker';
 
 // API
-// import { AllCountriesFactory } from '../../api/countries/countries.js';
+// import { allCountriesFactory } from '../../api/countries/countries.js';
 import { interestsSelectFactory, interestsCheckboxFactory } from '../../api/interests/interests.js';
 
 // Components
@@ -1507,7 +1507,7 @@ export const defaultFormOptions = () => ({
         }}
       />,
       // Imported factories need to be called as functions
-      // factory: AllCountriesFactory(),
+      // factory: allCountriesFactory(),
     },
     postalCode: {
       label: <FormattedMessage
@@ -2094,7 +2094,7 @@ export const translateSourceFormOptions = () => ({
     },
     country: {
       // Imported factories need to be called as functions
-      // factory: AllCountriesFactory(),
+      // factory: allCountriesFactory(),
       disabled: true,
     },
     postalCode: {

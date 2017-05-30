@@ -8,7 +8,7 @@ import React from 'react';
 import t from 'tcomb-form';
 
 // API
-// import { AllCountriesFactory } from '../../api/countries/countries.js';
+// import { allCountriesFactory } from '../../api/countries/countries.js';
 import { disabledFieldTemplate } from '../../api/profiles/profiles.js';
 
 // Components
@@ -261,7 +261,7 @@ export const defaultFormOptions = () => ({
         },
         country: {
           // hasError: true,
-          // factory: AllCountriesFactory(true),
+          // factory: allCountriesFactory(true),
           label: <FormattedMessage
             id="forms.labelRequiredOrOptional"
             description="Label for a form field with required or optional specified"

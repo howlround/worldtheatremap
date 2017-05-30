@@ -75,7 +75,7 @@ export const existingCountriesFactory = (locale) => {
   return ReactSelectExistingCountriesFactory;
 };
 
-export const AllCountriesFactory = (locale, multiValue = false) => {
+export const allCountriesFactory = (locale, multiValue = false) => {
   // allCountries options
   const sortKey = (!locale || locale === 'en') ? 'label' : `i18n.${locale}.label`;
   const sort = {}
@@ -120,11 +120,11 @@ export const AllCountriesFactory = (locale, multiValue = false) => {
   });
 
   // allCountries factory function
-  class ReactSelectAllCountriesFactory extends t.form.Component {
+  class ReactSelectallCountriesFactory extends t.form.Component {
     getTemplate() {
       return allCountriesTags;
     }
   }
 
-  return ReactSelectAllCountriesFactory;
+  return ReactSelectallCountriesFactory;
 };

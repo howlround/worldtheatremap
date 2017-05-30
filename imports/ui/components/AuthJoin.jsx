@@ -12,7 +12,7 @@ import Loading from '../components/Loading.jsx';
 
 // API
 import { userSchema, defaultFormOptions } from '../../api/users/users.js';
-import { AllCountriesFactory } from '../../api/countries/countries.js';
+import { allCountriesFactory } from '../../api/countries/countries.js';
 
 const Form = t.form.Form;
 
@@ -88,7 +88,7 @@ class AuthJoin extends React.Component {
     if (!_.contains(get(profile, 'referrer'), 'Other')) {
       formOptions.fields.profile.fields.referrerOther.disabled = true;
     }
-    formOptions.fields.profile.fields.country.factory = AllCountriesFactory(locale, true);
+    formOptions.fields.profile.fields.country.factory = allCountriesFactory(locale, true);
 
     return (
       <div className="wrapper-auth">

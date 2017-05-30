@@ -24,7 +24,7 @@ Feature: Create shows
     Then I should see the ".show-name-edit" element
     And I should see the ".show-author-name-edit" element
     And I should see the ".show-about-edit" element
-
+@focus
   Scenario: Users should be able to create a show with all the fields
     And a profile with the following fields:
       | name | My Favorite Playwright |

@@ -7,8 +7,12 @@ import i18nES from 'tcomb-form/lib/i18n/es';
 import { displayError } from '../helpers/errors.js';
 
 import { insert } from '../../api/profiles/methods.js';
-import { profileFormSchema, defaultFormOptions, DuplicateProfileFactory } from '../../api/profiles/profiles.js';
-import { AllCountriesFactory } from '../../api/countries/countries.js';
+import {
+  profileFormSchema,
+  defaultFormOptions,
+  DuplicateProfileFactory
+} from '../../api/profiles/profiles.js';
+import { allCountriesFactory } from '../../api/countries/countries.js';
 
 const Form = t.form.Form;
 
@@ -29,13 +33,10 @@ class ProfileAdd extends React.Component {
 
         return newID;
       }
+
+      return null;
     }, 300);
 
-    // this.updateProfile = this.updateProfile.bind(this);
-    // this.onFocus = this.onFocus.bind(this);
-    // this.onBlur = this.onBlur.bind(this);
-    // this.componentDidMount = this.componentDidMount.bind(this);
-    // this.componentDidUpdate = this.componentDidUpdate.bind(this);
     this.initGoogleMap = this.initGoogleMap.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -45,10 +46,9 @@ class ProfileAdd extends React.Component {
     this.initGoogleMap();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate() {
     this.initGoogleMap();
 
-    const { prevGender } = prevState;
     const { gender, genderOther } = this.state;
 
     // Any time Another identity is not checked AND it is not null, set it to null
@@ -59,11 +59,15 @@ class ProfileAdd extends React.Component {
     }
 
     // Any time Another identity is checked but there is nothing in the other field, get it to [ null ] to display an empty field
-    if (_.isEmpty(genderOther) && genderOther !== [ null ] && _.contains(gender, 'Another Identity')) {
+    if (_.isEmpty(genderOther) && genderOther !== [null] && _.contains(gender, 'Another Identity')) {
       this.setState({
-        genderOther: [ null ],
+        genderOther: [null],
       });
     }
+  }
+
+  onChange(value) {
+    this.setState(value);
   }
 
   initGoogleMap() {
@@ -165,10 +169,6 @@ class ProfileAdd extends React.Component {
     }
   }
 
-  onChange(value) {
-    this.setState(value);
-  }
-
   handleSubmit(event) {
     event.preventDefault();
 
@@ -184,8 +184,8 @@ class ProfileAdd extends React.Component {
   }
 
   render() {
-    const { profileType, gender } = this.state;
     const { locale } = this.props.intl;
+    const { profileType, gender } = this.state;
     let formOptions = defaultFormOptions();
 
     if (!_.contains(gender, 'Another Identity')) {
@@ -209,7 +209,7 @@ class ProfileAdd extends React.Component {
       formOptions.fields.endDate.disabled = true;
     }
 
-    formOptions.fields.country.factory = AllCountriesFactory(locale);
+    formOptions.fields.country.factory = allCountriesFactory(locale);
     formOptions.fields.name.factory = DuplicateProfileFactory;
 
     switch (locale) {
@@ -219,7 +219,7 @@ class ProfileAdd extends React.Component {
     }
 
     return (
-      <form className="profile-edit-form" onSubmit={this.handleSubmit.bind(this)}>
+      <form className="profile-edit-form" onSubmit={this.handleSubmit}>
         <Form
           ref="form"
           type={profileFormSchema}

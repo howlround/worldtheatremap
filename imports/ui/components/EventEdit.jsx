@@ -9,7 +9,7 @@ import { displayError } from '../helpers/errors.js';
 import { insert, update } from '../../api/events/methods.js';
 import { eventSchema, defaultFormOptions } from '../../api/events/forms.js';
 import { Shows } from '../../api/shows/shows.js';
-import { AllCountriesFactory } from '../../api/countries/countries.js';
+import { allCountriesFactory } from '../../api/countries/countries.js';
 
 const Form = t.form.Form;
 
@@ -173,7 +173,7 @@ class EventEdit extends React.Component {
     const formOptions = defaultFormOptions();
 
     formOptions.fields.show.disabled = true;
-    formOptions.fields.country.factory = AllCountriesFactory(locale);
+    formOptions.fields.country.factory = allCountriesFactory(locale);
 
     return (
       <form className="event-edit-form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off" >

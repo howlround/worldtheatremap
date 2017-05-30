@@ -1,15 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { _ } from 'meteor/underscore';
 import { displayError } from '../helpers/errors.js';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
-import {
-  update,
-  remove,
-} from '../../api/shows/methods.js';
+import { update } from '../../api/shows/methods.js';
 import { showSchema, defaultFormOptions } from '../../api/shows/shows.js';
-import { AllCountriesFactory } from '../../api/countries/countries.js';
-import { Profiles } from '../../api/profiles/profiles.js';
+import { allCountriesFactory } from '../../api/countries/countries.js';
 import t from 'tcomb-form';
 import i18nES from 'tcomb-form/lib/i18n/es';
 
@@ -55,25 +50,27 @@ class ShowEdit extends React.Component {
       // Only change editing state if validation passed
       this.props.onEditingChange(this.props.show._id, false);
       const { router } = this.context;
-      router.push(`/${locale}/shows/${ this.props.show._id }`);
+      router.push(`/${locale}/shows/${this.props.show._id}`);
     }
   }
 
   render() {
-    const { show } = this.props;
     const { locale } = this.props.intl;
     const formOptions = defaultFormOptions();
 
-    formOptions.fields.country.factory = AllCountriesFactory(locale, true);
+    formOptions.fields.country.factory = allCountriesFactory(locale, true);
 
     switch (locale) {
       case 'es':
         Form.i18n = i18nES;
         break;
+      default:
+        // Use default tcomb settings
+        break;
     }
 
     return (
-      <form className="show-edit-form" onSubmit={this.handleSubmit.bind(this)} >
+      <form className="show-edit-form" onSubmit={this.handleSubmit} >
         <Form
           ref="form"
           type={showSchema}
@@ -87,9 +84,9 @@ class ShowEdit extends React.Component {
           className="edit-show-save"
         >
           <FormattedMessage
-            id='buttons.save'
-            description='Generic save button'
-            defaultMessage='Save'
+            id="buttons.save"
+            description="Generic save button"
+            defaultMessage="Save"
           />
         </button>
       </form>

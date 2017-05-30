@@ -7,8 +7,11 @@ import i18nES from 'tcomb-form/lib/i18n/es';
 import { displayError } from '../helpers/errors.js';
 
 import { update } from '../../api/profiles/methods.js';
-import { profileFormSchema, defaultFormOptions } from '../../api/profiles/profiles.js';
-import { AllCountriesFactory } from '../../api/countries/countries.js';
+import {
+  profileFormSchema,
+  defaultFormOptions
+} from '../../api/profiles/profiles.js';
+import { allCountriesFactory } from '../../api/countries/countries.js';
 
 const Form = t.form.Form;
 
@@ -27,15 +30,9 @@ class ProfileEdit extends React.Component {
           newProfile,
           locale,
         }, displayError);
-
-        // @TODO:Update this profile name in all plays and events
-        // http://stackoverflow.com/questions/10522347/mongodb-update-objects-in-a-documents-array-nested-updating
       }
     }, 300);
 
-    // this.updateProfile = this.updateProfile.bind(this);
-    // this.onFocus = this.onFocus.bind(this);
-    // this.onBlur = this.onBlur.bind(this);
     this.initGoogleMap = this.initGoogleMap.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -45,14 +42,9 @@ class ProfileEdit extends React.Component {
     this.initGoogleMap();
   }
 
-  componentWillReceiveProps() {
-    this.setState(this.props.profile);
-  }
-
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate() {
     this.initGoogleMap();
 
-    const { prevGender } = prevState;
     const { gender, genderOther } = this.state;
 
     // Any time Another identity is not checked AND it is not null, set it to null
@@ -63,9 +55,9 @@ class ProfileEdit extends React.Component {
     }
 
     // Any time Another identity is checked but there is nothing in the other field, get it to [ null ] to display an empty field
-    if (_.isEmpty(genderOther) && genderOther !== [ null ] && _.contains(gender, 'Another Identity')) {
+    if (_.isEmpty(genderOther) && genderOther !== [null] && _.contains(gender, 'Another Identity')) {
       this.setState({
-        genderOther: [ null ],
+        genderOther: [null],
       });
     }
   }
@@ -217,7 +209,7 @@ class ProfileEdit extends React.Component {
       formOptions.fields.endDate.disabled = true;
     }
 
-    formOptions.fields.country.factory = AllCountriesFactory(locale);
+    formOptions.fields.country.factory = allCountriesFactory(locale);
 
     switch (locale) {
       case 'es':

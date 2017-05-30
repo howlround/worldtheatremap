@@ -43,5 +43,5 @@ Feature: Adding author names should propogate to events
     And I fill in ".form-group-author-1 .show-author-name-edit" with "Some Other"
     And I click on "ul.autocomplete-results li"
     And I click on ".edit-show-save"
-    And I click on ".event-name a"
+    And I click on "a.event-view-link"
     Then the ".event-authorship" element should contain "My Favorite Playwright and Some Other Playwright"

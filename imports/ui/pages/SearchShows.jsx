@@ -6,7 +6,7 @@ import Helmet from 'react-helmet';
 
 // API
 import { showFiltersSchema, filtersFormOptions } from '../../api/shows/shows.js';
-import { AllCountriesFactory } from '../../api/countries/countries.js';
+import { allCountriesFactory } from '../../api/countries/countries.js';
 
 // Containers
 import SearchShowsResultsContainer from '../containers/SearchShowsResultsContainer.jsx';
@@ -103,7 +103,7 @@ class SearchShows extends React.Component {
       );
     } else {
       let formOptions = filtersFormOptions();
-      formOptions.fields.country.factory = AllCountriesFactory(locale, true);
+      formOptions.fields.country.factory = allCountriesFactory(locale, true);
       formOptions.fields.name.attrs.placeholder = formatMessage({
         'id': 'searchShows.placeholder',
         'defaultMessage': 'Search for shows by name',

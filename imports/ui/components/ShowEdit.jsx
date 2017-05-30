@@ -16,9 +16,7 @@ class ShowEdit extends React.Component {
 
     const { locale } = this.props.intl;
 
-    this.state = {
-      show: this.props.show,
-    };
+    this.state = this.props.show;
 
     this.throttledUpdate = _.throttle(newShow => {
       if (newShow) {
@@ -35,7 +33,7 @@ class ShowEdit extends React.Component {
   }
 
   onChange(value) {
-    this.setState({ show: value });
+    this.setState(value);
   }
 
   handleSubmit(event) {
@@ -74,7 +72,7 @@ class ShowEdit extends React.Component {
         <Form
           ref="form"
           type={showSchema}
-          value={this.state.show}
+          value={this.state}
           options={formOptions}
           onChange={this.onChange}
         />

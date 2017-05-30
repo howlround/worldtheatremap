@@ -1,6 +1,5 @@
 // Utilities
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { _ } from 'meteor/underscore';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { displayError } from '../helpers/errors.js';
@@ -12,7 +11,6 @@ import { insert } from '../../api/shows/methods.js';
 import { showSchema, defaultFormOptions } from '../../api/shows/shows.js';
 import { AllCountriesFactory } from '../../api/countries/countries.js';
 import { insert as insertProfile } from '../../api/profiles/methods.js';
-import { Profiles } from '../../api/profiles/profiles.js';
 
 const Form = t.form.Form;
 
@@ -24,7 +22,7 @@ class ShowAdd extends React.Component {
 
     this.state = {
       name: this.props.defaultName,
-      author: [ null ],
+      author: [null],
     };
 
     this.throttledAdd = _.throttle(newShow => {
@@ -36,6 +34,8 @@ class ShowAdd extends React.Component {
 
         return newID;
       }
+
+      return null;
     }, 300);
 
     this.throttledAddProfile = _.throttle(newProfile => {
@@ -46,16 +46,23 @@ class ShowAdd extends React.Component {
 
         return newID;
       }
+
+      return null;
     }, 300);
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
   }
 
+  onChange(value) {
+    this.setState(value);
+  }
+
   handleSubmit(event) {
     event.preventDefault();
-    const { showCallback } = this.props;
+
     const { locale } = this.props.intl;
+    const { showCallback } = this.props;
 
     const newShow = this.refs.form.getValue();
     if (newShow) {
@@ -65,7 +72,7 @@ class ShowAdd extends React.Component {
         _id: newID,
         name: newShow.name,
         author: newShow.author,
-      }
+      };
 
       if (showCallback) {
         showCallback(callbackShowObj);
@@ -74,10 +81,6 @@ class ShowAdd extends React.Component {
         this.context.router.push(`/${locale}/shows/${newID}`);
       }
     }
-  }
-
-  onChange(value, path) {
-    this.setState(value);
   }
 
   render() {
@@ -111,7 +114,8 @@ class ShowAdd extends React.Component {
         <div className="form-group">
           <button
             type="submit"
-            className="edit-show-save">
+            className="edit-show-save"
+          >
             <FormattedMessage
               id="show.showAddSubmit"
               description="Submit button for Events Add form"
@@ -120,7 +124,7 @@ class ShowAdd extends React.Component {
           </button>
         </div>
       </form>
-    )
+    );
   }
 }
 

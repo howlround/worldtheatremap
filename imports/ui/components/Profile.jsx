@@ -371,9 +371,9 @@ class Profile extends React.Component {
           <span key={selfDefinedRole}>
             {
               formatMessage({
-                id: `selfDefinedRole.${selfDefinedRole}`,
+                id: `role.${selfDefinedRole}`,
                 defaultMessage: selfDefinedRole,
-                description: `Interests option: ${selfDefinedRole}`,
+                description: `Roles option: ${selfDefinedRole}`,
               })
             }
             {seperator}

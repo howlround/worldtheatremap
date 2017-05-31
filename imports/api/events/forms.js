@@ -418,6 +418,14 @@ export const defaultFormOptions = () => ({
         description="Error message for start date form field on events forms"
         defaultMessage="Start date is required"
       />,
+      help: <FormattedMessage
+        id="forms.eventDateHelpText"
+        description="Help text for start and end dates"
+        defaultMessage="Format: {exampleDate}"
+        values={{
+          exampleDate: moment().format('L')
+        }}
+      />,
       attrs: {
         className: 'event-start-date-edit',
       },
@@ -444,6 +452,14 @@ export const defaultFormOptions = () => ({
         id="forms.eventEndDateError"
         description="Error message for End date form field on events forms"
         defaultMessage="End date is required"
+      />,
+      help: <FormattedMessage
+        id="forms.eventDateHelpText"
+        description="Help text for start and end dates"
+        defaultMessage="Format: {exampleDate}"
+        values={{
+          exampleDate: moment().format('L')
+        }}
       />,
       attrs: {
         className: 'event-end-date-edit',

@@ -49,6 +49,7 @@
   "forms.showNameError": "Nombre del evento o presentación es un requisto",
   "forms.showNameError": "El nombre es requerido",
   "forms.eventStartDateError": "La Fecha en Indicio es un requisito",
+  "forms.eventDateHelpText": "Formato: {exampleDate}",
   "forms.eventEndDateError": "La Fecha Final es un requisito",
   "forms.eventCountryError": "El país es un requisito",
   "forms.eventLocationError": "Debe seleccionar una localización para este evento",

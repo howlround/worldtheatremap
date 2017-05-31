@@ -34,6 +34,7 @@
   "forms.eventAboutHelpText": "Enter a link to more information about this event. Include the http://",
   "forms.showNameError": "Show name is required",
   "forms.eventStartDateError": "Start date is required",
+  "forms.eventDateHelpText": "Format: {exampleDate}",
   "forms.eventEndDateError": "End date is required",
   "forms.eventCountryError": "Country is required",
   "forms.eventLocationError": "You must select a location for this event",

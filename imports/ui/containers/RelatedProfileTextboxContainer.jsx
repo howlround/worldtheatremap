@@ -32,7 +32,7 @@ const RelatedProfileTextboxContainer = createContainer((props) => {
         break;
     }
 
-    results = Profiles.find(query, { limit: 5, fields: Profiles.autocompleteFields }).fetch();
+    results = Profiles.find(query, { limit: 10, fields: Profiles.autocompleteFields }).fetch();
 
     loading = !(profilesSubscribe.ready());
   }

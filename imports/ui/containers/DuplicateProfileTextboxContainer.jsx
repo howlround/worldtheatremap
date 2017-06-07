@@ -27,7 +27,7 @@ const DuplicateProfileTextboxContainer = createContainer((props) => {
       query.orgTypes = 'Network / Association / Union';
     }
 
-    results = Profiles.find(query, { limit: 5, fields: Profiles.autocompleteFields }).fetch();
+    results = Profiles.find(query, { limit: 10, fields: Profiles.autocompleteFields }).fetch();
 
     loading = !(profilesSubscribe.ready());
   }

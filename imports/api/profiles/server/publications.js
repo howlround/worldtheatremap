@@ -32,7 +32,7 @@ TAPi18n.publish('profiles.autocompleteQuery', function profilesAutocompleteQuery
 
   return Profiles.i18nFind(query, {
     fields: Profiles.autocompleteFields,
-    limit: 5,
+    limit: 10,
   });
 });
 

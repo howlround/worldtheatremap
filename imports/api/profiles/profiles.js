@@ -2041,6 +2041,60 @@ export const filtersFormOptions = () => ({
       />,
       factory: GendersReactSelectFactory,
     },
+    startDate: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.startDateLabel"
+            description="Label for a Start date form field"
+            defaultMessage="Start date"
+          />,
+        }}
+      />,
+      error: <FormattedMessage
+        id="forms.eventStartDateError"
+        description="Error message for start date form field on events forms"
+        defaultMessage="Start date is required"
+      />,
+      attrs: {
+        className: 'event-start-date-edit',
+      },
+    },
+    endDate: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
+            id="forms.optionalLabel"
+            description="Addition to label indicating a field is optional"
+            defaultMessage="(optional)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.endDateLabel"
+            description="Label for a End date form field"
+            defaultMessage="End date"
+          />,
+        }}
+      />,
+      error: <FormattedMessage
+        id="forms.eventEndDateError"
+        description="Error message for End date form field on events forms"
+        defaultMessage="End date is required"
+      />,
+      attrs: {
+        className: 'event-end-date-edit',
+      },
+    },
   },
 });
 

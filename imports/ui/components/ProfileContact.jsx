@@ -13,6 +13,20 @@ marked.setOptions({
 class ProfileContact extends React.Component {
   constructor(props) {
     super(props);
+
+    this.renderExternalLink = this.renderExternalLink.bind(this);
+  }
+
+  renderExternalLink() {
+    const { profile } = this.props;
+    if (profile.website && typeof profile.website === 'string') {
+      const stripHttpExp = RegExp('^(https?:|)\/\/');
+      const aboutRaw = profile.website;
+      const aboutText = aboutRaw.replace(stripHttpExp, '');
+      const aboutLink = <a href={`http://${aboutText}`}>{aboutText}</a>;
+
+      return aboutLink;
+    }
   }
 
   render() {
@@ -64,9 +78,7 @@ class ProfileContact extends React.Component {
                   })
                 } /> : ''}
               {profile.website ?
-                <a href={`http://${profile.website}`}>
-                  {profile.website}
-                </a>
+                this.renderExternalLink()
               : ''}
             </div>
             : ''

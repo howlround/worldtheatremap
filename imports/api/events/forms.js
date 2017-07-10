@@ -652,7 +652,7 @@ export const defaultFormOptions = () => ({
       help: <FormattedMessage
         id="forms.eventAboutHelpText"
         description="Help text for the event about field"
-        defaultMessage="Enter a link to more information about this event. Include the http://"
+        defaultMessage="Enter a link to more information about this event."
       />,
     },
   },

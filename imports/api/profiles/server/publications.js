@@ -3,6 +3,7 @@ import { TAPi18n } from 'meteor/tap:i18n';
 import { Profiles } from '../profiles.js';
 import { _ } from 'meteor/underscore';
 import escapeRegExp from 'lodash.escaperegexp';
+import { remove as removeDiacritics } from 'diacritics';
 
 TAPi18n.publish('profiles.public', function profilesPublic() {
   return Profiles.i18nFind({}, {
@@ -41,12 +42,13 @@ TAPi18n.publish('profiles.search', function profilesSearch(plainTextQuery, skip,
 
   if (plainTextQuery.name) {
     if (!_.isEmpty(locale) && locale !== 'en') {
-      const i18nKey = `i18n.${locale}.name`;
-      delete processedQuery.name;
-      processedQuery[i18nKey] = new RegExp(`.*${escapeRegExp(plainTextQuery.name)}.*`, 'i');
+      const i18nKey = `i18n.${locale}.nameSearch`;
+      processedQuery[i18nKey] = new RegExp(`.*${escapeRegExp(removeDiacritics(plainTextQuery.name)).toUpperCase()}.*`);
     } else {
-      processedQuery.name = new RegExp(`.*${escapeRegExp(plainTextQuery.name)}.*`, 'i');
+      processedQuery.nameSearch = new RegExp(`.*${escapeRegExp(removeDiacritics(plainTextQuery.name)).toUpperCase()}.*`);
     }
+
+    delete processedQuery.name;
   }
 
   if (plainTextQuery.postalCode) {

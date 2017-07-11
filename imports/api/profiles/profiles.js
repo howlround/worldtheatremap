@@ -1158,7 +1158,7 @@ const disabledListTemplate = t.form.Form.templates.list.clone({
 // t.Date.getTcombFormFactory = () => DatePickerFactory;
 
 export const profileSchema = t.struct({
-  profileType: t.maybe(t.list(t.String)), // Required
+  profileType: t.maybe(t.list(t.String)),
   name: t.String, // Required
   gender: t.maybe(t.list(t.String)),
   genderOther: t.maybe(t.list(t.String)),
@@ -1189,7 +1189,7 @@ export const profileSchema = t.struct({
 });
 
 export const profileFormSchema = t.struct({
-  profileType: t.maybe(t.list(t.String)), // Required
+  profileType: t.maybe(t.list(t.String)),
   name: t.String, // Required
   gender: t.maybe(t.list(t.String)),
   genderOther: t.maybe(t.list(t.String)),
@@ -2222,6 +2222,7 @@ export const translateSourceFormOptions = () => ({
 // them here to keep them private to the server.
 Profiles.publicFields = {
   name: 1,
+  nameSearch: 1,
   about: 1,
   profileType: 1,
   ethnicityRace: 1,

@@ -5,6 +5,7 @@ import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-validation';
 import { check } from 'meteor/check';
+import { remove as removeDiacritics } from 'diacritics';
 
 // API
 import { Profiles, profileSchema } from './profiles.js';
@@ -123,10 +124,14 @@ export const insert = new ValidatedMethod({
       const stripHttpExp = RegExp('^(https?:|)\/\/instagram.com/');
       newProfile.instagram = newProfile.instagram.replace(stripHttpExp, '').replace('@', '');
     }
+    if (!_.isEmpty(newProfile.name)) {
+      newProfile.nameSearch = removeDiacritics(newProfile.name).toUpperCase();
+    }
 
     const insertedProfileID = Profiles.insertTranslations(newProfile, {
         es: {
           name: newProfile.name,
+          nameSearch: removeDiacritics(newProfile.name).toUpperCase(),
         },
     });
 
@@ -256,6 +261,9 @@ export const update = new ValidatedMethod({
     if (!_.isEmpty(newProfile.instagram)) {
       const stripHttpExp = RegExp('^(https?:|)\/\/instagram.com/');
       newProfile.instagram = newProfile.instagram.replace(stripHttpExp, '').replace('@', '');
+    }
+    if (!_.isEmpty(newProfile.name)) {
+      newProfile.nameSearch = removeDiacritics(newProfile.name).toUpperCase();
     }
 
     const doc = {};

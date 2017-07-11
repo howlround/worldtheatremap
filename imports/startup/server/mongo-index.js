@@ -8,7 +8,7 @@ Profiles._ensureIndex({
 });
 
 Shows._ensureIndex({
-  "name": 1
+  "nameSearch": 1
 });
 
 Events._ensureIndex({

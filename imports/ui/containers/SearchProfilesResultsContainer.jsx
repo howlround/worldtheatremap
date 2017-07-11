@@ -3,6 +3,8 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { _ } from 'meteor/underscore';
 import escapeRegExp from 'lodash.escaperegexp';
 import moment from 'moment';
+import { remove as removeDiacritics } from 'diacritics';
+
 import { Profiles } from '../../api/profiles/profiles.js';
 import SearchProfilesResults from '../components/SearchProfilesResults.jsx';
 
@@ -99,7 +101,7 @@ const SearchProfilesResultsContainer = createContainer((props) => {
     }
 
     if (query.name) {
-      privateQuery.name = new RegExp(`.*${escapeRegExp(query.name)}.*`, 'i');
+      privateQuery.nameSearch = new RegExp(`.*${escapeRegExp(removeDiacritics(query.name)).toUpperCase()}.*`);
       plainTextQuery.name = query.name;
     }
 

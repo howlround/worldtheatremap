@@ -50,3 +50,19 @@ Feature: Search box on profile search
     And I go to the "profiles" search page
     When I fill in ".profile-search-text" with "fatima"
     Then the ".search-results" element should contain "Fatima"
+
+  Scenario: If a profile has diacritics it can be found searching with the original characters
+    When I go to the "profile" add page
+    And I fill in ".profile-name-edit" with "Åüdyçø"
+    And I click on ".edit-profile-save"
+    And I go to the "profiles" search page
+    When I fill in ".profile-search-text" with "Audyco"
+    Then the ".search-results" element should contain "Åüdyçø"
+
+  Scenario: If a profile has diacritics it can be found searching with romanized characters
+    When I go to the "profile" add page
+    And I fill in ".profile-name-edit" with "Åüdyçø"
+    And I click on ".edit-profile-save"
+    And I go to the "profiles" search page
+    When I fill in ".profile-search-text" with "Åüdyçø"
+    Then the ".search-results" element should contain "Åüdyçø"

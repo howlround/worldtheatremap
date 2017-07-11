@@ -4,7 +4,8 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-validation';
-import { check } from 'meteor/check'
+import { check } from 'meteor/check';
+import { remove as removeDiacritics } from 'diacritics';
 
 import { Shows, showSchema } from './shows.js';
 import { Events } from '../events/events.js';
@@ -44,12 +45,17 @@ export const insert = new ValidatedMethod({
       translations = {
         es: {
           name: newShow.name,
+          nameSearch: removeDiacritics(newShow.name).toUpperCase(),
         },
       }
     }
 
     // Save source language
     newShow.source = source;
+
+    if (!_.isEmpty(newShow.name)) {
+      newShow.nameSearch = removeDiacritics(newShow.name).toUpperCase();
+    }
 
     // Record that this user added new content
     Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentAddedCount": 1 } });
@@ -136,6 +142,10 @@ export const update = new ValidatedMethod({
     let target = 'es';
     const doc = {};
 
+    if (!_.isEmpty(newShow.name)) {
+      newShow.nameSearch = removeDiacritics(newShow.name).toUpperCase();
+    }
+
     // If the source is not english, strip out the Interests from the translated fields and save them to the English/Base fields
 
     if (locale && locale === 'es') {
@@ -145,6 +155,7 @@ export const update = new ValidatedMethod({
       // Source doc fields should be in Spanish
       const sourceDoc = {
         name: newShow.name,
+        nameSearch: newShow.nameSearch,
         about: newShow.about,
       }
 

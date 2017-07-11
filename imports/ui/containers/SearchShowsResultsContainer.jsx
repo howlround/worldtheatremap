@@ -2,6 +2,8 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { _ } from 'meteor/underscore';
 import escapeRegExp from 'lodash.escaperegexp';
+import { remove as removeDiacritics } from 'diacritics';
+
 import { Shows } from '../../api/shows/shows.js';
 import SearchShowsResults from '../components/SearchShowsResults.jsx';
 
@@ -42,7 +44,7 @@ const SearchShowsResultsContainer = createContainer((props) => {
     const plainTextQuery = _.clone(privateQuery);
 
     if (query.name) {
-      privateQuery.name = new RegExp(`.*${escapeRegExp(query.name)}.*`, 'i');
+      privateQuery.nameSearch = new RegExp(`.*${escapeRegExp(removeDiacritics(query.name)).toUpperCase()}.*`);
       plainTextQuery.name = query.name;
     }
 

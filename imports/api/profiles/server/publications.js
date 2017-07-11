@@ -59,7 +59,7 @@ TAPi18n.publish('profiles.search', function profilesSearch(plainTextQuery, skip,
 
   return Profiles.i18nFind(processedQuery, {
     fields: Profiles.publicFields,
-    sort: { name: 1 },
+    sort: { nameSearch: 1 },
     limit,
     skip,
   });

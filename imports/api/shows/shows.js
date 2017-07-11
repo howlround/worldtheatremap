@@ -336,6 +336,7 @@ export const filtersFormOptions = () => ({
 // them here to keep them private to the server.
 Shows.publicFields = {
   name: 1,
+  nameSearch: 1,
   author: 1,
   about: 1,
   interests: 1,
@@ -346,6 +347,7 @@ Shows.publicFields = {
 
 Shows.searchFields = {
   name: 1,
+  nameSearch: 1,
   author: 1,
   interests: 1,
   country: 1,

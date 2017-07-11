@@ -3,6 +3,7 @@ import { TAPi18n } from 'meteor/tap:i18n';
 import { Shows } from '../shows.js';
 import { _ } from 'meteor/underscore';
 import escapeRegExp from 'lodash.escaperegexp';
+import { remove as removeDiacritics } from 'diacritics';
 
 TAPi18n.publish('shows.public', function showsPublic() {
   return Shows.i18nFind({}, {
@@ -76,14 +77,15 @@ TAPi18n.publish('shows.search', function showsSearch(plainTextQuery, skip) {
   const processedQuery = _.clone(plainTextQuery);
 
   if (plainTextQuery.name) {
-    processedQuery.name = new RegExp(`.*${escapeRegExp(plainTextQuery.name)}.*`, 'i');
+    processedQuery.nameSearch = new RegExp(`.*${escapeRegExp(removeDiacritics(plainTextQuery.name)).toUpperCase()}.*`);
+    delete processedQuery.name;
   }
 
   const limit = 20;
 
   return Shows.i18nFind(processedQuery, {
     fields: Shows.searchFields,
-    sort: { name: 1 },
+    sort: { nameSearch: 1 },
     limit,
     skip,
   });

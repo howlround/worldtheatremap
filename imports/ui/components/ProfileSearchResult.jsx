@@ -1,28 +1,21 @@
 import React from 'react';
-import classNames from 'classnames';
 import { _ } from 'meteor/underscore';
 import { Link } from 'react-router';
 import { FormattedMessage, FormattedDate, intlShape, injectIntl } from 'react-intl';
 
 class ProfileSearchResult extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { profile } = this.props;
     const { formatMessage, locale } = this.props.intl;
 
     const interests = (profile.interests) ? profile.interests.map((interest, index, array) => {
       let seperator = ', ';
-      if (index == array.length - 1) {
+      if (index === array.length - 1) {
         seperator = '';
-      }
-      else if (index == array.length - 2) {
+      } else if (index === array.length - 2) {
         if (array.length > 2) {
           seperator = ', and ';
-        }
-        else {
+        } else {
           seperator = ' and ';
         }
       }
@@ -30,9 +23,9 @@ class ProfileSearchResult extends React.Component {
         <span key={interest}>
           {
             formatMessage({
-              'id': `interest.${interest}`,
-              'defaultMessage': interest,
-              'description': `Interests option: ${interest}`
+              id: `interest.${interest}`,
+              defaultMessage: interest,
+              description: `Interests option: ${interest}`,
             })
           }
           {seperator}
@@ -40,46 +33,52 @@ class ProfileSearchResult extends React.Component {
       );
     }) : false;
 
-    let orgTypes = (profile.orgTypes && _.contains(profile.profileType, 'Organization')) ? profile.orgTypes.map((orgType, index, array) => {
+    let orgTypes = (
+      profile.orgTypes &&
+      _.contains(profile.profileType, 'Organization')
+    ) ? profile.orgTypes.map((orgType, index, array) => {
       let seperator = ', ';
-      if (index == array.length - 1) {
+      if (index === array.length - 1) {
         seperator = '';
-      }
-      else if (index == array.length - 2) {
+      } else if (index === array.length - 2) {
         if (array.length > 2) {
           seperator = ', and ';
-        }
-        else {
+        } else {
           seperator = ' and ';
         }
       }
-      return <span key={orgType}>{orgType}{seperator}</span>
+      return <span key={orgType}>{orgType}{seperator}</span>;
     }) : false;
 
-    let selfDefinedRoles = (profile.selfDefinedRoles && _.contains(profile.profileType, 'Individual')) ? profile.selfDefinedRoles.map((selfDefinedRole, index, array) => {
+    let selfDefinedRoles = (
+      profile.selfDefinedRoles &&
+      _.contains(profile.profileType, 'Individual')
+    ) ? profile.selfDefinedRoles.map((selfDefinedRole, index, array) => {
       let seperator = ', ';
-      if (index == array.length - 1) {
+      if (index === array.length - 1) {
         seperator = '';
-      }
-      else if (index == array.length - 2) {
+      } else if (index === array.length - 2) {
         if (array.length > 2) {
           seperator = ', and ';
-        }
-        else {
+        } else {
           seperator = ' and ';
         }
       }
-      return <span key={selfDefinedRole}>{selfDefinedRole}{seperator}</span>
+      return <span key={selfDefinedRole}>{selfDefinedRole}{seperator}</span>;
     }) : false;
 
-    const locationBlock = [profile.locality, profile.administrativeArea, profile.country].filter(function (val) {return val;}).join(', ');
+    const locationBlock = [
+      profile.locality,
+      profile.administrativeArea,
+      profile.country,
+    ].filter(val => (val)).join(', ');
 
     return (
       <article className="profile search-result">
         {/* A photo could go here */}
         <div className="profile-content-wrapper">
           <Link
-            to={`/${locale}/profiles/${ profile._id }`}
+            to={`/${locale}/profiles/${profile._id}`}
             title={profile.name}
             className="profile-name"
             activeClassName="active"
@@ -87,7 +86,7 @@ class ProfileSearchResult extends React.Component {
             {profile.name}
           </Link>
           <div className="profile-metadata metadata">
-            { !_.isEmpty(locationBlock) ?
+            {!_.isEmpty(locationBlock) ?
               <div className="profile-location">
                 <span className="profile-metadata-label">
                   <FormattedMessage
@@ -95,9 +94,12 @@ class ProfileSearchResult extends React.Component {
                     description="Location label profile search result metadata"
                     defaultMessage="Location"
                   />:
-                </span> { locationBlock }
-              </div> : '' }
-            { (!_.isEmpty(profile.selfDefinedRoles) && _.contains(profile.profileType, 'Individual')) ?
+                </span> {locationBlock}
+              </div> : ''}
+            {(
+              !_.isEmpty(profile.selfDefinedRoles) &&
+              _.contains(profile.profileType, 'Individual')
+            ) ?
               <div className="profile-roles" title="Roles">
                 <span className="profile-metadata-label">
                   <FormattedMessage
@@ -105,9 +107,9 @@ class ProfileSearchResult extends React.Component {
                     description="Roles label profile search result metadata"
                     defaultMessage="Roles"
                   />:
-                </span> { selfDefinedRoles }
-              </div> : '' }
-            { (!_.isEmpty(profile.orgTypes) && _.contains(profile.profileType, 'Organization')) ?
+                </span> {selfDefinedRoles}
+              </div> : ''}
+            {(!_.isEmpty(profile.orgTypes) && _.contains(profile.profileType, 'Organization')) ?
               <div className="profile-organization-types" title="Organization Type">
                 <span className="profile-metadata-label">
                   <FormattedMessage
@@ -115,9 +117,9 @@ class ProfileSearchResult extends React.Component {
                     description="Organization Types label profile search result metadata"
                     defaultMessage="Organization Types"
                   />:
-                </span> { orgTypes }
-              </div> : '' }
-            { !_.isEmpty(profile.interests) ?
+                </span> {orgTypes}
+              </div> : ''}
+            {!_.isEmpty(profile.interests) ?
               <div className="profile-interests" title="Interests">
                 <span className="profile-metadata-label">
                   <FormattedMessage
@@ -125,21 +127,21 @@ class ProfileSearchResult extends React.Component {
                     description="Interests label profile search result metadata"
                     defaultMessage="Interests"
                   />:
-                </span> { interests }</div> : '' }
+                </span> {interests}</div> : ''}
             {(profile.startDate && profile.endDate && _.contains(profile.profileType, 'Festival')) ?
               <div className="profile-date-range date">
                 <FormattedDate
                   value={profile.startDate}
-                  year='numeric'
-                  month='short'
-                  day='numeric'
+                  year="numeric"
+                  month="short"
+                  day="numeric"
                 />
                 <span> – </span>
                 <FormattedDate
                   value={profile.endDate}
-                  year='numeric'
-                  month='short'
-                  day='numeric'
+                  year="numeric"
+                  month="short"
+                  day="numeric"
                 />
               </div> : ''}
           </div>

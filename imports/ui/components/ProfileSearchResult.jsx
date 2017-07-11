@@ -40,7 +40,7 @@ class ProfileSearchResult extends React.Component {
       );
     }) : false;
 
-    let orgTypes = (profile.orgTypes) ? profile.orgTypes.map((orgType, index, array) => {
+    let orgTypes = (profile.orgTypes && _.contains(profile.profileType, 'Organization')) ? profile.orgTypes.map((orgType, index, array) => {
       let seperator = ', ';
       if (index == array.length - 1) {
         seperator = '';
@@ -56,7 +56,7 @@ class ProfileSearchResult extends React.Component {
       return <span key={orgType}>{orgType}{seperator}</span>
     }) : false;
 
-    let selfDefinedRoles = (profile.selfDefinedRoles) ? profile.selfDefinedRoles.map((selfDefinedRole, index, array) => {
+    let selfDefinedRoles = (profile.selfDefinedRoles && _.contains(profile.profileType, 'Individual')) ? profile.selfDefinedRoles.map((selfDefinedRole, index, array) => {
       let seperator = ', ';
       if (index == array.length - 1) {
         seperator = '';
@@ -97,7 +97,7 @@ class ProfileSearchResult extends React.Component {
                   />:
                 </span> { locationBlock }
               </div> : '' }
-            { !_.isEmpty(profile.selfDefinedRoles) ?
+            { (!_.isEmpty(profile.selfDefinedRoles) && _.contains(profile.profileType, 'Individual')) ?
               <div className="profile-roles" title="Roles">
                 <span className="profile-metadata-label">
                   <FormattedMessage
@@ -107,7 +107,7 @@ class ProfileSearchResult extends React.Component {
                   />:
                 </span> { selfDefinedRoles }
               </div> : '' }
-            { !_.isEmpty(profile.orgTypes) ?
+            { (!_.isEmpty(profile.orgTypes) && _.contains(profile.profileType, 'Organization')) ?
               <div className="profile-organization-types" title="Organization Type">
                 <span className="profile-metadata-label">
                   <FormattedMessage
@@ -126,7 +126,7 @@ class ProfileSearchResult extends React.Component {
                     defaultMessage="Interests"
                   />:
                 </span> { interests }</div> : '' }
-            {(profile.startDate && profile.endDate) ?
+            {(profile.startDate && profile.endDate && _.contains(profile.profileType, 'Festival')) ?
               <div className="profile-date-range date">
                 <FormattedDate
                   value={profile.startDate}

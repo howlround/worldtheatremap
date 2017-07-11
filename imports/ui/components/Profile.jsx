@@ -355,7 +355,7 @@ class Profile extends React.Component {
       );
     }) : false;
 
-    let selfDefinedRoles = (profile.selfDefinedRoles) ?
+    let selfDefinedRoles = (profile.selfDefinedRoles && _.contains(profile.profileType, 'Individual')) ?
       profile.selfDefinedRoles.map((selfDefinedRole, index, array) => {
         let seperator = ', ';
         if (index === array.length - 1) {
@@ -382,7 +382,7 @@ class Profile extends React.Component {
       }) : false;
 
     let gendersArray = [];
-    if (!_.isEmpty(profile.gender)) {
+    if (!_.isEmpty(profile.gender) && _.contains(profile.profileType, 'Individual')) {
       gendersArray = _.filter(profile.gender, gender => {
         return gender !== 'Another Identity';
       });
@@ -411,7 +411,7 @@ class Profile extends React.Component {
       return (<span key={gender}>{gender}{seperator}</span>);
     }) : false;
 
-    let ethnicityRaceDisplay = (profile.ethnicityRace) ? profile.ethnicityRace.map((ethnicityRace, index, array) => {
+    let ethnicityRaceDisplay = (profile.ethnicityRace && _.contains(profile.profileType, 'Individual')) ? profile.ethnicityRace.map((ethnicityRace, index, array) => {
       let seperator = ', ';
       if (index === array.length - 1) {
         seperator = '';
@@ -454,22 +454,22 @@ class Profile extends React.Component {
             {typeof locationBlock !== 'undefined' ?
                 <div className="profile-location">{locationBlock}</div> : ''}
             <div className="profile-metadata metadata">
-              {!_.isEmpty(profile.selfDefinedRoles) ?
+              {(!_.isEmpty(profile.selfDefinedRoles) && _.contains(profile.profileType, 'Individual')) ?
                 <div className="profile-roles" title="Roles">{selfDefinedRoles}</div> : ''}
-              {!_.isEmpty(profile.gender) ?
+              {(!_.isEmpty(profile.gender) && _.contains(profile.profileType, 'Individual')) ?
                 <div className="profile-gender" title="Gender">{genders}</div> : ''}
               {!_.isEmpty(ethnicityRaceDisplay) ?
                 <div className="profile-ethnicity-race-display" title="Ethnicity/Race">
                   {ethnicityRaceDisplay}
                 </div> : ''}
-              {!_.isEmpty(profile.orgTypes) ?
+              {(!_.isEmpty(profile.orgTypes) && _.contains(profile.profileType, 'Organization')) ?
                 <div
                   className="profile-organization-types"
                   title="Organization Type"
                 >
                   {orgTypes}
                 </div> : ''}
-              {!_.isEmpty(profile.foundingYear) ?
+              {(!_.isEmpty(profile.foundingYear) && _.contains(profile.profileType, 'Organization')) ?
                 <div className="profile-founding-year">
                   <FormattedMessage
                     id="profile.foundedDate"

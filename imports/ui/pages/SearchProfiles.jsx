@@ -52,6 +52,7 @@ class SearchProfiles extends React.Component {
 
 
     this.onChange = this.onChange.bind(this);
+    this.updateQuery = this.updateQuery.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -89,31 +90,34 @@ class SearchProfiles extends React.Component {
     return (
       <SearchProfilesResultsContainer
         query={cleanQuery}
-        updateQuery={this.onChange}
+        updateQuery={this.updateQuery}
         locale={locale}
       />
     );
+  }
+
+  updateQuery(value) {
+    // Similar to onChange except it's coming from the pager so it shouldn't reset the pager value
+    const { locale } = this.props.intl;
+
+    this.setState(value);
+    this.context.router.push({
+      pathname: `/${locale}/search/profiles`,
+      query: value,
+    });
   }
 
   onChange(value) {
     const { locale } = this.props.intl;
     // @TODO: Maybe pass this down in SearchProfilesResultsContainer to page faster
 
-    // Clear pager if it's the only value left
-    const cleanValue = {};
-    _.each(value, (val, key) => {
-      if (!_.isEmpty(value[key]) || _.isNumber(value[key])) {
-        cleanValue[key] = value[key];
-      }
-    });
-    if (Object.keys(cleanValue).length === 1 && !_.isEmpty(cleanValue.page)) {
-      delete cleanValue.page;
-    }
+    // This function should always reset the pager because something changed
+    delete value.page;
 
-    this.setState(cleanValue);
+    this.setState(value);
     this.context.router.push({
       pathname: `/${locale}/search/profiles`,
-      query: cleanValue,
+      query: value,
     });
   }
 

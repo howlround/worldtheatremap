@@ -44,6 +44,7 @@ class SearchShows extends React.Component {
     }
 
     this.onChange = this.onChange.bind(this);
+    this.updateQuery = this.updateQuery.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -67,8 +68,21 @@ class SearchShows extends React.Component {
     }
   }
 
+  updateQuery(value) {
+    const { locale } = this.props.intl;
+
+    this.setState(value);
+    this.context.router.push({
+      pathname: `/${locale}/search/shows`,
+      query: value,
+    });
+  }
+
   onChange(value) {
     const { locale } = this.props.intl;
+
+    // This function should always reset the pager because something changed
+    delete value.page;
 
     this.setState(value);
     this.context.router.push({
@@ -88,7 +102,10 @@ class SearchShows extends React.Component {
     });
 
     return (
-      <SearchShowsResultsContainer query={cleanQuery} />
+      <SearchShowsResultsContainer
+        query={cleanQuery}
+        updateQuery={this.updateQuery}
+      />
     );
   }
 

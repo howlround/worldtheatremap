@@ -8,11 +8,10 @@ import { Shows } from '../../api/shows/shows.js';
 import SearchShowsResults from '../components/SearchShowsResults.jsx';
 
 const SearchShowsResultsContainer = createContainer((props) => {
-  const { query } = props;
+  const { query, updateQuery } = props;
   let loading = false;
   let skip = 0;
   let results = [];
-  let totalCount = 0;
 
   if (!_.isEmpty(query)) {
     // Use an internal query so nothing strange gets passed straight through
@@ -52,15 +51,13 @@ const SearchShowsResultsContainer = createContainer((props) => {
     if (!_.isEmpty(privateQuery)) {
       const showsSubscribe = TAPi18n.subscribe('shows.search', plainTextQuery, skip);
       loading = !showsSubscribe.ready();
-      totalCount = Shows.find(privateQuery).count();
       results = Shows.find(
-        privateQuery,
+        {},
         {
           sort: {
             name: 1,
           },
           limit: 20,
-          skip,
         }
       ).fetch();
 
@@ -75,6 +72,9 @@ const SearchShowsResultsContainer = createContainer((props) => {
   return {
     results,
     loading,
+    skip,
+    query,
+    updateQuery,
   };
 }, SearchShowsResults);
 

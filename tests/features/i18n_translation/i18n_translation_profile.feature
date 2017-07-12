@@ -65,7 +65,6 @@ Feature: Translate profile fields
     And I click on ".language-switcher [name=es]"
     Then I should see the ".machine-translation-warning" element
 
-  @i18n
   Scenario: When saving a profile in English the country should be saved correctly
     And I am logged in
     And I go to the "profile" add page
@@ -75,7 +74,6 @@ Feature: Translate profile fields
     When I click on ".language-switcher [name=es]"
     Then the ".profile-country" element should contain "México"
 
-  @i18n
   Scenario: When saving a profile in Spanish the country should be saved correctly
     And I am logged in
     And I click on ".language-switcher [name=es]"

@@ -304,8 +304,6 @@ export const update = new ValidatedMethod({
       baseDoc.nameSearch = removeDiacritics(baseDoc.name).toUpperCase();
     }
 
-    const insertedProfileID = Profiles.insertTranslations(baseDoc, translations);
-
     const doc = _.clone(translations);
     doc.en = baseDoc;
 

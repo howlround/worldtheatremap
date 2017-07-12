@@ -52,8 +52,8 @@ class SearchFestivals extends React.Component {
       this.state = {};
     }
 
-
     this.onChange = this.onChange.bind(this);
+    this.updateQuery = this.updateQuery.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -96,15 +96,29 @@ class SearchFestivals extends React.Component {
     return (
       <SearchProfilesResultsContainer
         query={cleanQuery}
-        updateQuery={this.onChange}
+        updateQuery={this.updateQuery}
         locale={locale}
       />
     );
   }
 
+  updateQuery(value) {
+    const { locale } = this.props.intl;
+
+    this.setState(value);
+    this.context.router.push({
+      pathname: `/${locale}/search/festivals`,
+      query: value
+    });
+  }
+
   onChange(value) {
     const { locale } = this.props.intl;
     // @TODO: Maybe pass this down in SearchProfilesResultsContainer to page faster
+
+    // This function should always reset the pager because something changed
+    delete value.page;
+
     this.setState(value);
     this.context.router.push({
       pathname: `/${locale}/search/festivals`,

@@ -46,6 +46,7 @@ class SearchEvents extends React.Component {
     }
 
     this.onChange = this.onChange.bind(this);
+    this.updateQuery = this.updateQuery.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -69,8 +70,22 @@ class SearchEvents extends React.Component {
     }
   }
 
+  updateQuery(value) {
+    // Similar to onChange except it's coming from the pager so it shouldn't reset the pager value
+    const { locale } = this.props.intl;
+
+    this.setState(value);
+    this.context.router.push({
+      pathname: `/${locale}/search/events`,
+      query: value,
+    });
+  }
+
   onChange(value) {
     const { locale } = this.props.intl;
+
+    // This function should always reset the pager because something changed
+    delete value.page;
 
     this.setState(value);
     this.context.router.push({
@@ -90,7 +105,10 @@ class SearchEvents extends React.Component {
     });
 
     return (
-      <SearchEventsResultsContainer query={cleanQuery} updateQuery={this.onChange} />
+      <SearchEventsResultsContainer
+        query={cleanQuery}
+        updateQuery={this.updateQuery}
+      />
     );
   }
 

@@ -217,6 +217,9 @@ export const update = new ValidatedMethod({
         'You must be logged in to complete this operation.');
     }
 
+    let source = 'en';
+    let target = 'es';
+
     if (!_.isEmpty(newProfile.locality)) {
       upsertLocality.call({ locality: newProfile.locality });
     }
@@ -232,27 +235,79 @@ export const update = new ValidatedMethod({
       upsertCountry.call({ country: newProfile.country });
     }
 
-    if (!_.isEmpty(newProfile.facebook)) {
+    // Record that this user added new content
+    Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentAddedCount": 1 } });
+
+    // The permutations of viewing language and target language:
+    // (After doing this we will conflate "Viewing in" and "Target" for now. They can be split apart later if required.)
+    // [Viewing: Spanish + ]Target: Spanish
+    //  - Save name, and all tags, and image to english; everything minus tags to spanish
+    // [Viewing: Spanish + ]Target: English
+    //  - Save everything to english
+    // [Viewing: English + ]Target: English
+    //  - Save everything to english
+    // [Viewing English + ]Target: Spanish
+    //  - Save name, and all tags, and image to english; everything minus tags to spanish
+
+    // Base doc is always english
+    let baseDoc = _.clone(newProfile);
+    let translations = {};
+
+    if (locale && locale === 'es') {
+      // @TODO: Refactor translations to be a translations object keyed by locale ("source")
+      source = 'es';
+      target = 'en';
+
+      // Translated doc is always spanish even when adding in spanish (due to Profiles.insertTranslations())
+      // Some values should only be saved on base doc to keep consistancy
+      translations[source] = {
+        name: baseDoc.name,
+        nameSearch: removeDiacritics(baseDoc.name).toUpperCase(),
+        about: baseDoc.about,
+      };
+
+      // Don't update base title on update
+      delete baseDoc.name;
+
+      // Don't overwrite the about field
+      delete baseDoc.about;
+    } else {
+      // Don't update title in other languages on update
+
+      // Target language is English, either by default or specifically stated
+      // Therefore we have no spanish content
+      // translations['es'] = {
+      //   name: newProfile.name,
+      //   nameSearch: removeDiacritics(baseDoc.name).toUpperCase()
+      // }
+    }
+
+    baseDoc.howlroundPostSearchText = newProfile.name;
+
+    // Save source language
+    // Don't update source on update
+    // baseDoc.source = source;
+
+    if (!_.isEmpty(baseDoc.facebook)) {
       const stripHttpExp = RegExp('^(https?:|)\/\/');
-      newProfile.facebook = newProfile.facebook.replace(stripHttpExp, '');
+      baseDoc.facebook = baseDoc.facebook.replace(stripHttpExp, '');
     }
-    if (!_.isEmpty(newProfile.twitter)) {
+    if (!_.isEmpty(baseDoc.twitter)) {
       const stripHttpExp = RegExp('^(https?:|)\/\/twitter.com/');
-      newProfile.twitter = newProfile.twitter.replace(stripHttpExp, '').replace('@', '');
+      baseDoc.twitter = baseDoc.twitter.replace(stripHttpExp, '').replace('@', '');
     }
-    if (!_.isEmpty(newProfile.instagram)) {
+    if (!_.isEmpty(baseDoc.instagram)) {
       const stripHttpExp = RegExp('^(https?:|)\/\/instagram.com/');
-      newProfile.instagram = newProfile.instagram.replace(stripHttpExp, '').replace('@', '');
+      baseDoc.instagram = baseDoc.instagram.replace(stripHttpExp, '').replace('@', '');
     }
-    if (!_.isEmpty(newProfile.name)) {
-      newProfile.nameSearch = removeDiacritics(newProfile.name).toUpperCase();
+    if (!_.isEmpty(baseDoc.name)) {
+      baseDoc.nameSearch = removeDiacritics(baseDoc.name).toUpperCase();
     }
 
-    const doc = {};
-    doc[locale] = newProfile;
+    const insertedProfileID = Profiles.insertTranslations(baseDoc, translations);
 
-    // Update howlround search text if name changes
-    newProfile.howlroundPostSearchText = newProfile.name;
+    const doc = _.clone(translations);
+    doc.en = baseDoc;
 
     // Record that this user added new content
     Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentEditedCount": 1 } });

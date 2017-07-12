@@ -35,7 +35,7 @@ export default class SearchResultsPager extends React.Component {
     } else {
       value.page = 1;
     }
-    updateQuery(value);
+    updateQuery(value, true);
   }
 
   render() {

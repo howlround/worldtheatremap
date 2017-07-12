@@ -39,9 +39,11 @@ class SearchProfiles extends React.Component {
       _.each(this.props.location.query, (val, key) => {
         if (_.isEmpty(this.props.location.query[key]) && !_.isEmpty(val)) {
           cleanQuery[key] = null;
-
         }
       });
+
+      // @TODO: Maybe deal with pager here too?
+      // Only if a user would go directly to a path with only the pager set
 
       this.state = cleanQuery;
     } else {
@@ -96,10 +98,22 @@ class SearchProfiles extends React.Component {
   onChange(value) {
     const { locale } = this.props.intl;
     // @TODO: Maybe pass this down in SearchProfilesResultsContainer to page faster
-    this.setState(value);
+
+    // Clear pager if it's the only value left
+    const cleanValue = {};
+    _.each(value, (val, key) => {
+      if (!_.isEmpty(value[key]) || _.isNumber(value[key])) {
+        cleanValue[key] = value[key];
+      }
+    });
+    if (Object.keys(cleanValue).length === 1 && !_.isEmpty(cleanValue.page)) {
+      delete cleanValue.page;
+    }
+
+    this.setState(cleanValue);
     this.context.router.push({
       pathname: `/${locale}/search/profiles`,
-      query: value
+      query: cleanValue,
     });
   }
 

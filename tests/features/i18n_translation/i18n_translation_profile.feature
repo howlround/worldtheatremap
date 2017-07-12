@@ -64,3 +64,24 @@ Feature: Translate profile fields
     And I click on ".edit-profile-save"
     And I click on ".language-switcher [name=es]"
     Then I should see the ".machine-translation-warning" element
+
+  @i18n
+  Scenario: When saving a profile in English the country should be saved correctly
+    And I am logged in
+    And I go to the "profile" add page
+    And I fill in ".profile-name-edit" with "Simona"
+    And I select "Mexico" from the ".country-select-edit" combobox
+    And I click on ".edit-profile-save"
+    When I click on ".language-switcher [name=es]"
+    Then the ".profile-country" element should contain "México"
+
+  @i18n
+  Scenario: When saving a profile in Spanish the country should be saved correctly
+    And I am logged in
+    And I click on ".language-switcher [name=es]"
+    And I go to the "profile" add page
+    And I fill in ".profile-name-edit" with "Simona"
+    And I select "México" from the ".country-select-edit" combobox
+    And I click on ".edit-profile-save"
+    When I click on ".language-switcher [name=en]"
+    Then the ".profile-country" element should contain "Mexico"

@@ -69,71 +69,53 @@ export const insert = new ValidatedMethod({
     // [Viewing English + ]Target: Spanish
     //  - Save name, and all tags, and image to english; everything minus tags to spanish
 
+    // Base doc is always english
+    let baseDoc = _.clone(newProfile);
+    let translations = {};
+
     if (locale && locale === 'es') {
+      // @TODO: Refactor translations to be a translations object keyed by locale ("source")
       source = 'es';
       target = 'en';
 
-      const baseDoc = {
-        name: newProfile.name,
-      }
-
-      if (!_.isEmpty(newProfile.profileType)) {
-        baseDoc.profileType = newProfile.profileType;
-        delete newProfile.profileType;
-      }
-      if (!_.isEmpty(newProfile.interests)) {
-        baseDoc.interests = newProfile.interests;
-        delete newProfile.interests;
-      }
-      if (!_.isEmpty(newProfile.orgTypes)) {
-        baseDoc.orgTypes = newProfile.profileType;
-        delete newProfile.orgTypes;
-      }
-      if (!_.isEmpty(newProfile.selfDefinedRoles)) {
-        baseDoc.selfDefinedRoles = newProfile.selfDefinedRoles;
-        delete newProfile.selfDefinedRoles;
-      }
-      if (!_.isEmpty(newProfile.gender)) {
-        baseDoc.gender = newProfile.gender;
-        delete newProfile.gender;
-      }
-
-      const translatedDoc = newProfile;
+      // Translated doc is always spanish even when adding in spanish (due to Profiles.insertTranslations())
+      // Some values should only be saved on base doc to keep consistancy
+      translations[locale] = {
+        name: baseDoc.name,
+        nameSearch: removeDiacritics(baseDoc.name).toUpperCase(),
+        about: baseDoc.about,
+      };
     } else {
       // Target language is English, either by default or specifically stated
-      const baseDoc = newProfile;
-      const translatedDoc = {
+      // Therefore we have no spanish content
+      translations['es'] = {
         name: newProfile.name,
+        nameSearch: removeDiacritics(baseDoc.name).toUpperCase()
       }
     }
 
-    newProfile.howlroundPostSearchText = newProfile.name;
+    baseDoc.howlroundPostSearchText = newProfile.name;
 
     // Save source language
-    newProfile.source = source;
+    baseDoc.source = source;
 
     if (!_.isEmpty(newProfile.facebook)) {
       const stripHttpExp = RegExp('^(https?:|)\/\/');
-      newProfile.facebook = newProfile.facebook.replace(stripHttpExp, '');
+      baseDoc.facebook = newProfile.facebook.replace(stripHttpExp, '');
     }
     if (!_.isEmpty(newProfile.twitter)) {
       const stripHttpExp = RegExp('^(https?:|)\/\/twitter.com/');
-      newProfile.twitter = newProfile.twitter.replace(stripHttpExp, '').replace('@', '');
+      baseDoc.twitter = newProfile.twitter.replace(stripHttpExp, '').replace('@', '');
     }
     if (!_.isEmpty(newProfile.instagram)) {
       const stripHttpExp = RegExp('^(https?:|)\/\/instagram.com/');
-      newProfile.instagram = newProfile.instagram.replace(stripHttpExp, '').replace('@', '');
+      baseDoc.instagram = newProfile.instagram.replace(stripHttpExp, '').replace('@', '');
     }
     if (!_.isEmpty(newProfile.name)) {
-      newProfile.nameSearch = removeDiacritics(newProfile.name).toUpperCase();
+      baseDoc.nameSearch = removeDiacritics(newProfile.name).toUpperCase();
     }
 
-    const insertedProfileID = Profiles.insertTranslations(newProfile, {
-        es: {
-          name: newProfile.name,
-          nameSearch: removeDiacritics(newProfile.name).toUpperCase(),
-        },
-    });
+    const insertedProfileID = Profiles.insertTranslations(baseDoc, translations);
 
     // Translate about field
     if (newProfile.about && Meteor.settings.GoogleTranslateAPIKey) {

@@ -88,7 +88,17 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
   // Affilited profiles (this profile is the parent)
   // const affilitedProfilesSubscribe = Meteor.subscribe('festivalOrganizers.byParent', id);
   // const affiliatedProfileIds = new Array;
-  const festivalProfiles = FestivalOrganizers.find({ parentId: id }).map(festivalOrganizer => {
+  const festivalProfiles = FestivalOrganizers.find(
+    {
+      parentId: id
+    },
+    {
+      sort: {
+        'profile.startDate': -1,
+        'profile.name': -1,
+      }
+    }
+  ).map(festivalOrganizer => {
     // Add to both, one is for subscribing to profiles, one is for passing on just the affilitions to render
     // affiliatedProfileIds.push(festivalOrganizer.profile._id);
     allNecessaryProfiles.push(festivalOrganizer.profile._id);

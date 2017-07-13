@@ -52,8 +52,14 @@ export const relatedProfileSchema = t.struct({
   _id: t.String,
 });
 
+export const relatedFestivalSchema = t.struct({
+  _id: t.String,
+  name: t.maybe(t.String),
+  startDate: t.maybe(t.Date),
+});
+
 export const festivalOrganizerSchema = t.struct({
-  profile: relatedProfileSchema,
+  profile: relatedFestivalSchema,
   parentId: t.String,
 });
 

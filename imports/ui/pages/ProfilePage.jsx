@@ -81,6 +81,7 @@ class ProfilePage extends React.Component {
           profile: {
             _id: this.props.profile._id,
             name: this.props.profile.name,
+            startDate: this.props.profile.startDate,
           },
         };
 

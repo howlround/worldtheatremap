@@ -421,10 +421,7 @@ export const defaultFormOptions = () => ({
       help: <FormattedMessage
         id="forms.eventDateHelpText"
         description="Help text for start and end dates"
-        defaultMessage="Format: {exampleDate}"
-        values={{
-          exampleDate: moment().format('L')
-        }}
+        defaultMessage="Format: MM/DD/YYYY"
       />,
       attrs: {
         className: 'event-start-date-edit',
@@ -456,10 +453,7 @@ export const defaultFormOptions = () => ({
       help: <FormattedMessage
         id="forms.eventDateHelpText"
         description="Help text for start and end dates"
-        defaultMessage="Format: {exampleDate}"
-        values={{
-          exampleDate: moment().format('L')
-        }}
+        defaultMessage="Format: MM/DD/YYYY"
       />,
       attrs: {
         className: 'event-end-date-edit',

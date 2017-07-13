@@ -281,11 +281,27 @@ const Interests = [
     />,
   },
   {
+    value: 'Religion / Spirituality',
+    label: <FormattedMessage
+      id="interest.Religion / Spirituality"
+      description="Interests options: Religion / Spirituality"
+      defaultMessage="Religion / Spirituality"
+    />,
+  },
+  {
     value: 'Roma Diaspora',
     label: <FormattedMessage
       id="interest.Roma Diaspora"
       description="Interests options: Roma Diaspora"
       defaultMessage="Roma Diaspora"
+    />,
+  },
+  {
+    value: 'Rural Theatre',
+    label: <FormattedMessage
+      id="interest.Rural Theatre"
+      description="Interests options: Rural Theatre"
+      defaultMessage="Rural Theatre"
     />,
   },
   {

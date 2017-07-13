@@ -336,11 +336,11 @@ const AllCountries = [
     },
   },
   {
-    value: 'Burma',
-    label: 'Burma',
+    value: 'Myanmar (Burma)',
+    label: 'Myanmar (Burma)',
     i18n: {
       es: {
-        label: 'Burma',
+        label: 'Myanmar (Burma)',
       },
     },
   },

@@ -413,14 +413,6 @@ const Roles = [
     />,
   },
   {
-    value: 'Dancer',
-    label: <FormattedMessage
-      id="role.Dancer"
-      description="Roles options: Dancer"
-      defaultMessage="Dancer"
-    />,
-  },
-  {
     value: 'Designer',
     label: <FormattedMessage
       id="role.Designer"

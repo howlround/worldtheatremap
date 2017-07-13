@@ -94,7 +94,7 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
     },
     {
       sort: {
-        'profile.startDate': -1,
+        // 'profile.startDate': -1,
         'profile.name': -1,
       }
     }

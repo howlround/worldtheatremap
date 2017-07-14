@@ -182,7 +182,15 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
 
   const profile = Profiles.findOne(id);
 
-  const showsForAuthor = profile ? Shows.find({ "author._id": profile._id }).fetch() : null;
+  const showsForAuthor = profile ?
+    Shows.find(
+      {
+        "author._id": profile._id,
+      },
+      {
+        sort: { latestEndDate: -1 },
+      }).fetch() :
+    null;
   if (!_.isEmpty(showsForAuthor)) {
     _.each(showsForAuthor, show => {
       if (show && show.author) {
@@ -198,6 +206,9 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
       _id: {
         $in: showIdsByOrg,
       }
+    },
+    {
+      sort: { latestEndDate: -1 },
     }
   ).fetch() : null;
 

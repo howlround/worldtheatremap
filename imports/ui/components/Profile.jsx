@@ -284,25 +284,35 @@ class Profile extends React.Component {
 
     let Shows;
     if (showsForAuthor && showsForAuthor.length) {
-      Shows = showsForAuthor.map(show => (
-        <li key={show._id}>
-          <ShowTeaser
-            show={show}
-          />
-        </li>
-      ));
+      Shows = showsForAuthor.map((show, index) => {
+        const showOrderClass = {
+          'first-item': index === 0,
+        }
+        return (
+          <li key={show._id} className={classNames('profile-show', showOrderClass)}>
+            <ShowTeaser
+              show={show}
+            />
+          </li>
+        );
+      });
     }
 
     let ShowsByOrg;
     if (showsForOrg && showsForOrg.length) {
-      ShowsByOrg = showsForOrg.map(show => (
-        <li key={show._id}>
-          <ShowTeaser
-            show={show}
-            eventsByShow={eventsByShowByOrg[show._id]}
-          />
-        </li>
-      ));
+      ShowsByOrg = showsForOrg.map((show, index) => {
+        const showOrderClass = {
+          'first-item': index === 0,
+        }
+        return (
+          <li key={show._id} className={classNames('profile-show', showOrderClass)}>
+            <ShowTeaser
+              show={show}
+              eventsByShow={eventsByShowByOrg[show._id]}
+            />
+          </li>
+        );
+      });
     }
 
     const interests = (profile.interests) ? profile.interests.map((interest, index, array) => {

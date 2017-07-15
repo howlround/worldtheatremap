@@ -49,7 +49,6 @@ TAPi18n.publish('shows.byAuthorPlusOthers', function showsByAuthorPlusOthers(aut
       ],
     }, {
       fields: Shows.publicFields,
-      sort: { latestEndDate: -1 },
     }
   );
 });

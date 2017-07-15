@@ -299,8 +299,9 @@ class Profile extends React.Component {
     }
 
     let ShowsByOrg;
-    if (showsForOrg && showsForOrg.length) {
-      ShowsByOrg = showsForOrg.map((show, index) => {
+    if (showsForOrg && Object.keys(showsForOrg).length) {
+      ShowsByOrg = Object.keys(showsForOrg).map((key, index) => {
+        const show = showsForOrg[key].show;
         const showOrderClass = {
           'first-item': index === 0,
         }
@@ -308,7 +309,7 @@ class Profile extends React.Component {
           <li key={show._id} className={classNames('profile-show', showOrderClass)}>
             <ShowTeaser
               show={show}
-              eventsByShow={eventsByShowByOrg[show._id]}
+              eventsByShow={showsForOrg[key].events}
             />
           </li>
         );
@@ -557,7 +558,7 @@ class Profile extends React.Component {
           </section>
           : ''
         }
-        {(showsForOrg && showsForOrg.length) ?
+        {(showsForOrg && Object.keys(showsForOrg).length) ?
           <section className="profile-shows">
             <h2>
               <FormattedMessage

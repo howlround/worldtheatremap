@@ -7,7 +7,6 @@ import t from 'tcomb-validation';
 
 import { Events } from './events.js';
 import { eventSchema } from './forms.js';
-import { eventPushEndDateToShow } from '../shows/methods.js';
 
 const EVENT_ID_ONLY = new SimpleSchema({
   eventId: { type: String },
@@ -30,13 +29,6 @@ export const insert = new ValidatedMethod({
 
     // Record that this user added new content
     Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentAddedCount": 1 } });
-
-    // Check date field on parent show
-    // If this end date is the latest of all events the show should save it
-    eventPushEndDateToShow.call({
-      showId: newEvent.show._id,
-      endDate: newEvent.endDate,
-    });
 
     // @TODO: Put entire Show object in
     return Events.insert(newEvent);
@@ -70,13 +62,6 @@ export const update = new ValidatedMethod({
 
     Events.update(eventId, {
       $set: newEvent,
-    });
-
-    // Check date field on parent show
-    // If this end date is the latest of all events the show should save it
-    eventPushEndDateToShow.call({
-      showId: newEvent.show._id,
-      endDate: newEvent.endDate,
     });
   },
 });

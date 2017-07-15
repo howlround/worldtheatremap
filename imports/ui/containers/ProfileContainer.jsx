@@ -153,7 +153,7 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
   const eventsByOrgSub = Meteor.subscribe('events.byOrgPlusIds', id, eventIdsByProfile);
   const eventsByOrg = Events.find({'organizations._id': id}, {
     fields: Events.publicFields,
-    sort: { startDate: 1 }
+    sort: { endDate: -1 }
   }).fetch();
 
 
@@ -167,12 +167,22 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
 
         // Populate eventsByShowByOrg
         if (_.isEmpty(eventsByShowByOrg[event.show._id])) {
-          eventsByShowByOrg[event.show._id] = new Array;
+          eventsByShowByOrg[event.show._id] = {
+            show: event.show,
+            events: new Array,
+          }
         }
-        eventsByShowByOrg[event.show._id].push(event);
+        eventsByShowByOrg[event.show._id].events.push(event);
       }
     });
   }
+
+  _.each(Object.keys(eventsByShowByOrg), key => {
+    const show = Shows.findOne(eventsByShowByOrg[key].show._id);
+    if (show) {
+      eventsByShowByOrg[key].show = show;
+    }
+  });
 
   // Subscribe to shows where:
   //  - profile is author
@@ -184,12 +194,9 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
 
   const showsForAuthor = profile ?
     Shows.find(
-      {
-        "author._id": profile._id,
-      },
-      {
-        sort: { latestEndDate: -1 },
-      }).fetch() :
+      { "author._id": profile._id },
+      { sort: { name: 1 } }
+    ).fetch() :
     null;
   if (!_.isEmpty(showsForAuthor)) {
     _.each(showsForAuthor, show => {
@@ -200,17 +207,6 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
   }
 
   const connectedProfilesSub = TAPi18n.subscribe('profiles.byId', allNecessaryProfiles);
-
-  const showsForOrg = profile ? Shows.find(
-    {
-      _id: {
-        $in: showIdsByOrg,
-      }
-    },
-    {
-      sort: { latestEndDate: -1 },
-    }
-  ).fetch() : null;
 
   const connections = profile ? Profiles.find(
     {
@@ -247,7 +243,6 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
     profile,
     profileExists,
     showsForAuthor,
-    showsForOrg,
     eventsByShowByOrg,
     eventsByShowByRole,
     roles,

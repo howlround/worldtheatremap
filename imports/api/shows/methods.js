@@ -3,7 +3,6 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { _ } from 'meteor/underscore';
-import { isNil } from 'lodash';
 import t from 'tcomb-validation';
 import { check } from 'meteor/check';
 import { remove as removeDiacritics } from 'diacritics';
@@ -15,11 +14,6 @@ import { upsert as upsertLanguage } from '../languages/methods.js';
 
 const SHOW_ID_ONLY = new SimpleSchema({
   showId: { type: String },
-}).validator();
-
-const eventPushEndDateToShowValidator = new SimpleSchema({
-  showId: { type: String },
-  endDate: { type: Date },
 }).validator();
 
 export const insert = new ValidatedMethod({
@@ -233,41 +227,11 @@ export const remove = new ValidatedMethod({
   },
 });
 
-export const eventPushEndDateToShow = new ValidatedMethod({
-  name: 'shows.eventPushEndDateToShow',
-  validate: eventPushEndDateToShowValidator,
-  run({ showId, endDate }) {
-    if (!this.userId) {
-      throw new Meteor.Error('shows.eventPushEndDateToShow.accessDenied',
-        'You must be logged in to complete this operation.');
-    }
-
-    const show = Shows.findOne(showId);
-
-    if (!isNil(show.latestEndDate)) {
-      if (show.latestEndDate < endDate) {
-        Shows.update(showId, {
-          $set: {
-            latestEndDate: endDate,
-          }
-        });
-      }
-    } else {
-      Shows.update(showId, {
-        $set: {
-          latestEndDate: endDate,
-        }
-      });
-    }
-  },
-});
-
 // Get list of all method names on Shows
 const SHOWS_METHODS = _.pluck([
   insert,
   update,
   remove,
-  eventPushEndDateToShow,
 ], 'name');
 
 if (Meteor.isServer) {

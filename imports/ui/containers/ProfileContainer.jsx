@@ -129,23 +129,56 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
       eventsByShowByRole[record.role][record.event.show._id] = new Array;
     }
     // .push is ok here because there shouldn't be the same role on the same event
-    eventsByShowByRole[record.role][record.event.show._id].push(record.event);
-
-    // Populate eventsByShowByOrg
-    // @TODO: Merge eventsByShowByRole and eventsByShowByOrg
-    // turn this into eventsByShowByRole['organization'][record.event.show._id]
-    if (_.isEmpty(eventsByShowByOrg[record.event.show._id])) {
-      eventsByShowByOrg[record.event.show._id] = new Array;
+    // push or unshift depending on event date
+    if (
+      eventsByShowByRole[record.role][record.event.show._id].length > 0 &&
+      record.event.endDate > eventsByShowByRole[record.role][record.event.show._id][0].endDate
+    ) {
+      eventsByShowByRole[record.role][record.event.show._id].unshift(record.event);
+    } else {
+      eventsByShowByRole[record.role][record.event.show._id].push(record.event);
     }
-    // If anything about this gets loaded twice make sure to have unique events.
-    eventsByShowByOrg[record.event.show._id][record.event._id] = record.event;
-
 
     // Add Show authors
     _.each(record.event.show.author, (author) => allNecessaryProfiles.push(author._id));
     // Add Event organizations
     _.each(record.event.organizations, (organization) => allNecessaryProfiles.push(organization._id));
   });
+
+  // Sort eventsByShowByRole
+  const eventsByShowByRoleSorted = new Array;
+  _.each(Object.keys(eventsByShowByRole), roleKey => {
+    eventsByShowByRoleSorted[roleKey] = new Array;
+    _.each(Object.keys(eventsByShowByRole[roleKey]), showKey => {
+      eventsByShowByRoleSorted[roleKey].push({
+        showKey,
+        events: eventsByShowByRole[roleKey][showKey]
+      });
+    })
+  });
+
+  _.each(Object.keys(eventsByShowByRoleSorted), roleKey => {
+    eventsByShowByRoleSorted[roleKey].sort(function(a, b) {
+      if (a.events[0].endDate < b.events[0].endDate) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
+  });
+
+  // Rebuild the eventsByShowByRole object
+  eventsByShowByRole = new Array;
+  _.each(Object.keys(eventsByShowByRoleSorted), roleKey => {
+    eventsByShowByRole[roleKey] = new Array;
+    _.each(eventsByShowByRoleSorted[roleKey], sortedShows => {
+      eventsByShowByRole[roleKey][sortedShows.showKey] = sortedShows.events;
+    });
+  });
+
+  // _.each(eventsByShowByRoleSorted, (sortObject, index) => {
+  //   console.log(sortObject.events[0].endDate);
+  // });
 
   // Get shows where this user is the local org for an event
   //  - Get all events where this user is the local org
@@ -176,13 +209,6 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
       }
     });
   }
-
-  _.each(Object.keys(eventsByShowByOrg), key => {
-    const show = Shows.findOne(eventsByShowByOrg[key].show._id);
-    if (show) {
-      eventsByShowByOrg[key].show = show;
-    }
-  });
 
   // Subscribe to shows where:
   //  - profile is author

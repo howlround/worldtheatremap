@@ -1,4 +1,24 @@
 .content-counts {
+  background-color: transparent;
+  padding: 0;
+  padding-bottom: $spacing-unit * 2;
+  color: $dark-gray;
+  text-align: center;
+
+  h2 {
+    color: $dark-gray;
+    text-align: center;
+    font-size: 17px;
+  }
+
+  .footer-content {
+    overflow: auto;
+    border-top: 1px solid $medium-gray;
+    padding-top: $spacing-unit;
+  }
+}
+
+.footer-add-pitch + .content-counts {
   background-color: $dark-gray;
   padding: $spacing-unit * 2 0;
   color: $white;

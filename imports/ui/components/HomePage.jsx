@@ -3,13 +3,13 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
+import { _ } from 'meteor/underscore';
 
 // Containers
-import SearchProfilesContainerDummy from '../containers/SearchProfilesContainerDummy.jsx';
+import ContentCountsContainer from '../containers/ContentCountsContainer.jsx';
 
 // Components
 import EventsGlobe from '../components/EventsGlobe.jsx';
-import EventTeaserWithShow from '../components/EventTeaserWithShow.jsx';
 import HowlRoundPostFeatured from '../components/HowlRoundPostFeatured.jsx';
 import Loading from '../components/Loading.jsx';
 
@@ -19,33 +19,17 @@ class HomePage extends React.Component {
     const { formatMessage } = this.props.intl;
 
     const siteName = formatMessage({
-      'id': 'navigation.siteName',
-      'defaultMessage': 'World Theatre Map',
-      'description': 'Site name',
+      id: 'navigation.siteName',
+      defaultMessage: 'World Theatre Map',
+      description: 'Site name',
     });
 
     return (
       <section className="homepage-events-globe">
-        <div className="homepage-section-header">
-          <Helmet
-            title={siteName}
-            titleTemplate="%s"
-          />
-          <h2>
-            <FormattedMessage
-              id="home.todayGlobeHeader"
-              description="Header for home page events globe"
-              defaultMessage="What's Happening Today"
-            />
-          </h2>
-        </div>
-        <p className="homepage-intro-text">
-          <FormattedMessage
-            id="home.introText"
-            description="Large introduction text on the home page"
-            defaultMessage="The World Theatre Map is a user-generated directory and real time map of the global theatre community."
-          />
-        </p>
+        <Helmet
+          title={siteName}
+          titleTemplate="%s"
+        />
         {loading ?
           <Loading key="loading" interiorBlock /> : ''
         }
@@ -60,49 +44,37 @@ class HomePage extends React.Component {
   }
 
   renderTodayList() {
-    const { eventsTodayWithLocations, eventsTodayCount, startDate, endDate, loading } = this.props;
+    /* eslint-disable max-len */
+    const { eventsTodayCount, startDate, endDate } = this.props;
     const { locale } = this.props.intl;
 
-    if (!loading && eventsTodayWithLocations) {
-      return (
-        <section className="homepage-events-list">
-          <h2>
-            <FormattedMessage
-              id="homepage.autocompleteCreate"
-              description="Autocomplete option to create a related show"
-              defaultMessage={`{eventsTodayCount, number} {eventsTodayCount, plural, one {Event} other {Events}} Happening Today`}
-              values={{ eventsTodayCount }}
-            />
-          </h2>
-          <ul className="results">
-            {eventsTodayWithLocations.slice(0, 6).map(event => (
-              <li key={event._id}>
-                <EventTeaserWithShow event={event} />
-              </li>
-            ))}
-          </ul>
+    return (
+      <div className="homepage-globe-label">
+        <h2>
           <Link
             to={{ pathname: `/${locale}/search/events`, query: { startDate, endDate } }}
             className="events-today-view-all"
           >
             <FormattedMessage
-              id="home.todayEventsMoreLink"
-              description="See all today's events link on home page"
-              defaultMessage="See All Today's Events"
+              id="homepage.eventsTodayCount"
+              description="Number of events happening today"
+              defaultMessage={'{eventsTodayCount, number} {eventsTodayCount, plural, one {Event} other {Events}} Happening Today'}
+              values={{ eventsTodayCount }}
             />
           </Link>
-        </section>
-      );
-    } else {
-      return (null);
-    }
+        </h2>
+      </div>
+    );
   }
 
   render() {
     const {
       eventsTodayWithLocations,
       howlroundPosts,
+      loading,
     } = this.props;
+
+    const { locale } = this.props.intl;
 
     const renderedHowlroundPosts = _.map(howlroundPosts, (item) => (
         <HowlRoundPostFeatured
@@ -115,22 +87,20 @@ class HomePage extends React.Component {
     return (
       <div className="homepage-content-wrapper">
         <div className="page">
-          {eventsTodayWithLocations ? this.renderTodayMap() : ''}
-          {eventsTodayWithLocations ? this.renderTodayList() : ''}
-        </div>
-        <div className="homepage-search-wrapper">
-          <div className="homepage-search-content">
-            <div className="homepage-section-header">
-              <h2>
-                <FormattedMessage
-                  id="homepage.discoverSection"
-                  description="Search filters header on the home page"
-                  defaultMessage="Discover"
-                />
-              </h2>
-            </div>
-            <SearchProfilesContainerDummy location={{ query: {} }} />
+          <ContentCountsContainer />
+          <div className="homepage-search-links">
+            Search by <Link
+              to={{ pathname: `/${locale}/search/profiles`, query: {} }}
+            >People</Link>, <Link
+              to={{ pathname: `/${locale}/search/profiles`, query: {} }}
+            >Organizations</Link>, <Link
+              to={{ pathname: `/${locale}/search/shows`, query: {} }}
+            >Shows</Link>, or <Link
+              to={{ pathname: `/${locale}/search/festivals`, query: {} }}
+            >Festivals</Link>
           </div>
+          {(!loading && eventsTodayWithLocations) ? this.renderTodayMap() : ''}
+          {(!loading && eventsTodayWithLocations) ? this.renderTodayList() : ''}
         </div>
         <div className="homepage-howlround-wrapper">
           <div className="homepage-howlround-content">

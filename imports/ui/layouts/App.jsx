@@ -66,7 +66,7 @@ class App extends React.Component {
     const { locale } = this.props.intl;
     const access = Roles.userIsInRole(Meteor.userId(), ['admin']);
 
-    if (announcement && _.has(announcement, 'body')) {
+    if (announcement && _.has(announcement, 'body') && announcement.body) {
       return (
         <div className="announcement">
           {access ?

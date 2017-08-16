@@ -1043,7 +1043,7 @@
   "footer.addPitchButton": "Add to the Map",
   "home.todayGlobeHeader": "What's Happening Today",
   "home.introText": "The World Theatre Map is a user-generated directory and real time map of the global theatre community.",
-  "homepage.autocompleteCreate": "{eventsTodayCount, number} {eventsTodayCount, plural, one {Event} other {Events}} Happening Today",
+  "homepage.eventsTodayCount": "{eventsTodayCount, number} {eventsTodayCount, plural, one {Event} other {Events}} Happening Today",
   "home.todayEventsMoreLink": "See All Today's Events",
   "homepage.discoverSection": "Discover",
   "homepage.howlroundSection": "From HowlRound",

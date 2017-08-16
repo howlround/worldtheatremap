@@ -21,6 +21,34 @@
   }
 }
 
+.homepage-globe-label {
+  @extend .homepage-section-header;
+
+  margin-top: $spacing-unit;
+
+  h2 {
+    padding: $spacing-unit $spacing-unit * 4;
+
+    background-color: $white;
+    border: solid 1px $dark-tan;
+    padding: $spacing-unit $spacing-unit * 4;
+
+    @include breakpoint($narrow) {
+      background-color: transparent;
+      border: none;
+
+      span {
+        background-color: $white;
+        border: solid 1px $dark-tan;
+        padding: $spacing-unit $spacing-unit * 4;
+      }
+    }
+
+    color: $white;
+    font-size: 20px;
+  }
+}
+
 .homepage-intro-text {
   color: $teal;
   line-height: 1.2em;
@@ -83,7 +111,7 @@
   .events-today-view-all {
     font-family: $oswald-font-stack;
     clear: both;
-    float: right;
+    text-align: center;
     text-transform: uppercase;
   }
 }
@@ -212,5 +240,18 @@
         font-size: 16px
       }
     }
+  }
+}
+
+.homepage-search-links {
+  @extend h2;
+  color: $dark-gray;
+
+  text-align: center;
+  margin: 0;
+  margin-bottom: $spacing-unit*2;
+
+  @include breakpoint($narrow) {
+    margin: $spacing-unit*3 0 $spacing-unit*6 0;
   }
 }

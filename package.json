@@ -5,6 +5,7 @@
     "type": "git",
     "url": "git://github.com/mosswoodcreative/world-theatre-map"
   },
+  "license" : "MIT",
   "scripts": {
     "pretest": "npm run lint --silent",
     "test": "meteor test --once --driver-package dispatch:mocha-phantomjs --port 3100",

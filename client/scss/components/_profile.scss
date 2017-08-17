@@ -81,12 +81,26 @@ article.profile.search-result {
   }
 }
 
-.delete-affiliation {
-  cursor: pointer;
-  margin-left: $spacing-unit / 2;
+li {
+  .delete-affiliation {
+    cursor: pointer;
+    margin-left: $spacing-unit;
+    color: $white;
+
+    &:hover,
+    &:focus {
+      color: $gray;
+    }
+  }
 
   &:focus,
   &:hover {
-    color: $gray;
+    .delete-affiliation {
+      color: $black;
+
+      &:hover {
+        color: $gray;
+      }
+    }
   }
 }

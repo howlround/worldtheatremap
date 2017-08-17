@@ -111,7 +111,6 @@ class ProfilePage extends React.Component {
 
     this.renderRelatedProfiles = this.renderRelatedProfiles.bind(this);
 
-    this.affiliationOnChange = this.affiliationOnChange.bind(this);
     this.renderAffiliations = this.renderAffiliations.bind(this);
     this.renderAddAffiliationForm = this.renderAddAffiliationForm.bind(this);
     this.removeAffiliation = this.removeAffiliation.bind(this);
@@ -339,13 +338,14 @@ class ProfilePage extends React.Component {
       <li key={affiliation.parentId}>
         <ProfileNameContainer profileId={affiliation.parentId} />
         {user ?
-          <span
+          <a
+            href="#"
             className="delete-affiliation"
             onClick={this.removeAffiliation.bind(this, affiliation._id)}
-            title="Delete affiliation"
+            title="Delete affiliationnn"
           >
             &times;
-          </span>
+          </a>
         : ''}
       </li>
     ));
@@ -388,7 +388,8 @@ class ProfilePage extends React.Component {
     );
   }
 
-  removeAffiliation(affiliationId) {
+  removeAffiliation(affiliationId, event) {
+    event.preventDefault();
     remove.call({
       affiliationId,
     }, displayError);
@@ -402,13 +403,14 @@ class ProfilePage extends React.Component {
       <li key={festivalOrganizer.parentId}>
         <ProfileNameContainer profileId={festivalOrganizer.parentId} />
         {user ?
-          <span
+          <a
+            href="#"
             className="delete-affiliation"
             onClick={this.removeFestivalOrganizer.bind(this, festivalOrganizer._id)}
             title="Delete festival organizer affiliation"
           >
             &times;
-          </span>
+          </a>
         : ''}
       </li>
     ));
@@ -451,7 +453,8 @@ class ProfilePage extends React.Component {
     );
   }
 
-  removeFestivalOrganizer(festivalOrganizerId) {
+  removeFestivalOrganizer(festivalOrganizerId, event) {
+    event.preventDefault();
     removeFestivalOrganizer.call({
       festivalOrganizerId,
     }, displayError);

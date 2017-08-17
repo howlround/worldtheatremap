@@ -124,13 +124,17 @@ class Profile extends React.Component {
     img.src = resizedImageSrc; // fires off loading of image
   }
 
-  removeAffiliation(affiliationId) {
+  removeAffiliation(affiliationId, event) {
+    event.preventDefault();
+
     remove.call({
       affiliationId,
     }, displayError);
   }
 
-  removeFestivalAffiliation(festivalOrganizerId) {
+  removeFestivalAffiliation(festivalOrganizerId, event) {
+    event.preventDefault();
+
     removeFestivalAffiliation.call({
       festivalOrganizerId,
     }, displayError);
@@ -216,13 +220,14 @@ class Profile extends React.Component {
       <li key={affiliation.profile._id}>
         <ProfileNameContainer profileId={affiliation.profile._id} />
         {user ?
-          <span
+          <a
+            href="#"
             className="delete-affiliation"
             onClick={this.removeAffiliation.bind(this, affiliation._id)}
             title="Delete affiliation"
           >
             &times;
-          </span>
+          </a>
         : ''}
       </li>
     ));
@@ -240,13 +245,14 @@ class Profile extends React.Component {
           <ProfileNameContainer profileId={festival.profile._id} />
         </h3>
         {user ?
-          <span
+          <a
+            href="#"
             className="delete-affiliation"
             onClick={this.removeFestivalAffiliation.bind(this, festival._id)}
             title="Delete festival affiliation"
           >
             &times;
-          </span>
+          </a>
         : ''}
       </li>
     ));

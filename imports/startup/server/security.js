@@ -27,7 +27,8 @@ const AUTH_METHODS = [
   'ATResendVerificationEmail',
 ];
 
-if (Meteor.isServer) {
+// Do not limit locally otherwise tests start failing
+if (Meteor.settings.length > 0) {
   // Only allow 2 login attempts per connection per 5 seconds
   DDPRateLimiter.addRule({
     name(name) {

@@ -87,7 +87,7 @@ class HomePage extends React.Component {
     return (
       <div className="homepage-content-wrapper">
         <div className="page">
-          <ContentCountsContainer />
+          <ContentCountsContainer hideHeader={true} />
           <div className="homepage-search-links">
             Search by <Link
               to={{ pathname: `/${locale}/search/profiles`, query: {} }}

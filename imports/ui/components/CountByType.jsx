@@ -7,7 +7,7 @@ import {
   injectIntl,
 } from 'react-intl';
 
-class CountType extends React.Component {
+class CountByType extends React.Component {
   render() {
     const { countObj } = this.props;
     const { formatMessage } = this.props.intl;
@@ -47,9 +47,9 @@ class CountType extends React.Component {
   }
 }
 
-CountType.propTypes = {
+CountByType.propTypes = {
   countObj: React.PropTypes.object,
   intl: intlShape.isRequired,
 };
 
-export default injectIntl(CountType);
+export default injectIntl(CountByType);

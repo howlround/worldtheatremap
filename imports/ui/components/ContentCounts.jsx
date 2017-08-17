@@ -7,7 +7,7 @@ import CountByType from '../components/CountByType.jsx';
 
 class ContentCounts extends React.Component {
   render() {
-    const { counts } = this.props;
+    const { counts, hideHeader } = this.props;
 
     const stats = _.map(counts, (countObj) => (
       <CountByType
@@ -16,7 +16,13 @@ class ContentCounts extends React.Component {
       />
     ));
 
-    return (
+    const noHeader = (
+      <div className="content-counts">
+        {stats}
+      </div>
+    );
+
+    const withHeader = (
       <div className="content-counts">
         <h2>
           <FormattedMessage
@@ -30,11 +36,14 @@ class ContentCounts extends React.Component {
         </div>
       </div>
     );
+
+    return (hideHeader) ? noHeader : withHeader;
   }
 }
 
 ContentCounts.propTypes = {
   counts: React.PropTypes.array,
+  hideHeader: React.PropTypes.bool,
 };
 
 export default ContentCounts;

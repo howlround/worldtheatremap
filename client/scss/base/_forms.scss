@@ -53,7 +53,7 @@ fieldset.disabled {
 
 label {
   font-weight: 700;
-  padding-bottom: $spacing-unit;
+  padding: $spacing-unit / 2 0;
   display: block;
 
   &.disabled {

@@ -35,7 +35,7 @@ Feature: Edits to a show title should propogate
     And I click on ".edit-link"
     And I fill in ".show-name-edit" with "Jessa"
     And I click on ".edit-show-save"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     Then the "h1.page-title" element should contain "Jessa"
 
   Scenario: When an show name is edited the name should propogate to the edit form for a related event
@@ -65,6 +65,6 @@ Feature: Edits to a show title should propogate
     And I click on ".edit-link"
     And I fill in ".show-name-edit" with "Jessa"
     And I click on ".edit-show-save"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     When I click on ".edit-link"
     Then the ".event-show-edit" field should have the value "Jessa"

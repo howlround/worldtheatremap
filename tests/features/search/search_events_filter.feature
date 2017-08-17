@@ -83,7 +83,7 @@ Feature: Filters on event search
 
   Scenario: Users can filter events by city after editing an event to add a new city
     And I go to the show page for "Sofia"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     And I click on ".edit-link"
     And I fill in ".event-locality-edit" with "Morocco"
     And I click on ".edit-event-save"
@@ -99,7 +99,7 @@ Feature: Filters on event search
 
   Scenario: Users can filter events by Country after editing an event to add a new Country
     And I go to the show page for "Sofia"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     And I click on ".edit-link"
     And I select "Morocco" from the ".country-select-edit" combobox
     And I click on ".edit-event-save"
@@ -123,7 +123,7 @@ Feature: Filters on event search
 
   Scenario: Users can filter events by Province after editing an event to add a new Province
     And I go to the show page for "Sofia"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     And I click on ".edit-link"
     And I fill in ".event-administrative-area-edit" with "Rabat-Salé-Kénitra"
     And I click on ".edit-event-save"

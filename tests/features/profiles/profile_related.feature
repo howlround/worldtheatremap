@@ -31,7 +31,7 @@ Feature: Related profiles on profile pages
     And a profile with the following fields:
       | name | Il Regista |
     And I go to the show page for "Sofia"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     And I fill in ".participant-profile-edit" with "Il Regista"
     And I click on ".autocomplete-results li"
     And I fill in ".participant-role-edit" with "Director"
@@ -39,7 +39,7 @@ Feature: Related profiles on profile pages
     And a profile with the following fields:
       | name | Il Curatore |
     And I go to the show page for "Sofia"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     And I fill in ".participant-profile-edit" with "Il Curatore"
     And I click on ".autocomplete-results li"
     And I fill in ".participant-role-edit" with "Curator"

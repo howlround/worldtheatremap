@@ -66,7 +66,7 @@ Feature: Create events for a show that doesn't exist yet
     And I fill in ".profile-name-edit" with "Organización del año"
     And I click on ".edit-profile-save"
     And I go to the show page for "Althea"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     Then the ".event-authorship" element should contain "Este es mi dramaturgo favorito"
     And the ".event-organizations" element should contain "Organización del año"
 

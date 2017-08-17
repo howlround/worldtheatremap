@@ -32,20 +32,20 @@ Feature: Participant listing on event pages
   Scenario: Add participant form should only display for logged in users
     And I am logged out
     And I go to the show page for "Sofia"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     Then I should not see ".participant-profile-edit"
 
   Scenario: Users should be see all participants associated with an event
     And a profile with the following fields:
       | name | Il Regista |
     And I go to the show page for "Sofia"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     And I fill in ".participant-profile-edit" with "Il Regista"
     And I click on ".autocomplete-results li"
     And I fill in ".participant-role-edit" with "Director"
     And I click on ".edit-participant-save"
     And I go to the show page for "Sofia"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     Then the ".event-participant-name" element should contain "Il Regista"
     And the ".event-participant-role" element should contain "Director"
 
@@ -54,7 +54,7 @@ Feature: Participant listing on event pages
     And a profile with the following fields:
       | name | Il Regista |
     And I go to the show page for "Sofia"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     And I fill in ".participant-profile-edit" with "Il Regista"
     And I click on ".autocomplete-results li"
     And I fill in ".participant-role-edit" with "Director"
@@ -65,20 +65,20 @@ Feature: Participant listing on event pages
     And I fill in ".profile-name-edit" with "El director"
     And I click on ".edit-profile-save"
     And I go to the show page for "Sofia"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     Then the ".event-participant-name" element should contain "El director"
 
   Scenario: Number of participants should be displayed on the event page
     And a profile with the following fields:
       | name | Il Regista |
     And I go to the show page for "Sofia"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     And I fill in ".participant-profile-edit" with "Il Regista"
     And I click on ".autocomplete-results li"
     And I fill in ".participant-role-edit" with "Director"
     And I click on ".edit-participant-save"
     And I go to the show page for "Sofia"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     Then the ".event-participants h2" element should contain "1 Participant"
     And the ".event-participants h2" element should not contain "1 Participants"
 
@@ -86,7 +86,7 @@ Feature: Participant listing on event pages
     And a profile with the following fields:
       | name | Il Regista |
     And I go to the show page for "Sofia"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     And I fill in ".participant-profile-edit" with "Il Regista"
     And I click on ".autocomplete-results li"
     And I click on ".edit-participant-save"
@@ -96,7 +96,7 @@ Feature: Participant listing on event pages
     And a profile with the following fields:
       | name | Il Regista |
     And I go to the show page for "Sofia"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     And I fill in ".participant-profile-edit" with "Il Regista"
     And I click on ".autocomplete-results li"
     And I click on ".edit-participant-save"
@@ -108,7 +108,7 @@ Feature: Participant listing on event pages
     And a profile with the following fields:
       | name | Il Regista |
     And I go to the show page for "Sofia"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     And I fill in ".participant-profile-edit" with "Il Regista"
     And I click on ".autocomplete-results li"
     And I fill in ".participant-role-edit" with "Director"
@@ -118,14 +118,14 @@ Feature: Participant listing on event pages
     And I fill in ".profile-name-edit" with "La Regista"
     And I press ".edit-profile-save"
     And I go to the show page for "Sofia"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     Then the ".event-participant-name" element should contain "La Regista"
 
   Scenario: If a show name is edited after a participant is added they show name should display correctly on the participants profile
     And a profile with the following fields:
       | name | Il Regista |
     And I go to the show page for "Sofia"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     And I fill in ".participant-profile-edit" with "Il Regista"
     And I click on ".autocomplete-results li"
     And I fill in ".participant-role-edit" with "Director"

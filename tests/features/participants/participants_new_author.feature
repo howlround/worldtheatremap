@@ -31,19 +31,19 @@ Feature: Add new profile from the participant add form
 
   Scenario: Users should be able to add participants to events for profiles that are not in the system yet
     And I go to the show page for "Sofia"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     And I fill in ".participant-profile-edit" with "Unknown participant"
     And I click on ".autocomplete-results li"
     And I fill in ".participant-role-edit" with "Director"
     And I click on ".edit-participant-save"
     And I go to the show page for "Sofia"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     Then the ".event-participant-name" element should contain "Unknown participant"
 
   @i18n
   Scenario: Participants listed on an event should be displayed in the correct language
     And I go to the show page for "Sofia"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     And I fill in ".participant-profile-edit" with "Unknown participant"
     And I click on ".autocomplete-results li"
     And I fill in ".participant-role-edit" with "Director"
@@ -54,5 +54,5 @@ Feature: Add new profile from the participant add form
     And I fill in ".profile-name-edit" with "Participante desconocido"
     And I click on ".edit-profile-save"
     And I go to the show page for "Sofia"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     Then the ".event-participant-name" element should contain "Participante desconocido"

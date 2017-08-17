@@ -34,7 +34,7 @@ Feature: Edit events
 
   Scenario: Users should be able to edit basic information for an event
     And I go to the show page for "Sofia"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     And I click on ".edit-link"
     And I select "Reading" from the ".event-type-edit" combobox
     And I fill in ".event-about-edit" with "http://facebook.com"
@@ -52,7 +52,7 @@ Feature: Edit events
 
   # Scenario: Users should be able to edit the show and the author on an event edit form
   #   And I go to the show page for "Sofia"
-  #   And I click on ".event-name a"
+  #   And I click on ".event-view-link"
   #   And I click on ".edit-link"
   #   And I fill in ".event-show-edit" with "Althea"
   #   And I click on ".autocomplete-results li"
@@ -66,7 +66,7 @@ Feature: Edit events
 
   Scenario: Users should be able to edit location information for events
     And I go to the show page for "Sofia"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     And I click on ".edit-link"
     And I fill in ".find-pin" with "Buenos Aires"
     And I click on ".pac-item"
@@ -76,7 +76,7 @@ Feature: Edit events
 
   Scenario: Users who use the pin selector when editing should have the other address fields prepopulated
     And I go to the show page for "Sofia"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     And I click on ".edit-link"
     And I fill in ".find-pin" with "10 Boylston Pl, Boston"
     And I click on ".pac-item"
@@ -89,6 +89,6 @@ Feature: Edit events
 
   Scenario: Users should see the existing show value when editing an event
     And I go to the show page for "Sofia"
-    And I click on ".event-name a"
+    And I click on ".event-view-link"
     When I click on ".edit-link"
     Then the ".event-show-edit" field should have the value "Sofia"

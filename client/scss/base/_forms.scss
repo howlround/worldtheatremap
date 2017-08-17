@@ -27,7 +27,6 @@ input[type="password"] {
   border-radius: 0;
   box-sizing: border-box;
   color: $black;
-  outline: none;
 
   &[disabled] { opacity: .5; }
 }

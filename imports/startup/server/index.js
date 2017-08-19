@@ -22,3 +22,6 @@ import './country-prepopulate.js';
 
 // Content prepopulate
 import './content-prepopulate.js';
+
+// Observe Changes
+import './observe-changes.js';

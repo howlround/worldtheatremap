@@ -16,7 +16,7 @@ import { Profiles } from '../profiles.js';
 
 // AWS
 var AWS = require('aws-sdk');
-var creds = new AWS.Credentials({
+var AWSCredentials = new AWS.Credentials({
   accessKeyId: Meteor.settings.AWSAccessKeyId,
   secretAccessKey: Meteor.settings.AWSSecretAccessKey,
 });
@@ -25,7 +25,7 @@ AWS.config.region = Meteor.settings.AWSRegion;
 // Insert
 Profiles.after.insert(function(userId, doc) {
   if (Meteor.isServer) {
-    AWS.config.credentials.get((err) => {
+    AWSCredentials.get((err) => {
       // attach event listener
       if (err) {
         console.error('Error retrieving AWS credentials.');
@@ -80,7 +80,7 @@ Profiles.after.insert(function(userId, doc) {
 // Update
 Profiles.after.update(function(userId, doc, fieldNames, modifier, options) {
   if (Meteor.isServer) {
-    AWS.config.credentials.get((err) => {
+    AWSCredentials.get((err) => {
       // attach event listener
       if (err) {
         console.error('Error retrieving AWS credentials.');
@@ -151,7 +151,7 @@ Profiles.after.update(function(userId, doc, fieldNames, modifier, options) {
 // Remove
 Profiles.after.remove(function(userId, doc) {
   if (Meteor.isServer) {
-    AWS.config.credentials.get((err) => {
+    AWSCredentials.get((err) => {
       // attach event listener
       if (err) {
         console.error('Error retrieving AWS credentials.');

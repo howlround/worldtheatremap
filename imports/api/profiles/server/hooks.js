@@ -148,6 +148,61 @@ Profiles.after.update(function(userId, doc, fieldNames, modifier, options) {
   }
 });
 
+// Remove
+Profiles.after.remove(function(userId, doc) {
+  if (Meteor.isServer) {
+    AWS.config.credentials.get((err) => {
+      // attach event listener
+      if (err) {
+        console.error('Error retrieving AWS credentials.');
+        console.error(err);
+        return;
+      }
+      // create kinesis service object
+      var kinesis = new AWS.Kinesis({
+        apiVersion: '2013-12-02'
+      });
+
+      const omitFields = [
+        'savedHowlroundPosts',
+        'howlroundPostsUrl',
+        'howlroundPostSearchText',
+        'nameSearch',
+      ];
+      const relevenatChanges = {};
+      forOwn(doc, (value, key) => {
+        if (!isNull(value) && !isEmpty(value) && !includes(omitFields, key)) {
+          relevenatChanges[key] = value;
+        }
+      });
+
+      if (!isEmpty(relevenatChanges)) {
+        const subject = `${Meteor.users.findOne(userId).emails[0].address} deleted ${doc.name}`;
+
+        const payload = {
+          message: YAML.stringify(relevenatChanges),
+          subject,
+          _id: doc._id,
+        }
+
+        const params = {
+          Records: [ //required
+            {
+              Data: Buffer.from(JSON.stringify(payload)), // required
+              PartitionKey: 'shardId-000000000000', // required
+            },
+          ],
+          StreamName: 'wtm-notifications-pipeline-WtmChangesStream-1XJYCTSGQ9TK4' // required
+        };
+        kinesis.putRecords(params, function(err, data) {
+          if (err) console.log(err, err.stack); // an error occurred
+          // else     console.log(data);           // successful response
+        });
+      }
+    });
+  }
+});
+
 const compareDocuments = function(a, b) {
   return reduce(a, function(result, value, key) {
     // return isEqual(value, b[key]) ? result : result.concat(key);

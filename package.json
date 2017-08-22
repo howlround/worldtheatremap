@@ -5,7 +5,7 @@
     "type": "git",
     "url": "git://github.com/mosswoodcreative/world-theatre-map"
   },
-  "license" : "MIT",
+  "license": "MIT",
   "scripts": {
     "pretest": "npm run lint --silent",
     "test": "meteor test --once --driver-package dispatch:mocha-phantomjs --port 3100",
@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "autoprefixer": "^6.3.1",
+    "aws-sdk": "^2.101.0",
     "bcrypt": "^0.8.7",
     "cheerio": "^0.22.0",
     "classnames": "^2.2.3",
@@ -49,7 +50,8 @@
     "simple-date-picker": "^0.1.1",
     "tcomb-form": "^0.9.3",
     "tcomb-validation": "^3.0.0",
-    "topojson": "^1.6.26"
+    "topojson": "^1.6.26",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",

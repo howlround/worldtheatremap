@@ -10,7 +10,7 @@ import {
 } from 'lodash';
 var YAML = require('yamljs');
 
-import { Profiles } from '../../api/profiles/profiles.js';
+import { Profiles } from '../profiles.js';
 
 // AWS
 var AWS = require('aws-sdk');

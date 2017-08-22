@@ -1,6 +1,7 @@
 // Profiles
 import '../../api/profiles/methods.js';
 import '../../api/profiles/server/publications.js';
+import '../../api/profiles/server/hooks.js';
 
 // Shows
 import '../../api/shows/methods.js';

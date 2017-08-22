@@ -1,12 +1,14 @@
 import { Meteor } from 'meteor/meteor';
 import {
-  reduce,
-  isEqual,
-  pullAll,
-  pick,
   each,
+  forOwn,
   includes,
   isEmpty,
+  isEqual,
+  isNull,
+  pick,
+  pullAll,
+  reduce,
 } from 'lodash';
 var YAML = require('yamljs');
 
@@ -20,7 +22,62 @@ var creds = new AWS.Credentials({
 });
 AWS.config.region = Meteor.settings.AWSRegion;
 
-// Can't use the anonymous function shortcut or this.previous breaks
+// Insert
+Profiles.after.insert(function(userId, doc) {
+  if (Meteor.isServer) {
+    AWS.config.credentials.get((err) => {
+      // attach event listener
+      if (err) {
+        console.error('Error retrieving AWS credentials.');
+        console.error(err);
+        return;
+      }
+      // create kinesis service object
+      var kinesis = new AWS.Kinesis({
+        apiVersion: '2013-12-02'
+      });
+
+      const omitFields = [
+        'savedHowlroundPosts',
+        'howlroundPostsUrl',
+        'howlroundPostSearchText',
+        'nameSearch',
+      ];
+      const relevenatChanges = {};
+      forOwn(doc, (value, key) => {
+        if (!isNull(value) && !isEmpty(value) && !includes(omitFields, key)) {
+          relevenatChanges[key] = value;
+        }
+      });
+
+      if (!isEmpty(relevenatChanges)) {
+        const subject = `${Meteor.users.findOne(userId).emails[0].address} created ${doc.name}`;
+
+        const payload = {
+          message: YAML.stringify(relevenatChanges),
+          subject,
+          _id: doc._id,
+        }
+
+        const params = {
+          Records: [ //required
+            {
+              Data: Buffer.from(JSON.stringify(payload)), // required
+              PartitionKey: 'shardId-000000000000', // required
+            },
+          ],
+          StreamName: 'wtm-notifications-pipeline-WtmChangesStream-1XJYCTSGQ9TK4' // required
+        };
+        kinesis.putRecords(params, function(err, data) {
+          if (err) console.log(err, err.stack); // an error occurred
+          // else     console.log(data);           // successful response
+        });
+      }
+    });
+  }
+});
+
+// Update
 Profiles.after.update(function(userId, doc, fieldNames, modifier, options) {
   if (Meteor.isServer) {
     AWS.config.credentials.get((err) => {
@@ -35,6 +92,7 @@ Profiles.after.update(function(userId, doc, fieldNames, modifier, options) {
         apiVersion: '2013-12-02'
       });
 
+      // Refactor this to use fieldNames also
       const changedKeys = compareDocuments(doc, this.previous);
 
       const omitFields = [

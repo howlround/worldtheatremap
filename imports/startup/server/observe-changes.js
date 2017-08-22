@@ -6,6 +6,7 @@ import {
   pick,
   each,
   includes,
+  isEmpty,
 } from 'lodash';
 var YAML = require('yamljs');
 
@@ -19,49 +20,22 @@ var creds = new AWS.Credentials({
 });
 AWS.config.region = Meteor.settings.AWSRegion;
 
-let initializing = true;
-
-const observeChangesHandle = Profiles.find({}).observeChanges({
-  added: function() {
-    // if (!initializing) {
-
-    // }
-  },
-  removed: function() {
-    // self.changed('Counts', 'Theatremakers', { count: countTheatremakers });
-  },
-  changed: function(id, fields) {
-    // console.log(self);
-    // @TODO: Ignore howlroundPostsUrl
-    // console.log('observeChanges');
-    // console.log(id);
-    // console.log(fields);
-  },
-});
-
-const observeHandle = Profiles.find({}).observe({
-  added: function(newDocument) {
-    // if (!initializing) {
-
-    // }
-  },
-  removed: function(oldDocument) {
-    // self.changed('Counts', 'Theatremakers', { count: countTheatremakers });
-  },
-  changed: function(newDocument, oldDocument) {
-    AWS.config.credentials.get(function(err) {
+// Can't use the anonymous function shortcut or this.previous breaks
+Profiles.after.update(function(userId, doc, fieldNames, modifier, options) {
+  if (Meteor.isServer) {
+    AWS.config.credentials.get((err) => {
       // attach event listener
       if (err) {
-          console.error('Error retrieving AWS credentials.');
-          console.error(err);
-          return;
+        console.error('Error retrieving AWS credentials.');
+        console.error(err);
+        return;
       }
       // create kinesis service object
       var kinesis = new AWS.Kinesis({
-          apiVersion: '2013-12-02'
+        apiVersion: '2013-12-02'
       });
 
-      const changedKeys = compareDocuments(newDocument, oldDocument);
+      const changedKeys = compareDocuments(doc, this.previous);
 
       const omitFields = [
         'savedHowlroundPosts',
@@ -71,14 +45,14 @@ const observeHandle = Profiles.find({}).observe({
       ];
       const releventChangedKeys = pullAll(changedKeys, omitFields);
 
-      const relevenatChanges = pick(newDocument, releventChangedKeys);
-      const relevenatChangesOrig = pick(oldDocument, releventChangedKeys);
+      const relevenatChanges = pick(doc, releventChangedKeys);
+      const relevenatChangesOrig = pick(this.previous, releventChangedKeys);
 
       // If anything in i18n changed, find out what changed.
       // This is recursive from above, so probably could be a function.
       if (includes(releventChangedKeys, 'i18n')) {
         each(relevenatChanges.i18n, (fields, locale) => {
-          const localeChangedKeys = compareDocuments(newDocument.i18n[locale], oldDocument.i18n[locale]);
+          const localeChangedKeys = compareDocuments(doc.i18n[locale], this.previous.i18n[locale]);
           const releventlocaleChangedKeys = pullAll(localeChangedKeys, omitFields);
 
           relevenatChangesOrig.i18n[locale] = pick(relevenatChangesOrig.i18n[locale], releventlocaleChangedKeys);
@@ -86,36 +60,28 @@ const observeHandle = Profiles.find({}).observe({
         });
       }
 
-      console.log('relevenatChangesOrig');
-      console.log(relevenatChangesOrig);
-      console.log('relevenatChanges');
-      console.log(relevenatChanges);
+      if (!isEmpty(relevenatChanges)) {
+        let payload = `${Meteor.users.findOne(userId).emails[0].address} updated ${doc.name}\n\n`;
+        payload += `Changes:\n${YAML.stringify(relevenatChanges)}\n`;
+        payload += `Previous:\n${YAML.stringify(relevenatChangesOrig)}`;
 
-      let payload = `xxx updated ${newDocument.name}:\n\n`;
-      payload += `Changes:\n${YAML.stringify(relevenatChanges)}\n`;
-      payload += `Previous:\n${YAML.stringify(relevenatChangesOrig)}`;
-
-      const params = {
-        Records: [ /* required */
-          {
-            Data: payload, /* required */
-            PartitionKey: 'shardId-000000000000', /* required */
-          },
-        ],
-        StreamName: 'wtm-notifications-pipeline-WtmChangesStream-1XJYCTSGQ9TK4' /* required */
-      };
-      kinesis.putRecords(params, function(err, data) {
-        if (err) console.log(err, err.stack); // an error occurred
-        else     console.log(data);           // successful response
-      });
-
-      // console.log(newDocument);
-      // console.log(oldDocument);
+        const params = {
+          Records: [ //required
+            {
+              Data: payload, // required
+              PartitionKey: 'shardId-000000000000', // required
+            },
+          ],
+          StreamName: 'wtm-notifications-pipeline-WtmChangesStream-1XJYCTSGQ9TK4' // required
+        };
+        kinesis.putRecords(params, function(err, data) {
+          if (err) console.log(err, err.stack); // an error occurred
+          // else     console.log(data);           // successful response
+        });
+      }
     });
-  },
+  }
 });
-
-initializing = false;
 
 const compareDocuments = function(a, b) {
   return reduce(a, function(result, value, key) {

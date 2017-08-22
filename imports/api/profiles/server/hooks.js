@@ -61,14 +61,21 @@ Profiles.after.update(function(userId, doc, fieldNames, modifier, options) {
       }
 
       if (!isEmpty(relevenatChanges)) {
-        let payload = `${Meteor.users.findOne(userId).emails[0].address} updated ${doc.name}\n\n`;
-        payload += `Changes:\n${YAML.stringify(relevenatChanges)}\n`;
-        payload += `Previous:\n${YAML.stringify(relevenatChangesOrig)}`;
+        const subject = `${Meteor.users.findOne(userId).emails[0].address} updated ${doc.name}`;
+        let message = '';
+        message += `Changes:\n${YAML.stringify(relevenatChanges)}\n`;
+        message += `Previous:\n${YAML.stringify(relevenatChangesOrig)}`;
+
+        const payload = {
+          message,
+          subject,
+          _id: doc._id,
+        }
 
         const params = {
           Records: [ //required
             {
-              Data: payload, // required
+              Data: Buffer.from(JSON.stringify(payload)), // required
               PartitionKey: 'shardId-000000000000', // required
             },
           ],

@@ -337,21 +337,53 @@ export const translate = new ValidatedMethod({
   },
 });
 
-export const remove = new ValidatedMethod({
-  name: 'profiles.remove',
+export const requestRemoval = new ValidatedMethod({
+  name: 'profiles.requestRemoval',
   validate: PROFILE_ID_ONLY,
   run({ profileId }) {
     if (!this.userId) {
-      throw new Meteor.Error('profiles.remove.accessDenied',
+      throw new Meteor.Error('profiles.requestRemoval.accessDenied',
         'You must be logged in to complete this operation.');
     }
 
     // Record that this user edit content
-    Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentEditedCount": 1 } });
+    Meteor.users.update(this.userId, { $inc: { "profile.contentEditedCount": 1 } });
+
+    Profiles.update(profileId, {
+      $set: {
+        requestRemoval: this.userId,
+      },
+    });
+  },
+});
+
+export const denyRemoval = new ValidatedMethod({
+  name: 'profiles.denyRemoval',
+  validate: PROFILE_ID_ONLY,
+  run({ profileId }) {
+    if (!Roles.userIsInRole(this.userId, ['admin'])) {
+      throw new Meteor.Error('profiles.denyRemoval.accessDenied',
+        'You must be an admin in to complete this operation.');
+    }
+
+    Profiles.update(profileId, {
+      $set: {
+        requestRemoval: null,
+      },
+    });
+  },
+});
+
+export const remove = new ValidatedMethod({
+  name: 'profiles.remove',
+  validate: PROFILE_ID_ONLY,
+  run({ profileId }) {
+    if (!Roles.userIsInRole(Meteor.userId(), ['admin'])) {
+      throw new Meteor.Error('profiles.remove.accessDenied',
+        'You must be an admin in to complete this operation.');
+    }
 
     Profiles.remove(profileId);
-
-    // @TODO: Update the user record for this.userId and increment the contentEdited field
   },
 });
 
@@ -361,6 +393,8 @@ const PROFILES_METHODS = _.pluck([
   updateTranslation,
   update,
   translate,
+  requestRemoval,
+  denyRemoval,
   remove,
 ], 'name');
 

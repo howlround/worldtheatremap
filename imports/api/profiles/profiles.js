@@ -2247,6 +2247,7 @@ Profiles.publicFields = {
   howlroundPostSearchText: 1,
   savedHowlroundPosts: 1,
   howlroundPostsUrl: 1,
+  requestRemoval: 1,
 };
 
 Profiles.autocompleteFields = {

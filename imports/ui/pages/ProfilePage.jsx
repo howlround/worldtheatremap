@@ -36,7 +36,11 @@ import {
 } from '../../api/festivalOrganizers/methods.js';
 import { affiliationFormSchema, defaultFormOptions } from '../../api/affiliations/affiliations.js';
 import { festivalOrganizerFormSchema, defaultFormOptions as festivalOrganizerFormOptions } from '../../api/festivalOrganizers/festivalOrganizers.js';
-import { remove as removeProfile } from '../../api/profiles/methods.js';
+import {
+  requestRemoval as requestProfileRemoval,
+  denyRemoval as denyProfileRemoval,
+  remove as approveProfileRemoval,
+} from '../../api/profiles/methods.js';
 
 const Form = t.form.Form;
 
@@ -96,7 +100,7 @@ class ProfilePage extends React.Component {
 
     this.throttledRemoveProfile = _.throttle(profileId => {
       if (profileId) {
-        removeProfile.call({
+        requestProfileRemoval.call({
           profileId,
         }, displayError);
 
@@ -106,7 +110,9 @@ class ProfilePage extends React.Component {
 
     this.affiliationHandleSubmit = this.affiliationHandleSubmit.bind(this);
     this.festivalHandleSubmit = this.festivalHandleSubmit.bind(this);
+    this.confirmRequestRemoval = this.confirmRequestRemoval.bind(this);
     this.confirmDelete = this.confirmDelete.bind(this);
+    this.denyDelete = this.denyDelete.bind(this);
     this.affiliationOnChange = this.affiliationOnChange.bind(this);
 
     this.renderRelatedProfiles = this.renderRelatedProfiles.bind(this);
@@ -173,7 +179,7 @@ class ProfilePage extends React.Component {
     }
   }
 
-  confirmDelete(_id) {
+  confirmRequestRemoval(_id) {
     const { locale, formatMessage } = this.props.intl;
 
     const deleteConfirmText = formatMessage({
@@ -187,6 +193,42 @@ class ProfilePage extends React.Component {
       this.throttledRemoveProfile(_id);
 
       this.context.router.push(`/${locale}`);
+    }
+  }
+
+  confirmDelete(_id) {
+    const { locale, formatMessage } = this.props.intl;
+
+    const approveDeleteConfirmText = formatMessage({
+      'id': 'ui.approveDeleteConfirmText',
+      'defaultMessage': 'Approve the delete request. The content will be permenantly deleted. This action can not be undone.',
+      'description': 'Text confirming deleting content',
+    });
+
+    const confirm = window.confirm(approveDeleteConfirmText);
+    if (confirm === true) {
+      approveProfileRemoval.call({
+        profileId: _id,
+      }, displayError);
+
+      this.context.router.push(`/${locale}`);
+    }
+  }
+
+  denyDelete(_id) {
+    const { locale, formatMessage } = this.props.intl;
+
+    const denyDeleteConfirmText = formatMessage({
+      'id': 'ui.denyDeleteConfirmText',
+      'defaultMessage': 'Deny the delete request. The content will remain in the system.',
+      'description': 'Text confirming deleting content',
+    });
+
+    const confirm = window.confirm(denyDeleteConfirmText);
+    if (confirm === true) {
+      denyProfileRemoval.call({
+        profileId: _id,
+      }, displayError);
     }
   }
 
@@ -547,12 +589,12 @@ class ProfilePage extends React.Component {
                   defaultMessage="Edit details"
                 />
               </Link>
-              { user ?
+              { user && !profile.requestRemoval ?
                 <a
                   href="#"
                   title={`Delete ${profile.name}`}
                   className="page-delete-link"
-                  onClick={this.confirmDelete.bind(this, profile._id)}
+                  onClick={this.confirmRequestRemoval.bind(this, profile._id)}
                 >
                   <FormattedMessage
                     id="ui.pageDelete"
@@ -560,6 +602,43 @@ class ProfilePage extends React.Component {
                     defaultMessage="Delete"
                   />
                 </a>
+                : ''
+              }
+              { user && profile.requestRemoval ?
+                <FormattedMessage
+                  id="ui.pageDeleteRequested"
+                  description="Page delete requested message"
+                  defaultMessage="Delete request received"
+                />
+                : ''
+              }
+              { (profile.requestRemoval && Roles.userIsInRole(Meteor.userId(), ['admin'])) ?
+                <div className="admin-actions">
+                  <a
+                    href="#"
+                    title={`Permenantly delete ${profile.name}`}
+                    className="page-confirm-removal-link"
+                    onClick={this.confirmDelete.bind(this, profile._id)}
+                  >
+                    <FormattedMessage
+                      id="ui.pageConfirmDelete"
+                      description="Page confirm delete link"
+                      defaultMessage="Confirm Removal"
+                    />
+                  </a>
+                  <a
+                    href="#"
+                    title={`Deny removal of ${profile.name}`}
+                    className="page-deny-removal-link"
+                    onClick={this.denyDelete.bind(this, profile._id)}
+                  >
+                    <FormattedMessage
+                      id="ui.pageDenyDelete"
+                      description="Page deny removal link"
+                      defaultMessage="Deny Removal"
+                    />
+                  </a>
+                </div>
                 : ''
               }
             </div>

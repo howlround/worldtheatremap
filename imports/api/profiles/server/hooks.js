@@ -10,20 +10,22 @@ import {
   pullAll,
   reduce,
 } from 'lodash';
-var YAML = require('yamljs');
+import YAML from 'yamljs';
+
 // AWS
-var AWS = require('aws-sdk');
+import AWS from 'aws-sdk';
 AWS.config.credentials = new AWS.Credentials({
   accessKeyId: Meteor.settings.AWSAccessKeyId,
   secretAccessKey: Meteor.settings.AWSSecretAccessKey,
 });
 AWS.config.region = Meteor.settings.AWSRegion;
 
+// API
 import { Profiles } from '../profiles.js';
 
 // Insert
 Profiles.after.insert(function(userId, doc) {
-  if (Meteor.isServer) {
+  if (Meteor.isServer && Meteor.settings.SendContentNotifications) {
     AWS.config.credentials.get((err) => {
       // attach event listener
       if (err) {
@@ -51,9 +53,13 @@ Profiles.after.insert(function(userId, doc) {
 
       if (!isEmpty(relevenatChanges)) {
         const subject = `${Meteor.users.findOne(userId).emails[0].address} created ${doc.name}`;
+        let message = '';
+        const baseUrl = Meteor.absoluteUrl(false, { secure: true });
+        message += `Profile: ${baseUrl}profiles/${doc._id}\n\n`;
+        message += YAML.stringify(relevenatChanges);
 
         const payload = {
-          message: YAML.stringify(relevenatChanges),
+          message,
           subject,
           _id: doc._id,
         }
@@ -78,7 +84,7 @@ Profiles.after.insert(function(userId, doc) {
 
 // Update
 Profiles.after.update(function(userId, doc, fieldNames, modifier, options) {
-  if (Meteor.isServer) {
+  if (Meteor.isServer && Meteor.settings.SendContentNotifications) {
     AWS.config.credentials.get((err) => {
       // attach event listener
       if (err) {
@@ -120,6 +126,8 @@ Profiles.after.update(function(userId, doc, fieldNames, modifier, options) {
       if (!isEmpty(relevenatChanges)) {
         const subject = `${Meteor.users.findOne(userId).emails[0].address} updated ${doc.name}`;
         let message = '';
+        const baseUrl = Meteor.absoluteUrl(false, { secure: true });
+        message += `Profile: ${baseUrl}profiles/${doc._id}\n\n`;
         message += `Changes:\n${YAML.stringify(relevenatChanges)}\n`;
         message += `Previous:\n${YAML.stringify(relevenatChangesOrig)}`;
 
@@ -149,7 +157,7 @@ Profiles.after.update(function(userId, doc, fieldNames, modifier, options) {
 
 // Remove
 Profiles.after.remove(function(userId, doc) {
-  if (Meteor.isServer) {
+  if (Meteor.isServer && Meteor.settings.SendContentNotifications) {
     AWS.config.credentials.get((err) => {
       // attach event listener
       if (err) {

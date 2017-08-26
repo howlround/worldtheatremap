@@ -191,8 +191,6 @@ class ProfilePage extends React.Component {
     const confirm = window.confirm(deleteConfirmText);
     if (confirm === true) {
       this.throttledRemoveProfile(_id);
-
-      this.context.router.push(`/${locale}`);
     }
   }
 

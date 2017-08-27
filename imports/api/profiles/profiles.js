@@ -1069,7 +1069,7 @@ const disabledListTemplate = t.form.Form.templates.list.clone({
     </label>);
 
     const props = {
-      className: classnames('form-group-depth-1', { 'disabled': locals.disabled }),
+      className: classnames('form-group-depth-1', { 'disabled': locals.disabled }, locals.path),
       disabled: locals.disabled
     }
 
@@ -1354,10 +1354,13 @@ export const defaultFormOptions = () => ({
         description="Help text for demographic form fields instructing the user not to guess"
         defaultMessage="We encourage you not to guess. If you are not sure, leave these blank."
       />,
+      attrs: {
+        className: 'profile-ethnicity-group',
+      },
       item: {
         attrs: {
           className: 'profile-ethnicity-edit',
-        }
+        },
       },
     },
     startDate: {

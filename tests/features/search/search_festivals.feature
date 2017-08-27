@@ -17,6 +17,7 @@ Feature: Festival Search
     And a profile with the following fields:
       | name | National Festival Organizers |
       | about | We fest |
+      | nameSearch | NATIONAL FESTIVAL ORGANIZERS |
     And I go to the "profiles" search page
     When I fill in ".profile-search-text" with "Festival"
     Then the ".search-results" element should contain "National Festival Organizers"

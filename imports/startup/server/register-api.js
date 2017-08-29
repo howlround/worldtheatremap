@@ -6,10 +6,12 @@ import '../../api/profiles/server/hooks.js';
 // Shows
 import '../../api/shows/methods.js';
 import '../../api/shows/server/publications.js';
+import '../../api/shows/server/hooks.js';
 
 // Events
 import '../../api/events/methods.js';
 import '../../api/events/server/publications.js';
+import '../../api/events/server/hooks.js';
 
 // Affiliations
 import '../../api/affiliations/methods.js';

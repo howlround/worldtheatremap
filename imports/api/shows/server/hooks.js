@@ -21,10 +21,10 @@ AWS.config.credentials = new AWS.Credentials({
 AWS.config.region = Meteor.settings.AWSRegion;
 
 // API
-import { Profiles } from '../profiles.js';
+import { Shows } from '../shows.js';
 
 // Insert
-Profiles.after.insert(function(userId, doc) {
+Shows.after.insert(function(userId, doc) {
   if (Meteor.isServer && Meteor.settings.SendContentNotifications) {
     AWS.config.credentials.get((err) => {
       // attach event listener
@@ -34,14 +34,11 @@ Profiles.after.insert(function(userId, doc) {
         return;
       }
       // create kinesis service object
-      var kinesis = new AWS.Kinesis({
+      const kinesis = new AWS.Kinesis({
         apiVersion: '2013-12-02'
       });
 
       const omitFields = [
-        'savedHowlroundPosts',
-        'howlroundPostsUrl',
-        'howlroundPostSearchText',
         'nameSearch',
       ];
       const relevenatChanges = {};
@@ -55,7 +52,7 @@ Profiles.after.insert(function(userId, doc) {
         const subject = `${Meteor.users.findOne(userId).emails[0].address} created ${doc.name}`;
         let message = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });
-        message += `Profile: ${baseUrl}profiles/${doc._id}\n\n`;
+        message += `Show: ${baseUrl}shows/${doc._id}\n\n`;
         message += YAML.stringify(relevenatChanges);
 
         const payload = {
@@ -83,7 +80,7 @@ Profiles.after.insert(function(userId, doc) {
 });
 
 // Update
-Profiles.after.update(function(userId, doc, fieldNames, modifier, options) {
+Shows.after.update(function(userId, doc, fieldNames, modifier, options) {
   if (Meteor.isServer && Meteor.settings.SendContentNotifications) {
     AWS.config.credentials.get((err) => {
       // attach event listener
@@ -93,7 +90,7 @@ Profiles.after.update(function(userId, doc, fieldNames, modifier, options) {
         return;
       }
       // create kinesis service object
-      var kinesis = new AWS.Kinesis({
+      const kinesis = new AWS.Kinesis({
         apiVersion: '2013-12-02'
       });
 
@@ -101,9 +98,6 @@ Profiles.after.update(function(userId, doc, fieldNames, modifier, options) {
       const changedKeys = compareDocuments(doc, this.previous);
 
       const omitFields = [
-        'savedHowlroundPosts',
-        'howlroundPostsUrl',
-        'howlroundPostSearchText',
         'nameSearch',
       ];
       const releventChangedKeys = pullAll(changedKeys, omitFields);
@@ -127,7 +121,7 @@ Profiles.after.update(function(userId, doc, fieldNames, modifier, options) {
         const subject = `${Meteor.users.findOne(userId).emails[0].address} updated ${doc.name}`;
         let message = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });
-        message += `Profile: ${baseUrl}profiles/${doc._id}\n\n`;
+        message += `Show: ${baseUrl}shows/${doc._id}\n\n`;
         message += `Changes:\n${YAML.stringify(relevenatChanges)}\n`;
         message += `Previous:\n${YAML.stringify(relevenatChangesOrig)}`;
 
@@ -156,7 +150,7 @@ Profiles.after.update(function(userId, doc, fieldNames, modifier, options) {
 });
 
 // Remove
-Profiles.after.remove(function(userId, doc) {
+Shows.after.remove(function(userId, doc) {
   if (Meteor.isServer && Meteor.settings.SendContentNotifications) {
     AWS.config.credentials.get((err) => {
       // attach event listener
@@ -166,14 +160,11 @@ Profiles.after.remove(function(userId, doc) {
         return;
       }
       // create kinesis service object
-      var kinesis = new AWS.Kinesis({
+      const kinesis = new AWS.Kinesis({
         apiVersion: '2013-12-02'
       });
 
       const omitFields = [
-        'savedHowlroundPosts',
-        'howlroundPostsUrl',
-        'howlroundPostSearchText',
         'nameSearch',
       ];
       const relevenatChanges = {};
@@ -205,8 +196,8 @@ Profiles.after.remove(function(userId, doc) {
           ],
           StreamName: 'wtm-notifications-pipeline-WtmChangesStream-1XJYCTSGQ9TK4' // required
         };
-        kinesis.putRecords(params, function(err, data) {
-          if (err) console.log(err, err.stack); // an error occurred
+        kinesis.putRecords(params, function(kinesisErr, data) {
+          if (kinesisErr) console.log(kinesisErr, kinesisErr.stack); // an error occurred
           // else     console.log(data);           // successful response
         });
       }
@@ -214,11 +205,11 @@ Profiles.after.remove(function(userId, doc) {
   }
 });
 
-const compareDocuments = function(a, b) {
-  return reduce(a, function(result, value, key) {
+const compareDocuments = (a, b) => {
+  return reduce(a, (result, value, key) => {
     // return isEqual(value, b[key]) ? result : result.concat(key);
     const comparison = isEqual(value, b[key]) ? result : result.concat(key);
     // console.log(comparison);
     return comparison;
   }, []);
-}
+};

@@ -382,7 +382,7 @@ class ProfilePage extends React.Component {
             href="#"
             className="delete-affiliation"
             onClick={this.removeAffiliation.bind(this, affiliation._id)}
-            title="Delete affiliationnn"
+            title="Delete affiliation"
           >
             &times;
           </a>

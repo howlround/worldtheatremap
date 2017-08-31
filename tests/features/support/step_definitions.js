@@ -232,6 +232,8 @@ module.exports = function() {
 
     if (profile) {
       callback(new Error(`Profile exists with the name ${name} but should not.`));
+    } else {
+      callback();
     }
   });
 
@@ -319,12 +321,12 @@ module.exports = function() {
     browser.switchTab(browser.getTabIds()[1]);
   });
 
-  // this.When(/^I accept the alert$/, function () {
-  //   // browser.waitUntil(function () {
-  //   //   return browser.alertText();
-  //   // }, 5000, 'No alert found');
-  //   client.alertAccept();
-  // });
+  this.When(/^I accept the alert$/, function () {
+    // browser.waitUntil(function () {
+    //   return browser.alertText();
+    // }, 5000, 'No alert found');
+    client.alertAccept();
+  });
 
   this.Before(function () {
     // make sure the DDP connection is not logged in before clearing the database

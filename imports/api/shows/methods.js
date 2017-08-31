@@ -211,19 +211,54 @@ export const update = new ValidatedMethod({
   },
 });
 
+
+export const requestRemoval = new ValidatedMethod({
+  name: 'shows.requestRemoval',
+  validate: SHOW_ID_ONLY,
+  run({ showId }) {
+    if (!this.userId) {
+      throw new Meteor.Error('shows.requestRemoval.accessDenied',
+        'You must be logged in to complete this operation.');
+    }
+
+    Shows.update(showId, {
+      $set: {
+        requestRemoval: this.userId,
+      },
+    });
+
+    // Record that this user edit content
+    Meteor.users.update(this.userId, { $inc: { "profile.contentEditedCount": 1 } });
+  },
+});
+
+export const denyRemoval = new ValidatedMethod({
+  name: 'shows.denyRemoval',
+  validate: SHOW_ID_ONLY,
+  run({ showId }) {
+    if (!Roles.userIsInRole(this.userId, ['admin'])) {
+      throw new Meteor.Error('shows.denyRemoval.accessDenied',
+        'You must be an admin in to complete this operation.');
+    }
+
+    Shows.update(showId, {
+      $set: {
+        requestRemoval: null,
+      },
+    });
+  },
+});
+
 export const remove = new ValidatedMethod({
   name: 'shows.remove',
   validate: SHOW_ID_ONLY,
   run({ showId }) {
-    if (!this.userId) {
+    if (!Roles.userIsInRole(Meteor.userId(), ['admin'])) {
       throw new Meteor.Error('shows.remove.accessDenied',
-        'You must be logged in to complete this operation.');
+        'You must be an admin to complete this operation.');
     }
 
     Shows.remove(showId);
-
-    // Record that this user edited content
-    Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentEditedCount": 1 } });
   },
 });
 

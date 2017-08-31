@@ -343,6 +343,7 @@ Shows.publicFields = {
   source: 1,
   country: 1,
   languages: 1,
+  requestRemoval: 1,
 };
 
 Shows.searchFields = {

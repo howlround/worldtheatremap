@@ -254,6 +254,23 @@ module.exports = function() {
     }
   });
 
+  this.Then(/^there should be no events for shows with the name "([^"]*)"$/, function (name, callback) {
+    // Look up the event with this name
+    const event = server.execute((name, callback) => {
+      const { Meteor } = require('meteor/meteor');
+      const { Events } = require('/imports/api/events/events.js');
+      const event = Events._collection.findOne({ 'show.name': name });
+
+      return event;
+    }, name);
+
+    if (event) {
+      callback(new Error(`Event exists with the name ${name} but should not.`));
+    } else {
+      callback();
+    }
+  });
+
   this.When(/^I go to the show page for "([^"]*)"$/, function (name, callback) {
     // Look up the show with this name
     const show = server.execute((name, callback) => {

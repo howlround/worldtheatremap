@@ -19,7 +19,11 @@ import AuthSignIn from '../components/AuthSignIn.jsx';
 import Loading from '../components/Loading.jsx';
 
 // API
-import { remove } from '../../api/events/methods.js';
+import {
+  requestRemoval,
+  denyRemoval,
+  remove,
+} from '../../api/events/methods.js';
 
 class EventPage extends React.Component {
   constructor(props) {
@@ -31,7 +35,7 @@ class EventPage extends React.Component {
 
     this.throttledRemove = _.throttle(eventId => {
       if (eventId) {
-        remove.call({
+        requestRemoval.call({
           eventId,
         }, displayError);
 
@@ -39,7 +43,9 @@ class EventPage extends React.Component {
       }
     }, 300);
 
+    this.confirmRequestRemoval = this.confirmRequestRemoval.bind(this);
     this.confirmDelete = this.confirmDelete.bind(this);
+    this.denyDelete = this.denyDelete.bind(this);
     this.onEditingChange = this.onEditingChange.bind(this);
   }
 
@@ -57,7 +63,7 @@ class EventPage extends React.Component {
     }
   }
 
-  confirmDelete(_id) {
+  confirmRequestRemoval(_id) {
     const { locale, formatMessage } = this.props.intl;
 
     const deleteConfirmText = formatMessage({
@@ -69,8 +75,42 @@ class EventPage extends React.Component {
     const confirm = window.confirm(deleteConfirmText);
     if (confirm === true) {
       this.throttledRemove(_id);
+    }
+  }
+
+  confirmDelete(_id) {
+    const { locale, formatMessage } = this.props.intl;
+
+    const deleteConfirmText = formatMessage({
+      'id': 'ui.deleteConfirmText',
+      'defaultMessage': 'Are you sure you want to delete this content? This action can not be undone.',
+      'description': 'Text confirming deleting content',
+    });
+
+    const confirm = window.confirm(deleteConfirmText);
+    if (confirm === true) {
+      remove.call({
+        eventId: _id,
+      }, displayError);
 
       this.context.router.push(`/${locale}`);
+    }
+  }
+
+  denyDelete(_id) {
+    const { locale, formatMessage } = this.props.intl;
+
+    const denyDeleteConfirmText = formatMessage({
+      'id': 'ui.denyDeleteConfirmText',
+      'defaultMessage': 'Deny the delete request. The content will remain in the system.',
+      'description': 'Text confirming deleting content',
+    });
+
+    const confirm = window.confirm(denyDeleteConfirmText);
+    if (confirm === true) {
+      denyRemoval.call({
+        eventId: _id,
+      }, displayError);
     }
   }
 
@@ -174,12 +214,12 @@ class EventPage extends React.Component {
                   defaultMessage="Edit details"
                 />
               </Link>
-              { user ?
+              { user && !event.requestRemoval ?
                 <a
                   href="#"
                   title={`Delete ${event.name}`}
                   className="page-delete-link"
-                  onClick={this.confirmDelete.bind(this, event._id)}
+                  onClick={this.confirmRequestRemoval.bind(this, event._id)}
                 >
                   <FormattedMessage
                     id="ui.pageDelete"
@@ -187,6 +227,43 @@ class EventPage extends React.Component {
                     defaultMessage="Delete"
                   />
                 </a>
+                : ''
+              }
+              { user && event.requestRemoval ?
+                <FormattedMessage
+                  id="ui.pageDeleteRequested"
+                  description="Page delete requested message"
+                  defaultMessage="Delete request received"
+                />
+                : ''
+              }
+              { (event.requestRemoval && Roles.userIsInRole(Meteor.userId(), ['admin'])) ?
+                <div className="admin-actions">
+                  <a
+                    href="#"
+                    title={`Permenantly delete ${event.name}`}
+                    className="page-confirm-removal-link"
+                    onClick={this.confirmDelete.bind(this, event._id)}
+                  >
+                    <FormattedMessage
+                      id="ui.pageConfirmDelete"
+                      description="Page confirm delete link"
+                      defaultMessage="Confirm Removal"
+                    />
+                  </a>
+                  <a
+                    href="#"
+                    title={`Deny removal of ${event.name}`}
+                    className="page-deny-removal-link"
+                    onClick={this.denyDelete.bind(this, event._id)}
+                  >
+                    <FormattedMessage
+                      id="ui.pageDenyDelete"
+                      description="Page deny removal link"
+                      defaultMessage="Deny Removal"
+                    />
+                  </a>
+                </div>
                 : ''
               }
             </div>

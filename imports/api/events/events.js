@@ -113,6 +113,7 @@ Events.publicFields = {
   lon: 1,
   about: 1,
   eventType: 1,
+  requestRemoval: 1,
 };
 
 Factory.define('event', Events, {});

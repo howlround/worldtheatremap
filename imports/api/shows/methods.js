@@ -211,7 +211,6 @@ export const update = new ValidatedMethod({
   },
 });
 
-
 export const requestRemoval = new ValidatedMethod({
   name: 'shows.requestRemoval',
   validate: SHOW_ID_ONLY,

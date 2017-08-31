@@ -66,17 +66,51 @@ export const update = new ValidatedMethod({
   },
 });
 
+export const requestRemoval = new ValidatedMethod({
+  name: 'events.requestRemoval',
+  validate: EVENT_ID_ONLY,
+  run({ eventId }) {
+    if (!this.userId) {
+      throw new Meteor.Error('events.requestRemoval.accessDenied',
+        'You must be logged in to complete this operation.');
+    }
+
+    Events.update(eventId, {
+      $set: {
+        requestRemoval: this.userId,
+      },
+    });
+
+    // Record that this user edit content
+    Meteor.users.update(this.userId, { $inc: { "profile.contentEditedCount": 1 } });
+  },
+});
+
+export const denyRemoval = new ValidatedMethod({
+  name: 'events.denyRemoval',
+  validate: EVENT_ID_ONLY,
+  run({ eventId }) {
+    if (!Roles.userIsInRole(this.userId, ['admin'])) {
+      throw new Meteor.Error('events.denyRemoval.accessDenied',
+        'You must be an admin in to complete this operation.');
+    }
+
+    Events.update(eventId, {
+      $set: {
+        requestRemoval: null,
+      },
+    });
+  },
+});
+
 export const remove = new ValidatedMethod({
   name: 'events.remove',
   validate: EVENT_ID_ONLY,
   run({ eventId }) {
-    if (!this.userId) {
+    if (!Roles.userIsInRole(Meteor.userId(), ['admin'])) {
       throw new Meteor.Error('events.remove.accessDenied',
-        'You must be logged in to complete this operation.');
+        'You must be an admin to complete this operation.');
     }
-
-    // Record that this user edited content
-    Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentEditedCount": 1 } });
 
     Events.remove(eventId);
   },

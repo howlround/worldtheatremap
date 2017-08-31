@@ -1,4 +1,7 @@
 import { Meteor } from 'meteor/meteor';
+// import React from 'react';
+// import ReactDOMServer from 'react-dom/server';
+// import { IntlProvider } from 'react-intl';
 import {
   each,
   forOwn,
@@ -22,6 +25,7 @@ AWS.config.region = Meteor.settings.AWSRegion;
 
 // API
 import { Profiles } from '../profiles.js';
+// import ProfileContact from '../../../ui/components/ProfileContact.jsx';
 
 // Insert
 Profiles.after.insert(function(userId, doc) {
@@ -52,15 +56,16 @@ Profiles.after.insert(function(userId, doc) {
       });
 
       if (!isEmpty(relevenatChanges)) {
-        const subject = `${Meteor.users.findOne(userId).emails[0].address} created ${doc.name}`;
-        let message = '';
+        const Subject = `${Meteor.users.findOne(userId).emails[0].address} created ${doc.name}`;
+        let HtmlBody = '';
+        let TextBody = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });
-        message += `Profile: ${baseUrl}profiles/${doc._id}\n\n`;
-        message += YAML.stringify(relevenatChanges);
+        TextBody += `Profile: ${baseUrl}profiles/${doc._id}\n\n`;
+        TextBody += YAML.stringify(relevenatChanges);
 
         const payload = {
-          message,
-          subject,
+          TextBody,
+          Subject,
           _id: doc._id,
         }
 
@@ -124,16 +129,35 @@ Profiles.after.update(function(userId, doc, fieldNames, modifier, options) {
       }
 
       if (!isEmpty(relevenatChanges)) {
-        const subject = `${Meteor.users.findOne(userId).emails[0].address} updated ${doc.name}`;
-        let message = '';
+        const Subject = `${Meteor.users.findOne(userId).emails[0].address} updated ${doc.name}`;
+        let HtmlBody = '';
+        let TextBody = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });
-        message += `Profile: ${baseUrl}profiles/${doc._id}\n\n`;
-        message += `Changes:\n${YAML.stringify(relevenatChanges)}\n`;
-        message += `Previous:\n${YAML.stringify(relevenatChangesOrig)}`;
+
+        // HTML
+        // const url = `${baseUrl}profiles/${doc._id}`;
+        // HtmlBody += `<div>Profile: <a href="${url}">${url}</a></div>`;
+
+        // const relevenatChangesMarkup = <IntlProvider>
+        //   <ProfileContact profile={doc} />
+        // </IntlProvider>;
+        // HtmlBody += `Changes:\n${ReactDOMServer.renderToString(relevenatChangesMarkup)}\n`;
+
+        // const relevenatChangesOrigMarkup = <IntlProvider>
+        //   <ProfileContact profile={this.previous} />
+        // </IntlProvider>;
+        // HtmlBody += `Previous:\n${ReactDOMServer.renderToString(relevenatChangesOrigMarkup)}\n`;
+
+        // Plain text
+        TextBody += `Profile: ${baseUrl}profiles/${doc._id}\n\n`;
+
+        TextBody += `Changes:\n${YAML.stringify(relevenatChanges)}\n`;
+        TextBody += `Previous:\n${YAML.stringify(relevenatChangesOrig)}`;
 
         const payload = {
-          message,
-          subject,
+          HtmlBody,
+          TextBody,
+          Subject,
           _id: doc._id,
         }
 
@@ -184,15 +208,16 @@ Profiles.after.remove(function(userId, doc) {
       });
 
       if (!isEmpty(relevenatChanges)) {
-        const subject = `${Meteor.users.findOne(userId).emails[0].address} deleted ${doc.name}`;
-        let message = '';
+        const Subject = `${Meteor.users.findOne(userId).emails[0].address} deleted ${doc.name}`;
+        let HtmlBody = '';
+        let TextBody = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });
-        message += `Profile: ${baseUrl}profiles/${doc._id}\n\n`;
-        message += YAML.stringify(relevenatChanges);
+        TextBody += `Profile: ${baseUrl}profiles/${doc._id}\n\n`;
+        TextBody += YAML.stringify(relevenatChanges);
 
         const payload = {
-          message,
-          subject,
+          TextBody,
+          Subject,
           _id: doc._id,
         }
 

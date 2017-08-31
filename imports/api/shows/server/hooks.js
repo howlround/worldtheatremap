@@ -50,13 +50,14 @@ Shows.after.insert(function(userId, doc) {
 
       if (!isEmpty(relevenatChanges)) {
         const subject = `${Meteor.users.findOne(userId).emails[0].address} created ${doc.name}`;
-        let message = '';
+        let HtmlBody = '';
+        let TextBody = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });
-        message += `Show: ${baseUrl}shows/${doc._id}\n\n`;
-        message += YAML.stringify(relevenatChanges);
+        TextBody += `Show: ${baseUrl}shows/${doc._id}\n\n`;
+        TextBody += YAML.stringify(relevenatChanges);
 
         const payload = {
-          message,
+          TextBody,
           subject,
           _id: doc._id,
         }
@@ -119,14 +120,15 @@ Shows.after.update(function(userId, doc, fieldNames, modifier, options) {
 
       if (!isEmpty(relevenatChanges)) {
         const subject = `${Meteor.users.findOne(userId).emails[0].address} updated ${doc.name}`;
-        let message = '';
+        let HtmlBody = '';
+        let TextBody = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });
-        message += `Show: ${baseUrl}shows/${doc._id}\n\n`;
-        message += `Changes:\n${YAML.stringify(relevenatChanges)}\n`;
-        message += `Previous:\n${YAML.stringify(relevenatChangesOrig)}`;
+        TextBody += `Show: ${baseUrl}shows/${doc._id}\n\n`;
+        TextBody += `Changes:\n${YAML.stringify(relevenatChanges)}\n`;
+        TextBody += `Previous:\n${YAML.stringify(relevenatChangesOrig)}`;
 
         const payload = {
-          message,
+          TextBody,
           subject,
           _id: doc._id,
         }
@@ -176,13 +178,14 @@ Shows.after.remove(function(userId, doc) {
 
       if (!isEmpty(relevenatChanges)) {
         const subject = `${Meteor.users.findOne(userId).emails[0].address} deleted ${doc.name}`;
-        let message = '';
+        let HtmlBody = '';
+        let TextBody = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });
-        message += `Profile: ${baseUrl}profiles/${doc._id}\n\n`;
-        message += YAML.stringify(relevenatChanges);
+        TextBody += `Profile: ${baseUrl}profiles/${doc._id}\n\n`;
+        TextBody += YAML.stringify(relevenatChanges);
 
         const payload = {
-          message,
+          TextBody,
           subject,
           _id: doc._id,
         }

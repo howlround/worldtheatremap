@@ -49,7 +49,7 @@ Shows.after.insert(function(userId, doc) {
       });
 
       if (!isEmpty(relevenatChanges)) {
-        const subject = `${Meteor.users.findOne(userId).emails[0].address} created ${doc.name}`;
+        const Subject = `${Meteor.users.findOne(userId).emails[0].address} created ${doc.name}`;
         let HtmlBody = '';
         let TextBody = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });
@@ -58,7 +58,7 @@ Shows.after.insert(function(userId, doc) {
 
         const payload = {
           TextBody,
-          subject,
+          Subject,
           _id: doc._id,
         }
 
@@ -119,7 +119,7 @@ Shows.after.update(function(userId, doc, fieldNames, modifier, options) {
       }
 
       if (!isEmpty(relevenatChanges)) {
-        const subject = `${Meteor.users.findOne(userId).emails[0].address} updated ${doc.name}`;
+        const Subject = `${Meteor.users.findOne(userId).emails[0].address} updated ${doc.name}`;
         let HtmlBody = '';
         let TextBody = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });
@@ -129,7 +129,7 @@ Shows.after.update(function(userId, doc, fieldNames, modifier, options) {
 
         const payload = {
           TextBody,
-          subject,
+          Subject,
           _id: doc._id,
         }
 
@@ -177,7 +177,7 @@ Shows.after.remove(function(userId, doc) {
       });
 
       if (!isEmpty(relevenatChanges)) {
-        const subject = `${Meteor.users.findOne(userId).emails[0].address} deleted ${doc.name}`;
+        const Subject = `${Meteor.users.findOne(userId).emails[0].address} deleted ${doc.name}`;
         let HtmlBody = '';
         let TextBody = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });
@@ -186,7 +186,7 @@ Shows.after.remove(function(userId, doc) {
 
         const payload = {
           TextBody,
-          subject,
+          Subject,
           _id: doc._id,
         }
 

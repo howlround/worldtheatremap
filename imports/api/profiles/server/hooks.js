@@ -56,7 +56,7 @@ Profiles.after.insert(function(userId, doc) {
       });
 
       if (!isEmpty(relevenatChanges)) {
-        const Subject = `${Meteor.users.findOne(userId).emails[0].address} created ${doc.name}`;
+        const Subject = `"${doc.name}" has been created by ${Meteor.users.findOne(userId).emails[0].address}`;
         let HtmlBody = '';
         let TextBody = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });
@@ -129,7 +129,7 @@ Profiles.after.update(function(userId, doc, fieldNames, modifier, options) {
       }
 
       if (!isEmpty(relevenatChanges)) {
-        const Subject = `${Meteor.users.findOne(userId).emails[0].address} updated ${doc.name}`;
+        const Subject = `"${doc.name}" has been updated by ${Meteor.users.findOne(userId).emails[0].address}`;
         let HtmlBody = '';
         let TextBody = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });
@@ -141,18 +141,18 @@ Profiles.after.update(function(userId, doc, fieldNames, modifier, options) {
         // const relevenatChangesMarkup = <IntlProvider>
         //   <ProfileContact profile={doc} />
         // </IntlProvider>;
-        // HtmlBody += `Changes:\n${ReactDOMServer.renderToString(relevenatChangesMarkup)}\n`;
+        // HtmlBody += `These are the new changes to the page:\n${ReactDOMServer.renderToString(relevenatChangesMarkup)}\n`;
 
         // const relevenatChangesOrigMarkup = <IntlProvider>
         //   <ProfileContact profile={this.previous} />
         // </IntlProvider>;
-        // HtmlBody += `Previous:\n${ReactDOMServer.renderToString(relevenatChangesOrigMarkup)}\n`;
+        // HtmlBody += `This was the previous version:\n${ReactDOMServer.renderToString(relevenatChangesOrigMarkup)}\n`;
 
         // Plain text
         TextBody += `Profile: ${baseUrl}profiles/${doc._id}\n\n`;
 
-        TextBody += `Changes:\n${YAML.stringify(relevenatChanges)}\n`;
-        TextBody += `Previous:\n${YAML.stringify(relevenatChangesOrig)}`;
+        TextBody += `These are the new changes to the page:\n${YAML.stringify(relevenatChanges)}\n`;
+        TextBody += `This was the previous version:\n${YAML.stringify(relevenatChangesOrig)}`;
 
         const payload = {
           HtmlBody,
@@ -208,7 +208,7 @@ Profiles.after.remove(function(userId, doc) {
       });
 
       if (!isEmpty(relevenatChanges)) {
-        const Subject = `${Meteor.users.findOne(userId).emails[0].address} deleted ${doc.name}`;
+        const Subject = `"${doc.name}" has been deleted by ${Meteor.users.findOne(userId).emails[0].address}`;
         let HtmlBody = '';
         let TextBody = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });

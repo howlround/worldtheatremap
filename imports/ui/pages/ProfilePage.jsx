@@ -41,6 +41,7 @@ import {
   denyRemoval as denyProfileRemoval,
   remove as approveProfileRemoval,
 } from '../../api/profiles/methods.js';
+import { subscribe, unsubscribe } from '../../api/users/methods.js';
 
 const Form = t.form.Form;
 
@@ -108,13 +109,36 @@ class ProfilePage extends React.Component {
       }
     }, 300);
 
+    this.throttledSubscribe = _.throttle(profileId => {
+      if (profileId) {
+        subscribe.call({
+          _id: profileId,
+        }, displayError);
+
+        return true;
+      }
+    }, 300);
+
+    this.throttledUnsubscribe = _.throttle(profileId => {
+      if (profileId) {
+        unsubscribe.call({
+          _id: profileId,
+        }, displayError);
+
+        return true;
+      }
+    }, 300);
+
     this.affiliationHandleSubmit = this.affiliationHandleSubmit.bind(this);
     this.festivalHandleSubmit = this.festivalHandleSubmit.bind(this);
     this.confirmRequestRemoval = this.confirmRequestRemoval.bind(this);
     this.confirmDelete = this.confirmDelete.bind(this);
     this.denyDelete = this.denyDelete.bind(this);
     this.affiliationOnChange = this.affiliationOnChange.bind(this);
+    this.subscribe = this.subscribe.bind(this);
+    this.unsubscribe = this.unsubscribe.bind(this);
 
+    this.renderSubscribeLink = this.renderSubscribeLink.bind(this);
     this.renderRelatedProfiles = this.renderRelatedProfiles.bind(this);
 
     this.renderAffiliations = this.renderAffiliations.bind(this);
@@ -179,8 +203,18 @@ class ProfilePage extends React.Component {
     }
   }
 
+  subscribe(_id) {
+    // Subscribe this user to receive notifications for this content
+    this.throttledSubscribe(_id);
+  }
+
+  unsubscribe(_id) {
+    // Unsubscribe this user to receive notifications for this content
+    this.throttledUnsubscribe(_id);
+  }
+
   confirmRequestRemoval(_id) {
-    const { locale, formatMessage } = this.props.intl;
+    const { formatMessage } = this.props.intl;
 
     const deleteConfirmText = formatMessage({
       'id': 'ui.deleteConfirmText',
@@ -214,7 +248,7 @@ class ProfilePage extends React.Component {
   }
 
   denyDelete(_id) {
-    const { locale, formatMessage } = this.props.intl;
+    const { formatMessage } = this.props.intl;
 
     const denyDeleteConfirmText = formatMessage({
       'id': 'ui.denyDeleteConfirmText',
@@ -500,6 +534,36 @@ class ProfilePage extends React.Component {
     }, displayError);
   }
 
+  renderSubscribeLink(_id) {
+    const { user } = this.props;
+
+    const subscribeLink = (
+      <a
+        href="#"
+        title='Subscribe to content changes'
+        className="page-subscribe"
+        onClick={this.subscribe.bind(this, _id)}
+      >
+        Subscribe
+      </a>
+    );
+
+    const unsubscribeLink = (
+      <a
+        href="#"
+        title='Unsubscribe from content changes'
+        className="page-subscribe"
+        onClick={this.unsubscribe.bind(this, _id)}
+      >
+        Unsubscribe
+      </a>
+    );
+
+    const checkSubscribed = user && _.contains(user.profile.subscribedContent, _id);
+
+    return checkSubscribed ? unsubscribeLink : subscribeLink;
+  }
+
   render() {
     const {
       profile,
@@ -575,6 +639,7 @@ class ProfilePage extends React.Component {
           }
           <div className="page-actions">
             <div className="page-actions-edit">
+              {user ? this.renderSubscribeLink(profile._id) : ''}
               <Link
                 to={`/${locale}/profiles/${profile._id}/edit`}
                 key={`${profile._id}-edit`}

@@ -63,3 +63,6 @@ import '../../api/counts/server/publications.js';
 
 // Stats
 import '../../api/stats/server/publications.js';
+
+// Users
+import '../../api/users/methods.js';

@@ -1,4 +1,4 @@
-@profiles @subscribe
+@subscribe
 Feature: Subscribe to profiles
 
   As a user
@@ -8,6 +8,7 @@ Feature: Subscribe to profiles
   Background:
     Given I am on the English language home page
 
+  @profiles
   Scenario: As a user I can subscribe to a profile
     And I am logged in
     And a profile with the following fields:
@@ -16,7 +17,8 @@ Feature: Subscribe to profiles
     When I go to the profile page for "Favorite place theatre"
     And I click on ".page-subscribe"
     And the ".page-subscribe" element should contain "Unsubscribe"
-@focus
+
+  @profiles
   Scenario: As a user I can unsubscribe from a profile
     And I am logged in
     And a profile with the following fields:

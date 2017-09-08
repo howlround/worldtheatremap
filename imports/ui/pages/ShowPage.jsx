@@ -4,6 +4,7 @@ import React from 'react';
 // Utilities
 import classnames from 'classnames';
 import Helmet from 'react-helmet';
+import { _ } from 'meteor/underscore';
 import { displayError } from '../helpers/errors.js';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
@@ -24,6 +25,7 @@ import {
   denyRemoval,
   remove,
 } from '../../api/shows/methods.js';
+import { subscribe, unsubscribe } from '../../api/users/methods.js';
 
 class ShowPage extends React.Component {
   constructor(props) {
@@ -38,6 +40,22 @@ class ShowPage extends React.Component {
         requestRemoval.call({
           showId,
         }, displayError);
+
+        return true;
+      }
+    }, 300);
+
+    this.throttledSubscribe = _.throttle(_id => {
+      if (_id) {
+        subscribe.call({ _id }, displayError);
+
+        return true;
+      }
+    }, 300);
+
+    this.throttledUnsubscribe = _.throttle(_id => {
+      if (_id) {
+        unsubscribe.call({ _id }, displayError);
 
         return true;
       }
@@ -112,6 +130,36 @@ class ShowPage extends React.Component {
         showId: _id,
       }, displayError);
     }
+  }
+
+  renderSubscribeLink(_id) {
+    const { user } = this.props;
+
+    const subscribeLink = (
+      <a
+        href="#"
+        title='Subscribe to content changes'
+        className="page-subscribe"
+        onClick={this.throttledSubscribe.bind(this, _id)}
+      >
+        Subscribe
+      </a>
+    );
+
+    const unsubscribeLink = (
+      <a
+        href="#"
+        title='Unsubscribe from content changes'
+        className="page-subscribe"
+        onClick={this.throttledUnsubscribe.bind(this, _id)}
+      >
+        Unsubscribe
+      </a>
+    );
+
+    const checkSubscribed = user && _.contains(user.profile.subscribedContent, _id);
+
+    return checkSubscribed ? unsubscribeLink : subscribeLink;
   }
 
   render() {
@@ -214,6 +262,7 @@ class ShowPage extends React.Component {
           }
           <div className="page-actions">
             <div className="page-actions-edit">
+              {user ? this.renderSubscribeLink(show._id) : ''}
               <Link
                 to={`/${locale}/shows/${show._id}/edit`}
                 key={`${show._id}-edit`}

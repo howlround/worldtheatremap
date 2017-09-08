@@ -59,7 +59,7 @@ Events.after.insert(function(userId, doc) {
         const payload = {
           TextBody,
           Subject,
-          _id: doc._id,
+          _id: doc.show._id, // Use show id b/c there are no subs for events
         }
 
         const params = {
@@ -130,7 +130,8 @@ Events.after.update(function(userId, doc, fieldNames, modifier, options) {
         const payload = {
           TextBody,
           Subject,
-          _id: doc._id,
+          // No subscriptions for events so comment this out
+          // _id: doc._id,
         }
 
         const params = {
@@ -187,7 +188,7 @@ Events.after.remove(function(userId, doc) {
         const payload = {
           TextBody,
           Subject,
-          _id: doc._id,
+          _id: doc.show._id, // Use show id b/c there are no subs for events
         }
 
         const params = {

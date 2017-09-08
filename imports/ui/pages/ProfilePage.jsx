@@ -109,20 +109,20 @@ class ProfilePage extends React.Component {
       }
     }, 300);
 
-    this.throttledSubscribe = _.throttle(profileId => {
-      if (profileId) {
+    this.throttledSubscribe = _.throttle(_id => {
+      if (_id) {
         subscribe.call({
-          _id: profileId,
+          _id,
         }, displayError);
 
         return true;
       }
     }, 300);
 
-    this.throttledUnsubscribe = _.throttle(profileId => {
-      if (profileId) {
+    this.throttledUnsubscribe = _.throttle(_id => {
+      if (_id) {
         unsubscribe.call({
-          _id: profileId,
+          _id,
         }, displayError);
 
         return true;
@@ -135,8 +135,6 @@ class ProfilePage extends React.Component {
     this.confirmDelete = this.confirmDelete.bind(this);
     this.denyDelete = this.denyDelete.bind(this);
     this.affiliationOnChange = this.affiliationOnChange.bind(this);
-    this.subscribe = this.subscribe.bind(this);
-    this.unsubscribe = this.unsubscribe.bind(this);
 
     this.renderSubscribeLink = this.renderSubscribeLink.bind(this);
     this.renderRelatedProfiles = this.renderRelatedProfiles.bind(this);
@@ -201,16 +199,6 @@ class ProfilePage extends React.Component {
         });
       }
     }
-  }
-
-  subscribe(_id) {
-    // Subscribe this user to receive notifications for this content
-    this.throttledSubscribe(_id);
-  }
-
-  unsubscribe(_id) {
-    // Unsubscribe this user to receive notifications for this content
-    this.throttledUnsubscribe(_id);
   }
 
   confirmRequestRemoval(_id) {
@@ -542,7 +530,7 @@ class ProfilePage extends React.Component {
         href="#"
         title='Subscribe to content changes'
         className="page-subscribe"
-        onClick={this.subscribe.bind(this, _id)}
+        onClick={this.throttledSubscribe.bind(this, _id)}
       >
         Subscribe
       </a>
@@ -553,7 +541,7 @@ class ProfilePage extends React.Component {
         href="#"
         title='Unsubscribe from content changes'
         className="page-subscribe"
-        onClick={this.unsubscribe.bind(this, _id)}
+        onClick={this.throttledUnsubscribe.bind(this, _id)}
       >
         Unsubscribe
       </a>

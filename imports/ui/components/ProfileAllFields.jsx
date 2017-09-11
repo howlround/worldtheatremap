@@ -19,10 +19,12 @@ class ProfileAllFields extends React.Component {
   renderRequestRemoval(requestRemoval) {
     let output = '';
     if (requestRemoval === null) {
-      output = <div>No deletion request received</div>;
+      output = <h3>No deletion requested</h3>;
     } else if (requestRemoval && typeof requestRemoval === 'string') {
       output = <h3>Deletion requested</h3>;
     }
+
+    return output;
   }
 
   renderFields(profile) {

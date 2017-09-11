@@ -60,10 +60,22 @@ Profiles.after.insert(function(userId, doc) {
         let HtmlBody = '';
         let TextBody = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });
+
+        // HTML
+        const url = `${baseUrl}profiles/${doc._id}`;
+        HtmlBody += `<div>Profile: <a href="${url}">${url}</a></div>`;
+
+        const markup = <IntlProvider>
+          <ProfileAllFields profile={doc} />
+        </IntlProvider>;
+        HtmlBody += ReactDOMServer.renderToString(markup);
+
+        // Plain text
         TextBody += `Profile: ${baseUrl}profiles/${doc._id}\n\n`;
         TextBody += YAML.stringify(releventChanges);
 
         const payload = {
+          HtmlBody,
           TextBody,
           Subject,
           _id: doc._id,
@@ -137,7 +149,7 @@ Profiles.after.update(function(userId, doc, fieldNames, modifier, options) {
         // HTML
         const url = `${baseUrl}profiles/${doc._id}`;
         HtmlBody += `<div>Profile: <a href="${url}">${url}</a></div>`;
-// console.log(releventChanges);
+
         const releventChangesMarkup = <IntlProvider>
           <ProfileAllFields profile={releventChanges} />
         </IntlProvider>;
@@ -212,10 +224,22 @@ Profiles.after.remove(function(userId, doc) {
         let HtmlBody = '';
         let TextBody = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });
+
+        // HTML
+        const url = `${baseUrl}profiles/${doc._id}`;
+        HtmlBody += `<div>Profile: <a href="${url}">${url}</a></div>`;
+
+        const markup = <IntlProvider>
+          <ProfileAllFields profile={doc} />
+        </IntlProvider>;
+        HtmlBody += ReactDOMServer.renderToString(markup);
+
+        // Plain text
         TextBody += `Profile: ${baseUrl}profiles/${doc._id}\n\n`;
         TextBody += YAML.stringify(releventChanges);
 
         const payload = {
+          HtmlBody,
           TextBody,
           Subject,
           _id: doc._id,

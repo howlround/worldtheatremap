@@ -1,6 +1,7 @@
 import React from 'react';
 import marked from 'marked';
 import sanitizeHtml from 'sanitize-html';
+import YAML from 'yamljs';
 import { _ } from 'meteor/underscore';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 
@@ -32,6 +33,12 @@ class ProfileAllFields extends React.Component {
       <div className="profile-all-fields">
         {this.renderRequestRemoval(profile.requestRemoval)}
         <ProfileMainFieldsRaw profile={profile} />
+        {profile.profileType ?
+          <div>
+            <h3>Profile type:</h3>
+            {YAML.stringify(profile.profileType)}
+          </div> : ''
+        }
         {profile.about ?
           <div>
             <h2>

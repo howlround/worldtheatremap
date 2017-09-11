@@ -164,9 +164,14 @@ class ProfileMainFields extends React.Component {
 
     return (
       <div className="profile-content-wrapper">
-        <h1 className="profile-name page-title">
-          {profile.name}
-        </h1>
+        <h3>
+          <FormattedMessage
+            id="forms.profileTypeLabel"
+            description="Label for a Profile Type form field"
+            defaultMessage="What kind of profile is this?"
+          />
+        </h3>
+        {profile.name}
         {typeof locationBlock !== 'undefined' ?
             <div className="profile-location">{locationBlock}</div> : ''}
         <div className="profile-metadata metadata">

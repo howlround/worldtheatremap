@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
-// import React from 'react';
-// import ReactDOMServer from 'react-dom/server';
-// import { IntlProvider } from 'react-intl';
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+import { IntlProvider } from 'react-intl';
 import {
   each,
   forOwn,
@@ -25,7 +25,7 @@ AWS.config.region = Meteor.settings.AWSRegion;
 
 // API
 import { Profiles } from '../profiles.js';
-// import ProfileContact from '../../../ui/components/ProfileContact.jsx';
+import ProfileAllFields from '../../../ui/components/ProfileAllFields.jsx';
 
 // Insert
 Profiles.after.insert(function(userId, doc) {
@@ -48,20 +48,20 @@ Profiles.after.insert(function(userId, doc) {
         'howlroundPostSearchText',
         'nameSearch',
       ];
-      const relevenatChanges = {};
+      const releventChanges = {};
       forOwn(doc, (value, key) => {
         if (!isNull(value) && !isEmpty(value) && !includes(omitFields, key)) {
-          relevenatChanges[key] = value;
+          releventChanges[key] = value;
         }
       });
 
-      if (!isEmpty(relevenatChanges)) {
+      if (!isEmpty(releventChanges)) {
         const Subject = `"${doc.name}" has been created by ${Meteor.users.findOne(userId).emails[0].address}`;
         let HtmlBody = '';
         let TextBody = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });
         TextBody += `Profile: ${baseUrl}profiles/${doc._id}\n\n`;
-        TextBody += YAML.stringify(relevenatChanges);
+        TextBody += YAML.stringify(releventChanges);
 
         const payload = {
           TextBody,
@@ -113,46 +113,46 @@ Profiles.after.update(function(userId, doc, fieldNames, modifier, options) {
       ];
       const releventChangedKeys = pullAll(changedKeys, omitFields);
 
-      const relevenatChanges = pick(doc, releventChangedKeys);
-      const relevenatChangesOrig = pick(this.previous, releventChangedKeys);
+      const releventChanges = pick(doc, releventChangedKeys);
+      const releventChangesOrig = pick(this.previous, releventChangedKeys);
 
       // If anything in i18n changed, find out what changed.
       // This is recursive from above, so probably could be a function.
       if (includes(releventChangedKeys, 'i18n')) {
-        each(relevenatChanges.i18n, (fields, locale) => {
+        each(releventChanges.i18n, (fields, locale) => {
           const localeChangedKeys = compareDocuments(doc.i18n[locale], this.previous.i18n[locale]);
           const releventlocaleChangedKeys = pullAll(localeChangedKeys, omitFields);
 
-          relevenatChangesOrig.i18n[locale] = pick(relevenatChangesOrig.i18n[locale], releventlocaleChangedKeys);
-          relevenatChanges.i18n[locale] = pick(relevenatChanges.i18n[locale], releventlocaleChangedKeys);
+          releventChangesOrig.i18n[locale] = pick(releventChangesOrig.i18n[locale], releventlocaleChangedKeys);
+          releventChanges.i18n[locale] = pick(releventChanges.i18n[locale], releventlocaleChangedKeys);
         });
       }
 
-      if (!isEmpty(relevenatChanges)) {
+      if (!isEmpty(releventChanges)) {
         const Subject = `"${doc.name}" has been updated by ${Meteor.users.findOne(userId).emails[0].address}`;
         let HtmlBody = '';
         let TextBody = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });
 
         // HTML
-        // const url = `${baseUrl}profiles/${doc._id}`;
-        // HtmlBody += `<div>Profile: <a href="${url}">${url}</a></div>`;
+        const url = `${baseUrl}profiles/${doc._id}`;
+        HtmlBody += `<div>Profile: <a href="${url}">${url}</a></div>`;
+// console.log(releventChanges);
+        const releventChangesMarkup = <IntlProvider>
+          <ProfileAllFields profile={releventChanges} />
+        </IntlProvider>;
+        HtmlBody += `<h1>These are the new changes to the page:</h1>\n${ReactDOMServer.renderToString(releventChangesMarkup)}\n`;
 
-        // const relevenatChangesMarkup = <IntlProvider>
-        //   <ProfileContact profile={doc} />
-        // </IntlProvider>;
-        // HtmlBody += `These are the new changes to the page:\n${ReactDOMServer.renderToString(relevenatChangesMarkup)}\n`;
-
-        // const relevenatChangesOrigMarkup = <IntlProvider>
-        //   <ProfileContact profile={this.previous} />
-        // </IntlProvider>;
-        // HtmlBody += `This was the previous version:\n${ReactDOMServer.renderToString(relevenatChangesOrigMarkup)}\n`;
+        const releventChangesOrigMarkup = <IntlProvider>
+          <ProfileAllFields profile={releventChangesOrig} />
+        </IntlProvider>;
+        HtmlBody += `<h1>This was the previous version:</h1>\n${ReactDOMServer.renderToString(releventChangesOrigMarkup)}\n`;
 
         // Plain text
         TextBody += `Profile: ${baseUrl}profiles/${doc._id}\n\n`;
 
-        TextBody += `These are the new changes to the page:\n${YAML.stringify(relevenatChanges)}\n`;
-        TextBody += `This was the previous version:\n${YAML.stringify(relevenatChangesOrig)}`;
+        TextBody += `These are the new changes to the page:\n${YAML.stringify(releventChanges)}\n`;
+        TextBody += `This was the previous version:\n${YAML.stringify(releventChangesOrig)}`;
 
         const payload = {
           HtmlBody,
@@ -200,20 +200,20 @@ Profiles.after.remove(function(userId, doc) {
         'howlroundPostSearchText',
         'nameSearch',
       ];
-      const relevenatChanges = {};
+      const releventChanges = {};
       forOwn(doc, (value, key) => {
         if (!isNull(value) && !isEmpty(value) && !includes(omitFields, key)) {
-          relevenatChanges[key] = value;
+          releventChanges[key] = value;
         }
       });
 
-      if (!isEmpty(relevenatChanges)) {
+      if (!isEmpty(releventChanges)) {
         const Subject = `"${doc.name}" has been deleted by ${Meteor.users.findOne(userId).emails[0].address}`;
         let HtmlBody = '';
         let TextBody = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });
         TextBody += `Profile: ${baseUrl}profiles/${doc._id}\n\n`;
-        TextBody += YAML.stringify(relevenatChanges);
+        TextBody += YAML.stringify(releventChanges);
 
         const payload = {
           TextBody,

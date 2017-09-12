@@ -7,6 +7,12 @@ npm install
 meteor
 ```
 
+### @TODO: Development
+
+- Meteor
+- Grunt for scss
+- Extracting strings
+
 ### Scripts
 
 To lint:

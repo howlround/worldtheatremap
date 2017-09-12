@@ -51,6 +51,7 @@
     "tcomb-form": "^0.9.3",
     "tcomb-validation": "^3.0.0",
     "topojson": "^1.6.26",
+    "webfontloader": "^1.6.28",
     "yamljs": "^0.3.0"
   },
   "devDependencies": {

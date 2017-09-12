@@ -1,7 +1,18 @@
 .count-by-type {
   display: inline-block;
   margin-right: 12px;
-  // @include gallery(1 of 3);
+
+  &::after {
+    content: "//";
+    margin-left: $spacing-unit;
+    color: $gray;
+  }
+
+  &:last-child {
+    &::after {
+      content: none;
+    }
+  }
 
   .count {
     display: inline;
@@ -16,9 +27,14 @@
   @include breakpoint($narrow) {
     @include gallery(1 of 5);
 
+    &::after {
+      content: none;
+    }
+
     margin-right: 0;
     text-align: center;
-    margin-bottom: $spacing-unit;
+    padding: $spacing-unit 0;
+    border-top: 1px solid $black;
 
     .count {
       margin-right: 0;

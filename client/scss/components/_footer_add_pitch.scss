@@ -7,7 +7,7 @@
   text-align: center;
 
   @include breakpoint($narrow) {
-    padding-top: $spacing-unit * 2;
+    padding-top: $spacing-unit * 4;
     padding-bottom: $spacing-unit * 2;
     font-size: 23px;
   }
@@ -18,7 +18,11 @@
   background-color: $white;
   color: $teal;
   width: 70%;
-  margin: $spacing-unit * 2 auto;
+  margin: $spacing-unit auto;
+
+  @include breakpoint($narrow) {
+    margin: $spacing-unit * 3 auto;
+  }
 
   &:hover,
   &:focus {

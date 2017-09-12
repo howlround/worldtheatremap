@@ -116,6 +116,10 @@
   }
 }
 
+.homepage-howlround-wrapper {
+  padding-top: $spacing-unit * 2;
+}
+
 .homepage-howlround-content {
   border-top: solid 4px $black;
   border-bottom: solid 4px $black;
@@ -245,9 +249,12 @@
 
 .homepage-search-links {
   @extend h2;
+
+  font-weight: 500;
   color: $dark-gray;
 
   text-align: center;
+  line-height: 1.4em;
   margin: 0;
   margin-bottom: $spacing-unit*2;
 

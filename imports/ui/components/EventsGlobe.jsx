@@ -168,12 +168,15 @@ export default class EventsGlobe extends React.Component {
 
             // Dot
             c.fillStyle = "#ef4606";
+            c.strokeStyle = "#ef4606";
+            c.lineWidth = 6;
             c.beginPath();
             path(eventLocations[i]);
             c.fill();
+            c.stroke();
 
             // Globe outline
-            c.strokeStyle = "#20A09";
+            c.strokeStyle = "#50b2aa";
             c.lineWidth = 2;
             c.beginPath();
             path(globe);

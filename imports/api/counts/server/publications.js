@@ -64,12 +64,12 @@ Meteor.publish('counts.collections', function countsCollections() {
     added: function() {
       countEvents++;
       if (!initializing) {
-        self.changed('Counts', 'Events', { count: countEvents });
+        self.changed('Counts', 'Performances', { count: countEvents });
       }
     },
     removed: function() {
       countEvents--;
-      self.changed('Counts', 'Events', { count: countEvents });
+      self.changed('Counts', 'Performances', { count: countEvents });
     },
     // don't care about changed
   });
@@ -106,7 +106,7 @@ Meteor.publish('counts.collections', function countsCollections() {
   self.added('Counts', 'Theatremakers', { count: countTheatremakers });
   self.added('Counts', 'Organizations', { count: countOrganizations });
   self.added('Counts', 'Shows', { count: countShows });
-  self.added('Counts', 'Events', { count: countEvents });
+  self.added('Counts', 'Performances', { count: countEvents });
   self.added('Counts', 'Locations', { count: countLocations });
   self.ready();
   // Stop observing the cursor when client unsubs.

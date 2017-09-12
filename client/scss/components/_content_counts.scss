@@ -1,3 +1,55 @@
+.count-by-type {
+  display: inline-block;
+  margin-right: 12px;
+
+  &::after {
+    content: "//";
+    margin-left: $spacing-unit;
+    color: $gray;
+  }
+
+  &:last-child {
+    &::after {
+      content: none;
+    }
+  }
+
+  .count {
+    display: inline;
+    margin-right: 5px;
+    font-weight: bold;
+  }
+
+  .type {
+    display: inline;
+  }
+
+  @include breakpoint($narrow) {
+    @include gallery(1 of 5);
+
+    &::after {
+      content: none;
+    }
+
+    margin-right: 0;
+    text-align: center;
+    padding: $spacing-unit 0;
+    border-top: 1px solid $black;
+
+    .count {
+      margin-right: 0;
+      display: block;
+      font-size: 20px;
+    }
+
+    .type {
+      display: block;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+  }
+}
+
 .content-counts {
   overflow: auto;
   background-color: transparent;
@@ -19,6 +71,7 @@
   }
 }
 
+// Specific styling to the footer version
 .footer-add-pitch + .content-counts {
   background-color: $dark-gray;
   padding: $spacing-unit * 2 0;
@@ -34,5 +87,11 @@
     overflow: auto;
     border-top: 1px solid $light-gray;
     padding-top: $spacing-unit;
+  }
+
+  @include breakpoint($narrow) {
+    .count-by-type {
+      border-top: none;
+    }
   }
 }

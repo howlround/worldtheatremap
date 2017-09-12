@@ -7,6 +7,7 @@ import Helmet from 'react-helmet';
 import { _ } from 'meteor/underscore';
 import { displayError } from '../helpers/errors.js';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
+import { get } from 'lodash';
 import { Link } from 'react-router';
 import { OutboundLink } from 'react-ga';
 
@@ -157,7 +158,7 @@ class ShowPage extends React.Component {
       </a>
     );
 
-    const checkSubscribed = user && _.contains(user.profile.subscribedContent, _id);
+    const checkSubscribed = user && _.contains(get(user, 'profile.subscribedContent'), _id);
 
     return checkSubscribed ? unsubscribeLink : subscribeLink;
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { _ } from 'meteor/underscore';
-import { intlShape, injectIntl } from 'react-intl';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 
 // Components
 import Profile from '../components/Profile.jsx';

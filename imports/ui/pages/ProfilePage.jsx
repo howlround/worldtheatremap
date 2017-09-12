@@ -547,7 +547,7 @@ class ProfilePage extends React.Component {
       </a>
     );
 
-    const checkSubscribed = user && _.contains(user.profile.subscribedContent, _id);
+    const checkSubscribed = user && _.contains(get(user, 'profile.subscribedContent'), _id);
 
     return checkSubscribed ? unsubscribeLink : subscribeLink;
   }

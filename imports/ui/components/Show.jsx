@@ -127,12 +127,20 @@ class Show extends React.Component {
       );
     }) : false;
 
+    let requestRemovalText = '';
+    if (show.requestRemoval === null) {
+      requestRemovalText = <h3 className="email-only">No deletion requested</h3>;
+    } else if (show.requestRemoval && typeof show.requestRemoval === 'string') {
+      requestRemovalText = <h3 className="email-only">Deletion requested</h3>;
+    }
+
     const articleClasses = classNames('show', 'full', {
       'with-location': eventsByShow && eventsByShow.length,
     });
 
     return (
       <article className={articleClasses}>
+        {requestRemovalText}
         <section>
           {(eventsByShow && eventsByShow.length) ?
             <EventsMiniGlobe events={eventsByShow} /> : ''
@@ -141,14 +149,16 @@ class Show extends React.Component {
             <h1 className="show-name page-title">
               {show.name}
             </h1>
-            <div className="show-authorship">
-              <FormattedMessage
-                id="show.authors"
-                description='By line for authors of a show'
-                defaultMessage={`by {authors}`}
-                values={{ authors: <Authors authors={show.author} /> }}
-              />
-            </div>
+            {show.author ?
+              <div className="show-authorship">
+                <FormattedMessage
+                  id="show.authors"
+                  description='By line for authors of a show'
+                  defaultMessage={`by {authors}`}
+                  values={{ authors: <Authors authors={show.author} /> }}
+                />
+              </div> : ''
+            }
             <div className="show-metadata metadata">
               { !_.isEmpty(show.interests) ?
                 <div className="show-interests" title="Interests">{ interests }</div> : '' }

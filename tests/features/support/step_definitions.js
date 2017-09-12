@@ -264,11 +264,8 @@ module.exports = function() {
       return event;
     }, name);
 
-    if (event) {
-      callback(new Error(`Event exists with the name ${name} but should not.`));
-    } else {
-      callback();
-    }
+    browser.waitUntil(() => (typeof event === 'undefined'), 5000, `Event exists with the name ${name} but should not.`);
+    callback();
   });
 
   this.When(/^I go to the show page for "([^"]*)"$/, function (name, callback) {

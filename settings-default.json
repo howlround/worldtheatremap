@@ -1,0 +1,10 @@
+{
+  "AWSAccessKeyId": "",
+  "AWSSecretAccessKey": "",
+  "AWSRegion": "",
+  "SendContentNotifications": false,
+  "GoogleTranslateAPIKey": "",
+  "public": {
+    "GoogleAnalytics": ""
+  }
+}

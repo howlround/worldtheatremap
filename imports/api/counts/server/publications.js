@@ -25,12 +25,12 @@ Meteor.publish('counts.collections', function countsCollections() {
     added: function() {
       countTheatremakers++;
       if (!initializing) {
-        self.changed('Counts', 'Theatremakers', { count: countTheatremakers });
+        self.changed('Counts', 'People', { count: countTheatremakers });
       }
     },
     removed: function() {
       countTheatremakers--;
-      self.changed('Counts', 'Theatremakers', { count: countTheatremakers });
+      self.changed('Counts', 'People', { count: countTheatremakers });
     },
     // don't care about changed
   });
@@ -103,7 +103,7 @@ Meteor.publish('counts.collections', function countsCollections() {
   // observeChanges has returned, and mark the subscription as
   // ready.
   initializing = false;
-  self.added('Counts', 'Theatremakers', { count: countTheatremakers });
+  self.added('Counts', 'People', { count: countTheatremakers });
   self.added('Counts', 'Organizations', { count: countOrganizations });
   self.added('Counts', 'Shows', { count: countShows });
   self.added('Counts', 'Performances', { count: countEvents });

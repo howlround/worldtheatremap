@@ -14,7 +14,7 @@ Meteor.publish('counts.collections', function countsCollections() {
   let countTheatremakers = 0;
   let countOrganizations = 0;
   let countShows = 0;
-  let countEvents = 0;
+  let countFestivals = 0;
   let countLocations = 0;
   let initializing = true;
   // observeChanges only returns after the initial `added` callbacks
@@ -47,6 +47,19 @@ Meteor.publish('counts.collections', function countsCollections() {
     },
     // don't care about changed
   });
+  const handleFestivals = Profiles.find({"profileType": "Festival"}).observeChanges({
+    added: function() {
+      countFestivals++;
+      if (!initializing) {
+        self.changed('Counts', 'Festivals', { count: countFestivals });
+      }
+    },
+    removed: function() {
+      countFestivals--;
+      self.changed('Counts', 'Festivals', { count: countFestivals });
+    },
+    // don't care about changed
+  });
   const handleShows = Shows.find({}).observeChanges({
     added: function() {
       countShows++;
@@ -57,19 +70,6 @@ Meteor.publish('counts.collections', function countsCollections() {
     removed: function() {
       countShows--;
       self.changed('Counts', 'Shows', { count: countShows });
-    },
-    // don't care about changed
-  });
-  const handleEvents = Events.find({}).observeChanges({
-    added: function() {
-      countEvents++;
-      if (!initializing) {
-        self.changed('Counts', 'Performances', { count: countEvents });
-      }
-    },
-    removed: function() {
-      countEvents--;
-      self.changed('Counts', 'Performances', { count: countEvents });
     },
     // don't care about changed
   });
@@ -106,7 +106,7 @@ Meteor.publish('counts.collections', function countsCollections() {
   self.added('Counts', 'People', { count: countTheatremakers });
   self.added('Counts', 'Organizations', { count: countOrganizations });
   self.added('Counts', 'Shows', { count: countShows });
-  self.added('Counts', 'Performances', { count: countEvents });
+  self.added('Counts', 'Festivals', { count: countFestivals });
   self.added('Counts', 'Locations', { count: countLocations });
   self.ready();
   // Stop observing the cursor when client unsubs.
@@ -116,7 +116,7 @@ Meteor.publish('counts.collections', function countsCollections() {
     handleTheatremakers.stop();
     handleOrganizations.stop();
     handleShows.stop();
-    handleEvents.stop();
+    handleFestivals.stop();
     handleEventLocations.stop();
     handleProfileLocations.stop();
   });

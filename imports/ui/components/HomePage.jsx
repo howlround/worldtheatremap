@@ -89,15 +89,41 @@ class HomePage extends React.Component {
         <div className="page">
           <ContentCountsContainer hideHeader={true} />
           <div className="homepage-search-links">
-            Search by <Link
-              to={{ pathname: `/${locale}/search/profiles`, query: {} }}
-            >People</Link>, <Link
-              to={{ pathname: `/${locale}/search/profiles`, query: {} }}
-            >Organizations</Link>, <Link
-              to={{ pathname: `/${locale}/search/shows`, query: {} }}
-            >Shows</Link>, or <Link
-              to={{ pathname: `/${locale}/search/festivals`, query: {} }}
-            >Festivals</Link>
+            <FormattedMessage
+              id="homepage.searchLinks"
+              description="Links to search by various types"
+              defaultMessage={'Search by {people}, {organizations}, {shows}, or {festivals}'}
+              values={{
+                people: <Link to={{ pathname: `/${locale}/search/profiles`, query: {} }}>
+                  <FormattedMessage
+                    id="searchNav.people"
+                    description="Alternate Profile Search Tab"
+                    defaultMessage="People"
+                  />
+                </Link>,
+                organizations: <Link to={{ pathname: `/${locale}/search/profiles`, query: {} }}>
+                  <FormattedMessage
+                    id="searchNav.organizations"
+                    description="Alternate Profile Search Tab"
+                    defaultMessage="Organizations"
+                  />
+                </Link>,
+                shows: <Link to={{ pathname: `/${locale}/search/shows`, query: {} }}>
+                  <FormattedMessage
+                    id="searchNav.shows"
+                    description="Show Search Tab"
+                    defaultMessage="Shows"
+                  />
+                </Link>,
+                festivals: <Link to={{ pathname: `/${locale}/search/festivals`, query: {} }}>
+                  <FormattedMessage
+                    id="searchNav.festivals"
+                    description="Festival Search Tab"
+                    defaultMessage="Festivals"
+                  />
+                </Link>,
+              }}
+            />
           </div>
           {(!loading && eventsTodayWithLocations) ? this.renderTodayMap() : ''}
           {(!loading && eventsTodayWithLocations) ? this.renderTodayList() : ''}

@@ -85,7 +85,7 @@ class Profile extends React.Component {
     const { uploadAttempts } = this.state;
 
     const originalSrc = src;
-    const resizedImageSrc = src.replace('https://wtm-dev-images', 'https://wtm-dev-images-resized');
+    const resizedImageSrc = src.replace(`https://${Meteor.settings.AWSSourceBucket}`, `https://${Meteor.settings.AWSTargetBucket}`);
 
     const cycleTime = 1000;
 

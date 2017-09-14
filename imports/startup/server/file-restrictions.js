@@ -5,7 +5,7 @@ Meteor.startup( () => {
   });
 
   Slingshot.createDirective("myFileUploads", Slingshot.S3Storage, {
-    bucket: "wtm-dev-images",
+    bucket: Meteor.settings.AWSSourceBucket,
 
     acl: "public-read",
 

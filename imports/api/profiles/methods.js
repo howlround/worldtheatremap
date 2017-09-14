@@ -186,7 +186,7 @@ export const updateImage = new ValidatedMethod({
     }
 
     const profile = Profiles.findOne(profileId);
-    const imageWide = image.replace('https://wtm-dev-images', 'https://wtm-dev-images-resized');
+    const imageWide = image.replace(`https://${Meteor.settings.AWSSourceBucket}`, `https://${Meteor.settings.AWSTargetBucket}`);
 
     // Record that this user edited content
     Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentEditedCount": 1 } });

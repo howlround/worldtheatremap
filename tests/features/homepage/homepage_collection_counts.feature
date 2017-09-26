@@ -15,4 +15,4 @@ Feature: Collection counts on home page
     And I select "Individual" from the ".profile-type-edit" combobox
     And I click on ".edit-profile-save"
     And I am on the English language home page
-    Then the ".theatremakers-count .count" element should contain "1"
+    Then the ".people-count .count" element should contain "1"

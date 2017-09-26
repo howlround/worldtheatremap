@@ -110,7 +110,8 @@ module.exports = function() {
 
   this.Given(/^I click on "([^"]*)"$/, function (element) {
     browser.waitForExist(element, 5000);
-    client.waitForVisible(element, 5000);
+    browser.waitForVisible(element, 5000);
+
     browser.click(element);
   });
 

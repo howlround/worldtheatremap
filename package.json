@@ -21,6 +21,7 @@
   "dependencies": {
     "autoprefixer": "^6.3.1",
     "aws-sdk": "^2.125.0",
+    "babel-runtime": "^6.26.0",
     "bcrypt": "https://registry.npmjs.org/bcrypt/-/bcrypt-0.8.7.tgz",
     "cheerio": "^0.22.0",
     "classnames": "https://registry.npmjs.org/classnames/-/classnames-2.2.3.tgz",

@@ -7,6 +7,6 @@
   "SendContentNotifications": false,
   "GoogleTranslateAPIKey": "",
   "public": {
-    "GoogleAnalytics": ""
+    "GoogleAnalytics": "UA-"
   }
 }

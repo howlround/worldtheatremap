@@ -21,7 +21,6 @@ class ProfileAddPage extends React.Component {
 
   render() {
     const { add, loading, user } = this.props;
-    const { formatMessage } = this.props.intl;
 
     const pageClass = classnames({
       'page': true,

@@ -12,6 +12,7 @@ class EventTeaser extends React.Component {
     const { event, displayOrg } = this.props;
     const { formatMessage, locale } = this.props.intl;
 
+    // Can not defineMessages here because countries are coming from the database
     const locationLine = [
       event.locality,
       event.administrativeArea,

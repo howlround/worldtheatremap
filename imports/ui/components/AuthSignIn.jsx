@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { Link } from 'react-router';
-import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
+import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
 
 
 class AuthSignIn extends React.Component {
@@ -58,6 +58,19 @@ class AuthSignIn extends React.Component {
     const errorMessages = Object.keys(errors).map(key => errors[key]);
     const errorClass = key => errors[key] && 'error';
 
+    const messages = defineMessages({
+      emailLabel: {
+        'id': 'auth.emailLabel',
+        'defaultMessage': 'Your Email',
+        'description': 'Placeholder text for email field'
+      },
+      passwordLabel: {
+        'id': 'auth.passwordLabel',
+        'defaultMessage': 'Password',
+        'description': 'Placeholder text for password field'
+      },
+    });
+
     return (
       <div className="wrapper-auth">
         <h1 className="title-auth">
@@ -85,13 +98,7 @@ class AuthSignIn extends React.Component {
               type="email"
               name="email"
               ref="email"
-              placeholder={
-                formatMessage({
-                  'id': 'auth.emailLabel',
-                  'defaultMessage': 'Your Email',
-                  'description': 'Placeholder text for email field'
-                })
-              }
+              placeholder={formatMessage(messages.emailLabel)}
             />
             <span className="icon-email" title="Your Email"></span>
           </div>
@@ -100,13 +107,7 @@ class AuthSignIn extends React.Component {
               type="password"
               name="password"
               ref="password"
-              placeholder={
-                formatMessage({
-                  'id': 'auth.passwordLabel',
-                  'defaultMessage': 'Password',
-                  'description': 'Placeholder text for password field'
-                })
-              }
+              placeholder={formatMessage(messages.passwordLabel)}
             />
             <span className="icon-lock" title="Password"></span>
           </div>

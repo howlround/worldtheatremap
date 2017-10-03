@@ -18,11 +18,15 @@ class HomePage extends React.Component {
     const { eventsTodayWithLocations, loading } = this.props;
     const { formatMessage } = this.props.intl;
 
-    const siteName = formatMessage({
-      id: 'navigation.siteName',
-      defaultMessage: 'World Theatre Map',
-      description: 'Site name',
+    const messages = defineMessages({
+      siteName: {
+        id: 'navigation.siteName',
+        defaultMessage: 'World Theatre Map',
+        description: 'Site name',
+      },
     });
+
+    const siteName = formatMessage(messages.siteName);
 
     return (
       <section className="homepage-events-globe">

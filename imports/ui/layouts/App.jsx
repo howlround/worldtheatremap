@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 import marked from 'marked';
 import sanitizeHtml from 'sanitize-html';
 import { _ } from 'meteor/underscore';
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
 
 // Containers
@@ -107,17 +107,22 @@ class App extends React.Component {
       user,
     });
 
-    const siteName = formatMessage({
-      'id': 'navigation.siteName',
-      'defaultMessage': 'World Theatre Map',
-      'description': 'Site name',
+    const messages = defineMessages({
+      siteName: {
+        'id': 'navigation.siteName',
+        'defaultMessage': 'World Theatre Map',
+        'description': 'Site name',
+      },
+      description: {
+        'id': 'site.description',
+        'defaultMessage': 'The World Theatre Map is a user-generated directory of the world\'s theatre community (makers, workers, companies, institutions) and a real-time media hub of its projects, events, performances, conversations, ideas.',
+        'description': 'General description of the site',
+      }
     });
 
-    const siteDescription = formatMessage({
-      'id': 'site.description',
-      'defaultMessage': 'The World Theatre Map is a user-generated directory of the world\'s theatre community (makers, workers, companies, institutions) and a real-time media hub of its projects, events, performances, conversations, ideas.',
-      'description': 'General description of the site',
-    });
+    const siteName = formatMessage(messages.siteName);
+
+    const siteDescription = formatMessage(messages.description);
 
     return (
       <div id="container" className={menuOpen ? 'menu-open' : ''}>
@@ -157,7 +162,7 @@ class App extends React.Component {
             >
               <FormattedMessage
                 id="navigation.siteName"
-                description="Site Name"
+                description="Site name"
                 defaultMessage="World Theatre Map"
               />
               &nbsp;

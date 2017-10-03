@@ -78,23 +78,29 @@ class ProfileAdd extends React.Component {
         const initMapLocation = [0, 0];
         const initMapZoom = 2;
 
-        const label = formatMessage({
-          id: 'forms.setMapPinLabel',
-          defaultMessage: 'Set Map Pin',
-          description: 'Label for the Set Map Pin field',
+        const messages = defineMessages({
+          setMapPinLabel: {
+            'id': 'forms.setMapPinLabel',
+            'defaultMessage': 'Set Map Pin',
+            'description': 'Label for the Set Map Pin field'
+          },
+          requiredLabel: {
+            'id': 'forms.requiredLabel',
+            'defaultMessage': '(required)',
+            'description': 'Addition to label indicating a field is required'
+          },
+          setMapPinPlaceholder: {
+            'id': 'forms.setMapPinPlaceholder',
+            'defaultMessage': 'Enter a location',
+            'description': 'Placeholder for the Set Map Pin field'
+          },
         });
 
-        const required = formatMessage({
-          id: 'forms.requiredLabel',
-          defaultMessage: '(required)',
-          description: 'Addition to label indicating a field is required',
-        });
+        const label = formatMessage(messages.setMapPinLabel);
 
-        const placeholder = formatMessage({
-          id: 'forms.setMapPinPlaceholder',
-          defaultMessage: 'Enter a location',
-          description: 'Placeholder for the Set Map Pin field',
-        });
+        const required = formatMessage(messages.requiredLabel);
+
+        const placeholder = formatMessage(messages.setMapPinPlaceholder);
 
         $('<div></div>').addClass('form-group form-group-depth-1 geographic-location-edit').insertBefore('.form-group-lat');
         $('<div></div>').addClass('find-pin-map').prependTo('.geographic-location-edit').width('100%').height('300px');

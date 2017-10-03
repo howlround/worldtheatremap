@@ -6,7 +6,7 @@ import classnames from 'classnames';
 import Helmet from 'react-helmet';
 import { _ } from 'meteor/underscore';
 import { displayError } from '../helpers/errors.js';
-import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
+import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
 import { get } from 'lodash';
 import { Link } from 'react-router';
 import { OutboundLink } from 'react-ga';
@@ -85,11 +85,15 @@ class ShowPage extends React.Component {
   confirmRequestRemoval(_id) {
     const { locale, formatMessage } = this.props.intl;
 
-    const deleteConfirmText = formatMessage({
-      'id': 'ui.deleteConfirmText',
-      'defaultMessage': 'Are you sure you want to delete this content? This action can not be undone.',
-      'description': 'Text confirming deleting content',
+    const messages = defineMessages({
+      deleteConfirmText: {
+        'id': 'ui.deleteConfirmText',
+        'defaultMessage': 'Are you sure you want to delete this content? This action can not be undone.',
+        'description': 'Text confirming deleting content',
+      },
     });
+
+    const deleteConfirmText = formatMessage(messages.deleteConfirmText);
 
     const confirm = window.confirm(deleteConfirmText);
     if (confirm === true) {
@@ -100,11 +104,15 @@ class ShowPage extends React.Component {
   confirmDelete(_id) {
     const { locale, formatMessage } = this.props.intl;
 
-    const deleteConfirmText = formatMessage({
-      'id': 'ui.deleteConfirmText',
-      'defaultMessage': 'Are you sure you want to delete this content? This action can not be undone.',
-      'description': 'Text confirming deleting content',
+    const messages = defineMessages({
+      deleteConfirmText: {
+        'id': 'ui.deleteConfirmText',
+        'defaultMessage': 'Are you sure you want to delete this content? This action can not be undone.',
+        'description': 'Text confirming deleting content',
+      },
     });
+
+    const deleteConfirmText = formatMessage(messages.deleteConfirmText);
 
     const confirm = window.confirm(deleteConfirmText);
     if (confirm === true) {
@@ -119,11 +127,15 @@ class ShowPage extends React.Component {
   denyDelete(_id) {
     const { locale, formatMessage } = this.props.intl;
 
-    const denyDeleteConfirmText = formatMessage({
-      'id': 'ui.denyDeleteConfirmText',
-      'defaultMessage': 'Deny the delete request. The content will remain in the system.',
-      'description': 'Text confirming deleting content',
+    const messages = defineMessages({
+      denyDeleteConfirmText: {
+        'id': 'ui.denyDeleteConfirmText',
+        'defaultMessage': 'Deny the delete request. The content will remain in the system.',
+        'description': 'Text confirming deleting content',
+      },
     });
+
+    const denyDeleteConfirmText = formatMessage(messages.denyDeleteConfirmText);
 
     const confirm = window.confirm(denyDeleteConfirmText);
     if (confirm === true) {
@@ -176,11 +188,15 @@ class ShowPage extends React.Component {
       editing,
     });
 
-    const siteName = formatMessage({
-      'id': 'navigation.siteName',
-      'defaultMessage': 'World Theatre Map',
-      'description': 'Site name',
+    const messages = defineMessages({
+      siteName: {
+        'id': 'navigation.siteName',
+        'defaultMessage': 'World Theatre Map',
+        'description': 'Site name',
+      },
     });
+
+    const siteName = formatMessage(messages.siteName);
 
     if (loading) {
       return (

@@ -79,7 +79,7 @@ class AuthJoin extends React.Component {
   }
 
   render() {
-    const { formatMessage, locale } = this.props.intl;
+    const { locale } = this.props.intl;
     const { errors, profile, loading } = this.state;
     const errorMessages = Object.keys(errors).map(key => errors[key]);
     const errorClass = key => errors[key] && 'error';

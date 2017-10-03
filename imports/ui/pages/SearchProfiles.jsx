@@ -1,7 +1,7 @@
 import React from 'react';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-form';
-import { intlShape, injectIntl } from 'react-intl';
+import { defineMessages, intlShape, injectIntl } from 'react-intl';
 import Helmet from 'react-helmet';
 
 // API
@@ -138,17 +138,23 @@ class SearchProfiles extends React.Component {
       formOptions.fields.ethnicityRace.factory = ethnicitiesFactory();
       formOptions.fields.country.factory = existingCountriesFactory(locale);
       formOptions.fields.administrativeArea.factory = administrativeAreasFactory();
-      formOptions.fields.name.attrs.placeholder = formatMessage({
-        'id': 'searchProfiles.placeholder',
-        'defaultMessage': 'Search for profiles by name',
-        'description': 'Placeholder text for the profile name field on search filters'
+
+      const messages = defineMessages({
+        placeholder: {
+          'id': 'searchProfiles.placeholder',
+          'defaultMessage': 'Search for profiles by name',
+          'description': 'Placeholder text for the profile name field on search filters'
+        },
+        pageTitle: {
+          'id': 'searchProfiles.pageTitle',
+          'defaultMessage': 'Search Profiles',
+          'description': 'Page title for the profiles search page',
+        }
       });
 
-      const searchProfilesPageTitle = formatMessage({
-        'id': 'searchProfiles.pageTitle',
-        'defaultMessage': 'Search Profiles',
-        'description': 'Page title for the profiles search page',
-      });
+      formOptions.fields.name.attrs.placeholder = formatMessage(messages.placeholder);
+
+      const searchProfilesPageTitle = formatMessage(messages.pageTitle);
 
       return (
         <div className="search page">

@@ -2,7 +2,7 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import { Accounts } from 'meteor/accounts-base';
-import { intlShape, injectIntl } from 'react-intl';
+import { defineMessages, intlShape, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
 
 // Components
@@ -15,11 +15,15 @@ class AuthJoinPage extends React.Component {
     const { formatMessage } = this.props.intl;
     const { loading } = this.props;
 
-    const joinTitle = formatMessage({
-      'id': 'auth.joinTitle',
-      'defaultMessage': 'Join',
-      'description': 'Title for the Join screen',
+    const messages = defineMessages({
+      joinTitle: {
+        'id': 'auth.joinTitle',
+        'defaultMessage': 'Join',
+        'description': 'Title for the Join screen',
+      },
     });
+
+    const joinTitle = formatMessage(messages.joinTitle);
 
     if (loading) {
       return (

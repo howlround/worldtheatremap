@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import marked from 'marked';
 import sanitizeHtml from 'sanitize-html';
-import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
+import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
 
 import FieldWrapper from '../components/FieldWrapper.jsx';
 
@@ -50,33 +50,49 @@ class ProfileContact extends React.Component {
       profileSocialArray.push(profile.social);
     }
 
+    const messages = defineMessages({
+      agentLabel: {
+        'id': 'profile.agentLabel',
+        'defaultMessage': 'Agent',
+        'description': 'Agent field label for the profile sidebar'
+      },
+      phoneLabel: {
+        'id': 'profile.phoneLabel',
+        'defaultMessage': 'Phone',
+        'description': 'Phone field label for the profile sidebar'
+      },
+      emailLabel: {
+        'id': 'profile.emailLabel',
+        'defaultMessage': 'Email',
+        'description': 'Email field label for the profile sidebar'
+      },
+    });
+
     if (profileContactArray.length > 0 || profileSocialArray.length > 0) {
       return (
         <section className="profile-contact">
           <h2>Contact Info</h2>
           {profileContactArray.length > 0 ?
             <div className="content">
-              {profile.agent ? <FieldWrapper content={profile.agent} className={`profile-agent`} label={
-                  formatMessage({
-                    'id': 'profile.agentLabel',
-                    'defaultMessage': 'Agent',
-                    'description': 'Agent field label for the profile sidebar'
-                  })
-                } /> : ''}
-              {profile.phone ? <FieldWrapper content={profile.phone} className={`profile-phone`} label={
-                  formatMessage({
-                    'id': 'profile.phoneLabel',
-                    'defaultMessage': 'Phone',
-                    'description': 'Phone field label for the profile sidebar'
-                  })
-                } /> : ''}
-              {profile.email ? <FieldWrapper content={profile.email} className={`profile-email`} label={
-                  formatMessage({
-                    'id': 'profile.emailLabel',
-                    'defaultMessage': 'Email',
-                    'description': 'Email field label for the profile sidebar'
-                  })
-                } /> : ''}
+              {profile.agent ?
+                <FieldWrapper
+                  content={profile.agent}
+                  className={`profile-agent`}
+                  label={formatMessage(messages.agentLabel)}
+                /> : ''}
+              {profile.phone ?
+                <FieldWrapper
+                  content={profile.phone}
+                  className={`profile-phone`}
+                  label={
+                  formatMessage(messages.phoneLabel)}
+                /> : ''}
+              {profile.email ?
+                <FieldWrapper
+                  content={profile.email}
+                  className={`profile-email`}
+                  label={formatMessage(messages.emailLabel)}
+                /> : ''}
               {profile.website ?
                 this.renderExternalLink()
               : ''}

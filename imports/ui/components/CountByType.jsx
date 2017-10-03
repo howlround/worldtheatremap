@@ -16,6 +16,8 @@ class CountByType extends React.Component {
     const typeClass = type.toLowerCase();
     const typeSingular = type.replace(new RegExp('s$'), '');
 
+    // Can't use defineMessages here because it's pulling from the db
+
     return (
       <div className={classnames('count-by-type', `${typeClass}-count`)}>
         <div className="count">

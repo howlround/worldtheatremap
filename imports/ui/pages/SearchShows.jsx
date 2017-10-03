@@ -1,7 +1,7 @@
 import React from 'react';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-form';
-import { intlShape, injectIntl } from 'react-intl';
+import { defineMessages, intlShape, injectIntl } from 'react-intl';
 import Helmet from 'react-helmet';
 
 // API
@@ -121,17 +121,22 @@ class SearchShows extends React.Component {
     } else {
       let formOptions = filtersFormOptions();
       formOptions.fields.country.factory = allCountriesFactory(locale, true);
-      formOptions.fields.name.attrs.placeholder = formatMessage({
-        'id': 'searchShows.placeholder',
-        'defaultMessage': 'Search for shows by name',
-        'description': 'Placeholder text for the show name field on search filters'
-      });
 
-      const siteName = formatMessage({
-        'id': 'navigation.siteName',
-        'defaultMessage': 'World Theatre Map',
-        'description': 'Site name',
+      const messages = defineMessages({
+        placeholder: {
+          'id': 'searchShows.placeholder',
+          'defaultMessage': 'Search for shows by name',
+          'description': 'Placeholder text for the show name field on search filters'
+        },
+        siteName: {
+          'id': 'navigation.siteName',
+          'defaultMessage': 'World Theatre Map',
+          'description': 'Site name',
+        },
       });
+      formOptions.fields.name.attrs.placeholder = formatMessage(messages.placeholder);
+
+      const siteName = formatMessage(messages.siteName);
 
       // @TODO: Refactor filters form to be a component?
       return (

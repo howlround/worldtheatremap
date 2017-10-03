@@ -2,7 +2,7 @@
 import { Meteor } from 'meteor/meteor';
 import Helmet from 'react-helmet';
 import React from 'react';
-import { intlShape, injectIntl } from 'react-intl';
+import { defineMessages, intlShape, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
 
 // Components
@@ -13,11 +13,15 @@ class AuthSignInPage extends React.Component {
   render() {
     const { formatMessage } = this.props.intl;
 
-    const signInTitle = formatMessage({
-      'id': 'auth.signInTitle',
-      'defaultMessage': 'Sign In',
-      'description': 'Title for the Sign In screen',
+    const messages = defineMessages({
+      signInTitle: {
+        'id': 'auth.signInTitle',
+        'defaultMessage': 'Sign In',
+        'description': 'Title for the Sign In screen',
+      },
     });
+
+    const signInTitle = formatMessage(messages.signInTitle);
 
     return (
       <div className="overlay-wrapper">

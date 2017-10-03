@@ -8,7 +8,7 @@ import topojson from 'topojson';
 import { _ } from 'meteor/underscore';
 import { get } from 'lodash';
 import { displayError } from '../helpers/errors.js';
-import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
+import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
 import { geoOrthographic, geoGraticule, geoPath, geoCentroid, geoInterpolate } from 'd3-geo';
 import { Link } from 'react-router';
 import { OutboundLink } from 'react-ga';
@@ -204,11 +204,15 @@ class ProfilePage extends React.Component {
   confirmRequestRemoval(_id) {
     const { formatMessage } = this.props.intl;
 
-    const deleteConfirmText = formatMessage({
-      'id': 'ui.deleteConfirmText',
-      'defaultMessage': 'Are you sure you want to delete this content? This action can not be undone.',
-      'description': 'Text confirming deleting content',
+    const messages = defineMessages({
+      deleteConfirmText: {
+        'id': 'ui.deleteConfirmText',
+        'defaultMessage': 'Are you sure you want to delete this content? This action can not be undone.',
+        'description': 'Text confirming deleting content',
+      },
     });
+
+    const deleteConfirmText = formatMessage(messages.deleteConfirmText);
 
     const confirm = window.confirm(deleteConfirmText);
     if (confirm === true) {
@@ -219,11 +223,15 @@ class ProfilePage extends React.Component {
   confirmDelete(_id) {
     const { locale, formatMessage } = this.props.intl;
 
-    const approveDeleteConfirmText = formatMessage({
-      'id': 'ui.approveDeleteConfirmText',
-      'defaultMessage': 'Approve the delete request. The content will be permenantly deleted. This action can not be undone.',
-      'description': 'Text confirming deleting content',
+    const messages = defineMessages({
+      deleteConfirmText: {
+        'id': 'ui.deleteConfirmText',
+        'defaultMessage': 'Are you sure you want to delete this content? This action can not be undone.',
+        'description': 'Text confirming deleting content',
+      },
     });
+
+    const deleteConfirmText = formatMessage(messages.deleteConfirmText);
 
     const confirm = window.confirm(approveDeleteConfirmText);
     if (confirm === true) {
@@ -238,11 +246,15 @@ class ProfilePage extends React.Component {
   denyDelete(_id) {
     const { formatMessage } = this.props.intl;
 
-    const denyDeleteConfirmText = formatMessage({
-      'id': 'ui.denyDeleteConfirmText',
-      'defaultMessage': 'Deny the delete request. The content will remain in the system.',
-      'description': 'Text confirming deleting content',
+    const messages = defineMessages({
+      denyDeleteConfirmText: {
+        'id': 'ui.denyDeleteConfirmText',
+        'defaultMessage': 'Deny the delete request. The content will remain in the system.',
+        'description': 'Text confirming deleting content',
+      },
     });
+
+    const denyDeleteConfirmText = formatMessage(messages.denyDeleteConfirmText);
 
     const confirm = window.confirm(denyDeleteConfirmText);
     if (confirm === true) {
@@ -575,17 +587,22 @@ class ProfilePage extends React.Component {
       page: true,
     });
 
-    const siteName = formatMessage({
-      'id': 'navigation.siteName',
-      'defaultMessage': 'World Theatre Map',
-      'description': 'Site name',
+    const messages = defineMessages({
+      siteName: {
+        'id': 'navigation.siteName',
+        'defaultMessage': 'World Theatre Map',
+        'description': 'Site name',
+      },
+      profileLinkText: {
+        'id': 'share.profileLinkText',
+        'defaultMessage': 'on the',
+        'description': 'Linking text between the profile name and the site name',
+      }
     });
 
-    const profileLinkText = formatMessage({
-      'id': 'share.profileLinkText',
-      'defaultMessage': 'on the',
-      'description': 'Linking text between the profile name and the site name',
-    });
+    const siteName = formatMessage(messages.siteName);
+
+    const profileLinkText = formatMessage(messages.profileLinkText);
 
     if (loading) {
       return (

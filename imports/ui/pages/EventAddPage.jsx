@@ -2,7 +2,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import Helmet from 'react-helmet';
-import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
+import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
 
 // Components
 import Event from '../components/Event.jsx';
@@ -56,11 +56,15 @@ class EventAddPage extends React.Component {
       'events-add': true,
     });
 
-    const translatableTitle = formatMessage({
-      'id': 'navigation.addEvent',
-      'defaultMessage': 'Add Event',
-      'description': 'Add menu item for an Event',
+    const messages = defineMessages({
+      addEvent: {
+        'id': 'navigation.addEvent',
+        'defaultMessage': 'Add Event',
+        'description': 'Add menu item for an Event',
+      },
     });
+
+    const translatableTitle = formatMessage(messages.addEvent);
 
     if (loading) {
       return (

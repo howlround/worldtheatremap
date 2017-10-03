@@ -33,11 +33,13 @@ Feature: Delete events
     And I click on ".event-view-link"
     Then I should not see ".page-delete-link"
 
+  @chromeOnly
   Scenario: Users should be able to request to delete a event
     When I click on ".page-delete-link"
     And I accept the alert
     Then the ".page-actions-edit" element should contain "Delete request received"
 
+  @chromeOnly
   Scenario: If an admin denies a delete request then the event should go back to the default state
     When I click on ".page-delete-link"
     And I accept the alert
@@ -48,6 +50,7 @@ Feature: Delete events
     And I accept the alert
     Then the ".page-delete-link" element should contain "Delete"
 
+  @chromeOnly
   Scenario: If an admin accepts a delete request then the event be removed from the system
     When I click on ".page-delete-link"
     And I accept the alert
@@ -58,6 +61,7 @@ Feature: Delete events
     And I accept the alert
     Then there should be no events for shows with the name "Fatima"
 
+  @chromeOnly
   Scenario: Regular users should not see the delete approve or deny links
     When I click on ".page-delete-link"
     And I accept the alert

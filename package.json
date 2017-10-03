@@ -13,9 +13,9 @@
     "test-app-watch": "meteor test --full-app --driver-package practicalmeteor:mocha --port 3100",
     "lint": "eslint .",
     "chimp-watch": "chimp --ddp=http://localhost:3000 --watch --path=tests",
-    "chimp-watch-phantom": "chimp --ddp=http://localhost:3000 --watch --path=tests --browser=phantomjs",
+    "chimp-watch-phantom": "chimp --ddp=http://localhost:3000 --watch --path=tests --tags=~@chromeOnly --browser=phantomjs",
     "chimp": "chimp --ddp=http://localhost:3000 --path=tests",
-    "chimp-phantom": "chimp --ddp=http://localhost:3000 --path=tests --browser=phantomjs",
+    "chimp-phantom": "chimp --ddp=http://localhost:3000 --path=tests --tags=~@chromeOnly --browser=phantomjs",
     "translate": "babel-node .scripts/translate.js"
   },
   "dependencies": {

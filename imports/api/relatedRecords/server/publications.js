@@ -1,6 +1,7 @@
 /* eslint-disable prefer-arrow-callback */
 
 import { Meteor } from 'meteor/meteor';
+import { check } from 'meteor/check';
 
 import { RelatedRecords } from '../relatedRecords.js';
 
@@ -17,7 +18,8 @@ import { RelatedRecords } from '../relatedRecords.js';
 // });
 
 Meteor.publish('relatedRecords.byProfile', function relatedRecordsbyProfile(id) {
-  return RelatedRecords.find({'profiles': id}, {
+  check(id, String);
+  return RelatedRecords.find({ profiles: id }, {
     fields: RelatedRecords.publicFields,
     limit: 25,
   });

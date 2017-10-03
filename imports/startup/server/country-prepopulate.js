@@ -475,7 +475,7 @@ const AllCountries = [
     label: 'Comoros',
     i18n: {
       es: {
-       label: 'Comoras',
+        label: 'Comoras',
       },
     },
   },
@@ -2381,10 +2381,9 @@ const AllCountries = [
 ];
 
 Meteor.startup(() => {
-  // if (Countries.find().count() === 0) {
-    console.log('Re-populating country database...');
-    AllCountries.forEach(country => {
-      Countries.upsert({ value: country.value }, { $set: country });
-    });
-  // }
+  /* eslint-disable no-console */
+  console.log('Re-populating country database...');
+  AllCountries.forEach(country => {
+    Countries.upsert({ value: country.value }, { $set: country });
+  });
 });

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { Mongo } from 'meteor/mongo';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';

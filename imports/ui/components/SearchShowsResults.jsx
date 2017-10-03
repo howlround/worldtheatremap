@@ -29,8 +29,11 @@ export default class SearchShowsResults extends React.Component {
         <div className="search-results-wrapper">
           <ul className="search-results">
             { results.map(result => (
-              <li key={result._id}>
-                <ShowTeaser show={result} />
+              <li key={result.show._id}>
+                <ShowTeaser
+                  show={result.show}
+                  eventsByShow={result.events}
+                />
               </li>
             )) }
           </ul>

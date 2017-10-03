@@ -5,12 +5,14 @@ import escapeRegExp from 'lodash.escaperegexp';
 import { remove as removeDiacritics } from 'diacritics';
 
 import { Shows } from '../../api/shows/shows.js';
+import { Events } from '../../api/events/events.js';
 import SearchShowsResults from '../components/SearchShowsResults.jsx';
 
 const SearchShowsResultsContainer = createContainer((props) => {
   const { query, updateQuery } = props;
   let loading = false;
   let skip = 0;
+  let showResults = [];
   let results = [];
 
   if (!_.isEmpty(query)) {
@@ -51,7 +53,7 @@ const SearchShowsResultsContainer = createContainer((props) => {
     if (!_.isEmpty(privateQuery)) {
       const showsSubscribe = TAPi18n.subscribe('shows.search', plainTextQuery, skip);
       loading = !showsSubscribe.ready();
-      results = Shows.find(
+      showResults = Shows.find(
         {},
         {
           sort: {
@@ -62,12 +64,48 @@ const SearchShowsResultsContainer = createContainer((props) => {
       ).fetch();
 
       const profiles = [];
-      _.each(results, show => {
+      _.each(showResults, show => {
         _.each(show.author, author => profiles.push(author._id));
       });
       const profilesSubscribe = TAPi18n.subscribe('profiles.byId', profiles);
     }
   }
+
+  // Recombine the results into something usable for SearchShowsResults
+  // showResults could either but full of shows if show filters were used
+  // or could be empty if no filters or event filter were used
+
+  // If there are showResults, load all the events for these shows
+  // @TODO: Also do this if there are valid events filters
+  // @TODO: Add event filters to this query
+  const eventsQuery = { 'show._id': { $in: ['5WTe3uy29wpsMkyaw'] } };
+  const eventsSubscribe = Meteor.subscribe('events.search', eventsQuery, 0);
+  // const eventsResults = Events.find(
+  //   eventsQuery,
+  //   {
+  //     sort: {
+  //       startDate: 1,
+  //     },
+  //   }).fetch();
+
+  // console.log(eventsResults);
+
+  // @TODO: Reformat results to be results { show: {}, events: []}
+  results = _.map(showResults, show => {
+    const eventsByShowQuery = { 'show._id': show._id };
+    const events = Events.find(
+      eventsByShowQuery,
+      {
+        sort: {
+          startDate: 1,
+        },
+      }).fetch();
+
+    return {
+      show,
+      events,
+    }
+  });
 
   return {
     results,

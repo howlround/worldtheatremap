@@ -1,10 +1,13 @@
+/* eslint-disable new-cap */
 import { Meteor } from 'meteor/meteor';
-import { ValidatedMethod } from 'meteor/mdg:validated-method';
+import { HTTP } from 'meteor/http';
+import Roles from 'meteor/alanning:roles';
+import { ValidatedMethod, ValidationError } from 'meteor/mdg:validated-method';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-validation';
-import { check } from 'meteor/check';
+import { check, Match } from 'meteor/check';
 import { remove as removeDiacritics } from 'diacritics';
 
 import { Shows, showSchema } from './shows.js';
@@ -34,6 +37,7 @@ export const insert = new ValidatedMethod({
     let source = 'en';
     let target = 'es';
     let translations = {};
+    const newShowObj = newShow;
 
     if (locale && locale === 'es') {
       // Source language is Spanish
@@ -44,42 +48,42 @@ export const insert = new ValidatedMethod({
       // Source language is English, either by default or specifically stated
       translations = {
         es: {
-          name: newShow.name,
-          nameSearch: removeDiacritics(newShow.name).toUpperCase(),
+          name: newShowObj.name,
+          nameSearch: removeDiacritics(newShowObj.name).toUpperCase(),
         },
-      }
+      };
     }
 
     // Save source language
-    newShow.source = source;
+    newShowObj.source = source;
 
-    if (!_.isEmpty(newShow.name)) {
-      newShow.nameSearch = removeDiacritics(newShow.name).toUpperCase();
+    if (!_.isEmpty(newShowObj.name)) {
+      newShowObj.nameSearch = removeDiacritics(newShowObj.name).toUpperCase();
     }
 
     // Record that this user added new content
-    Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentAddedCount": 1 } });
+    Meteor.users.update(Meteor.userId(), { $inc: { 'profile.contentAddedCount': 1 } });
 
-    const insertedShowID = Shows.insertTranslations(newShow, translations);
+    const insertedShowID = Shows.insertTranslations(newShowObj, translations);
 
-    if (!_.isEmpty(newShow.languages)) {
-      _.each(newShow.languages, language => {
+    if (!_.isEmpty(newShowObj.languages)) {
+      _.each(newShowObj.languages, language => {
         upsertLanguage.call({ language });
       });
     }
 
     // Translate about field
-    if (newShow.about && Meteor.settings.GoogleTranslateAPIKey) {
-      var result = HTTP.call('GET', 'https://www.googleapis.com/language/translate/v2', {
+    if (newShowObj.about && Meteor.settings.GoogleTranslateAPIKey) {
+      HTTP.call('GET', 'https://www.googleapis.com/language/translate/v2', {
         params: {
           key: Meteor.settings.GoogleTranslateAPIKey,
-          q: newShow.about,
+          q: newShowObj.about,
           source,
           target,
-        }
+        },
       },
       (error, result) => {
-        if (result.statusCode == 200) {
+        if (result.statusCode === 200) {
           const translatedText = result.data.data.translations[0].translatedText;
 
           Meteor.call('shows.updateTranslation', {
@@ -90,7 +94,7 @@ export const insert = new ValidatedMethod({
                 about: translatedText,
               },
               [source]: {
-                about: newShow.about,
+                about: newShowObj.about,
               },
             },
           });
@@ -105,15 +109,15 @@ export const insert = new ValidatedMethod({
 export const updateTranslation = new ValidatedMethod({
   name: 'shows.updateTranslation',
   validate({ translatedDoc }) {
-    var patternES = { es: { about: Match.Maybe(String) } };
-    var patternEN = { en: { about: Match.Maybe(String) } };
-    var patternBoth = {
+    const patternES = { es: { about: Match.Maybe(String) } };
+    const patternEN = { en: { about: Match.Maybe(String) } };
+    const patternBoth = {
       en: { about: Match.Maybe(String) },
-      es: { about: Match.Maybe(String) }
+      es: { about: Match.Maybe(String) },
     };
     check(translatedDoc, Match.OneOf(patternEN, patternES, patternBoth));
   },
-  run({ insertedShowID, translatedDoc, locale }) {
+  run({ insertedShowID, translatedDoc }) {
     if (!this.userId) {
       throw new Meteor.Error('shows.updateTranslation.accessDenied',
         'You must be logged in to complete this operation.');
@@ -139,52 +143,52 @@ export const update = new ValidatedMethod({
     }
 
     let source = 'en';
-    let target = 'es';
+    // let target = 'es'; // Not used in update?
+    const newShowObj = newShow;
     const doc = {};
 
-    if (!_.isEmpty(newShow.name)) {
-      newShow.nameSearch = removeDiacritics(newShow.name).toUpperCase();
+    if (!_.isEmpty(newShowObj.name)) {
+      newShowObj.nameSearch = removeDiacritics(newShowObj.name).toUpperCase();
     }
 
-    // If the source is not english, strip out the Interests from the translated fields and save them to the English/Base fields
-
+    // If the source is not english, strip out the Interests from the translated
+    // fields and save them to the English/Base fields
     if (locale && locale === 'es') {
       source = 'es';
-      target = 'en';
+      // target = 'en'; // Not used in update?
 
       // Source doc fields should be in Spanish
       const sourceDoc = {
-        name: newShow.name,
-        nameSearch: newShow.nameSearch,
-        about: newShow.about,
-      }
+        name: newShowObj.name,
+        nameSearch: newShowObj.nameSearch,
+        about: newShowObj.about,
+      };
 
       // baseDoc is for base (English) fields that need to be updated
       const baseDoc = {};
 
-      if (!_.isEmpty(newShow.interests)) {
-        baseDoc.interests = newShow.interests;
+      if (!_.isEmpty(newShowObj.interests)) {
+        baseDoc.interests = newShowObj.interests;
       }
-      if (!_.isEmpty(newShow.author)) {
-        baseDoc.author = newShow.author;
+      if (!_.isEmpty(newShowObj.author)) {
+        baseDoc.author = newShowObj.author;
       }
 
       doc[source] = sourceDoc;
-      doc['en'] = baseDoc;
-
+      doc.en = baseDoc;
     } else {
       // Target language is English, either by default or specifically stated
-      doc['en'] = newShow;
+      doc.en = newShowObj;
     }
 
-    if (!_.isEmpty(newShow.languages)) {
-      _.each(newShow.languages, language => {
+    if (!_.isEmpty(newShowObj.languages)) {
+      _.each(newShowObj.languages, language => {
         upsertLanguage.call({ language });
       });
     }
 
     // Record that this user edited content
-    Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentEditedCount": 1 } });
+    Meteor.users.update(Meteor.userId(), { $inc: { 'profile.contentEditedCount': 1 } });
 
     Shows.updateTranslations(showId, doc);
 
@@ -193,7 +197,7 @@ export const update = new ValidatedMethod({
     const relatedEventIDs = _.pluck(relatedEvents, '_id');
 
     _.each(relatedEventIDs, eventID => {
-      const updateCount = Events.update(
+      Events.update(
         {
           _id: eventID,
         },
@@ -201,10 +205,10 @@ export const update = new ValidatedMethod({
           $set: {
             show: {
               _id: showId,
-              name: newShow.name,
-              author: newShow.author,
+              name: newShowObj.name,
+              author: newShowObj.author,
             },
-          }
+          },
         }
       );
     });
@@ -227,7 +231,7 @@ export const requestRemoval = new ValidatedMethod({
     });
 
     // Record that this user edit content
-    Meteor.users.update(this.userId, { $inc: { "profile.contentEditedCount": 1 } });
+    Meteor.users.update(this.userId, { $inc: { 'profile.contentEditedCount': 1 } });
   },
 });
 

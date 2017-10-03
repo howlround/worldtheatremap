@@ -1,7 +1,7 @@
 // Utilities
 import React from 'react';
 import Helmet from 'react-helmet';
-import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
+import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
 import { _ } from 'meteor/underscore';
 
@@ -91,7 +91,7 @@ class HomePage extends React.Component {
     return (
       <div className="homepage-content-wrapper">
         <div className="page">
-          <ContentCountsContainer hideHeader={true} />
+          <ContentCountsContainer hideHeader />
           <div className="homepage-search-links">
             <FormattedMessage
               id="homepage.searchLinks"

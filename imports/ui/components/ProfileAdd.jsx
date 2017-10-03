@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
+import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-form';
 import i18nES from 'tcomb-form/lib/i18n/es';

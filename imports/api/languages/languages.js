@@ -70,7 +70,7 @@ export const existingLanguagesFactory = () => {
   return ReactSelectExistingLanguagesFactory;
 };
 
-export const AllLanguagesFactory = (multiValue = false) => {
+export const allLanguagesFactory = (multiValue = false) => {
   // allLanguages options
   const AllLanguages = [
     {
@@ -2448,11 +2448,11 @@ export const AllLanguagesFactory = (multiValue = false) => {
   });
 
   // allLanguages factory function
-  class ReactSelectAllLanguagesFactory extends t.form.Component {
+  class ReactSelectallLanguagesFactory extends t.form.Component {
     getTemplate() {
       return allLanguagesTags;
     }
   }
 
-  return ReactSelectAllLanguagesFactory;
+  return ReactSelectallLanguagesFactory;
 };

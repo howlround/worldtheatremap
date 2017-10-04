@@ -13,7 +13,7 @@ import { FormattedMessage } from 'react-intl';
 // API
 import { interestsCheckboxFactory, interestsSelectFactory } from '../../api/interests/interests.js';
 // import { allCountriesFactory } from '../../api/countries/countries.js';
-import { AllLanguagesFactory, existingLanguagesFactory } from '../../api/languages/languages.js';
+import { allLanguagesFactory, existingLanguagesFactory } from '../../api/languages/languages.js';
 
 // Containers
 import RelatedProfileTextboxContainer from '../../ui/containers/RelatedProfileTextboxContainer.jsx';
@@ -40,14 +40,12 @@ Shows.deny({
 
 // Reorder field elements
 const genericFieldTemplate = t.form.Form.templates.textbox.clone({
-  renderVertical: (locals) => {
-    return [
-      genericFieldTemplate.renderLabel(locals),
-      genericFieldTemplate.renderHelp(locals),
-      genericFieldTemplate.renderError(locals),
-      genericFieldTemplate.renderTextbox(locals),
-    ]
-  },
+  renderVertical: (locals) => ([
+    genericFieldTemplate.renderLabel(locals),
+    genericFieldTemplate.renderHelp(locals),
+    genericFieldTemplate.renderError(locals),
+    genericFieldTemplate.renderTextbox(locals),
+  ]),
 });
 
 // Event type options
@@ -88,11 +86,11 @@ const EventTypeTags = t.form.Form.templates.select.clone({
       }
     }
 
-    const placeholder = <FormattedMessage
+    const placeholder = (<FormattedMessage
       id="forms.selectPlaceholder"
       description="Select widget placeholder"
       defaultMessage="Select..."
-    />;
+    />);
 
     return (
       <ReactSelect
@@ -116,14 +114,12 @@ class ReactSelectEventTypeFactory extends t.form.Component {
 /* Author component override */
 // Author
 const relatedProfileTextboxTemplate = t.form.Form.templates.textbox.clone({
-  renderVertical: (locals) => {
-    return [
-      relatedProfileTextboxTemplate.renderLabel(locals),
-      relatedProfileTextboxTemplate.renderHelp(locals),
-      relatedProfileTextboxTemplate.renderError(locals),
-      relatedProfileTextboxTemplate.renderTextbox(locals),
-    ]
-  },
+  renderVertical: (locals) => ([
+    relatedProfileTextboxTemplate.renderLabel(locals),
+    relatedProfileTextboxTemplate.renderHelp(locals),
+    relatedProfileTextboxTemplate.renderError(locals),
+    relatedProfileTextboxTemplate.renderTextbox(locals),
+  ]),
 
   renderTextbox: (locals) => {
     // @TODO: Investigate locals.path for multiple. Also something like locals.onChange({0: evt})
@@ -145,8 +141,9 @@ const relatedProfileTextboxTemplate = t.form.Form.templates.textbox.clone({
   renderLabel: (locals) => {
     const className = {
       'control-label': true,
-      'disabled': locals.disabled,
-    }
+      disabled: locals.disabled,
+    };
+
     return (
       <label
         htmlFor={locals.attrs.id}
@@ -160,8 +157,8 @@ const relatedProfileTextboxTemplate = t.form.Form.templates.textbox.clone({
   renderHelp: (locals) => {
     const className = {
       'help-block': true,
-      'disabled': locals.disabled,
-    }
+      disabled: locals.disabled,
+    };
 
     return (
       <span
@@ -208,15 +205,6 @@ export const showFiltersSchema = t.struct({
   // Event fields
   eventType: t.maybe(t.String),
 });
-
-// @TODO: Replace with RelatedProfile
-const authorLayout = (author) => (
-  <div className="author-fields-group autocomplete-group">
-    {author.inputs.name}
-    {author.inputs._id}
-    <ul className="autocomplete-results"></ul>
-  </div>
-);
 
 export const defaultFormOptions = () => ({
   error: <FormattedMessage
@@ -276,7 +264,6 @@ export const defaultFormOptions = () => ({
           className: 'show-author-name-edit',
         },
         factory: RelatedProfileFactory,
-        // template: authorLayout,
         fields: {
           name: {
             attrs: {
@@ -351,7 +338,7 @@ export const defaultFormOptions = () => ({
       />,
     },
     languages: {
-      factory: AllLanguagesFactory(true),
+      factory: allLanguagesFactory(true),
       label: <FormattedMessage
         id="forms.languagesLabel"
         description="Field label for Languages label on shows"

@@ -4,6 +4,7 @@ import { TAPi18n } from 'meteor/tap:i18n';
 // Forms
 import React from 'react';
 import t from 'tcomb-form';
+import ReactSelect from 'react-select';
 
 // Utilities
 import classnames from 'classnames';
@@ -48,6 +49,69 @@ const genericFieldTemplate = t.form.Form.templates.textbox.clone({
     ]
   },
 });
+
+// Event type options
+const EventType = [
+  {
+    value: 'Performance',
+    label: <FormattedMessage
+      id="eventType.Performance"
+      description="Event types: Performance"
+      defaultMessage="Performance"
+    />,
+  },
+  {
+    value: 'Reading',
+    label: <FormattedMessage
+      id="eventType.Reading"
+      description="Event types: Reading"
+      defaultMessage="Reading"
+    />,
+  },
+  {
+    value: 'Workshop',
+    label: <FormattedMessage
+      id="eventType.Workshop"
+      description="Event types: Workshop"
+      defaultMessage="Workshop"
+    />,
+  },
+];
+// Event type template (single select)
+const EventTypeTags = t.form.Form.templates.select.clone({
+  renderSelect: (locals) => {
+    function onChange(options) {
+      if (options) {
+        locals.onChange(options.value);
+      } else {
+        locals.onChange(null);
+      }
+    }
+
+    const placeholder = <FormattedMessage
+      id="forms.selectPlaceholder"
+      description="Select widget placeholder"
+      defaultMessage="Select..."
+    />;
+
+    return (
+      <ReactSelect
+        autoBlur
+        options={EventType}
+        value={locals.value}
+        onChange={onChange}
+        className="event-type-edit"
+        placeholder={placeholder}
+      />
+    );
+  },
+});
+// Event type Factory
+class ReactSelectEventTypeFactory extends t.form.Component {
+  getTemplate() {
+    return EventTypeTags;
+  }
+}
 
 /* Author component override */
 // Author
@@ -136,10 +200,13 @@ export const showSchema = t.struct({
 });
 
 export const showFiltersSchema = t.struct({
+  // Show fields
   name: t.maybe(t.String),
   interests: t.maybe(t.list(t.String)),
   country: t.maybe(t.list(t.String)),
   languages: t.maybe(t.list(t.String)),
+  // Event fields
+  eventType: t.maybe(t.String),
 });
 
 // @TODO: Replace with RelatedProfile
@@ -327,6 +394,30 @@ export const filtersFormOptions = () => ({
         description="Field label for Languages label on shows"
         defaultMessage="Languages"
       />,
+    },
+    eventType: {
+      label: <FormattedMessage
+        id="forms.labelRequiredOrOptional"
+        description="Label for a form field with required or optional specified"
+        defaultMessage="{labelText} {optionalOrRequired}"
+        values={{
+          optionalOrRequired: <span className="field-label-modifier required"><FormattedMessage
+            id="forms.requiredLabel"
+            description="Addition to label indicating a field is required"
+            defaultMessage="(required)"
+          /></span>,
+          labelText: <FormattedMessage
+            id="forms.eventTypeLabel"
+            description="Label for a Event type form field"
+            defaultMessage="Event type"
+          />,
+        }}
+      />,
+      factory: ReactSelectEventTypeFactory,
+      error: 'Event type is required',
+      attrs: {
+        className: 'event-type-edit',
+      },
     },
   },
 });

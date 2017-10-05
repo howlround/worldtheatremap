@@ -83,8 +83,6 @@ const SearchShowsResultsContainer = createContainer((props) => {
     // or could be empty if no filters or event filter were used
 
     // If there are showResults, load all the events for these shows
-    // @TODO: Also do this if there are valid events filters
-    // @TODO: Add event filters to this query
     privateEventQuery['show._id'] = { $in: showResultIds };;
     const eventsSubscribe = Meteor.subscribe('events.search', privateEventQuery, 0);
     // const eventsResults = Events.find(
@@ -95,8 +93,6 @@ const SearchShowsResultsContainer = createContainer((props) => {
     //     },
     //   }).fetch();
 
-
-    // @TODO: Reformat results to be results { show: {}, events: []}
     results = _.map(showResults, show => {
       const eventsByShowQuery = { 'show._id': show._id };
       const events = Events.find(
@@ -107,14 +103,15 @@ const SearchShowsResultsContainer = createContainer((props) => {
           },
         }).fetch();
 
+      // Reformat results to be results { show: {}, events: []}
       // If events filters are used only return show if there are events
-      if (!_.isEmpty(events) && !_.isEmpty(privateEventQuery)) {
+      if (!_.isEmpty(events) && !_.isEmpty(events)) {
         return {
           show,
           events,
         }
       // Otherwise if there is no events query return shows only
-      } else if (_.isEmpty(privateEventQuery)) {
+      } else if (_.isEmpty(events)) {
         return {
           show,
         }

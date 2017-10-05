@@ -59,9 +59,8 @@ Feature: Unified Show/Event search: Events
     When I fill in ".show-search-text" with "Sofia"
     Then the ".search-results" element should contain "1 Event"
 
-  Scenario: After searching for a show users should be able to expand and events which are associated with that show
+  Scenario: After searching for a show users should see events which are associated with that show
     When I fill in ".show-search-text" with "Sofia"
-    And I click on ".show-events-toggle"
     Then the ".search-results" element should contain "Performance"
 
   Scenario: After searching for a show users should be able to further filter events by event type

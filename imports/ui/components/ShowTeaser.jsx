@@ -20,7 +20,7 @@ class ShowTeaser extends React.Component {
     super(props);
 
     this.state = {
-      open: false,
+      open: this.props.defaultOpen,
     }
 
     this.toggle = this.toggle.bind(this);
@@ -117,6 +117,7 @@ class ShowTeaser extends React.Component {
 ShowTeaser.propTypes = {
   show: React.PropTypes.object,
   eventsByShow: React.PropTypes.array,
+  defaultOpen: React.PropTypes.bool,
   intl: intlShape.isRequired,
 };
 

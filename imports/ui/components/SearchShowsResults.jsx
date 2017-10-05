@@ -33,6 +33,7 @@ export default class SearchShowsResults extends React.Component {
                 <ShowTeaser
                   show={result.show}
                   eventsByShow={result.events}
+                  defaultOpen
                 />
               </li>
             )) }

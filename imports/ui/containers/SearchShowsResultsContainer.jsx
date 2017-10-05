@@ -85,13 +85,6 @@ const SearchShowsResultsContainer = createContainer((props) => {
     // If there are showResults, load all the events for these shows
     privateEventQuery['show._id'] = { $in: showResultIds };;
     const eventsSubscribe = Meteor.subscribe('events.search', privateEventQuery, 0);
-    // const eventsResults = Events.find(
-    //   privateEventQuery,
-    //   {
-    //     sort: {
-    //       startDate: 1,
-    //     },
-    //   }).fetch();
 
     results = _.map(showResults, show => {
       const eventsByShowQuery = { 'show._id': show._id };

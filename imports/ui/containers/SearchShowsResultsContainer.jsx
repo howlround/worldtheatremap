@@ -1,7 +1,8 @@
 import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
-import { _ } from 'meteor/underscore';
 import escapeRegExp from 'lodash.escaperegexp';
+import moment from 'moment';
+import { _ } from 'meteor/underscore';
+import { createContainer } from 'meteor/react-meteor-data';
 import { remove as removeDiacritics } from 'diacritics';
 
 import { Shows } from '../../api/shows/shows.js';
@@ -73,9 +74,39 @@ const SearchShowsResultsContainer = createContainer((props) => {
       const profilesSubscribe = TAPi18n.subscribe('profiles.byId', profiles);
     }
 
-    // Process Event query
+    // Process Event query items
     if (query.eventType) {
       privateEventQuery.eventType = query.eventType;
+    }
+
+    if (query.eventsCountry && query.eventsCountry instanceof Array) {
+      privateEventQuery.country = {
+        $in: query.eventsCountry,
+      };
+    }
+
+    if (query.locality && query.locality instanceof Array) {
+      privateEventQuery.locality = {
+        $in: query.locality,
+      };
+    }
+
+    if (query.administrativeArea && query.administrativeArea instanceof Array) {
+      privateEventQuery.administrativeArea = {
+        $in: query.administrativeArea,
+      };
+    }
+
+    if (query.startDate) {
+      privateEventQuery.endDate = {
+        $gte: moment(query.startDate).startOf('day').toDate(),
+      };
+    }
+
+    if (query.endDate) {
+      privateEventQuery.startDate = {
+        $lte: moment(query.endDate).endOf('day').toDate(),
+      };
     }
 
     // If there are show results, check for events and return whatever we find.

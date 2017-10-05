@@ -6,7 +6,9 @@ import Helmet from 'react-helmet';
 
 // API
 import { showFiltersSchema, filtersFormOptions } from '../../api/shows/shows.js';
-import { allCountriesFactory } from '../../api/countries/countries.js';
+import { factory as localitiesFactory } from '../../api/localities/localities.js';
+import { existingCountriesFactory } from '../../api/countries/countries.js';
+import { factory as administrativeAreasFactory } from '../../api/administrativeAreas/administrativeAreas.js';
 
 // Containers
 import SearchShowsResultsContainer from '../containers/SearchShowsResultsContainer.jsx';
@@ -120,7 +122,8 @@ class SearchShows extends React.Component {
       );
     } else {
       let formOptions = filtersFormOptions();
-      formOptions.fields.country.factory = allCountriesFactory(locale, true);
+      // Shows
+      formOptions.fields.country.factory = existingCountriesFactory(locale);
 
       const messages = defineMessages({
         placeholder: {
@@ -135,6 +138,11 @@ class SearchShows extends React.Component {
         },
       });
       formOptions.fields.name.attrs.placeholder = formatMessage(messages.placeholder);
+
+      // Events
+      formOptions.fields.locality.factory = localitiesFactory();
+      formOptions.fields.eventsCountry.factory = existingCountriesFactory(locale);
+      formOptions.fields.administrativeArea.factory = administrativeAreasFactory();
 
       const siteName = formatMessage(messages.siteName);
 

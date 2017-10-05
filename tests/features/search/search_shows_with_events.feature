@@ -63,15 +63,34 @@ Feature: Unified Show/Event search: Events
     When I fill in ".show-search-text" with "Sofia"
     Then the ".search-results" element should contain "Performance"
 
-  Scenario: After searching for a show users should be able to further filter events by event type
-    When I fill in ".show-search-text" with "Sofia"
-    And I select "Reading" from the ".event-type-edit" combobox
-    Then the ".search-results" element should not contain "1 Event"
-
   Scenario: Users can filter events by type
     When I select "Performance" from the ".event-type-edit" combobox
     And the ".search-results" element should contain "Sofia"
     And the ".search-results" element should not contain "Aadya"
+
+  # Country
+  Scenario: Users can filter events by Country
+    When I select "Argentina" from the ".form-group-eventsCountry .country-select-edit" combobox
+    And the ".search-results" element should contain "Sofia"
+    And the ".search-results" element should not contain "Aadya"
+
+  Scenario: Users can filter events by Country after editing an event to add a new Country
+    And I go to the show page for "Sofia"
+    And I click on ".event-view-link"
+    And I click on ".edit-link"
+    And I select "Morocco" from the ".country-select-edit" combobox
+    And I click on ".edit-event-save"
+    And I go to the "events" search page
+    When I select "Morocco" from the ".country-select-edit" combobox
+    And the ".search-results" element should contain "Sofia"
+
+  Scenario: Choosing multiple countries should match two different events that each have one of the countries
+    And I go to the "events" search page
+    And I should not see ".search-results"
+    When I select "Argentina" from the ".country-select-edit" combobox
+    And I select "India" from the ".country-select-edit" combobox
+    And the ".search-results" element should contain "Sofia"
+    And the ".search-results" element should contain "Aadya"
 
   # City / Locality
   Scenario: Users can filter events by city
@@ -95,30 +114,6 @@ Feature: Unified Show/Event search: Events
     When I select "Morocco" from the ".locality-select-edit" combobox
     And the ".search-results" element should contain "Sofia"
 
-  # Country
-  Scenario: Users can filter events by Country
-    When I select "Argentina" from the ".country-select-edit" combobox
-    And the ".search-results" element should contain "Sofia"
-    And the ".search-results" element should not contain "Aadya"
-
-  Scenario: Users can filter events by Country after editing an event to add a new Country
-    And I go to the show page for "Sofia"
-    And I click on ".event-view-link"
-    And I click on ".edit-link"
-    And I select "Morocco" from the ".country-select-edit" combobox
-    And I click on ".edit-event-save"
-    And I go to the "events" search page
-    When I select "Morocco" from the ".country-select-edit" combobox
-    And the ".search-results" element should contain "Sofia"
-
-  Scenario: Choosing multiple countries should match two different events that each have one of the countries
-    And I go to the "events" search page
-    And I should not see ".search-results"
-    When I select "Argentina" from the ".country-select-edit" combobox
-    And I select "India" from the ".country-select-edit" combobox
-    And the ".search-results" element should contain "Sofia"
-    And the ".search-results" element should contain "Aadya"
-
   # Province / Administrative area
   Scenario: Users can filter events by Province
     When I select "La Bombonera" from the ".administrative-area-select-edit" combobox
@@ -135,7 +130,7 @@ Feature: Unified Show/Event search: Events
     When I select "Rabat-Salé-Kénitra" from the ".administrative-area-select-edit" combobox
     And the ".search-results" element should contain "Sofia"
 
-  Scenario: Choosing multiple countries should match two different events that each have one of the countries
+  Scenario: Choosing multiple provinces should match two different events that each have one of the provinces
     When I select "La Bombonera" from the ".administrative-area-select-edit" combobox
     And I select "Tamil Nadu" from the ".administrative-area-select-edit" combobox
     And the ".search-results" element should contain "Sofia"

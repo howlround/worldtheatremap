@@ -204,6 +204,11 @@ export const showFiltersSchema = t.struct({
   languages: t.maybe(t.list(t.String)),
   // Event fields
   eventType: t.maybe(t.String),
+  locality: t.maybe(t.String), // City
+  administrativeArea: t.maybe(t.String), // Province, Region, State
+  eventsCountry: t.maybe(t.String),
+  endDate: t.maybe(t.Date),
+  startDate: t.maybe(t.Date),
 });
 
 export const defaultFormOptions = () => ({
@@ -373,6 +378,9 @@ export const filtersFormOptions = () => ({
         description="Field label for country of origin label on shows"
         defaultMessage="Country of origin"
       />,
+      attrs: {
+        className: 'show-country-edit',
+      },
     },
     languages: {
       factory: existingLanguagesFactory(),
@@ -392,6 +400,56 @@ export const filtersFormOptions = () => ({
       error: 'Event type is required',
       attrs: {
         className: 'event-type-edit',
+      },
+    },
+    startDate: {
+      label: <FormattedMessage
+        id="forms.startDateLabel"
+        description="Label for a Start date form field"
+        defaultMessage="Start date"
+      />,
+      attrs: {
+        className: 'event-start-date-edit',
+      },
+    },
+    endDate: {
+      label: <FormattedMessage
+        id="forms.endDateLabel"
+        description="Label for a End date form field"
+        defaultMessage="End date"
+      />,
+      attrs: {
+        className: 'event-end-date-edit',
+      },
+    },
+    locality: {
+      label: <FormattedMessage
+        id="forms.localityLabel"
+        description="Label for a Locality / City form field"
+        defaultMessage="City"
+      />,
+      attrs: {
+        className: 'event-locality-edit',
+      },
+    },
+    administrativeArea: {
+      label: <FormattedMessage
+        id="forms.administrativeAreaLabel"
+        description="Label for Administrative Area form field"
+        defaultMessage="Province, Region, or State"
+      />,
+      attrs: {
+        className: 'event-administrative-area-edit',
+      },
+    },
+    eventsCountry: {
+      label: <FormattedMessage
+        id="forms.countryLabel"
+        description="Label for a Country form field"
+        defaultMessage="Country"
+      />,
+      attrs: {
+        className: 'event-country-edit',
       },
     },
   },

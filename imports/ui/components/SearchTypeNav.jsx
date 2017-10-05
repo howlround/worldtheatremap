@@ -18,15 +18,6 @@ class SearchTypeNav extends React.Component {
           </Link>
         </li>
         <li>
-          <Link to={`/${locale}/search/events`} activeClassName="active">
-            <FormattedMessage
-              id="searchNav.events"
-              description="Event Search Tab"
-              defaultMessage="Events"
-            />
-          </Link>
-        </li>
-        <li>
           <Link to={`/${locale}/search/shows`} activeClassName="active">
             <FormattedMessage
               id="searchNav.shows"

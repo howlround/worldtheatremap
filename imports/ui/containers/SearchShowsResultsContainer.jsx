@@ -85,32 +85,7 @@ const SearchShowsResultsContainer = createContainer((props) => {
       privateEventQuery['show._id'] = { $in: showResultIds };;
       const eventsSubscribe = Meteor.subscribe('events.search', privateEventQuery, 0);
 
-      results = _.map(showResults, show => {
-        const eventsByShowQuery = { 'show._id': show._id };
-        const events = Events.find(
-          eventsByShowQuery,
-          {
-            sort: {
-              startDate: 1,
-            },
-          }).fetch();
-
-        // Reformat results to be results { show: {}, events: []}
-        // If events filters are used only return show if there are events
-        if (!_.isEmpty(events)) {
-          return {
-            show,
-            events,
-          }
-        // if there is no events query return show only
-        // _.size(privateEventQuery) === 1 is the check because we add the showResultIds to the query above
-        } else if (_.isEmpty(events) && _.size(privateEventQuery) === 1) {
-          return {
-            show,
-          }
-        }
-        // Otherwise return nothing b/c user used events filters
-      });
+      results = getEventsFromShows({ showResults, privateEventQuery });
     } else if (!_.isEmpty(privateEventQuery)) {
       // Check for event filters then load parent shows
       const eventsSubscribe = Meteor.subscribe('events.search', privateEventQuery, skip);
@@ -137,32 +112,7 @@ const SearchShowsResultsContainer = createContainer((props) => {
       const resultsAuthorsSubscribe = TAPi18n.subscribe('profiles.byId', resultsAuthors);
       const resultsShowsSubscribe = TAPi18n.subscribe('shows.multipleById', resultShowIds);
 
-      results = _.map(showResults, show => {
-        const eventsByShowQuery = { 'show._id': show._id };
-        const events = Events.find(
-          eventsByShowQuery,
-          {
-            sort: {
-              startDate: 1,
-            },
-          }).fetch();
-
-        // Reformat results to be results { show: {}, events: []}
-        // If events filters are used only return show if there are events
-        if (!_.isEmpty(events)) {
-          return {
-            show,
-            events,
-          }
-        // if there is no events query return show only
-        // _.size(privateEventQuery) === 1 is the check because we add the showResultIds to the query above
-        } else if (_.isEmpty(events) && _.size(privateEventQuery) === 1) {
-          return {
-            show,
-          }
-        }
-        // Otherwise return nothing b/c user used events filters
-      });
+      results = getEventsFromShows({ showResults, privateEventQuery });
     }
 
     // Clean out null values in results
@@ -178,5 +128,36 @@ const SearchShowsResultsContainer = createContainer((props) => {
     updateQuery,
   };
 }, SearchShowsResults);
+
+const getEventsFromShows = ({ showResults, privateEventQuery }) => {
+  const results = _.map(showResults, show => {
+    const eventsByShowQuery = { 'show._id': show._id };
+    const events = Events.find(
+      eventsByShowQuery,
+      {
+        sort: {
+          startDate: 1,
+        },
+      }).fetch();
+
+    // Reformat results to be results { show: {}, events: []}
+    // If events filters are used only return show if there are events
+    if (!_.isEmpty(events)) {
+      return {
+        show,
+        events,
+      }
+    // if there is no events query return show only
+    // _.size(privateEventQuery) === 1 is the check because we add the showResultIds to the query above
+    } else if (_.isEmpty(events) && _.size(privateEventQuery) === 1) {
+      return {
+        show,
+      }
+    }
+    // Otherwise return nothing b/c user used events filters
+  });
+
+  return results;
+}
 
 export default SearchShowsResultsContainer;

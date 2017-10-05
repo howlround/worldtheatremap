@@ -78,38 +78,92 @@ const SearchShowsResultsContainer = createContainer((props) => {
       privateEventQuery.eventType = query.eventType;
     }
 
-    // Recombine the results into something usable for SearchShowsResults
-    // showResults could either but full of shows if show filters were used
-    // or could be empty if no filters or event filter were used
+    // If there are show results, check for events and return whatever we find.
+    // Otherwise check for event filters then load parent shows
+    if (!_.isEmpty(showResults)) {
+      // Load all the events for these shows
+      privateEventQuery['show._id'] = { $in: showResultIds };;
+      const eventsSubscribe = Meteor.subscribe('events.search', privateEventQuery, 0);
 
-    // If there are showResults, load all the events for these shows
-    privateEventQuery['show._id'] = { $in: showResultIds };;
-    const eventsSubscribe = Meteor.subscribe('events.search', privateEventQuery, 0);
+      results = _.map(showResults, show => {
+        const eventsByShowQuery = { 'show._id': show._id };
+        const events = Events.find(
+          eventsByShowQuery,
+          {
+            sort: {
+              startDate: 1,
+            },
+          }).fetch();
 
-    results = _.map(showResults, show => {
-      const eventsByShowQuery = { 'show._id': show._id };
-      const events = Events.find(
-        eventsByShowQuery,
+        // Reformat results to be results { show: {}, events: []}
+        // If events filters are used only return show if there are events
+        if (!_.isEmpty(events)) {
+          return {
+            show,
+            events,
+          }
+        // if there is no events query return show only
+        // _.size(privateEventQuery) === 1 is the check because we add the showResultIds to the query above
+        } else if (_.isEmpty(events) && _.size(privateEventQuery) === 1) {
+          return {
+            show,
+          }
+        }
+        // Otherwise return nothing b/c user used events filters
+      });
+    } else if (!_.isEmpty(privateEventQuery)) {
+      // Check for event filters then load parent shows
+      const eventsSubscribe = Meteor.subscribe('events.search', privateEventQuery, skip);
+
+      const eventResults = Events.find(
+        privateEventQuery,
         {
           sort: {
             startDate: 1,
           },
         }).fetch();
 
-      // Reformat results to be results { show: {}, events: []}
-      // If events filters are used only return show if there are events
-      if (!_.isEmpty(events) && !_.isEmpty(events)) {
-        return {
-          show,
-          events,
+      // Get author and show ids for these events
+      const resultsAuthors = [];
+      const resultShowIds = [];
+      const showResults = [];
+      _.each(eventResults, (event) => {
+        showResults.push(event.show);
+        resultShowIds.push(event.show._id);
+        resultsAuthors.push(event.organizations._id);
+        _.each(event.show.author, (author) => resultsAuthors.push(author._id));
+      });
+
+      const resultsAuthorsSubscribe = TAPi18n.subscribe('profiles.byId', resultsAuthors);
+      const resultsShowsSubscribe = TAPi18n.subscribe('shows.multipleById', resultShowIds);
+
+      results = _.map(showResults, show => {
+        const eventsByShowQuery = { 'show._id': show._id };
+        const events = Events.find(
+          eventsByShowQuery,
+          {
+            sort: {
+              startDate: 1,
+            },
+          }).fetch();
+
+        // Reformat results to be results { show: {}, events: []}
+        // If events filters are used only return show if there are events
+        if (!_.isEmpty(events)) {
+          return {
+            show,
+            events,
+          }
+        // if there is no events query return show only
+        // _.size(privateEventQuery) === 1 is the check because we add the showResultIds to the query above
+        } else if (_.isEmpty(events) && _.size(privateEventQuery) === 1) {
+          return {
+            show,
+          }
         }
-      // Otherwise if there is no events query return shows only
-      } else if (_.isEmpty(events)) {
-        return {
-          show,
-        }
-      }
-    });
+        // Otherwise return nothing b/c user used events filters
+      });
+    }
 
     // Clean out null values in results
     // (from _.map if none of the return values are met)

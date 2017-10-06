@@ -56,7 +56,7 @@ class HomePage extends React.Component {
       <div className="homepage-globe-label">
         <h2>
           <Link
-            to={{ pathname: `/${locale}/search/events`, query: { startDate, endDate } }}
+            to={{ pathname: `/${locale}/search/shows`, query: { startDate, endDate } }}
             className="events-today-view-all"
           >
             <FormattedMessage

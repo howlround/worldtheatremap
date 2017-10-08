@@ -189,7 +189,7 @@ const publicPath = meteorRoot + '/web.browser/app/';
 const translations = {};
 _.each(supportedLanguages, (name, locale) => {
   const translationFile = fs.readFileSync(`${publicPath}/i18n/${locale}.json`);
-  translations[locale] = translationFile;
+  translations[locale] = JSON.parse(translationFile);
 });
 
 const allInterests = _.map(messages, interest => (

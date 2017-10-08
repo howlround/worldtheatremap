@@ -12,6 +12,7 @@ import {
   defaultFormOptions
 } from '../../api/profiles/profiles.js';
 import { allCountriesFactory } from '../../api/countries/countries.js';
+import { interestsCheckboxFactory } from '../../api/interests/interests.js';
 
 const Form = t.form.Form;
 
@@ -216,6 +217,7 @@ class ProfileEdit extends React.Component {
     }
 
     formOptions.fields.country.factory = allCountriesFactory(locale);
+    formOptions.fields.interests.factory = interestsCheckboxFactory(locale);
 
     switch (locale) {
       case 'es':

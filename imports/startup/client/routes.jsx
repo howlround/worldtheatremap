@@ -48,7 +48,7 @@ customHistory.listen(location => {
 export const loadTranslation = ({ locale }) => {
   let messages = {};
   if (locale === 'es') {
-    messages = require("/i18n/es.json");
+    messages = require("/public/i18n/es.json");
   }
 
   return messages;

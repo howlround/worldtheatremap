@@ -22,3 +22,6 @@ import './country-prepopulate.js';
 
 // Content prepopulate
 import './content-prepopulate.js';
+
+// Interests prepopulate
+import '../../api/interests/interests-list.js';

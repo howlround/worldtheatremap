@@ -13,6 +13,7 @@ import {
   DuplicateProfileFactory
 } from '../../api/profiles/profiles.js';
 import { allCountriesFactory } from '../../api/countries/countries.js';
+import { interestsCheckboxFactory } from '../../api/interests/interests.js';
 
 const Form = t.form.Form;
 
@@ -216,6 +217,7 @@ class ProfileAdd extends React.Component {
     }
 
     formOptions.fields.country.factory = allCountriesFactory(locale);
+    formOptions.fields.interests.factory = interestsCheckboxFactory(locale);
     formOptions.fields.name.factory = DuplicateProfileFactory;
 
     switch (locale) {

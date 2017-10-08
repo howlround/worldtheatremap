@@ -5,8 +5,8 @@ import {sync as mkdirpSync} from 'mkdirp';
 import Translator from './lib/translator';
 
 // const MESSAGES_PATTERN = './i18n/imports/**/*.json';
-const MESSAGES_PATTERN = './i18n/imports/**/*.json';
-const LANG_DIR         = './i18n/';
+const MESSAGES_PATTERN = './public/i18n/imports/**/*.json';
+const LANG_DIR         = './public/i18n/';
 
 // Aggregates the default messages that were extracted from the example app's
 // React components via the React Intl Babel plugin. An error will be thrown if
@@ -43,5 +43,5 @@ let defaultMessages = globSync(MESSAGES_PATTERN)
 //     }, {});
 
 mkdirpSync(LANG_DIR);
-fs.writeFileSync(LANG_DIR + 'en.json', JSON.stringify(defaultMessages, null, 2));
+fs.writeFileSync(LANG_DIR + 'en.json', JSON.stringify(defaultMessages, null, 2) + '\r\n');
 // fs.writeFileSync(LANG_DIR + 'en-UPPER.json', JSON.stringify(uppercaseMessages, null, 2));

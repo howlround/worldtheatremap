@@ -5,18 +5,19 @@ import { defineMessages, intlShape, injectIntl } from 'react-intl';
 import Helmet from 'react-helmet';
 
 // API
-import { Profiles, profileFiltersSchema, filtersFormOptions } from '../../api/profiles/profiles.js';
-import { Localities, factory as localitiesFactory } from '../../api/localities/localities.js';
-import { Ethnicities, factory as ethnicitiesFactory } from '../../api/ethnicities/ethnicities.js';
-import { Countries, existingCountriesFactory } from '../../api/countries/countries.js';
-import { AdministrativeAreas, factory as administrativeAreasFactory } from '../../api/administrativeAreas/administrativeAreas.js';
+import { profileFiltersSchema, filtersFormOptions } from '../../api/profiles/profiles.js';
+import { factory as localitiesFactory } from '../../api/localities/localities.js';
+import { factory as ethnicitiesFactory } from '../../api/ethnicities/ethnicities.js';
+import { existingCountriesFactory } from '../../api/countries/countries.js';
+import { interestsSelectFactory } from '../../api/interests/interests.js';
+import {
+  factory as administrativeAreasFactory,
+} from '../../api/administrativeAreas/administrativeAreas.js';
 
 // Containers
 import SearchProfilesResultsContainer from '../containers/SearchProfilesResultsContainer.jsx';
 
 // Components
-import Profile from '../components/Profile.jsx';
-import ProfileSearchResult from '../components/ProfileSearchResult.jsx';
 import SearchTypeNav from '../components/SearchTypeNav.jsx';
 import Loading from '../components/Loading.jsx';
 
@@ -76,6 +77,32 @@ class SearchProfiles extends React.Component {
     }
   }
 
+  onChange(value) {
+    const { locale } = this.props.intl;
+    const changeValue = value;
+    // @TODO: Maybe pass this down in SearchProfilesResultsContainer to page faster
+
+    // This function should always reset the pager because something changed
+    delete changeValue.page;
+
+    this.setState(changeValue);
+    this.context.router.push({
+      pathname: `/${locale}/search/profiles`,
+      query: changeValue,
+    });
+  }
+
+  updateQuery(value) {
+    // Similar to onChange except it's coming from the pager so it shouldn't reset the pager value
+    const { locale } = this.props.intl;
+
+    this.setState(value);
+    this.context.router.push({
+      pathname: `/${locale}/search/profiles`,
+      query: value,
+    });
+  }
+
   renderProfiles() {
     const { locale } = this.props.intl;
     const query = this.state;
@@ -96,67 +123,44 @@ class SearchProfiles extends React.Component {
     );
   }
 
-  updateQuery(value) {
-    // Similar to onChange except it's coming from the pager so it shouldn't reset the pager value
-    const { locale } = this.props.intl;
-
-    this.setState(value);
-    this.context.router.push({
-      pathname: `/${locale}/search/profiles`,
-      query: value,
-    });
-  }
-
-  onChange(value) {
-    const { locale } = this.props.intl;
-    // @TODO: Maybe pass this down in SearchProfilesResultsContainer to page faster
-
-    // This function should always reset the pager because something changed
-    delete value.page;
-
-    this.setState(value);
-    this.context.router.push({
-      pathname: `/${locale}/search/profiles`,
-      query: value,
-    });
-  }
-
   render() {
     const { loading, dummyForm } = this.props;
     const { formatMessage, locale } = this.props.intl;
+    let output = '';
 
     if (loading) {
       // Don't display loading screen if using the form away from the directory page
       if (dummyForm) {
-        return (null);
+        output = '';
       } else {
-        return (<Loading key="loading" />);
+        output = <Loading key="loading" />;
       }
     } else {
       let formOptions = filtersFormOptions();
       formOptions.fields.locality.factory = localitiesFactory();
       formOptions.fields.ethnicityRace.factory = ethnicitiesFactory();
       formOptions.fields.country.factory = existingCountriesFactory(locale);
+      formOptions.fields.interests.factory = interestsSelectFactory(locale, true);
       formOptions.fields.administrativeArea.factory = administrativeAreasFactory();
 
       const messages = defineMessages({
         placeholder: {
-          'id': 'searchProfiles.placeholder',
-          'defaultMessage': 'Search for profiles by name',
-          'description': 'Placeholder text for the profile name field on search filters'
+          id: 'searchProfiles.placeholder',
+          defaultMessage: 'Search for profiles by name',
+          description: 'Placeholder text for the profile name field on search filters',
         },
         pageTitle: {
-          'id': 'searchProfiles.pageTitle',
-          'defaultMessage': 'Search Profiles',
-          'description': 'Page title for the profiles search page',
-        }
+          id: 'searchProfiles.pageTitle',
+          defaultMessage: 'Search Profiles',
+          description: 'Page title for the profiles search page',
+        },
       });
 
       formOptions.fields.name.attrs.placeholder = formatMessage(messages.placeholder);
 
       const searchProfilesPageTitle = formatMessage(messages.pageTitle);
 
-      return (
+      output = (
         <div className="search page">
           <section>
             <SearchTypeNav />
@@ -176,12 +180,14 @@ class SearchProfiles extends React.Component {
                   />
                 </form>
               </div>
-              { this.renderProfiles() }
+              {this.renderProfiles()}
             </div>
           </section>
         </div>
       );
     }
+
+    return output;
   }
 }
 
@@ -192,6 +198,7 @@ SearchProfiles.contextTypes = {
 SearchProfiles.propTypes = {
   loading: React.PropTypes.bool,
   dummyForm: React.PropTypes.bool,
+  location: React.PropTypes.object,
   intl: intlShape.isRequired,
 };
 

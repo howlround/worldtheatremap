@@ -13,9 +13,10 @@ export default createContainer(({ params: { locale } }) => {
 
   const add = true;
   const countriesSubscribe = TAPi18n.subscribe('countries.public');
+  const interestsSubscribe = TAPi18n.subscribe('interests.public');
   GoogleMaps.load(googleParams);
   const googleMapsReady = GoogleMaps.loaded();
-  const loading = !(countriesSubscribe.ready() && GoogleMaps.loaded());
+  const loading = !(countriesSubscribe.ready() && interestsSubscribe.ready() && GoogleMaps.loaded());
   return {
     add,
     loading,

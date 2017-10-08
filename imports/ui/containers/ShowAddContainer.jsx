@@ -6,7 +6,8 @@ import ShowAddPage from '../pages/ShowAddPage.jsx';
 export default createContainer(() => {
   const add = true;
   const countriesSubscribe = TAPi18n.subscribe('countries.public');
-  const loading = !(countriesSubscribe.ready());
+  const interestsSubscribe = TAPi18n.subscribe('interests.public');
+  const loading = !(countriesSubscribe.ready() && interestsSubscribe.ready());
   return {
     loading,
     add,

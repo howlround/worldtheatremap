@@ -16,10 +16,12 @@ export default createContainer(({ params: { id, locale } }) => {
   const singleProfileSubscription = TAPi18n.subscribe('profiles.singleById', id);
   const countriesSubscribe = TAPi18n.subscribe('countries.public');
   const interestsSubscribe = TAPi18n.subscribe('interests.public');
+  const rolesSubscribe = TAPi18n.subscribe('roles.public');
+
   const profile = Profiles.findOne(id);
   const profileExists = !loading && !!profile;
   GoogleMaps.load(googleParams);
-  const loading = !(singleProfileSubscription.ready() && countriesSubscribe.ready() && interestsSubscribe.ready() && GoogleMaps.loaded());
+  const loading = !(singleProfileSubscription.ready() && countriesSubscribe.ready() && interestsSubscribe.ready() && rolesSubscribe.ready() && GoogleMaps.loaded());
   return {
     loading,
     profile,

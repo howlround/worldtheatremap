@@ -25,3 +25,6 @@ import './content-prepopulate.js';
 
 // Interests prepopulate
 import '../../api/interests/interests-list.js';
+
+// Roles prepopulate
+import '../../api/selfDefinedRoles/selfDefinedRoles-list.js';

@@ -16,6 +16,7 @@ import DatePicker from 'react-datepicker';
 // API
 // import { allCountriesFactory } from '../../api/countries/countries.js';
 import { interestsSelectFactory, interestsCheckboxFactory } from '../../api/interests/interests.js';
+import { rolesSelectFactory, rolesCheckboxFactory } from '../../api/selfDefinedRoles/selfDefinedRoles.js';
 
 // Components
 import Checkboxes from '../../ui/components/Checkboxes.jsx';
@@ -1844,7 +1845,7 @@ export const defaultFormOptions = () => ({
           />,
         }}
       />,
-      factory: RolesCheckboxesFactory,
+      factory: rolesCheckboxFactory(),
     },
     gender: {
       label: <FormattedMessage
@@ -2017,7 +2018,7 @@ export const filtersFormOptions = () => ({
         description="Label for the Roles form field"
         defaultMessage="What does this person do in the theatre?"
       />,
-      factory: RolesReactSelectFactory,
+      factory: rolesSelectFactory(),
     },
     ethnicityRace: {
       // The Factory function is applied later to allow reactive options
@@ -2202,7 +2203,7 @@ export const translateSourceFormOptions = () => ({
       disabled: true,
     },
     selfDefinedRoles: {
-      factory: RolesReactSelectFactory,
+      factory: rolesSelectFactory(),
       disabled: true,
     },
     gender: {

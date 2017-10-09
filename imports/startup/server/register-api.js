@@ -70,3 +70,6 @@ import '../../api/users/methods.js';
 
 // Interests
 import '../../api/interests/server/publications.js';
+
+// Roles
+import '../../api/selfDefinedRoles/server/publications.js';

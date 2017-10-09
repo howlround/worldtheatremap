@@ -32,7 +32,7 @@ Roles.publicFields = {
   label: 1,
 };
 
-export const rolesSelectFactory = (locale, multiValue = false) => {
+export const rolesSelectFactory = (locale) => {
   // rolesSelectFactory options
   const sortKey = (!locale || locale === 'en') ? 'label' : `i18n.${locale}.label`;
   const sort = {};
@@ -45,11 +45,11 @@ export const rolesSelectFactory = (locale, multiValue = false) => {
     renderLabel: (locals) => {
       const className = {
         'control-label': true,
-        'disabled': locals.disabled,
-      }
+        disabled: locals.disabled,
+      };
       return (
         <label
-          title='For Individual profiles only'
+          title="For Individual profiles only"
           htmlFor={locals.attrs.id}
           className={classnames(className)}
         >
@@ -60,15 +60,17 @@ export const rolesSelectFactory = (locale, multiValue = false) => {
 
     renderSelect: (locals) => {
       function onChange(options) {
-        const values = (options || []).map(({ value }) => value)
-        locals.onChange(values)
+        const values = (options || []).map(({ value }) => value);
+        locals.onChange(values);
       }
 
-      const placeholder = <FormattedMessage
-        id="forms.selectPlaceholder"
-        description="Select widget placeholder"
-        defaultMessage="Select..."
-      />;
+      const placeholder = (
+        <FormattedMessage
+          id="forms.selectPlaceholder"
+          description="Select widget placeholder"
+          defaultMessage="Select..."
+        />
+      );
 
       return (
         <ReactSelect
@@ -87,8 +89,8 @@ export const rolesSelectFactory = (locale, multiValue = false) => {
     renderHelp: (locals) => {
       const className = {
         'help-block': true,
-        'disabled': locals.disabled,
-      }
+        disabled: locals.disabled,
+      };
 
       return (
         <span
@@ -101,14 +103,12 @@ export const rolesSelectFactory = (locale, multiValue = false) => {
     },
   });
 
-  allRolesTags.renderVertical = (locals) => {
-    return [
-      allRolesTags.renderLabel(locals),
-      allRolesTags.renderHelp(locals),
-      allRolesTags.renderError(locals),
-      allRolesTags.renderSelect(locals),
-    ]
-  };
+  allRolesTags.renderVertical = (locals) => ([
+    allRolesTags.renderLabel(locals),
+    allRolesTags.renderHelp(locals),
+    allRolesTags.renderError(locals),
+    allRolesTags.renderSelect(locals),
+  ]);
 
   // rolesSelectFactory factory function
   class ReactSelectRolesFactory extends t.form.Component {
@@ -135,11 +135,11 @@ export const rolesCheckboxFactory = (locale) => {
     renderLabel: (locals) => {
       const className = {
         'control-label': true,
-        'disabled': locals.disabled,
-      }
+        disabled: locals.disabled,
+      };
       return (
         <label
-          title='For Individual profiles only'
+          title="For Individual profiles only"
           htmlFor={locals.attrs.id}
           className={classnames(className)}
         >
@@ -148,23 +148,21 @@ export const rolesCheckboxFactory = (locale) => {
       );
     },
 
-    renderSelect: (locals) => {
-      return (
-        <Checkboxes
-          options={allRoles}
-          values={locals.value}
-          name="roles"
-          onChange={locals.onChange}
-          disabled={locals.disabled}
-        />
-      );
-    },
+    renderSelect: (locals) => (
+      <Checkboxes
+        options={allRoles}
+        values={locals.value}
+        name="roles"
+        onChange={locals.onChange}
+        disabled={locals.disabled}
+      />
+    ),
 
     renderHelp: (locals) => {
       const className = {
         'help-block': true,
-        'disabled': locals.disabled,
-      }
+        disabled: locals.disabled,
+      };
 
       return (
         <span
@@ -177,14 +175,12 @@ export const rolesCheckboxFactory = (locale) => {
     },
   });
 
-  rolesCheckboxes.renderVertical = (locals) => {
-    return [
-      rolesCheckboxes.renderLabel(locals),
-      rolesCheckboxes.renderHelp(locals),
-      rolesCheckboxes.renderError(locals),
-      rolesCheckboxes.renderSelect(locals),
-    ]
-  };
+  rolesCheckboxes.renderVertical = (locals) => ([
+    rolesCheckboxes.renderLabel(locals),
+    rolesCheckboxes.renderHelp(locals),
+    rolesCheckboxes.renderError(locals),
+    rolesCheckboxes.renderSelect(locals),
+  ]);
 
   // rolesCheckboxFactory factory function
   class CheckboxesRolesFactory extends t.form.Component {

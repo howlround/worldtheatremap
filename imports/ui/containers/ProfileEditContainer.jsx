@@ -1,4 +1,3 @@
-import { Meteor } from 'meteor/meteor';
 import { TAPi18n } from 'meteor/tap:i18n';
 import { Profiles } from '../../api/profiles/profiles.js';
 import { createContainer } from 'meteor/react-meteor-data';
@@ -8,7 +7,8 @@ export default createContainer(({ params: { id, locale } }) => {
   const googleParams = {
     key: 'AIzaSyCJleIzga_bAKO6Gwkzz2rlxnQ7T_f2xGM',
     libraries: 'places',
-  }
+  };
+
   if (locale) {
     googleParams.language = locale;
   }
@@ -18,10 +18,18 @@ export default createContainer(({ params: { id, locale } }) => {
   const interestsSubscribe = TAPi18n.subscribe('interests.public');
   const rolesSubscribe = TAPi18n.subscribe('roles.public');
 
+  GoogleMaps.load(googleParams); // eslint-disable-line no-undef
+  const loading = !(
+    singleProfileSubscription.ready() &&
+    countriesSubscribe.ready() &&
+    interestsSubscribe.ready() &&
+    rolesSubscribe.ready() &&
+    GoogleMaps.loaded() // eslint-disable-line no-undef
+  );
+
   const profile = Profiles.findOne(id);
   const profileExists = !loading && !!profile;
-  GoogleMaps.load(googleParams);
-  const loading = !(singleProfileSubscription.ready() && countriesSubscribe.ready() && interestsSubscribe.ready() && rolesSubscribe.ready() && GoogleMaps.loaded());
+
   return {
     loading,
     profile,

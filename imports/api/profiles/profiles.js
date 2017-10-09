@@ -3,7 +3,6 @@ import { TAPi18n } from 'meteor/tap:i18n';
 import { Factory } from 'meteor/factory';
 
 // Utilities
-import { _ } from 'meteor/underscore';
 import { FormattedMessage } from 'react-intl';
 import classnames from 'classnames';
 
@@ -11,18 +10,23 @@ import classnames from 'classnames';
 import React from 'react';
 import t from 'tcomb-form';
 import ReactSelect from 'react-select';
-import DatePicker from 'react-datepicker';
 
 // API
 // import { allCountriesFactory } from '../../api/countries/countries.js';
-import { interestsSelectFactory, interestsCheckboxFactory } from '../../api/interests/interests.js';
-import { rolesSelectFactory, rolesCheckboxFactory } from '../../api/selfDefinedRoles/selfDefinedRoles.js';
+import {
+  interestsSelectFactory,
+  interestsCheckboxFactory,
+} from '../../api/interests/interests.js';
+import {
+  rolesSelectFactory,
+  rolesCheckboxFactory,
+} from '../../api/selfDefinedRoles/selfDefinedRoles.js';
 
 // Components
 import Checkboxes from '../../ui/components/Checkboxes.jsx';
 
 // Containers
-import DuplicateProfileTextboxContainer from '../../ui/containers/DuplicateProfileTextboxContainer.jsx';
+import DuplicateProfileTextboxContainer from '../../ui/containers/DuplicateProfileTextboxContainer.jsx'; // eslint-disable-line max-len
 
 class ProfilesCollection extends TAPi18n.Collection {
   // insert(profile, callback) {
@@ -83,15 +87,17 @@ const ProfileType = [
 const ProfileTypeTags = t.form.Form.templates.select.clone({
   renderSelect: (locals) => {
     function onChange(options) {
-      const values = (options || []).map(({value}) => value)
-      locals.onChange(values)
+      const values = (options || []).map(({ value }) => value);
+      locals.onChange(values);
     }
 
-    const placeholder = <FormattedMessage
-      id="forms.selectPlaceholder"
-      description="Select widget placeholder"
-      defaultMessage="Select..."
-    />;
+    const placeholder = (
+      <FormattedMessage
+        id="forms.selectPlaceholder"
+        description="Select widget placeholder"
+        defaultMessage="Select..."
+      />
+    );
 
     return (
       <ReactSelect
@@ -110,8 +116,8 @@ const ProfileTypeTags = t.form.Form.templates.select.clone({
   renderHelp: (locals) => {
     const className = {
       'help-block': true,
-      'disabled': locals.disabled,
-    }
+      disabled: locals.disabled,
+    };
 
     return (
       <span
@@ -124,14 +130,12 @@ const ProfileTypeTags = t.form.Form.templates.select.clone({
   },
 });
 
-ProfileTypeTags.renderVertical = (locals) => {
-  return [
-    ProfileTypeTags.renderLabel(locals),
-    ProfileTypeTags.renderHelp(locals),
-    ProfileTypeTags.renderError(locals),
-    ProfileTypeTags.renderSelect(locals),
-  ]
-};
+ProfileTypeTags.renderVertical = (locals) => ([
+  ProfileTypeTags.renderLabel(locals),
+  ProfileTypeTags.renderHelp(locals),
+  ProfileTypeTags.renderError(locals),
+  ProfileTypeTags.renderSelect(locals),
+]);
 
 // Profile type Factory
 class ReactSelectProfileTypeFactory extends t.form.Component {
@@ -239,11 +243,11 @@ const orgTypesCheckboxes = t.form.Form.templates.select.clone({
   renderLabel: (locals) => {
     const className = {
       'control-label': true,
-      'disabled': locals.disabled,
-    }
+      disabled: locals.disabled,
+    };
     return (
       <label
-        title='For Organizational profiles only'
+        title="For Organizational profiles only"
         htmlFor={locals.attrs.id}
         className={classnames(className)}
       >
@@ -252,23 +256,21 @@ const orgTypesCheckboxes = t.form.Form.templates.select.clone({
     );
   },
 
-  renderSelect: (locals) => {
-    return (
-      <Checkboxes
-        options={OrgTypes}
-        values={locals.value}
-        name="organization-types"
-        onChange={locals.onChange}
-        disabled={locals.disabled}
-      />
-    );
-  },
+  renderSelect: (locals) => (
+    <Checkboxes
+      options={OrgTypes}
+      values={locals.value}
+      name="organization-types"
+      onChange={locals.onChange}
+      disabled={locals.disabled}
+    />
+  ),
 
   renderHelp: (locals) => {
     const className = {
       'help-block': true,
-      'disabled': locals.disabled,
-    }
+      disabled: locals.disabled,
+    };
 
     return (
       <span
@@ -281,25 +283,23 @@ const orgTypesCheckboxes = t.form.Form.templates.select.clone({
   },
 });
 
-orgTypesCheckboxes.renderVertical = (locals) => {
-  return [
-    orgTypesCheckboxes.renderLabel(locals),
-    orgTypesCheckboxes.renderHelp(locals),
-    orgTypesCheckboxes.renderError(locals),
-    orgTypesCheckboxes.renderSelect(locals),
-  ]
-};
+orgTypesCheckboxes.renderVertical = (locals) => ([
+  orgTypesCheckboxes.renderLabel(locals),
+  orgTypesCheckboxes.renderHelp(locals),
+  orgTypesCheckboxes.renderError(locals),
+  orgTypesCheckboxes.renderSelect(locals),
+]);
 
 // orgTypes template
 const orgTypesTags = t.form.Form.templates.select.clone({
   renderLabel: (locals) => {
     const className = {
       'control-label': true,
-      'disabled': locals.disabled,
-    }
+      disabled: locals.disabled,
+    };
     return (
       <label
-        title='For Organizational profiles only'
+        title="For Organizational profiles only"
         htmlFor={locals.attrs.id}
         className={classnames(className)}
       >
@@ -310,15 +310,17 @@ const orgTypesTags = t.form.Form.templates.select.clone({
 
   renderSelect: (locals) => {
     function onChange(options) {
-      const values = (options || []).map(({value}) => value)
-      locals.onChange(values)
+      const values = (options || []).map(({ value }) => value);
+      locals.onChange(values);
     }
 
-    const placeholder = <FormattedMessage
-      id="forms.selectPlaceholder"
-      description="Select widget placeholder"
-      defaultMessage="Select..."
-    />;
+    const placeholder = (
+      <FormattedMessage
+        id="forms.selectPlaceholder"
+        description="Select widget placeholder"
+        defaultMessage="Select..."
+      />
+    );
 
     return (
       <ReactSelect
@@ -337,8 +339,8 @@ const orgTypesTags = t.form.Form.templates.select.clone({
   renderHelp: (locals) => {
     const className = {
       'help-block': true,
-      'disabled': locals.disabled,
-    }
+      disabled: locals.disabled,
+    };
 
     return (
       <span
@@ -351,14 +353,12 @@ const orgTypesTags = t.form.Form.templates.select.clone({
   },
 });
 
-orgTypesTags.renderVertical = (locals) => {
-  return [
-    orgTypesTags.renderLabel(locals),
-    orgTypesTags.renderHelp(locals),
-    orgTypesTags.renderError(locals),
-    orgTypesTags.renderSelect(locals),
-  ]
-};
+orgTypesTags.renderVertical = (locals) => ([
+  orgTypesTags.renderLabel(locals),
+  orgTypesTags.renderHelp(locals),
+  orgTypesTags.renderError(locals),
+  orgTypesTags.renderSelect(locals),
+]);
 
 // orgTypes factory function
 class OrgTypesCheckboxesFactory extends t.form.Component {
@@ -366,7 +366,6 @@ class OrgTypesCheckboxesFactory extends t.form.Component {
     return orgTypesCheckboxes;
   }
 }
-
 
 // orgTypes factory function
 class OrgTypesReactSelectFactory extends t.form.Component {
@@ -379,369 +378,6 @@ class OrgTypesReactSelectFactory extends t.form.Component {
 OrgTypesCheckboxesFactory.transformer = t.form.List.transformer;
 OrgTypesReactSelectFactory.transformer = t.form.List.transformer;
 
-// selfDefinedRoles options
-const Roles = [
-  {
-    value: 'Administrator, Manager, Producer',
-    label: <FormattedMessage
-      id="role.Administrator, Manager, Producer"
-      description="Roles options: Administrator, Manager, Producer"
-      defaultMessage="Administrator, Manager, Producer"
-    />,
-  },
-  {
-    value: 'Agent, Representative',
-    label: <FormattedMessage
-      id="role.Agent, Representative"
-      description="Roles options: Agent, Representative"
-      defaultMessage="Agent, Representative"
-    />,
-  },
-  {
-    value: 'Choreographer',
-    label: <FormattedMessage
-      id="role.Choreographer"
-      description="Roles options: Choreographer"
-      defaultMessage="Choreographer"
-    />,
-  },
-  {
-    value: 'Curator / Programmer',
-    label: <FormattedMessage
-      id="role.Curator / Programmer"
-      description="Roles options: Curator / Programmer"
-      defaultMessage="Curator / Programmer"
-    />,
-  },
-  {
-    value: 'Designer',
-    label: <FormattedMessage
-      id="role.Designer"
-      description="Roles options: Designer"
-      defaultMessage="Designer"
-    />,
-  },
-  {
-    value: 'Designer: Costume',
-    label: <FormattedMessage
-      id="role.Designer: Costume"
-      description="Roles options: Designer: Costume"
-      defaultMessage="Designer: Costume"
-    />,
-  },
-  {
-    value: 'Designer: Lighting',
-    label: <FormattedMessage
-      id="role.Designer: Lighting"
-      description="Roles options: Designer: Lighting"
-      defaultMessage="Designer: Lighting"
-    />,
-  },
-  {
-    value: 'Designer: Projection',
-    label: <FormattedMessage
-      id="role.Designer: Projection"
-      description="Roles options: Designer: Projection"
-      defaultMessage="Designer: Projection"
-    />,
-  },
-  {
-    value: 'Designer: Props',
-    label: <FormattedMessage
-      id="role.Designer: Props"
-      description="Roles options: Designer: Props"
-      defaultMessage="Designer: Props"
-    />,
-  },
-  {
-    value: 'Designer: Puppets',
-    label: <FormattedMessage
-      id="role.Designer: Puppets"
-      description="Roles options: Designer: Puppets"
-      defaultMessage="Designer: Puppets"
-    />,
-  },
-  {
-    value: 'Designer: Scenic',
-    label: <FormattedMessage
-      id="role.Designer: Scenic"
-      description="Roles options: Designer: Scenic"
-      defaultMessage="Designer: Scenic"
-    />,
-  },
-  {
-    value: 'Designer: Sound',
-    label: <FormattedMessage
-      id="role.Designer: Sound"
-      description="Roles options: Designer: Sound"
-      defaultMessage="Designer: Sound"
-    />,
-  },
-  {
-    value: 'Director',
-    label: <FormattedMessage
-      id="role.Director"
-      description="Roles options: Director"
-      defaultMessage="Director"
-    />,
-  },
-  {
-    value: 'Dramaturg',
-    label: <FormattedMessage
-      id="role.Dramaturg"
-      description="Roles options: Dramaturg"
-      defaultMessage="Dramaturg"
-    />,
-  },
-  {
-    value: 'Educator / Scholar',
-    label: <FormattedMessage
-      id="role.Educator / Scholar"
-      description="Roles options: Educator / Scholar"
-      defaultMessage="Educator / Scholar"
-    />,
-  },
-  {
-    value: 'Funder',
-    label: <FormattedMessage
-      id="role.Funder"
-      description="Roles options: Funder"
-      defaultMessage="Funder"
-    />,
-  },
-  {
-    value: 'Journalist / Critic',
-    label: <FormattedMessage
-      id="role.Journalist / Critic"
-      description="Roles options: Journalist / Critic"
-      defaultMessage="Journalist / Critic"
-    />,
-  },
-  {
-    value: 'Music Composer',
-    label: <FormattedMessage
-      id="role.Music Composer"
-      description="Roles options: Music Composer"
-      defaultMessage="Music Composer"
-    />,
-  },
-  {
-    value: 'Other',
-    label: <FormattedMessage
-      id="role.Other"
-      description="Roles options: Other"
-      defaultMessage="Other"
-    />,
-  },
-  {
-    value: 'Performer',
-    label: <FormattedMessage
-      id="role.Performer"
-      description="Roles options: Performer"
-      defaultMessage="Performer"
-    />,
-  },
-  {
-    value: 'Performer: Dancer',
-    label: <FormattedMessage
-      id="role.Performer: Dancer"
-      description="Roles options: Performer: Dancer"
-      defaultMessage="Performer: Dancer"
-    />,
-  },
-  {
-    value: 'Performer: Musician',
-    label: <FormattedMessage
-      id="role.Performer: Musician"
-      description="Roles options: Performer: Musician"
-      defaultMessage="Performer: Musician"
-    />,
-  },
-  {
-    value: 'Performer: Singer',
-    label: <FormattedMessage
-      id="role.Performer: Singer"
-      description="Roles options: Performer: Singer"
-      defaultMessage="Performer: Singer"
-    />,
-  },
-  {
-    value: 'Playwright',
-    label: <FormattedMessage
-      id="role.Playwright"
-      description="Roles options: Playwright"
-      defaultMessage="Playwright"
-    />,
-  },
-  {
-    value: 'Production/Technical Staff',
-    label: <FormattedMessage
-      id="role.Production/Technical Staff"
-      description="Roles options: Production/Technical Staff"
-      defaultMessage="Production/Technical Staff"
-    />,
-  },
-  {
-    value: 'Student',
-    label: <FormattedMessage
-      id="role.Student"
-      description="Roles options: Student"
-      defaultMessage="Student"
-    />,
-  },
-  {
-    value: 'Translator',
-    label: <FormattedMessage
-      id="role.Translator"
-      description="Roles options: Translator"
-      defaultMessage="Translator"
-    />,
-  },
-];
-
-// selfDefinedRoles template
-const rolesCheckboxes = t.form.Form.templates.select.clone({
-  renderLabel: (locals) => {
-    const className = {
-      'control-label': true,
-      'disabled': locals.disabled,
-    }
-    return (
-      <label
-        title='For Individual profiles only'
-        htmlFor={locals.attrs.id}
-        className={classnames(className)}
-      >
-        {locals.label}
-      </label>
-    );
-  },
-
-  renderSelect: (locals) => {
-    return (
-      <Checkboxes
-        options={Roles}
-        values={locals.value}
-        name="roles"
-        onChange={locals.onChange}
-        disabled={locals.disabled}
-      />
-    );
-  },
-
-  renderHelp: (locals) => {
-    const className = {
-      'help-block': true,
-      'disabled': locals.disabled,
-    }
-
-    return (
-      <span
-        id={`${locals.attrs.id}-tip`}
-        className={classnames(className)}
-      >
-        {locals.help}
-      </span>
-    );
-  },
-});
-
-rolesCheckboxes.renderVertical = (locals) => {
-  return [
-    rolesCheckboxes.renderLabel(locals),
-    rolesCheckboxes.renderHelp(locals),
-    rolesCheckboxes.renderError(locals),
-    rolesCheckboxes.renderSelect(locals),
-  ]
-};
-
-// selfDefinedRoles template
-const rolesTags = t.form.Form.templates.select.clone({
-  renderLabel: (locals) => {
-    const className = {
-      'control-label': true,
-      'disabled': locals.disabled,
-    }
-    return (
-      <label
-        title='For Individual profiles only'
-        htmlFor={locals.attrs.id}
-        className={classnames(className)}
-      >
-        {locals.label}
-      </label>
-    );
-  },
-
-  renderSelect: (locals) => {
-    function onChange(options) {
-      const values = (options || []).map(({ value }) => value)
-      locals.onChange(values)
-    }
-
-    const placeholder = <FormattedMessage
-      id="forms.selectPlaceholder"
-      description="Select widget placeholder"
-      defaultMessage="Select..."
-    />;
-
-    return (
-      <ReactSelect
-        multi
-        autoBlur
-        disabled={locals.disabled}
-        options={Roles}
-        value={locals.value}
-        onChange={onChange}
-        className="profile-roles-edit"
-        placeholder={placeholder}
-      />
-    );
-  },
-
-  renderHelp: (locals) => {
-    const className = {
-      'help-block': true,
-      'disabled': locals.disabled,
-    }
-
-    return (
-      <span
-        id={`${locals.attrs.id}-tip`}
-        className={classnames(className)}
-      >
-        {locals.help}
-      </span>
-    );
-  },
-});
-
-rolesTags.renderVertical = (locals) => {
-  return [
-    rolesTags.renderLabel(locals),
-    rolesTags.renderHelp(locals),
-    rolesTags.renderError(locals),
-    rolesTags.renderSelect(locals),
-  ]
-};
-
-// selfDefinedRoles factory function
-class RolesCheckboxesFactory extends t.form.Component {
-  getTemplate() {
-    return rolesCheckboxes;
-  }
-}
-
-// selfDefinedRoles factory function
-class RolesReactSelectFactory extends t.form.Component {
-  getTemplate() {
-    return rolesTags;
-  }
-}
-
-// selfDefinedRoles transformer
-RolesCheckboxesFactory.transformer = t.form.List.transformer;
-RolesReactSelectFactory.transformer = t.form.List.transformer;
 
 // Gender options
 const Genders = [
@@ -784,11 +420,11 @@ const gendersCheckboxes = t.form.Form.templates.select.clone({
   renderLabel: (locals) => {
     const className = {
       'control-label': true,
-      'disabled': locals.disabled,
-    }
+      disabled: locals.disabled,
+    };
     return (
       <label
-        title='For Individual profiles only'
+        title="For Individual profiles only"
         htmlFor={locals.attrs.id}
         className={classnames(className)}
       >
@@ -797,23 +433,21 @@ const gendersCheckboxes = t.form.Form.templates.select.clone({
     );
   },
 
-  renderSelect: (locals) => {
-    return (
-      <Checkboxes
-        options={Genders}
-        values={locals.value}
-        name="gender"
-        onChange={locals.onChange}
-        disabled={locals.disabled}
-      />
-    );
-  },
+  renderSelect: (locals) => (
+    <Checkboxes
+      options={Genders}
+      values={locals.value}
+      name="gender"
+      onChange={locals.onChange}
+      disabled={locals.disabled}
+    />
+  ),
 
   renderHelp: (locals) => {
     const className = {
       'help-block': true,
-      'disabled': locals.disabled,
-    }
+      disabled: locals.disabled,
+    };
 
     return (
       <span
@@ -826,25 +460,23 @@ const gendersCheckboxes = t.form.Form.templates.select.clone({
   },
 });
 
-gendersCheckboxes.renderVertical = (locals) => {
-  return [
-    gendersCheckboxes.renderLabel(locals),
-    gendersCheckboxes.renderHelp(locals),
-    gendersCheckboxes.renderError(locals),
-    gendersCheckboxes.renderSelect(locals),
-  ]
-};
+gendersCheckboxes.renderVertical = (locals) => ([
+  gendersCheckboxes.renderLabel(locals),
+  gendersCheckboxes.renderHelp(locals),
+  gendersCheckboxes.renderError(locals),
+  gendersCheckboxes.renderSelect(locals),
+]);
 
 // Gender template
 const gendersTags = t.form.Form.templates.select.clone({
   renderLabel: (locals) => {
     const className = {
       'control-label': true,
-      'disabled': locals.disabled,
-    }
+      disabled: locals.disabled,
+    };
     return (
       <label
-        title='For Individual profiles only'
+        title="For Individual profiles only"
         htmlFor={locals.attrs.id}
         className={classnames(className)}
       >
@@ -863,11 +495,13 @@ const gendersTags = t.form.Form.templates.select.clone({
       locals.onChange(values);
     }
 
-    const placeholder = <FormattedMessage
-      id="forms.selectPlaceholder"
-      description="Select widget placeholder"
-      defaultMessage="Select..."
-    />;
+    const placeholder = (
+      <FormattedMessage
+        id="forms.selectPlaceholder"
+        description="Select widget placeholder"
+        defaultMessage="Select..."
+      />
+    );
 
     return (
       <ReactSelect
@@ -886,8 +520,8 @@ const gendersTags = t.form.Form.templates.select.clone({
   renderHelp: (locals) => {
     const className = {
       'help-block': true,
-      'disabled': locals.disabled,
-    }
+      disabled: locals.disabled,
+    };
 
     return (
       <span
@@ -900,14 +534,12 @@ const gendersTags = t.form.Form.templates.select.clone({
   },
 });
 
-gendersTags.renderVertical = (locals) => {
-  return [
-    gendersTags.renderLabel(locals),
-    gendersTags.renderHelp(locals),
-    gendersTags.renderError(locals),
-    gendersTags.renderSelect(locals),
-  ]
-};
+gendersTags.renderVertical = (locals) => ([
+  gendersTags.renderLabel(locals),
+  gendersTags.renderHelp(locals),
+  gendersTags.renderError(locals),
+  gendersTags.renderSelect(locals),
+]);
 
 // Gender factory function
 class GendersCheckboxesFactory extends t.form.Component {
@@ -930,14 +562,12 @@ GendersReactSelectFactory.transformer = t.form.List.transformer;
 
 // Prevent duplicates on profile name
 const duplicateProfileTextboxTemplate = t.form.Form.templates.textbox.clone({
-  renderVertical: (locals) => {
-    return [
-      duplicateProfileTextboxTemplate.renderLabel(locals),
-      duplicateProfileTextboxTemplate.renderHelp(locals),
-      duplicateProfileTextboxTemplate.renderError(locals),
-      duplicateProfileTextboxTemplate.renderTextbox(locals),
-    ]
-  },
+  renderVertical: (locals) => ([
+    duplicateProfileTextboxTemplate.renderLabel(locals),
+    duplicateProfileTextboxTemplate.renderHelp(locals),
+    duplicateProfileTextboxTemplate.renderError(locals),
+    duplicateProfileTextboxTemplate.renderTextbox(locals),
+  ]),
 
   renderTextbox: (locals) => {
     // @TODO: Investigate locals.path for multiple. Also something like locals.onChange({0: evt})
@@ -959,8 +589,8 @@ const duplicateProfileTextboxTemplate = t.form.Form.templates.textbox.clone({
   renderLabel: (locals) => {
     const className = {
       'control-label': true,
-      'disabled': locals.disabled,
-    }
+      disabled: locals.disabled,
+    };
     return (
       <label
         htmlFor={locals.attrs.id}
@@ -974,8 +604,8 @@ const duplicateProfileTextboxTemplate = t.form.Form.templates.textbox.clone({
   renderHelp: (locals) => {
     const className = {
       'help-block': true,
-      'disabled': locals.disabled,
-    }
+      disabled: locals.disabled,
+    };
 
     return (
       <span
@@ -997,32 +627,28 @@ export class DuplicateProfileFactory extends t.form.Textbox {
 
 // Reorder field elements
 const genericFieldTemplate = t.form.Form.templates.textbox.clone({
-  renderVertical: (locals) => {
-    return [
-      genericFieldTemplate.renderLabel(locals),
-      genericFieldTemplate.renderHelp(locals),
-      genericFieldTemplate.renderError(locals),
-      genericFieldTemplate.renderTextbox(locals),
-    ]
-  },
+  renderVertical: (locals) => ([
+    genericFieldTemplate.renderLabel(locals),
+    genericFieldTemplate.renderHelp(locals),
+    genericFieldTemplate.renderError(locals),
+    genericFieldTemplate.renderTextbox(locals),
+  ]),
 });
 
 // Get field labels to change based on disabled value
 export const disabledFieldTemplate = t.form.Form.templates.textbox.clone({
-  renderVertical: (locals) => {
-    return [
-      disabledFieldTemplate.renderLabel(locals),
-      disabledFieldTemplate.renderHelp(locals),
-      disabledFieldTemplate.renderError(locals),
-      disabledFieldTemplate.renderTextbox(locals),
-    ]
-  },
+  renderVertical: (locals) => ([
+    disabledFieldTemplate.renderLabel(locals),
+    disabledFieldTemplate.renderHelp(locals),
+    disabledFieldTemplate.renderError(locals),
+    disabledFieldTemplate.renderTextbox(locals),
+  ]),
 
   renderLabel: (locals) => {
     const className = {
       'control-label': true,
-      'disabled': locals.disabled,
-    }
+      disabled: locals.disabled,
+    };
     return (
       <label
         title="Select profile type"
@@ -1037,8 +663,8 @@ export const disabledFieldTemplate = t.form.Form.templates.textbox.clone({
   renderHelp: (locals) => {
     const className = {
       'help-block': true,
-      'disabled': locals.disabled,
-    }
+      disabled: locals.disabled,
+    };
 
     return (
       <span
@@ -1048,7 +674,7 @@ export const disabledFieldTemplate = t.form.Form.templates.textbox.clone({
         {locals.help}
       </span>
     );
-  }
+  },
 });
 
 // Get field labels to change based on disabled value
@@ -1056,8 +682,8 @@ const disabledListTemplate = t.form.Form.templates.list.clone({
   renderFieldset: (children, locals) => {
     const className = {
       'control-label': true,
-      'disabled': locals.disabled,
-    }
+      disabled: locals.disabled,
+    };
 
     const title = (locals.disabled) ? 'Select profile type' : '';
 
@@ -1070,22 +696,22 @@ const disabledListTemplate = t.form.Form.templates.list.clone({
     </label>);
 
     const props = {
-      className: classnames('form-group-depth-1', { 'disabled': locals.disabled }, locals.path),
-      disabled: locals.disabled
-    }
+      className: classnames('form-group-depth-1', { disabled: locals.disabled }, locals.path),
+      disabled: locals.disabled,
+    };
 
     return React.createElement.apply(null, [
       'fieldset',
       props,
-      legend
-    ].concat(children))
+      legend,
+    ].concat(children));
   },
 
   renderLabel: (locals) => {
     const className = {
       'control-label': true,
-      'disabled': locals.disabled,
-    }
+      disabled: locals.disabled,
+    };
 
     return (
       <label
@@ -1101,8 +727,8 @@ const disabledListTemplate = t.form.Form.templates.list.clone({
   renderHelp: (locals) => {
     const className = {
       'help-block': true,
-      'disabled': locals.disabled,
-    }
+      disabled: locals.disabled,
+    };
 
     return (
       <span
@@ -1112,43 +738,8 @@ const disabledListTemplate = t.form.Form.templates.list.clone({
         {locals.help}
       </span>
     );
-  }
+  },
 });
-
-/* Date component override */
-// For some reason the event form options are overriding this?
-// Not sure why.
-//
-// function renderDate(locals) {
-//   const onChange = (dateMoment) => {
-//     if (_.isNull(dateMoment)) {
-//       locals.onChange(null);
-//     } else {
-//       locals.onChange(dateMoment.toDate());
-//     }
-//   };
-
-//   const selected = locals.value ? moment(locals.value) : null;
-// console.log(locals.disabled);
-//   return (
-//     <DatePicker
-//       disabled={true}
-//       selected={selected}
-//       onChange={onChange}
-//       isClearable
-//     />
-//   );
-// }
-
-// const dateTemplate = t.form.Form.templates.date.clone({ renderDate });
-
-// class DatePickerFactory extends t.form.Component {
-//   getTemplate() {
-//     return dateTemplate;
-//   }
-// }
-
-// t.Date.getTcombFormFactory = () => DatePickerFactory;
 
 export const profileSchema = t.struct({
   profileType: t.maybe(t.list(t.String)),
@@ -1327,7 +918,7 @@ export const defaultFormOptions = () => ({
       help: <FormattedMessage
         id="forms.profileTypeHelpText"
         description="Help text for profile type field"
-        defaultMessage="Is this profile representing an individual or an organization? Can be both if applicable."
+        defaultMessage="Is this profile representing an individual or an organization? Can be both if applicable." // eslint-disable-line max-len
       />,
     },
     ethnicityRace: {
@@ -1344,7 +935,7 @@ export const defaultFormOptions = () => ({
           labelText: <FormattedMessage
             id="forms.profileEthnicityRaceLabel"
             description="Label for a Ethnicity/Race form field"
-            defaultMessage="If this is your profile, you may choose to display your ethnicity/race/cultural identity"
+            defaultMessage="If this is your profile, you may choose to display your ethnicity/race/cultural identity" // eslint-disable-line max-len
           />,
         }}
       />,
@@ -1535,7 +1126,7 @@ export const defaultFormOptions = () => ({
       help: <FormattedMessage
         id="forms.setPinHelpText"
         description="Help text for set pin field"
-        defaultMessage="We use the google places database to help us find locations. If the location you are searching for is not in the database don't worry! You can place the pin where you want and manually enter the address in the fields below."
+        defaultMessage="We use the google places database to help us find locations. If the location you are searching for is not in the database don't worry! You can place the pin where you want and manually enter the address in the fields below." // eslint-disable-line max-len
       />,
     },
     lon: {
@@ -1598,7 +1189,7 @@ export const defaultFormOptions = () => ({
         id="forms.phoneHelpText"
         description="Help text for phone number field"
         defaultMessage="Format: {plus}[country code] [your number]"
-        values={{ plus: "+" }}
+        values={{ plus: '+' }}
       />,
     },
     email: {
@@ -1670,7 +1261,7 @@ export const defaultFormOptions = () => ({
       help: <FormattedMessage
         id="forms.facebookHelpText"
         description="Help text for Facebook field"
-        defaultMessage="Please enter the URL for the Facebook profile for this person or organization."
+        defaultMessage="Please enter the URL for the Facebook profile for this person or organization." // eslint-disable-line max-len
       />,
     },
     twitter: {
@@ -1698,7 +1289,7 @@ export const defaultFormOptions = () => ({
       help: <FormattedMessage
         id="forms.twitterHelpText"
         description="Help text for Twitter field"
-        defaultMessage="Please enter the Twitter handle related to this profile (do NOT include the @)."
+        defaultMessage="Please enter the Twitter handle related to this profile (do NOT include the @)." // eslint-disable-line max-len
       />,
     },
     instagram: {
@@ -1726,7 +1317,7 @@ export const defaultFormOptions = () => ({
       help: <FormattedMessage
         id="forms.instagramHelpText"
         description="Help text for Instagram field"
-        defaultMessage="Please enter the Instagram account name related to this profile (do NOT include the @)."
+        defaultMessage="Please enter the Instagram account name related to this profile (do NOT include the @)." // eslint-disable-line max-len
       />,
     },
     social: {
@@ -1942,7 +1533,7 @@ export const filtersFormOptions = () => ({
         className: 'profile-search-text',
         autoComplete: 'off',
         placeholder: 'Search for profiles by name',
-      }
+      },
     },
     profileType: {
       factory: ReactSelectProfileTypeFactory,
@@ -1951,7 +1542,7 @@ export const filtersFormOptions = () => ({
         description="Label for a Profile Type form field"
         defaultMessage="What kind of profile is this?"
       />,
-      help: 'Is this profile representing an individual or an organization? Can be both if applicable.'
+      help: 'Is this profile representing an individual or an organization? Can be both if applicable.', // eslint-disable-line max-len
     },
     locality: {
       // The Factory function is applied later to allow reactive options
@@ -2122,7 +1713,7 @@ export const translateSourceFormOptions = () => ({
       help: <FormattedMessage
         id="forms.profileTypeHelpText"
         description="Help text for profile type field"
-        defaultMessage="Is this profile representing an individual or an organization? Can be both if applicable."
+        defaultMessage="Is this profile representing an individual or an organization? Can be both if applicable." // eslint-disable-line max-len
       />,
     },
     streetAddress: {
@@ -2153,12 +1744,10 @@ export const translateSourceFormOptions = () => ({
       },
     },
     lat: {
-      attrs: {
-      }
+      attrs: {},
     },
     lon: {
-      attrs: {
-      }
+      attrs: {},
     },
     agent: {
       attrs: {
@@ -2192,7 +1781,7 @@ export const translateSourceFormOptions = () => ({
       attrs: {
         className: 'profile-founding-year-edit',
       },
-      help: 'If this profile is referencing an organization, what year was it founded?'
+      help: 'If this profile is referencing an organization, what year was it founded?',
     },
     interests: {
       factory: interestsSelectFactory(),

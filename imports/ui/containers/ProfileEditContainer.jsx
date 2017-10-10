@@ -18,6 +18,7 @@ export default createContainer(({ params: { id, locale } }) => {
   const interestsSubscribe = TAPi18n.subscribe('interests.public');
   const rolesSubscribe = TAPi18n.subscribe('roles.public');
   const orgTypesSubscribe = TAPi18n.subscribe('orgTypes.public');
+  const gendersSubscribe = TAPi18n.subscribe('genders.public');
 
   GoogleMaps.load(googleParams); // eslint-disable-line no-undef
   const loading = !(
@@ -26,6 +27,7 @@ export default createContainer(({ params: { id, locale } }) => {
     interestsSubscribe.ready() &&
     rolesSubscribe.ready() &&
     orgTypesSubscribe.ready() &&
+    gendersSubscribe.ready() &&
     GoogleMaps.loaded() // eslint-disable-line no-undef
   );
 

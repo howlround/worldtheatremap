@@ -25,6 +25,10 @@ import {
   orgTypesSelectFactory,
   orgTypesCheckboxFactory,
 } from '../../api/orgTypes/orgTypes.js';
+import {
+  gendersSelectFactory,
+  gendersCheckboxFactory,
+} from '../../api/genders/genders.js';
 
 // Components
 import Checkboxes from '../../ui/components/Checkboxes.jsx';
@@ -149,187 +153,6 @@ class ReactSelectProfileTypeFactory extends t.form.Component {
 }
 // Profile type transformer
 ReactSelectProfileTypeFactory.transformer = t.form.List.transformer;
-
-// Gender options
-const Genders = [
-  {
-    value: 'Female',
-    label: <FormattedMessage
-      id="gender.Female"
-      description="Gender options: Female"
-      defaultMessage="Female"
-    />,
-  },
-  {
-    value: 'Male',
-    label: <FormattedMessage
-      id="gender.Male"
-      description="Gender options: Male"
-      defaultMessage="Male"
-    />,
-  },
-  {
-    value: 'Transgender',
-    label: <FormattedMessage
-      id="gender.Transgender"
-      description="Gender options: Transgender"
-      defaultMessage="Transgender"
-    />,
-  },
-  {
-    value: 'Another Identity',
-    label: <FormattedMessage
-      id="gender.Another Identity"
-      description="Gender options: Another Identity"
-      defaultMessage="Another Identity"
-    />,
-  },
-];
-
-// Gender template
-const gendersCheckboxes = t.form.Form.templates.select.clone({
-  renderLabel: (locals) => {
-    const className = {
-      'control-label': true,
-      disabled: locals.disabled,
-    };
-    return (
-      <label
-        title="For Individual profiles only"
-        htmlFor={locals.attrs.id}
-        className={classnames(className)}
-      >
-        {locals.label}
-      </label>
-    );
-  },
-
-  renderSelect: (locals) => (
-    <Checkboxes
-      options={Genders}
-      values={locals.value}
-      name="gender"
-      onChange={locals.onChange}
-      disabled={locals.disabled}
-    />
-  ),
-
-  renderHelp: (locals) => {
-    const className = {
-      'help-block': true,
-      disabled: locals.disabled,
-    };
-
-    return (
-      <span
-        id={`${locals.attrs.id}-tip`}
-        className={classnames(className)}
-      >
-        {locals.help}
-      </span>
-    );
-  },
-});
-
-gendersCheckboxes.renderVertical = (locals) => ([
-  gendersCheckboxes.renderLabel(locals),
-  gendersCheckboxes.renderHelp(locals),
-  gendersCheckboxes.renderError(locals),
-  gendersCheckboxes.renderSelect(locals),
-]);
-
-// Gender template
-const gendersTags = t.form.Form.templates.select.clone({
-  renderLabel: (locals) => {
-    const className = {
-      'control-label': true,
-      disabled: locals.disabled,
-    };
-    return (
-      <label
-        title="For Individual profiles only"
-        htmlFor={locals.attrs.id}
-        className={classnames(className)}
-      >
-        {locals.label}
-      </label>
-    );
-  },
-
-  renderSelect: (locals) => {
-    // @TODO: If we don't have custom values this isn't necessary
-    // const reformattedValues = _.map(locals.value, value => ({ value, label: value }));
-    // // _.union allows repeat arrays but ReactSelect/Creatable handles it properly anyway
-    // const includeCustomValues = _.union(reformattedValues, Genders);
-    function onChange(options) {
-      const values = (options || []).map(({ value }) => value);
-      locals.onChange(values);
-    }
-
-    const placeholder = (
-      <FormattedMessage
-        id="forms.selectPlaceholder"
-        description="Select widget placeholder"
-        defaultMessage="Select..."
-      />
-    );
-
-    return (
-      <ReactSelect
-        multi
-        autoBlur
-        disabled={locals.disabled}
-        options={Genders}
-        value={locals.value}
-        onChange={onChange}
-        className="profile-gender-edit"
-        placeholder={placeholder}
-      />
-    );
-  },
-
-  renderHelp: (locals) => {
-    const className = {
-      'help-block': true,
-      disabled: locals.disabled,
-    };
-
-    return (
-      <span
-        id={`${locals.attrs.id}-tip`}
-        className={classnames(className)}
-      >
-        {locals.help}
-      </span>
-    );
-  },
-});
-
-gendersTags.renderVertical = (locals) => ([
-  gendersTags.renderLabel(locals),
-  gendersTags.renderHelp(locals),
-  gendersTags.renderError(locals),
-  gendersTags.renderSelect(locals),
-]);
-
-// Gender factory function
-class GendersCheckboxesFactory extends t.form.Component {
-  getTemplate() {
-    return gendersCheckboxes;
-  }
-}
-
-
-// Gender factory function
-class GendersReactSelectFactory extends t.form.Component {
-  getTemplate() {
-    return gendersTags;
-  }
-}
-
-// Gender transformer
-GendersCheckboxesFactory.transformer = t.form.List.transformer;
-GendersReactSelectFactory.transformer = t.form.List.transformer;
 
 // Prevent duplicates on profile name
 const duplicateProfileTextboxTemplate = t.form.Form.templates.textbox.clone({
@@ -1232,7 +1055,7 @@ export const defaultFormOptions = () => ({
         description="Help text for demographic form fields instructing the user not to guess"
         defaultMessage="We encourage you not to guess. If you are not sure, leave these blank."
       />,
-      factory: GendersCheckboxesFactory,
+      factory: gendersCheckboxFactory(),
     },
     genderOther: {
       template: disabledListTemplate,
@@ -1397,7 +1220,7 @@ export const filtersFormOptions = () => ({
         description="Label for the Gender form field"
         defaultMessage="Gender"
       />,
-      factory: GendersReactSelectFactory,
+      factory: gendersSelectFactory(),
     },
     startDate: {
       label: <FormattedMessage
@@ -1567,7 +1390,7 @@ export const translateSourceFormOptions = () => ({
       disabled: true,
     },
     gender: {
-      factory: GendersReactSelectFactory,
+      factory: gendersSelectFactory(),
       disabled: true,
     },
   },

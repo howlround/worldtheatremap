@@ -76,3 +76,6 @@ import '../../api/selfDefinedRoles/server/publications.js';
 
 // Org Types
 import '../../api/orgTypes/server/publications.js';
+
+// Genders
+import '../../api/genders/server/publications.js';

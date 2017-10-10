@@ -24,11 +24,12 @@ TAPi18n.publish('profiles.autocompleteQuery', function profilesAutocompleteQuery
 
   switch (limitKey) {
     case 'networks':
-      query.orgTypes = { $in: [ 'Network / Association / Union' ] };
+      query.orgTypes = { $in: ['Network / Association / Union'] };
       break;
     case 'notFestivals':
       query.profileType = { $ne: 'Festival' };
       break;
+    default:
   }
 
   return Profiles.i18nFind(query, {
@@ -41,11 +42,13 @@ TAPi18n.publish('profiles.search', function profilesSearch(plainTextQuery, skip,
   const processedQuery = _.clone(plainTextQuery);
 
   if (plainTextQuery.name) {
+    const nameRegEx = escapeRegExp(removeDiacritics(plainTextQuery.name)).toUpperCase();
+
     if (!_.isEmpty(locale) && locale !== 'en') {
       const i18nKey = `i18n.${locale}.nameSearch`;
-      processedQuery[i18nKey] = new RegExp(`.*${escapeRegExp(removeDiacritics(plainTextQuery.name)).toUpperCase()}.*`);
+      processedQuery[i18nKey] = new RegExp(`.*${nameRegEx}.*`);
     } else {
-      processedQuery.nameSearch = new RegExp(`.*${escapeRegExp(removeDiacritics(plainTextQuery.name)).toUpperCase()}.*`);
+      processedQuery.nameSearch = new RegExp(`.*${nameRegEx}.*`);
     }
 
     delete processedQuery.name;

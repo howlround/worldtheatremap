@@ -30,9 +30,6 @@ import {
   gendersCheckboxFactory,
 } from '../../api/genders/genders.js';
 
-// Components
-import Checkboxes from '../../ui/components/Checkboxes.jsx';
-
 // Containers
 import DuplicateProfileTextboxContainer from '../../ui/containers/DuplicateProfileTextboxContainer.jsx'; // eslint-disable-line max-len
 
@@ -417,11 +414,6 @@ export const profileFestivalsFiltersSchema = t.struct({
   locality: t.maybe(t.String), // City
   administrativeArea: t.maybe(t.String), // Province, Region, State
   country: t.maybe(t.String),
-});
-
-export const translateFormSchema = t.struct({
-  name: t.String, // Required,
-  about: t.String,
 });
 
 export const defaultFormOptions = () => ({
@@ -1275,123 +1267,6 @@ export const filtersFormOptions = () => ({
       attrs: {
         className: 'event-end-date-edit',
       },
-    },
-  },
-});
-
-
-export const translateSourceFormOptions = () => ({
-  disabled: true,
-  fields: {
-    name: {
-      label: 'Profile name (required)',
-      attrs: {
-        className: 'profile-name-edit',
-      },
-      error: <FormattedMessage
-        id="forms.profileNameError"
-        description="Error for a Profile name form field"
-        defaultMessage="Name is required"
-      />,
-    },
-    about: {
-      type: 'textarea',
-      attrs: {
-        rows: '10',
-        className: 'profile-about-edit',
-      },
-    },
-    profileType: {
-      factory: ReactSelectProfileTypeFactory,
-      disabled: true,
-      help: <FormattedMessage
-        id="forms.profileTypeHelpText"
-        description="Help text for profile type field"
-        defaultMessage="Is this profile representing an individual or an organization? Can be both if applicable." // eslint-disable-line max-len
-      />,
-    },
-    streetAddress: {
-      attrs: {
-        className: 'profile-street-address-edit',
-      },
-    },
-    locality: {
-      label: 'City (optional)',
-      attrs: {
-        className: 'profile-locality-edit',
-      },
-    },
-    administrativeArea: {
-      label: 'Province, Region, or State (optional)',
-      attrs: {
-        className: 'profile-administrative-area-edit',
-      },
-    },
-    country: {
-      // Imported factories need to be called as functions
-      // factory: allCountriesFactory(),
-      disabled: true,
-    },
-    postalCode: {
-      attrs: {
-        className: 'profile-postal-code-edit',
-      },
-    },
-    lat: {
-      attrs: {},
-    },
-    lon: {
-      attrs: {},
-    },
-    agent: {
-      attrs: {
-        className: 'profile-agent-edit',
-      },
-    },
-    phone: {
-      attrs: {
-        className: 'profile-phone-edit',
-      },
-    },
-    email: {
-      attrs: {
-        className: 'profile-email-edit',
-      },
-    },
-    website: {
-      attrs: {
-        className: 'profile-website-edit',
-      },
-    },
-    social: {
-      type: 'textarea',
-      attrs: {
-        rows: '10',
-        className: 'profile-social-edit',
-      },
-      help: 'Add a label and a link. Put each link on a new line. For example: Facebook: https://www.facebook.com/myprofile',
-    },
-    foundingYear: {
-      attrs: {
-        className: 'profile-founding-year-edit',
-      },
-      help: 'If this profile is referencing an organization, what year was it founded?',
-    },
-    interests: {
-      factory: interestsSelectFactory(),
-      disabled: true,
-    },
-    orgTypes: {
-      factory: orgTypesSelectFactory(),
-      disabled: true,
-    },
-    selfDefinedRoles: {
-      factory: rolesSelectFactory(),
-      disabled: true,
-    },
-    gender: {
-      factory: gendersSelectFactory(),
-      disabled: true,
     },
   },
 });

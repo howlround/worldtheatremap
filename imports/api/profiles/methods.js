@@ -1,11 +1,16 @@
+/* eslint-disable new-cap */
 import { Meteor } from 'meteor/meteor';
-import { ValidatedMethod } from 'meteor/mdg:validated-method';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
-import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
-import { _ } from 'meteor/underscore';
+
+// Utilities
 import t from 'tcomb-validation';
-import { check } from 'meteor/check';
+import { _ } from 'meteor/underscore';
+import { check, Match } from 'meteor/check';
+import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
+import { HTTP } from 'meteor/http';
 import { remove as removeDiacritics } from 'diacritics';
+import { Roles } from 'meteor/alanning:roles';
+import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import { ValidatedMethod, ValidationError } from 'meteor/mdg:validated-method';
 
 // API
 import { Profiles, profileSchema } from './profiles.js';
@@ -46,7 +51,7 @@ export const insert = new ValidatedMethod({
     if (!_.isEmpty(newProfile.ethnicityRace)) {
       _.each(newProfile.ethnicityRace, ethnicity => {
         upsertEthnicity.call({ ethnicity });
-      })
+      });
     }
     if (!_.isEmpty(newProfile.administrativeArea)) {
       upsertAdministrativeArea.call({ administrativeArea: newProfile.administrativeArea });
@@ -56,10 +61,11 @@ export const insert = new ValidatedMethod({
     }
 
     // Record that this user added new content
-    Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentAddedCount": 1 } });
+    Meteor.users.update(Meteor.userId(), { $inc: { 'profile.contentAddedCount': 1 } });
 
     // The permutations of viewing language and target language:
-    // (After doing this we will conflate "Viewing in" and "Target" for now. They can be split apart later if required.)
+    // (After doing this we will conflate "Viewing in" and "Target" for now.
+    // They can be split apart later if required.)
     // [Viewing: Spanish + ]Target: Spanish
     //  - Save name, and all tags, and image to english; everything minus tags to spanish
     // [Viewing: Spanish + ]Target: English
@@ -70,15 +76,16 @@ export const insert = new ValidatedMethod({
     //  - Save name, and all tags, and image to english; everything minus tags to spanish
 
     // Base doc is always english
-    let baseDoc = _.clone(newProfile);
-    let translations = {};
+    const baseDoc = _.clone(newProfile);
+    const translations = {};
 
     if (locale && locale === 'es') {
       // @TODO: Refactor translations to be a translations object keyed by locale ("source")
       source = 'es';
       target = 'en';
 
-      // Translated doc is always spanish even when adding in spanish (due to Profiles.insertTranslations())
+      // Translated doc is always spanish even when adding in spanish
+      // (due to Profiles.insertTranslations())
       // Some values should only be saved on base doc to keep consistancy
       translations[locale] = {
         name: baseDoc.name,
@@ -88,10 +95,10 @@ export const insert = new ValidatedMethod({
     } else {
       // Target language is English, either by default or specifically stated
       // Therefore we have no spanish content
-      translations['es'] = {
+      translations.es = {
         name: newProfile.name,
-        nameSearch: removeDiacritics(baseDoc.name).toUpperCase()
-      }
+        nameSearch: removeDiacritics(baseDoc.name).toUpperCase(),
+      };
     }
 
     baseDoc.howlroundPostSearchText = newProfile.name;
@@ -119,20 +126,19 @@ export const insert = new ValidatedMethod({
 
     // Translate about field
     if (newProfile.about && Meteor.settings.GoogleTranslateAPIKey) {
-      var result = HTTP.call('GET', 'https://www.googleapis.com/language/translate/v2', {
+      HTTP.call('GET', 'https://www.googleapis.com/language/translate/v2', {
         params: {
           key: Meteor.settings.GoogleTranslateAPIKey,
           q: newProfile.about,
           source,
           target,
-        }
+        },
       },
       (error, result) => {
-        if (result.statusCode == 200) {
+        if (result.statusCode === 200) {
           const translatedText = result.data.data.translations[0].translatedText;
 
           Meteor.call('profiles.updateTranslation', {
-            locale,
             insertedProfileID,
             translatedDoc: {
               [target]: {
@@ -155,15 +161,18 @@ export const insert = new ValidatedMethod({
 export const updateTranslation = new ValidatedMethod({
   name: 'profiles.updateTranslation',
   validate({ translatedDoc }) {
-    var patternES = { es: { about: Match.Maybe(String) } };
-    var patternEN = { en: { about: Match.Maybe(String) } };
-    var patternBoth = {
+    const patternES = { es: { about: Match.Maybe(String) } };
+    const patternEN = { en: { about: Match.Maybe(String) } };
+    const patternBoth = {
       en: { about: Match.Maybe(String) },
-      es: { about: Match.Maybe(String) }
+      es: { about: Match.Maybe(String) },
     };
-    check(translatedDoc, Match.OneOf(patternEN, patternES, patternBoth));
+    check(
+      translatedDoc,
+      Match.OneOf(patternEN, patternES, patternBoth)
+    );
   },
-  run({ insertedProfileID, translatedDoc, locale }) {
+  run({ insertedProfileID, translatedDoc }) {
     if (!this.userId) {
       throw new Meteor.Error('profiles.updateTranslation.accessDenied',
         'You must be logged in to complete this operation.');
@@ -189,7 +198,7 @@ export const updateImage = new ValidatedMethod({
     const imageWide = image.replace(`https://${Meteor.settings.AWSSourceBucket}`, `https://${Meteor.settings.AWSTargetBucket}`);
 
     // Record that this user edited content
-    Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentEditedCount": 1 } });
+    Meteor.users.update(Meteor.userId(), { $inc: { 'profile.contentEditedCount': 1 } });
 
     Profiles.update(profile._id, {
       $set: {
@@ -218,7 +227,7 @@ export const update = new ValidatedMethod({
     }
 
     let source = 'en';
-    let target = 'es';
+    // let target = 'es'; // Target isn't used in update
 
     if (!_.isEmpty(newProfile.locality)) {
       upsertLocality.call({ locality: newProfile.locality });
@@ -226,7 +235,7 @@ export const update = new ValidatedMethod({
     if (!_.isEmpty(newProfile.ethnicityRace)) {
       _.each(newProfile.ethnicityRace, ethnicity => {
         upsertEthnicity.call({ ethnicity });
-      })
+      });
     }
     if (!_.isEmpty(newProfile.administrativeArea)) {
       upsertAdministrativeArea.call({ administrativeArea: newProfile.administrativeArea });
@@ -236,10 +245,11 @@ export const update = new ValidatedMethod({
     }
 
     // Record that this user added new content
-    Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentAddedCount": 1 } });
+    Meteor.users.update(Meteor.userId(), { $inc: { 'profile.contentAddedCount': 1 } });
 
     // The permutations of viewing language and target language:
-    // (After doing this we will conflate "Viewing in" and "Target" for now. They can be split apart later if required.)
+    // (After doing this we will conflate "Viewing in" and "Target" for now.
+    // They can be split apart later if required.)
     // [Viewing: Spanish + ]Target: Spanish
     //  - Save name, and all tags, and image to english; everything minus tags to spanish
     // [Viewing: Spanish + ]Target: English
@@ -250,15 +260,16 @@ export const update = new ValidatedMethod({
     //  - Save name, and all tags, and image to english; everything minus tags to spanish
 
     // Base doc is always english
-    let baseDoc = _.clone(newProfile);
-    let translations = {};
+    const baseDoc = _.clone(newProfile);
+    const translations = {};
 
     if (locale && locale === 'es') {
       // @TODO: Refactor translations to be a translations object keyed by locale ("source")
       source = 'es';
-      target = 'en';
+      // target = 'en'; // target isn't used in update
 
-      // Translated doc is always spanish even when adding in spanish (due to Profiles.insertTranslations())
+      // Translated doc is always spanish even when adding in spanish
+      // (due to Profiles.insertTranslations())
       // Some values should only be saved on base doc to keep consistancy
       translations[source] = {
         name: baseDoc.name,
@@ -308,32 +319,11 @@ export const update = new ValidatedMethod({
     doc.en = baseDoc;
 
     // Record that this user added new content
-    Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentEditedCount": 1 } });
+    Meteor.users.update(Meteor.userId(), { $inc: { 'profile.contentEditedCount': 1 } });
 
     Profiles.updateTranslations(profileId, doc);
 
     // @TODO: Update the user record for this.userId and increment the contentEdited field
-  },
-});
-
-export const translate = new ValidatedMethod({
-  name: 'profiles.translate',
-  validate({ newProfile }) {
-    const result = t.validate(newProfile, profileSchema);
-
-    if (!result.isValid()) {
-      throw new ValidationError(result.firstError());
-    }
-  },
-  run({ profileId, locale, newProfile }) {
-    if (!this.userId) {
-      throw new Meteor.Error('profiles.translate.accessDenied',
-        'You must be logged in to complete this operation.');
-    }
-
-    Profiles.updateTranslations(profileId, {
-      es: newProfile,
-    });
   },
 });
 
@@ -347,7 +337,7 @@ export const requestRemoval = new ValidatedMethod({
     }
 
     // Record that this user edit content
-    Meteor.users.update(this.userId, { $inc: { "profile.contentEditedCount": 1 } });
+    Meteor.users.update(this.userId, { $inc: { 'profile.contentEditedCount': 1 } });
 
     Profiles.update(profileId, {
       $set: {
@@ -392,7 +382,6 @@ const PROFILES_METHODS = _.pluck([
   insert,
   updateTranslation,
   update,
-  translate,
   requestRemoval,
   denyRemoval,
   remove,

@@ -27,19 +27,29 @@ AWS.config.region = Meteor.settings.AWSRegion;
 import { Profiles } from '../profiles.js';
 import ProfileAllFields from '../../../ui/components/ProfileAllFields.jsx';
 
+// Helper function to compare previous and current versions
+const compareDocuments = (a, b) => (
+  reduce(a, (result, value, key) => {
+    // return isEqual(value, b[key]) ? result : result.concat(key);
+    const comparison = isEqual(value, b[key]) ? result : result.concat(key);
+    // console.log(comparison);
+    return comparison;
+  }, [])
+);
+
 // Insert
-Profiles.after.insert(function(userId, doc) {
+Profiles.after.insert((userId, doc) => {
   if (Meteor.isServer && Meteor.settings.SendContentNotifications) {
     AWS.config.credentials.get((err) => {
       // attach event listener
       if (err) {
-        console.error('Error retrieving AWS credentials.');
-        console.error(err);
+        console.error('Error retrieving AWS credentials.'); // eslint-disable-line no-console
+        console.error(err); // eslint-disable-line no-console
         return;
       }
       // create kinesis service object
-      var kinesis = new AWS.Kinesis({
-        apiVersion: '2013-12-02'
+      const kinesis = new AWS.Kinesis({
+        apiVersion: '2013-12-02',
       });
 
       const omitFields = [
@@ -56,7 +66,8 @@ Profiles.after.insert(function(userId, doc) {
       });
 
       if (!isEmpty(releventChanges)) {
-        const Subject = `"${doc.name}" has been created by ${Meteor.users.findOne(userId).emails[0].address}`;
+        const userEmail = Meteor.users.findOne(userId).emails[0].address;
+        const Subject = `"${doc.name}" has been created by ${userEmail}`;
         let HtmlBody = '';
         let TextBody = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });
@@ -65,9 +76,11 @@ Profiles.after.insert(function(userId, doc) {
         const url = `${baseUrl}profiles/${doc._id}`;
         HtmlBody += `<div>Profile: <a href="${url}">${url}</a></div>`;
 
-        const markup = <IntlProvider>
-          <ProfileAllFields profile={doc} />
-        </IntlProvider>;
+        const markup = (
+          <IntlProvider>
+            <ProfileAllFields profile={doc} />
+          </IntlProvider>
+        );
         HtmlBody += ReactDOMServer.renderToString(markup);
 
         // Plain text
@@ -79,19 +92,22 @@ Profiles.after.insert(function(userId, doc) {
           TextBody,
           Subject,
           _id: doc._id,
-        }
+        };
 
         const params = {
-          Records: [ //required
+          Records: [ // required
             {
               Data: Buffer.from(JSON.stringify(payload)), // required
               PartitionKey: 'shardId-000000000000', // required
             },
           ],
-          StreamName: 'wtm-notifications-pipeline-WtmChangesStream-1XJYCTSGQ9TK4' // required
+          StreamName: 'wtm-notifications-pipeline-WtmChangesStream-1XJYCTSGQ9TK4', // required
         };
-        kinesis.putRecords(params, function(err, data) {
-          if (err) console.log(err, err.stack); // an error occurred
+        kinesis.putRecords(params, kinesisErr => {
+          if (kinesisErr) {
+            // an error occurred
+            console.log(kinesisErr, kinesisErr.stack); // eslint-disable-line no-console
+          }
           // else     console.log(data);           // successful response
         });
       }
@@ -100,21 +116,21 @@ Profiles.after.insert(function(userId, doc) {
 });
 
 // Update
-Profiles.after.update(function(userId, doc, fieldNames, modifier, options) {
+Profiles.after.update((userId, doc) => {
   if (Meteor.isServer && Meteor.settings.SendContentNotifications) {
     AWS.config.credentials.get((err) => {
       // attach event listener
       if (err) {
-        console.error('Error retrieving AWS credentials.');
-        console.error(err);
+        console.error('Error retrieving AWS credentials.'); // eslint-disable-line no-console
+        console.error(err); // eslint-disable-line no-console
         return;
       }
       // create kinesis service object
-      var kinesis = new AWS.Kinesis({
-        apiVersion: '2013-12-02'
+      const kinesis = new AWS.Kinesis({
+        apiVersion: '2013-12-02',
       });
 
-      // Refactor this to use fieldNames also
+      // Refactor this to use fieldNames also (optional third argument to the update hook)
       const changedKeys = compareDocuments(doc, this.previous);
 
       const omitFields = [
@@ -135,13 +151,21 @@ Profiles.after.update(function(userId, doc, fieldNames, modifier, options) {
           const localeChangedKeys = compareDocuments(doc.i18n[locale], this.previous.i18n[locale]);
           const releventlocaleChangedKeys = pullAll(localeChangedKeys, omitFields);
 
-          releventChangesOrig.i18n[locale] = pick(releventChangesOrig.i18n[locale], releventlocaleChangedKeys);
-          releventChanges.i18n[locale] = pick(releventChanges.i18n[locale], releventlocaleChangedKeys);
+          releventChangesOrig.i18n[locale] = pick(
+            releventChangesOrig.i18n[locale],
+            releventlocaleChangedKeys
+          );
+
+          releventChanges.i18n[locale] = pick(
+            releventChanges.i18n[locale],
+            releventlocaleChangedKeys
+          );
         });
       }
 
       if (!isEmpty(releventChanges)) {
-        const Subject = `"${doc.name}" has been updated by ${Meteor.users.findOne(userId).emails[0].address}`;
+        const userEmail = Meteor.users.findOne(userId).emails[0].address;
+        const Subject = `"${doc.name}" has been updated by ${userEmail}`;
         let HtmlBody = '';
         let TextBody = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });
@@ -150,15 +174,21 @@ Profiles.after.update(function(userId, doc, fieldNames, modifier, options) {
         const url = `${baseUrl}profiles/${doc._id}`;
         HtmlBody += `<div>Profile: <a href="${url}">${url}</a></div>`;
 
-        const releventChangesMarkup = <IntlProvider>
-          <ProfileAllFields profile={releventChanges} />
-        </IntlProvider>;
-        HtmlBody += `<h1>These are the new changes to the page:</h1>\n${ReactDOMServer.renderToString(releventChangesMarkup)}\n`;
+        const releventChangesMarkup = (
+          <IntlProvider>
+            <ProfileAllFields profile={releventChanges} />
+          </IntlProvider>
+        );
+        const releventChangesRender = ReactDOMServer.renderToString(releventChangesMarkup);
+        HtmlBody += `<h1>These are the new changes to the page:</h1>\n${releventChangesRender}\n`;
 
-        const releventChangesOrigMarkup = <IntlProvider>
-          <ProfileAllFields profile={releventChangesOrig} />
-        </IntlProvider>;
-        HtmlBody += `<h1>This was the previous version:</h1>\n${ReactDOMServer.renderToString(releventChangesOrigMarkup)}\n`;
+        const releventChangesOrigMarkup = (
+          <IntlProvider>
+            <ProfileAllFields profile={releventChangesOrig} />
+          </IntlProvider>
+        );
+        const releventChangesOrigRender = ReactDOMServer.renderToString(releventChangesOrigMarkup);
+        HtmlBody += `<h1>This was the previous version:</h1>\n${releventChangesOrigRender}\n`;
 
         // Plain text
         TextBody += `Profile: ${baseUrl}profiles/${doc._id}\n\n`;
@@ -171,19 +201,22 @@ Profiles.after.update(function(userId, doc, fieldNames, modifier, options) {
           TextBody,
           Subject,
           _id: doc._id,
-        }
+        };
 
         const params = {
-          Records: [ //required
+          Records: [ // required
             {
               Data: Buffer.from(JSON.stringify(payload)), // required
               PartitionKey: 'shardId-000000000000', // required
             },
           ],
-          StreamName: 'wtm-notifications-pipeline-WtmChangesStream-1XJYCTSGQ9TK4' // required
+          StreamName: 'wtm-notifications-pipeline-WtmChangesStream-1XJYCTSGQ9TK4', // required
         };
-        kinesis.putRecords(params, function(err, data) {
-          if (err) console.log(err, err.stack); // an error occurred
+        kinesis.putRecords(params, kinesisErr => {
+          // an error occurred
+          if (kinesisErr) {
+            console.log(kinesisErr, kinesisErr.stack); // eslint-disable-line no-console
+          }
           // else     console.log(data);           // successful response
         });
       }
@@ -192,18 +225,18 @@ Profiles.after.update(function(userId, doc, fieldNames, modifier, options) {
 });
 
 // Remove
-Profiles.after.remove(function(userId, doc) {
+Profiles.after.remove((userId, doc) => {
   if (Meteor.isServer && Meteor.settings.SendContentNotifications) {
     AWS.config.credentials.get((err) => {
       // attach event listener
       if (err) {
-        console.error('Error retrieving AWS credentials.');
-        console.error(err);
+        console.error('Error retrieving AWS credentials.'); // eslint-disable-line no-console
+        console.error(err); // eslint-disable-line no-console
         return;
       }
       // create kinesis service object
-      var kinesis = new AWS.Kinesis({
-        apiVersion: '2013-12-02'
+      const kinesis = new AWS.Kinesis({
+        apiVersion: '2013-12-02',
       });
 
       const omitFields = [
@@ -220,7 +253,7 @@ Profiles.after.remove(function(userId, doc) {
       });
 
       if (!isEmpty(releventChanges)) {
-        const Subject = `"${doc.name}" has been deleted by ${Meteor.users.findOne(userId).emails[0].address}`;
+        const Subject = `"${doc.name}" has been deleted by ${Meteor.users.findOne(userId).emails[0].address}`; // eslint-disable-line max-len
         let HtmlBody = '';
         let TextBody = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });
@@ -229,9 +262,11 @@ Profiles.after.remove(function(userId, doc) {
         const url = `${baseUrl}profiles/${doc._id}`;
         HtmlBody += `<div>Profile: <a href="${url}">${url}</a></div>`;
 
-        const markup = <IntlProvider>
-          <ProfileAllFields profile={doc} />
-        </IntlProvider>;
+        const markup = (
+          <IntlProvider>
+            <ProfileAllFields profile={doc} />
+          </IntlProvider>
+        );
         HtmlBody += ReactDOMServer.renderToString(markup);
 
         // Plain text
@@ -243,31 +278,24 @@ Profiles.after.remove(function(userId, doc) {
           TextBody,
           Subject,
           _id: doc._id,
-        }
+        };
 
         const params = {
-          Records: [ //required
+          Records: [ // required
             {
               Data: Buffer.from(JSON.stringify(payload)), // required
               PartitionKey: 'shardId-000000000000', // required
             },
           ],
-          StreamName: 'wtm-notifications-pipeline-WtmChangesStream-1XJYCTSGQ9TK4' // required
+          StreamName: 'wtm-notifications-pipeline-WtmChangesStream-1XJYCTSGQ9TK4', // required
         };
-        kinesis.putRecords(params, function(err, data) {
-          if (err) console.log(err, err.stack); // an error occurred
+        kinesis.putRecords(params, (kinesisErr) => {
+          if (kinesisErr) {
+            console.log(kinesisErr, kinesisErr.stack); // eslint-disable-line no-console
+          }
           // else     console.log(data);           // successful response
         });
       }
     });
   }
 });
-
-const compareDocuments = function(a, b) {
-  return reduce(a, function(result, value, key) {
-    // return isEqual(value, b[key]) ? result : result.concat(key);
-    const comparison = isEqual(value, b[key]) ? result : result.concat(key);
-    // console.log(comparison);
-    return comparison;
-  }, []);
-}

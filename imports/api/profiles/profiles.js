@@ -21,6 +21,10 @@ import {
   rolesSelectFactory,
   rolesCheckboxFactory,
 } from '../../api/selfDefinedRoles/selfDefinedRoles.js';
+import {
+  orgTypesSelectFactory,
+  orgTypesCheckboxFactory,
+} from '../../api/orgTypes/orgTypes.js';
 
 // Components
 import Checkboxes from '../../ui/components/Checkboxes.jsx';
@@ -145,239 +149,6 @@ class ReactSelectProfileTypeFactory extends t.form.Component {
 }
 // Profile type transformer
 ReactSelectProfileTypeFactory.transformer = t.form.List.transformer;
-
-// orgTypes options
-const OrgTypes = [
-  {
-    value: 'Cultural / Sociocultural Service',
-    label: <FormattedMessage
-      id="orgType.Cultural / Sociocultural Service"
-      description="Org Types: Cultural / Sociocultural Service"
-      defaultMessage="Cultural / Sociocultural Service"
-    />,
-  },
-  {
-    value: 'Development / Residency Organization',
-    label: <FormattedMessage
-      id="orgType.Development / Residency Organization"
-      description="Org Types: Development / Residency Organization"
-      defaultMessage="Development / Residency Organization"
-    />,
-  },
-  {
-    value: 'Festival',
-    label: <FormattedMessage
-      id="orgType.Festival"
-      description="Org Types: Festival"
-      defaultMessage="Festival"
-    />,
-  },
-  {
-    value: 'Funder / Supporting Institution',
-    label: <FormattedMessage
-      id="orgType.Funder / Supporting Institution"
-      description="Org Types: Funder / Supporting Institution"
-      defaultMessage="Funder / Supporting Institution"
-    />,
-  },
-  {
-    value: 'Network / Association / Union',
-    label: <FormattedMessage
-      id="orgType.Network / Association / Union"
-      description="Org Types: Network / Association / Union"
-      defaultMessage="Network / Association / Union"
-    />,
-  },
-  {
-    value: 'Performing Company / Ensemble',
-    label: <FormattedMessage
-      id="orgType.Performing Company / Ensemble"
-      description="Org Types: Performing Company / Ensemble"
-      defaultMessage="Performing Company / Ensemble"
-    />,
-  },
-  {
-    value: 'Producer / Presenter',
-    label: <FormattedMessage
-      id="orgType.Producer / Presenter"
-      description="Org Types: Producer / Presenter"
-      defaultMessage="Producer / Presenter"
-    />,
-  },
-  {
-    value: 'Resource Centre',
-    label: <FormattedMessage
-      id="orgType.Resource Centre"
-      description="Org Types: Resource Centre"
-      defaultMessage="Resource Centre"
-    />,
-  },
-  {
-    value: 'School / University / Training Organization',
-    label: <FormattedMessage
-      id="orgType.School / University / Training Organization"
-      description="Org Types: School / University / Training Organization"
-      defaultMessage="School / University / Training Organization"
-    />,
-  },
-  {
-    value: 'Venue',
-    label: <FormattedMessage
-      id="orgType.Venue"
-      description="Org Types: Venue"
-      defaultMessage="Venue"
-    />,
-  },
-  {
-    value: 'Other',
-    label: <FormattedMessage
-      id="orgType.Other"
-      description="Org Types: Other"
-      defaultMessage="Other"
-    />,
-  },
-];
-
-// orgTypes template
-const orgTypesCheckboxes = t.form.Form.templates.select.clone({
-  renderLabel: (locals) => {
-    const className = {
-      'control-label': true,
-      disabled: locals.disabled,
-    };
-    return (
-      <label
-        title="For Organizational profiles only"
-        htmlFor={locals.attrs.id}
-        className={classnames(className)}
-      >
-        {locals.label}
-      </label>
-    );
-  },
-
-  renderSelect: (locals) => (
-    <Checkboxes
-      options={OrgTypes}
-      values={locals.value}
-      name="organization-types"
-      onChange={locals.onChange}
-      disabled={locals.disabled}
-    />
-  ),
-
-  renderHelp: (locals) => {
-    const className = {
-      'help-block': true,
-      disabled: locals.disabled,
-    };
-
-    return (
-      <span
-        id={`${locals.attrs.id}-tip`}
-        className={classnames(className)}
-      >
-        {locals.help}
-      </span>
-    );
-  },
-});
-
-orgTypesCheckboxes.renderVertical = (locals) => ([
-  orgTypesCheckboxes.renderLabel(locals),
-  orgTypesCheckboxes.renderHelp(locals),
-  orgTypesCheckboxes.renderError(locals),
-  orgTypesCheckboxes.renderSelect(locals),
-]);
-
-// orgTypes template
-const orgTypesTags = t.form.Form.templates.select.clone({
-  renderLabel: (locals) => {
-    const className = {
-      'control-label': true,
-      disabled: locals.disabled,
-    };
-    return (
-      <label
-        title="For Organizational profiles only"
-        htmlFor={locals.attrs.id}
-        className={classnames(className)}
-      >
-        {locals.label}
-      </label>
-    );
-  },
-
-  renderSelect: (locals) => {
-    function onChange(options) {
-      const values = (options || []).map(({ value }) => value);
-      locals.onChange(values);
-    }
-
-    const placeholder = (
-      <FormattedMessage
-        id="forms.selectPlaceholder"
-        description="Select widget placeholder"
-        defaultMessage="Select..."
-      />
-    );
-
-    return (
-      <ReactSelect
-        multi
-        autoBlur
-        disabled={locals.disabled}
-        options={OrgTypes}
-        value={locals.value}
-        onChange={onChange}
-        className="profile-organization-types-edit"
-        placeholder={placeholder}
-      />
-    );
-  },
-
-  renderHelp: (locals) => {
-    const className = {
-      'help-block': true,
-      disabled: locals.disabled,
-    };
-
-    return (
-      <span
-        id={`${locals.attrs.id}-tip`}
-        className={classnames(className)}
-      >
-        {locals.help}
-      </span>
-    );
-  },
-});
-
-orgTypesTags.renderVertical = (locals) => ([
-  orgTypesTags.renderLabel(locals),
-  orgTypesTags.renderHelp(locals),
-  orgTypesTags.renderError(locals),
-  orgTypesTags.renderSelect(locals),
-]);
-
-// orgTypes factory function
-class OrgTypesCheckboxesFactory extends t.form.Component {
-  getTemplate() {
-    return orgTypesCheckboxes;
-  }
-}
-
-// orgTypes factory function
-class OrgTypesReactSelectFactory extends t.form.Component {
-  getTemplate() {
-    return orgTypesTags;
-  }
-}
-
-// orgTypes transformer
-OrgTypesCheckboxesFactory.transformer = t.form.List.transformer;
-OrgTypesReactSelectFactory.transformer = t.form.List.transformer;
-
 
 // Gender options
 const Genders = [
@@ -1416,7 +1187,7 @@ export const defaultFormOptions = () => ({
           />,
         }}
       />,
-      factory: OrgTypesCheckboxesFactory,
+      factory: orgTypesCheckboxFactory(),
     },
     selfDefinedRoles: {
       label: <FormattedMessage
@@ -1601,7 +1372,7 @@ export const filtersFormOptions = () => ({
         description="Label for an Organization Type form field"
         defaultMessage="What kind of organization is this?"
       />,
-      factory: OrgTypesReactSelectFactory,
+      factory: orgTypesSelectFactory(),
     },
     selfDefinedRoles: {
       label: <FormattedMessage
@@ -1788,7 +1559,7 @@ export const translateSourceFormOptions = () => ({
       disabled: true,
     },
     orgTypes: {
-      factory: OrgTypesReactSelectFactory,
+      factory: orgTypesSelectFactory(),
       disabled: true,
     },
     selfDefinedRoles: {

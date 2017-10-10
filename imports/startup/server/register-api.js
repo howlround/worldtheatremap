@@ -73,3 +73,6 @@ import '../../api/interests/server/publications.js';
 
 // Roles
 import '../../api/selfDefinedRoles/server/publications.js';
+
+// Org Types
+import '../../api/orgTypes/server/publications.js';

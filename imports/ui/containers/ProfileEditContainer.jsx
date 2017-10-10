@@ -17,6 +17,7 @@ export default createContainer(({ params: { id, locale } }) => {
   const countriesSubscribe = TAPi18n.subscribe('countries.public');
   const interestsSubscribe = TAPi18n.subscribe('interests.public');
   const rolesSubscribe = TAPi18n.subscribe('roles.public');
+  const orgTypesSubscribe = TAPi18n.subscribe('orgTypes.public');
 
   GoogleMaps.load(googleParams); // eslint-disable-line no-undef
   const loading = !(
@@ -24,6 +25,7 @@ export default createContainer(({ params: { id, locale } }) => {
     countriesSubscribe.ready() &&
     interestsSubscribe.ready() &&
     rolesSubscribe.ready() &&
+    orgTypesSubscribe.ready() &&
     GoogleMaps.loaded() // eslint-disable-line no-undef
   );
 

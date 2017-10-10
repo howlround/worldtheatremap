@@ -132,8 +132,8 @@ const allRoles = _.map(messages, role => (
     value: role.defaultMessage,
     label: role.defaultMessage,
     i18n: {},
-  })
-);
+  }
+));
 
 // Populate each role translation
 // Native forEach alters the interated object

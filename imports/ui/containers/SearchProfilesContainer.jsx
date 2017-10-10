@@ -7,6 +7,7 @@ const SearchProfilesContainer = createContainer(() => {
   const localitiesSubscribe = Meteor.subscribe('localities.public');
   const interestsSubscribe = TAPi18n.subscribe('interests.public');
   const rolesSubscribe = TAPi18n.subscribe('roles.public');
+  const orgTypesSubscribe = TAPi18n.subscribe('orgTypes.public');
   const countriesSubscribe = TAPi18n.subscribe('countries.public');
   const administrativeAreasSubscribe = Meteor.subscribe('administrativeAreas.public');
   const ethnicitiesSub = Meteor.subscribe('ethnicities.public');
@@ -16,6 +17,7 @@ const SearchProfilesContainer = createContainer(() => {
       localitiesSubscribe.ready() &&
       interestsSubscribe.ready() &&
       rolesSubscribe.ready() &&
+      orgTypesSubscribe.ready() &&
       countriesSubscribe.ready() &&
       administrativeAreasSubscribe.ready() &&
       ethnicitiesSub.ready()

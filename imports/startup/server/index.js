@@ -28,3 +28,6 @@ import '../../api/interests/interests-list.js';
 
 // Roles prepopulate
 import '../../api/selfDefinedRoles/selfDefinedRoles-list.js';
+
+// Org Types prepopulate
+import '../../api/orgTypes/orgTypes-list.js';

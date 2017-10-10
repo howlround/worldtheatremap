@@ -14,8 +14,9 @@ export default createContainer(({ params: { locale } }) => {
 
   const add = true;
   const countriesSubscribe = TAPi18n.subscribe('countries.public');
+  const eventTypesSubscribe = TAPi18n.subscribe('eventTypes.public');
   GoogleMaps.load(googleParams);
-  const loading = !(countriesSubscribe.ready());
+  const loading = !(countriesSubscribe.ready() && eventTypesSubscribe.ready());
 
   return {
     add,

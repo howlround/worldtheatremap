@@ -12,6 +12,7 @@ import DatePicker from 'react-datepicker';
 
 // API
 // import { allCountriesFactory } from '../../api/countries/countries.js';
+import { eventTypesSelectFactory } from '../../api/eventTypes/eventTypes.js';
 
 // Containers
 import RelatedShowTextboxContainer from '../../ui/containers/RelatedShowTextboxContainer.jsx';
@@ -28,69 +29,6 @@ const genericFieldTemplate = t.form.Form.templates.textbox.clone({
     ]
   },
 });
-
-// Event type options
-const EventType = [
-  {
-    value: 'Performance',
-    label: <FormattedMessage
-      id="eventType.Performance"
-      description="Event types: Performance"
-      defaultMessage="Performance"
-    />,
-  },
-  {
-    value: 'Reading',
-    label: <FormattedMessage
-      id="eventType.Reading"
-      description="Event types: Reading"
-      defaultMessage="Reading"
-    />,
-  },
-  {
-    value: 'Workshop',
-    label: <FormattedMessage
-      id="eventType.Workshop"
-      description="Event types: Workshop"
-      defaultMessage="Workshop"
-    />,
-  },
-];
-// Event type template (single select)
-const EventTypeTags = t.form.Form.templates.select.clone({
-  renderSelect: (locals) => {
-    function onChange(options) {
-      if (options) {
-        locals.onChange(options.value);
-      } else {
-        locals.onChange(null);
-      }
-    }
-
-    const placeholder = <FormattedMessage
-      id="forms.selectPlaceholder"
-      description="Select widget placeholder"
-      defaultMessage="Select..."
-    />;
-
-    return (
-      <ReactSelect
-        autoBlur
-        options={EventType}
-        value={locals.value}
-        onChange={onChange}
-        className="event-type-edit"
-        placeholder={placeholder}
-      />
-    );
-  },
-});
-// Event type Factory
-class ReactSelectEventTypeFactory extends t.form.Component {
-  getTemplate() {
-    return EventTypeTags;
-  }
-}
 
 /* Date component override */
 const dateTemplate = t.form.Form.templates.date.clone({
@@ -477,7 +415,7 @@ export const defaultFormOptions = () => ({
           />,
         }}
       />,
-      factory: ReactSelectEventTypeFactory,
+      factory: eventTypesSelectFactory(),
       error: 'Event type is required',
       attrs: {
         className: 'event-type-edit',
@@ -675,7 +613,7 @@ export const filtersFormOptions = () => ({
       },
     },
     eventType: {
-      factory: ReactSelectEventTypeFactory,
+      factory: eventTypesSelectFactory(),
       label: <FormattedMessage
         id="forms.eventTypeLabel"
         description="Label for a Event type form field"

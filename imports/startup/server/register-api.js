@@ -79,3 +79,6 @@ import '../../api/orgTypes/server/publications.js';
 
 // Genders
 import '../../api/genders/server/publications.js';
+
+// Event Types
+import '../../api/eventTypes/server/publications.js';

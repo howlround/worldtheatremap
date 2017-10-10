@@ -9,8 +9,16 @@ export default createContainer(() => {
   const interestsSubscribe = TAPi18n.subscribe('interests.public');
   const localitiesSubscribe = Meteor.subscribe('localities.public');
   const administrativeAreasSubscribe = Meteor.subscribe('administrativeAreas.public');
+  const eventTypesSubscribe = TAPi18n.subscribe('eventTypes.public');
 
-  const loading = !(localitiesSubscribe.ready() && countriesSubscribe.ready() && interestsSubscribe.ready() && administrativeAreasSubscribe.ready() && languagesSubscribe.ready());
+  const loading = !(
+    localitiesSubscribe.ready() &&
+    countriesSubscribe.ready() &&
+    interestsSubscribe.ready() &&
+    administrativeAreasSubscribe.ready() &&
+    eventTypesSubscribe.ready() &&
+    languagesSubscribe.ready()
+  );
   return {
     loading,
   };

@@ -34,3 +34,6 @@ import '../../api/orgTypes/orgTypes-list.js';
 
 // Gender prepopulate
 import '../../api/genders/genders-options.js';
+
+// Event types prepopulate
+import '../../api/eventTypes/eventTypes-options.js';

@@ -15,9 +15,16 @@ const EventEditContainer = createContainer(({ params: { id, locale } }) => {
 
   const singleEventSubscription = Meteor.subscribe('events.single', id);
   const countriesSubscribe = TAPi18n.subscribe('countries.public');
+  const eventTypesSubscribe = TAPi18n.subscribe('eventTypes.public');
+
   const event = Events.findOne(id);
   GoogleMaps.load(googleParams);
-  const loading = !(singleEventSubscription.ready() && countriesSubscribe.ready() && GoogleMaps.loaded());
+  const loading = !(
+    singleEventSubscription.ready() &&
+    countriesSubscribe.ready() &&
+    eventTypesSubscribe.ready() &&
+    GoogleMaps.loaded()
+  );
   const eventExists = !loading && !!event;
   return {
     loading,

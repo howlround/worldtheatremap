@@ -1,6 +1,4 @@
 import { Mongo } from 'meteor/mongo';
-import { Factory } from 'meteor/factory';
-import React from 'react';
 import t from 'tcomb-form';
 import { Participants } from '../participants/participants.js';
 
@@ -16,7 +14,11 @@ class RelatedRecordsCollection extends Mongo.Collection {
   }
   relate(profileIdA, profileIdB, connectionPointId) {
     // if there is an existing record: (aka they have worked together)
-    const existing = super.findOne( { $and: [ { profiles: { $in: [ profileIdA ] } }, { profiles: { $in: [ profileIdB ] } } ] } );
+    const existing = super.findOne({
+      $and: [
+        { profiles: { $in: [profileIdA] } }, { profiles: { $in: [profileIdB] } },
+      ],
+    });
 
     if (existing) {
       // @TODO: if this event is not already in the list
@@ -26,7 +28,8 @@ class RelatedRecordsCollection extends Mongo.Collection {
       // and increment the count field
       // @TODO: Handle a single user having multiple roles on the same event
     } else {
-      // create a relatedRecord and add this event to the events list (aka never worked together before)
+      // create a relatedRecord and add this event to the events list
+      // (aka never worked together before)
       const newRelated = {
         profiles: [
           profileIdA,
@@ -36,7 +39,7 @@ class RelatedRecordsCollection extends Mongo.Collection {
           connectionPointId,
         ],
         count: 1,
-      }
+      };
       super.insert(newRelated);
     }
   }
@@ -66,25 +69,24 @@ export const relatedRecordReconcileSchema = t.struct({
   eventId: t.String,
 });
 
-export const defaultFormOptions = () => {
-  return {};
-}
+export const defaultFormOptions = () => ({});
 
 // This represents the keys from RelatedRecords objects that should be published
 // to the client. If we add secret properties to RelatedRecord objects, don't event
 // them here to keep them private to the server.
 RelatedRecords.publicFields = {
   profiles: 1,
-  count: 1
+  count: 1,
 };
 
 export const relatedRecordReconcileEvent = (reconcileRelatedRecord) => {
   // Get all participants for this event
-  const allParticipants = Participants.find({'event._id': reconcileRelatedRecord.event._id}, {
+  const allParticipants = Participants.find({ 'event._id': reconcileRelatedRecord.event._id }, {
     fields: Participants.publicFields,
   }).fetch();
 
   // Add the show authors into the allParticipants array
+  // @TODO: Replace this with _.each
   reconcileRelatedRecord.event.show.author.map(author => {
     const addAuthor = { profile: author };
     allParticipants.push(addAuthor);
@@ -94,7 +96,12 @@ export const relatedRecordReconcileEvent = (reconcileRelatedRecord) => {
   const addOrg = { profile: reconcileRelatedRecord.event.organizations };
   allParticipants.push(addOrg);
 
+  // @TODO: Replace this with _.each
   allParticipants.map(otherParticipant => {
-    RelatedRecords.relate(reconcileRelatedRecord.profileId, otherParticipant.profile._id, reconcileRelatedRecord.event._id);
+    RelatedRecords.relate(
+      reconcileRelatedRecord.profileId,
+      otherParticipant.profile._id,
+      reconcileRelatedRecord.event._id
+    );
   });
-}
+};

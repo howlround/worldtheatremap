@@ -32,7 +32,9 @@ export const existingLanguagesFactory = (locale) => {
   const sort = {};
   sort[sortKey] = 1;
 
-  const existingLanguages = Languages.find({}, { sort }).fetch();
+  const existingLanguages = Languages.find({
+    usedInShows: true,
+  }, { sort }).fetch();
 
   const existingLanguagesTags = t.form.Form.templates.select.clone({
     renderSelect: (locals) => {

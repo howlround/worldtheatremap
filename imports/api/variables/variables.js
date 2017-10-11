@@ -1,6 +1,5 @@
 // Meteor
 import { Mongo } from 'meteor/mongo';
-import React from 'react';
 
 class VariablesCollection extends Mongo.Collection {
   // insert(profile, callback) {

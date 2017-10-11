@@ -1200,9 +1200,12 @@ const allLanguages = _.map(messages, language => (
 allLanguages.forEach(language => {
   const thisLanguage = language;
   _.each(supportedLanguages, (name, locale) => {
-    thisLanguage.i18n[locale] = {
-      label: translations[locale][`language.${thisLanguage.value}`],
-    };
+    // If i18n field is empty it will default back to english
+    if (!_.isEmpty(translations[locale][`language.${thisLanguage.value}`])) {
+      thisLanguage.i18n[locale] = {
+        label: translations[locale][`language.${thisLanguage.value}`],
+      };
+    }
   });
 });
 

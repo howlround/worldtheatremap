@@ -66,12 +66,6 @@ export const insert = new ValidatedMethod({
 
     const insertedShowID = Shows.insertTranslations(newShowObj, translations);
 
-    if (!_.isEmpty(newShowObj.languages)) {
-      _.each(newShowObj.languages, language => {
-        upsertLanguage.call({ language });
-      });
-    }
-
     // Translate about field
     if (newShowObj.about && Meteor.settings.GoogleTranslateAPIKey) {
       HTTP.call('GET', 'https://www.googleapis.com/language/translate/v2', {

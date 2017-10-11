@@ -26,9 +26,19 @@ AWS.config.region = Meteor.settings.AWSRegion;
 // API
 import { Shows } from '../shows.js';
 import Show from '../../../ui/components/Show.jsx';
+import { markUsed } from '../../languages/methods.js';
 
 // Insert
 Shows.after.insert(function(userId, doc) {
+  // Update Language collection
+  if (!_.isEmpty(doc.languages)) {
+    _.each(doc.languages, language => {
+      markUsed.call({ language });
+    });
+  }
+
+
+  // Notify admins and subscribers
   if (Meteor.isServer && Meteor.settings.SendContentNotifications) {
     AWS.config.credentials.get((err) => {
       // attach event listener

@@ -3,7 +3,6 @@ import React from 'react';
 import ReactSelect from 'react-select';
 import t from 'tcomb-form';
 import { FormattedMessage } from 'react-intl';
-import { Mongo } from 'meteor/mongo';
 import { TAPi18n } from 'meteor/tap:i18n';
 
 class LanguagesCollection extends TAPi18n.Collection {
@@ -44,11 +43,13 @@ export const existingLanguagesFactory = (locale) => {
         locals.onChange(values);
       }
 
-      const placeholder = <FormattedMessage
-        id="forms.selectPlaceholder"
-        description="Select widget placeholder"
-        defaultMessage="Select..."
-      />;
+      const placeholder = (
+        <FormattedMessage
+          id="forms.selectPlaceholder"
+          description="Select widget placeholder"
+          defaultMessage="Select..."
+        />
+      );
 
       return (
         <ReactSelect
@@ -101,11 +102,13 @@ export const allLanguagesFactory = (locale, multiValue = false) => {
         }
       }
 
-      const placeholder = <FormattedMessage
-        id="forms.selectPlaceholder"
-        description="Select widget placeholder"
-        defaultMessage="Select..."
-      />;
+      const placeholder = (
+        <FormattedMessage
+          id="forms.selectPlaceholder"
+          description="Select widget placeholder"
+          defaultMessage="Select..."
+        />
+      );
 
       return (
         <ReactSelect

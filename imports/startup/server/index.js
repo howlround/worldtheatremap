@@ -37,3 +37,6 @@ import '../../api/genders/genders-options.js';
 
 // Event types prepopulate
 import '../../api/eventTypes/eventTypes-options.js';
+
+// Languages prepopulate
+import '../../api/languages/languages-options.js';

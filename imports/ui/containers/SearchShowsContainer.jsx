@@ -4,7 +4,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import SearchShows from '../pages/SearchShows.jsx';
 
 export default createContainer(() => {
-  const languagesSubscribe = Meteor.subscribe('languages.public');
+  const languagesSubscribe = TAPi18n.subscribe('languages.public');
   const countriesSubscribe = TAPi18n.subscribe('countries.public');
   const interestsSubscribe = TAPi18n.subscribe('interests.public');
   const localitiesSubscribe = Meteor.subscribe('localities.public');

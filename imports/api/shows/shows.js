@@ -281,7 +281,7 @@ export const defaultFormOptions = () => ({
       />,
     },
     languages: {
-      factory: allLanguagesFactory(true),
+      factory: allLanguagesFactory(),
       label: <FormattedMessage
         id="forms.languagesLabel"
         description="Field label for Languages label on shows"

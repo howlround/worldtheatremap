@@ -11,6 +11,7 @@ import { insert } from '../../api/shows/methods.js';
 import { showSchema, defaultFormOptions } from '../../api/shows/shows.js';
 import { allCountriesFactory } from '../../api/countries/countries.js';
 import { interestsCheckboxFactory } from '../../api/interests/interests.js';
+import { allLanguagesFactory } from '../../api/languages/languages.js';
 import { insert as insertProfile } from '../../api/profiles/methods.js';
 
 const Form = t.form.Form;
@@ -90,6 +91,7 @@ class ShowAdd extends React.Component {
 
     formOptions.fields.country.factory = allCountriesFactory(locale, true);
     formOptions.fields.interests.factory = interestsCheckboxFactory(locale);
+    formOptions.fields.languages.factory = allLanguagesFactory(locale);
 
     switch (locale) {
       case 'es':

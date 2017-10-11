@@ -25,7 +25,9 @@ export const markUsed = new ValidatedMethod({
       usedInShows: true,
     };
 
-    return Languages.update(countryQuery, countryObject);
+    return Languages.update(countryQuery, {
+      $set: countryObject,
+    });
   },
 });
 

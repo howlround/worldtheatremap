@@ -175,12 +175,6 @@ export const update = new ValidatedMethod({
       doc.en = newShowObj;
     }
 
-    if (!_.isEmpty(newShowObj.languages)) {
-      _.each(newShowObj.languages, language => {
-        upsertLanguage.call({ language });
-      });
-    }
-
     // Record that this user edited content
     Meteor.users.update(Meteor.userId(), { $inc: { 'profile.contentEditedCount': 1 } });
 

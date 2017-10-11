@@ -32,10 +32,8 @@ export const existingLanguagesFactory = (locale) => {
   const sort = {};
   sort[sortKey] = 1;
 
-  // Langauge options
   const existingLanguages = Languages.find({}, { sort }).fetch();
 
-  // Langauge template
   const existingLanguagesTags = t.form.Form.templates.select.clone({
     renderSelect: (locals) => {
       function onChange(options) {
@@ -65,41 +63,29 @@ export const existingLanguagesFactory = (locale) => {
     },
   });
 
-  // Langauge factory function
   class ReactSelectExistingLanguagesFactory extends t.form.Component {
     getTemplate() {
       return existingLanguagesTags;
     }
   }
 
-  // Langauge transformer
   ReactSelectExistingLanguagesFactory.transformer = t.form.List.transformer;
 
   return ReactSelectExistingLanguagesFactory;
 };
 
-export const allLanguagesFactory = (locale, multiValue = false) => {
+export const allLanguagesFactory = (locale) => {
   const sortKey = (!locale || locale === 'en') ? 'label' : `i18n.${locale}.label`;
   const sort = {};
   sort[sortKey] = 1;
 
-  // Langauge options
   const allLanguages = Languages.find({}, { sort }).fetch();
 
-  // allLanguages template
   const allLanguagesTags = t.form.Form.templates.select.clone({
     renderSelect: (locals) => {
       function onChange(options) {
-        if (multiValue === true) {
-          const values = (options || []).map(({ value }) => value);
-          locals.onChange(values);
-        } else {
-          if (options) {
-            locals.onChange(options.value);
-          } else {
-            locals.onChange(null);
-          }
-        }
+        const values = (options || []).map(({ value }) => value);
+        locals.onChange(values);
       }
 
       const placeholder = (
@@ -112,7 +98,7 @@ export const allLanguagesFactory = (locale, multiValue = false) => {
 
       return (
         <ReactSelect
-          multi={multiValue}
+          multi
           autoBlur
           options={allLanguages}
           value={locals.value}
@@ -124,12 +110,13 @@ export const allLanguagesFactory = (locale, multiValue = false) => {
     },
   });
 
-  // allLanguages factory function
-  class ReactSelectallLanguagesFactory extends t.form.Component {
+  class ReactSelectAllLanguagesFactory extends t.form.Component {
     getTemplate() {
       return allLanguagesTags;
     }
   }
 
-  return ReactSelectallLanguagesFactory;
+  ReactSelectAllLanguagesFactory.transformer = t.form.List.transformer;
+
+  return ReactSelectAllLanguagesFactory;
 };

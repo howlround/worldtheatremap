@@ -37,7 +37,6 @@ Shows.after.insert(function(userId, doc) {
     });
   }
 
-
   // Notify admins and subscribers
   if (Meteor.isServer && Meteor.settings.SendContentNotifications) {
     AWS.config.credentials.get((err) => {
@@ -108,6 +107,14 @@ Shows.after.insert(function(userId, doc) {
 
 // Update
 Shows.after.update(function(userId, doc, fieldNames, modifier, options) {
+  // Update Language collection
+  if (!_.isEmpty(doc.languages)) {
+    _.each(doc.languages, language => {
+      markUsed.call({ language });
+    });
+  }
+
+  // Notify admins and subscribers
   if (Meteor.isServer && Meteor.settings.SendContentNotifications) {
     AWS.config.credentials.get((err) => {
       // attach event listener

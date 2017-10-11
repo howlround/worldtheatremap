@@ -28,11 +28,21 @@ import { Shows } from '../shows.js';
 import Show from '../../../ui/components/Show.jsx';
 import { markUsed } from '../../languages/methods.js';
 
+// Helper function to compare previous and current versions
+const compareDocuments = (a, b) => (
+  reduce(a, (result, value, key) => {
+    // return isEqual(value, b[key]) ? result : result.concat(key);
+    const comparison = isEqual(value, b[key]) ? result : result.concat(key);
+    // console.log(comparison);
+    return comparison;
+  }, [])
+);
+
 // Insert
-Shows.after.insert(function(userId, doc) {
+Shows.after.insert((userId, doc) => {
   // Update Language collection
-  if (!_.isEmpty(doc.languages)) {
-    _.each(doc.languages, language => {
+  if (!isEmpty(doc.languages)) {
+    each(doc.languages, language => {
       markUsed.call({ language });
     });
   }
@@ -42,13 +52,13 @@ Shows.after.insert(function(userId, doc) {
     AWS.config.credentials.get((err) => {
       // attach event listener
       if (err) {
-        console.error('Error retrieving AWS credentials.');
-        console.error(err);
+        console.error('Error retrieving AWS credentials.'); // eslint-disable-line no-console
+        console.error(err); // eslint-disable-line no-console
         return;
       }
       // create kinesis service object
       const kinesis = new AWS.Kinesis({
-        apiVersion: '2013-12-02'
+        apiVersion: '2013-12-02',
       });
 
       const omitFields = [
@@ -62,7 +72,8 @@ Shows.after.insert(function(userId, doc) {
       });
 
       if (!isEmpty(releventChanges)) {
-        const Subject = `"${doc.name}" has been created by ${Meteor.users.findOne(userId).emails[0].address}`;
+        const userEmail = Meteor.users.findOne(userId).emails[0].address;
+        const Subject = `"${doc.name}" has been created by ${userEmail}`;
         let HtmlBody = '';
         let TextBody = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });
@@ -71,9 +82,11 @@ Shows.after.insert(function(userId, doc) {
         const url = `${baseUrl}shows/${doc._id}`;
         HtmlBody += `<div>Show: <a href="${url}">${url}</a></div>`;
 
-        const markup = <IntlProvider>
-          <Show show={doc} />
-        </IntlProvider>;
+        const markup = (
+          <IntlProvider>
+            <Show show={doc} />
+          </IntlProvider>
+        );
         HtmlBody += ReactDOMServer.renderToString(markup);
 
         // Plain text
@@ -85,19 +98,22 @@ Shows.after.insert(function(userId, doc) {
           TextBody,
           Subject,
           _id: doc._id,
-        }
+        };
 
         const params = {
-          Records: [ //required
+          Records: [ // required
             {
               Data: Buffer.from(JSON.stringify(payload)), // required
               PartitionKey: 'shardId-000000000000', // required
             },
           ],
-          StreamName: 'wtm-notifications-pipeline-WtmChangesStream-1XJYCTSGQ9TK4' // required
+          StreamName: 'wtm-notifications-pipeline-WtmChangesStream-1XJYCTSGQ9TK4', // required
         };
-        kinesis.putRecords(params, function(err, data) {
-          if (err) console.log(err, err.stack); // an error occurred
+        kinesis.putRecords(params, kinesisErr => {
+          if (kinesisErr) {
+            // an error occurred
+            console.log(kinesisErr, kinesisErr.stack); // eslint-disable-line no-console
+          }
           // else     console.log(data);           // successful response
         });
       }
@@ -106,10 +122,10 @@ Shows.after.insert(function(userId, doc) {
 });
 
 // Update
-Shows.after.update(function(userId, doc, fieldNames, modifier, options) {
+Shows.after.update((userId, doc) => {
   // Update Language collection
-  if (!_.isEmpty(doc.languages)) {
-    _.each(doc.languages, language => {
+  if (!isEmpty(doc.languages)) {
+    each(doc.languages, language => {
       markUsed.call({ language });
     });
   }
@@ -119,16 +135,16 @@ Shows.after.update(function(userId, doc, fieldNames, modifier, options) {
     AWS.config.credentials.get((err) => {
       // attach event listener
       if (err) {
-        console.error('Error retrieving AWS credentials.');
-        console.error(err);
+        console.error('Error retrieving AWS credentials.'); // eslint-disable-line no-console
+        console.error(err); // eslint-disable-line no-console
         return;
       }
       // create kinesis service object
       const kinesis = new AWS.Kinesis({
-        apiVersion: '2013-12-02'
+        apiVersion: '2013-12-02',
       });
 
-      // Refactor this to use fieldNames also
+      // Refactor this to use fieldNames also (optional third argument to the update hook)
       const changedKeys = compareDocuments(doc, this.previous);
 
       const omitFields = [
@@ -146,13 +162,21 @@ Shows.after.update(function(userId, doc, fieldNames, modifier, options) {
           const localeChangedKeys = compareDocuments(doc.i18n[locale], this.previous.i18n[locale]);
           const releventlocaleChangedKeys = pullAll(localeChangedKeys, omitFields);
 
-          releventChangesOrig.i18n[locale] = pick(releventChangesOrig.i18n[locale], releventlocaleChangedKeys);
-          releventChanges.i18n[locale] = pick(releventChanges.i18n[locale], releventlocaleChangedKeys);
+          releventChangesOrig.i18n[locale] = pick(
+            releventChangesOrig.i18n[locale],
+            releventlocaleChangedKeys
+          );
+
+          releventChanges.i18n[locale] = pick(
+            releventChanges.i18n[locale],
+            releventlocaleChangedKeys
+          );
         });
       }
 
       if (!isEmpty(releventChanges)) {
-        const Subject = `"${doc.name}" has been updated by ${Meteor.users.findOne(userId).emails[0].address}`;
+        const userEmail = Meteor.users.findOne(userId).emails[0].address;
+        const Subject = `"${doc.name}" has been updated by ${userEmail}`;
         let HtmlBody = '';
         let TextBody = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });
@@ -161,15 +185,21 @@ Shows.after.update(function(userId, doc, fieldNames, modifier, options) {
         const url = `${baseUrl}shows/${doc._id}`;
         HtmlBody += `<div>Show: <a href="${url}">${url}</a></div>`;
 
-        const releventChangesMarkup = <IntlProvider>
-          <Show show={releventChanges} />
-        </IntlProvider>;
-        HtmlBody += `<h1>These are the new changes to the page:</h1>\n${ReactDOMServer.renderToString(releventChangesMarkup)}\n`;
+        const releventChangesMarkup = (
+          <IntlProvider>
+            <Show show={releventChanges} />
+          </IntlProvider>
+        );
+        const releventChangesRender = ReactDOMServer.renderToString(releventChangesMarkup);
+        HtmlBody += `<h1>These are the new changes to the page:</h1>\n${releventChangesRender}\n`;
 
-        const releventChangesOrigMarkup = <IntlProvider>
-          <Show show={releventChangesOrig} />
-        </IntlProvider>;
-        HtmlBody += `<h1>This was the previous version:</h1>\n${ReactDOMServer.renderToString(releventChangesOrigMarkup)}\n`;
+        const releventChangesOrigMarkup = (
+          <IntlProvider>
+            <Show show={releventChangesOrig} />
+          </IntlProvider>
+        );
+        const releventChangesOrigRender = ReactDOMServer.renderToString(releventChangesOrigMarkup);
+        HtmlBody += `<h1>This was the previous version:</h1>\n${releventChangesOrigRender}\n`;
 
         // Plain text
         TextBody += `Show: ${baseUrl}shows/${doc._id}\n\n`;
@@ -181,19 +211,22 @@ Shows.after.update(function(userId, doc, fieldNames, modifier, options) {
           TextBody,
           Subject,
           _id: doc._id,
-        }
+        };
 
         const params = {
-          Records: [ //required
+          Records: [ // required
             {
               Data: Buffer.from(JSON.stringify(payload)), // required
               PartitionKey: 'shardId-000000000000', // required
             },
           ],
-          StreamName: 'wtm-notifications-pipeline-WtmChangesStream-1XJYCTSGQ9TK4' // required
+          StreamName: 'wtm-notifications-pipeline-WtmChangesStream-1XJYCTSGQ9TK4', // required
         };
-        kinesis.putRecords(params, function(err, data) {
-          if (err) console.log(err, err.stack); // an error occurred
+        kinesis.putRecords(params, kinesisErr => {
+          if (kinesisErr) {
+            // an error occurred
+            console.log(kinesisErr, kinesisErr.stack); // eslint-disable-line no-console
+          }
           // else     console.log(data);           // successful response
         });
       }
@@ -202,18 +235,18 @@ Shows.after.update(function(userId, doc, fieldNames, modifier, options) {
 });
 
 // Remove
-Shows.after.remove(function(userId, doc) {
+Shows.after.remove((userId, doc) => {
   if (Meteor.isServer && Meteor.settings.SendContentNotifications) {
     AWS.config.credentials.get((err) => {
       // attach event listener
       if (err) {
-        console.error('Error retrieving AWS credentials.');
-        console.error(err);
+        console.error('Error retrieving AWS credentials.'); // eslint-disable-line no-console
+        console.error(err); // eslint-disable-line no-console
         return;
       }
       // create kinesis service object
       const kinesis = new AWS.Kinesis({
-        apiVersion: '2013-12-02'
+        apiVersion: '2013-12-02',
       });
 
       const omitFields = [
@@ -227,7 +260,8 @@ Shows.after.remove(function(userId, doc) {
       });
 
       if (!isEmpty(releventChanges)) {
-        const Subject = `"${doc.name}" has been deleted by ${Meteor.users.findOne(userId).emails[0].address}`;
+        const userEmail = Meteor.users.findOne(userId).emails[0].address;
+        const Subject = `"${doc.name}" has been deleted by ${userEmail}`;
         let HtmlBody = '';
         let TextBody = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });
@@ -236,9 +270,11 @@ Shows.after.remove(function(userId, doc) {
         const url = `${baseUrl}shows/${doc._id}`;
         HtmlBody += `<div>Show: <a href="${url}">${url}</a></div>`;
 
-        const markup = <IntlProvider>
-          <Show show={doc} />
-        </IntlProvider>;
+        const markup = (
+          <IntlProvider>
+            <Show show={doc} />
+          </IntlProvider>
+        );
         HtmlBody += ReactDOMServer.renderToString(markup);
 
         // Plain text
@@ -250,31 +286,25 @@ Shows.after.remove(function(userId, doc) {
           TextBody,
           Subject,
           _id: doc._id,
-        }
+        };
 
         const params = {
-          Records: [ //required
+          Records: [ // required
             {
               Data: Buffer.from(JSON.stringify(payload)), // required
               PartitionKey: 'shardId-000000000000', // required
             },
           ],
-          StreamName: 'wtm-notifications-pipeline-WtmChangesStream-1XJYCTSGQ9TK4' // required
+          StreamName: 'wtm-notifications-pipeline-WtmChangesStream-1XJYCTSGQ9TK4', // required
         };
-        kinesis.putRecords(params, function(kinesisErr, data) {
-          if (kinesisErr) console.log(kinesisErr, kinesisErr.stack); // an error occurred
+        kinesis.putRecords(params, kinesisErr => {
+          if (kinesisErr) {
+            // an error occurred
+            console.log(kinesisErr, kinesisErr.stack); // eslint-disable-line no-console
+          }
           // else     console.log(data);           // successful response
         });
       }
     });
   }
 });
-
-const compareDocuments = (a, b) => {
-  return reduce(a, (result, value, key) => {
-    // return isEqual(value, b[key]) ? result : result.concat(key);
-    const comparison = isEqual(value, b[key]) ? result : result.concat(key);
-    // console.log(comparison);
-    return comparison;
-  }, []);
-};

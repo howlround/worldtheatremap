@@ -19,20 +19,13 @@ export default class SearchShowsResults extends React.Component {
       resultsDisplay: 'list',
     };
 
-    this.resultsViewList = this.resultsViewList.bind(this);
-    this.resultsViewGlobe = this.resultsViewGlobe.bind(this);
+    this.updateResultsDisplay = this.updateResultsDisplay.bind(this);
   }
 
-  resultsViewList(event) {
+  updateResultsDisplay(display, event) {
     event.preventDefault();
 
-    this.setState({ resultsDisplay: 'list' });
-  }
-
-  resultsViewGlobe(event) {
-    event.preventDefault();
-
-    this.setState({ resultsDisplay: 'globe' });
+    this.setState({ resultsDisplay: display });
   }
 
   render() {
@@ -99,14 +92,14 @@ export default class SearchShowsResults extends React.Component {
     return (
       <div>
         <div className="search-results-toggle">
-          <a href="#" className="search-results-toggle-item" onClick={this.resultsViewList}>
+          <a href="#" className="search-results-toggle-item" onClick={this.updateResultsDisplay.bind(this, 'list')}>
             <FormattedMessage
               id="searchResultsToggle.list"
               description="Search results toggle link: List"
               defaultMessage="List"
             />
           </a>
-          <a href="#" className="search-results-toggle-item" onClick={this.resultsViewGlobe}>
+          <a href="#" className="search-results-toggle-item" onClick={this.updateResultsDisplay.bind(this, 'globe')}>
             <FormattedMessage
               id="searchResultsToggle.globe"
               description="Search results toggle link: Globe"

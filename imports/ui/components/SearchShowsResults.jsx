@@ -1,5 +1,4 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import {
   each,
   isEmpty,
@@ -9,6 +8,7 @@ import EventsGlobe from '../components/EventsGlobe.jsx';
 import SearchResultsEmptyText from '../components/SearchResultsEmptyText.jsx';
 import SearchResultsLoading from '../components/SearchResultsLoading.jsx';
 import SearchResultsPager from '../components/SearchResultsPager.jsx';
+import SearchResultsToggle from '../components/SearchResultsToggle.jsx';
 import ShowTeaser from '../components/ShowTeaser.jsx';
 
 export default class SearchShowsResults extends React.Component {
@@ -22,9 +22,7 @@ export default class SearchShowsResults extends React.Component {
     this.updateResultsDisplay = this.updateResultsDisplay.bind(this);
   }
 
-  updateResultsDisplay(display, event) {
-    event.preventDefault();
-
+  updateResultsDisplay(display) {
     this.setState({ resultsDisplay: display });
   }
 
@@ -45,7 +43,7 @@ export default class SearchShowsResults extends React.Component {
       output = <SearchResultsLoading />;
     } else if (!isEmpty(results)) {
       switch (resultsDisplay) {
-        case 'globe': {
+        case 'map': {
           // results will either have just a show item or show and events.
           const eventsOnly = [];
           each(results, result => each(result.events, event => eventsOnly.push(event)));
@@ -88,25 +86,13 @@ export default class SearchShowsResults extends React.Component {
       output = <SearchResultsEmptyText />;
     }
 
-    // Include the map/list toggle on all cases
+    // Include the map/list toggle on all cases to maintain a consistant interface
     return (
       <div>
-        <div className="search-results-toggle">
-          <a href="#" className="search-results-toggle-item" onClick={this.updateResultsDisplay.bind(this, 'list')}>
-            <FormattedMessage
-              id="searchResultsToggle.list"
-              description="Search results toggle link: List"
-              defaultMessage="List"
-            />
-          </a>
-          <a href="#" className="search-results-toggle-item" onClick={this.updateResultsDisplay.bind(this, 'globe')}>
-            <FormattedMessage
-              id="searchResultsToggle.globe"
-              description="Search results toggle link: Globe"
-              defaultMessage="Globe"
-            />
-          </a>
-        </div>
+        <SearchResultsToggle
+          toggle={this.updateResultsDisplay}
+          active={resultsDisplay}
+        />
         {output}
       </div>
     );

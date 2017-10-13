@@ -6,15 +6,24 @@ export default class SearchResultsToggle extends React.Component {
   constructor(props) {
     super(props);
 
-    this.updateParentResultsDisplay = this.updateParentResultsDisplay.bind(this);
+    this.activateMap = this.activateMap.bind(this);
+    this.activateList = this.activateList.bind(this);
   }
 
-  updateParentResultsDisplay(display, event) {
+  activateMap(event) {
     const { toggle } = this.props;
 
     event.preventDefault();
 
-    toggle(display);
+    toggle('map');
+  }
+
+  activateList(event) {
+    const { toggle } = this.props;
+
+    event.preventDefault();
+
+    toggle('list');
   }
 
   render() {
@@ -25,7 +34,7 @@ export default class SearchResultsToggle extends React.Component {
         <a
           href="#"
           className={classnames('search-results-toggle-item', { active: (active === 'list') })}
-          onClick={this.updateParentResultsDisplay.bind(this, 'list')}
+          onClick={this.activateList}
         >
           <FormattedMessage
             id="searchResultsToggle.list"
@@ -36,7 +45,7 @@ export default class SearchResultsToggle extends React.Component {
         <a
           href="#"
           className={classnames('search-results-toggle-item', { active: (active === 'map') })}
-          onClick={this.updateParentResultsDisplay.bind(this, 'map')}
+          onClick={this.activateMap}
         >
           <FormattedMessage
             id="searchResultsToggle.map"

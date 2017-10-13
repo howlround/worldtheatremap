@@ -33,7 +33,7 @@ export default class SearchResultsToggle extends React.Component {
       <div className="search-results-toggle">
         <a
           href="#"
-          className={classnames('search-results-toggle-item', { active: (active === 'list') })}
+          className={classnames('search-results-toggle-item','results-display-list', { active: (active === 'list') })}
           onClick={this.activateList}
         >
           <FormattedMessage
@@ -44,7 +44,7 @@ export default class SearchResultsToggle extends React.Component {
         </a>
         <a
           href="#"
-          className={classnames('search-results-toggle-item', { active: (active === 'map') })}
+          className={classnames('search-results-toggle-item', 'results-display-map', { active: (active === 'map') })}
           onClick={this.activateMap}
         >
           <FormattedMessage

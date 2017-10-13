@@ -7,8 +7,9 @@
   text-transform: uppercase;
   background-color: $off-white;
   color: $gray;
-  padding: $spacing-unit $spacing-unit*3;
+  padding: $spacing-unit $spacing-unit * 3;
   font-weight: 700;
+  font-size: 14px;
 
   &:hover,
   &:focus {
@@ -24,4 +25,21 @@
       background-color: $light-teal;
     }
   }
+}
+
+.results-display-list:before {
+  content: "\e634";
+  font-family: 'todos';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  padding-right: 6px;
+  vertical-align: -1px;
+
+  // Better Font Rendering
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

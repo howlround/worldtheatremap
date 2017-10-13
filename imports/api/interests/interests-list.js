@@ -185,7 +185,7 @@ const supportedLanguages = TAPi18n.getLanguages();
 delete supportedLanguages.en;
 
 const meteorRoot = fs.realpathSync( process.cwd() + '/../' );
-const publicPath = meteorRoot + '/web.browser/app/';
+const publicPath = meteorRoot + '/web.browser/app';
 const translations = {};
 _.each(supportedLanguages, (name, locale) => {
   const translationFile = fs.readFileSync(`${publicPath}/i18n/${locale}.json`);

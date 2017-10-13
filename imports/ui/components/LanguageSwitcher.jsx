@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactSelect from 'react-select';
 import { _ } from 'meteor/underscore';
 import { Link } from 'react-router';
 import { TAPi18n } from 'meteor/tap:i18n';
@@ -10,47 +11,57 @@ export default class LanguageSwitcher extends React.Component {
     // Get all supported languages
     const switchOptions = this.props.supportedLanguages;
 
-    // Remove current language
-    delete switchOptions[this.props.locale];
-
     this.state = {
       switchOptions
     };
+
+    this.onChangeLocale = this.onChangeLocale.bind(this);
   }
 
   componentWillReceiveProps() {
     // Get all supported languages
     const switchOptions = this.props.supportedLanguages;
 
-    // Remove current language
-    delete switchOptions[this.props.locale];
-
     this.setState({switchOptions});
   }
 
+  onChangeLocale(option) {
+    const { router } = this.context;
+
+    const localePath = window.location.pathname;
+    const neutralPath = localePath.substring(option.value.length + 1);
+
+    router.push(`/${option.value}${neutralPath}${window.location.search}`);
+    window.AppState.setLocale(option.value);
+    window.AppState.rerender();
+  }
+
   renderLangLinks() {
+    const { locale } = this.props;
     const { switchOptions } = this.state;
 
-    return (_.map(_.pairs(switchOptions), (pair) => {
+    const languageOptions = _.map(_.pairs(switchOptions), (pair) => {
       const localeCode = pair[0];
       const localeLocalName = pair[1].name;
 
-      const localePath = window.location.pathname;
-      const neutralPath = localePath.substring(localeCode.length + 1);
-
       return (
-        <a key={localeCode} name={localeCode} onClick={
-          (e) => {
-            e.preventDefault();
-            this.context.router.push(`/${localeCode}${neutralPath}${window.location.search}`);
-            window.AppState.setLocale(localeCode);
-            window.AppState.rerender();
-          }
-        }>
-          {localeLocalName}
-        </a>
+        {
+          value: localeCode,
+          label: localeLocalName,
+        }
       );
-    }));
+    });
+
+    return (
+      <ReactSelect
+        autoBlur
+        clearable={false}
+        searchable={false}
+        options={languageOptions}
+        value={locale}
+        onChange={this.onChangeLocale}
+      />
+    );
   }
 
   render() {

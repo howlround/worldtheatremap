@@ -56,6 +56,10 @@ export default class EventsGlobe extends React.Component {
       .attr('width', containerWidth)
       .attr('height', conatinerHeight);
 
+    if (!canvas.getContext) {
+      return;
+    }
+
     const c = canvas.node().getContext('2d');
 
     const path = geoPath()

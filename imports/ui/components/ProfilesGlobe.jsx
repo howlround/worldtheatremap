@@ -59,7 +59,7 @@ class ProfilesGlobe extends React.Component {
       .attr('width', containerWidth)
       .attr('height', conatinerHeight);
 
-    if (_.isEmpty(canvas.node())) {
+    if (!canvas.getContext) {
       return;
     }
 

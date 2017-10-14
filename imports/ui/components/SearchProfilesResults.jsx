@@ -2,6 +2,7 @@ import React from 'react';
 import {
   each,
   isEmpty,
+  filter,
 } from 'lodash';
 
 import ProfileSearchResult from '../components/ProfileSearchResult.jsx';
@@ -43,10 +44,11 @@ export default class SearchProfilesResults extends React.Component {
     } else if (!_.isEmpty(results)) {
       switch (resultsDisplay) {
         case 'map': {
-          // Unlike Shows/Events, profiles do not need to be processed here.
+          // Remove profiles that do not have locations
+          const profilesWithLocations = filter(results, profile => (!!profile.lat && !!profile.lon));
           output = (
             <ProfilesGlobe
-              items={results}
+              items={profilesWithLocations}
             />
           );
           break;

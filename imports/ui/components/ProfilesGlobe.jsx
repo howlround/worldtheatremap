@@ -1,13 +1,15 @@
 import React from 'react';
-import { $ } from 'meteor/jquery';
-import ProfileSearchResult from '../components/ProfileSearchResult.jsx';
 import topojson from 'topojson';
+import { $ } from 'meteor/jquery';
 import { _ } from 'meteor/underscore';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
 import { geoOrthographic, geoGraticule, geoPath, geoCentroid, geoInterpolate } from 'd3-geo';
 import { select, queue, json, transition } from 'd3';
 
-export default class ProfilesGlobe extends React.Component {
+import SearchResultsNoLocationsText from '../components/SearchResultsNoLocationsText.jsx';
+import ProfileSearchResult from '../components/ProfileSearchResult.jsx';
+
+class ProfilesGlobe extends React.Component {
   constructor(props) {
     super(props);
 
@@ -22,6 +24,7 @@ export default class ProfilesGlobe extends React.Component {
     this.continue = this.continue.bind(this);
     this.start = this.start.bind(this);
     this.stop = this.stop.bind(this);
+    this.renderPauseLinks = this.renderPauseLinks.bind(this);
   }
 
   componentDidMount() {
@@ -55,6 +58,10 @@ export default class ProfilesGlobe extends React.Component {
     const canvas = select('#globe').append('canvas').attr('id', 'canvas')
       .attr('width', containerWidth)
       .attr('height', conatinerHeight);
+
+    if (_.isEmpty(canvas.node())) {
+      return;
+    }
 
     const c = canvas.node().getContext('2d');
 
@@ -207,23 +214,26 @@ export default class ProfilesGlobe extends React.Component {
     // Original example: https://bl.ocks.org/mbostock/4183330
 
     // Until the item collection is formatted as GeoJSON reformat it on the fly
+    // Since many profiles don't have locations, exlucde them here
     // D3 defer task
     function reformatItems(rawItems, callback) {
       const itemLocations = [];
-      _.map(rawItems, (item) => {
-        const geoJSON = {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [
-              item.lon,
-              item.lat,
-            ],
-          },
-          properties: item,
-        };
+      _.each(rawItems, (item) => {
+        if (!_.isEmpty(item.lon) && !_.isEmpty(item.lat)) {
+          const geoJSON = {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [
+                item.lon,
+                item.lat,
+              ],
+            },
+            properties: item,
+          };
 
-        itemLocations.push(geoJSON);
+          itemLocations.push(geoJSON);
+        }
       });
 
       callback(null, itemLocations);
@@ -251,16 +261,59 @@ export default class ProfilesGlobe extends React.Component {
     this.setState({ stopped: true });
   }
 
+  renderPauseLinks() {
+    const { items } = this.props;
+    const { stopped } = this.state;
+
+    let output = '';
+
+    if (_.isEmpty(items)) {
+      return output;
+    }
+
+    if (stopped) {
+      output = (
+        <span
+          className="stop-button stopped"
+          onClick={this.start}
+        >
+          <FormattedMessage
+            id="animation.continue"
+            description="Globe pause button: Continue"
+            defaultMessage="Continue"
+          />
+        </span>
+      );
+    } else {
+      output = (
+        <span
+          className="stop-button"
+          onClick={this.stop}
+        >
+          <FormattedMessage
+            id="animation.pause"
+            description="Globe pause button: Pause"
+            defaultMessage="Pause"
+          />
+        </span>
+      );
+    }
+  }
+
   render() {
     const { items } = this.props;
     const { currentItem, stopped } = this.state;
 
+    const emptyLocations = (
+      <SearchResultsNoLocationsText />
+    )
+
     return (
       <div className="items-globe">
-        {items && items.length ?
-          <div id="globe"></div> : ''
-        }
-        {items && items.length && currentItem ?
+        {!_.isEmpty(items) ?
+          <div id="globe"></div>
+          : emptyLocations}
+        {!_.isEmpty(items) && currentItem ?
           <div className="item-info-wrapper">
             <div
               className="item-info"
@@ -271,29 +324,7 @@ export default class ProfilesGlobe extends React.Component {
             </div>
           </div>
         : ''}
-        {stopped ?
-          <span
-            className="stop-button stopped"
-            onClick={this.start}
-          >
-            <FormattedMessage
-              id="animation.continue"
-              description="Globe pause button: Continue"
-              defaultMessage="Continue"
-            />
-          </span>
-          :
-          <span
-            className="stop-button"
-            onClick={this.stop}
-          >
-            <FormattedMessage
-              id="animation.pause"
-              description="Globe pause button: Pause"
-              defaultMessage="Pause"
-            />
-          </span>
-        }
+        {this.renderPauseLinks()}
       </div>
     );
   }
@@ -301,4 +332,7 @@ export default class ProfilesGlobe extends React.Component {
 
 ProfilesGlobe.propTypes = {
   items: React.PropTypes.array,
+  intl: intlShape.isRequired,
 };
+
+export default injectIntl(ProfilesGlobe);

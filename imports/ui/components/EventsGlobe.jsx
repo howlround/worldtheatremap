@@ -56,7 +56,7 @@ export default class EventsGlobe extends React.Component {
       .attr('width', containerWidth)
       .attr('height', conatinerHeight);
 
-    if (!canvas.getContext) {
+    if (_.isNull(canvas.node())) {
       return;
     }
 

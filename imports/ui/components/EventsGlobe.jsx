@@ -35,7 +35,7 @@ export default class EventsGlobe extends React.Component {
   //   // http://stackoverflow.com/questions/29977799/how-should-i-handle-a-leave-animation-in-componentwillunmount-in-react
   // }
 
-  globeReady(error, world, eventLocations) {
+  globeReady(error, world, itemLocations) {
     if (error) {
       console.log(error); // eslint-disable-line no-console
       return;
@@ -69,13 +69,13 @@ export default class EventsGlobe extends React.Component {
     const borders = topojson.mesh(world, world.objects.countries, (a, b) => (a !== b));
 
     let i = 0;
-    const n = eventLocations.length;
+    const n = itemLocations.length;
 
-    if (n === 0 || typeof eventLocations[i] === 'undefined') {
+    if (n === 0 || typeof itemLocations[i] === 'undefined') {
       return;
     }
 
-    this.setState({ currentEvent: eventLocations[i].properties });
+    this.setState({ currentItem: itemLocations[i].properties });
 
     const triggerTransition = () => {
       transition()
@@ -83,15 +83,15 @@ export default class EventsGlobe extends React.Component {
         .on('start', () => {
           if (this.state.paused !== true && this.state.stopped !== true) {
             i = (i + 1) % n;
-            this.setState({ currentEvent: eventLocations[i].properties });
+            this.setState({ currentItem: itemLocations[i].properties });
           }
         })
         .tween('rotate', () => {
           // Set rotation
-          const p = geoCentroid(eventLocations[i]);
+          const p = geoCentroid(itemLocations[i]);
           const r = geoInterpolate(projection.rotate(), [-p[0] - 15, -p[1] + 30]);
 
-            // console.log(projection(events.features[i].geometry.coordinates));
+            // console.log(projection(items.features[i].geometry.coordinates));
           return t => {
             // var center = projection(r(t));
 
@@ -116,7 +116,7 @@ export default class EventsGlobe extends React.Component {
 
             // Background dots
             // projection.clipAngle(180);
-            // _.each(eventLocations, dot => {
+            // _.each(itemLocations, dot => {
             //   c.fillStyle = '#b3e6e4';
             //   c.beginPath();
             //   path(dot);
@@ -157,7 +157,7 @@ export default class EventsGlobe extends React.Component {
 
             // Other dots
             projection.clipAngle(90);
-            _.each(eventLocations, dot => {
+            _.each(itemLocations, dot => {
               c.fillStyle = '#1c3f53';
               c.beginPath();
               path(dot);
@@ -169,7 +169,7 @@ export default class EventsGlobe extends React.Component {
             c.strokeStyle = '#ef4606';
             c.lineWidth = 6;
             c.beginPath();
-            path(eventLocations[i]);
+            path(itemLocations[i]);
             c.fill();
             c.stroke();
 
@@ -183,15 +183,15 @@ export default class EventsGlobe extends React.Component {
         })
         .transition()
         .on('end', () => {
-          // const p = geoCentroid(eventLocations[i]);
+          // const p = geoCentroid(itemLocations[i]);
           // const r = geoInterpolate(projection.rotate(), [-p[0]-15, -p[1]+30]);
           // // Make text box track the point as it moves
           // const nextPoint = projection(p);
           // const nextPointLeft = (nextPoint[0] - (215 / 2)) + "px";
           // const nextPointTop = (nextPoint[1] + 15 + 60) + "px";
-          // const eventInfoWrapper = select(".event-info-wrapper");
-          // eventInfoWrapper.style("left", nextPointLeft);
-          // eventInfoWrapper.style("top", nextPointTop);
+          // const itemInfoWrapper = select(".item-info-wrapper");
+          // itemInfoWrapper.style("left", nextPointLeft);
+          // itemInfoWrapper.style("top", nextPointTop);
 
           // Trigger the next transition
           triggerTransition();
@@ -202,36 +202,36 @@ export default class EventsGlobe extends React.Component {
   }
 
   initializeD3Globe() {
-    const { events } = this.props;
+    const { items } = this.props;
     /* d3 setup */
     // Original example: https://bl.ocks.org/mbostock/4183330
 
-    // Until the event collection is formatted as GeoJSON reformat it on the fly
+    // Until the item collection is formatted as GeoJSON reformat it on the fly
     // D3 defer task
-    function reformatEvents(rawEvents, callback) {
-      const eventLocations = [];
-      _.map(rawEvents, (event) => {
+    function reformatItems(rawItems, callback) {
+      const itemLocations = [];
+      _.map(rawItems, (item) => {
         const geoJSON = {
           type: 'Feature',
           geometry: {
             type: 'Point',
             coordinates: [
-              event.lon,
-              event.lat,
+              item.lon,
+              item.lat,
             ],
           },
-          properties: event,
+          properties: item,
         };
 
-        eventLocations.push(geoJSON);
+        itemLocations.push(geoJSON);
       });
 
-      callback(null, eventLocations);
+      callback(null, itemLocations);
     }
 
     queue()
       .defer(json, '/world-110m.json')
-      .defer(reformatEvents, events)
+      .defer(reformatItems, items)
       .await(this.globeReady);
   }
 
@@ -252,22 +252,22 @@ export default class EventsGlobe extends React.Component {
   }
 
   render() {
-    const { events } = this.props;
-    const { currentEvent, stopped } = this.state;
+    const { items } = this.props;
+    const { currentItem, stopped } = this.state;
 
     return (
-      <div className="events-globe">
-        {events && events.length ?
+      <div className="items-globe">
+        {items && items.length ?
           <div id="globe"></div> : ''
         }
-        {events && events.length && currentEvent ?
-          <div className="event-info-wrapper">
+        {items && items.length && currentItem ?
+          <div className="item-info-wrapper">
             <div
-              className="event-info"
+              className="item-info"
               onMouseOver={this.pause}
               onMouseLeave={this.continue}
             >
-              <EventTeaserWithShow event={currentEvent} />
+              <EventTeaserWithShow event={currentItem} />
             </div>
           </div>
         : ''}
@@ -300,5 +300,5 @@ export default class EventsGlobe extends React.Component {
 }
 
 EventsGlobe.propTypes = {
-  events: React.PropTypes.array,
+  items: React.PropTypes.array,
 };

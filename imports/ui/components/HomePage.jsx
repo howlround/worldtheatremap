@@ -39,7 +39,7 @@ class HomePage extends React.Component {
         }
         {!loading ?
           <EventsGlobe
-            events={eventsTodayWithLocations}
+            items={eventsTodayWithLocations}
           />
           : ''
         }

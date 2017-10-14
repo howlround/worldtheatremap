@@ -7,19 +7,19 @@
   }
 }
 
-.events-globe {
+.items-globe {
   position: relative;
 
   #globe {
     width: 745px;
   }
 
-  .event-date-range {
+  .item-date-range {
     display: block;
   }
 }
 
-.event-info-wrapper {
+.item-info-wrapper {
   font-size: 14px;
   width: 100%;
   padding: 0;
@@ -32,7 +32,7 @@
   }
 }
 
-.event-info {
+.item-info {
   text-align: left;
   background-color: white;
   padding: $spacing-unit;

@@ -34,7 +34,6 @@ export default class SearchShowsResults extends React.Component {
       query,
       updateQuery,
     } = this.props;
-
     const { resultsDisplay } = this.state;
 
     let output = null;
@@ -50,7 +49,7 @@ export default class SearchShowsResults extends React.Component {
 
           output = (
             <EventsGlobe
-              events={eventsOnly}
+              items={eventsOnly}
             />
           );
           break;

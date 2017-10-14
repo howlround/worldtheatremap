@@ -1,0 +1,35 @@
+article.profile.search-result {
+  line-height: 1.2em;
+
+  .profile-name {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .profile-metadata {
+    color: $gray;
+  }
+
+  .profile-metadata-label {
+    font-style: italic;
+  }
+}
+
+// For globe display
+.item-info {
+  article.profile.search-result {
+    .profile-name {
+      font-size: 17px;
+      line-height: 20px;
+    }
+
+    .profile-metadata {
+      margin-top: 5px;
+      color: $black;
+
+      & > div {
+        margin-bottom: 5px;
+      }
+    }
+  }
+}

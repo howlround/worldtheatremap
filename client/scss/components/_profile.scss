@@ -54,23 +54,6 @@ article.profile.full {
   }
 }
 
-article.profile.search-result {
-  line-height: 1.2em;
-
-  .profile-name {
-    font-size: 18px;
-    font-weight: bold;
-  }
-
-  .profile-metadata {
-    color: $gray;
-  }
-
-  .profile-metadata-label {
-    font-style: italic;
-  }
-}
-
 .profile-image-uploading {
   @include title-caps;
 

@@ -30,3 +30,12 @@ Feature: Profile search results displayed on a map
     And I fill in ".profile-search-text" with "Fatima"
     When I click on ".results-display-map"
     And I should not see ".items-globe .profile-name"
+    And the ".search-results-message" element should contain "There are results but none have locations to display on the map"
+
+  Scenario: When looking at map results the empty text should still display if no results match filters
+    And I click on ".edit-profile-save"
+    And I go to the "profiles" search page
+    And I fill in ".profile-search-text" with "Other"
+    When I click on ".results-display-map"
+    And I should not see ".items-globe .profile-name"
+    And the ".search-results-message" element should contain "No results"

@@ -1,12 +1,14 @@
 import React from 'react';
 import {
   each,
-  isEmpty,
   filter,
+  isEmpty,
+  size,
 } from 'lodash';
 
 import ProfileSearchResult from '../components/ProfileSearchResult.jsx';
 import ProfilesGlobe from '../components/ProfilesGlobe.jsx';
+import SearchProfilesResultsSummary from '../components/SearchProfilesResultsSummary.jsx';
 import SearchResultsEmptyText from '../components/SearchResultsEmptyText.jsx';
 import SearchResultsLoading from '../components/SearchResultsLoading.jsx';
 import SearchResultsPager from '../components/SearchResultsPager.jsx';
@@ -82,6 +84,10 @@ export default class SearchProfilesResults extends React.Component {
     // Include the map/list toggle on all cases to maintain a consistant interface
     return (
       <div>
+        <SearchProfilesResultsSummary
+          query={query}
+          count={size(results)}
+        />
         <SearchResultsToggle
           toggle={this.updateResultsDisplay}
           active={resultsDisplay}

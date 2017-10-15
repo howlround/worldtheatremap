@@ -2,8 +2,10 @@ import React from 'react';
 import { intlShape, injectIntl } from 'react-intl';
 
 const Interests = (props) => {
-  const { interests } = props;
+  const { interests, conjunction } = props;
   const { formatMessage } = props.intl;
+
+  const conj = conjunction ? conjunction : 'and';
 
   const interestsString = interests.map((interest, index, array) => {
     let seperator = ', ';
@@ -11,9 +13,9 @@ const Interests = (props) => {
       seperator = '';
     } else if (index === array.length - 2) {
       if (array.length > 2) {
-        seperator = ', and ';
+        seperator = `, ${conj} `;
       } else {
-        seperator = ' and ';
+        seperator = ` ${conj} `;
       }
     }
     return (
@@ -39,6 +41,7 @@ const Interests = (props) => {
 
 Interests.propTypes = {
   interests: React.PropTypes.array,
+  conjunction: React.PropTypes.string,
   intl: intlShape.isRequired,
 };
 

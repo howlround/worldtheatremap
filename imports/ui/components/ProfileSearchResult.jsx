@@ -3,35 +3,17 @@ import { _ } from 'meteor/underscore';
 import { Link } from 'react-router';
 import { FormattedMessage, FormattedDate, intlShape, injectIntl } from 'react-intl';
 
+// Components
+import Interests from '../components/Interests.jsx';
+
 class ProfileSearchResult extends React.Component {
   render() {
     const { profile } = this.props;
     const { formatMessage, locale } = this.props.intl;
 
-    const interests = (profile.interests) ? profile.interests.map((interest, index, array) => {
-      let seperator = ', ';
-      if (index === array.length - 1) {
-        seperator = '';
-      } else if (index === array.length - 2) {
-        if (array.length > 2) {
-          seperator = ', and ';
-        } else {
-          seperator = ' and ';
-        }
-      }
-      return (
-        <span key={interest}>
-          {
-            formatMessage({
-              id: `interest.${interest}`,
-              defaultMessage: interest,
-              description: `Interests option: ${interest}`,
-            })
-          }
-          {seperator}
-        </span>
-      );
-    }) : false;
+    const interests = (profile.interests) ?
+      <Interests interests={profile.interests} />
+      : false;
 
     let orgTypes = (
       profile.orgTypes &&

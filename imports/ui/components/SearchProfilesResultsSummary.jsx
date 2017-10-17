@@ -15,6 +15,7 @@ import { upsert } from '../../api/searchShare/methods.js';
 // Components
 import Interests from '../components/Interests.jsx';
 import Genders from '../components/Genders.jsx';
+import Ethnicities from '../components/Ethnicities.jsx';
 import ShareBackgroundImage from '../components/ShareBackgroundImage.jsx';
 
 class SearchProfilesResultsSummary extends React.Component {
@@ -50,6 +51,19 @@ class SearchProfilesResultsSummary extends React.Component {
       prefixModifiersArray.push(sanitizeHtml(ReactDOMServer.renderToStaticMarkup(genderMarkup)));
     }
 
+    if (!isNil(query.ethnicityRace)) {
+      const ethnicitiesMarkup = (
+        <IntlProvider locale={locale}>
+          <Ethnicities
+            ethnicities={query.ethnicityRace}
+            conjunction="or"
+          />
+        </IntlProvider>
+      );
+
+      prefixModifiersArray.push(sanitizeHtml(ReactDOMServer.renderToStaticMarkup(ethnicitiesMarkup)));
+    }
+
     if (!isNil(query.interests)) {
       const interestsMarkup = (
         <IntlProvider locale={locale}>
@@ -67,7 +81,7 @@ class SearchProfilesResultsSummary extends React.Component {
 
 
     // Pad end of prefix and begining of suffix if they have items
-    const prefix = (!isEmpty(prefixModifiersArray)) ? `${prefixModifiersArray.join(', ')} ` : '';
+    const prefix = (!isEmpty(prefixModifiersArray)) ? `${prefixModifiersArray.join(' ')} ` : '';
     const suffix = (!isEmpty(suffixModifiersArray)) ? ` ${suffixModifiersArray.join(', ')}` : '';
 
     const modifiers = prefix + type + suffix;

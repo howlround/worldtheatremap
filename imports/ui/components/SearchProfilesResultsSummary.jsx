@@ -16,6 +16,7 @@ import { upsert } from '../../api/searchShare/methods.js';
 import Interests from '../components/Interests.jsx';
 import Genders from '../components/Genders.jsx';
 import Ethnicities from '../components/Ethnicities.jsx';
+import Countries from '../components/Countries.jsx';
 import ShareBackgroundImage from '../components/ShareBackgroundImage.jsx';
 
 class SearchProfilesResultsSummary extends React.Component {
@@ -78,11 +79,22 @@ class SearchProfilesResultsSummary extends React.Component {
     }
 
     // All location fields should be at the end
+    if (!isNil(query.country)) {
+      const interestsMarkup = (
+        <IntlProvider locale={locale}>
+          <Countries
+            countries={query.country}
+            conjunction="or"
+          />
+        </IntlProvider>
+      );
 
+      suffixModifiersArray.push(`in ${sanitizeHtml(ReactDOMServer.renderToStaticMarkup(interestsMarkup))}`);
+    }
 
     // Pad end of prefix and begining of suffix if they have items
     const prefix = (!isEmpty(prefixModifiersArray)) ? `${prefixModifiersArray.join(' ')} ` : '';
-    const suffix = (!isEmpty(suffixModifiersArray)) ? ` ${suffixModifiersArray.join(', ')}` : '';
+    const suffix = (!isEmpty(suffixModifiersArray)) ? ` ${suffixModifiersArray.join(' and ')}` : '';
 
     const modifiers = prefix + type + suffix;
 

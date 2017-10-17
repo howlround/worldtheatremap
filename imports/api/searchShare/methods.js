@@ -1,8 +1,9 @@
 import { Meteor } from 'meteor/meteor';
-import { ValidatedMethod } from 'meteor/mdg:validated-method';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
-import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
+import sanitizeHtml from 'sanitize-html';
 import { _ } from 'meteor/underscore';
+import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
+import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import { ValidatedMethod } from 'meteor/mdg:validated-method';
 
 // API
 import { SearchShare } from './searchShare.js';
@@ -23,9 +24,12 @@ export const upsert = new ValidatedMethod({
     const shareSearchObject = {
       count,
       type,
-      modifiers,
+      modifiers: sanitizeHtml(modifiers),
     }
-    return SearchShare.upsert({ type, modifiers }, shareSearchObject);
+    return SearchShare.upsert({
+      type,
+      modifiers: sanitizeHtml(modifiers),
+    }, shareSearchObject);
   },
 });
 

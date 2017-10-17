@@ -10,6 +10,7 @@ import { upsert } from '../../api/searchShare/methods.js';
 // Components
 import Interests from '../components/Interests.jsx';
 import InterestsSVG from '../components/InterestsSVG.jsx';
+import ShareBackgroundImage from '../components/ShareBackgroundImage.jsx';
 
 class SearchProfilesResultsSummary extends React.Component {
   render() {
@@ -40,7 +41,8 @@ class SearchProfilesResultsSummary extends React.Component {
 
     const svg = (
       <svg width="1200" height="630">
-        <text x="20" y="20" fontFamily="OpenSans" fontSize="20px" fill="red">
+        <ShareBackgroundImage />
+        <text x="20" y="100" fontFamily="OpenSans" fontWeight="900" fontSize="80px" fill="#1cb4b0">
           {count} profile interested in {interestsMarkup}
         </text>
       </svg>

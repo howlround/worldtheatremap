@@ -5,6 +5,8 @@ import { IntlProvider } from 'react-intl';
 
 import { SearchShare } from '../searchShare.js';
 
+import ShareBackgroundImage from '../../../ui/components/ShareBackgroundImage.jsx';
+
 // AWS
 import AWS from 'aws-sdk';
 AWS.config.credentials = new AWS.Credentials({
@@ -34,7 +36,8 @@ SearchShare.after.insert((userId, doc) => {
 
       const svg = (
         <svg width="1200" height="630">
-          <text x="20" y="20" fontFamily="sans-serif" fontSize="20px" fill="red">
+          <ShareBackgroundImage />
+          <text x="20" y="100" fontFamily="OpenSans" fontWeight="900" fontSize="80px" fill="#1cb4b0">
             {doc.count} {doc.type} {doc.modifiers}
           </text>
         </svg>

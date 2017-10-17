@@ -1,13 +1,13 @@
 import React from 'react';
 import { intlShape, injectIntl } from 'react-intl';
 
-const Ethnicity = (props) => {
-  const { ethnicities, conjunction } = props;
+const SelfDefinedRoles = (props) => {
+  const { roles, conjunction } = props;
   const { formatMessage } = props.intl;
 
   const conj = conjunction ? conjunction : 'and';
 
-  const ethnicitiesString = ethnicities.map((ethnicity, index, array) => {
+  const rolesString = roles.map((role, index, array) => {
     let seperator = ', ';
     if (index === array.length - 1) {
       seperator = '';
@@ -18,20 +18,31 @@ const Ethnicity = (props) => {
         seperator = ` ${conj} `;
       }
     }
-    return (<span key={ethnicity}>{ethnicity}{seperator}</span>);
+    return (
+      <span key={role}>
+        {
+          formatMessage({
+            id: `role.${role}`,
+            defaultMessage: role,
+            description: `Roles option: ${role}`,
+          })
+        }
+        {seperator}
+      </span>
+    );
   });
 
   return (
     <span>
-      {ethnicitiesString}
+      {rolesString}
     </span>
   );
 };
 
-Ethnicity.propTypes = {
-  ethnicities: React.PropTypes.array,
+SelfDefinedRoles.propTypes = {
+  roles: React.PropTypes.array,
   conjunction: React.PropTypes.string,
   intl: intlShape.isRequired,
 };
 
-export default injectIntl(Ethnicity);
+export default injectIntl(SelfDefinedRoles);

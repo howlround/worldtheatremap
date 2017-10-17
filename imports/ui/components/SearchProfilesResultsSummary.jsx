@@ -13,10 +13,11 @@ import { upsert } from '../../api/searchShare/methods.js';
 // import { update } from '../../api/content/methods.js';
 
 // Components
-import Interests from '../components/Interests.jsx';
-import Genders from '../components/Genders.jsx';
-import Ethnicities from '../components/Ethnicities.jsx';
 import Countries from '../components/Countries.jsx';
+import Ethnicities from '../components/Ethnicities.jsx';
+import Genders from '../components/Genders.jsx';
+import Interests from '../components/Interests.jsx';
+import SelfDefinedRoles from '../components/SelfDefinedRoles.jsx';
 import ShareBackgroundImage from '../components/ShareBackgroundImage.jsx';
 
 class SearchProfilesResultsSummary extends React.Component {
@@ -39,6 +40,7 @@ class SearchProfilesResultsSummary extends React.Component {
       return null;
     }
 
+    // Prefixes
     if (!isNil(query.gender)) {
       const genderMarkup = (
         <IntlProvider locale={locale}>
@@ -65,6 +67,24 @@ class SearchProfilesResultsSummary extends React.Component {
       prefixModifiersArray.push(sanitizeHtml(ReactDOMServer.renderToStaticMarkup(ethnicitiesMarkup)));
     }
 
+    // Suffixes
+    if (!isNil(query.selfDefinedRoles)) {
+      const rolesMarkup = (
+        <IntlProvider locale={locale}>
+          <SelfDefinedRoles
+            roles={query.selfDefinedRoles}
+            conjunction="or"
+          />
+        </IntlProvider>
+      );
+
+      prefixModifiersArray.push(sanitizeHtml(ReactDOMServer.renderToStaticMarkup(rolesMarkup)));
+    }
+
+    if (!isNil(query.name)) {
+      suffixModifiersArray.push(`named ${sanitizeHtml(query.name)}`);
+    }
+
     if (!isNil(query.interests)) {
       const interestsMarkup = (
         <IntlProvider locale={locale}>
@@ -80,7 +100,7 @@ class SearchProfilesResultsSummary extends React.Component {
 
     // All location fields should be at the end
     if (!isNil(query.country)) {
-      const interestsMarkup = (
+      const countriesMarkup = (
         <IntlProvider locale={locale}>
           <Countries
             countries={query.country}
@@ -89,7 +109,7 @@ class SearchProfilesResultsSummary extends React.Component {
         </IntlProvider>
       );
 
-      suffixModifiersArray.push(`in ${sanitizeHtml(ReactDOMServer.renderToStaticMarkup(interestsMarkup))}`);
+      suffixModifiersArray.push(`in ${sanitizeHtml(ReactDOMServer.renderToStaticMarkup(countriesMarkup))}`);
     }
 
     // Pad end of prefix and begining of suffix if they have items

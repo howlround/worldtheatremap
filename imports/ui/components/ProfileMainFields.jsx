@@ -3,11 +3,12 @@ import { _ } from 'meteor/underscore';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 
 // Components
-import Profile from '../components/Profile.jsx';
-import Interests from '../components/Interests.jsx';
-import Genders from '../components/Genders.jsx';
 import Ethnicities from '../components/Ethnicities.jsx';
+import Genders from '../components/Genders.jsx';
+import Interests from '../components/Interests.jsx';
+import Profile from '../components/Profile.jsx';
 import ProfileContact from '../components/ProfileContact.jsx';
+import SelfDefinedRoles from '../components/SelfDefinedRoles.jsx';
 
 class ProfileMainFields extends React.Component {
   constructor(props) {
@@ -57,30 +58,8 @@ class ProfileMainFields extends React.Component {
     }) : false;
 
     let selfDefinedRoles = (profile.selfDefinedRoles && _.contains(profile.profileType, 'Individual')) ?
-      profile.selfDefinedRoles.map((selfDefinedRole, index, array) => {
-        let seperator = ', ';
-        if (index === array.length - 1) {
-          seperator = '';
-        } else if (index === array.length - 2) {
-          if (array.length > 2) {
-            seperator = ', and ';
-          } else {
-            seperator = ' and ';
-          }
-        }
-        return (
-          <span key={selfDefinedRole}>
-            {
-              formatMessage({
-                id: `role.${selfDefinedRole}`,
-                defaultMessage: selfDefinedRole,
-                description: `Roles option: ${selfDefinedRole}`,
-              })
-            }
-            {seperator}
-          </span>
-        );
-      }) : false;
+      <SelfDefinedRoles roles={profile.selfDefinedRoles} />
+      : false;
 
     let gendersArray = [];
     if (!_.isEmpty(profile.gender) && _.contains(profile.profileType, 'Individual')) {

@@ -4,6 +4,7 @@
   "AWSRegion": "",
   "AWSSourceBucket": "",
   "AWSTargetBucket": "",
+  "AWSShareImageBucket": "",
   "SendContentNotifications": false,
   "GoogleTranslateAPIKey": "",
   "public": {

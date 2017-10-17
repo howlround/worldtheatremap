@@ -82,3 +82,7 @@ import '../../api/genders/server/publications.js';
 
 // Event Types
 import '../../api/eventTypes/server/publications.js';
+
+// Search Share SVG uploading
+import '../../api/searchShare/methods.js';
+import '../../api/searchShare/server/hooks.js';

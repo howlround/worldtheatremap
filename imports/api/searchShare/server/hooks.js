@@ -38,7 +38,7 @@ SearchShare.after.insert((userId, doc) => {
         <svg width="1200" height="630">
           <ShareBackgroundImage />
           <text x="20" y="100" fontFamily="OpenSans" fontWeight="900" fontSize="80px" fill="#1cb4b0">
-            {doc.count} {doc.type} {doc.modifiers}
+            {doc.count} {doc.modifiers}
           </text>
         </svg>
       );

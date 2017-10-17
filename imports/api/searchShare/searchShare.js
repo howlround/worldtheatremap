@@ -20,6 +20,5 @@ SearchShare.deny({
 
 SearchShare.publicFields = {
   count: 1,
-  type: 1,
   modifiers: 1,
 };

@@ -5,6 +5,7 @@ import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 // Components
 import Profile from '../components/Profile.jsx';
 import Interests from '../components/Interests.jsx';
+import Genders from '../components/Genders.jsx';
 import ProfileContact from '../components/ProfileContact.jsx';
 
 class ProfileMainFields extends React.Component {
@@ -96,19 +97,9 @@ class ProfileMainFields extends React.Component {
     // Make sure new genders list is alphabetized
     gendersArray.sort();
 
-    let genders = (!_.isEmpty(gendersArray)) ? gendersArray.map((gender, index, array) => {
-      let seperator = ', ';
-      if (index === array.length - 1) {
-        seperator = '';
-      } else if (index === array.length - 2) {
-        if (array.length > 2) {
-          seperator = ', and ';
-        } else {
-          seperator = ' and ';
-        }
-      }
-      return (<span key={gender}>{gender}{seperator}</span>);
-    }) : false;
+    let genders = (!_.isEmpty(gendersArray)) ?
+      <Genders genders={gendersArray} />
+      : false;
 
     let ethnicityRaceDisplay = (profile.ethnicityRace && _.contains(profile.profileType, 'Individual')) ? profile.ethnicityRace.map((ethnicityRace, index, array) => {
       let seperator = ', ';

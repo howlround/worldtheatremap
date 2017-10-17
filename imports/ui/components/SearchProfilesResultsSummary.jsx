@@ -14,30 +14,45 @@ import { upsert } from '../../api/searchShare/methods.js';
 
 // Components
 import Interests from '../components/Interests.jsx';
+import Genders from '../components/Genders.jsx';
 import ShareBackgroundImage from '../components/ShareBackgroundImage.jsx';
 
 class SearchProfilesResultsSummary extends React.Component {
   render() {
     const { query, count } = this.props;
-    const { formatMessage } = this.props.intl;
+    const { formatMessage, locale } = this.props.intl;
 
-    const type = 'profile';
-    const modifiersArray = [];
+    const messages = defineMessages({
+      'pluralTheatremaker': {
+        id: 'plural.theatremaker',
+        defaultMessage: '{count, plural, one {Theatremaker} other {Theatremakers}}',
+      },
+    });
+
+    const type = formatMessage(messages.pluralTheatremaker, { count });
+    const prefixModifiersArray = [];
+    const suffixModifiersArray = [];
 
     if (isEmpty(query)) {
       return null;
     }
 
-    if (!isNil(query.interests)) {
-      const interests = (query.interests) ?
-        <Interests
-          interests={query.interests}
-          conjunction="or"
-        />
-        : '';
+    if (!isNil(query.gender)) {
+      const genderMarkup = (
+        <IntlProvider locale={locale}>
+          <Genders
+            genders={query.gender}
+            conjunction="or"
+          />
+        </IntlProvider>
+      );
 
+      prefixModifiersArray.push(sanitizeHtml(ReactDOMServer.renderToStaticMarkup(genderMarkup)));
+    }
+
+    if (!isNil(query.interests)) {
       const interestsMarkup = (
-        <IntlProvider>
+        <IntlProvider locale={locale}>
           <Interests
             interests={query.interests}
             conjunction="or"
@@ -45,14 +60,20 @@ class SearchProfilesResultsSummary extends React.Component {
         </IntlProvider>
       );
 
-      modifiersArray.push(`interested in ${sanitizeHtml(ReactDOMServer.renderToStaticMarkup(interestsMarkup))}`);
+      suffixModifiersArray.push(`interested in ${sanitizeHtml(ReactDOMServer.renderToStaticMarkup(interestsMarkup))}`);
     }
 
-    const modifiers = modifiersArray.join(', ');
+    // All location fields should be at the end
+
+
+    // Pad end of prefix and begining of suffix if they have items
+    const prefix = (!isEmpty(prefixModifiersArray)) ? `${prefixModifiersArray.join(', ')} ` : '';
+    const suffix = (!isEmpty(suffixModifiersArray)) ? ` ${suffixModifiersArray.join(', ')}` : '';
+
+    const modifiers = prefix + type + suffix;
 
     upsert.call({
       count,
-      type,
       modifiers,
     });
 
@@ -69,7 +90,7 @@ class SearchProfilesResultsSummary extends React.Component {
 
     return (
       <h3 className="search-results-summary">
-        {count} {type} {modifiers}
+        {count} {modifiers}
       </h3>
     );
   }

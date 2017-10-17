@@ -11,10 +11,9 @@ export const upsert = new ValidatedMethod({
   name: 'searchShare.upsert',
   validate: new SimpleSchema({
     count: { type: Number },
-    type: { type: String },
     modifiers: { type: String },
   }).validator(),
-  run({ count, type, modifiers }) {
+  run({ count, modifiers }) {
     if (!this.userId) {
       throw new Meteor.Error('searchShare.upsert.accessDenied',
         'You must be logged in to complete this operation.');
@@ -22,11 +21,10 @@ export const upsert = new ValidatedMethod({
 
     const shareSearchObject = {
       count,
-      type,
       modifiers,
     }
     return SearchShare.upsert({
-      type,
+      count,
       modifiers,
     }, shareSearchObject);
   },

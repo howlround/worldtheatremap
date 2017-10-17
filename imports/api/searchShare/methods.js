@@ -1,5 +1,4 @@
 import { Meteor } from 'meteor/meteor';
-import sanitizeHtml from 'sanitize-html';
 import { _ } from 'meteor/underscore';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
@@ -24,11 +23,11 @@ export const upsert = new ValidatedMethod({
     const shareSearchObject = {
       count,
       type,
-      modifiers: sanitizeHtml(modifiers),
+      modifiers,
     }
     return SearchShare.upsert({
       type,
-      modifiers: sanitizeHtml(modifiers),
+      modifiers,
     }, shareSearchObject);
   },
 });

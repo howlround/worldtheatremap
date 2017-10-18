@@ -13,10 +13,12 @@ import { upsert } from '../../api/searchShare/methods.js';
 // import { update } from '../../api/content/methods.js';
 
 // Components
+import AdministrativeAreas from '../components/AdministrativeAreas.jsx';
 import Countries from '../components/Countries.jsx';
 import Ethnicities from '../components/Ethnicities.jsx';
 import Genders from '../components/Genders.jsx';
 import Interests from '../components/Interests.jsx';
+import Localities from '../components/Localities.jsx';
 import OrgTypes from '../components/OrgTypes.jsx';
 import SelfDefinedRoles from '../components/SelfDefinedRoles.jsx';
 import ShareBackgroundImage from '../components/ShareBackgroundImage.jsx';
@@ -120,6 +122,32 @@ class SearchProfilesResultsSummary extends React.Component {
     }
 
     // All location fields should be at the end
+    if (!isNil(query.locality)) {
+      const localitiesMarkup = (
+        <IntlProvider locale={locale} messages={messages}>
+          <Localities
+            localities={query.locality}
+            conjunction="or"
+          />
+        </IntlProvider>
+      );
+
+      suffixModifiersArray.push(`in ${sanitizeHtml(ReactDOMServer.renderToStaticMarkup(localitiesMarkup))}`);
+    }
+
+    if (!isNil(query.administrativeArea)) {
+      const administrativeAreasMarkup = (
+        <IntlProvider locale={locale} messages={messages}>
+          <AdministrativeAreas
+            administrativeAreas={query.administrativeArea}
+            conjunction="or"
+          />
+        </IntlProvider>
+      );
+
+      suffixModifiersArray.push(`in ${sanitizeHtml(ReactDOMServer.renderToStaticMarkup(administrativeAreasMarkup))}`);
+    }
+
     if (!isNil(query.country)) {
       const countriesMarkup = (
         <IntlProvider locale={locale} messages={messages}>
@@ -131,6 +159,10 @@ class SearchProfilesResultsSummary extends React.Component {
       );
 
       suffixModifiersArray.push(`in ${sanitizeHtml(ReactDOMServer.renderToStaticMarkup(countriesMarkup))}`);
+    }
+
+    if (!isNil(query.postalCode)) {
+      suffixModifiersArray.push(`in postal code ${sanitizeHtml(query.postalCode)}`);
     }
 
     // Pad end of prefix and begining of suffix if they have items

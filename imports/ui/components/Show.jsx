@@ -5,9 +5,14 @@ import classNames from 'classnames';
 import marked from 'marked';
 import sanitizeHtml from 'sanitize-html';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
+
+// Components
 import Authors from '../components/Authors.jsx';
-import EventTeaser from '../components/EventTeaser.jsx';
 import EventsMiniGlobe from '../components/EventsMiniGlobe.jsx';
+import EventTeaser from '../components/EventTeaser.jsx';
+import Languages from '../components/Languages.jsx';
+import Interests from '../components/Interests.jsx';
+import Countries from '../components/Countries.jsx';
 
 marked.setOptions({
   tables: false,
@@ -46,86 +51,17 @@ class Show extends React.Component {
       ));
     }
 
-    const interests = (show.interests) ? show.interests.map((interest, index, array) => {
-      let seperator = ', ';
-      if (index == array.length - 1) {
-        seperator = '';
-      }
-      else if (index == array.length - 2) {
-        if (array.length > 2) {
-          seperator = ', and ';
-        }
-        else {
-          seperator = ' and ';
-        }
-      }
-      return (
-        <span key={interest}>
-          {
-            formatMessage({
-              'id': `interest.${interest}`,
-              'defaultMessage': interest,
-              'description': `Interests option: ${interest}`
-            })
-          }
-          {seperator}
-        </span>
-      );
-    }) : false;
+    const interests = (show.interests) ?
+      <Interests interests={show.interests} />
+      : false;
 
-    const countries = (show.country) ? show.country.map((country, index, array) => {
-      let seperator = ', ';
-      if (index == array.length - 1) {
-        seperator = '';
-      }
-      else if (index == array.length - 2) {
-        if (array.length > 2) {
-          seperator = ', and ';
-        }
-        else {
-          seperator = ' and ';
-        }
-      }
-      return (
-        <span key={country}>
-          {
-            formatMessage({
-              'id': `country.${country}`,
-              'defaultMessage': country,
-              'description': `Country options: ${country}`
-            })
-          }
-          {seperator}
-        </span>
-      );
-    }) : false;
+    const countries = (show.country) ?
+      <Countries countries={show.country} />
+      : false;
 
-    const languages = (show.languages) ? show.languages.map((language, index, array) => {
-      let seperator = ', ';
-      if (index == array.length - 1) {
-        seperator = '';
-      }
-      else if (index == array.length - 2) {
-        if (array.length > 2) {
-          seperator = ', and ';
-        }
-        else {
-          seperator = ' and ';
-        }
-      }
-      return (
-        <span key={language}>
-          {
-            formatMessage({
-              'id': `language.${language}`,
-              'defaultMessage': language,
-              'description': `Language option: ${language}`
-            })
-          }
-          {seperator}
-        </span>
-      );
-    }) : false;
+    const languages = (show.languages) ?
+      <Languages languages={show.languages} />
+      : false;
 
     let requestRemovalText = '';
     if (show.requestRemoval === null) {

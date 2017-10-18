@@ -5,6 +5,8 @@ import { FormattedMessage, FormattedDate, intlShape, injectIntl } from 'react-in
 
 // Components
 import Interests from '../components/Interests.jsx';
+import OrgTypes from '../components/OrgTypes.jsx';
+import SelfDefinedRoles from '../components/SelfDefinedRoles.jsx';
 
 class ProfileSearchResult extends React.Component {
   render() {
@@ -18,36 +20,16 @@ class ProfileSearchResult extends React.Component {
     let orgTypes = (
       profile.orgTypes &&
       _.contains(profile.profileType, 'Organization')
-    ) ? profile.orgTypes.map((orgType, index, array) => {
-      let seperator = ', ';
-      if (index === array.length - 1) {
-        seperator = '';
-      } else if (index === array.length - 2) {
-        if (array.length > 2) {
-          seperator = ', and ';
-        } else {
-          seperator = ' and ';
-        }
-      }
-      return <span key={orgType}>{orgType}{seperator}</span>;
-    }) : false;
+    ) ?
+      <OrgTypes orgTypes={profile.orgTypes} />
+      : false;
 
     let selfDefinedRoles = (
       profile.selfDefinedRoles &&
       _.contains(profile.profileType, 'Individual')
-    ) ? profile.selfDefinedRoles.map((selfDefinedRole, index, array) => {
-      let seperator = ', ';
-      if (index === array.length - 1) {
-        seperator = '';
-      } else if (index === array.length - 2) {
-        if (array.length > 2) {
-          seperator = ', and ';
-        } else {
-          seperator = ' and ';
-        }
-      }
-      return <span key={selfDefinedRole}>{selfDefinedRole}{seperator}</span>;
-    }) : false;
+    ) ?
+      <SelfDefinedRoles roles={profile.selfDefinedRoles} />
+      : false;
 
     const locationBlock = [
       profile.locality,

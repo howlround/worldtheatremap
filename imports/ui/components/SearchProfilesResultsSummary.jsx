@@ -3,8 +3,10 @@ import ReactDOMServer from 'react-dom/server';
 import classnames from 'classnames';
 import { IntlProvider, defineMessages, intlShape, injectIntl } from 'react-intl';
 import {
-  isNil,
+  get,
+  includes,
   isEmpty,
+  isNil,
 } from 'lodash';
 import sanitizeHtml from 'sanitize-html';
 
@@ -29,22 +31,31 @@ class SearchProfilesResultsSummary extends React.Component {
     const { formatMessage, locale, messages } = this.props.intl;
 
     const pluralTypes = defineMessages({
-      'pluralTheatremaker': {
+      theatremaker: {
         id: 'plural.theatremaker',
         defaultMessage: '{count, plural, one {Theatremaker} other {Theatremakers}}',
       },
-      'pluralOrganization': {
+      organization: {
         id: 'plural.organization',
         defaultMessage: '{count, plural, one {Organization} other {Organizations}}',
       },
+      festival: {
+        id: 'plural.festival',
+        defaultMessage: '{count, plural, one {Festival} other {Festivals}}',
+      },
     });
 
-    let type = formatMessage(pluralTypes.pluralTheatremaker, { count });
+    let type = formatMessage(pluralTypes.theatremaker, { count });
     const prefixModifiersArray = [];
     const suffixModifiersArray = [];
 
     if (isEmpty(query)) {
       return null;
+    }
+
+    // Change type value for festivals
+    if (includes(get(query, 'profileType'), 'Festival')) {
+      type = formatMessage(pluralTypes.festival, { count });
     }
 
     // Prefixes
@@ -87,7 +98,7 @@ class SearchProfilesResultsSummary extends React.Component {
       prefixModifiersArray.push(sanitizeHtml(ReactDOMServer.renderToStaticMarkup(orgTypesMarkup)));
 
       // Overwrite type
-      type = formatMessage(pluralTypes.pluralOrganization, { count });
+      type = formatMessage(pluralTypes.organization, { count });
     }
 
     // Suffixes

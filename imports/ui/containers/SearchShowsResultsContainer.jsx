@@ -117,7 +117,7 @@ const SearchShowsResultsContainer = createContainer((props) => {
       const eventsSubscribe = Meteor.subscribe('events.search', privateEventQuery, 0);
 
       results = getEventsFromShows({ showResults, privateEventQuery });
-    } else if (!_.isEmpty(privateEventQuery)) {
+    } else if (!_.isEmpty(privateEventQuery) && _.isEmpty(privateShowQuery)) {
       // Otherwise check for event filters then load parent shows
       const eventsSubscribe = Meteor.subscribe('events.search', privateEventQuery, skip);
 

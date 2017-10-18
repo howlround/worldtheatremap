@@ -23,16 +23,16 @@ import ShareBackgroundImage from '../components/ShareBackgroundImage.jsx';
 class SearchProfilesResultsSummary extends React.Component {
   render() {
     const { query, count } = this.props;
-    const { formatMessage, locale } = this.props.intl;
+    const { formatMessage, locale, messages } = this.props.intl;
 
-    const messages = defineMessages({
+    const pluralType = defineMessages({
       'pluralTheatremaker': {
         id: 'plural.theatremaker',
         defaultMessage: '{count, plural, one {Theatremaker} other {Theatremakers}}',
       },
     });
 
-    const type = formatMessage(messages.pluralTheatremaker, { count });
+    const type = formatMessage(pluralType.pluralTheatremaker, { count });
     const prefixModifiersArray = [];
     const suffixModifiersArray = [];
 
@@ -43,7 +43,7 @@ class SearchProfilesResultsSummary extends React.Component {
     // Prefixes
     if (!isNil(query.gender)) {
       const genderMarkup = (
-        <IntlProvider locale={locale}>
+        <IntlProvider locale={locale} messages={messages}>
           <Genders
             genders={query.gender}
             conjunction="or"
@@ -56,7 +56,7 @@ class SearchProfilesResultsSummary extends React.Component {
 
     if (!isNil(query.ethnicityRace)) {
       const ethnicitiesMarkup = (
-        <IntlProvider locale={locale}>
+        <IntlProvider locale={locale} messages={messages}>
           <Ethnicities
             ethnicities={query.ethnicityRace}
             conjunction="or"
@@ -70,7 +70,7 @@ class SearchProfilesResultsSummary extends React.Component {
     // Suffixes
     if (!isNil(query.selfDefinedRoles)) {
       const rolesMarkup = (
-        <IntlProvider locale={locale}>
+        <IntlProvider locale={locale} messages={messages}>
           <SelfDefinedRoles
             roles={query.selfDefinedRoles}
             conjunction="or"
@@ -78,7 +78,7 @@ class SearchProfilesResultsSummary extends React.Component {
         </IntlProvider>
       );
 
-      prefixModifiersArray.push(sanitizeHtml(ReactDOMServer.renderToStaticMarkup(rolesMarkup)));
+      suffixModifiersArray.push(sanitizeHtml(`with the role ${ReactDOMServer.renderToStaticMarkup(rolesMarkup)}`));
     }
 
     if (!isNil(query.name)) {
@@ -87,7 +87,7 @@ class SearchProfilesResultsSummary extends React.Component {
 
     if (!isNil(query.interests)) {
       const interestsMarkup = (
-        <IntlProvider locale={locale}>
+        <IntlProvider locale={locale} messages={messages}>
           <Interests
             interests={query.interests}
             conjunction="or"
@@ -101,7 +101,7 @@ class SearchProfilesResultsSummary extends React.Component {
     // All location fields should be at the end
     if (!isNil(query.country)) {
       const countriesMarkup = (
-        <IntlProvider locale={locale}>
+        <IntlProvider locale={locale} messages={messages}>
           <Countries
             countries={query.country}
             conjunction="or"

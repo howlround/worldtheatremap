@@ -2,6 +2,7 @@ import React from 'react';
 import {
   each,
   isEmpty,
+  size,
 } from 'lodash';
 
 import EventsGlobe from '../components/EventsGlobe.jsx';
@@ -9,6 +10,7 @@ import SearchResultsEmptyText from '../components/SearchResultsEmptyText.jsx';
 import SearchResultsLoading from '../components/SearchResultsLoading.jsx';
 import SearchResultsPager from '../components/SearchResultsPager.jsx';
 import SearchResultsToggle from '../components/SearchResultsToggle.jsx';
+import SearchShowsResultsSummary from '../components/SearchShowsResultsSummary.jsx';
 import ShowTeaser from '../components/ShowTeaser.jsx';
 
 export default class SearchShowsResults extends React.Component {
@@ -88,6 +90,10 @@ export default class SearchShowsResults extends React.Component {
     // Include the map/list toggle on all cases to maintain a consistant interface
     return (
       <div>
+        <SearchShowsResultsSummary
+          query={query}
+          count={size(results)}
+        />
         <SearchResultsToggle
           toggle={this.updateResultsDisplay}
           active={resultsDisplay}

@@ -1,6 +1,5 @@
 // Meteor
 import { Mongo } from 'meteor/mongo';
-import React from 'react';
 
 class SearchShareCollection extends Mongo.Collection {
   // insert(profile, callback) {

@@ -22,7 +22,8 @@ export const upsert = new ValidatedMethod({
     const shareSearchObject = {
       count,
       modifiers,
-    }
+    };
+
     return SearchShare.upsert({
       count,
       modifiers,

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import classnames from 'classnames';
-import { IntlProvider, defineMessages, intlShape, injectIntl } from 'react-intl';
+import { IntlProvider, FormattedDate, defineMessages, intlShape, injectIntl } from 'react-intl';
 import {
   get,
   includes,
@@ -102,6 +102,36 @@ class SearchProfilesResultsSummary extends React.Component {
     }
 
     // Suffixes
+    if (!isNil(query.startDate)) {
+      const startDateMarkup = (
+        <IntlProvider locale={locale} messages={messages}>
+          <FormattedDate
+            value={query.startDate}
+            year="numeric"
+            month="short"
+            day="numeric"
+          />
+        </IntlProvider>
+      );
+
+      suffixModifiersArray.push(sanitizeHtml(`from ${ReactDOMServer.renderToStaticMarkup(startDateMarkup)}`));
+    }
+
+    if (!isNil(query.endDate)) {
+      const endDateMarkup = (
+        <IntlProvider locale={locale} messages={messages}>
+          <FormattedDate
+            value={query.endDate}
+            year="numeric"
+            month="short"
+            day="numeric"
+          />
+        </IntlProvider>
+      );
+
+      suffixModifiersArray.push(sanitizeHtml(`until ${ReactDOMServer.renderToStaticMarkup(endDateMarkup)}`));
+    }
+
     if (!isNil(query.selfDefinedRoles)) {
       const rolesMarkup = (
         <IntlProvider locale={locale} messages={messages}>

@@ -6,6 +6,7 @@ import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import Ethnicities from '../components/Ethnicities.jsx';
 import Genders from '../components/Genders.jsx';
 import Interests from '../components/Interests.jsx';
+import OrgTypes from '../components/OrgTypes.jsx';
 import Profile from '../components/Profile.jsx';
 import ProfileContact from '../components/ProfileContact.jsx';
 import SelfDefinedRoles from '../components/SelfDefinedRoles.jsx';
@@ -32,30 +33,9 @@ class ProfileMainFields extends React.Component {
       <Interests interests={profile.interests} />
       : false;
 
-    let orgTypes = (profile.orgTypes) ? profile.orgTypes.map((orgType, index, array) => {
-      let seperator = ', ';
-      if (index === array.length - 1) {
-        seperator = '';
-      } else if (index === array.length - 2) {
-        if (array.length > 2) {
-          seperator = ', and ';
-        } else {
-          seperator = ' and ';
-        }
-      }
-      return (
-        <span key={orgType}>
-          {
-            formatMessage({
-              id: `orgType.${orgType}`,
-              defaultMessage: orgType,
-              description: `Interests option: ${orgType}`,
-            })
-          }
-          {seperator}
-        </span>
-      );
-    }) : false;
+    let orgTypes = (profile.orgTypes) ?
+      <OrgTypes orgTypes={profile.orgTypes} />
+      : false;
 
     let selfDefinedRoles = (profile.selfDefinedRoles && _.contains(profile.profileType, 'Individual')) ?
       <SelfDefinedRoles roles={profile.selfDefinedRoles} />

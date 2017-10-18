@@ -17,6 +17,7 @@ import Countries from '../components/Countries.jsx';
 import Ethnicities from '../components/Ethnicities.jsx';
 import Genders from '../components/Genders.jsx';
 import Interests from '../components/Interests.jsx';
+import OrgTypes from '../components/OrgTypes.jsx';
 import SelfDefinedRoles from '../components/SelfDefinedRoles.jsx';
 import ShareBackgroundImage from '../components/ShareBackgroundImage.jsx';
 
@@ -25,14 +26,18 @@ class SearchProfilesResultsSummary extends React.Component {
     const { query, count } = this.props;
     const { formatMessage, locale, messages } = this.props.intl;
 
-    const pluralType = defineMessages({
+    const pluralTypes = defineMessages({
       'pluralTheatremaker': {
         id: 'plural.theatremaker',
         defaultMessage: '{count, plural, one {Theatremaker} other {Theatremakers}}',
       },
+      'pluralOrganization': {
+        id: 'plural.organization',
+        defaultMessage: '{count, plural, one {Organization} other {Organizations}}',
+      },
     });
 
-    const type = formatMessage(pluralType.pluralTheatremaker, { count });
+    let type = formatMessage(pluralTypes.pluralTheatremaker, { count });
     const prefixModifiersArray = [];
     const suffixModifiersArray = [];
 
@@ -65,6 +70,22 @@ class SearchProfilesResultsSummary extends React.Component {
       );
 
       prefixModifiersArray.push(sanitizeHtml(ReactDOMServer.renderToStaticMarkup(ethnicitiesMarkup)));
+    }
+
+    if (!isNil(query.orgTypes)) {
+      const orgTypesMarkup = (
+        <IntlProvider locale={locale} messages={messages}>
+          <OrgTypes
+            orgTypes={query.orgTypes}
+            conjunction="or"
+          />
+        </IntlProvider>
+      );
+
+      prefixModifiersArray.push(sanitizeHtml(ReactDOMServer.renderToStaticMarkup(orgTypesMarkup)));
+
+      // Overwrite type
+      type = formatMessage(pluralTypes.pluralOrganization, { count });
     }
 
     // Suffixes

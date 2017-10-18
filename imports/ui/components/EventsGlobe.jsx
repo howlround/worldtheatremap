@@ -28,6 +28,13 @@ export default class EventsGlobe extends React.Component {
     this.initializeD3Globe();
   }
 
+  // componentWillUpdate(nextProps) {
+  //   @TODO: Find a way to compare items efficiently and rerender if they change
+  //   const { items } = this.props;
+  //   console.log('componentWillUpdate');
+  //   this.initializeD3Globe();
+  // }
+
   // componentWillUnmount () {
   //   // @TODO: Find a way to stop the globe transition
   //   // https://swizec.com/blog/using-d3js-transitions-in-react/swizec/6797

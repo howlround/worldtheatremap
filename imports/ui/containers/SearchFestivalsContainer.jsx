@@ -7,9 +7,15 @@ const SearchFestivalsContainer = createContainer((props) => {
   const localitiesSubscribe = Meteor.subscribe('localities.public');
   const countriesSubscribe = TAPi18n.subscribe('countries.public');
   const administrativeAreasSubscribe = Meteor.subscribe('administrativeAreas.public');
+  const interestsSubscribe = TAPi18n.subscribe('interests.public');
 
   return {
-    loading: !(localitiesSubscribe.ready() && countriesSubscribe.ready() && administrativeAreasSubscribe.ready()),
+    loading: !(
+      localitiesSubscribe.ready() &&
+      countriesSubscribe.ready() &&
+      interestsSubscribe.ready() &&
+      administrativeAreasSubscribe.ready()
+    ),
   };
 }, SearchFestivals);
 

@@ -5,10 +5,11 @@ import { defineMessages, intlShape, injectIntl } from 'react-intl';
 import Helmet from 'react-helmet';
 
 // API
-import { showFiltersSchema, filtersFormOptions } from '../../api/shows/shows.js';
-import { factory as localitiesFactory } from '../../api/localities/localities.js';
 import { existingCountriesFactory } from '../../api/countries/countries.js';
 import { factory as administrativeAreasFactory } from '../../api/administrativeAreas/administrativeAreas.js';
+import { factory as localitiesFactory } from '../../api/localities/localities.js';
+import { interestsSelectFactory } from '../../api/interests/interests.js';
+import { showFiltersSchema, filtersFormOptions } from '../../api/shows/shows.js';
 
 // Containers
 import SearchShowsResultsContainer from '../containers/SearchShowsResultsContainer.jsx';
@@ -124,6 +125,7 @@ class SearchShows extends React.Component {
       let formOptions = filtersFormOptions();
       // Shows
       formOptions.fields.country.factory = existingCountriesFactory(locale);
+      formOptions.fields.interests.factory = interestsSelectFactory(locale, true);
 
       const messages = defineMessages({
         placeholder: {

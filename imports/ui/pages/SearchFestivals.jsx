@@ -9,6 +9,7 @@ import { Profiles, profileFestivalsFiltersSchema, filtersFormOptions } from '../
 import { Localities, factory as localitiesFactory } from '../../api/localities/localities.js';
 import { Countries, existingCountriesFactory } from '../../api/countries/countries.js';
 import { AdministrativeAreas, factory as administrativeAreasFactory } from '../../api/administrativeAreas/administrativeAreas.js';
+import { interestsSelectFactory } from '../../api/interests/interests.js';
 
 // Containers
 import SearchProfilesResultsContainer from '../containers/SearchProfilesResultsContainer.jsx';
@@ -142,6 +143,7 @@ class SearchFestivals extends React.Component {
       formOptions.fields.locality.factory = localitiesFactory();
       formOptions.fields.country.factory = existingCountriesFactory(locale);
       formOptions.fields.administrativeArea.factory = administrativeAreasFactory();
+      formOptions.fields.interests.factory = interestsSelectFactory(locale, true);
 
       const messages = defineMessages({
         placeholder: {

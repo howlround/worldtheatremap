@@ -1,12 +1,15 @@
 import React from 'react';
+import i18nES from 'tcomb-form/lib/i18n/es';
+import t from 'tcomb-form';
 import { _ } from 'meteor/underscore';
 import { displayError } from '../helpers/errors.js';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
+
+// API
 import { update } from '../../api/shows/methods.js';
 import { showSchema, defaultFormOptions } from '../../api/shows/shows.js';
 import { allCountriesFactory } from '../../api/countries/countries.js';
-import t from 'tcomb-form';
-import i18nES from 'tcomb-form/lib/i18n/es';
+import { interestsSelectFactory } from '../../api/interests/interests.js';
 
 const Form = t.form.Form;
 
@@ -57,6 +60,7 @@ class ShowEdit extends React.Component {
     const formOptions = defaultFormOptions();
 
     formOptions.fields.country.factory = allCountriesFactory(locale, true);
+    formOptions.fields.interests.factory = interestsSelectFactory(locale, true);
 
     switch (locale) {
       case 'es':

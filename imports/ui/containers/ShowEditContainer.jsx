@@ -7,10 +7,12 @@ export default createContainer(({ params: { id } }) => {
   const singleShowSubscribe = TAPi18n.subscribe('shows.singleById', id);
   const countriesSubscribe = TAPi18n.subscribe('countries.public');
   const languagesSubscribe = TAPi18n.subscribe('languages.public');
+  const interestsSubscribe = TAPi18n.subscribe('interests.public');
 
   const loading = !(
     singleShowSubscribe.ready() &&
     languagesSubscribe.ready() &&
+    interestsSubscribe.ready() &&
     countriesSubscribe.ready()
   );
 

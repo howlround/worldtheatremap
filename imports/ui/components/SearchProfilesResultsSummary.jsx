@@ -38,7 +38,7 @@ const wrap = (inputText, width) => {
   const y = 30;
   const x = 40;
   const dy = 1;
-  let tspan = $('<tspan></tspan>').attr('x', x).attr('y', y).attr('dy', `${dy}em`);
+  let tspan = $('<tspan></tspan>').attr('x', x).attr('dy', `${dy}em`);
   $(text).append(tspan);
 
   while (word = words.pop()) {
@@ -52,8 +52,7 @@ const wrap = (inputText, width) => {
       line = [word];
       tspan = $('<tspan></tspan>')
         .attr('x', x)
-        .attr('y', y)
-        .attr('dy', `${++lineNumber * lineHeight}${dy}em`)
+        .attr('dy', `${dy}em`)
         .text(word);
       $(text).append(tspan);
     }

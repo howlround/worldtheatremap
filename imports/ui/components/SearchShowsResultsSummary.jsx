@@ -172,15 +172,15 @@ class SearchShowsResultsSummary extends React.Component {
     });
 
     // SVG here for manual testing only
-    // const svg = (
-    //   <svg width="1200" height="630">
-    //     <ShareBackgroundImage />
-    //     <text x="20" y="100" fontFamily="OpenSans" fontWeight="900" fontSize="80px" fill="#1cb4b0">
-    //       {count} profile interested in {interestsMarkup}
-    //     </text>
-    //   </svg>
-    // );
-    // return svg;
+    const svg = (
+      <svg width="1200" height="630">
+        <ShareBackgroundImage />
+        <textArea x="20" y="100" fontFamily="OpenSans" fontWeight="900" fontSize="80px" fill="#1cb4b0">
+          {count} profile interested in {interestsMarkup}
+        </textArea>
+      </svg>
+    );
+    return svg;
 
     return (
       <h3 className="search-results-summary">

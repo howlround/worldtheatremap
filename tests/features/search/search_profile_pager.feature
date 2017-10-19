@@ -81,3 +81,8 @@ Feature: Pager on profile search
     And I fill in ".profile-postal-code-edit" with "16000"
     When I click on ".search-results-pager .next"
     Then the ".search-results" element should contain "Uniform"
+
+  @searchSummary
+  Scenario: Search results summary should count all results not just on the page you are looking at
+    And I fill in ".profile-postal-code-edit" with "16000"
+    Then the ".search-results-summary" element should contain "21 Theatremakers in postal code 1600"

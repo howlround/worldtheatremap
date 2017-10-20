@@ -94,7 +94,7 @@ SearchShare.after.insert((userId, doc) => {
       const wrappedText = svgWrap(singleLineText, lineWrap);
       const svg = (
         <svg width="1200" height="630">
-          <ShareBackgroundImage />
+          <ShareBackgroundImage width="1200" height="630" />
           <text
             dangerouslySetInnerHTML={{ __html: wrappedText }}
             x="40"

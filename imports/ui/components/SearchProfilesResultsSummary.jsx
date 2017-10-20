@@ -11,6 +11,7 @@ import {
 } from 'lodash';
 import { $ } from 'meteor/jquery';
 import sanitizeHtml from 'sanitize-html';
+import cheerio from 'cheerio';
 
 // API
 import { upsert } from '../../api/searchShare/methods.js';
@@ -28,38 +29,38 @@ import SelfDefinedRoles from '../components/SelfDefinedRoles.jsx';
 import ShareBackgroundImage from '../components/ShareBackgroundImage.jsx';
 
 // Adapted from https://bl.ocks.org/mbostock/7555321
-const wrap = (inputText, width) => {
-  const text = $('<text></text>');
-  const words = splitWords(inputText).reverse();
-  let word = null;
-  let line = [];
-  let lineNumber = 0;
-  const lineHeight = 1.1;
-  const y = 30;
-  const x = 40;
-  const dy = 1;
-  let tspan = $('<tspan></tspan>').attr('x', x).attr('dy', `${dy}em`);
-  $(text).append(tspan);
+// const svgWrap = (inputText, lineWrap) => {
+//   const $ = cheerio.load('<text></text>');
+//   const words = splitWords(inputText).reverse();
+//   let word = null;
+//   let line = [];
+//   let lineNumber = 0;
+//   const lineHeight = 1.1;
+//   const y = 30;
+//   const x = 40;
+//   const dy = 1.2;
+//   let tspan = cheerio('<tspan></tspan>').attr('x', x).attr('dy', `${dy}em`);
+//   $('text').append(tspan);
 
-  while (word = words.pop()) {
-    line.push(word);
-    const expandedLine = line.join(' ');
-    tspan.text(expandedLine);
+//   while (word = words.pop()) {
+//     line.push(word);
+//     const expandedLine = line.join(' ');
+//     tspan.text(expandedLine);
 
-    if (size(tspan.text()) > width) {
-      line.pop();
-      tspan.text(line.join(' '));
-      line = [word];
-      tspan = $('<tspan></tspan>')
-        .attr('x', x)
-        .attr('dy', `${dy}em`)
-        .text(word);
-      $(text).append(tspan);
-    }
-  }
+//     if (size(tspan.text()) > lineWrap) {
+//       line.pop();
+//       tspan.text(line.join(' '));
+//       line = [word];
+//       tspan = cheerio('<tspan></tspan>')
+//         .attr('x', x)
+//         .attr('dy', `${dy}em`)
+//         .text(word);
+//       $('text').append(tspan);
+//     }
+//   }
 
-  return text;
-};
+//   return $('text').html();
+// };
 
 class SearchProfilesResultsSummary extends React.Component {
   render() {
@@ -264,18 +265,35 @@ class SearchProfilesResultsSummary extends React.Component {
 
     // SVG here for manual testing only
     // const singleLineText = `${count} ${modifiers}`;
-    // const wrappedText = wrap(singleLineText, 24);
+    // const characterCount = size(singleLineText);
+
+    // let fontSize = '80px';
+    // let lineWrap = 24;
+    // if (characterCount > 250) {
+    //   fontSize = '40px';
+    //   lineWrap = 50;
+    // } else if (characterCount > 175) {
+    //   fontSize = '50px';
+    //   lineWrap = 40;
+    // } else if (characterCount > 120) {
+    //   fontSize = '60px';
+    //   lineWrap = 33;
+    // } else if (characterCount > 90) {
+    //   fontSize = '70px';
+    //   lineWrap = 28;
+    // }
+
+    // const wrappedText = svgWrap(singleLineText, lineWrap);
     // const svg = (
     //   <svg width="1200" height="630">
     //     <ShareBackgroundImage />
     //     <text
-    //       dangerouslySetInnerHTML={{ __html: wrappedText[0].innerHTML }}
+    //       dangerouslySetInnerHTML={{ __html: wrappedText }}
     //       x="40"
     //       y="30"
-    //       dy="1em"
     //       fontFamily="OpenSans"
     //       fontWeight="900"
-    //       fontSize="80px"
+    //       fontSize={fontSize}
     //       fill="#1cb4b0"
     //     />
     //   </svg>

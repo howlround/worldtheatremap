@@ -31,6 +31,7 @@ export default class SearchProfilesResults extends React.Component {
 
   render() {
     const {
+      count,
       results,
       loading,
       skip,
@@ -40,6 +41,7 @@ export default class SearchProfilesResults extends React.Component {
     const { resultsDisplay } = this.state;
 
     let output = null;
+    const countDisplay = count ? count : size(results);
 
     if (loading) {
       output = <SearchResultsLoading />;
@@ -86,7 +88,7 @@ export default class SearchProfilesResults extends React.Component {
       <div>
         <SearchProfilesResultsSummary
           query={query}
-          count={size(results)}
+          count={countDisplay}
         />
         <SearchResultsToggle
           toggle={this.updateResultsDisplay}
@@ -103,6 +105,7 @@ SearchProfilesResults.contextTypes = {
 };
 
 SearchProfilesResults.propTypes = {
+  count: React.PropTypes.number,
   results: React.PropTypes.array,
   loading: React.PropTypes.bool,
   query: React.PropTypes.object,

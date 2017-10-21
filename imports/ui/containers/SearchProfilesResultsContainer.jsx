@@ -1,9 +1,14 @@
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { _ } from 'meteor/underscore';
+import {
+  get,
+} from 'lodash';
 import escapeRegExp from 'lodash.escaperegexp';
 import moment from 'moment';
 import { remove as removeDiacritics } from 'diacritics';
+import gql from 'graphql-tag';
+const util = require('util');
 
 import { Profiles } from '../../api/profiles/profiles.js';
 import SearchProfilesResults from '../components/SearchProfilesResults.jsx';
@@ -13,6 +18,7 @@ const SearchProfilesResultsContainer = createContainer((props) => {
   let loading = false;
   let skip = 0;
   let results = [];
+  let count = null;
 
   if (!_.isEmpty(query)) {
     // Use an internal query so nothing strange gets passed straight through
@@ -126,9 +132,38 @@ const SearchProfilesResultsContainer = createContainer((props) => {
           limit: 20,
         }).fetch();
     }
+
+    // Make a call to the API for the overall count
+    // The query can be passed straight in because the api will handle validation
+    if (!_.isEmpty(query)) {
+      var result = HTTP.call(
+        'POST',
+        Meteor.settings.public.WTMDataApi,
+        // 'http://localhost:3030/graphql',
+        {
+          data: {
+            query: gql`query ($input: ProfileFiltersInput) {findProfiles(input: $input) { total } }`,
+            variables: { input: query }
+          },
+          headers: {
+            Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyIsInR5cGUiOiJhY2Nlc3MifQ.eyJ1c2VySWQiOiI1OWM1NzkwYTI3YTc0MDAxMWJjOThmOTkiLCJpYXQiOjE1MDg1MTg3NTAsImV4cCI6MTUwODYwNTE1MCwiYXVkIjoiaHR0cHM6Ly9kYXRhLndvcmxkdGhlYXRyZW1hcC5vcmciLCJpc3MiOiJmZWF0aGVycyIsInN1YiI6ImFub255bW91cyJ9.LuOahRRP1bL6zt0aTJe6IHpjuEczO1V-fMzOUkm81bc',
+            'Content-Type': 'application/json',
+          }
+        },
+        (error, result) => {
+          console.log(result);
+          if (error) {
+            console.log(error);
+          } else if (result.statusCode === 200) {
+            count = get(result.data, 'data.findProfiles.total');
+          }
+        }
+      );
+    }
   }
 
   return {
+    count,
     results,
     loading,
     skip,

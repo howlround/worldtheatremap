@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
-import { ValidatedMethod } from 'meteor/mdg:validated-method';
+import { Roles } from 'meteor/alanning:roles';
+import { ValidatedMethod, ValidationError } from 'meteor/mdg:validated-method';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { _ } from 'meteor/underscore';
@@ -28,7 +29,7 @@ export const insert = new ValidatedMethod({
     }
 
     // Record that this user added new content
-    Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentAddedCount": 1 } });
+    Meteor.users.update(Meteor.userId(), { $inc: { 'profile.contentAddedCount': 1 } });
 
     // @TODO: Put entire Show object in
     return Events.insert(newEvent);
@@ -50,18 +51,18 @@ export const update = new ValidatedMethod({
         'You must be logged in to complete this operation.');
     }
 
-    const event = Events.findOne(eventId);
+    const newEventToUpdate = newEvent;
 
     // Not allowed to update the _id
-    if (newEvent._id) {
-      delete newEvent._id;
+    if (newEventToUpdate._id) {
+      delete newEventToUpdate._id;
     }
 
     // Record that this user edited content
-    Meteor.users.update(Meteor.userId(), { $inc: { "profile.contentEditedCount": 1 } });
+    Meteor.users.update(Meteor.userId(), { $inc: { 'profile.contentEditedCount': 1 } });
 
     Events.update(eventId, {
-      $set: newEvent,
+      $set: newEventToUpdate,
     });
   },
 });
@@ -82,7 +83,7 @@ export const requestRemoval = new ValidatedMethod({
     });
 
     // Record that this user edit content
-    Meteor.users.update(this.userId, { $inc: { "profile.contentEditedCount": 1 } });
+    Meteor.users.update(this.userId, { $inc: { 'profile.contentEditedCount': 1 } });
   },
 });
 

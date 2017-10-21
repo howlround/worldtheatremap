@@ -58,14 +58,14 @@ Profiles.after.insert((userId, doc) => {
         'howlroundPostSearchText',
         'nameSearch',
       ];
-      const releventChanges = {};
+      const relevantChanges = {};
       forOwn(doc, (value, key) => {
         if (!isNull(value) && !isEmpty(value) && !includes(omitFields, key)) {
-          releventChanges[key] = value;
+          relevantChanges[key] = value;
         }
       });
 
-      if (!isEmpty(releventChanges)) {
+      if (!isEmpty(relevantChanges)) {
         const userEmail = Meteor.users.findOne(userId).emails[0].address;
         const Subject = `"${doc.name}" has been created by ${userEmail}`;
         let HtmlBody = '';
@@ -85,7 +85,7 @@ Profiles.after.insert((userId, doc) => {
 
         // Plain text
         TextBody += `Profile: ${baseUrl}profiles/${doc._id}\n\n`;
-        TextBody += YAML.stringify(releventChanges);
+        TextBody += YAML.stringify(relevantChanges);
 
         const payload = {
           HtmlBody,
@@ -139,31 +139,31 @@ Profiles.after.update((userId, doc) => {
         'howlroundPostSearchText',
         'nameSearch',
       ];
-      const releventChangedKeys = pullAll(changedKeys, omitFields);
+      const relevantChangedKeys = pullAll(changedKeys, omitFields);
 
-      const releventChanges = pick(doc, releventChangedKeys);
-      const releventChangesOrig = pick(this.previous, releventChangedKeys);
+      const relevantChanges = pick(doc, relevantChangedKeys);
+      const relevantChangesOrig = pick(this.previous, relevantChangedKeys);
 
       // If anything in i18n changed, find out what changed.
       // This is recursive from above, so probably could be a function.
-      if (includes(releventChangedKeys, 'i18n')) {
-        each(releventChanges.i18n, (fields, locale) => {
+      if (includes(relevantChangedKeys, 'i18n')) {
+        each(relevantChanges.i18n, (fields, locale) => {
           const localeChangedKeys = compareDocuments(doc.i18n[locale], this.previous.i18n[locale]);
-          const releventlocaleChangedKeys = pullAll(localeChangedKeys, omitFields);
+          const relevantlocaleChangedKeys = pullAll(localeChangedKeys, omitFields);
 
-          releventChangesOrig.i18n[locale] = pick(
-            releventChangesOrig.i18n[locale],
-            releventlocaleChangedKeys
+          relevantChangesOrig.i18n[locale] = pick(
+            relevantChangesOrig.i18n[locale],
+            relevantlocaleChangedKeys
           );
 
-          releventChanges.i18n[locale] = pick(
-            releventChanges.i18n[locale],
-            releventlocaleChangedKeys
+          relevantChanges.i18n[locale] = pick(
+            relevantChanges.i18n[locale],
+            relevantlocaleChangedKeys
           );
         });
       }
 
-      if (!isEmpty(releventChanges)) {
+      if (!isEmpty(relevantChanges)) {
         const userEmail = Meteor.users.findOne(userId).emails[0].address;
         const Subject = `"${doc.name}" has been updated by ${userEmail}`;
         let HtmlBody = '';
@@ -174,27 +174,27 @@ Profiles.after.update((userId, doc) => {
         const url = `${baseUrl}profiles/${doc._id}`;
         HtmlBody += `<div>Profile: <a href="${url}">${url}</a></div>`;
 
-        const releventChangesMarkup = (
+        const relevantChangesMarkup = (
           <IntlProvider>
-            <ProfileAllFields profile={releventChanges} />
+            <ProfileAllFields profile={relevantChanges} />
           </IntlProvider>
         );
-        const releventChangesRender = ReactDOMServer.renderToString(releventChangesMarkup);
-        HtmlBody += `<h1>These are the new changes to the page:</h1>\n${releventChangesRender}\n`;
+        const relevantChangesRender = ReactDOMServer.renderToString(relevantChangesMarkup);
+        HtmlBody += `<h1>These are the new changes to the page:</h1>\n${relevantChangesRender}\n`;
 
-        const releventChangesOrigMarkup = (
+        const relevantChangesOrigMarkup = (
           <IntlProvider>
-            <ProfileAllFields profile={releventChangesOrig} />
+            <ProfileAllFields profile={relevantChangesOrig} />
           </IntlProvider>
         );
-        const releventChangesOrigRender = ReactDOMServer.renderToString(releventChangesOrigMarkup);
-        HtmlBody += `<h1>This was the previous version:</h1>\n${releventChangesOrigRender}\n`;
+        const relevantChangesOrigRender = ReactDOMServer.renderToString(relevantChangesOrigMarkup);
+        HtmlBody += `<h1>This was the previous version:</h1>\n${relevantChangesOrigRender}\n`;
 
         // Plain text
         TextBody += `Profile: ${baseUrl}profiles/${doc._id}\n\n`;
 
-        TextBody += `These are the new changes to the page:\n${YAML.stringify(releventChanges)}\n`;
-        TextBody += `This was the previous version:\n${YAML.stringify(releventChangesOrig)}`;
+        TextBody += `These are the new changes to the page:\n${YAML.stringify(relevantChanges)}\n`;
+        TextBody += `This was the previous version:\n${YAML.stringify(relevantChangesOrig)}`;
 
         const payload = {
           HtmlBody,
@@ -245,14 +245,14 @@ Profiles.after.remove((userId, doc) => {
         'howlroundPostSearchText',
         'nameSearch',
       ];
-      const releventChanges = {};
+      const relevantChanges = {};
       forOwn(doc, (value, key) => {
         if (!isNull(value) && !isEmpty(value) && !includes(omitFields, key)) {
-          releventChanges[key] = value;
+          relevantChanges[key] = value;
         }
       });
 
-      if (!isEmpty(releventChanges)) {
+      if (!isEmpty(relevantChanges)) {
         const Subject = `"${doc.name}" has been deleted by ${Meteor.users.findOne(userId).emails[0].address}`; // eslint-disable-line max-len
         let HtmlBody = '';
         let TextBody = '';
@@ -271,7 +271,7 @@ Profiles.after.remove((userId, doc) => {
 
         // Plain text
         TextBody += `Profile: ${baseUrl}profiles/${doc._id}\n\n`;
-        TextBody += YAML.stringify(releventChanges);
+        TextBody += YAML.stringify(relevantChanges);
 
         const payload = {
           HtmlBody,
@@ -293,7 +293,6 @@ Profiles.after.remove((userId, doc) => {
           if (kinesisErr) {
             console.log(kinesisErr, kinesisErr.stack); // eslint-disable-line no-console
           }
-          // else     console.log(data);           // successful response
         });
       }
     });

@@ -3,13 +3,8 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { _ } from 'meteor/underscore';
-import t from 'tcomb-validation';
 
 import { Ethnicities } from './ethnicities.js';
-
-const ETHNICITY_ID_ONLY = new SimpleSchema({
-  ethnicityId: { type: String },
-}).validator();
 
 export const upsert = new ValidatedMethod({
   name: 'ethnicities.upsert',
@@ -24,8 +19,9 @@ export const upsert = new ValidatedMethod({
 
     const ethnicityObject = {
       label: ethnicity,
-      value: ethnicity
-    }
+      value: ethnicity,
+    };
+
     return Ethnicities.upsert(ethnicityObject, ethnicityObject);
   },
 });

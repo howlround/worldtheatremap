@@ -8,7 +8,6 @@ import moment from 'moment';
 
 // API
 import { relatedRecordReconcileEvent } from '../../api/relatedRecords/relatedRecords.js';
-import { Participants } from '../../api/participants/participants.js';
 
 // Methods
 import { upsert as upsertLocality } from '../localities/methods.js';

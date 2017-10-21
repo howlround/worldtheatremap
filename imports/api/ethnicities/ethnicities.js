@@ -34,15 +34,17 @@ export const factory = () => {
   const existingEthnicitiesTags = t.form.Form.templates.select.clone({
     renderSelect: (locals) => {
       function onChange(options) {
-        const values = (options || []).map(({value}) => value)
-        locals.onChange(values)
+        const values = (options || []).map(({ value }) => value);
+        locals.onChange(values);
       }
 
-      const placeholder = <FormattedMessage
-        id="forms.selectPlaceholder"
-        description="Select widget placeholder"
-        defaultMessage="Select..."
-      />;
+      const placeholder = (
+        <FormattedMessage
+          id="forms.selectPlaceholder"
+          description="Select widget placeholder"
+          defaultMessage="Select..."
+        />
+      );
 
       return (
         <ReactSelect
@@ -55,7 +57,7 @@ export const factory = () => {
           placeholder={placeholder}
         />
       );
-    }
+    },
   });
 
   // ethnicity factory function
@@ -69,4 +71,4 @@ export const factory = () => {
   ReactSelectExistingEthnicitiesFactory.transformer = t.form.List.transformer;
 
   return ReactSelectExistingEthnicitiesFactory;
-}
+};

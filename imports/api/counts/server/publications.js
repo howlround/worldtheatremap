@@ -1,10 +1,7 @@
 /* eslint-disable prefer-arrow-callback */
 import { Meteor } from 'meteor/meteor';
-import { TAPi18n } from 'meteor/tap:i18n';
-import { _ } from 'meteor/underscore';
 
 // API
-import { Counts } from '../../counts/counts.js';
 import { Profiles } from '../../profiles/profiles.js';
 import { Shows } from '../../shows/shows.js';
 import { Events } from '../../events/events.js';
@@ -21,79 +18,79 @@ Meteor.publish('counts.collections', function countsCollections() {
   // have run. Until then, we don't want to send a lot of
   // `self.changed()` messages - hence tracking the
   // `initializing` state.
-  const handleTheatremakers = Profiles.find({"profileType": "Individual"}).observeChanges({
-    added: function() {
+  const handleTheatremakers = Profiles.find({ profileType: 'Individual' }).observeChanges({
+    added: () => {
       countTheatremakers++;
       if (!initializing) {
         self.changed('Counts', 'People', { count: countTheatremakers });
       }
     },
-    removed: function() {
+    removed: () => {
       countTheatremakers--;
       self.changed('Counts', 'People', { count: countTheatremakers });
     },
     // don't care about changed
   });
-  const handleOrganizations = Profiles.find({"profileType": "Organization"}).observeChanges({
-    added: function() {
+  const handleOrganizations = Profiles.find({ profileType: 'Organization' }).observeChanges({
+    added: () => {
       countOrganizations++;
       if (!initializing) {
         self.changed('Counts', 'Organizations', { count: countOrganizations });
       }
     },
-    removed: function() {
+    removed: () => {
       countOrganizations--;
       self.changed('Counts', 'Organizations', { count: countOrganizations });
     },
     // don't care about changed
   });
-  const handleFestivals = Profiles.find({"profileType": "Festival"}).observeChanges({
-    added: function() {
+  const handleFestivals = Profiles.find({ profileType: 'Festival' }).observeChanges({
+    added: () => {
       countFestivals++;
       if (!initializing) {
         self.changed('Counts', 'Festivals', { count: countFestivals });
       }
     },
-    removed: function() {
+    removed: () => {
       countFestivals--;
       self.changed('Counts', 'Festivals', { count: countFestivals });
     },
     // don't care about changed
   });
   const handleShows = Shows.find({}).observeChanges({
-    added: function() {
+    added: () => {
       countShows++;
       if (!initializing) {
         self.changed('Counts', 'Shows', { count: countShows });
       }
     },
-    removed: function() {
+    removed: () => {
       countShows--;
       self.changed('Counts', 'Shows', { count: countShows });
     },
     // don't care about changed
   });
-  const handleEventLocations = Events.find({"lat": { $gt: ""}}).observeChanges({
-    added: function() {
+  const handleEventLocations = Events.find({ lat: { $gt: '' } }).observeChanges({
+    added: () => {
       countLocations++;
       if (!initializing) {
         self.changed('Counts', 'Locations', { count: countLocations });
       }
     },
-    removed: function() {
+    removed: () => {
       countLocations--;
       self.changed('Counts', 'Locations', { count: countLocations });
     },
     // don't care about changed
   });
-  const handleProfileLocations = Profiles.find({"lat": { $gt: ""}}).observeChanges({
-    added: function() {
+  const handleProfileLocations = Profiles.find({ lat: { $gt: '' } }).observeChanges({
+    added: () => {
       countLocations++;
       if (!initializing) {
         self.changed('Counts', 'Locations', { count: countLocations });
       }
     },
-    removed: function() {
+    removed: () => {
       countLocations--;
       self.changed('Counts', 'Locations', { count: countLocations });
     },

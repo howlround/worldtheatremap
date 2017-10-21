@@ -12,6 +12,9 @@ import {
 } from 'lodash';
 import YAML from 'yamljs';
 
+// API
+import { Events } from '../events.js';
+
 // AWS
 import AWS from 'aws-sdk';
 AWS.config.credentials = new AWS.Credentials({
@@ -20,60 +23,68 @@ AWS.config.credentials = new AWS.Credentials({
 });
 AWS.config.region = Meteor.settings.AWSRegion;
 
-// API
-import { Events } from '../events.js';
+const compareDocuments = (a, b) => (
+  reduce(a, (result, value, key) => {
+    // return isEqual(value, b[key]) ? result : result.concat(key);
+    const comparison = isEqual(value, b[key]) ? result : result.concat(key);
+    // console.log(comparison);
+    return comparison;
+  }, [])
+);
 
 // Insert
-Events.after.insert(function(userId, doc) {
+Events.after.insert((userId, doc) => {
   if (Meteor.isServer && Meteor.settings.SendContentNotifications) {
     AWS.config.credentials.get((err) => {
       // attach event listener
       if (err) {
-        console.error('Error retrieving AWS credentials.');
-        console.error(err);
+        console.error('Error retrieving AWS credentials.'); // eslint-disable-line no-console
+        console.error(err); // eslint-disable-line no-console
         return;
       }
       // create kinesis service object
       const kinesis = new AWS.Kinesis({
-        apiVersion: '2013-12-02'
+        apiVersion: '2013-12-02',
       });
 
       const omitFields = [
         'nameSearch',
       ];
-      const relevenatChanges = {};
+      const relevantChanges = {};
       forOwn(doc, (value, key) => {
         if (!isNull(value) && !isEmpty(value) && !includes(omitFields, key)) {
-          relevenatChanges[key] = value;
+          relevantChanges[key] = value;
         }
       });
 
-      if (!isEmpty(relevenatChanges)) {
-        const Subject = `An event for "${doc.show.name}" has been created by ${Meteor.users.findOne(userId).emails[0].address}`;
-        let HtmlBody = '';
+      if (!isEmpty(relevantChanges)) {
+        const userEmail = Meteor.users.findOne(userId).emails[0].address;
+        const Subject = `An event for "${doc.show.name}" has been created by ${userEmail}`;
+        // let HtmlBody = '';
         let TextBody = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });
         TextBody += `Event: ${baseUrl}events/${doc._id}\n\n`;
-        TextBody += YAML.stringify(relevenatChanges);
+        TextBody += YAML.stringify(relevantChanges);
 
         const payload = {
           TextBody,
           Subject,
           _id: doc.show._id, // Use show id b/c there are no subs for events
-        }
+        };
 
         const params = {
-          Records: [ //required
+          Records: [ // required
             {
               Data: Buffer.from(JSON.stringify(payload)), // required
               PartitionKey: 'shardId-000000000000', // required
             },
           ],
-          StreamName: 'wtm-notifications-pipeline-WtmChangesStream-1XJYCTSGQ9TK4' // required
+          StreamName: 'wtm-notifications-pipeline-WtmChangesStream-1XJYCTSGQ9TK4', // required
         };
-        kinesis.putRecords(params, function(err, data) {
-          if (err) console.log(err, err.stack); // an error occurred
-          // else     console.log(data);           // successful response
+        kinesis.putRecords(params, (kinesisErr) => {
+          if (kinesisErr) {
+            console.log(kinesisErr, kinesisErr.stack); // eslint-disable-line no-console
+          }
         });
       }
     });
@@ -81,18 +92,18 @@ Events.after.insert(function(userId, doc) {
 });
 
 // Update
-Events.after.update(function(userId, doc, fieldNames, modifier, options) {
+Events.after.update((userId, doc) => {
   if (Meteor.isServer && Meteor.settings.SendContentNotifications) {
     AWS.config.credentials.get((err) => {
       // attach event listener
       if (err) {
-        console.error('Error retrieving AWS credentials.');
-        console.error(err);
+        console.error('Error retrieving AWS credentials.'); // eslint-disable-line no-console
+        console.error(err); // eslint-disable-line no-console
         return;
       }
       // create kinesis service object
       const kinesis = new AWS.Kinesis({
-        apiVersion: '2013-12-02'
+        apiVersion: '2013-12-02',
       });
 
       // Refactor this to use fieldNames also
@@ -101,51 +112,60 @@ Events.after.update(function(userId, doc, fieldNames, modifier, options) {
       const omitFields = [
         'nameSearch',
       ];
-      const releventChangedKeys = pullAll(changedKeys, omitFields);
+      const relevantChangedKeys = pullAll(changedKeys, omitFields);
 
-      const relevenatChanges = pick(doc, releventChangedKeys);
-      const relevenatChangesOrig = pick(this.previous, releventChangedKeys);
+      const relevantChanges = pick(doc, relevantChangedKeys);
+      const relevantChangesOrig = pick(this.previous, relevantChangedKeys);
 
       // If anything in i18n changed, find out what changed.
       // This is recursive from above, so probably could be a function.
-      if (includes(releventChangedKeys, 'i18n')) {
-        each(relevenatChanges.i18n, (fields, locale) => {
+      if (includes(relevantChangedKeys, 'i18n')) {
+        each(relevantChanges.i18n, (fields, locale) => {
           const localeChangedKeys = compareDocuments(doc.i18n[locale], this.previous.i18n[locale]);
-          const releventlocaleChangedKeys = pullAll(localeChangedKeys, omitFields);
+          const relevantlocaleChangedKeys = pullAll(localeChangedKeys, omitFields);
 
-          relevenatChangesOrig.i18n[locale] = pick(relevenatChangesOrig.i18n[locale], releventlocaleChangedKeys);
-          relevenatChanges.i18n[locale] = pick(relevenatChanges.i18n[locale], releventlocaleChangedKeys);
+          relevantChangesOrig.i18n[locale] = pick(
+            relevantChangesOrig.i18n[locale],
+            relevantlocaleChangedKeys
+          );
+
+          relevantChanges.i18n[locale] = pick(
+            relevantChanges.i18n[locale],
+            relevantlocaleChangedKeys
+          );
         });
       }
 
-      if (!isEmpty(relevenatChanges)) {
-        const Subject = `An event for "${doc.show.name}" has been updated by ${Meteor.users.findOne(userId).emails[0].address}`;
-        let HtmlBody = '';
+      if (!isEmpty(relevantChanges)) {
+        const userEmail = Meteor.users.findOne(userId).emails[0].address;
+        const Subject = `An event for "${doc.show.name}" has been updated by ${userEmail}`;
+        // let HtmlBody = '';
         let TextBody = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });
         TextBody += `Event: ${baseUrl}events/${doc._id}\n\n`;
-        TextBody += `These are the new changes to the page:\n${YAML.stringify(relevenatChanges)}\n`;
-        TextBody += `This was the previous version:\n${YAML.stringify(relevenatChangesOrig)}`;
+        TextBody += `These are the new changes to the page:\n${YAML.stringify(relevantChanges)}\n`;
+        TextBody += `This was the previous version:\n${YAML.stringify(relevantChangesOrig)}`;
 
         const payload = {
           TextBody,
           Subject,
           // No subscriptions for events so comment this out
           // _id: doc._id,
-        }
+        };
 
         const params = {
-          Records: [ //required
+          Records: [ // required
             {
               Data: Buffer.from(JSON.stringify(payload)), // required
               PartitionKey: 'shardId-000000000000', // required
             },
           ],
-          StreamName: 'wtm-notifications-pipeline-WtmChangesStream-1XJYCTSGQ9TK4' // required
+          StreamName: 'wtm-notifications-pipeline-WtmChangesStream-1XJYCTSGQ9TK4', // required
         };
-        kinesis.putRecords(params, function(err, data) {
-          if (err) console.log(err, err.stack); // an error occurred
-          // else     console.log(data);           // successful response
+        kinesis.putRecords(params, (kinesisErr) => {
+          if (kinesisErr) {
+            console.log(kinesisErr, kinesisErr.stack); // eslint-disable-line no-console
+          }
         });
       }
     });
@@ -153,67 +173,60 @@ Events.after.update(function(userId, doc, fieldNames, modifier, options) {
 });
 
 // Remove
-Events.after.remove(function(userId, doc) {
+Events.after.remove((userId, doc) => {
   if (Meteor.isServer && Meteor.settings.SendContentNotifications) {
     AWS.config.credentials.get((err) => {
       // attach event listener
       if (err) {
-        console.error('Error retrieving AWS credentials.');
-        console.error(err);
+        console.error('Error retrieving AWS credentials.'); // eslint-disable-line no-console
+        console.error(err); // eslint-disable-line no-console
         return;
       }
       // create kinesis service object
       const kinesis = new AWS.Kinesis({
-        apiVersion: '2013-12-02'
+        apiVersion: '2013-12-02',
       });
 
       const omitFields = [
         'nameSearch',
       ];
-      const relevenatChanges = {};
+      const relevantChanges = {};
       forOwn(doc, (value, key) => {
         if (!isNull(value) && !isEmpty(value) && !includes(omitFields, key)) {
-          relevenatChanges[key] = value;
+          relevantChanges[key] = value;
         }
       });
 
-      if (!isEmpty(relevenatChanges)) {
-        const Subject = `An event for "${doc.show.name}" has been deleted by ${Meteor.users.findOne(userId).emails[0].address}`;
-        let HtmlBody = '';
+      if (!isEmpty(relevantChanges)) {
+        const userEmail = Meteor.users.findOne(userId).emails[0].address;
+        const Subject = `An event for "${doc.show.name}" has been deleted by ${userEmail}`;
+        // let HtmlBody = '';
         let TextBody = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });
         TextBody += `Event: ${baseUrl}events/${doc._id}\n\n`;
-        TextBody += YAML.stringify(relevenatChanges);
+        TextBody += YAML.stringify(relevantChanges);
 
         const payload = {
           TextBody,
           Subject,
           _id: doc.show._id, // Use show id b/c there are no subs for events
-        }
+        };
 
         const params = {
-          Records: [ //required
+          Records: [ // required
             {
               Data: Buffer.from(JSON.stringify(payload)), // required
               PartitionKey: 'shardId-000000000000', // required
             },
           ],
-          StreamName: 'wtm-notifications-pipeline-WtmChangesStream-1XJYCTSGQ9TK4' // required
+          StreamName: 'wtm-notifications-pipeline-WtmChangesStream-1XJYCTSGQ9TK4', // required
         };
-        kinesis.putRecords(params, function(kinesisErr, data) {
-          if (kinesisErr) console.log(kinesisErr, kinesisErr.stack); // an error occurred
-          // else     console.log(data);           // successful response
+        kinesis.putRecords(params, (kinesisErr) => {
+          if (kinesisErr) {
+            console.log(kinesisErr, kinesisErr.stack); // eslint-disable-line no-console
+          }
         });
       }
     });
   }
 });
-
-const compareDocuments = (a, b) => {
-  return reduce(a, (result, value, key) => {
-    // return isEqual(value, b[key]) ? result : result.concat(key);
-    const comparison = isEqual(value, b[key]) ? result : result.concat(key);
-    // console.log(comparison);
-    return comparison;
-  }, []);
-};

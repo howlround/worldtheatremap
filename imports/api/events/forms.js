@@ -6,7 +6,6 @@ import classnames from 'classnames';
 // Forms
 import React from 'react';
 import t from 'tcomb-form';
-import ReactSelect from 'react-select';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
 
@@ -20,26 +19,22 @@ import RelatedProfileTextboxContainer from '../../ui/containers/RelatedProfileTe
 
 // Reorder field elements
 const genericFieldTemplate = t.form.Form.templates.textbox.clone({
-  renderVertical: (locals) => {
-    return [
-      genericFieldTemplate.renderLabel(locals),
-      genericFieldTemplate.renderHelp(locals),
-      genericFieldTemplate.renderError(locals),
-      genericFieldTemplate.renderTextbox(locals),
-    ]
-  },
+  renderVertical: (locals) => ([
+    genericFieldTemplate.renderLabel(locals),
+    genericFieldTemplate.renderHelp(locals),
+    genericFieldTemplate.renderError(locals),
+    genericFieldTemplate.renderTextbox(locals),
+  ]),
 });
 
 /* Date component override */
 const dateTemplate = t.form.Form.templates.date.clone({
-  renderVertical: (locals) => {
-    return [
-      dateTemplate.renderLabel(locals),
-      dateTemplate.renderHelp(locals),
-      dateTemplate.renderError(locals),
-      dateTemplate.renderDate(locals),
-    ]
-  },
+  renderVertical: (locals) => ([
+    dateTemplate.renderLabel(locals),
+    dateTemplate.renderHelp(locals),
+    dateTemplate.renderError(locals),
+    dateTemplate.renderDate(locals),
+  ]),
 
   renderDate(locals) {
     const onChange = (dateMoment) => {
@@ -65,8 +60,9 @@ const dateTemplate = t.form.Form.templates.date.clone({
   renderLabel: (locals) => {
     const className = {
       'control-label': true,
-      'disabled': locals.disabled,
-    }
+      disabled: locals.disabled,
+    };
+
     return (
       <label
         title="Select profile type"
@@ -81,8 +77,8 @@ const dateTemplate = t.form.Form.templates.date.clone({
   renderHelp: (locals) => {
     const className = {
       'help-block': true,
-      'disabled': locals.disabled,
-    }
+      disabled: locals.disabled,
+    };
 
     return (
       <span
@@ -92,7 +88,7 @@ const dateTemplate = t.form.Form.templates.date.clone({
         {locals.help}
       </span>
     );
-  }
+  },
 });
 
 class DatePickerFactory extends t.form.Component {
@@ -124,8 +120,9 @@ const relatedShowTextboxTemplate = t.form.Form.templates.textbox.clone({
   renderLabel: (locals) => {
     const className = {
       'control-label': true,
-      'disabled': locals.disabled,
-    }
+      disabled: locals.disabled,
+    };
+
     return (
       <label
         htmlFor={locals.attrs.id}
@@ -167,8 +164,9 @@ const relatedOrgsTextboxTemplate = t.form.Form.templates.textbox.clone({
   renderLabel: (locals) => {
     const className = {
       'control-label': true,
-      'disabled': locals.disabled,
-    }
+      disabled: locals.disabled,
+    };
+
     return (
       <label
         htmlFor={locals.attrs.id}
@@ -182,8 +180,8 @@ const relatedOrgsTextboxTemplate = t.form.Form.templates.textbox.clone({
   renderHelp: (locals) => {
     const className = {
       'help-block': true,
-      'disabled': locals.disabled,
-    }
+      disabled: locals.disabled,
+    };
 
     return (
       <span
@@ -545,7 +543,7 @@ export const defaultFormOptions = () => ({
       help: <FormattedMessage
         id="forms.setPinHelpText"
         description="Help text for set pin field"
-        defaultMessage="We use the google places database to help us find locations. If the location you are searching for is not in the database don't worry! You can place the pin where you want and manually enter the address in the fields below."
+        defaultMessage="We use the google places database to help us find locations. If the location you are searching for is not in the database don't worry! You can place the pin where you want and manually enter the address in the fields below." // eslint-disable-line max-len
       />,
       error: <FormattedMessage
         id="forms.eventLocationError"

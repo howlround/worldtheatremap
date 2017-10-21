@@ -69,3 +69,4 @@ http@1.2.10
 alanning:roles
 mdg:meteor-apm-agent
 matb33:collection-hooks
+reactive-var

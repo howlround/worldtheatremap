@@ -41,7 +41,6 @@ export default class SearchProfilesResults extends React.Component {
     const { resultsDisplay } = this.state;
 
     let output = null;
-    const countDisplay = count ? count : size(results);
 
     if (loading) {
       output = <SearchResultsLoading />;
@@ -88,7 +87,7 @@ export default class SearchProfilesResults extends React.Component {
       <div>
         <SearchProfilesResultsSummary
           query={query}
-          count={countDisplay}
+          count={count}
         />
         <SearchResultsToggle
           toggle={this.updateResultsDisplay}

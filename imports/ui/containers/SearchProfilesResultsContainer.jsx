@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
+import { ReactiveVar } from 'meteor/reactive-var'
 import { _ } from 'meteor/underscore';
 import {
   get,
@@ -13,12 +14,13 @@ const util = require('util');
 import { Profiles } from '../../api/profiles/profiles.js';
 import SearchProfilesResults from '../components/SearchProfilesResults.jsx';
 
+let count = new ReactiveVar(0);
+
 const SearchProfilesResultsContainer = createContainer((props) => {
   const { query, updateQuery, locale } = props;
   let loading = false;
   let skip = 0;
   let results = [];
-  let count = null;
 
   if (!_.isEmpty(query)) {
     // Use an internal query so nothing strange gets passed straight through
@@ -136,7 +138,7 @@ const SearchProfilesResultsContainer = createContainer((props) => {
     // Make a call to the API for the overall count
     // The query can be passed straight in because the api will handle validation
     if (!_.isEmpty(query)) {
-      var result = HTTP.call(
+      HTTP.call(
         'POST',
         Meteor.settings.public.WTMDataApi,
         // 'http://localhost:3030/graphql',
@@ -151,11 +153,11 @@ const SearchProfilesResultsContainer = createContainer((props) => {
           }
         },
         (error, result) => {
-          console.log(result);
           if (error) {
-            console.log(error);
+            console.log(error); // eslint-disable-line no-console
           } else if (result.statusCode === 200) {
-            count = get(result.data, 'data.findProfiles.total');
+            const apiCount = get(result, 'data.data.findProfiles.total');
+            count.set(apiCount);
           }
         }
       );
@@ -163,7 +165,7 @@ const SearchProfilesResultsContainer = createContainer((props) => {
   }
 
   return {
-    count,
+    count: count.get(),
     results,
     loading,
     skip,

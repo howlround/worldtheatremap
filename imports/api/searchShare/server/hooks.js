@@ -109,8 +109,7 @@ SearchShare.after.insert((userId, doc) => {
 
       const svgString = ReactDOMServer.renderToString(svg);
       const file = svgString;
-      // const file = Buffer.from(svgString).toString('base64');
-      const fileName = `${new Date().getTime()}.svg`;
+      const fileName = `${doc._id}.svg`;
       const albumPhotosKey = `${encodeURIComponent('in')}/`;
       const photoKey = albumPhotosKey + fileName;
       s3.upload({

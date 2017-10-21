@@ -18,6 +18,5 @@ SearchShare.deny({
 });
 
 SearchShare.publicFields = {
-  count: 1,
-  modifiers: 1,
+  summary: 1,
 };

@@ -30,7 +30,7 @@ import ShareBackgroundImage from '../components/ShareBackgroundImage.jsx';
 
 class SearchProfilesResultsSummary extends React.Component {
   render() {
-    const { query, count } = this.props;
+    const { query, count, saveShareText } = this.props;
     const { formatMessage, locale, messages } = this.props.intl;
 
     const pluralTypes = defineMessages({
@@ -223,17 +223,16 @@ class SearchProfilesResultsSummary extends React.Component {
     const suffix = (!isEmpty(suffixModifiersArray)) ? ` ${suffixModifiersArray.join(' and ')}` : '';
 
     const modifiers = prefix + type + suffix;
+    const summary = `${count} ${modifiers}`;
 
-    upsert.call({
-      count,
-      modifiers,
+    const shareRecordId = upsert.call({
+      summary,
     });
-
-    const singleLineText = `${count} ${modifiers}`;
+    saveShareText(summary);
 
     return (
       <h3 className="search-results-summary">
-        {singleLineText}
+        {summary}
       </h3>
     );
   }
@@ -242,6 +241,7 @@ class SearchProfilesResultsSummary extends React.Component {
 SearchProfilesResultsSummary.propTypes = {
   query: React.PropTypes.object,
   count: React.PropTypes.number,
+  saveShareText: React.PropTypes.func,
   intl: intlShape.isRequired,
 };
 

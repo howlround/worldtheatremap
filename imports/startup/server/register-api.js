@@ -85,4 +85,5 @@ import '../../api/eventTypes/server/publications.js';
 
 // Search Share SVG uploading
 import '../../api/searchShare/methods.js';
+import '../../api/searchShare/server/publications.js';
 import '../../api/searchShare/server/hooks.js';

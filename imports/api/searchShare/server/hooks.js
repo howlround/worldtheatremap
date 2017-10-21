@@ -69,11 +69,10 @@ SearchShare.after.insert((userId, doc) => {
 
       const s3 = new AWS.S3({
         apiVersion: '2006-03-01',
-        params: { Bucket: Meteor.settings.AWSShareImageBucket },
+        params: { Bucket: Meteor.settings.public.AWSShareImageBucket },
       });
 
-      const singleLineText = `${doc.count} ${doc.modifiers}`;
-      const characterCount = size(singleLineText);
+      const characterCount = size(doc.summary);
 
       // @TODO: Increase each fontSize by 5px for OpenSans
       let fontSize = '75px';
@@ -92,7 +91,7 @@ SearchShare.after.insert((userId, doc) => {
         lineWrap = 28;
       }
 
-      const wrappedText = svgWrap(singleLineText, lineWrap);
+      const wrappedText = svgWrap(doc.summary, lineWrap);
       const svg = (
         <svg width="1200" height="630">
           <ShareBackgroundImage width="1200" height="630" />

@@ -10,24 +10,31 @@ import { SearchShare } from './searchShare.js';
 export const upsert = new ValidatedMethod({
   name: 'searchShare.upsert',
   validate: new SimpleSchema({
-    count: { type: Number },
-    modifiers: { type: String },
+    summary: { type: String },
   }).validator(),
-  run({ count, modifiers }) {
+  run({ summary }) {
     if (!this.userId) {
       throw new Meteor.Error('searchShare.upsert.accessDenied',
         'You must be logged in to complete this operation.');
     }
 
-    const shareSearchObject = {
-      count,
-      modifiers,
-    };
 
-    return SearchShare.upsert({
-      count,
-      modifiers,
-    }, shareSearchObject);
+    // if (Meteor.isServer) {
+      const shareSearchObject = {
+        summary,
+      };
+
+  // console.log(shareSearchObject);
+      const findOne = SearchShare.findOne(shareSearchObject);
+      return findOne;
+      // console.log(findOne);
+
+      // const upsert = SearchShare.upsert(shareSearchObject, shareSearchObject);
+      // console.log(upsert);
+
+      // return upsert;
+    // }
+
   },
 });
 

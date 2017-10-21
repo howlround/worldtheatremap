@@ -4,10 +4,10 @@
   "AWSRegion": "",
   "AWSSourceBucket": "",
   "AWSTargetBucket": "",
-  "AWSShareImageBucket": "",
   "SendContentNotifications": false,
   "GoogleTranslateAPIKey": "",
   "public": {
+    "AWSShareImageBucket": "",
     "WTMDataApi": "",
     "GoogleAnalytics": "UA-"
   }

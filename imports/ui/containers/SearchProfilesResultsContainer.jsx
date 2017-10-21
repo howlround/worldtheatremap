@@ -12,15 +12,17 @@ import gql from 'graphql-tag';
 const util = require('util');
 
 import { Profiles } from '../../api/profiles/profiles.js';
+import { SearchShare } from '../../api/searchShare/searchShare.js';
 import SearchProfilesResults from '../components/SearchProfilesResults.jsx';
 
 let count = new ReactiveVar(0);
 
 const SearchProfilesResultsContainer = createContainer((props) => {
-  const { query, updateQuery, locale } = props;
+  const { query, updateQuery, locale, shareSearchText, saveShareText } = props;
   let loading = false;
   let skip = 0;
   let results = [];
+  let searchShareRecord = null;
 
   if (!_.isEmpty(query)) {
     // Use an internal query so nothing strange gets passed straight through
@@ -133,6 +135,13 @@ const SearchProfilesResultsContainer = createContainer((props) => {
           },
           limit: 20,
         }).fetch();
+
+      // Also subscribe to the relevant share image to use in Helmet component
+      const searchShareSubscribe = Meteor.subscribe('searchShare.byText', shareSearchText);
+      searchShareRecord = SearchShare.findOne(
+        { summary: shareSearchText },
+        { fields: SearchShare.publicFields }
+      );
     }
 
     // Make a call to the API for the overall count
@@ -171,6 +180,8 @@ const SearchProfilesResultsContainer = createContainer((props) => {
     skip,
     query,
     updateQuery,
+    saveShareText,
+    shareImageId: get(searchShareRecord, '_id'),
   };
 }, SearchProfilesResults);
 

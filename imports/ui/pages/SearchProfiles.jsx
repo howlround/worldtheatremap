@@ -46,7 +46,11 @@ class SearchProfiles extends React.Component {
       // @TODO: Maybe deal with pager here too?
       // Only if a user would go directly to a path with only the pager set
 
-      this.state = cleanQuery;
+      this.state = {
+        query: cleanQuery,
+        shareSearchText: '',
+        // shareSearchText: '84 Female Theatremakers with the role Director',
+      };
     } else {
       this.state = {};
     }
@@ -54,6 +58,7 @@ class SearchProfiles extends React.Component {
 
     this.onChange = this.onChange.bind(this);
     this.updateQuery = this.updateQuery.bind(this);
+    this.saveShareText = this.saveShareText.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -73,7 +78,14 @@ class SearchProfiles extends React.Component {
         }
       });
 
-      this.setState(cleanQuery);
+      this.setState({ query: cleanQuery });
+    }
+  }
+
+  saveShareText(newSummary) {
+    const { shareSearchText } = this.state;
+    if (shareSearchText !== newSummary) {
+      this.setState({ shareSearchText: newSummary });
     }
   }
 
@@ -85,7 +97,7 @@ class SearchProfiles extends React.Component {
     // This function should always reset the pager because something changed
     delete changeValue.page;
 
-    this.setState(changeValue);
+    this.setState({ query: changeValue });
     this.context.router.push({
       pathname: `/${locale}/search/profiles`,
       query: changeValue,
@@ -96,7 +108,7 @@ class SearchProfiles extends React.Component {
     // Similar to onChange except it's coming from the pager so it shouldn't reset the pager value
     const { locale } = this.props.intl;
 
-    this.setState(value);
+    this.setState({ query: value });
     this.context.router.push({
       pathname: `/${locale}/search/profiles`,
       query: value,
@@ -105,7 +117,7 @@ class SearchProfiles extends React.Component {
 
   renderProfiles() {
     const { locale } = this.props.intl;
-    const query = this.state;
+    const { query, shareSearchText } = this.state;
 
     const cleanQuery = {};
     _.each(query, (val, key) => {
@@ -119,6 +131,8 @@ class SearchProfiles extends React.Component {
         query={cleanQuery}
         updateQuery={this.updateQuery}
         locale={locale}
+        saveShareText={this.saveShareText}
+        shareSearchText={shareSearchText}
       />
     );
   }
@@ -126,6 +140,7 @@ class SearchProfiles extends React.Component {
   render() {
     const { loading, dummyForm } = this.props;
     const { formatMessage, locale } = this.props.intl;
+    const { query } = this.state;
     let output = '';
 
     if (loading) {
@@ -176,7 +191,7 @@ class SearchProfiles extends React.Component {
                     type={profileFiltersSchema}
                     options={formOptions}
                     onChange={this.onChange}
-                    value={this.state}
+                    value={query}
                   />
                 </form>
               </div>

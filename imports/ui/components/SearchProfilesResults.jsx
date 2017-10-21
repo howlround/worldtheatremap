@@ -1,4 +1,5 @@
 import React from 'react';
+import Helmet from 'react-helmet';
 import {
   each,
   filter,
@@ -20,6 +21,7 @@ export default class SearchProfilesResults extends React.Component {
 
     this.state = {
       resultsDisplay: 'list',
+      shareImageId: '',
     };
 
     this.updateResultsDisplay = this.updateResultsDisplay.bind(this);
@@ -37,6 +39,8 @@ export default class SearchProfilesResults extends React.Component {
       skip,
       query,
       updateQuery,
+      saveShareText,
+      shareImageId,
     } = this.props;
     const { resultsDisplay } = this.state;
 
@@ -82,12 +86,24 @@ export default class SearchProfilesResults extends React.Component {
       output = <SearchResultsEmptyText />;
     }
 
+    const searchShareImage = shareImageId ? (
+      <Helmet
+        meta={[
+          // { property: 'twitter:card', content: 'summary'},
+          { property: 'og:image', content: `https://s3.amazonaws.com/${Meteor.settings.public.AWSShareImageBucket}/out/${shareImageId}.png` },
+          // { property: 'twitter:image', content: profile.image },
+        ]}
+      />
+    ) : '';
+
     // Include the map/list toggle on all cases to maintain a consistant interface
     return (
       <div>
+        {searchShareImage}
         <SearchProfilesResultsSummary
           query={query}
           count={count}
+          saveShareText={saveShareText}
         />
         <SearchResultsToggle
           toggle={this.updateResultsDisplay}
@@ -107,7 +123,9 @@ SearchProfilesResults.propTypes = {
   count: React.PropTypes.number,
   results: React.PropTypes.array,
   loading: React.PropTypes.bool,
+  shareImageId: React.PropTypes.string,
   query: React.PropTypes.object,
   updateQuery: React.PropTypes.func,
+  saveShareText: React.PropTypes.func,
   skip: React.PropTypes.number,
 };

@@ -68,7 +68,7 @@ export const defaultFormOptions = () => ({
       error: <FormattedMessage
         id="forms.affiliationFormError"
         description="Error text for Affiliation name"
-        defaultMessage="Go to 'add person/organization' to make a profile for this network / association / union."
+        defaultMessage="Go to 'add person/organization' to make a profile for this network / association / union." // eslint-disable-line max-len
       />,
       attrs: {
         className: 'affiliation-profile-edit',
@@ -82,7 +82,7 @@ export const defaultFormOptions = () => ({
       help: <FormattedMessage
         id="forms.affiliationFormHelp"
         description="Help text for Affiliation name"
-        defaultMessage="Check 'Network / Association / Union' in the section of the organization's profile form called: 'What kind of organization is this?'"
+        defaultMessage="Check 'Network / Association / Union' in the section of the organization's profile form called: 'What kind of organization is this?'" // eslint-disable-line max-len
       />,
       disableAdd: true,
       disableRemove: true,

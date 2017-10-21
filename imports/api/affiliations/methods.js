@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { ValidatedMethod } from 'meteor/mdg:validated-method';
+import { ValidatedMethod, ValidationError } from 'meteor/mdg:validated-method';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { _ } from 'meteor/underscore';
@@ -14,8 +14,9 @@ const PARTICIPANT_ID_ONLY = new SimpleSchema({
 export const upsert = new ValidatedMethod({
   name: 'affiliations.upsert',
   validate({ newAffiliation, parent }) {
-    newAffiliation.parentId = parent._id;
-    const result = t.validate(newAffiliation, affiliationSchema);
+    const validateObj = newAffiliation;
+    validateObj.parentId = parent._id;
+    const result = t.validate(validateObj, affiliationSchema);
 
     if (!result.isValid()) {
       throw new ValidationError(result.firstError());

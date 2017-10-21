@@ -1,7 +1,6 @@
 // Utilities
 import { TAPi18n } from 'meteor/tap:i18n';
 import React from 'react';
-import ReactSelect from 'react-select';
 import { FormattedMessage } from 'react-intl';
 import t from 'tcomb-form';
 

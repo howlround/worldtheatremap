@@ -1,15 +1,11 @@
 import { Meteor } from 'meteor/meteor';
-import { ValidatedMethod } from 'meteor/mdg:validated-method';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
-import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
-import { _ } from 'meteor/underscore';
 import t from 'tcomb-validation';
+import { _ } from 'meteor/underscore';
+import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
+import { Roles } from 'meteor/alanning:roles';
+import { ValidatedMethod, ValidationError } from 'meteor/mdg:validated-method';
 
 import { Content, contentSchema } from './content.js';
-
-const CONTENT_ID_ONLY = new SimpleSchema({
-  contentId: { type: String },
-}).validator();
 
 export const update = new ValidatedMethod({
   name: 'content.update',

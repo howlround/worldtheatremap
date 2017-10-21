@@ -3,13 +3,8 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { _ } from 'meteor/underscore';
-import t from 'tcomb-validation';
 
 import { Countries } from './countries.js';
-
-const COUNTRY_ID_ONLY = new SimpleSchema({
-  countryId: { type: String },
-}).validator();
 
 export const upsert = new ValidatedMethod({
   name: 'countries.upsert',
@@ -22,7 +17,8 @@ export const upsert = new ValidatedMethod({
         'You must be logged in to complete this operation.');
     }
 
-    // @TODO: Replace this with function to update profile, show, or event fields on country record instead
+    // @TODO: Replace this with function to update profile, show, or event fields
+    // on country record instead
     // const countryObject = {
     //   label: country,
     //   value: country

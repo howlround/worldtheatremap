@@ -38,11 +38,13 @@ export const factory = () => {
         locals.onChange(values);
       }
 
-      const placeholder = <FormattedMessage
-        id="forms.selectPlaceholder"
-        description="Select widget placeholder"
-        defaultMessage="Select..."
-      />;
+      const placeholder = (
+        <FormattedMessage
+          id="forms.selectPlaceholder"
+          description="Select widget placeholder"
+          defaultMessage="Select..."
+        />
+      );
 
       return (
         <ReactSelect

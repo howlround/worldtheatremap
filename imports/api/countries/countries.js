@@ -29,7 +29,7 @@ Countries.publicFields = {
 export const existingCountriesFactory = (locale) => {
   // Country options
   const sortKey = (!locale || locale === 'en') ? 'label' : `i18n.${locale}.label`;
-  const sort = {}
+  const sort = {};
   sort[sortKey] = 1;
 
   const ExistingCountries = Countries.find({}, { sort }).fetch();
@@ -42,11 +42,13 @@ export const existingCountriesFactory = (locale) => {
         locals.onChange(values);
       }
 
-      const placeholder = <FormattedMessage
-        id="forms.selectPlaceholder"
-        description="Select widget placeholder"
-        defaultMessage="Select..."
-      />;
+      const placeholder = (
+        <FormattedMessage
+          id="forms.selectPlaceholder"
+          description="Select widget placeholder"
+          defaultMessage="Select..."
+        />
+      );
 
       return (
         <ReactSelect
@@ -78,7 +80,7 @@ export const existingCountriesFactory = (locale) => {
 export const allCountriesFactory = (locale, multiValue = false) => {
   // allCountries options
   const sortKey = (!locale || locale === 'en') ? 'label' : `i18n.${locale}.label`;
-  const sort = {}
+  const sort = {};
   sort[sortKey] = 1;
 
   const AllCountries = Countries.find({}, { sort }).fetch();
@@ -99,11 +101,13 @@ export const allCountriesFactory = (locale, multiValue = false) => {
         }
       }
 
-      const placeholder = <FormattedMessage
-        id="forms.selectPlaceholder"
-        description="Select widget placeholder"
-        defaultMessage="Select..."
-      />;
+      const placeholder = (
+        <FormattedMessage
+          id="forms.selectPlaceholder"
+          description="Select widget placeholder"
+          defaultMessage="Select..."
+        />
+      );
 
       return (
         <ReactSelect

@@ -22,7 +22,7 @@ AWS.config.region = Meteor.settings.AWSRegion;
 // Adapted from https://bl.ocks.org/mbostock/7555321
 const svgWrap = (inputText, lineWrap) => {
   const $ = cheerio.load('<text></text>');
-  const words = splitWords(inputText).reverse();
+  const words = splitWords(inputText, /[\,\w]+/g).reverse();
   let word = null;
   let line = [];
   let lineNumber = 0;
@@ -75,19 +75,20 @@ SearchShare.after.insert((userId, doc) => {
       const singleLineText = `${doc.count} ${doc.modifiers}`;
       const characterCount = size(singleLineText);
 
-      let fontSize = '80px';
+      // @TODO: Increase each fontSize by 5px for OpenSans
+      let fontSize = '75px';
       let lineWrap = 24;
       if (characterCount > 250) {
-        fontSize = '40px';
+        fontSize = '35px';
         lineWrap = 50;
       } else if (characterCount > 175) {
-        fontSize = '50px';
+        fontSize = '45px';
         lineWrap = 40;
       } else if (characterCount > 120) {
-        fontSize = '60px';
+        fontSize = '55px';
         lineWrap = 33;
       } else if (characterCount > 90) {
-        fontSize = '70px';
+        fontSize = '65px';
         lineWrap = 28;
       }
 

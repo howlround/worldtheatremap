@@ -6,6 +6,8 @@ import {
   isEmpty,
   size,
 } from 'lodash';
+import { intlShape, injectIntl } from 'react-intl';
+import qs from 'qs';
 
 import ProfileSearchResult from '../components/ProfileSearchResult.jsx';
 import ProfilesGlobe from '../components/ProfilesGlobe.jsx';
@@ -15,7 +17,7 @@ import SearchResultsLoading from '../components/SearchResultsLoading.jsx';
 import SearchResultsPager from '../components/SearchResultsPager.jsx';
 import SearchResultsToggle from '../components/SearchResultsToggle.jsx';
 
-export default class SearchProfilesResults extends React.Component {
+class SearchProfilesResults extends React.Component {
   constructor(props) {
     super(props);
 
@@ -42,6 +44,7 @@ export default class SearchProfilesResults extends React.Component {
       saveShareText,
       shareImageId,
     } = this.props;
+    const { locale } = this.props.intl;
     const { resultsDisplay } = this.state;
 
     let output = null;
@@ -86,11 +89,15 @@ export default class SearchProfilesResults extends React.Component {
       output = <SearchResultsEmptyText />;
     }
 
+    const baseUrl = Meteor.absoluteUrl(false, { secure: true });
+    const queryString = qs.stringify(query);
+
     const searchShareImage = shareImageId ? (
       <Helmet
         meta={[
-          // { property: 'twitter:card', content: 'summary'},
           { property: 'og:image', content: `https://s3.amazonaws.com/${Meteor.settings.public.AWSShareImageBucket}/out/${shareImageId}.png` },
+          { property: 'og:url', content: `${baseUrl}${locale}/search/profiles?${queryString}` },
+          // { property: 'twitter:card', content: 'summary'},
           // { property: 'twitter:image', content: profile.image },
         ]}
       />
@@ -128,4 +135,7 @@ SearchProfilesResults.propTypes = {
   updateQuery: React.PropTypes.func,
   saveShareText: React.PropTypes.func,
   skip: React.PropTypes.number,
+  intl: intlShape.isRequired,
 };
+
+export default injectIntl(SearchProfilesResults);

@@ -1,13 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 
-import React from 'react';
 import Helmet from 'react-helmet';
-import {
-  filter,
-  isEmpty,
-} from 'lodash';
-import { intlShape, injectIntl } from 'react-intl';
 import qs from 'qs';
+import React from 'react';
+import { filter, isEmpty } from 'lodash';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
+import { OutboundLink } from 'react-ga';
 
 import ProfileSearchResult from '../components/ProfileSearchResult.jsx';
 import ProfilesGlobe from '../components/ProfilesGlobe.jsx';
@@ -91,6 +89,7 @@ class SearchProfilesResults extends React.Component {
 
     const baseUrl = Meteor.absoluteUrl(false, { secure: true });
     const queryString = qs.stringify(query);
+    const searchUrl = `${baseUrl}${locale}/search/profiles?${queryString}`;
 
     // Include the map/list toggle on all cases to maintain a consistant interface
     return (
@@ -98,10 +97,34 @@ class SearchProfilesResults extends React.Component {
         <Helmet
           meta={[
             { property: 'og:image', content: `https://s3.amazonaws.com/${Meteor.settings.public.AWSShareImageBucket}/out/${shareImageFilename}.png` },
-            { property: 'og:url', content: `${baseUrl}${locale}/search/profiles?${queryString}` },
+            { property: 'og:url', content: searchUrl },
             { property: 'twitter:image', content: `https://s3.amazonaws.com/${Meteor.settings.public.AWSShareImageBucket}/out/${shareImageFilename}.png` },
           ]}
         />
+        <div className="page-actions-share">
+          <OutboundLink
+            eventLabel="twitter-share"
+            to={`https://twitter.com/intent/tweet?text=${searchUrl} %23howlround @HowlRound @WorldTheatreMap`}
+            className="twitter-share"
+          >
+            <FormattedMessage
+              id="pageActions.tweet"
+              description="Twitter Share Text"
+              defaultMessage="Tweet"
+            />
+          </OutboundLink>
+          <OutboundLink
+            eventLabel="facebook-share"
+            to={`https://www.facebook.com/dialog/share?app_id=662843947226126&display=popup&href=${searchUrl}&redirect_uri=${searchUrl}`}
+            className="facebook-share"
+          >
+            <FormattedMessage
+              id="pageActions.share"
+              description="Facebook Share Text"
+              defaultMessage="Share"
+            />
+          </OutboundLink>
+        </div>
         <SearchProfilesResultsSummary
           query={query}
           count={count}

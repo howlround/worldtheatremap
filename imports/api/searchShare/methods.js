@@ -14,10 +14,11 @@ export const upsert = new ValidatedMethod({
     summary: { type: String },
   }).validator(),
   run({ summary }) {
-    if (!this.userId) {
-      throw new Meteor.Error('searchShare.upsert.accessDenied',
-        'You must be logged in to complete this operation.');
-    }
+    // Since we're generating images on all searches make this accessible to anonymous users
+    // if (!this.userId) {
+    //   throw new Meteor.Error('searchShare.upsert.accessDenied',
+    //     'You must be logged in to complete this operation.');
+    // }
 
     let output = false;
 

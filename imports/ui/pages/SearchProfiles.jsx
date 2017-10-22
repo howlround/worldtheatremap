@@ -203,9 +203,6 @@ class SearchProfiles extends React.Component {
           </section>
         </div>
       );
-
-      // Tell Prerender.io that we're ready
-      window.prerenderReady = true;
     }
 
     return output;

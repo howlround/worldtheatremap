@@ -230,6 +230,9 @@ class SearchProfilesResultsSummary extends React.Component {
     });
     saveShareText(summary);
 
+    // Tell Prerender.io that we're ready
+    window.prerenderReady = true;
+
     return (
       <h3 className="search-results-summary">
         {summary}

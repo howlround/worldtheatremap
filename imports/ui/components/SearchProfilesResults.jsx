@@ -105,6 +105,7 @@ class SearchProfilesResults extends React.Component {
         <SearchProfilesResultsSummary
           query={query}
           count={count}
+          shareImageFilename={shareImageFilename}
         />
         <SearchResultsToggle
           toggle={this.updateResultsDisplay}

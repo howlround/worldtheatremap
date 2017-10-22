@@ -13,10 +13,10 @@ export const upsert = new ValidatedMethod({
   validate: new SimpleSchema({
     count: { type: Number },
     modifiers: { type: String },
-    queryString: { type: String },
+    shareImageFilename: { type: String },
   }).validator(),
-  run({ count, modifiers, queryString }) {
-    const filename = hash(queryString);
+  run({ count, modifiers, shareImageFilename }) {
+    const filename = shareImageFilename;
 
     const shareSearchObject = {
       filename,

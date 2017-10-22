@@ -131,6 +131,7 @@ Profiles.after.update((userId, doc) => {
       });
 
       // Refactor this to use fieldNames also (optional third argument to the update hook)
+      // or modifier (another argument to the hook)
       const changedKeys = compareDocuments(doc, this.previous);
 
       const omitFields = [

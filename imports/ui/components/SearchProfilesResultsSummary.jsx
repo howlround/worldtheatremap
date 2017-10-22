@@ -26,7 +26,7 @@ import SelfDefinedRoles from '../components/SelfDefinedRoles.jsx';
 
 class SearchProfilesResultsSummary extends React.Component {
   render() {
-    const { query, count } = this.props;
+    const { query, count, shareImageFilename } = this.props;
     const { formatMessage, locale, messages } = this.props.intl;
 
     const pluralTypes = defineMessages({
@@ -218,12 +218,11 @@ class SearchProfilesResultsSummary extends React.Component {
     const prefix = (!isEmpty(prefixModifiersArray)) ? `${prefixModifiersArray.join(' ')} ` : '';
     const suffix = (!isEmpty(suffixModifiersArray)) ? ` ${suffixModifiersArray.join(' and ')}` : '';
 
-    const queryString = qs.stringify(query);
     const modifiers = prefix + type + suffix;
     const summary = `${count} ${modifiers}`;
 
     upsert.call({
-      queryString,
+      shareImageFilename,
       count,
       modifiers,
     });
@@ -240,6 +239,7 @@ class SearchProfilesResultsSummary extends React.Component {
 }
 
 SearchProfilesResultsSummary.propTypes = {
+  shareImageFilename: React.PropTypes.string,
   query: React.PropTypes.object,
   count: React.PropTypes.number,
   intl: intlShape.isRequired,

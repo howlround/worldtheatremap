@@ -48,8 +48,6 @@ class SearchProfiles extends React.Component {
 
       this.state = {
         query: cleanQuery,
-        shareSearchText: '',
-        // shareSearchText: '84 Female Theatremakers with the role Director',
       };
     } else {
       this.state = {};
@@ -58,7 +56,6 @@ class SearchProfiles extends React.Component {
 
     this.onChange = this.onChange.bind(this);
     this.updateQuery = this.updateQuery.bind(this);
-    this.saveShareText = this.saveShareText.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -79,13 +76,6 @@ class SearchProfiles extends React.Component {
       });
 
       this.setState({ query: cleanQuery });
-    }
-  }
-
-  saveShareText(newSummary) {
-    const { shareSearchText } = this.state;
-    if (shareSearchText !== newSummary) {
-      this.setState({ shareSearchText: newSummary });
     }
   }
 
@@ -117,7 +107,7 @@ class SearchProfiles extends React.Component {
 
   renderProfiles() {
     const { locale } = this.props.intl;
-    const { query, shareSearchText } = this.state;
+    const { query } = this.state;
 
     const cleanQuery = {};
     _.each(query, (val, key) => {
@@ -131,8 +121,6 @@ class SearchProfiles extends React.Component {
         query={cleanQuery}
         updateQuery={this.updateQuery}
         locale={locale}
-        saveShareText={this.saveShareText}
-        shareSearchText={shareSearchText}
       />
     );
   }

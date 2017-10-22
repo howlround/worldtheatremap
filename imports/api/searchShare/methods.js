@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import hash from 'string-hash';
 import { _ } from 'meteor/underscore';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
-import { get } from 'lodash';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 

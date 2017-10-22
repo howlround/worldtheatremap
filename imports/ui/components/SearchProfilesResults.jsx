@@ -1,14 +1,13 @@
+import { Meteor } from 'meteor/meteor';
+
 import React from 'react';
 import Helmet from 'react-helmet';
 import {
-  each,
   filter,
   isEmpty,
-  size,
 } from 'lodash';
 import { intlShape, injectIntl } from 'react-intl';
 import qs from 'qs';
-import hash from 'string-hash';
 
 import ProfileSearchResult from '../components/ProfileSearchResult.jsx';
 import ProfilesGlobe from '../components/ProfilesGlobe.jsx';
@@ -41,7 +40,7 @@ class SearchProfilesResults extends React.Component {
       skip,
       query,
       updateQuery,
-      saveShareText,
+      shareImageFilename,
     } = this.props;
     const { locale } = this.props.intl;
     const { resultsDisplay } = this.state;
@@ -50,11 +49,13 @@ class SearchProfilesResults extends React.Component {
 
     if (loading) {
       output = <SearchResultsLoading />;
-    } else if (!_.isEmpty(results)) {
+    } else if (!isEmpty(results)) {
       switch (resultsDisplay) {
         case 'map': {
           // Remove profiles that do not have locations
-          const profilesWithLocations = filter(results, profile => (!!profile.lat && !!profile.lon));
+          const profilesWithLocations = filter(results, profile => (
+            !!profile.lat && !!profile.lon
+          ));
           output = (
             <ProfilesGlobe
               items={profilesWithLocations}
@@ -68,11 +69,11 @@ class SearchProfilesResults extends React.Component {
           output = (
             <div className="search-results-wrapper">
               <ul className="search-results">
-                { results.map(profile => (
+                {results.map(profile => (
                   <li key={profile._id}>
                     <ProfileSearchResult profile={profile} />
                   </li>
-                )) }
+                ))}
               </ul>
               <SearchResultsPager
                 count={results.length}
@@ -90,7 +91,6 @@ class SearchProfilesResults extends React.Component {
 
     const baseUrl = Meteor.absoluteUrl(false, { secure: true });
     const queryString = qs.stringify(query);
-    const shareImageFilename = hash(queryString);
 
     // Include the map/list toggle on all cases to maintain a consistant interface
     return (
@@ -106,7 +106,6 @@ class SearchProfilesResults extends React.Component {
         <SearchProfilesResultsSummary
           query={query}
           count={count}
-          saveShareText={saveShareText}
         />
         <SearchResultsToggle
           toggle={this.updateResultsDisplay}
@@ -123,13 +122,12 @@ SearchProfilesResults.contextTypes = {
 };
 
 SearchProfilesResults.propTypes = {
+  shareImageFilename: React.PropTypes.string,
   count: React.PropTypes.number,
   results: React.PropTypes.array,
   loading: React.PropTypes.bool,
-  shareImageId: React.PropTypes.string,
   query: React.PropTypes.object,
   updateQuery: React.PropTypes.func,
-  saveShareText: React.PropTypes.func,
   skip: React.PropTypes.number,
   intl: intlShape.isRequired,
 };

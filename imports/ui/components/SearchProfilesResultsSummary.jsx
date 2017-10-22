@@ -6,12 +6,8 @@ import {
   includes,
   isEmpty,
   isNil,
-  words as splitWords,
-  size,
 } from 'lodash';
-import { $ } from 'meteor/jquery';
 import sanitizeHtml from 'sanitize-html';
-import cheerio from 'cheerio';
 import qs from 'qs';
 
 // API
@@ -27,11 +23,10 @@ import Interests from '../components/Interests.jsx';
 import Localities from '../components/Localities.jsx';
 import OrgTypes from '../components/OrgTypes.jsx';
 import SelfDefinedRoles from '../components/SelfDefinedRoles.jsx';
-import ShareBackgroundImage from '../components/ShareBackgroundImage.jsx';
 
 class SearchProfilesResultsSummary extends React.Component {
   render() {
-    const { query, count, saveShareText } = this.props;
+    const { query, count } = this.props;
     const { formatMessage, locale, messages } = this.props.intl;
 
     const pluralTypes = defineMessages({
@@ -227,7 +222,7 @@ class SearchProfilesResultsSummary extends React.Component {
     const modifiers = prefix + type + suffix;
     const summary = `${count} ${modifiers}`;
 
-    const shareRecordId = upsert.call({
+    upsert.call({
       queryString,
       count,
       modifiers,
@@ -247,7 +242,6 @@ class SearchProfilesResultsSummary extends React.Component {
 SearchProfilesResultsSummary.propTypes = {
   query: React.PropTypes.object,
   count: React.PropTypes.number,
-  saveShareText: React.PropTypes.func,
   intl: intlShape.isRequired,
 };
 

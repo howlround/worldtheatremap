@@ -1,78 +1,78 @@
 import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
-import { ReactiveVar } from 'meteor/reactive-var'
-import { _ } from 'meteor/underscore';
-import {
-  get,
-} from 'lodash';
 import escapeRegExp from 'lodash.escaperegexp';
-import moment from 'moment';
-import { remove as removeDiacritics } from 'diacritics';
 import gql from 'graphql-tag';
-const util = require('util');
+import hash from 'string-hash';
+import moment from 'moment';
+import qs from 'qs';
+import { _ } from 'meteor/underscore';
+import { createContainer } from 'meteor/react-meteor-data';
+import { get } from 'lodash';
+import { HTTP } from 'meteor/http';
+import { ReactiveVar } from 'meteor/reactive-var';
+import { remove as removeDiacritics } from 'diacritics';
+import { TAPi18n } from 'meteor/tap:i18n';
 
 import { Profiles } from '../../api/profiles/profiles.js';
-import { SearchShare } from '../../api/searchShare/searchShare.js';
 import SearchProfilesResults from '../components/SearchProfilesResults.jsx';
 
-let count = new ReactiveVar(0);
+const count = new ReactiveVar(0);
 
 const SearchProfilesResultsContainer = createContainer((props) => {
-  const { query, updateQuery, locale, shareSearchText, saveShareText } = props;
+  const { query, updateQuery, locale } = props;
   let loading = false;
   let skip = 0;
   let results = [];
-  let searchShareRecord = null;
+  let shareImageFilename = '';
 
   if (!_.isEmpty(query)) {
     // Use an internal query so nothing strange gets passed straight through
-    let privateQuery = {};
+    const privateQuery = {};
 
     if (query.profileType && query.profileType instanceof Array) {
       privateQuery.profileType = {
-        $in: query.profileType
+        $in: query.profileType,
       };
     }
 
     if (query.selfDefinedRoles && query.selfDefinedRoles instanceof Array) {
       privateQuery.selfDefinedRoles = {
-        $in: query.selfDefinedRoles
+        $in: query.selfDefinedRoles,
       };
     }
 
     if (query.ethnicityRace && query.ethnicityRace instanceof Array) {
       privateQuery.ethnicityRace = {
-        $in: query.ethnicityRace
+        $in: query.ethnicityRace,
       };
     }
 
     if (query.interests && query.interests instanceof Array) {
       privateQuery.interests = {
-        $in: query.interests
+        $in: query.interests,
       };
     }
 
     if (query.orgTypes && query.orgTypes instanceof Array) {
       privateQuery.orgTypes = {
-        $in: query.orgTypes
+        $in: query.orgTypes,
       };
     }
 
     if (query.locality && query.locality instanceof Array) {
       privateQuery.locality = {
-        $in: query.locality
+        $in: query.locality,
       };
     }
 
     if (query.administrativeArea && query.administrativeArea instanceof Array) {
       privateQuery.administrativeArea = {
-        $in: query.administrativeArea
+        $in: query.administrativeArea,
       };
     }
 
     if (query.country && query.country instanceof Array) {
       privateQuery.country = {
-        $in: query.country
+        $in: query.country,
       };
     }
 
@@ -82,7 +82,7 @@ const SearchProfilesResultsContainer = createContainer((props) => {
 
     if (query.gender && query.gender instanceof Array) {
       privateQuery.gender = {
-        $in: query.gender
+        $in: query.gender,
       };
     }
 
@@ -111,7 +111,8 @@ const SearchProfilesResultsContainer = createContainer((props) => {
     }
 
     if (query.name) {
-      privateQuery.nameSearch = new RegExp(`.*${escapeRegExp(removeDiacritics(query.name)).toUpperCase()}.*`);
+      const nameRegex = escapeRegExp(removeDiacritics(query.name)).toUpperCase();
+      privateQuery.nameSearch = new RegExp(`.*${nameRegex}.*`);
       plainTextQuery.name = query.name;
     }
 
@@ -135,31 +136,32 @@ const SearchProfilesResultsContainer = createContainer((props) => {
           },
           limit: 20,
         }).fetch();
-
-      // Also subscribe to the relevant share image to use in Helmet component
-      const searchShareSubscribe = Meteor.subscribe('searchShare.byText', shareSearchText);
-      searchShareRecord = SearchShare.findOne(
-        { summary: shareSearchText },
-        { fields: SearchShare.publicFields }
-      );
     }
 
     // Make a call to the API for the overall count
     // The query can be passed straight in because the api will handle validation
     if (!_.isEmpty(query)) {
+      // page field is not valid on the API
+      const queryForGQL = query;
+      delete queryForGQL.page;
+
       HTTP.call(
         'POST',
         Meteor.settings.public.WTMDataApi,
         // 'http://localhost:3030/graphql',
         {
           data: {
-            query: gql`query ($input: ProfileFiltersInput) {findProfiles(input: $input) { total } }`,
-            variables: { input: query }
+            query: gql`query ($input: ProfileFiltersInput) {
+              findProfiles(input: $input) {
+                total
+              }
+            }`,
+            variables: { input: query },
           },
           headers: {
             Authorization: Meteor.settings.public.WTMDataApiAuth,
             'Content-Type': 'application/json',
-          }
+          },
         },
         (error, result) => {
           if (error) {
@@ -171,7 +173,12 @@ const SearchProfilesResultsContainer = createContainer((props) => {
         }
       );
     }
+
+    // Generate the filename from privateQuery so pager is not included
+    const privateQueryString = qs.stringify(privateQuery);
+    shareImageFilename = hash(privateQueryString).toString();
   }
+
 
   return {
     count: count.get(),
@@ -180,8 +187,7 @@ const SearchProfilesResultsContainer = createContainer((props) => {
     skip,
     query,
     updateQuery,
-    saveShareText,
-    shareImageId: get(searchShareRecord, '_id'),
+    shareImageFilename,
   };
 }, SearchProfilesResults);
 

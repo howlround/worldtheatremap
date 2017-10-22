@@ -1,7 +1,8 @@
 import { Meteor } from 'meteor/meteor';
+import hash from 'string-hash';
 import { _ } from 'meteor/underscore';
-import { get } from 'lodash';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
+import { get } from 'lodash';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 
@@ -11,31 +12,25 @@ import { SearchShare } from './searchShare.js';
 export const upsert = new ValidatedMethod({
   name: 'searchShare.upsert',
   validate: new SimpleSchema({
-    summary: { type: String },
+    count: { type: Number },
+    modifiers: { type: String },
+    queryString: { type: String },
   }).validator(),
-  run({ summary }) {
-    // Since we're generating images on all searches make this accessible to anonymous users
-    // if (!this.userId) {
-    //   throw new Meteor.Error('searchShare.upsert.accessDenied',
-    //     'You must be logged in to complete this operation.');
-    // }
-
-    let output = false;
+  run({ count, modifiers, queryString }) {
+    const filename = hash(queryString);
 
     const shareSearchObject = {
-      summary,
+      filename,
+      count,
+      modifiers,
     };
 
-    const existingShareImage = SearchShare.findOne(shareSearchObject);
-
-    if (existingShareImage) {
-      output = get(existingShareImage, '_id');
-    } else {
-      const upsertDoc = SearchShare.upsert(shareSearchObject, shareSearchObject);
-      output = get(upsertDoc, 'insertedId');
-    }
-
-    return output;
+    // Upsert only requires count + one of the other two
+    // since filename is just a hashed version of modifiers
+    SearchShare.upsert({
+      filename,
+      count,
+    }, shareSearchObject);
   },
 });
 

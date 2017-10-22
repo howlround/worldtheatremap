@@ -18,5 +18,7 @@ SearchShare.deny({
 });
 
 SearchShare.publicFields = {
-  summary: 1,
+  filename: 1,
+  count: 1,
+  modifiers: 1,
 };

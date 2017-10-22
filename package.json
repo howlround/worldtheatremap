@@ -57,6 +57,7 @@
     "react-select": "https://registry.npmjs.org/react-select/-/react-select-1.0.0-rc.2.tgz",
     "sanitize-html": "https://registry.npmjs.org/sanitize-html/-/sanitize-html-1.13.0.tgz",
     "simple-date-picker": "^0.1.1",
+    "string-hash": "^1.1.3",
     "tcomb-form": "https://registry.npmjs.org/tcomb-form/-/tcomb-form-0.9.10.tgz",
     "tcomb-validation": "https://registry.npmjs.org/tcomb-validation/-/tcomb-validation-3.2.2.tgz",
     "topojson": "https://registry.npmjs.org/topojson/-/topojson-1.6.26.tgz",

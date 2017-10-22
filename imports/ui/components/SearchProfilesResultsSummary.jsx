@@ -12,6 +12,7 @@ import {
 import { $ } from 'meteor/jquery';
 import sanitizeHtml from 'sanitize-html';
 import cheerio from 'cheerio';
+import qs from 'qs';
 
 // API
 import { upsert } from '../../api/searchShare/methods.js';
@@ -222,13 +223,15 @@ class SearchProfilesResultsSummary extends React.Component {
     const prefix = (!isEmpty(prefixModifiersArray)) ? `${prefixModifiersArray.join(' ')} ` : '';
     const suffix = (!isEmpty(suffixModifiersArray)) ? ` ${suffixModifiersArray.join(' and ')}` : '';
 
+    const queryString = qs.stringify(query);
     const modifiers = prefix + type + suffix;
     const summary = `${count} ${modifiers}`;
 
     const shareRecordId = upsert.call({
-      summary,
+      queryString,
+      count,
+      modifiers,
     });
-    saveShareText(summary);
 
     // Tell Prerender.io that we're ready
     window.prerenderReady = true;

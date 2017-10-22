@@ -22,7 +22,7 @@ AWS.config.region = Meteor.settings.AWSRegion;
 // Adapted from https://bl.ocks.org/mbostock/7555321
 const svgWrap = (inputText, lineWrap) => {
   const $ = cheerio.load('<text></text>');
-  const words = splitWords(inputText, /[\,\w]+/g).reverse();
+  const words = splitWords(inputText, /[\,\w\:]+/g).reverse();
   let word = null;
   let line = [];
   const x = 40;
@@ -88,7 +88,8 @@ SearchShare.after.insert((userId, doc) => {
         lineWrap = 28;
       }
 
-      const wrappedText = svgWrap(doc.summary, lineWrap);
+      const summary = `${doc.count} ${doc.modifiers}`;
+      const wrappedText = svgWrap(summary, lineWrap);
       const svg = (
         <svg width="1200" height="630">
           <ShareBackgroundImage width="1200" height="630" />
@@ -106,7 +107,7 @@ SearchShare.after.insert((userId, doc) => {
 
       const svgString = ReactDOMServer.renderToString(svg);
       const file = svgString;
-      const fileName = `${doc._id}.svg`;
+      const fileName = `${doc.filename}.svg`;
       const albumPhotosKey = `${encodeURIComponent('in')}/`;
       const photoKey = albumPhotosKey + fileName;
       s3.upload({

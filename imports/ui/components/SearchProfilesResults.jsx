@@ -8,6 +8,7 @@ import {
 } from 'lodash';
 import { intlShape, injectIntl } from 'react-intl';
 import qs from 'qs';
+import hash from 'string-hash';
 
 import ProfileSearchResult from '../components/ProfileSearchResult.jsx';
 import ProfilesGlobe from '../components/ProfilesGlobe.jsx';
@@ -23,7 +24,6 @@ class SearchProfilesResults extends React.Component {
 
     this.state = {
       resultsDisplay: 'list',
-      shareImageId: '',
     };
 
     this.updateResultsDisplay = this.updateResultsDisplay.bind(this);
@@ -42,7 +42,6 @@ class SearchProfilesResults extends React.Component {
       query,
       updateQuery,
       saveShareText,
-      shareImageId,
     } = this.props;
     const { locale } = this.props.intl;
     const { resultsDisplay } = this.state;
@@ -91,22 +90,19 @@ class SearchProfilesResults extends React.Component {
 
     const baseUrl = Meteor.absoluteUrl(false, { secure: true });
     const queryString = qs.stringify(query);
-
-    const searchShareImage = shareImageId ? (
-      <Helmet
-        meta={[
-          { property: 'og:image', content: `https://s3.amazonaws.com/${Meteor.settings.public.AWSShareImageBucket}/out/${shareImageId}.png` },
-          { property: 'og:url', content: `${baseUrl}${locale}/search/profiles?${queryString}` },
-          // { property: 'twitter:card', content: 'summary'},
-          // { property: 'twitter:image', content: profile.image },
-        ]}
-      />
-    ) : '';
+    const shareImageFilename = hash(queryString);
 
     // Include the map/list toggle on all cases to maintain a consistant interface
     return (
       <div>
-        {searchShareImage}
+        <Helmet
+          meta={[
+            { property: 'og:image', content: `https://s3.amazonaws.com/${Meteor.settings.public.AWSShareImageBucket}/out/${shareImageFilename}.png` },
+            { property: 'og:url', content: `${baseUrl}${locale}/search/profiles?${queryString}` },
+            // { property: 'twitter:card', content: 'summary'},
+            // { property: 'twitter:image', content: profile.image },
+          ]}
+        />
         <SearchProfilesResultsSummary
           query={query}
           count={count}

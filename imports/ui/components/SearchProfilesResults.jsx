@@ -99,8 +99,7 @@ class SearchProfilesResults extends React.Component {
           meta={[
             { property: 'og:image', content: `https://s3.amazonaws.com/${Meteor.settings.public.AWSShareImageBucket}/out/${shareImageFilename}.png` },
             { property: 'og:url', content: `${baseUrl}${locale}/search/profiles?${queryString}` },
-            // { property: 'twitter:card', content: 'summary'},
-            // { property: 'twitter:image', content: profile.image },
+            { property: 'twitter:image', content: `https://s3.amazonaws.com/${Meteor.settings.public.AWSShareImageBucket}/out/${shareImageFilename}.png` },
           ]}
         />
         <SearchProfilesResultsSummary

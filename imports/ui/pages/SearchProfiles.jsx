@@ -148,6 +148,9 @@ class SearchProfiles extends React.Component {
       if (dummyForm) {
         output = '';
       } else {
+        // Tell Prerender.io that we're not ready
+        window.prerenderReady = false;
+
         output = <Loading key="loading" />;
       }
     } else {
@@ -201,6 +204,9 @@ class SearchProfiles extends React.Component {
         </div>
       );
     }
+
+    // Tell Prerender.io that we're ready
+    window.prerenderReady = true;
 
     return output;
   }

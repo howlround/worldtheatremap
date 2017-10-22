@@ -9,6 +9,7 @@
   "public": {
     "AWSShareImageBucket": "",
     "WTMDataApi": "",
+    "WTMDataApiAuth": "",
     "GoogleAnalytics": "UA-"
   }
 }

@@ -157,7 +157,7 @@ const SearchProfilesResultsContainer = createContainer((props) => {
             variables: { input: query }
           },
           headers: {
-            Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyIsInR5cGUiOiJhY2Nlc3MifQ.eyJ1c2VySWQiOiI1OWM1NzkwYTI3YTc0MDAxMWJjOThmOTkiLCJpYXQiOjE1MDg2MDkzNzMsImV4cCI6MTUwODY5NTc3MywiYXVkIjoiaHR0cHM6Ly9kYXRhLndvcmxkdGhlYXRyZW1hcC5vcmciLCJpc3MiOiJmZWF0aGVycyIsInN1YiI6ImFub255bW91cyJ9.7OTKMqZPcOFU8pb9FSuDX8sgOQZn53OPwguXXkwxhyU',
+            Authorization: Meteor.settings.public.WTMDataApiAuth,
             'Content-Type': 'application/json',
           }
         },

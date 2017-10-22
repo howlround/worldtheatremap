@@ -25,9 +25,6 @@ const svgWrap = (inputText, lineWrap) => {
   const words = splitWords(inputText, /[\,\w]+/g).reverse();
   let word = null;
   let line = [];
-  let lineNumber = 0;
-  const lineHeight = 1.1;
-  const y = 30;
   const x = 40;
   const dy = 1.2;
   let tspan = cheerio('<tspan></tspan>').attr('x', x).attr('dy', `${dy}em`);

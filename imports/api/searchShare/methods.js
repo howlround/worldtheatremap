@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/underscore';
+import { get } from 'lodash';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
@@ -18,23 +19,22 @@ export const upsert = new ValidatedMethod({
         'You must be logged in to complete this operation.');
     }
 
+    let output = false;
 
-    // if (Meteor.isServer) {
-      const shareSearchObject = {
-        summary,
-      };
+    const shareSearchObject = {
+      summary,
+    };
 
-  // console.log(shareSearchObject);
-      const findOne = SearchShare.findOne(shareSearchObject);
-      return findOne;
-      // console.log(findOne);
+    const existingShareImage = SearchShare.findOne(shareSearchObject);
 
-      // const upsert = SearchShare.upsert(shareSearchObject, shareSearchObject);
-      // console.log(upsert);
+    if (existingShareImage) {
+      output = get(existingShareImage, '_id');
+    } else {
+      const upsertDoc = SearchShare.upsert(shareSearchObject, shareSearchObject);
+      output = get(upsertDoc, 'insertedId');
+    }
 
-      // return upsert;
-    // }
-
+    return output;
   },
 });
 

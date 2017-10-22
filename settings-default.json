@@ -8,7 +8,7 @@
   "GoogleTranslateAPIKey": "",
   "public": {
     "AWSShareImageBucket": "",
-    "WTMDataApi": "",
+    "WTMDataApi": "/graphql",
     "WTMDataApiAuth": "",
     "GoogleAnalytics": "UA-"
   }

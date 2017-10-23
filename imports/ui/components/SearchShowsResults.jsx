@@ -1,9 +1,11 @@
+import { Meteor } from 'meteor/meteor';
+
+import Helmet from 'react-helmet';
+import qs from 'qs';
 import React from 'react';
-import {
-  each,
-  isEmpty,
-  size,
-} from 'lodash';
+import { each, isEmpty } from 'lodash';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
+import { OutboundLink } from 'react-ga';
 
 import EventsGlobe from '../components/EventsGlobe.jsx';
 import SearchResultsEmptyText from '../components/SearchResultsEmptyText.jsx';
@@ -13,7 +15,7 @@ import SearchResultsToggle from '../components/SearchResultsToggle.jsx';
 import SearchShowsResultsSummary from '../components/SearchShowsResultsSummary.jsx';
 import ShowTeaser from '../components/ShowTeaser.jsx';
 
-export default class SearchShowsResults extends React.Component {
+class SearchShowsResults extends React.Component {
   constructor(props) {
     super(props);
 
@@ -30,12 +32,15 @@ export default class SearchShowsResults extends React.Component {
 
   render() {
     const {
+      count,
       results,
       loading,
       skip,
       query,
       updateQuery,
+      shareImageFilename,
     } = this.props;
+    const { locale } = this.props.intl;
     const { resultsDisplay } = this.state;
 
     let output = null;
@@ -87,12 +92,60 @@ export default class SearchShowsResults extends React.Component {
       output = <SearchResultsEmptyText />;
     }
 
+    let helmet = '';
+    let pageActionsShare = '';
+    if (!isEmpty(query)) {
+      const baseUrl = Meteor.absoluteUrl(false, { secure: true });
+      const queryString = qs.stringify(query);
+      const searchUrl = `${baseUrl}${locale}/search/profiles?${queryString}`;
+
+      helmet = (
+        <Helmet
+          meta={[
+            { property: 'og:image', content: `https://s3.amazonaws.com/${Meteor.settings.public.AWSShareImageBucket}/out/${shareImageFilename}.png` },
+            { property: 'og:url', content: searchUrl },
+            { property: 'twitter:image', content: `https://s3.amazonaws.com/${Meteor.settings.public.AWSShareImageBucket}/out/${shareImageFilename}.png` },
+          ]}
+        />
+      );
+
+      pageActionsShare = (
+        <div className="page-actions-share">
+          <OutboundLink
+            eventLabel="twitter-share"
+            to={`https://twitter.com/intent/tweet?text=${searchUrl} %23howlround @HowlRound @WorldTheatreMap`}
+            className="twitter-share"
+          >
+            <FormattedMessage
+              id="pageActions.tweet"
+              description="Twitter Share Text"
+              defaultMessage="Tweet"
+            />
+          </OutboundLink>
+          <OutboundLink
+            eventLabel="facebook-share"
+            to={`https://www.facebook.com/dialog/share?app_id=662843947226126&display=popup&href=${searchUrl}&redirect_uri=${searchUrl}`}
+            className="facebook-share"
+          >
+            <FormattedMessage
+              id="pageActions.share"
+              description="Facebook Share Text"
+              defaultMessage="Share"
+            />
+          </OutboundLink>
+        </div>
+      );
+    }
+
     // Include the map/list toggle on all cases to maintain a consistant interface
     return (
       <div>
+        {helmet}
+        {pageActionsShare}
         <SearchShowsResultsSummary
           query={query}
-          count={size(results)}
+          // count={count}
+          shareImageFilename={shareImageFilename}
         />
         <SearchResultsToggle
           toggle={this.updateResultsDisplay}
@@ -109,9 +162,14 @@ SearchShowsResults.contextTypes = {
 };
 
 SearchShowsResults.propTypes = {
+  shareImageFilename: React.PropTypes.string,
+  // count: React.PropTypes.number,
   results: React.PropTypes.array,
   loading: React.PropTypes.bool,
   query: React.PropTypes.object,
   updateQuery: React.PropTypes.func,
   skip: React.PropTypes.number,
+  intl: intlShape.isRequired,
 };
+
+export default injectIntl(SearchShowsResults);

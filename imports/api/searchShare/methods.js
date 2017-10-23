@@ -12,16 +12,16 @@ export const upsert = new ValidatedMethod({
   name: 'searchShare.upsert',
   validate: new SimpleSchema({
     count: { type: Number },
-    modifiers: { type: String },
+    summary: { type: String },
     shareImageFilename: { type: String },
   }).validator(),
-  run({ count, modifiers, shareImageFilename }) {
+  run({ count, summary, shareImageFilename }) {
     const filename = shareImageFilename;
 
     const shareSearchObject = {
       filename,
       count,
-      modifiers,
+      summary,
     };
 
     // Upsert only requires count + one of the other two

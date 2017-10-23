@@ -12,7 +12,6 @@ import qs from 'qs';
 
 // API
 import { upsert } from '../../api/searchShare/methods.js';
-// import { update } from '../../api/content/methods.js';
 
 // Components
 import AdministrativeAreas from '../components/AdministrativeAreas.jsx';
@@ -224,7 +223,7 @@ class SearchProfilesResultsSummary extends React.Component {
     upsert.call({
       shareImageFilename,
       count,
-      modifiers,
+      summary,
     });
 
     // Tell Prerender.io that we're ready

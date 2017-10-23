@@ -87,13 +87,14 @@ class SearchProfilesResults extends React.Component {
       output = <SearchResultsEmptyText />;
     }
 
-    const baseUrl = Meteor.absoluteUrl(false, { secure: true });
-    const queryString = qs.stringify(query);
-    const searchUrl = `${baseUrl}${locale}/search/profiles?${queryString}`;
+    let helmet = '';
+    let pageActionsShare = '';
+    if (!isEmpty(query)) {
+      const baseUrl = Meteor.absoluteUrl(false, { secure: true });
+      const queryString = qs.stringify(query);
+      const searchUrl = `${baseUrl}${locale}/search/profiles?${queryString}`;
 
-    // Include the map/list toggle on all cases to maintain a consistant interface
-    return (
-      <div>
+      helmet = (
         <Helmet
           meta={[
             { property: 'og:image', content: `https://s3.amazonaws.com/${Meteor.settings.public.AWSShareImageBucket}/out/${shareImageFilename}.png` },
@@ -101,6 +102,9 @@ class SearchProfilesResults extends React.Component {
             { property: 'twitter:image', content: `https://s3.amazonaws.com/${Meteor.settings.public.AWSShareImageBucket}/out/${shareImageFilename}.png` },
           ]}
         />
+      );
+
+      pageActionsShare = (
         <div className="page-actions-share">
           <OutboundLink
             eventLabel="twitter-share"
@@ -125,6 +129,14 @@ class SearchProfilesResults extends React.Component {
             />
           </OutboundLink>
         </div>
+      );
+    }
+
+    // Include the map/list toggle on all cases to maintain a consistant interface
+    return (
+      <div>
+        {helmet}
+        {pageActionsShare}
         <SearchProfilesResultsSummary
           query={query}
           count={count}

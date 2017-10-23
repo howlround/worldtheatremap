@@ -179,7 +179,6 @@ const SearchProfilesResultsContainer = createContainer((props) => {
     shareImageFilename = hash(privateQueryString).toString();
   }
 
-
   return {
     count: count.get(),
     results,

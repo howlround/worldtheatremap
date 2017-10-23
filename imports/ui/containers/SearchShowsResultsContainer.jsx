@@ -1,10 +1,14 @@
 import { Meteor } from 'meteor/meteor';
-import { TAPi18n } from 'meteor/tap:i18n';
 import escapeRegExp from 'lodash.escaperegexp';
+// import gql from 'graphql-tag';
+import hash from 'string-hash';
 import moment from 'moment';
+import qs from 'qs';
 import { _ } from 'meteor/underscore';
 import { createContainer } from 'meteor/react-meteor-data';
+import { ReactiveVar } from 'meteor/reactive-var';
 import { remove as removeDiacritics } from 'diacritics';
+import { TAPi18n } from 'meteor/tap:i18n';
 
 import { Shows } from '../../api/shows/shows.js';
 import { Events } from '../../api/events/events.js';
@@ -44,6 +48,8 @@ const getEventsFromShows = ({ showResults, privateEventQuery }) => {
   return results;
 };
 
+// const count = new ReactiveVar(0);
+
 const SearchShowsResultsContainer = createContainer((props) => {
   const { query, updateQuery } = props;
   let loading = false;
@@ -51,6 +57,7 @@ const SearchShowsResultsContainer = createContainer((props) => {
   let showResults = [];
   const showResultIds = [];
   let results = [];
+  let shareImageFilename = '';
 
   if (!_.isEmpty(query)) {
     // Use an internal query so nothing strange gets passed straight through
@@ -197,14 +204,59 @@ const SearchShowsResultsContainer = createContainer((props) => {
     // Clean out null values in results
     // (from _.map if none of the return values are met)
     results = _.compact(results);
+
+    // Make a call to the API for the overall count
+    // The query can be passed straight in because the api will handle validation
+    // @TODO: API has to be refactored to handle queries for events using show data
+    // (e.g. number of events for shows in portuguese)
+    // if (!_.isEmpty(query)) {
+    //   // page field is not valid on the API
+    //   const queryForGQL = query;
+    //   delete queryForGQL.page;
+
+    //   HTTP.call(
+    //     'POST',
+    //     Meteor.settings.public.WTMDataApi,
+    //     // 'http://localhost:3030/graphql',
+    //     {
+    //       data: {
+    //         query: gql`query ($input: EventFiltersInput) {
+    //           findEvents(input: $input) {
+    //             total
+    //           }
+    //         }`,
+    //         variables: { input: query },
+    //       },
+    //       headers: {
+    //         Authorization: Meteor.settings.public.WTMDataApiAuth,
+    //         'Content-Type': 'application/json',
+    //       },
+    //     },
+    //     (error, result) => {
+    //       if (error) {
+    //         console.log(error); // eslint-disable-line no-console
+    //       } else if (result.statusCode === 200) {
+    //         const apiCount = get(result, 'data.data.findProfiles.total');
+    //         count.set(apiCount);
+    //       }
+    //     }
+    //   );
+    // }
+
+    // Generate the filename from privateQuery so pager is not included
+    // Put the show and event queries together
+    const privateQueryString = `${qs.stringify(privateShowQuery)}${qs.stringify(privateEventQuery)}`; // eslint-disable-line max-len
+    shareImageFilename = hash(privateQueryString).toString();
   }
 
   return {
+    // count: count.get(),
     results,
     loading,
     skip,
     query,
     updateQuery,
+    shareImageFilename,
   };
 }, SearchShowsResults);
 

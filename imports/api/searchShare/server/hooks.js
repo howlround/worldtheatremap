@@ -88,16 +88,15 @@ SearchShare.after.insert((userId, doc) => {
         lineWrap = 28;
       }
 
-      const summary = `${doc.count} ${doc.modifiers}`;
-      const wrappedText = svgWrap(summary, lineWrap);
+      const wrappedText = svgWrap(doc.summary, lineWrap);
       const svg = (
         <svg width="1200" height="630">
           <ShareBackgroundImage width="1200" height="630" />
           <text
             dangerouslySetInnerHTML={{ __html: wrappedText }}
             x="40"
-            y="30"
-            fontFamily="OpenSans"
+            y="20"
+            fontFamily="Open Sans"
             fontWeight="900"
             fontSize={fontSize}
             fill="#1cb4b0"

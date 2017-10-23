@@ -1,13 +1,7 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import classnames from 'classnames';
 import { IntlProvider, FormattedDate, defineMessages, intlShape, injectIntl } from 'react-intl';
-import {
-  get,
-  includes,
-  isEmpty,
-  isNil,
-} from 'lodash';
+import { isEmpty, isNil } from 'lodash';
 import sanitizeHtml from 'sanitize-html';
 
 // API
@@ -19,11 +13,14 @@ import Countries from '../components/Countries.jsx';
 import Interests from '../components/Interests.jsx';
 import Languages from '../components/Languages.jsx';
 import Localities from '../components/Localities.jsx';
-import ShareBackgroundImage from '../components/ShareBackgroundImage.jsx';
 
 class SearchShowsResultsSummary extends React.Component {
   render() {
-    const { query, count } = this.props;
+    const {
+      query,
+      // count,
+      shareImageFilename,
+    } = this.props;
     const { formatMessage, locale, messages } = this.props.intl;
 
     const pluralTypes = defineMessages({
@@ -33,7 +30,9 @@ class SearchShowsResultsSummary extends React.Component {
       },
     });
 
-    let type = formatMessage(pluralTypes.show, { count });
+    // Hard code to zero for now until we get proper counts from the API
+    const count = 0;
+    const type = formatMessage(pluralTypes.show, { count });
     const prefixModifiersArray = [];
     const suffixModifiersArray = [];
 
@@ -61,7 +60,7 @@ class SearchShowsResultsSummary extends React.Component {
     }
 
     if (!isNil(query.startDate)) {
-      const startDateMarkup = (
+      const startDateReact = (
         <IntlProvider locale={locale} messages={messages}>
           <FormattedDate
             value={query.startDate}
@@ -72,11 +71,12 @@ class SearchShowsResultsSummary extends React.Component {
         </IntlProvider>
       );
 
-      suffixModifiersArray.push(sanitizeHtml(`from ${ReactDOMServer.renderToStaticMarkup(startDateMarkup)}`));
+      const startDateMarkup = ReactDOMServer.renderToStaticMarkup(startDateReact);
+      suffixModifiersArray.push(sanitizeHtml(`from ${startDateMarkup}`));
     }
 
     if (!isNil(query.endDate)) {
-      const endDateMarkup = (
+      const endDateReact = (
         <IntlProvider locale={locale} messages={messages}>
           <FormattedDate
             value={query.endDate}
@@ -87,11 +87,12 @@ class SearchShowsResultsSummary extends React.Component {
         </IntlProvider>
       );
 
-      suffixModifiersArray.push(sanitizeHtml(`until ${ReactDOMServer.renderToStaticMarkup(endDateMarkup)}`));
+      const endDateMarkup = ReactDOMServer.renderToStaticMarkup(endDateReact);
+      suffixModifiersArray.push(sanitizeHtml(`until ${endDateMarkup}`));
     }
 
     if (!isNil(query.interests)) {
-      const interestsMarkup = (
+      const interestsReact = (
         <IntlProvider locale={locale} messages={messages}>
           <Interests
             interests={query.interests}
@@ -100,12 +101,13 @@ class SearchShowsResultsSummary extends React.Component {
         </IntlProvider>
       );
 
-      suffixModifiersArray.push(`with a topic of ${sanitizeHtml(ReactDOMServer.renderToStaticMarkup(interestsMarkup))}`);
+      const interestsMarkup = ReactDOMServer.renderToStaticMarkup(interestsReact);
+      suffixModifiersArray.push(`interested in ${sanitizeHtml(interestsMarkup)}`);
     }
 
     // All location fields should be at the end
     if (!isNil(query.locality)) {
-      const localitiesMarkup = (
+      const localitiesReact = (
         <IntlProvider locale={locale} messages={messages}>
           <Localities
             localities={query.locality}
@@ -114,11 +116,12 @@ class SearchShowsResultsSummary extends React.Component {
         </IntlProvider>
       );
 
-      suffixModifiersArray.push(`in ${sanitizeHtml(ReactDOMServer.renderToStaticMarkup(localitiesMarkup))}`);
+      const localitiesMarkup = ReactDOMServer.renderToStaticMarkup(localitiesReact);
+      suffixModifiersArray.push(`in ${sanitizeHtml(localitiesMarkup)}`);
     }
 
     if (!isNil(query.administrativeArea)) {
-      const administrativeAreasMarkup = (
+      const aaReact = (
         <IntlProvider locale={locale} messages={messages}>
           <AdministrativeAreas
             administrativeAreas={query.administrativeArea}
@@ -127,11 +130,12 @@ class SearchShowsResultsSummary extends React.Component {
         </IntlProvider>
       );
 
-      suffixModifiersArray.push(`in ${sanitizeHtml(ReactDOMServer.renderToStaticMarkup(administrativeAreasMarkup))}`);
+      const aaMarkup = ReactDOMServer.renderToStaticMarkup(aaReact);
+      suffixModifiersArray.push(`in ${sanitizeHtml(aaMarkup)}`);
     }
 
     if (!isNil(query.country)) {
-      const countriesMarkup = (
+      const countriesReact = (
         <IntlProvider locale={locale} messages={messages}>
           <Countries
             countries={query.country}
@@ -140,11 +144,12 @@ class SearchShowsResultsSummary extends React.Component {
         </IntlProvider>
       );
 
-      suffixModifiersArray.push(`originally from ${sanitizeHtml(ReactDOMServer.renderToStaticMarkup(countriesMarkup))}`);
+      const countriesMarkup = ReactDOMServer.renderToStaticMarkup(countriesReact);
+      suffixModifiersArray.push(`originally from ${sanitizeHtml(countriesMarkup)}`);
     }
 
     if (!isNil(query.eventsCountry)) {
-      const countriesMarkup = (
+      const eventsCountriesReact = (
         <IntlProvider locale={locale} messages={messages}>
           <Countries
             countries={query.eventsCountry}
@@ -153,7 +158,8 @@ class SearchShowsResultsSummary extends React.Component {
         </IntlProvider>
       );
 
-      suffixModifiersArray.push(`taking place in ${sanitizeHtml(ReactDOMServer.renderToStaticMarkup(countriesMarkup))}`);
+      const eventsCountriesMarkup = ReactDOMServer.renderToStaticMarkup(eventsCountriesReact);
+      suffixModifiersArray.push(`taking place in ${sanitizeHtml(eventsCountriesMarkup)}`);
     }
 
     if (!isNil(query.postalCode)) {
@@ -165,34 +171,30 @@ class SearchShowsResultsSummary extends React.Component {
     const suffix = (!isEmpty(suffixModifiersArray)) ? ` ${suffixModifiersArray.join(' and ')}` : '';
 
     const modifiers = prefix + type + suffix;
+    // const summary = `${count} ${modifiers}`;
+    const summary = modifiers;
 
     upsert.call({
+      shareImageFilename,
       count,
-      modifiers,
+      summary,
     });
 
-    // SVG here for manual testing only
-    // const svg = (
-    //   <svg width="1200" height="630">
-    //     <ShareBackgroundImage />
-    //     <textArea x="20" y="100" fontFamily="OpenSans" fontWeight="900" fontSize="80px" fill="#1cb4b0">
-    //       {count} profile interested in {interestsMarkup}
-    //     </textArea>
-    //   </svg>
-    // );
-    // return svg;
+    // Tell Prerender.io that we're ready
+    window.prerenderReady = true;
 
     return (
       <h3 className="search-results-summary">
-        {count} {modifiers}
+        {summary}
       </h3>
     );
   }
 }
 
 SearchShowsResultsSummary.propTypes = {
+  shareImageFilename: React.PropTypes.string,
   query: React.PropTypes.object,
-  count: React.PropTypes.number,
+  // count: React.PropTypes.number,
   intl: intlShape.isRequired,
 };
 

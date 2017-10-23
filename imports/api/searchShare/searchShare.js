@@ -16,9 +16,3 @@ SearchShare.deny({
   update() { return true; },
   remove() { return true; },
 });
-
-SearchShare.publicFields = {
-  filename: 1,
-  count: 1,
-  modifiers: 1,
-};

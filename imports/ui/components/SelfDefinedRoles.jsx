@@ -1,11 +1,24 @@
 import React from 'react';
-import { intlShape, injectIntl } from 'react-intl';
+import { intlShape, injectIntl, defineMessages } from 'react-intl';
 
 const SelfDefinedRoles = (props) => {
   const { roles, conjunction } = props;
   const { formatMessage } = props.intl;
 
-  const conj = conjunction ? conjunction : 'and';
+  const messages = defineMessages({
+    and: {
+      id: 'conjunction.and',
+      defaultMessage: 'and',
+    },
+    or: {
+      id: 'conjunction.or',
+      defaultMessage: 'or',
+    },
+  });
+
+  const conj = conjunction ?
+    formatMessage(messages[conjunction])
+    : formatMessage(messages.and);
 
   const rolesString = roles.map((role, index, array) => {
     let seperator = ', ';

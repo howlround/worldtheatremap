@@ -1,6 +1,13 @@
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-import { IntlProvider, FormattedDate, defineMessages, intlShape, injectIntl } from 'react-intl';
+import { renderToStaticMarkup as markup } from 'react-dom/server';
+import {
+  IntlProvider,
+  FormattedMessage,
+  FormattedDate,
+  defineMessages,
+  intlShape,
+  injectIntl,
+} from 'react-intl';
 import {
   get,
   includes,
@@ -8,7 +15,6 @@ import {
   isNil,
 } from 'lodash';
 import sanitizeHtml from 'sanitize-html';
-import qs from 'qs';
 
 // API
 import { upsert } from '../../api/searchShare/methods.js';
@@ -46,6 +52,7 @@ class SearchProfilesResultsSummary extends React.Component {
     let type = formatMessage(pluralTypes.theatremaker, { count });
     const prefixModifiersArray = [];
     const suffixModifiersArray = [];
+    const listVersion = [];
 
     if (isEmpty(query)) {
       return null;
@@ -58,7 +65,7 @@ class SearchProfilesResultsSummary extends React.Component {
 
     // Prefixes
     if (!isNil(query.gender)) {
-      const genderMarkup = (
+      const genderReact = (
         <IntlProvider locale={locale} messages={messages}>
           <Genders
             genders={query.gender}
@@ -67,7 +74,22 @@ class SearchProfilesResultsSummary extends React.Component {
         </IntlProvider>
       );
 
-      prefixModifiersArray.push(sanitizeHtml(ReactDOMServer.renderToStaticMarkup(genderMarkup)));
+      const genderMarkup = markup(genderReact);
+
+      if (locale === 'en') {
+        prefixModifiersArray.push(sanitizeHtml(markup(genderMarkup)));
+      } else {
+        const genderLabel = (
+          <IntlProvider locale={locale} messages={messages}>
+            <FormattedMessage
+              id="forms.genderLabel"
+              description="Label for the Gender form field"
+              defaultMessage="Gender"
+            />
+          </IntlProvider>
+        );
+        listVersion.push(sanitizeHtml(`${markup(genderLabel)}: ${genderMarkup}`));
+      }
     }
 
     if (!isNil(query.ethnicityRace)) {
@@ -80,8 +102,22 @@ class SearchProfilesResultsSummary extends React.Component {
         </IntlProvider>
       );
 
-      const ethnicitiesMarkup = ReactDOMServer.renderToStaticMarkup(ethnicitiesReact);
-      prefixModifiersArray.push(sanitizeHtml(ethnicitiesMarkup));
+      const ethnicitiesMarkup = markup(ethnicitiesReact);
+
+      if (locale === 'en') {
+        prefixModifiersArray.push(sanitizeHtml(ethnicitiesMarkup));
+      } else {
+        const ethnicityLabel = (
+          <IntlProvider locale={locale} messages={messages}>
+            <FormattedMessage
+              id="forms.profileEthnicityRaceLabel"
+              description="Label for a Ethnicity/Race form field"
+              defaultMessage="If this is your profile, you may choose to display your ethnicity/race/cultural identity" // eslint-disable-line max-len
+            />
+          </IntlProvider>
+        );
+        listVersion.push(sanitizeHtml(`${markup(ethnicityLabel)}: ${ethnicitiesMarkup}`));
+      }
     }
 
     if (!isNil(query.orgTypes)) {
@@ -94,11 +130,25 @@ class SearchProfilesResultsSummary extends React.Component {
         </IntlProvider>
       );
 
-      const orgTypesMarkup = ReactDOMServer.renderToStaticMarkup(orgTypesReact);
-      prefixModifiersArray.push(sanitizeHtml(orgTypesMarkup));
+      const orgTypesMarkup = markup(orgTypesReact);
 
-      // Overwrite type
-      type = formatMessage(pluralTypes.organization, { count });
+      if (locale === 'en') {
+        prefixModifiersArray.push(sanitizeHtml(orgTypesMarkup));
+
+        // Overwrite type
+        type = formatMessage(pluralTypes.organization, { count });
+      } else {
+        const orgTypesLabel = (
+          <IntlProvider locale={locale} messages={messages}>
+            <FormattedMessage
+              id="forms.orgTypesLabel"
+              description="Label for an Organization Type form field"
+              defaultMessage="What kind of organization is this?"
+            />
+          </IntlProvider>
+        );
+        listVersion.push(sanitizeHtml(`${markup(orgTypesLabel)} ${orgTypesMarkup}`));
+      }
     }
 
     // Suffixes
@@ -114,8 +164,22 @@ class SearchProfilesResultsSummary extends React.Component {
         </IntlProvider>
       );
 
-      const startDateMarkup = ReactDOMServer.renderToStaticMarkup(startDateReact);
-      suffixModifiersArray.push(sanitizeHtml(`from ${startDateMarkup}`));
+      const startDateMarkup = markup(startDateReact);
+
+      if (locale === 'en') {
+        suffixModifiersArray.push(sanitizeHtml(`from ${startDateMarkup}`));
+      } else {
+        const startDateLabel = (
+          <IntlProvider locale={locale} messages={messages}>
+            <FormattedMessage
+              id="forms.startDateLabel"
+              description="Label for a Start date form field"
+              defaultMessage="Start date"
+            />
+          </IntlProvider>
+        );
+        listVersion.push(sanitizeHtml(`${markup(startDateLabel)}: ${startDateMarkup}`));
+      }
     }
 
     if (!isNil(query.endDate)) {
@@ -130,8 +194,22 @@ class SearchProfilesResultsSummary extends React.Component {
         </IntlProvider>
       );
 
-      const endDateMarkup = ReactDOMServer.renderToStaticMarkup(endDateReact);
-      suffixModifiersArray.push(sanitizeHtml(`until ${endDateMarkup}`));
+      const endDateMarkup = markup(endDateReact);
+
+      if (locale === 'en') {
+        suffixModifiersArray.push(sanitizeHtml(`until ${endDateMarkup}`));
+      } else {
+        const endDateLabel = (
+          <IntlProvider locale={locale} messages={messages}>
+            <FormattedMessage
+              id="forms.endDateLabel"
+              description="Label for a End date form field"
+              defaultMessage="End date"
+            />
+          </IntlProvider>
+        );
+        listVersion.push(sanitizeHtml(`${markup(endDateLabel)}: ${endDateMarkup}`));
+      }
     }
 
     if (!isNil(query.selfDefinedRoles)) {
@@ -144,12 +222,39 @@ class SearchProfilesResultsSummary extends React.Component {
         </IntlProvider>
       );
 
-      const rolesMarkup = ReactDOMServer.renderToStaticMarkup(rolesReact);
-      suffixModifiersArray.push(sanitizeHtml(`with the role ${rolesMarkup}`));
+      const rolesMarkup = markup(rolesReact);
+
+      if (locale === 'en') {
+        suffixModifiersArray.push(sanitizeHtml(`with the role ${rolesMarkup}`));
+      } else {
+        const rolesLabel = (
+          <IntlProvider locale={locale} messages={messages}>
+            <FormattedMessage
+              id="forms.rolesLabel"
+              description="Label for the Roles form field"
+              defaultMessage="What does this person do in the theatre?"
+            />
+          </IntlProvider>
+        );
+        listVersion.push(sanitizeHtml(`${markup(rolesLabel)} ${rolesMarkup}`));
+      }
     }
 
     if (!isNil(query.name)) {
-      suffixModifiersArray.push(`named ${sanitizeHtml(query.name)}`);
+      if (locale === 'en') {
+        suffixModifiersArray.push(`named ${sanitizeHtml(query.name)}`);
+      } else {
+        const profileNameLabel = (
+          <IntlProvider locale={locale} messages={messages}>
+            <FormattedMessage
+              id="forms.profileNameLabel"
+              description="Label for a Profile name form field"
+              defaultMessage="Profile name"
+            />
+          </IntlProvider>
+        );
+        listVersion.push(sanitizeHtml(`${markup(profileNameLabel)}: ${query.name}`));
+      }
     }
 
     if (!isNil(query.interests)) {
@@ -162,8 +267,22 @@ class SearchProfilesResultsSummary extends React.Component {
         </IntlProvider>
       );
 
-      const interestsMarkup = ReactDOMServer.renderToStaticMarkup(interestsReact);
-      suffixModifiersArray.push(`interested in ${sanitizeHtml(interestsMarkup)}`);
+      const interestsMarkup = markup(interestsReact);
+
+      if (locale === 'en') {
+        suffixModifiersArray.push(`interested in ${sanitizeHtml(interestsMarkup)}`);
+      } else {
+        const interestsLabel = (
+          <IntlProvider locale={locale} messages={messages}>
+            <FormattedMessage
+              id="forms.interestsLabel"
+              description="Label for Interests form field"
+              defaultMessage="Interests"
+            />
+          </IntlProvider>
+        );
+        listVersion.push(sanitizeHtml(`${markup(interestsLabel)}: ${interestsMarkup}`));
+      }
     }
 
     // All location fields should be at the end
@@ -177,8 +296,22 @@ class SearchProfilesResultsSummary extends React.Component {
         </IntlProvider>
       );
 
-      const localitiesMarkup = ReactDOMServer.renderToStaticMarkup(localitiesReact);
-      suffixModifiersArray.push(`in ${sanitizeHtml(localitiesMarkup)}`);
+      const localitiesMarkup = markup(localitiesReact);
+
+      if (locale === 'en') {
+        suffixModifiersArray.push(`in ${sanitizeHtml(localitiesMarkup)}`);
+      } else {
+        const localityLabel = (
+          <IntlProvider locale={locale} messages={messages}>
+            <FormattedMessage
+              id="forms.localityLabel"
+              description="Label for a Locality / City form field"
+              defaultMessage="City"
+            />
+          </IntlProvider>
+        );
+        listVersion.push(sanitizeHtml(`${markup(localityLabel)}: ${localitiesMarkup}`));
+      }
     }
 
     if (!isNil(query.administrativeArea)) {
@@ -191,8 +324,22 @@ class SearchProfilesResultsSummary extends React.Component {
         </IntlProvider>
       );
 
-      const aaMarkup = ReactDOMServer.renderToStaticMarkup(aaReact);
-      suffixModifiersArray.push(`in ${sanitizeHtml(aaMarkup)}`);
+      const aaMarkup = markup(aaReact);
+
+      if (locale === 'en') {
+        suffixModifiersArray.push(`in ${sanitizeHtml(aaMarkup)}`);
+      } else {
+        const administrativeAreaLabel = (
+          <IntlProvider locale={locale} messages={messages}>
+            <FormattedMessage
+              id="forms.administrativeAreaLabel"
+              description="Label for Administrative Area form iel"
+              defaultMessage="Province, Region, or State"
+            />
+          </IntlProvider>
+        );
+        listVersion.push(sanitizeHtml(`${markup(administrativeAreaLabel)}: ${aaMarkup}`));
+      }
     }
 
     if (!isNil(query.country)) {
@@ -205,19 +352,47 @@ class SearchProfilesResultsSummary extends React.Component {
         </IntlProvider>
       );
 
-      const countriesMarkup = ReactDOMServer.renderToStaticMarkup(countriesReact);
-      suffixModifiersArray.push(`in ${sanitizeHtml(countriesMarkup)}`);
+      const countriesMarkup = markup(countriesReact);
+
+      if (locale === 'en') {
+        suffixModifiersArray.push(`in ${sanitizeHtml(countriesMarkup)}`);
+      } else {
+        const countryLabel = (
+          <IntlProvider locale={locale} messages={messages}>
+            <FormattedMessage
+              id="forms.countryLabel"
+              description="Label for a Country form field"
+              defaultMessage="Country"
+            />
+          </IntlProvider>
+        );
+        listVersion.push(sanitizeHtml(`${markup(countryLabel)}: ${countriesMarkup}`));
+      }
     }
 
     if (!isNil(query.postalCode)) {
-      suffixModifiersArray.push(`in postal code ${sanitizeHtml(query.postalCode)}`);
+      if (locale === 'en') {
+        suffixModifiersArray.push(`in postal code ${sanitizeHtml(query.postalCode)}`);
+      } else {
+        const postalCodeLabel = (
+          <IntlProvider locale={locale} messages={messages}>
+            <FormattedMessage
+              id="forms.postalCodeLabel"
+              description="Label for a Postal code form field"
+              defaultMessage="Postal Code"
+            />
+          </IntlProvider>
+        );
+        listVersion.push(sanitizeHtml(`${markup(postalCodeLabel)}: ${query.postalCode}`));
+      }
     }
 
     // Pad end of prefix and begining of suffix if they have items
     const prefix = (!isEmpty(prefixModifiersArray)) ? `${prefixModifiersArray.join(' ')} ` : '';
     const suffix = (!isEmpty(suffixModifiersArray)) ? ` ${suffixModifiersArray.join(' and ')}` : '';
+    const labels = (!isEmpty(listVersion)) ? ` • ${listVersion.join(' • ')} ` : '';
 
-    const modifiers = prefix + type + suffix;
+    const modifiers = prefix + type + suffix + labels;
     const summary = `${count} ${modifiers}`;
 
     upsert.call({

@@ -1,11 +1,24 @@
 import React from 'react';
-import { intlShape, injectIntl } from 'react-intl';
+import { intlShape, injectIntl, defineMessages } from 'react-intl';
 
 const OrgTypes = (props) => {
   const { orgTypes, conjunction } = props;
   const { formatMessage } = props.intl;
 
-  const conj = conjunction ? conjunction : 'and';
+  const messages = defineMessages({
+    and: {
+      id: 'conjunction.and',
+      defaultMessage: 'and',
+    },
+    or: {
+      id: 'conjunction.or',
+      defaultMessage: 'or',
+    },
+  });
+
+  const conj = conjunction ?
+    formatMessage(messages[conjunction])
+    : formatMessage(messages.and);
 
   const orgTypesString = orgTypes.map((orgType, index, array) => {
     let seperator = ', ';
@@ -18,7 +31,17 @@ const OrgTypes = (props) => {
         seperator = ` ${conj} `;
       }
     }
-    return (<span key={orgType}>{orgType}{seperator}</span>);
+    return (
+      <span key={orgType}>
+        {
+          formatMessage({
+            id: `orgType.${orgType}`,
+            defaultMessage: orgType,
+          })
+        }
+        {seperator}
+      </span>
+    );
   });
 
   return (

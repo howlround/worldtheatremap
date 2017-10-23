@@ -246,7 +246,8 @@ const SearchShowsResultsContainer = createContainer((props) => {
     // Generate the filename from privateQuery so pager is not included
     // Put the show and event queries together
     const privateQueryString = `${qs.stringify(privateShowQuery)}${qs.stringify(privateEventQuery)}`; // eslint-disable-line max-len
-    shareImageFilename = hash(privateQueryString).toString();
+    // Include the locale to keep the images seperate
+    shareImageFilename = hash(`${locale}${privateQueryString}`).toString();
   }
 
   return {

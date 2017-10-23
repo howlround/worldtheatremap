@@ -9,7 +9,8 @@ import cheerio from 'cheerio';
 
 import { SearchShare } from '../searchShare.js';
 
-import ShareBackgroundImage from '../../../ui/components/ShareBackgroundImage.jsx';
+import ShareBackgroundImageEN from '../../../ui/imageComponents/ShareBackgroundImageEN.jsx';
+import ShareBackgroundImageES from '../../../ui/imageComponents/ShareBackgroundImageES.jsx';
 
 // AWS
 import AWS from 'aws-sdk';
@@ -89,16 +90,26 @@ SearchShare.after.insert((userId, doc) => {
       }
 
       const wrappedText = svgWrap(doc.summary, lineWrap);
+
+      let ShareBackgroundImage = null;
+      switch (doc.locale) {
+        case 'es':
+          ShareBackgroundImage = ShareBackgroundImageES;
+          break;
+
+        case 'en':
+        default:
+          ShareBackgroundImage = ShareBackgroundImageEN;
+
+      }
       const svg = (
         <svg width="1200" height="630">
           <ShareBackgroundImage width="1200" height="630" />
           <text
+            style={{ fontFamily: 'Open Sans', fontSize, fontWeight: 800 }}
             dangerouslySetInnerHTML={{ __html: wrappedText }}
             x="40"
             y="20"
-            fontFamily="Open Sans"
-            fontWeight="900"
-            fontSize={fontSize}
             fill="#1cb4b0"
           />
         </svg>

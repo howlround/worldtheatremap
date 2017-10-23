@@ -1,5 +1,4 @@
 import { Meteor } from 'meteor/meteor';
-import hash from 'string-hash';
 import { _ } from 'meteor/underscore';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
@@ -14,14 +13,16 @@ export const upsert = new ValidatedMethod({
     count: { type: Number },
     summary: { type: String },
     shareImageFilename: { type: String },
+    locale: { type: String },
   }).validator(),
-  run({ count, summary, shareImageFilename }) {
+  run({ count, summary, shareImageFilename, locale }) {
     const filename = shareImageFilename;
 
     const shareSearchObject = {
       filename,
       count,
       summary,
+      locale,
     };
 
     // Upsert only requires count + one of the other two

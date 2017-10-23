@@ -180,7 +180,8 @@ const SearchProfilesResultsContainer = createContainer((props) => {
 
     // Generate the filename from privateQuery so pager is not included
     const privateQueryString = qs.stringify(privateQuery);
-    shareImageFilename = hash(privateQueryString).toString();
+    // Include the locale to keep the images seperate
+    shareImageFilename = hash(`${locale}${privateQueryString}`).toString();
   }
 
   return {

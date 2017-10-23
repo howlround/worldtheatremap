@@ -329,6 +329,7 @@ class SearchShowsResultsSummary extends React.Component {
       shareImageFilename,
       count,
       summary,
+      locale,
     });
 
     // Tell Prerender.io that we're ready

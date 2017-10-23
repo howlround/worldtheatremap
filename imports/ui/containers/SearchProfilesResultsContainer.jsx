@@ -4,9 +4,8 @@ import gql from 'graphql-tag';
 import hash from 'string-hash';
 import moment from 'moment';
 import qs from 'qs';
-import { _ } from 'meteor/underscore';
 import { createContainer } from 'meteor/react-meteor-data';
-import { get } from 'lodash';
+import { get, clone, isEmpty } from 'lodash';
 import { HTTP } from 'meteor/http';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { remove as removeDiacritics } from 'diacritics';
@@ -24,7 +23,7 @@ const SearchProfilesResultsContainer = createContainer((props) => {
   let results = [];
   let shareImageFilename = '';
 
-  if (!_.isEmpty(query)) {
+  if (!isEmpty(query)) {
     // Use an internal query so nothing strange gets passed straight through
     const privateQuery = {};
 
@@ -103,7 +102,7 @@ const SearchProfilesResultsContainer = createContainer((props) => {
     }
 
     // The publication can't accept regex values as the argument so make a seperate query to pass
-    const plainTextQuery = _.clone(privateQuery);
+    const plainTextQuery = clone(privateQuery);
 
     if (query.postalCode) {
       privateQuery.postalCode = new RegExp(`.*${escapeRegExp(query.postalCode)}.*`, 'i');
@@ -117,7 +116,7 @@ const SearchProfilesResultsContainer = createContainer((props) => {
     }
 
     // Make sure privateQuery is not empty otherwise all records are returned
-    if (!_.isEmpty(privateQuery)) {
+    if (!isEmpty(privateQuery)) {
       // Client query should not have a skip value since there are only 20 in the local db
       // Another pattern would be to keep the skip here but then instead of skip on the server
       // use a limit of (skip + limit). That would load all pages up to the current page
@@ -140,10 +139,15 @@ const SearchProfilesResultsContainer = createContainer((props) => {
 
     // Make a call to the API for the overall count
     // The query can be passed straight in because the api will handle validation
-    if (!_.isEmpty(query)) {
+    if (!isEmpty(query)) {
       // page field is not valid on the API
-      const queryForGQL = query;
+      const queryForGQL = clone(query);
+      // Date fields have different names
+      queryForGQL.startsBefore = query.endDate;
+      queryForGQL.endsAfter = query.startDate;
       delete queryForGQL.page;
+      delete queryForGQL.endDate;
+      delete queryForGQL.startDate;
 
       HTTP.call(
         'POST',

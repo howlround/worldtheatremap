@@ -77,7 +77,7 @@ class SearchProfilesResultsSummary extends React.Component {
       const genderMarkup = markup(genderReact);
 
       if (locale === 'en') {
-        prefixModifiersArray.push(sanitizeHtml(markup(genderMarkup)));
+        prefixModifiersArray.push(sanitizeHtml(genderMarkup));
       } else {
         const genderLabel = (
           <IntlProvider locale={locale} messages={messages}>

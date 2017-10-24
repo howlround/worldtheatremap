@@ -120,6 +120,9 @@ class SearchShows extends React.Component {
     const { formatMessage, locale } = this.props.intl;
 
     if (loading) {
+      // Tell Prerender.io that we're not ready
+      window.prerenderReady = false;
+
       return (
         <Loading key="loading" />
       );

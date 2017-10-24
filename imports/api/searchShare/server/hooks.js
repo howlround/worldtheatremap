@@ -23,7 +23,7 @@ AWS.config.region = Meteor.settings.AWSRegion;
 // Adapted from https://bl.ocks.org/mbostock/7555321
 const svgWrap = (inputText, lineWrap) => {
   const $ = cheerio.load('<text></text>');
-  const words = splitWords(inputText, /[\,\w\:]+/g).reverse();
+  const words = splitWords(inputText, /[^\s]+/g).reverse();
   let word = null;
   let line = [];
   const x = 40;

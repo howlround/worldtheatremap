@@ -11,9 +11,55 @@ import ContentCountsContainer from '../containers/ContentCountsContainer.jsx';
 // Components
 import EventsGlobe from '../components/EventsGlobe.jsx';
 import HowlRoundPostFeatured from '../components/HowlRoundPostFeatured.jsx';
+import HomePageDisplayToggle from '../components/HomePageDisplayToggle.jsx';
 import Loading from '../components/Loading.jsx';
+import ProfilesGlobe from '../components/ProfilesGlobe.jsx';
 
 class HomePage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      // display: 'events',
+      display: 'people',
+    };
+
+    this.updateDisplay = this.updateDisplay.bind(this);
+  }
+
+  updateDisplay(display) {
+    this.setState({ display });
+  }
+
+  displaySwitch() {
+    const { display } = this.state;
+    const { eventsTodayWithLocations, profilesWithLocations } = this.props;
+    let output = '';
+
+    switch (display) {
+      case 'people':
+        output = (
+          <ProfilesGlobe
+            items={profilesWithLocations}
+          />
+        );
+        break;
+      case 'events':
+      default:
+        if (eventsTodayWithLocations) {
+          output = (
+            <div className="homepage-globe">
+              {this.renderTodayMap()}
+              {this.renderTodayList()}
+            </div>
+          );
+        }
+        break;
+    }
+
+    return output;
+  }
+
   renderTodayMap() {
     const { eventsTodayWithLocations, loading } = this.props;
     const { formatMessage } = this.props.intl;
@@ -77,6 +123,7 @@ class HomePage extends React.Component {
       howlroundPosts,
       loading,
     } = this.props;
+    const { display } = this.state;
 
     const { locale } = this.props.intl;
 
@@ -129,8 +176,13 @@ class HomePage extends React.Component {
               }}
             />
           </div>
-          {(!loading && eventsTodayWithLocations) ? this.renderTodayMap() : ''}
-          {(!loading && eventsTodayWithLocations) ? this.renderTodayList() : ''}
+          {!loading ?
+            <HomePageDisplayToggle
+              toggle={this.updateDisplay}
+              active={display}
+            />
+           : ''}
+          {!loading ? this.displaySwitch() : ''}
         </div>
         <div className="homepage-howlround-wrapper">
           <div className="homepage-howlround-content">
@@ -156,6 +208,7 @@ HomePage.propTypes = {
   profiles: React.PropTypes.array,   // all profiles visible to the current user
   shows: React.PropTypes.array,
   eventsTodayWithLocations: React.PropTypes.array,
+  profilesWithLocations: React.PropTypes.array,
   eventsTodayCount: React.PropTypes.number,
   startDate: React.PropTypes.instanceOf(Date),
   endDate: React.PropTypes.instanceOf(Date),

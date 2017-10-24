@@ -92,6 +92,12 @@ TAPi18n.publish('profiles.byId', function profilesById(ids) {
   });
 });
 
+TAPi18n.publish('profiles.viz', function profilesViz(homepageQuery) {
+  return Profiles.i18nFind(homepageQuery, {
+    fields: Profiles.publicFields,
+  });
+});
+
 TAPi18n.publish('profiles.singleById', function profilesSingleById(id) {
   return Profiles.i18nFind({ _id: id }, {
     fields: Profiles.publicFields,

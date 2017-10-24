@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import moment from 'moment';
 import { _ } from 'meteor/underscore';
 import { createContainer } from 'meteor/react-meteor-data';
-import { get } from 'lodash';
+import { get, each } from 'lodash';
 import { Session } from 'meteor/session';
 import { TAPi18n } from 'meteor/tap:i18n';
 
@@ -12,6 +12,7 @@ import { Profiles } from '../../api/profiles/profiles.js';
 import { Shows } from '../../api/shows/shows.js';
 import { Events } from '../../api/events/events.js';
 import { Variables } from '../../api/variables/variables.js';
+import { getHomepageVizProfiles } from '../../api/profiles/methods.js';
 
 // Components
 import HomePage from '../components/HomePage.jsx';
@@ -40,21 +41,24 @@ const HomePageContainer = createContainer(() => {
   const eventsTodayWithLocations = eventsTodayWithLocationsCursor.fetch();
 
   // Get author and show ids for these events
-  const authorsToday = [];
-  const showsToday = [];
+  const profilesLoad = [];
+  const showsLoad = [];
   _.each(eventsTodayWithLocations, (event) => {
     if (get(event, 'show._id')) {
-      showsToday.push(event.show._id);
+      showsLoad.push(event.show._id);
     }
 
     if (get(event, 'organizations._id')) {
-      authorsToday.push(event.organizations._id);
+      profilesLoad.push(event.organizations._id);
     }
 
     if (get(event, 'show.author[0]._id')) {
-      _.each(event.show.author, (author) => authorsToday.push(author._id));
+      _.each(event.show.author, (author) => profilesLoad.push(author._id));
     }
   });
+
+  // Get profiles for the people globe
+
 
   // Featured Howlround Posts
   // Trigger call to get current set of posts
@@ -65,8 +69,23 @@ const HomePageContainer = createContainer(() => {
   const howlroundPostsQuery = Variables.findOne('featuredHowlroundPosts');
   const howlroundPosts = get(howlroundPostsQuery, 'value') ? howlroundPostsQuery.value : [];
 
-  const authorsTodaySubscribe = TAPi18n.subscribe('profiles.byId', authorsToday);
-  const showsTodaySubscribe = TAPi18n.subscribe('shows.multipleById', showsToday);
+  // Load profiles for the homepage visualization
+  const profilesVizQuery = {
+    gender: {
+      $in: ['Female'],
+    },
+    lat: {
+      $ne: null,
+    },
+  }
+  const profilesHomepageVizSub = TAPi18n.subscribe('profiles.viz', profilesVizQuery);
+  const profilesWithLocations = Profiles.find(profilesVizQuery, { fields: Profiles.publicFields }).fetch();
+  each(profilesWithLocations, vizProfile => {
+    profilesLoad.push(vizProfile._id);
+  });
+
+  const profilesHomepageSub = TAPi18n.subscribe('profiles.byId', profilesLoad);
+  const showsTodaySubscribe = TAPi18n.subscribe('shows.multipleById', showsLoad);
 
   // Language
   // const locale = TAPi18n.getLanguage();
@@ -74,14 +93,15 @@ const HomePageContainer = createContainer(() => {
   const supportedLanguages = TAPi18n.getLanguages();
 
   return {
-    // loading: !(eventsTodayWithLocationsSubscribe.ready() && authorsTodaySubscribe.ready() && showsTodaySubscribe.ready()),
-    loading: !(eventsTodayWithLocationsSubscribe.ready()),
+    // Purposely excluding profiles sub and shows sub to speed up loading time.
+    loading: !(eventsTodayWithLocationsSubscribe.ready() && profilesHomepageVizSub.ready()),
     connected: Meteor.status().connected,
     menuOpen: Session.get('menuOpen'),
     eventsTodayWithLocations,
     eventsTodayCount: eventsTodayWithLocationsCursor.count(),
     startDate,
     endDate,
+    profilesWithLocations,
     howlroundPosts,
     locale,
     supportedLanguages,

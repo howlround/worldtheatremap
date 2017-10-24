@@ -30,10 +30,10 @@ export default class SearchResultsToggle extends React.Component {
     const { active } = this.props;
 
     return (
-      <div className="search-results-toggle">
+      <div className="option-toggle">
         <a
           href="#"
-          className={classnames('search-results-toggle-item','results-display-list', { active: (active === 'list') })}
+          className={classnames('option-toggle-item','results-display-list', { active: (active === 'list') })}
           onClick={this.activateList}
         >
           <FormattedMessage
@@ -44,7 +44,7 @@ export default class SearchResultsToggle extends React.Component {
         </a>
         <a
           href="#"
-          className={classnames('search-results-toggle-item', 'results-display-map', { active: (active === 'map') })}
+          className={classnames('option-toggle-item', 'results-display-map', { active: (active === 'map') })}
           onClick={this.activateMap}
         >
           <FormattedMessage

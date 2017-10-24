@@ -247,7 +247,9 @@ const SearchShowsResultsContainer = createContainer((props) => {
     // Put the show and event queries together
     const privateQueryString = `${qs.stringify(privateShowQuery)}${qs.stringify(privateEventQuery)}`; // eslint-disable-line max-len
     // Include the locale to keep the images seperate
-    shareImageFilename = hash(`${locale}${privateQueryString}`).toString();
+    // and the type otherwise hash will match other types
+    // using the name query fields (like date)
+    shareImageFilename = hash(`${locale}shows${privateQueryString}`).toString();
   }
 
   return {

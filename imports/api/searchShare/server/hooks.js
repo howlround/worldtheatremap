@@ -102,8 +102,17 @@ SearchShare.after.insert((userId, doc) => {
           ShareBackgroundImage = ShareBackgroundImageEN;
 
       }
+      const svgStyle = (
+        `@font-face {
+          font-family: "Open Sans";
+          src: url("./fonts/OpenSans-ExtraBold.ttf");
+        }`
+      );
       const svg = (
         <svg width="1200" height="630">
+          <defs>
+            <style dangerouslySetInnerHTML={{ __html: svgStyle }} />
+          </defs>
           <ShareBackgroundImage width="1200" height="630" />
           <text
             style={{ fontFamily: 'Open Sans', fontSize, fontWeight: 800 }}

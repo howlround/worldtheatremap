@@ -51,7 +51,7 @@ const getEventsFromShows = ({ showResults, privateEventQuery }) => {
 // const count = new ReactiveVar(0);
 
 const SearchShowsResultsContainer = createContainer((props) => {
-  const { query, updateQuery } = props;
+  const { query, updateQuery, locale } = props;
   let loading = false;
   let skip = 0;
   let showResults = [];

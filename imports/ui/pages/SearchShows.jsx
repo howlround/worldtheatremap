@@ -95,6 +95,7 @@ class SearchShows extends React.Component {
   }
 
   renderShows() {
+    const { locale } = this.props.intl;
     const query = this.state;
 
     const cleanQuery = {};
@@ -108,6 +109,7 @@ class SearchShows extends React.Component {
       <SearchShowsResultsContainer
         query={cleanQuery}
         updateQuery={this.updateQuery}
+        locale={locale}
       />
     );
   }

@@ -1,5 +1,14 @@
 article.profile.search-result {
   line-height: 1.2em;
+  overflow: auto;
+
+  .profile-image {
+    float: left;
+  }
+
+  .profile-with-image {
+    margin-left: 110px;
+  }
 
   .profile-name {
     font-size: 18px;

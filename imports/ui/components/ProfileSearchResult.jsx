@@ -1,7 +1,9 @@
 import React from 'react';
+import classnames from 'classnames';
 import { _ } from 'meteor/underscore';
-import { Link } from 'react-router';
+import { includes, isEmpty, isNil } from 'lodash';
 import { FormattedMessage, FormattedDate, intlShape, injectIntl } from 'react-intl';
+import { Link } from 'react-router';
 
 // Components
 import Interests from '../components/Interests.jsx';
@@ -9,6 +11,14 @@ import OrgTypes from '../components/OrgTypes.jsx';
 import SelfDefinedRoles from '../components/SelfDefinedRoles.jsx';
 
 class ProfileSearchResult extends React.Component {
+  renderImage() {
+    const { profile } = this.props;
+
+    if (profile.imageWide) {
+      return <img className="profile-image" width="100px" height="100px" src={profile.imageWide} />;
+    }
+  }
+
   render() {
     const { profile } = this.props;
     const { formatMessage, locale } = this.props.intl;
@@ -19,14 +29,14 @@ class ProfileSearchResult extends React.Component {
 
     let orgTypes = (
       profile.orgTypes &&
-      _.contains(profile.profileType, 'Organization')
+      includes(profile.profileType, 'Organization')
     ) ?
       <OrgTypes orgTypes={profile.orgTypes} />
       : false;
 
     let selfDefinedRoles = (
       profile.selfDefinedRoles &&
-      _.contains(profile.profileType, 'Individual')
+      includes(profile.profileType, 'Individual')
     ) ?
       <SelfDefinedRoles roles={profile.selfDefinedRoles} />
       : false;
@@ -37,10 +47,14 @@ class ProfileSearchResult extends React.Component {
       profile.country,
     ].filter(val => (val)).join(', ');
 
+    const classNames = classnames('profile-content-wrapper', {
+      'profile-with-image': !isNil(profile.imageWide),
+    })
+
     return (
       <article className="profile search-result">
-        {/* A photo could go here */}
-        <div className="profile-content-wrapper">
+        {profile.imageWide ? this.renderImage() : ''}
+        <div className={classNames}>
           <Link
             to={`/${locale}/profiles/${profile._id}`}
             title={profile.name}
@@ -50,7 +64,7 @@ class ProfileSearchResult extends React.Component {
             {profile.name}
           </Link>
           <div className="profile-metadata metadata">
-            {!_.isEmpty(locationBlock) ?
+            {!isEmpty(locationBlock) ?
               <div className="profile-location">
                 <span className="profile-metadata-label">
                   <FormattedMessage
@@ -61,8 +75,8 @@ class ProfileSearchResult extends React.Component {
                 </span> {locationBlock}
               </div> : ''}
             {(
-              !_.isEmpty(profile.selfDefinedRoles) &&
-              _.contains(profile.profileType, 'Individual')
+              !isEmpty(profile.selfDefinedRoles) &&
+              includes(profile.profileType, 'Individual')
             ) ?
               <div className="profile-roles" title="Roles">
                 <span className="profile-metadata-label">
@@ -73,7 +87,7 @@ class ProfileSearchResult extends React.Component {
                   />:
                 </span> {selfDefinedRoles}
               </div> : ''}
-            {(!_.isEmpty(profile.orgTypes) && _.contains(profile.profileType, 'Organization')) ?
+            {(!isEmpty(profile.orgTypes) && includes(profile.profileType, 'Organization')) ?
               <div className="profile-organization-types" title="Organization Type">
                 <span className="profile-metadata-label">
                   <FormattedMessage
@@ -83,7 +97,7 @@ class ProfileSearchResult extends React.Component {
                   />:
                 </span> {orgTypes}
               </div> : ''}
-            {!_.isEmpty(profile.interests) ?
+            {!isEmpty(profile.interests) ?
               <div className="profile-interests" title="Interests">
                 <span className="profile-metadata-label">
                   <FormattedMessage
@@ -92,7 +106,7 @@ class ProfileSearchResult extends React.Component {
                     defaultMessage="Interests"
                   />:
                 </span> {interests}</div> : ''}
-            {(profile.startDate && profile.endDate && _.contains(profile.profileType, 'Festival')) ?
+            {(profile.startDate && profile.endDate && includes(profile.profileType, 'Festival')) ?
               <div className="profile-date-range date">
                 <FormattedDate
                   value={profile.startDate}

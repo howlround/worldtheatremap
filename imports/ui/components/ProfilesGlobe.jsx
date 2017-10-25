@@ -1,7 +1,8 @@
 import React from 'react';
+import classnames from 'classnames';
 import topojson from 'topojson';
 import { $ } from 'meteor/jquery';
-import { _ } from 'meteor/underscore';
+import { each, isEmpty, isNull, get } from 'lodash';
 import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
 import { geoOrthographic, geoGraticule, geoPath, geoCentroid, geoInterpolate } from 'd3-geo';
 import { select, queue, json, transition } from 'd3';
@@ -59,7 +60,7 @@ class ProfilesGlobe extends React.Component {
       .attr('width', containerWidth)
       .attr('height', conatinerHeight);
 
-    if (_.isNull(canvas.node())) {
+    if (isNull(canvas.node())) {
       return;
     }
 
@@ -123,7 +124,7 @@ class ProfilesGlobe extends React.Component {
 
             // Background dots
             // projection.clipAngle(180);
-            // _.each(itemLocations, dot => {
+            // each(itemLocations, dot => {
             //   c.fillStyle = '#b3e6e4';
             //   c.beginPath();
             //   path(dot);
@@ -164,7 +165,7 @@ class ProfilesGlobe extends React.Component {
 
             // Other dots
             projection.clipAngle(90);
-            _.each(itemLocations, dot => {
+            each(itemLocations, dot => {
               c.fillStyle = '#1c3f53';
               c.beginPath();
               path(dot);
@@ -218,8 +219,8 @@ class ProfilesGlobe extends React.Component {
     // D3 defer task
     function reformatItems(rawItems, callback) {
       const itemLocations = [];
-      _.each(rawItems, (item) => {
-        if (!_.isEmpty(item.lon) && !_.isEmpty(item.lat)) {
+      each(rawItems, (item) => {
+        if (!isEmpty(item.lon) && !isEmpty(item.lat)) {
           const geoJSON = {
             type: 'Feature',
             geometry: {
@@ -267,7 +268,7 @@ class ProfilesGlobe extends React.Component {
 
     let output = '';
 
-    if (_.isEmpty(items)) {
+    if (isEmpty(items)) {
       return output;
     }
 
@@ -306,17 +307,21 @@ class ProfilesGlobe extends React.Component {
 
     const emptyLocations = (
       <SearchResultsNoLocationsText />
-    )
+    );
+
+    const classNames = classnames('item-info', {
+      'item-with-photo': !!get(currentItem, 'imageWide'),
+    });
 
     return (
       <div className="items-globe">
-        {!_.isEmpty(items) ?
+        {!isEmpty(items) ?
           <div id="globe"></div>
           : emptyLocations}
-        {!_.isEmpty(items) && currentItem ?
+        {!isEmpty(items) && currentItem ?
           <div className="item-info-wrapper">
             <div
-              className="item-info"
+              className={classNames}
               onMouseOver={this.pause}
               onMouseLeave={this.continue}
             >

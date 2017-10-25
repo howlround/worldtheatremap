@@ -77,6 +77,9 @@ const HomePageContainer = createContainer(() => {
     lat: {
       $ne: null,
     },
+    imageWide: {
+      $ne: null,
+    }
   }
   const profilesHomepageVizSub = TAPi18n.subscribe('profiles.viz', profilesVizQuery);
   const profilesWithLocations = Profiles.find(profilesVizQuery, { fields: Profiles.publicFields }).fetch();

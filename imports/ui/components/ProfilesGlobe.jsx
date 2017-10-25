@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import topojson from 'topojson';
 import { $ } from 'meteor/jquery';
 import { each, isEmpty, isNull, get } from 'lodash';
-import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { geoOrthographic, geoGraticule, geoPath, geoCentroid, geoInterpolate } from 'd3-geo';
 import { select, queue, json, transition } from 'd3';
 
@@ -268,42 +268,42 @@ class ProfilesGlobe extends React.Component {
 
     let output = '';
 
-    if (isEmpty(items)) {
-      return output;
+    if (!isEmpty(items)) {
+      if (stopped) {
+        output = (
+          <span
+            className="stop-button stopped"
+            onClick={this.start}
+          >
+            <FormattedMessage
+              id="animation.continue"
+              description="Globe pause button: Continue"
+              defaultMessage="Continue"
+            />
+          </span>
+        );
+      } else {
+        output = (
+          <span
+            className="stop-button"
+            onClick={this.stop}
+          >
+            <FormattedMessage
+              id="animation.pause"
+              description="Globe pause button: Pause"
+              defaultMessage="Pause"
+            />
+          </span>
+        );
+      }
     }
 
-    if (stopped) {
-      output = (
-        <span
-          className="stop-button stopped"
-          onClick={this.start}
-        >
-          <FormattedMessage
-            id="animation.continue"
-            description="Globe pause button: Continue"
-            defaultMessage="Continue"
-          />
-        </span>
-      );
-    } else {
-      output = (
-        <span
-          className="stop-button"
-          onClick={this.stop}
-        >
-          <FormattedMessage
-            id="animation.pause"
-            description="Globe pause button: Pause"
-            defaultMessage="Pause"
-          />
-        </span>
-      );
-    }
+    return output;
   }
 
   render() {
     const { items } = this.props;
-    const { currentItem, stopped } = this.state;
+    const { currentItem } = this.state;
 
     const emptyLocations = (
       <SearchResultsNoLocationsText />

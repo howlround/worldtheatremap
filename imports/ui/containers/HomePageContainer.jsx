@@ -9,10 +9,8 @@ import { TAPi18n } from 'meteor/tap:i18n';
 
 // API
 import { Profiles } from '../../api/profiles/profiles.js';
-import { Shows } from '../../api/shows/shows.js';
 import { Events } from '../../api/events/events.js';
 import { Variables } from '../../api/variables/variables.js';
-import { getHomepageVizProfiles } from '../../api/profiles/methods.js';
 
 // Components
 import HomePage from '../components/HomePage.jsx';
@@ -21,8 +19,8 @@ const HomePageContainer = createContainer(() => {
   // Load what's on today data
   const startDate = moment().startOf('day').toDate();
   const endDate = moment().endOf('day').toDate();
-  const eventsTodayWithLocationsSubscribe = Meteor.subscribe('events.dateRangeWithLocations', startDate, endDate);
-  const eventsTodayWithLocationsCursor = Events.find(
+  const eventsWithLocationsSub = Meteor.subscribe('events.dateRangeWithLocations', startDate, endDate); // eslint-disable-line max-len
+  const eventsWithLocationsCursor = Events.find(
     {
       lat: {
         $ne: null,
@@ -36,9 +34,9 @@ const HomePageContainer = createContainer(() => {
     },
     {
       fields: Events.publicFields,
-      sort: { startDate: 1 }
+      sort: { startDate: 1 },
     });
-  const eventsTodayWithLocations = eventsTodayWithLocationsCursor.fetch();
+  const eventsTodayWithLocations = eventsWithLocationsCursor.fetch();
 
   // Get author and show ids for these events
   const profilesLoad = [];
@@ -64,8 +62,8 @@ const HomePageContainer = createContainer(() => {
   // Trigger call to get current set of posts
   // This will update the database with current posts
   Meteor.call('howlround.getPosts', {});
-  // Subscribe to local posts
-  const howlroundPostsSub = Meteor.subscribe('variables.get', [ 'featuredHowlroundPosts' ]);
+  // Subscribe to local posts: howlroundPostsSub
+  Meteor.subscribe('variables.get', ['featuredHowlroundPosts']);
   const howlroundPostsQuery = Variables.findOne('featuredHowlroundPosts');
   const howlroundPosts = get(howlroundPostsQuery, 'value') ? howlroundPostsQuery.value : [];
 
@@ -79,16 +77,24 @@ const HomePageContainer = createContainer(() => {
     },
     imageWide: {
       $ne: null,
-    }
-  }
+    },
+  };
   const profilesHomepageVizSub = TAPi18n.subscribe('profiles.viz', profilesVizQuery);
-  const profilesWithLocations = Profiles.find(profilesVizQuery, { fields: Profiles.publicFields }).fetch();
+  const profilesWithLocations = Profiles.find(
+    profilesVizQuery,
+    {
+      fields: Profiles.publicFields,
+    }
+  ).fetch();
   each(profilesWithLocations, vizProfile => {
     profilesLoad.push(vizProfile._id);
   });
 
-  const profilesHomepageSub = TAPi18n.subscribe('profiles.byId', profilesLoad);
-  const showsTodaySubscribe = TAPi18n.subscribe('shows.multipleById', showsLoad);
+  // profilesHomepageSub
+  TAPi18n.subscribe('profiles.byId', profilesLoad);
+
+  // showsTodaySubscribe
+  TAPi18n.subscribe('shows.multipleById', showsLoad);
 
   // Language
   // const locale = TAPi18n.getLanguage();
@@ -97,11 +103,11 @@ const HomePageContainer = createContainer(() => {
 
   return {
     // Purposely excluding profiles sub and shows sub to speed up loading time.
-    loading: !(eventsTodayWithLocationsSubscribe.ready() && profilesHomepageVizSub.ready()),
+    loading: !(eventsWithLocationsSub.ready() && profilesHomepageVizSub.ready()),
     connected: Meteor.status().connected,
     menuOpen: Session.get('menuOpen'),
     eventsTodayWithLocations,
-    eventsTodayCount: eventsTodayWithLocationsCursor.count(),
+    eventsTodayCount: eventsWithLocationsCursor.count(),
     startDate,
     endDate,
     profilesWithLocations,

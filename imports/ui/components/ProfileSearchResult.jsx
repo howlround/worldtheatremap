@@ -1,6 +1,5 @@
 import React from 'react';
 import classnames from 'classnames';
-import { _ } from 'meteor/underscore';
 import { includes, isEmpty, isNil } from 'lodash';
 import { FormattedMessage, FormattedDate, intlShape, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
@@ -13,15 +12,25 @@ import SelfDefinedRoles from '../components/SelfDefinedRoles.jsx';
 class ProfileSearchResult extends React.Component {
   renderImage() {
     const { profile } = this.props;
+    let output = '';
 
     if (profile.imageWide) {
-      return <img className="profile-image" width="100px" height="100px" src={profile.imageWide} />;
+      output = (
+        <img
+          className="profile-image"
+          width="100px"
+          height="100px"
+          src={profile.imageWide}
+        />
+      );
     }
+
+    return output;
   }
 
   render() {
     const { profile } = this.props;
-    const { formatMessage, locale } = this.props.intl;
+    const { locale } = this.props.intl;
 
     const interests = (profile.interests) ?
       <Interests interests={profile.interests} />
@@ -49,7 +58,7 @@ class ProfileSearchResult extends React.Component {
 
     const classNames = classnames('profile-content-wrapper', {
       'profile-with-image': !isNil(profile.imageWide),
-    })
+    });
 
     return (
       <article className="profile search-result">

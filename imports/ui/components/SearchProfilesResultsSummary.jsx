@@ -35,9 +35,9 @@ class SearchProfilesResultsSummary extends React.Component {
     const { formatMessage, locale, messages } = this.props.intl;
 
     const pluralTypes = defineMessages({
-      theatremaker: {
-        id: 'plural.theatremaker',
-        defaultMessage: '{count, plural, one {Theatremaker} other {Theatremakers}}',
+      profile: {
+        id: 'plural.profile',
+        defaultMessage: '{count, plural, one {Profile} other {Profiles}}',
       },
       organization: {
         id: 'plural.organization',
@@ -49,7 +49,7 @@ class SearchProfilesResultsSummary extends React.Component {
       },
     });
 
-    let type = formatMessage(pluralTypes.theatremaker, { count });
+    let type = formatMessage(pluralTypes.profile, { count });
     const prefixModifiersArray = [];
     const suffixModifiersArray = [];
     const listVersion = [];

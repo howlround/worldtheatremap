@@ -763,6 +763,7 @@
   "ui.pageDelete": "Eliminar",
   "pageActions.tweet": "Tuitear",
   "pageActions.share": "Compartir",
+  "plural.profile": "{count, plural, one {Perfil} other {Perfiles}}",
   "share.profileLinkText": "en el",
   "forms.affiliationHelpText": "¿Es usted miembro de una red / asociación / unión? Agreguelos aquí",
   "forms.festivalOrganizerHelpText": "¿Es este festival organizado u organizado por otras organizaciones? Haz una lista aquí.",

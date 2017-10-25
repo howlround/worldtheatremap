@@ -113,8 +113,8 @@ class ProfilesGlobe extends React.Component {
 
             // Background Continents
             projection.clipAngle(180);
-            c.fillStyle = '#c8ece9';
-            c.strokeStyle = '#c8ece9';
+            c.fillStyle = '#d9e5e8';
+            c.strokeStyle = '#d9e5e8';
             c.lineWidth = 0.5;
             c.beginPath();
             path(land);
@@ -150,13 +150,13 @@ class ProfilesGlobe extends React.Component {
 
             // Continents
             projection.clipAngle(90);
-            c.fillStyle = '#50b2aa';
+            c.fillStyle = '#95c9d6';
             c.beginPath();
             path(land);
             c.fill();
 
             // Foreground borders
-            c.strokeStyle = '#50b2aa';
+            c.strokeStyle = '#95c9d6';
             c.lineWidth = 0.5;
             c.beginPath();
             path(borders);
@@ -181,7 +181,7 @@ class ProfilesGlobe extends React.Component {
             c.stroke();
 
             // Globe outline
-            c.strokeStyle = '#50b2aa';
+            c.strokeStyle = '#95c9d6';
             c.lineWidth = 2;
             c.beginPath();
             path(globe);

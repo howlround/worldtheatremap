@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // Utilities
 import classnames from 'classnames';
@@ -809,25 +810,25 @@ class ProfilePage extends React.Component {
 }
 
 ProfilePage.propTypes = {
-  profile: React.PropTypes.object,
-  editing: React.PropTypes.string,
-  user: React.PropTypes.object,
-  showsForAuthor: React.PropTypes.array,
-  eventsByShowByOrg: React.PropTypes.array,
-  eventsByShowByRole: React.PropTypes.array,
-  roles: React.PropTypes.array,
-  connections: React.PropTypes.array,
-  affiliations: React.PropTypes.array,
-  affiliatedProfiles: React.PropTypes.array,
-  feativalOrganizers: React.PropTypes.array,
-  festivalProfiles: React.PropTypes.array,
-  loading: React.PropTypes.bool,
-  profileExists: React.PropTypes.bool,
+  profile: PropTypes.object,
+  editing: PropTypes.string,
+  user: PropTypes.object,
+  showsForAuthor: PropTypes.array,
+  eventsByShowByOrg: PropTypes.array,
+  eventsByShowByRole: PropTypes.array,
+  roles: PropTypes.array,
+  connections: PropTypes.array,
+  affiliations: PropTypes.array,
+  affiliatedProfiles: PropTypes.array,
+  feativalOrganizers: PropTypes.array,
+  festivalProfiles: PropTypes.array,
+  loading: PropTypes.bool,
+  profileExists: PropTypes.bool,
   intl: intlShape.isRequired,
 };
 
 ProfilePage.contextTypes = {
-  router: React.PropTypes.object,
+  router: PropTypes.object,
 };
 
 export default injectIntl(ProfilePage);

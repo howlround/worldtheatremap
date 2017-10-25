@@ -160,7 +160,7 @@ const SearchProfilesResultsContainer = createContainer((props) => {
                 total
               }
             }`,
-            variables: { input: query },
+            variables: { input: queryForGQL },
           },
           headers: {
             Authorization: Meteor.settings.public.WTMDataApiAuth,

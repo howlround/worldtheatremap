@@ -14,7 +14,7 @@ export default createContainer(({ params: { id } }) => {
   const showAuthors = [];
 
   // If necessary another loading prop can be created from eventsByShowSubscribe
-  const eventsByShowSubscribe = Meteor.subscribe('events.byShow', id);
+  Meteor.subscribe('events.byShow', id);
   const eventsByShow = Events.find({ 'show._id': id }, {
     fields: Events.publicFields,
     sort: { startDate: -1 },
@@ -28,7 +28,7 @@ export default createContainer(({ params: { id } }) => {
     _.each(show.author, (author) => showAuthors.push(author._id));
   }
 
-  const authorsSub = TAPi18n.subscribe('profiles.byId', showAuthors);
+  TAPi18n.subscribe('profiles.byId', showAuthors);
 
   return {
     loading,

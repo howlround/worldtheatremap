@@ -1,5 +1,4 @@
 import { Meteor } from 'meteor/meteor';
-import moment from 'moment';
 import ReactGA from 'react-ga';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Session } from 'meteor/session';
@@ -14,7 +13,8 @@ import { Content } from '../../api/content/content.js';
 const AppContainer = createContainer(() => {
   const supportedLanguages = TAPi18n.getLanguages();
   const user = Meteor.user();
-  const announcementSubscription = TAPi18n.subscribe('content.singleByTitle', 'Announcement');
+  // announcementSubscription
+  TAPi18n.subscribe('content.singleByTitle', 'Announcement');
   const announcement = Content.findOne({
     title: 'Announcement',
     body: {

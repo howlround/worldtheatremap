@@ -1,4 +1,4 @@
-import { Meteor } from 'meteor/meteor';
+import { TAPi18n } from 'meteor/tap:i18n';
 import { Shows } from '../../api/shows/shows.js';
 import { createContainer } from 'meteor/react-meteor-data';
 import ShowPage from '../pages/ShowPage.jsx';

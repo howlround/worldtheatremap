@@ -1,7 +1,9 @@
 import { Meteor } from 'meteor/meteor';
-import { TAPi18n } from 'meteor/tap:i18n';
 import { Content } from '../../api/content/content.js';
 import { createContainer } from 'meteor/react-meteor-data';
+import { Roles } from 'meteor/alanning:roles';
+import { TAPi18n } from 'meteor/tap:i18n';
+
 import ContentEditPage from '../pages/ContentEditPage.jsx';
 
 const AnnouncementEditContainer = createContainer(() => {

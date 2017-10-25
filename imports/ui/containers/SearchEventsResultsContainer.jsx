@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { TAPi18n } from 'meteor/tap:i18n';
 import { createContainer } from 'meteor/react-meteor-data';
 import { _ } from 'meteor/underscore';
 import moment from 'moment';
@@ -77,9 +78,10 @@ const SearchEventsResultsContainer = createContainer((props) => {
         _.each(event.show.author, (author) => resultsAuthors.push(author._id));
       });
 
-      const resultsAuthorsSubscribe = TAPi18n.subscribe('profiles.byId', resultsAuthors);
-      const resultsShowsSubscribe = TAPi18n.subscribe('shows.multipleById', resultsShows);
-
+      // resultsAuthorsSubscribe
+      TAPi18n.subscribe('profiles.byId', resultsAuthors);
+      // resultsShowsSubscribe
+      TAPi18n.subscribe('shows.multipleById', resultsShows);
     }
   }
 

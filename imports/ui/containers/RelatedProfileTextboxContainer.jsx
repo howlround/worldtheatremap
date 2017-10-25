@@ -25,11 +25,12 @@ const RelatedProfileTextboxContainer = createContainer((props) => {
 
     switch (props.limit) {
       case 'networks':
-        query.orgTypes = { $in: [ 'Network / Association / Union' ] };
+        query.orgTypes = { $in: ['Network / Association / Union'] };
         break;
       case 'notFestivals':
         query.profileType = { $ne: 'Festival' };
         break;
+      default:
     }
 
     results = Profiles.find(query, { limit: 10, fields: Profiles.autocompleteFields }).fetch();

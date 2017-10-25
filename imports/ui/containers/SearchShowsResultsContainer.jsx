@@ -6,7 +6,7 @@ import moment from 'moment';
 import qs from 'qs';
 import { _ } from 'meteor/underscore';
 import { createContainer } from 'meteor/react-meteor-data';
-import { ReactiveVar } from 'meteor/reactive-var';
+// import { ReactiveVar } from 'meteor/reactive-var';
 import { remove as removeDiacritics } from 'diacritics';
 import { TAPi18n } from 'meteor/tap:i18n';
 

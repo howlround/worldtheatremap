@@ -284,7 +284,7 @@ class SearchShowsResultsSummary extends React.Component {
       const countriesMarkup = markup(countriesReact);
 
       if (locale === 'en') {
-        suffixModifiersArray.push(`in ${sanitizeHtml(countriesMarkup)}`);
+        suffixModifiersArray.push(`from ${sanitizeHtml(countriesMarkup)}`);
       } else {
         const countryLabel = (
           <IntlProvider locale={locale} messages={messages}>

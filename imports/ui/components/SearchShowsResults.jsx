@@ -97,7 +97,7 @@ class SearchShowsResults extends React.Component {
     if (!isEmpty(query)) {
       const baseUrl = Meteor.absoluteUrl(false, { secure: true });
       const queryString = qs.stringify(query);
-      const searchUrl = `${baseUrl}${locale}/search/profiles?${queryString}`;
+      const searchUrl = `${baseUrl}${locale}/search/shows?${queryString}`;
 
       helmet = (
         <Helmet

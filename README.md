@@ -49,6 +49,9 @@ The options used in the settings.json file are:
   "SendContentNotifications": false,
   "GoogleTranslateAPIKey": "",
   "public": {
+    "AWSShareImageBucket": "",
+    "WTMDataApi": "/graphql",
+    "WTMDataApiAuth": "",
     "GoogleAnalytics": ""
   }
 }

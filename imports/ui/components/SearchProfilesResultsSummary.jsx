@@ -16,9 +16,6 @@ import {
 } from 'lodash';
 import sanitizeHtml from 'sanitize-html';
 
-// API
-import { upsert } from '../../api/searchShare/methods.js';
-
 // Components
 import AdministrativeAreas from '../components/AdministrativeAreas.jsx';
 import Countries from '../components/Countries.jsx';
@@ -31,7 +28,7 @@ import SelfDefinedRoles from '../components/SelfDefinedRoles.jsx';
 
 class SearchProfilesResultsSummary extends React.Component {
   render() {
-    const { query, count, shareImageFilename } = this.props;
+    const { query, count } = this.props;
     const { formatMessage, locale, messages } = this.props.intl;
 
     const pluralTypes = defineMessages({
@@ -395,16 +392,6 @@ class SearchProfilesResultsSummary extends React.Component {
     const modifiers = prefix + type + suffix + labels;
     const summary = `${count} ${modifiers}`;
 
-    upsert.call({
-      shareImageFilename,
-      count,
-      summary,
-      locale,
-    });
-
-    // Tell Prerender.io that we're ready
-    window.prerenderReady = true;
-
     return (
       <h3 className="search-results-summary">
         {summary}
@@ -414,7 +401,6 @@ class SearchProfilesResultsSummary extends React.Component {
 }
 
 SearchProfilesResultsSummary.propTypes = {
-  shareImageFilename: React.PropTypes.string,
   query: React.PropTypes.object,
   count: React.PropTypes.number,
   intl: intlShape.isRequired,

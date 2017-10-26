@@ -132,6 +132,11 @@ class SearchProfilesResults extends React.Component {
       );
     }
 
+    if (!loading) {
+      // Tell Prerender.io that we're ready
+      window.prerenderReady = true;
+    }
+
     // Include the map/list toggle on all cases to maintain a consistant interface
     return (
       <div>
@@ -140,7 +145,6 @@ class SearchProfilesResults extends React.Component {
         <SearchProfilesResultsSummary
           query={query}
           count={count}
-          shareImageFilename={shareImageFilename}
         />
         <SearchResultsToggle
           toggle={this.updateResultsDisplay}

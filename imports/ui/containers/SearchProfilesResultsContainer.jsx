@@ -1,17 +1,25 @@
-import { Meteor } from 'meteor/meteor';
 import escapeRegExp from 'lodash.escaperegexp';
 import gql from 'graphql-tag';
 import hash from 'string-hash';
 import moment from 'moment';
 import qs from 'qs';
+import React from 'react';
+import sanitizeHtml from 'sanitize-html';
 import { createContainer } from 'meteor/react-meteor-data';
 import { get, clone, isEmpty } from 'lodash';
 import { HTTP } from 'meteor/http';
+import { IntlProvider, injectIntl } from 'react-intl';
+import { Meteor } from 'meteor/meteor';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { remove as removeDiacritics } from 'diacritics';
+import { renderToStaticMarkup as markup } from 'react-dom/server';
 import { TAPi18n } from 'meteor/tap:i18n';
 
+// API
+import { upsert } from '../../api/searchShare/methods.js';
+
 import { Profiles } from '../../api/profiles/profiles.js';
+import SearchProfilesResultsSummary from '../components/SearchProfilesResultsSummary.jsx';
 import SearchProfilesResults from '../components/SearchProfilesResults.jsx';
 
 const count = new ReactiveVar(0);
@@ -137,6 +145,13 @@ const SearchProfilesResultsContainer = createContainer((props) => {
         }).fetch();
     }
 
+    // Generate the filename from privateQuery so pager is not included
+    const privateQueryString = qs.stringify(privateQuery);
+    // Include the locale to keep the images seperate
+    // and the type otherwise hash will match other types
+    // using the name query fields (like date)
+    shareImageFilename = hash(`${locale}profiles${privateQueryString}`).toString();
+
     // Make a call to the API for the overall count
     // The query can be passed straight in because the api will handle validation
     if (!isEmpty(query)) {
@@ -152,7 +167,6 @@ const SearchProfilesResultsContainer = createContainer((props) => {
       HTTP.call(
         'POST',
         Meteor.settings.public.WTMDataApi,
-        // 'http://localhost:3030/graphql',
         {
           data: {
             query: gql`query ($input: ProfileFiltersInput) {
@@ -168,22 +182,37 @@ const SearchProfilesResultsContainer = createContainer((props) => {
           },
         },
         (error, result) => {
+          // console.log('getting result or error');
           if (error) {
             console.log(error); // eslint-disable-line no-console
           } else if (result.statusCode === 200) {
             const apiCount = get(result, 'data.data.findProfiles.total');
+            // @TODO: Instead of passing count, why not pass the whole summary?
+            //        Do any components need count instead of summary?
             count.set(apiCount);
+
+            // Trigger the image creation here. That way we know it's ready with the new number.
+            const summaryReact = (
+              <IntlProvider locale={props.intl.locale} messages={props.intl.messages}>
+                <SearchProfilesResultsSummary
+                  query={query}
+                  count={apiCount}
+                />
+              </IntlProvider>
+            );
+
+            const summary = sanitizeHtml(markup(summaryReact), { allowedTags: [] });
+
+            upsert.call({
+              shareImageFilename,
+              count: apiCount,
+              summary,
+              locale,
+            });
           }
         }
       );
     }
-
-    // Generate the filename from privateQuery so pager is not included
-    const privateQueryString = qs.stringify(privateQuery);
-    // Include the locale to keep the images seperate
-    // and the type otherwise hash will match other types
-    // using the name query fields (like date)
-    shareImageFilename = hash(`${locale}profiles${privateQueryString}`).toString();
   }
 
   return {
@@ -197,4 +226,4 @@ const SearchProfilesResultsContainer = createContainer((props) => {
   };
 }, SearchProfilesResults);
 
-export default SearchProfilesResultsContainer;
+export default injectIntl(SearchProfilesResultsContainer);

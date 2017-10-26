@@ -83,7 +83,15 @@ class ProfilesGlobe extends React.Component {
       return;
     }
 
-    this.setState({ currentItem: itemLocations[i].properties });
+    const locationsObject = {
+      currentItem: itemLocations[i].properties,
+    }
+
+    if (!isEmpty(itemLocations[i+1])) {
+      locationsObject.nextItem = itemLocations[i+1].properties;
+    }
+
+    this.setState(locationsObject);
 
     const triggerTransition = () => {
       transition()
@@ -91,7 +99,15 @@ class ProfilesGlobe extends React.Component {
         .on('start', () => {
           if (this.state.paused !== true && this.state.stopped !== true) {
             i = (i + 1) % n;
-            this.setState({ currentItem: itemLocations[i].properties });
+            const locationsObject = {
+              currentItem: itemLocations[i].properties,
+            }
+
+            if (!isEmpty(itemLocations[i+1])) {
+              locationsObject.nextItem = itemLocations[i+1].properties;
+            }
+
+            this.setState(locationsObject);
           }
         })
         .tween('rotate', () => {
@@ -303,7 +319,7 @@ class ProfilesGlobe extends React.Component {
 
   render() {
     const { items } = this.props;
-    const { currentItem } = this.state;
+    const { currentItem, nextItem } = this.state;
 
     const emptyLocations = (
       <SearchResultsNoLocationsText />
@@ -326,6 +342,11 @@ class ProfilesGlobe extends React.Component {
               onMouseLeave={this.continue}
             >
               <ProfileSearchResult profile={currentItem} />
+              {nextItem ?
+                <div className="visually-hidden preload-next-item">
+                  <ProfileSearchResult profile={nextItem} />
+                </div>
+              : ''}
             </div>
           </div>
         : ''}

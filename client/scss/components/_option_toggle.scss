@@ -1,28 +1,28 @@
 .option-toggle {
   padding: $spacing-unit * 2;
-}
 
-.option-toggle-item {
-  display: inline;
-  text-transform: uppercase;
-  background-color: $off-white;
-  color: $gray;
-  padding: $spacing-unit $spacing-unit * 3;
-  font-weight: 700;
-  font-size: 14px;
-
-  &:hover,
-  &:focus {
-    background-color: $light-gray;
-  }
-
-  &.active {
-    background-color: $background-teal;
-    color: $black;
+  .option-toggle-item {
+    display: inline;
+    text-transform: uppercase;
+    background-color: $off-white;
+    color: $gray;
+    padding: $spacing-unit $spacing-unit * 3;
+    font-weight: 700;
+    font-size: 14px;
 
     &:hover,
     &:focus {
-      background-color: $light-teal;
+      background-color: $light-gray;
+    }
+
+    &.active {
+      background-color: $background-teal;
+      color: $black;
+
+      &:hover,
+      &:focus {
+        background-color: $light-teal;
+      }
     }
   }
 }

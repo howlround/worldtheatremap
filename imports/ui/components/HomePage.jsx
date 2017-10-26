@@ -20,8 +20,7 @@ class HomePage extends React.Component {
     super(props);
 
     this.state = {
-      // display: 'events',
-      display: 'people',
+      display: 'events',
     };
 
     this.updateDisplay = this.updateDisplay.bind(this);
@@ -33,62 +32,63 @@ class HomePage extends React.Component {
 
   displaySwitch() {
     const { display } = this.state;
-    const { eventsTodayWithLocations, profilesWithLocations } = this.props;
+    const {
+      eventsTodayWithLocations,
+      profilesWithLocations,
+      loading,
+    } = this.props;
+    const { locale } = this.props.intl;
     let output = '';
 
-    switch (display) {
-      case 'people':
-        output = (
-          <ProfilesGlobe
-            items={profilesWithLocations}
-          />
-        );
-        break;
-      case 'events':
-      default:
-        if (eventsTodayWithLocations) {
+    if (loading) {
+      output = <Loading key="loading" interiorBlock />;
+    } else {
+      switch (display) {
+        case 'people':
           output = (
-            <div className="homepage-globe">
-              {this.renderTodayMap()}
-              {this.renderTodayList()}
+            <div>
+              <div className="homepage-globe-label">
+                <h2>
+                  <Link
+                    to={{ pathname: `/${locale}/search/profiles`, query: { 'gender[]': "Female" } }}
+                    className="people-view-all"
+                  >
+                    <FormattedMessage
+                      id="homepage.peopleGlobeLabel"
+                      defaultMessage="Female Theatremakers Around the World"
+                    />
+                  </Link>
+                </h2>
+              </div>
+              <ProfilesGlobe
+                items={profilesWithLocations}
+              />
             </div>
           );
-        }
-        break;
+          break;
+        case 'events':
+        default:
+          if (eventsTodayWithLocations) {
+            output = (
+              <div>
+                {this.renderTodayList()}
+                <EventsGlobe
+                  items={eventsTodayWithLocations}
+                />
+              </div>
+            );
+          }
+          break;
+      }
     }
 
-    return output;
-  }
-
-  renderTodayMap() {
-    const { eventsTodayWithLocations, loading } = this.props;
-    const { formatMessage } = this.props.intl;
-
-    const messages = defineMessages({
-      siteName: {
-        id: 'navigation.siteName',
-        defaultMessage: 'World Theatre Map',
-        description: 'Site name',
-      },
-    });
-
-    const siteName = formatMessage(messages.siteName);
-
     return (
-      <section className="homepage-events-globe">
-        <Helmet
-          title={siteName}
-          titleTemplate="%s"
+      <section className="homepage-globe">
+        {output}
+        <HomePageDisplayToggle
+          updateDisplay={this.updateDisplay}
+          active={display}
         />
-        {loading ?
-          <Loading key="loading" interiorBlock /> : ''
-        }
-        {!loading ?
-          <EventsGlobe
-            items={eventsTodayWithLocations}
-          />
-          : ''
-        }
       </section>
     );
   }
@@ -117,6 +117,50 @@ class HomePage extends React.Component {
     );
   }
 
+  renderSearchLinks() {
+    const { locale } = this.props.intl;
+
+    return (
+      <div className="homepage-search-links">
+        <FormattedMessage
+          id="homepage.searchLinks"
+          description="Links to search by various types"
+          defaultMessage={'Search by {people}, {organizations}, {shows}, or {festivals}'}
+          values={{
+            people: <Link to={{ pathname: `/${locale}/search/profiles`, query: {} }}>
+              <FormattedMessage
+                id="searchNav.people"
+                description="Alternate Profile Search Tab"
+                defaultMessage="People"
+              />
+            </Link>,
+            organizations: <Link to={{ pathname: `/${locale}/search/profiles`, query: {} }}>
+              <FormattedMessage
+                id="searchNav.organizations"
+                description="Alternate Profile Search Tab"
+                defaultMessage="Organizations"
+              />
+            </Link>,
+            shows: <Link to={{ pathname: `/${locale}/search/shows`, query: {} }}>
+              <FormattedMessage
+                id="searchNav.shows"
+                description="Show Search Tab"
+                defaultMessage="Shows"
+              />
+            </Link>,
+            festivals: <Link to={{ pathname: `/${locale}/search/festivals`, query: {} }}>
+              <FormattedMessage
+                id="searchNav.festivals"
+                description="Festival Search Tab"
+                defaultMessage="Festivals"
+              />
+            </Link>,
+          }}
+        />
+      </div>
+    );
+  }
+
   render() {
     const {
       eventsTodayWithLocations,
@@ -124,8 +168,17 @@ class HomePage extends React.Component {
       loading,
     } = this.props;
     const { display } = this.state;
+    const { locale, formatMessage } = this.props.intl;
 
-    const { locale } = this.props.intl;
+    const messages = defineMessages({
+      siteName: {
+        id: 'navigation.siteName',
+        defaultMessage: 'World Theatre Map',
+        description: 'Site name',
+      },
+    });
+
+    const siteName = formatMessage(messages.siteName);
 
     const renderedHowlroundPosts = _.map(howlroundPosts, (item) => (
         <HowlRoundPostFeatured
@@ -138,50 +191,11 @@ class HomePage extends React.Component {
     return (
       <div className="homepage-content-wrapper">
         <div className="page">
-          <ContentCountsContainer hideHeader />
-          <div className="homepage-search-links">
-            <FormattedMessage
-              id="homepage.searchLinks"
-              description="Links to search by various types"
-              defaultMessage={'Search by {people}, {organizations}, {shows}, or {festivals}'}
-              values={{
-                people: <Link to={{ pathname: `/${locale}/search/profiles`, query: {} }}>
-                  <FormattedMessage
-                    id="searchNav.people"
-                    description="Alternate Profile Search Tab"
-                    defaultMessage="People"
-                  />
-                </Link>,
-                organizations: <Link to={{ pathname: `/${locale}/search/profiles`, query: {} }}>
-                  <FormattedMessage
-                    id="searchNav.organizations"
-                    description="Alternate Profile Search Tab"
-                    defaultMessage="Organizations"
-                  />
-                </Link>,
-                shows: <Link to={{ pathname: `/${locale}/search/shows`, query: {} }}>
-                  <FormattedMessage
-                    id="searchNav.shows"
-                    description="Show Search Tab"
-                    defaultMessage="Shows"
-                  />
-                </Link>,
-                festivals: <Link to={{ pathname: `/${locale}/search/festivals`, query: {} }}>
-                  <FormattedMessage
-                    id="searchNav.festivals"
-                    description="Festival Search Tab"
-                    defaultMessage="Festivals"
-                  />
-                </Link>,
-              }}
-            />
-          </div>
-          {!loading ?
-            <HomePageDisplayToggle
-              toggle={this.updateDisplay}
-              active={display}
-            />
-           : ''}
+          <Helmet
+            title={siteName}
+            titleTemplate="%s"
+          />
+          {this.renderSearchLinks()}
           {!loading ? this.displaySwitch() : ''}
         </div>
         <div className="homepage-howlround-wrapper">

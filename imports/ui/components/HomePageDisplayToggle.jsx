@@ -6,60 +6,47 @@ export default class HomePageDisplayToggle extends React.Component {
   constructor(props) {
     super(props);
 
-    this.activateEvents = this.activateEvents.bind(this);
-    this.activatePeople = this.activatePeople.bind(this);
+    this.toggle = this.toggle.bind(this);
   }
 
-  activateEvents(event) {
-    const { toggle } = this.props;
+  toggle(event) {
+    const { updateDisplay, active } = this.props;
 
     event.preventDefault();
 
-    toggle('events');
-  }
+    const nextDisplay = (active === 'events') ? 'people' : 'events';
 
-  activatePeople(event) {
-    const { toggle } = this.props;
-
-    event.preventDefault();
-
-    toggle('people');
+    updateDisplay(nextDisplay);
   }
 
   render() {
-    const { active } = this.props;
-
     return (
-      <div className="option-toggle">
+      <div className="homepage-option-toggle">
         <a
           href="#"
-          className={classnames('option-toggle-item','homepage-display-people', { active: (active === 'people') })}
-          onClick={this.activatePeople}
-        >
-          <FormattedMessage
-            id="homepageDisplayToggle.people"
-            description="Home page display toggle: People"
-            defaultMessage="People"
-          />
-        </a>
+          className={classnames(
+            'option-toggle-item',
+            'homepage-display-events',
+            'icon-arrow-up'
+          )}
+          onClick={this.toggle}
+        />
         <a
           href="#"
-          className={classnames('option-toggle-item', 'homepage-display-events', { active: (active === 'events') })}
-          onClick={this.activateEvents}
-        >
-          <FormattedMessage
-            id="homepageDisplayToggle.events"
-            description="Home page display toggle: Events"
-            defaultMessage="Events"
-          />
-        </a>
+          className={classnames(
+            'option-toggle-item',
+            'homepage-display-people',
+            'icon-arrow-up'
+          )}
+          onClick={this.toggle}
+        />
       </div>
     );
   }
 }
 
 HomePageDisplayToggle.propTypes = {
-  toggle: React.PropTypes.func,
+  updateDisplay: React.PropTypes.func,
   active: React.PropTypes.string,
 };
 

@@ -1,0 +1,39 @@
+.homepage-option-toggle {
+  .option-toggle-item {
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    top: 10px;
+    font-size: 50px;
+
+    color: $background-red;
+
+    &:hover,
+    &:focus {
+      color: $light-red;
+    }
+
+    @include breakpoint($narrow) {
+      top: 310px;
+      font-size: 120px;
+    }
+  }
+}
+
+.homepage-display-people {
+  right: 0;
+  position: absolute;
+  -webkit-transform: rotate(90deg);
+  -moz-transform:    rotate(90deg);
+  -ms-transform:     rotate(90deg);
+  -o-transform:      rotate(90deg);
+}
+
+.homepage-display-events {
+  left: 0;
+  position: absolute;
+  -webkit-transform: rotate(-90deg);
+  -moz-transform:    rotate(-90deg);
+  -ms-transform:     rotate(-90deg);
+  -o-transform:      rotate(-90deg);
+}

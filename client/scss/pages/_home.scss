@@ -1,3 +1,7 @@
+.hompepage-globe {
+  position: relative;
+}
+
 .homepage-section-header {
   text-align: center;
 
@@ -21,10 +25,26 @@
   }
 }
 
+.homepage-globe {
+  position: relative;
+
+  @include breakpoint($narrow) {
+    min-height: 745px;
+  }
+}
+
 .homepage-globe-label {
   @extend .homepage-section-header;
 
   margin-top: $spacing-unit;
+  text-align: center;
+  width: 100%;
+
+  @include breakpoint($narrow) {
+    margin-top: 35px;
+    position: absolute;
+    z-index: 1;
+  }
 
   h2 {
     padding: $spacing-unit $spacing-unit * 4;
@@ -40,12 +60,13 @@
       span {
         background-color: $white;
         border: solid 1px $dark-tan;
-        padding: $spacing-unit $spacing-unit * 4;
+        padding: $spacing-unit $spacing-unit * 10;
       }
     }
 
     color: $white;
     font-size: 20px;
+    opacity: 0.8;
   }
 }
 
@@ -256,9 +277,10 @@
   text-align: center;
   line-height: 1.4em;
   margin: 0;
-  margin-bottom: $spacing-unit*2;
+  margin-bottom: $spacing-unit * 2;
 
   @include breakpoint($narrow) {
-    margin: $spacing-unit*3 0 $spacing-unit*6 0;
+    margin-top: $spacing-unit * 2;
+    margin-bottom: $spacing-unit * 3;
   }
 }

@@ -97,7 +97,7 @@ class ProfilesGlobe extends React.Component {
         .tween('rotate', () => {
           // Set rotation
           const p = geoCentroid(itemLocations[i]);
-          const r = geoInterpolate(projection.rotate(), [-p[0] - 15, -p[1] + 30]);
+          const r = geoInterpolate(projection.rotate(), [-p[0] - 15, -p[1] + 25]);
 
             // console.log(projection(items.features[i].geometry.coordinates));
           return t => {

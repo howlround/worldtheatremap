@@ -5,8 +5,8 @@ import moment from 'moment';
 import qs from 'qs';
 import React from 'react';
 import sanitizeHtml from 'sanitize-html';
+import { clone, get, isEmpty } from 'lodash';
 import { createContainer } from 'meteor/react-meteor-data';
-import { get, clone, isEmpty } from 'lodash';
 import { HTTP } from 'meteor/http';
 import { IntlProvider, injectIntl } from 'react-intl';
 import { Meteor } from 'meteor/meteor';
@@ -155,14 +155,14 @@ const SearchProfilesResultsContainer = createContainer((props) => {
     // Make a call to the API for the overall count
     // The query can be passed straight in because the api will handle validation
     if (!isEmpty(query)) {
-      // page field is not valid on the API
       const queryForGQL = clone(query);
       // Date fields have different names
       queryForGQL.startsBefore = query.endDate;
       queryForGQL.endsAfter = query.startDate;
-      delete queryForGQL.page;
       delete queryForGQL.endDate;
       delete queryForGQL.startDate;
+      // page field is not valid on the API
+      delete queryForGQL.page;
 
       HTTP.call(
         'POST',

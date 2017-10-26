@@ -1,21 +1,37 @@
-import { Meteor } from 'meteor/meteor';
 import escapeRegExp from 'lodash.escaperegexp';
-// import gql from 'graphql-tag';
+import gql from 'graphql-tag';
 import hash from 'string-hash';
 import moment from 'moment';
 import qs from 'qs';
-import { _ } from 'meteor/underscore';
+import React from 'react';
+import sanitizeHtml from 'sanitize-html'
+import {
+  clone,
+  compact,
+  each,
+  get,
+  isEmpty,
+  map,
+  size,
+} from 'lodash';
 import { createContainer } from 'meteor/react-meteor-data';
+import { IntlProvider, injectIntl } from 'react-intl';
+import { Meteor } from 'meteor/meteor';
 // import { ReactiveVar } from 'meteor/reactive-var';
 import { remove as removeDiacritics } from 'diacritics';
+import { renderToStaticMarkup as markup } from 'react-dom/server';
 import { TAPi18n } from 'meteor/tap:i18n';
 
-import { Shows } from '../../api/shows/shows.js';
-import { Events } from '../../api/events/events.js';
+// API
+import { upsert } from '../../api/searchShare/methods.js';
+
+import SearchShowsResultsSummary from '../components/SearchShowsResultsSummary.jsx';
 import SearchShowsResults from '../components/SearchShowsResults.jsx';
+import { Events } from '../../api/events/events.js';
+import { Shows } from '../../api/shows/shows.js';
 
 const getEventsFromShows = ({ showResults, privateEventQuery }) => {
-  const results = _.map(showResults, show => {
+  const results = map(showResults, show => {
     let output = null;
     const eventsByShowQuery = { 'show._id': show._id };
     const events = Events.find(
@@ -28,15 +44,15 @@ const getEventsFromShows = ({ showResults, privateEventQuery }) => {
 
     // Reformat results to be results { show: {}, events: []}
     // If events filters are used only return show if there are events
-    if (!_.isEmpty(events)) {
+    if (!isEmpty(events)) {
       output = {
         show,
         events,
       };
     // if there is no events query return show only
-    // _.size(privateEventQuery) === 1 is the check
+    // size(privateEventQuery) === 1 is the check
     // because we add the showResultIds to the query above
-    } else if (_.isEmpty(events) && _.size(privateEventQuery) === 1) {
+    } else if (isEmpty(events) && size(privateEventQuery) === 1) {
       output = {
         show,
       };
@@ -59,7 +75,7 @@ const SearchShowsResultsContainer = createContainer((props) => {
   let results = [];
   let shareImageFilename = '';
 
-  if (!_.isEmpty(query)) {
+  if (!isEmpty(query)) {
     // Use an internal query so nothing strange gets passed straight through
     const privateShowQuery = {};
     const privateEventQuery = {};
@@ -87,7 +103,7 @@ const SearchShowsResultsContainer = createContainer((props) => {
     }
 
     // The publication can't accept regex values as the argument so make a seperate query to pass
-    const plainTextQuery = _.clone(privateShowQuery);
+    const plainTextQuery = clone(privateShowQuery);
 
     if (query.name) {
       const nameRegex = escapeRegExp(removeDiacritics(query.name)).toUpperCase();
@@ -96,7 +112,7 @@ const SearchShowsResultsContainer = createContainer((props) => {
     }
 
     // Make sure privateShowQuery is not empty otherwise all records are returned
-    if (!_.isEmpty(privateShowQuery)) {
+    if (!isEmpty(privateShowQuery)) {
       const showsSubscribe = TAPi18n.subscribe('shows.search', plainTextQuery, skip);
       loading = !showsSubscribe.ready();
       showResults = Shows.find(
@@ -110,9 +126,9 @@ const SearchShowsResultsContainer = createContainer((props) => {
       ).fetch();
 
       const profiles = [];
-      _.each(showResults, show => {
+      each(showResults, show => {
         showResultIds.push(show._id);
-        _.each(show.author, author => profiles.push(author._id));
+        each(show.author, author => profiles.push(author._id));
       });
       // profilesSubscribe
       TAPi18n.subscribe('profiles.byId', profiles);
@@ -155,14 +171,14 @@ const SearchShowsResultsContainer = createContainer((props) => {
 
     // // If there are show results, check for events and return whatever we find.
     // // Otherwise check for event filters then load parent shows
-    if (!_.isEmpty(showResults)) {
+    if (!isEmpty(showResults)) {
       // Load all the events for these shows
       privateEventQuery['show._id'] = { $in: showResultIds };
       // eventsSubscribe
       Meteor.subscribe('events.search', privateEventQuery, 0);
 
       results = getEventsFromShows({ showResults, privateEventQuery });
-    } else if (!_.isEmpty(privateEventQuery) && _.isEmpty(privateShowQuery)) {
+    } else if (!isEmpty(privateEventQuery) && isEmpty(privateShowQuery)) {
       // Otherwise check for event filters then load parent shows
       // But ONLY if there are no show filters. Otherwise this would cause
       // bad recursion. If privateShowQuery is not empty then something should have
@@ -182,11 +198,11 @@ const SearchShowsResultsContainer = createContainer((props) => {
       const resultsAuthors = [];
       const resultShowIds = [];
       const parentShowResults = [];
-      _.each(eventResults, (event) => {
+      each(eventResults, (event) => {
         parentShowResults.push(event.show);
         resultShowIds.push(event.show._id);
         resultsAuthors.push(event.organizations._id);
-        _.each(event.show.author, (author) => resultsAuthors.push(author._id));
+        each(event.show.author, (author) => resultsAuthors.push(author._id));
       });
 
       // resultsAuthorsSubscribe
@@ -202,46 +218,8 @@ const SearchShowsResultsContainer = createContainer((props) => {
     }
 
     // Clean out null values in results
-    // (from _.map if none of the return values are met)
-    results = _.compact(results);
-
-    // Make a call to the API for the overall count
-    // The query can be passed straight in because the api will handle validation
-    // @TODO: API has to be refactored to handle queries for events using show data
-    // (e.g. number of events for shows in portuguese)
-    // if (!_.isEmpty(query)) {
-    //   // page field is not valid on the API
-    //   const queryForGQL = query;
-    //   delete queryForGQL.page;
-
-    //   HTTP.call(
-    //     'POST',
-    //     Meteor.settings.public.WTMDataApi,
-    //     // 'http://localhost:3030/graphql',
-    //     {
-    //       data: {
-    //         query: gql`query ($input: EventFiltersInput) {
-    //           findEvents(input: $input) {
-    //             total
-    //           }
-    //         }`,
-    //         variables: { input: query },
-    //       },
-    //       headers: {
-    //         Authorization: Meteor.settings.public.WTMDataApiAuth,
-    //         'Content-Type': 'application/json',
-    //       },
-    //     },
-    //     (error, result) => {
-    //       if (error) {
-    //         console.log(error); // eslint-disable-line no-console
-    //       } else if (result.statusCode === 200) {
-    //         const apiCount = get(result, 'data.data.findProfiles.total');
-    //         count.set(apiCount);
-    //       }
-    //     }
-    //   );
-    // }
+    // (from map if none of the return values are met)
+    results = compact(results);
 
     // Generate the filename from privateQuery so pager is not included
     // Put the show and event queries together
@@ -250,6 +228,69 @@ const SearchShowsResultsContainer = createContainer((props) => {
     // and the type otherwise hash will match other types
     // using the name query fields (like date)
     shareImageFilename = hash(`${locale}shows${privateQueryString}`).toString();
+
+    // Make a call to the API for the overall count
+    // The query can be passed straight in because the api will handle validation
+    // @TODO: API has to be refactored to handle queries for events using show data
+    // (e.g. number of events for shows in portuguese)
+    if (!isEmpty(query)) {
+      const queryForGQL = clone(query);
+      // Date fields have different names
+      queryForGQL.startsBefore = query.endDate;
+      queryForGQL.endsAfter = query.startDate;
+      delete queryForGQL.endDate;
+      delete queryForGQL.startDate;
+      // page field is not valid on the API
+      delete queryForGQL.page;
+
+      HTTP.call(
+        'POST',
+        Meteor.settings.public.WTMDataApi,
+        {
+          data: {
+            query: gql`query ($input: EventFiltersInput) {
+              findEvents(input: $input) {
+                total
+              }
+            }`,
+            variables: { input: queryForGQL },
+          },
+          headers: {
+            Authorization: Meteor.settings.public.WTMDataApiAuth,
+            'Content-Type': 'application/json',
+          },
+        },
+        (error, result) => {
+          if (error) {
+            console.log(error); // eslint-disable-line no-console
+          } else if (result.statusCode === 200) {
+            const apiCount = get(result, 'data.data.findEvents.total');
+            // @TODO: Instead of passing count, why not pass the whole summary?
+            //        Do any components need count instead of summary?
+            // count.set(apiCount);
+
+            // Trigger the image creation here. That way we know it's ready with the new number.
+            const summaryReact = (
+              <IntlProvider locale={props.intl.locale} messages={props.intl.messages}>
+                <SearchShowsResultsSummary
+                  query={query}
+                  // count={apiCount}
+                />
+              </IntlProvider>
+            );
+
+            const summary = sanitizeHtml(markup(summaryReact), { allowedTags: [] });
+
+            upsert.call({
+              shareImageFilename,
+              count: 0,
+              summary,
+              locale,
+            });
+          }
+        }
+      );
+    }
   }
 
   return {
@@ -263,4 +304,4 @@ const SearchShowsResultsContainer = createContainer((props) => {
   };
 }, SearchShowsResults);
 
-export default SearchShowsResultsContainer;
+export default injectIntl(SearchShowsResultsContainer);

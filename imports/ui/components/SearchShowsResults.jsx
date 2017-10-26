@@ -137,6 +137,11 @@ class SearchShowsResults extends React.Component {
       );
     }
 
+    if (!loading) {
+      // Tell Prerender.io that we're ready
+      window.prerenderReady = true;
+    }
+
     // Include the map/list toggle on all cases to maintain a consistant interface
     return (
       <div>
@@ -145,7 +150,6 @@ class SearchShowsResults extends React.Component {
         <SearchShowsResultsSummary
           query={query}
           // count={count}
-          shareImageFilename={shareImageFilename}
         />
         <SearchResultsToggle
           toggle={this.updateResultsDisplay}

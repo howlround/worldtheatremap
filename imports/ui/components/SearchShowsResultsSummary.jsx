@@ -11,9 +11,6 @@ import {
 import { isEmpty, isNil } from 'lodash';
 import sanitizeHtml from 'sanitize-html';
 
-// API
-import { upsert } from '../../api/searchShare/methods.js';
-
 // Components
 import AdministrativeAreas from '../components/AdministrativeAreas.jsx';
 import Countries from '../components/Countries.jsx';
@@ -26,7 +23,6 @@ class SearchShowsResultsSummary extends React.Component {
     const {
       query,
       // count,
-      shareImageFilename,
     } = this.props;
     const { formatMessage, locale, messages } = this.props.intl;
 
@@ -325,16 +321,6 @@ class SearchShowsResultsSummary extends React.Component {
     // const summary = `${count} ${modifiers}`;
     const summary = modifiers;
 
-    upsert.call({
-      shareImageFilename,
-      count,
-      summary,
-      locale,
-    });
-
-    // Tell Prerender.io that we're ready
-    window.prerenderReady = true;
-
     return (
       <h3 className="search-results-summary">
         {summary}
@@ -344,7 +330,6 @@ class SearchShowsResultsSummary extends React.Component {
 }
 
 SearchShowsResultsSummary.propTypes = {
-  shareImageFilename: React.PropTypes.string,
   query: React.PropTypes.object,
   // count: React.PropTypes.number,
   intl: intlShape.isRequired,

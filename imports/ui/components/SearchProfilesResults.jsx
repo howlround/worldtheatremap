@@ -108,7 +108,7 @@ class SearchProfilesResults extends React.Component {
         <div className="page-actions-share">
           <OutboundLink
             eventLabel="twitter-share"
-            to={`https://twitter.com/intent/tweet?text=${searchUrl} %23howlround @HowlRound @WorldTheatreMap`}
+            to={`https://twitter.com/intent/tweet?text=${searchUrl} @HowlRound`}
             className="twitter-share"
           >
             <FormattedMessage

@@ -348,7 +348,7 @@ class ShowPage extends React.Component {
             <div className="page-actions-share">
               <OutboundLink
                 eventLabel="twitter-share"
-                to={`https://twitter.com/intent/tweet?text=${show.name} on the World Theatre Map ${baseUrl}${locale}/profiles/${show._id} %23howlround @HowlRound @WorldTheatreMap`}
+                to={`https://twitter.com/intent/tweet?text=${show.name} on the World Theatre Map ${baseUrl}${locale}/profiles/${show._id} @HowlRound`}
                 className="twitter-share"
               >
                 <FormattedMessage

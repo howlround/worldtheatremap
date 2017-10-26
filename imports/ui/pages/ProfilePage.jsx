@@ -713,7 +713,7 @@ class ProfilePage extends React.Component {
             <div className="page-actions-share">
               <OutboundLink
                 eventLabel="twitter-share"
-                to={`https://twitter.com/intent/tweet?text=${profile.name} ${profileLinkText} ${siteName} ${baseUrl}${locale}/profiles/${profile._id} %23howlround @HowlRound @WorldTheatreMap`}
+                to={`https://twitter.com/intent/tweet?text=${profile.name} ${profileLinkText} ${siteName} ${baseUrl}${locale}/profiles/${profile._id} @HowlRound`}
                 className="twitter-share"
               >
                 <FormattedMessage

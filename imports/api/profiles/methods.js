@@ -4,12 +4,14 @@ import { Meteor } from 'meteor/meteor';
 // Utilities
 import t from 'tcomb-validation';
 import { _ } from 'meteor/underscore';
+import { clone, each, isEmpty } from 'lodash';
 import { check, Match } from 'meteor/check';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { HTTP } from 'meteor/http';
 import { remove as removeDiacritics } from 'diacritics';
 import { Roles } from 'meteor/alanning:roles';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import { TAPi18n } from 'meteor/tap:i18n';
 import { ValidatedMethod, ValidationError } from 'meteor/mdg:validated-method';
 
 // API
@@ -45,18 +47,18 @@ export const insert = new ValidatedMethod({
     let source = 'en';
     let target = 'es';
 
-    if (!_.isEmpty(newProfile.locality)) {
+    if (!isEmpty(newProfile.locality)) {
       upsertLocality.call({ locality: newProfile.locality });
     }
-    if (!_.isEmpty(newProfile.ethnicityRace)) {
-      _.each(newProfile.ethnicityRace, ethnicity => {
+    if (!isEmpty(newProfile.ethnicityRace)) {
+      each(newProfile.ethnicityRace, ethnicity => {
         upsertEthnicity.call({ ethnicity });
       });
     }
-    if (!_.isEmpty(newProfile.administrativeArea)) {
+    if (!isEmpty(newProfile.administrativeArea)) {
       upsertAdministrativeArea.call({ administrativeArea: newProfile.administrativeArea });
     }
-    if (!_.isEmpty(newProfile.country)) {
+    if (!isEmpty(newProfile.country)) {
       upsertCountry.call({ country: newProfile.country });
     }
 
@@ -76,7 +78,7 @@ export const insert = new ValidatedMethod({
     //  - Save name, and all tags, and image to english; everything minus tags to spanish
 
     // Base doc is always english
-    const baseDoc = _.clone(newProfile);
+    const baseDoc = clone(newProfile);
     const translations = {};
 
     if (locale && locale === 'es') {
@@ -106,19 +108,19 @@ export const insert = new ValidatedMethod({
     // Save source language
     baseDoc.source = source;
 
-    if (!_.isEmpty(newProfile.facebook)) {
+    if (!isEmpty(newProfile.facebook)) {
       const stripHttpExp = RegExp('^(https?:|)\/\/');
       baseDoc.facebook = newProfile.facebook.replace(stripHttpExp, '');
     }
-    if (!_.isEmpty(newProfile.twitter)) {
+    if (!isEmpty(newProfile.twitter)) {
       const stripHttpExp = RegExp('^(https?:|)\/\/twitter.com/');
       baseDoc.twitter = newProfile.twitter.replace(stripHttpExp, '').replace('@', '');
     }
-    if (!_.isEmpty(newProfile.instagram)) {
+    if (!isEmpty(newProfile.instagram)) {
       const stripHttpExp = RegExp('^(https?:|)\/\/instagram.com/');
       baseDoc.instagram = newProfile.instagram.replace(stripHttpExp, '').replace('@', '');
     }
-    if (!_.isEmpty(newProfile.name)) {
+    if (!isEmpty(newProfile.name)) {
       baseDoc.nameSearch = removeDiacritics(newProfile.name).toUpperCase();
     }
 
@@ -229,18 +231,18 @@ export const update = new ValidatedMethod({
     let source = 'en';
     // let target = 'es'; // Target isn't used in update
 
-    if (!_.isEmpty(newProfile.locality)) {
+    if (!isEmpty(newProfile.locality)) {
       upsertLocality.call({ locality: newProfile.locality });
     }
-    if (!_.isEmpty(newProfile.ethnicityRace)) {
-      _.each(newProfile.ethnicityRace, ethnicity => {
+    if (!isEmpty(newProfile.ethnicityRace)) {
+      each(newProfile.ethnicityRace, ethnicity => {
         upsertEthnicity.call({ ethnicity });
       });
     }
-    if (!_.isEmpty(newProfile.administrativeArea)) {
+    if (!isEmpty(newProfile.administrativeArea)) {
       upsertAdministrativeArea.call({ administrativeArea: newProfile.administrativeArea });
     }
-    if (!_.isEmpty(newProfile.country)) {
+    if (!isEmpty(newProfile.country)) {
       upsertCountry.call({ country: newProfile.country });
     }
 
@@ -260,7 +262,7 @@ export const update = new ValidatedMethod({
     //  - Save name, and all tags, and image to english; everything minus tags to spanish
 
     // Base doc is always english
-    const baseDoc = _.clone(newProfile);
+    const baseDoc = clone(newProfile);
     const translations = {};
 
     if (locale && locale === 'es') {
@@ -299,23 +301,23 @@ export const update = new ValidatedMethod({
     // Don't update source on update
     // baseDoc.source = source;
 
-    if (!_.isEmpty(baseDoc.facebook)) {
+    if (!isEmpty(baseDoc.facebook)) {
       const stripHttpExp = RegExp('^(https?:|)\/\/');
       baseDoc.facebook = baseDoc.facebook.replace(stripHttpExp, '');
     }
-    if (!_.isEmpty(baseDoc.twitter)) {
+    if (!isEmpty(baseDoc.twitter)) {
       const stripHttpExp = RegExp('^(https?:|)\/\/twitter.com/');
       baseDoc.twitter = baseDoc.twitter.replace(stripHttpExp, '').replace('@', '');
     }
-    if (!_.isEmpty(baseDoc.instagram)) {
+    if (!isEmpty(baseDoc.instagram)) {
       const stripHttpExp = RegExp('^(https?:|)\/\/instagram.com/');
       baseDoc.instagram = baseDoc.instagram.replace(stripHttpExp, '').replace('@', '');
     }
-    if (!_.isEmpty(baseDoc.name)) {
+    if (!isEmpty(baseDoc.name)) {
       baseDoc.nameSearch = removeDiacritics(baseDoc.name).toUpperCase();
     }
 
-    const doc = _.clone(translations);
+    const doc = clone(translations);
     doc.en = baseDoc;
 
     // Record that this user added new content

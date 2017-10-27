@@ -784,7 +784,7 @@
   "footer.addPitchDirectoryText": "user-generated directory",
   "footer.addPitchHubText": "real time map",
   "footer.addPitchButton": "Add to the Map",
-  "homepage.eventsTodayCount": "{eventsTodayCount, number} {eventsTodayCount, plural, one {Event} other {Events}} Happening Today",
+  "homepage.eventsTodayCount": "{eventsTodayCount, number} Upcoming {eventsTodayCount, plural, one {Event} other {Events}}",
   "homepage.searchLinks": "Search by {people}, {organizations}, {shows}, or {festivals}",
   "searchNav.people": "People",
   "searchNav.organizations": "Organizations",

@@ -61,7 +61,7 @@ Feature: Events taking place today should display on a map on the home page
     And I am on the home page
     Then I should not see ".items-globe .event-show-name"
 
-  Scenario: Events that start after today and end after today should not display on the home page globe
+  Scenario: Events that start less than a month in the future and end less than a month in the future should display on the home page globe
     And I am logged in
     And a profile with the following fields:
       | name | My Favorite Playwright |
@@ -80,6 +80,34 @@ Feature: Events taking place today should display on a map on the home page
     And I click on ".react-datepicker__navigation--next"
     And I click on ".react-datepicker__day=15"
     And I click on ".form-group-endDate input"
+    And I click on ".react-datepicker__navigation--next"
+    And I click on ".react-datepicker__day=18"
+    And I select "Coral Sea Islands" from the ".country-select-edit" combobox
+    And I click on ".edit-event-save"
+    And I am on the home page
+    Then the ".items-globe .event-show-name" element should contain "Althea"
+
+  Scenario: Events that start more than a month in the future and end more than a month in the future should not display on the home page globe
+    And I am logged in
+    And a profile with the following fields:
+      | name | My Favorite Playwright |
+    When I go to the "event" add page
+    And I fill in ".event-show-edit" with "Althea"
+    And I click on ".autocomplete-results li"
+    And I fill in ".show-author-name-edit" with "My Favorite Playwright"
+    And I click on ".autocomplete-results li"
+    And I click on ".edit-show-save"
+    And I fill in ".event-organization-edit" with "Organization of the year"
+    And I click on ".autocomplete-results li"
+    And I select "Performance" from the ".event-type-edit" combobox
+    And I fill in "[name=lat]" with "-36.03133177633187"
+    And I fill in "[name=lon]" with "-72.0703125"
+    And I click on ".form-group-startDate input"
+    And I click on ".react-datepicker__navigation--next"
+    And I click on ".react-datepicker__navigation--next"
+    And I click on ".react-datepicker__day=15"
+    And I click on ".form-group-endDate input"
+    And I click on ".react-datepicker__navigation--next"
     And I click on ".react-datepicker__navigation--next"
     And I click on ".react-datepicker__day=18"
     And I select "Coral Sea Islands" from the ".country-select-edit" combobox

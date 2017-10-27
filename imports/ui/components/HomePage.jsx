@@ -108,7 +108,7 @@ class HomePage extends React.Component {
             <FormattedMessage
               id="homepage.eventsTodayCount"
               description="Number of events happening today"
-              defaultMessage={'{eventsTodayCount, number} {eventsTodayCount, plural, one {Event} other {Events}} Happening Today'}
+              defaultMessage={'{eventsTodayCount, number} Upcoming {eventsTodayCount, plural, one {Event} other {Events}}'}
               values={{ eventsTodayCount }}
             />
           </Link>

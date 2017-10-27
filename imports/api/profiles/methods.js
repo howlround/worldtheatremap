@@ -126,34 +126,39 @@ export const insert = new ValidatedMethod({
 
     const insertedProfileID = Profiles.insertTranslations(baseDoc, translations);
 
-    // Translate about field
-    if (newProfile.about && Meteor.settings.GoogleTranslateAPIKey) {
-      HTTP.call('GET', 'https://www.googleapis.com/language/translate/v2', {
-        params: {
-          key: Meteor.settings.GoogleTranslateAPIKey,
-          q: newProfile.about,
-          source,
-          target,
-        },
-      },
-      (error, result) => {
-        if (result.statusCode === 200) {
-          const translatedText = result.data.data.translations[0].translatedText;
+    const otherLanguages = TAPi18n.getLanguages();
+    delete otherLanguages[source];
 
-          Meteor.call('profiles.updateTranslation', {
-            insertedProfileID,
-            translatedDoc: {
-              [target]: {
-                about: translatedText,
+    each(otherLanguages, (name, locale) => {
+      // Translate about field
+      if (newProfile.about && Meteor.settings.GoogleTranslateAPIKey) {
+        HTTP.call('GET', 'https://www.googleapis.com/language/translate/v2', {
+          params: {
+            key: Meteor.settings.GoogleTranslateAPIKey,
+            q: newProfile.about,
+            source,
+            target: locale,
+          },
+        },
+        (error, result) => {
+          if (result.statusCode === 200) {
+            const translatedText = result.data.data.translations[0].translatedText;
+
+            Meteor.call('profiles.updateTranslation', {
+              insertedProfileID,
+              translatedDoc: {
+                [locale]: {
+                  about: translatedText,
+                },
+                [source]: {
+                  about: newProfile.about,
+                },
               },
-              [source]: {
-                about: newProfile.about,
-              },
-            },
-          });
-        }
-      });
-    }
+            });
+          }
+        });
+      }
+    });
 
     // @TODO: Change Update function to match
     return insertedProfileID;
@@ -163,16 +168,12 @@ export const insert = new ValidatedMethod({
 export const updateTranslation = new ValidatedMethod({
   name: 'profiles.updateTranslation',
   validate({ translatedDoc }) {
-    const patternES = { es: { about: Match.Maybe(String) } };
-    const patternEN = { en: { about: Match.Maybe(String) } };
-    const patternBoth = {
-      en: { about: Match.Maybe(String) },
-      es: { about: Match.Maybe(String) },
+    const pattern = {
+      en: Match.Maybe({ about: String }),
+      es: Match.Maybe({ about: String }),
+      fr: Match.Maybe({ about: String }),
     };
-    check(
-      translatedDoc,
-      Match.OneOf(patternEN, patternES, patternBoth)
-    );
+    check(translatedDoc, pattern);
   },
   run({ insertedProfileID, translatedDoc }) {
     if (!this.userId) {

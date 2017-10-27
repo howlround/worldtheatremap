@@ -1,10 +1,72 @@
 /* eslint-disable prefer-arrow-callback */
 import { Meteor } from 'meteor/meteor';
+import { defineMessages } from 'react-intl';
 
 // API
 import { Profiles } from '../../profiles/profiles.js';
 import { Shows } from '../../shows/shows.js';
 import { Events } from '../../events/events.js';
+
+// The actual values are dynamically generated then pulled from the database
+// so these are just reference for generating the json files
+const messages = defineMessages({
+  'stats.onePeople': {
+    id: 'stats.onePeople',
+    defaultMessage: 'Person',
+  },
+  'stats.otherPeople': {
+    id: 'stats.otherPeople',
+    defaultMessage: 'People',
+  },
+  'stats.oneFestival': {
+    id: 'stats.oneFestival',
+    defaultMessage: 'Festival',
+  },
+  'stats.otherFestivals': {
+    id: 'stats.otherFestivals',
+    defaultMessage: 'Festivals',
+  },
+  'stats.oneEvent': {
+    id: 'stats.oneEvent',
+    defaultMessage: 'Event',
+  },
+  'stats.otherEvents': {
+    id: 'stats.otherEvents',
+    defaultMessage: 'Events',
+  },
+  'stats.oneShow': {
+    id: 'stats.oneShow',
+    defaultMessage: 'Show',
+  },
+  'stats.otherShows': {
+    id: 'stats.otherShows',
+    defaultMessage: 'Shows',
+  },
+  'stats.oneArtist': {
+    id: 'stats.oneArtist',
+    defaultMessage: 'Artist',
+  },
+  'stats.otherArtists': {
+    id: 'stats.otherArtists',
+    defaultMessage: 'Artists',
+  },
+  'stats.oneOrganization': {
+    id: 'stats.oneOrganization',
+    defaultMessage: 'Organization',
+  },
+  'stats.otherOrganizations': {
+    id: 'stats.otherOrganizations',
+    defaultMessage: 'Organizations',
+  },
+  'stats.oneLocation': {
+    id: 'stats.oneLocation',
+    defaultMessage: 'Location',
+  },
+  'stats.otherLocations': {
+    id: 'stats.otherLocations',
+    defaultMessage: 'Locations',
+  },
+});
 
 Meteor.publish('counts.collections', function countsCollections() {
   const self = this;

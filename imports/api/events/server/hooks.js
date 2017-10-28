@@ -92,7 +92,7 @@ Events.after.insert((userId, doc) => {
 });
 
 // Update
-Events.after.update((userId, doc) => {
+Events.after.update(function (userId, doc) {
   if (Meteor.isServer && Meteor.settings.SendContentNotifications) {
     AWS.config.credentials.get((err) => {
       // attach event listener
@@ -107,6 +107,7 @@ Events.after.update((userId, doc) => {
       });
 
       // Refactor this to use fieldNames also
+      // if we don't need this.previous, then this can be an arrow function again
       const changedKeys = compareDocuments(doc, this.previous);
 
       const omitFields = [

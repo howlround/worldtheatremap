@@ -122,7 +122,7 @@ Shows.after.insert((userId, doc) => {
 });
 
 // Update
-Shows.after.update((userId, doc) => {
+Shows.after.update(function (userId, doc) {
   // Update Language collection
   if (!isEmpty(doc.languages)) {
     each(doc.languages, language => {
@@ -145,6 +145,7 @@ Shows.after.update((userId, doc) => {
       });
 
       // Refactor this to use fieldNames also (optional third argument to the update hook)
+      // if we don't need this.previous, then this can be an arrow function again
       const changedKeys = compareDocuments(doc, this.previous);
 
       const omitFields = [

@@ -116,7 +116,7 @@ Profiles.after.insert((userId, doc) => {
 });
 
 // Update
-Profiles.after.update((userId, doc) => {
+Profiles.after.update(function (userId, doc) {
   if (Meteor.isServer && Meteor.settings.SendContentNotifications) {
     AWS.config.credentials.get((err) => {
       // attach event listener
@@ -132,6 +132,7 @@ Profiles.after.update((userId, doc) => {
 
       // Refactor this to use fieldNames also (optional third argument to the update hook)
       // or modifier (another argument to the hook)
+      // if we don't need this.previous, then this can be an arrow function again
       const changedKeys = compareDocuments(doc, this.previous);
 
       const omitFields = [

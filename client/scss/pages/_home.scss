@@ -27,10 +27,6 @@
 
 .homepage-globe {
   position: relative;
-
-  @include breakpoint($narrow) {
-    min-height: 745px;
-  }
 }
 
 .homepage-globe-label {
@@ -60,7 +56,9 @@
       span {
         background-color: $white;
         border: solid 1px $dark-tan;
-        padding: $spacing-unit $spacing-unit * 10;
+        padding: 14px $spacing-unit * 10;
+        display: inline-block;
+        width: 580px;
       }
     }
 
@@ -280,7 +278,7 @@
   margin-bottom: $spacing-unit * 2;
 
   @include breakpoint($narrow) {
-    margin-top: $spacing-unit * 2;
-    margin-bottom: $spacing-unit * 3;
+    margin-top: $spacing-unit;
+    margin-bottom: $spacing-unit * 6;
   }
 }

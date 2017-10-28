@@ -34,7 +34,7 @@ class HomePage extends React.Component {
     const { display } = this.state;
     const {
       eventsTodayWithLocations,
-      profilesWithLocations,
+      profilesVis,
       loading,
     } = this.props;
     const { locale } = this.props.intl;
@@ -47,21 +47,9 @@ class HomePage extends React.Component {
         case 'people':
           output = (
             <div>
-              <div className="homepage-globe-label">
-                <h2>
-                  <Link
-                    to={{ pathname: `/${locale}/search/profiles`, query: { 'gender[]': "Female" } }}
-                    className="people-view-all"
-                  >
-                    <FormattedMessage
-                      id="homepage.peopleGlobeLabel"
-                      defaultMessage="Female Theatremakers Around the World"
-                    />
-                  </Link>
-                </h2>
-              </div>
+              {this.renderProfilesTitle()}
               <ProfilesGlobe
-                items={profilesWithLocations}
+                items={profilesVis}
               />
             </div>
           );
@@ -71,7 +59,7 @@ class HomePage extends React.Component {
           if (eventsTodayWithLocations) {
             output = (
               <div>
-                {this.renderTodayList()}
+                {this.renderEventsTitle()}
                 <EventsGlobe
                   items={eventsTodayWithLocations}
                 />
@@ -84,16 +72,16 @@ class HomePage extends React.Component {
 
     return (
       <section className="homepage-globe">
-        {output}
         <HomePageDisplayToggle
           updateDisplay={this.updateDisplay}
           active={display}
         />
+        {output}
       </section>
     );
   }
 
-  renderTodayList() {
+  renderEventsTitle() {
     /* eslint-disable max-len */
     const { eventsTodayCount, startDate, endDate } = this.props;
     const { locale } = this.props.intl;
@@ -110,6 +98,29 @@ class HomePage extends React.Component {
               description="Number of events happening today"
               defaultMessage={'{eventsTodayCount, number} Upcoming {eventsTodayCount, plural, one {Event} other {Events}}'}
               values={{ eventsTodayCount }}
+            />
+          </Link>
+        </h2>
+      </div>
+    );
+  }
+
+  renderProfilesTitle() {
+    /* eslint-disable max-len */
+    const { profilesVisCount } = this.props;
+    const { locale } = this.props.intl;
+
+    return (
+      <div className="homepage-globe-label">
+        <h2>
+          <Link
+            to={{ pathname: `/${locale}/search/profiles`, query: { 'gender[]': "Female" } }}
+            className="people-view-all"
+          >
+            <FormattedMessage
+              id="homepage.peopleGlobeLabel"
+              defaultMessage="{profilesVisCount} Female Theatremakers Around the World"
+              values={{ profilesVisCount }}
             />
           </Link>
         </h2>
@@ -222,8 +233,9 @@ HomePage.propTypes = {
   profiles: React.PropTypes.array,   // all profiles visible to the current user
   shows: React.PropTypes.array,
   eventsTodayWithLocations: React.PropTypes.array,
-  profilesWithLocations: React.PropTypes.array,
   eventsTodayCount: React.PropTypes.number,
+  profilesVis: React.PropTypes.array,
+  profilesVisCount: React.PropTypes.number,
   startDate: React.PropTypes.instanceOf(Date),
   endDate: React.PropTypes.instanceOf(Date),
   howlroundPosts: React.PropTypes.array,

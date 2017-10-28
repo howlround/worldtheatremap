@@ -68,7 +68,7 @@ const HomePageContainer = createContainer(() => {
   const howlroundPosts = get(howlroundPostsQuery, 'value') ? howlroundPostsQuery.value : [];
 
   // Load profiles for the homepage visualization
-  const profilesVizQuery = {
+  const profilesVisQuery = {
     gender: {
       $in: ['Female'],
     },
@@ -79,14 +79,15 @@ const HomePageContainer = createContainer(() => {
       $ne: null,
     },
   };
-  const profilesHomepageVizSub = TAPi18n.subscribe('profiles.viz', profilesVizQuery);
-  const profilesWithLocations = Profiles.find(
-    profilesVizQuery,
+  const profilesHomepageVizSub = TAPi18n.subscribe('profiles.viz', profilesVisQuery);
+  const profilesVisCursor = Profiles.find(
+    profilesVisQuery,
     {
       fields: Profiles.publicFields,
     }
-  ).fetch();
-  each(profilesWithLocations, vizProfile => {
+  );
+  const profilesVis = profilesVisCursor.fetch();
+  each(profilesVis, vizProfile => {
     profilesLoad.push(vizProfile._id);
   });
 
@@ -110,7 +111,8 @@ const HomePageContainer = createContainer(() => {
     eventsTodayCount: eventsWithLocationsCursor.count(),
     startDate,
     endDate,
-    profilesWithLocations,
+    profilesVis,
+    profilesVisCount: profilesVisCursor.count(),
     howlroundPosts,
     locale,
     supportedLanguages,

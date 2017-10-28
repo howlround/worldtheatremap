@@ -12,6 +12,10 @@
 
   #globe {
     width: 745px;
+
+    @include breakpoint($narrow) {
+      min-height: 745px;
+    }
   }
 
   .item-date-range {

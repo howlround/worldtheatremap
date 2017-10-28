@@ -1,15 +1,16 @@
 import React from 'react';
 
-import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
-import { _ } from 'meteor/underscore';
-import t from 'tcomb-form';
 import i18nES from 'tcomb-form/lib/i18n/es';
+import t from 'tcomb-form';
+import { $ } from 'meteor/jquery';
+import { _ } from 'meteor/underscore';
+import { defineMessages, FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import { displayError } from '../helpers/errors.js';
 
 import { update } from '../../api/profiles/methods.js';
 import {
   profileFormSchema,
-  defaultFormOptions
+  defaultFormOptions,
 } from '../../api/profiles/profiles.js';
 import { allCountriesFactory } from '../../api/countries/countries.js';
 import { interestsCheckboxFactory } from '../../api/interests/interests.js';
@@ -55,8 +56,13 @@ class ProfileEdit extends React.Component {
       });
     }
 
-    // Any time Another identity is checked but there is nothing in the other field, get it to [ null ] to display an empty field
-    if (_.isEmpty(genderOther) && genderOther !== [null] && _.contains(gender, 'Another Identity')) {
+    // Any time Another identity is checked but there is nothing in the other field,
+    // get it to [ null ] to display an empty field
+    if (
+      _.isEmpty(genderOther) &&
+      genderOther !== [null] &&
+      _.contains(gender, 'Another Identity')
+    ) {
       this.setState({
         genderOther: [null],
       });
@@ -68,7 +74,8 @@ class ProfileEdit extends React.Component {
   }
 
   initGoogleMap() {
-    // @TODO: Find a way to unify with ProfileAdd.jsx, ProfileEdit.jsx, EventAdd.jsx, and EventEdit.jsx
+    // @TODO: Find a way to unify with ProfileAdd.jsx,
+    //        ProfileEdit.jsx, EventAdd.jsx, and EventEdit.jsx
     if (GoogleMaps.loaded()) {
       const { formatMessage } = this.props.intl;
       if ($('.form-group-lat.find-pin-processed').length === 0) {
@@ -81,19 +88,19 @@ class ProfileEdit extends React.Component {
 
         const messages = defineMessages({
           setMapPinLabel: {
-            'id': 'forms.setMapPinLabel',
-            'defaultMessage': 'Set Map Pin',
-            'description': 'Label for the Set Map Pin field'
+            id: 'forms.setMapPinLabel',
+            defaultMessage: 'Set Map Pin',
+            description: 'Label for the Set Map Pin field',
           },
           requiredLabel: {
-            'id': 'forms.requiredLabel',
-            'defaultMessage': '(required)',
-            'description': 'Addition to label indicating a field is required'
+            id: 'forms.requiredLabel',
+            defaultMessage: '(required)',
+            description: 'Addition to label indicating a field is required',
           },
           setMapPinPlaceholder: {
-            'id': 'forms.setMapPinPlaceholder',
-            'defaultMessage': 'Enter a location',
-            'description': 'Placeholder for the Set Map Pin field'
+            id: 'forms.setMapPinPlaceholder',
+            defaultMessage: 'Enter a location',
+            description: 'Placeholder for the Set Map Pin field',
           },
         });
 
@@ -103,26 +110,38 @@ class ProfileEdit extends React.Component {
 
         const placeholder = formatMessage(messages.setMapPinPlaceholder);
 
-        $('<div></div>').addClass('form-group form-group-depth-1 geographic-location-edit').insertBefore('.form-group-lat');
-        $('<div></div>').addClass('find-pin-map').prependTo('.geographic-location-edit').width('100%').height('300px');
-        $('<input></input>').addClass('find-pin').attr({'type': 'text', placeholder}).prependTo('.geographic-location-edit').geocomplete({
-          map: ".find-pin-map",
-          details: "form ",
-          detailsAttribute: "data-geo",
-          markerOptions: {
-            draggable: true
-          },
-          mapOptions: {
-            zoom: initMapZoom
-          },
-          location: initMapLocation
-        });
+        $('<div></div>')
+          .addClass('form-group form-group-depth-1 geographic-location-edit')
+          .insertBefore('.form-group-lat');
+        $('<div></div>')
+          .addClass('find-pin-map')
+          .prependTo('.geographic-location-edit')
+          .width('100%')
+          .height('300px');
+        $('<input></input>')
+          .addClass('find-pin')
+          .attr({ type: 'text', placeholder })
+          .prependTo('.geographic-location-edit')
+          .geocomplete({
+            map: '.find-pin-map',
+            details: 'form ',
+            detailsAttribute: 'data-geo',
+            markerOptions: {
+              draggable: true,
+            },
+            mapOptions: {
+              zoom: initMapZoom,
+            },
+            location: initMapLocation,
+          });
 
         $('.form-group-lat .help-block').prependTo('.geographic-location-edit');
-        $('<label></label>').html(label + ' <span class="field-label-modifier required">' + required + '</span>').prependTo('.geographic-location-edit');
+        $('<label></label>')
+          .html(`${label} <span class="field-label-modifier required">${required}</span>`)
+          .prependTo('.geographic-location-edit');
 
-        $('.find-pin').bind("geocode:dragged", (event, latLng) => {
-          let updatedDoc = _.extend({}, this.state);
+        $('.find-pin').bind('geocode:dragged', (event, latLng) => {
+          const updatedDoc = _.extend({}, this.state);
           const newLat = latLng.lat();
           const newLon = latLng.lng();
           updatedDoc.lat = newLat.toString();
@@ -130,8 +149,8 @@ class ProfileEdit extends React.Component {
           this.setState(updatedDoc);
         });
 
-        $('.find-pin').bind("geocode:result", (event, result) => {
-          let updatedDoc = _.extend({}, this.state);
+        $('.find-pin').bind('geocode:result', (event, result) => {
+          const updatedDoc = _.extend({}, this.state);
 
           _.each(result.address_components, (comp) => {
             updatedDoc[comp.types[0]] = comp.long_name;
@@ -168,7 +187,7 @@ class ProfileEdit extends React.Component {
           this.setState(updatedDoc);
         });
 
-        $('.find-pin').trigger("geocode");
+        $('.find-pin').trigger('geocode');
 
         // Don't process again
         $('.form-group-lat').addClass('find-pin-processed');
@@ -223,6 +242,8 @@ class ProfileEdit extends React.Component {
       case 'es':
         Form.i18n = i18nES;
         break;
+      default:
+        // No need to override Form
     }
 
     return (

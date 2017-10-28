@@ -77,7 +77,7 @@ export const insert = new ValidatedMethod({
         translations[locale] = {
           name: newProfile.name,
           nameSearch: removeDiacritics(baseDoc.name).toUpperCase(),
-        }
+        };
       });
     } else {
       // Locale is not english so populate required search
@@ -89,7 +89,7 @@ export const insert = new ValidatedMethod({
           translations[locale] = {
             name: newProfile.name,
             nameSearch: removeDiacritics(baseDoc.name).toUpperCase(),
-          }
+          };
         }
       });
 
@@ -98,7 +98,7 @@ export const insert = new ValidatedMethod({
         name: newProfile.name,
         nameSearch: removeDiacritics(baseDoc.name).toUpperCase(),
         about: baseDoc.about,
-      }
+      };
     }
 
     baseDoc.howlroundPostSearchText = newProfile.name;
@@ -289,7 +289,6 @@ export const update = new ValidatedMethod({
 
     const allLanguagesDoc = clone(translations);
     allLanguagesDoc.en = baseDoc;
-    console.log(allLanguagesDoc);
 
     // Record that this user added new content
     Meteor.users.update(Meteor.userId(), { $inc: { 'profile.contentEditedCount': 1 } });

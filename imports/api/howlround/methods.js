@@ -19,6 +19,8 @@ export const howlroundSearchPosts = new ValidatedMethod({
     check(_id, String);
   },
   run({ searchText, _id }) {
+    this.unblock();
+
     // if (!this.userId) {
     //   throw new Meteor.Error('profiles.howlroundSearchPosts.accessDenied',
     //     'You must be logged in to complete this operation.');

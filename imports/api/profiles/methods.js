@@ -70,16 +70,7 @@ export const insert = new ValidatedMethod({
     const baseDoc = clone(newProfile);
     const translations = {};
 
-    if (!source || source === 'en') {
-      // Locale is english so just populate the required search
-      // fields for the other languages
-      each(otherLanguages, (name, locale) => {
-        translations[locale] = {
-          name: newProfile.name,
-          nameSearch: removeDiacritics(baseDoc.name).toUpperCase(),
-        };
-      });
-    } else {
+    if (source && source !== 'en') {
       // Locale is not english so populate required search
       // fields for other langauges
       // and save the about field for the source locale
@@ -87,7 +78,7 @@ export const insert = new ValidatedMethod({
         // English is handled on the base doc
         if (locale !== 'en') {
           translations[locale] = {
-            name: newProfile.name,
+            name: baseDoc.name,
             nameSearch: removeDiacritics(baseDoc.name).toUpperCase(),
           };
         }
@@ -95,13 +86,22 @@ export const insert = new ValidatedMethod({
 
       // The about text for the source language should be saved to the i18n fields directly
       translations[source] = {
-        name: newProfile.name,
+        name: baseDoc.name,
         nameSearch: removeDiacritics(baseDoc.name).toUpperCase(),
         about: baseDoc.about,
       };
+    } else {
+      // Locale is english so just populate the required search
+      // fields for the other languages
+      each(otherLanguages, (name, locale) => {
+        translations[locale] = {
+          name: baseDoc.name,
+          nameSearch: removeDiacritics(baseDoc.name).toUpperCase(),
+        };
+      });
     }
 
-    baseDoc.howlroundPostSearchText = newProfile.name;
+    baseDoc.howlroundPostSearchText = baseDoc.name;
 
     // Save source language
     baseDoc.source = source;
@@ -124,9 +124,9 @@ export const insert = new ValidatedMethod({
 
     const insertedProfileID = Profiles.insertTranslations(baseDoc, translations);
 
-    each(otherLanguages, (name, locale) => {
-      // Translate about field
-      if (newProfile.about && Meteor.settings.GoogleTranslateAPIKey) {
+    // Translate about field
+    if (newProfile.about && Meteor.settings.GoogleTranslateAPIKey) {
+      each(otherLanguages, (name, locale) => {
         HTTP.call('GET', 'https://www.googleapis.com/language/translate/v2', {
           params: {
             key: Meteor.settings.GoogleTranslateAPIKey,
@@ -152,8 +152,8 @@ export const insert = new ValidatedMethod({
             });
           }
         });
-      }
-    });
+      });
+    }
 
     return insertedProfileID;
   },

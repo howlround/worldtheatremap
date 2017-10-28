@@ -31,7 +31,7 @@ class ShowAdd extends React.Component {
       if (newShow) {
         const newID = insert.call({
           newShow,
-          locale,
+          source: locale,
         }, displayError);
 
         return newID;

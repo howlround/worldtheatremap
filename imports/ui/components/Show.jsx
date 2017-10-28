@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { insert } from '../../api/shows/methods.js';
 import classNames from 'classnames';
 import marked from 'marked';
 import sanitizeHtml from 'sanitize-html';

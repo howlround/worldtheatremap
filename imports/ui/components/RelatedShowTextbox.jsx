@@ -2,7 +2,7 @@ import React from 'react';
 import { displayError } from '../helpers/errors.js';
 import { _ } from 'meteor/underscore';
 import classnames from 'classnames';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 
 // API
 import { Shows } from '../../api/shows/shows.js';
@@ -14,10 +14,11 @@ import { insert } from '../../api/shows/methods.js';
 import Authors from '../../ui/components/Authors.jsx';
 import RelatedProfile from '../../ui/components/RelatedProfile.jsx';
 
-export default class RelatedShowTextbox extends React.Component {
+class RelatedShowTextbox extends React.Component {
   constructor(props) {
     super(props);
     const { parentValue } = this.props;
+    const { locale } = this.props.intl;
     const defaultName = (parentValue.name) ? parentValue.name : '';
 
     this.state = {
@@ -31,6 +32,7 @@ export default class RelatedShowTextbox extends React.Component {
       if (newShow) {
         const newID = insert.call({
           newShow,
+          source: locale,
         }, displayError);
 
         return newID;
@@ -165,8 +167,11 @@ RelatedShowTextbox.propTypes = {
   results: React.PropTypes.array,
   updateParent: React.PropTypes.func,
   disabled: React.PropTypes.bool,
+  intl: intlShape.isRequired,
 };
 
 RelatedShowTextbox.contextTypes = {
   router: React.PropTypes.object,
 };
+
+export default injectIntl(RelatedShowTextbox);

@@ -26,7 +26,7 @@ class ShowEdit extends React.Component {
         update.call({
           showId: this.props.show._id,
           newShow,
-          locale,
+          source: locale,
         }, displayError);
       }
     }, 300);

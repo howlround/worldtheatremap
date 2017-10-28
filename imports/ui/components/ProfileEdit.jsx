@@ -29,7 +29,7 @@ class ProfileEdit extends React.Component {
         update.call({
           profileId: this.props.profile._id,
           newProfile,
-          locale,
+          source: locale,
         }, displayError);
       }
     }, 300);

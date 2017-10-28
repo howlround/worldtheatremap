@@ -217,14 +217,14 @@ export const update = new ValidatedMethod({
       throw new ValidationError(result.firstError());
     }
   },
-  run({ profileId, newProfile, locale }) {
+  run({ profileId, newProfile, source }) {
     if (!this.userId) {
       throw new Meteor.Error('profiles.update.accessDenied',
         'You must be logged in to complete this operation.');
     }
 
-    let source = 'en';
-    // let target = 'es'; // Target isn't used in update
+    const otherLanguages = TAPi18n.getLanguages();
+    delete otherLanguages[source];
 
     if (!isEmpty(newProfile.locality)) {
       upsertLocality.call({ locality: newProfile.locality });
@@ -244,30 +244,15 @@ export const update = new ValidatedMethod({
     // Record that this user added new content
     Meteor.users.update(Meteor.userId(), { $inc: { 'profile.contentAddedCount': 1 } });
 
-    // The permutations of viewing language and target language:
-    // (After doing this we will conflate "Viewing in" and "Target" for now.
-    // They can be split apart later if required.)
-    // [Viewing: Spanish + ]Target: Spanish
-    //  - Save name, and all tags, and image to english; everything minus tags to spanish
-    // [Viewing: Spanish + ]Target: English
-    //  - Save everything to english
-    // [Viewing: English + ]Target: English
-    //  - Save everything to english
-    // [Viewing English + ]Target: Spanish
-    //  - Save name, and all tags, and image to english; everything minus tags to spanish
 
     // Base doc is always english
     const baseDoc = clone(newProfile);
     const translations = {};
 
-    if (locale && locale === 'es') {
-      // @TODO: Refactor translations to be a translations object keyed by locale ("source")
-      source = 'es';
-      // target = 'en'; // target isn't used in update
+    if (source && source !== 'en') {
+      // Not english
+      // Save name, nameSearch, and about in this language
 
-      // Translated doc is always spanish even when adding in spanish
-      // (due to Profiles.insertTranslations())
-      // Some values should only be saved on base doc to keep consistancy
       translations[source] = {
         name: baseDoc.name,
         nameSearch: removeDiacritics(baseDoc.name).toUpperCase(),
@@ -280,21 +265,11 @@ export const update = new ValidatedMethod({
       // Don't overwrite the about field
       delete baseDoc.about;
     } else {
-      // Don't update title in other languages on update
-
-      // Target language is English, either by default or specifically stated
-      // Therefore we have no spanish content
-      // translations['es'] = {
-      //   name: newProfile.name,
-      //   nameSearch: removeDiacritics(baseDoc.name).toUpperCase()
-      // }
+      // If updating english, don't change fields in other languages in case they have been
+      // edited seperately
     }
 
     baseDoc.howlroundPostSearchText = newProfile.name;
-
-    // Save source language
-    // Don't update source on update
-    // baseDoc.source = source;
 
     if (!isEmpty(baseDoc.facebook)) {
       const stripHttpExp = RegExp('^(https?:|)\/\/');
@@ -312,15 +287,14 @@ export const update = new ValidatedMethod({
       baseDoc.nameSearch = removeDiacritics(baseDoc.name).toUpperCase();
     }
 
-    const doc = clone(translations);
-    doc.en = baseDoc;
+    const allLanguagesDoc = clone(translations);
+    allLanguagesDoc.en = baseDoc;
+    console.log(allLanguagesDoc);
 
     // Record that this user added new content
     Meteor.users.update(Meteor.userId(), { $inc: { 'profile.contentEditedCount': 1 } });
 
-    Profiles.updateTranslations(profileId, doc);
-
-    // @TODO: Update the user record for this.userId and increment the contentEdited field
+    Profiles.updateTranslations(profileId, allLanguagesDoc);
   },
 });
 

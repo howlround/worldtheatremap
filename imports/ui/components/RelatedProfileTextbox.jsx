@@ -3,12 +3,13 @@ import { displayError } from '../helpers/errors.js';
 import { insert } from '../../api/profiles/methods.js';
 import { _ } from 'meteor/underscore';
 import classnames from 'classnames';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 
-export default class RelatedProfileTextbox extends React.Component {
+class RelatedProfileTextbox extends React.Component {
   constructor(props) {
     super(props);
     const { parentValue, results } = this.props;
+    const { locale } = this.props.intl;
 
     this.state = {
       profile: {
@@ -31,6 +32,7 @@ export default class RelatedProfileTextbox extends React.Component {
       if (newProfile) {
         const newID = insert.call({
           newProfile,
+          source: locale,
         }, displayError);
 
         return newID;
@@ -139,7 +141,7 @@ export default class RelatedProfileTextbox extends React.Component {
         <FormattedMessage
           id="profile.autocompleteCreate"
           description="Autocomplete option to create a related profile"
-          defaultMessage={`Add Profile for {name}?`}
+          defaultMessage={'Add Profile for {name}?'}
           values={{ name: <b>{profile.name}</b> }}
         />
       </li> : '';
@@ -182,8 +184,11 @@ RelatedProfileTextbox.propTypes = {
   addNew: React.PropTypes.bool,
   disabled: React.PropTypes.bool,
   loading: React.PropTypes.bool,
+  intl: intlShape.isRequired,
 };
 
 RelatedProfileTextbox.contextTypes = {
   router: React.PropTypes.object,
 };
+
+export default injectIntl(RelatedProfileTextbox);

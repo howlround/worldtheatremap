@@ -29,7 +29,7 @@ class ProfileAdd extends React.Component {
       if (newProfile) {
         const newID = insert.call({
           newProfile,
-          locale,
+          source: locale,
         }, displayError);
 
         return newID;

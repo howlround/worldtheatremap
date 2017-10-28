@@ -12,6 +12,7 @@ export default class RelatedProfile extends React.Component {
   constructor(props) {
     super(props);
     const { parentValue } = this.props;
+    const { locale } = this.props.intl;
 
     this.state = {
       profile: {
@@ -34,6 +35,7 @@ export default class RelatedProfile extends React.Component {
       if (newProfile) {
         const newID = insert.call({
           newProfile,
+          source: locale,
         }, displayError);
 
         return newID;

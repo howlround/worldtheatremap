@@ -23,6 +23,9 @@ const Form = t.form.Form;
 class Event extends React.Component {
   constructor(props) {
     super(props);
+
+    const { locale } = this.props.intl;
+
     this.state = {
       editing: false,
       participant: {
@@ -55,6 +58,7 @@ class Event extends React.Component {
       if (newProfile) {
         const newID = insertProfile.call({
           newProfile,
+          source: locale,
         }, displayError);
 
         return newID;

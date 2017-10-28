@@ -1,6 +1,5 @@
 import React from 'react';
 import { displayError } from '../helpers/errors.js';
-import { insert } from '../../api/profiles/methods.js';
 import { _ } from 'meteor/underscore';
 import classnames from 'classnames';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';

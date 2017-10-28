@@ -23,8 +23,6 @@ import { upsert as upsertEthnicity } from '../ethnicities/methods.js';
 import { upsert as upsertAdministrativeArea } from '../administrativeAreas/methods.js';
 import { upsert as upsertCountry } from '../countries/methods.js';
 
-// let cheerio = require('cheerio');
-
 const PROFILE_ID_ONLY = new SimpleSchema({
   profileId: { type: String },
 }).validator();
@@ -38,14 +36,14 @@ export const insert = new ValidatedMethod({
       throw new ValidationError(result.firstError());
     }
   },
-  run({ newProfile, locale }) {
+  run({ newProfile, source }) {
     if (!this.userId) {
       throw new Meteor.Error('profiles.insert.accessDenied',
         'You must be logged in to complete this operation.');
     }
 
-    let source = 'en';
-    let target = 'es';
+    const otherLanguages = TAPi18n.getLanguages();
+    delete otherLanguages[source];
 
     if (!isEmpty(newProfile.locality)) {
       upsertLocality.call({ locality: newProfile.locality });
@@ -65,42 +63,42 @@ export const insert = new ValidatedMethod({
     // Record that this user added new content
     Meteor.users.update(Meteor.userId(), { $inc: { 'profile.contentAddedCount': 1 } });
 
-    // The permutations of viewing language and target language:
-    // (After doing this we will conflate "Viewing in" and "Target" for now.
-    // They can be split apart later if required.)
-    // [Viewing: Spanish + ]Target: Spanish
-    //  - Save name, and all tags, and image to english; everything minus tags to spanish
-    // [Viewing: Spanish + ]Target: English
-    //  - Save everything to english
-    // [Viewing: English + ]Target: English
-    //  - Save everything to english
-    // [Viewing English + ]Target: Spanish
-    //  - Save name, and all tags, and image to english; everything minus tags to spanish
-
+    // Translated doc is all languages except english even when adding in spanish or french
+    // (due to Profiles.insertTranslations())
+    // Some values should only be saved on base doc to keep consistancy
     // Base doc is always english
     const baseDoc = clone(newProfile);
     const translations = {};
 
-    if (locale && locale === 'es') {
-      // @TODO: Refactor translations to be a translations object keyed by locale ("source")
-      source = 'es';
-      target = 'en';
-
-      // Translated doc is always spanish even when adding in spanish
-      // (due to Profiles.insertTranslations())
-      // Some values should only be saved on base doc to keep consistancy
-      translations[locale] = {
-        name: baseDoc.name,
-        nameSearch: removeDiacritics(baseDoc.name).toUpperCase(),
-        about: baseDoc.about,
-      };
+    if (!source || source === 'en') {
+      // Locale is english so just populate the required search
+      // fields for the other languages
+      each(otherLanguages, (name, locale) => {
+        translations[locale] = {
+          name: newProfile.name,
+          nameSearch: removeDiacritics(baseDoc.name).toUpperCase(),
+        }
+      });
     } else {
-      // Target language is English, either by default or specifically stated
-      // Therefore we have no spanish content
-      translations.es = {
+      // Locale is not english so populate required search
+      // fields for other langauges
+      // and save the about field for the source locale
+      each(otherLanguages, (name, locale) => {
+        // English is handled on the base doc
+        if (locale !== 'en') {
+          translations[locale] = {
+            name: newProfile.name,
+            nameSearch: removeDiacritics(baseDoc.name).toUpperCase(),
+          }
+        }
+      });
+
+      // The about text for the source language should be saved to the i18n fields directly
+      translations[source] = {
         name: newProfile.name,
         nameSearch: removeDiacritics(baseDoc.name).toUpperCase(),
-      };
+        about: baseDoc.about,
+      }
     }
 
     baseDoc.howlroundPostSearchText = newProfile.name;
@@ -125,9 +123,6 @@ export const insert = new ValidatedMethod({
     }
 
     const insertedProfileID = Profiles.insertTranslations(baseDoc, translations);
-
-    const otherLanguages = TAPi18n.getLanguages();
-    delete otherLanguages[source];
 
     each(otherLanguages, (name, locale) => {
       // Translate about field
@@ -160,7 +155,6 @@ export const insert = new ValidatedMethod({
       }
     });
 
-    // @TODO: Change Update function to match
     return insertedProfileID;
   },
 });

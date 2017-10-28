@@ -252,7 +252,6 @@ export const update = new ValidatedMethod({
     if (source && source !== 'en') {
       // Not english
       // Save name, nameSearch, and about in this language
-
       translations[source] = {
         name: baseDoc.name,
         nameSearch: removeDiacritics(baseDoc.name).toUpperCase(),
@@ -287,13 +286,12 @@ export const update = new ValidatedMethod({
       baseDoc.nameSearch = removeDiacritics(baseDoc.name).toUpperCase();
     }
 
-    const allLanguagesDoc = clone(translations);
-    allLanguagesDoc.en = baseDoc;
+    translations.en = baseDoc;
 
     // Record that this user added new content
     Meteor.users.update(Meteor.userId(), { $inc: { 'profile.contentEditedCount': 1 } });
 
-    Profiles.updateTranslations(profileId, allLanguagesDoc);
+    Profiles.updateTranslations(profileId, translations);
   },
 });
 

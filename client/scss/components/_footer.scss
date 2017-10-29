@@ -96,8 +96,12 @@ section.footer {
     line-height: 1em;
   }
 
-  .footer-howlround-credit {
+  .footer-meta {
     color: $light-gray;
+  }
+
+  .footer-github {
+    margin-top: $spacing-unit;
   }
 
   ul.footer-social {

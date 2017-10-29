@@ -24,13 +24,23 @@ class Footer extends React.Component {
                 defaultMessage="World Theatre Map"
               />
             </div>
-            <div className="footer-howlround-credit">
+            <div className="footer-howlround-credit footer-meta">
               <FormattedMessage
                 id='footer.howlroundCredit'
                 description="Link to HowlRound in footer"
                 defaultMessage="A project of {howlround}"
                 values={{
                   howlround: <a href="http://howlround.com">HowlRound</a>,
+                }}
+              />
+            </div>
+            <div className="footer-github footer-meta">
+              <FormattedMessage
+                id='footer.repoLink'
+                defaultMessage="Open source {codebase} and {API} on GitHub"
+                values={{
+                  codebase: <a href="https://github.com/howlround/worldtheatremap">codebase</a>,
+                  API: <a href="https://github.com/howlround/worldtheatremap_api">API</a>,
                 }}
               />
             </div>

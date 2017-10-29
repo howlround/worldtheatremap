@@ -64,7 +64,7 @@ const getEventsFromShows = ({ showResults, privateEventQuery }) => {
   return results;
 };
 
-// const count = new ReactiveVar(0);
+const count = new ReactiveVar(0);
 
 const SearchShowsResultsContainer = createContainer((props) => {
   const { query, updateQuery, locale } = props;
@@ -248,8 +248,8 @@ const SearchShowsResultsContainer = createContainer((props) => {
         Meteor.settings.public.WTMDataApi,
         {
           data: {
-            query: gql`query ($input: EventFiltersInput) {
-              findEvents(input: $input) {
+            query: gql`query ($input: CountEventsFiltersInput) {
+              countEvents(input: $input) {
                 total
               }
             }`,
@@ -264,17 +264,17 @@ const SearchShowsResultsContainer = createContainer((props) => {
           if (error) {
             console.log(error); // eslint-disable-line no-console
           } else if (result.statusCode === 200) {
-            const apiCount = get(result, 'data.data.findEvents.total');
+            const apiCount = get(result, 'data.data.countEvents.total');
             // @TODO: Instead of passing count, why not pass the whole summary?
             //        Do any components need count instead of summary?
-            // count.set(apiCount);
+            count.set(apiCount);
 
             // Trigger the image creation here. That way we know it's ready with the new number.
             const summaryReact = (
               <IntlProvider locale={props.intl.locale} messages={props.intl.messages}>
                 <SearchShowsResultsSummary
                   query={query}
-                  // count={apiCount}
+                  count={apiCount}
                 />
               </IntlProvider>
             );
@@ -283,7 +283,7 @@ const SearchShowsResultsContainer = createContainer((props) => {
 
             upsert.call({
               shareImageFilename,
-              count: 0,
+              count: apiCount,
               summary,
               locale,
             });
@@ -294,7 +294,7 @@ const SearchShowsResultsContainer = createContainer((props) => {
   }
 
   return {
-    // count: count.get(),
+    count: count.get(),
     results,
     loading,
     skip,

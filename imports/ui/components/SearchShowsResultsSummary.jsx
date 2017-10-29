@@ -22,7 +22,7 @@ class SearchShowsResultsSummary extends React.Component {
   render() {
     const {
       query,
-      // count,
+      count,
     } = this.props;
     const { formatMessage, locale, messages } = this.props.intl;
 
@@ -33,8 +33,6 @@ class SearchShowsResultsSummary extends React.Component {
       },
     });
 
-    // Hard code to zero for now until we get proper counts from the API
-    const count = 0;
     const type = formatMessage(pluralTypes.show, { count });
     const prefixModifiersArray = [];
     const suffixModifiersArray = [];
@@ -73,6 +71,23 @@ class SearchShowsResultsSummary extends React.Component {
     }
 
     // Suffixes
+    if (!isNil(query.name)) {
+      if (locale === 'en') {
+        suffixModifiersArray.push(`named ${sanitizeHtml(query.name)}`);
+      } else {
+        const showNameLabel = (
+          <IntlProvider locale={locale} messages={messages}>
+            <FormattedMessage
+              id="forms.showNameLabel"
+              description="Label for a Show name form field"
+              defaultMessage="Show name"
+            />
+          </IntlProvider>
+        );
+        listVersion.push(sanitizeHtml(`${markup(showNameLabel)}: ${query.name}`));
+      }
+    }
+
     if (!isNil(query.eventType)) {
       if (locale === 'en') {
         suffixModifiersArray.push(sanitizeHtml(`that have a ${sanitizeHtml(query.eventType)}`));
@@ -318,8 +333,7 @@ class SearchShowsResultsSummary extends React.Component {
     const labels = (!isEmpty(listVersion)) ? ` • ${listVersion.join(' • ')} ` : '';
 
     const modifiers = prefix + type + suffix + labels;
-    // const summary = `${count} ${modifiers}`;
-    const summary = modifiers;
+    const summary = `${count} ${modifiers}`;
 
     return (
       <h3 className="search-results-summary">
@@ -331,7 +345,7 @@ class SearchShowsResultsSummary extends React.Component {
 
 SearchShowsResultsSummary.propTypes = {
   query: React.PropTypes.object,
-  // count: React.PropTypes.number,
+  count: React.PropTypes.number,
   intl: intlShape.isRequired,
 };
 

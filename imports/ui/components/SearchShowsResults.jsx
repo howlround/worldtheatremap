@@ -149,7 +149,7 @@ class SearchShowsResults extends React.Component {
         {pageActionsShare}
         <SearchShowsResultsSummary
           query={query}
-          // count={count}
+          count={count}
         />
         <SearchResultsToggle
           toggle={this.updateResultsDisplay}
@@ -167,7 +167,7 @@ SearchShowsResults.contextTypes = {
 
 SearchShowsResults.propTypes = {
   shareImageFilename: React.PropTypes.string,
-  // count: React.PropTypes.number,
+  count: React.PropTypes.number,
   results: React.PropTypes.array,
   loading: React.PropTypes.bool,
   query: React.PropTypes.object,

@@ -117,6 +117,9 @@ export const renderRoutes = ({ locale, messages }) => (
         <Route path="about">
           <IndexRedirect to={`/${locale}/about`} />
         </Route>
+        <Route path="welcome">
+          <IndexRedirect to={`/${locale}/welcome`} />
+        </Route>
         <Route path="terms-of-use">
           <IndexRedirect to={`/${locale}/terms-of-use`} />
         </Route>

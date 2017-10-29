@@ -1,12 +1,12 @@
-import React from 'react';
-
 import i18nES from 'tcomb-form/lib/i18n/es';
+import React from 'react';
 import t from 'tcomb-form';
 import { $ } from 'meteor/jquery';
 import { _ } from 'meteor/underscore';
-import { clone, findKey, indexOf } from 'lodash';
+import { clone, findKey } from 'lodash';
 import { defineMessages, FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import { displayError } from '../helpers/errors.js';
+import { GoogleMaps } from 'meteor/dburles:google-maps';
 
 import { update } from '../../api/profiles/methods.js';
 import {
@@ -89,7 +89,8 @@ class ProfileEdit extends React.Component {
           initMapZoom = 8;
         }
 
-        const messages = defineMessages({
+        // Used different name because of conflict with props.intl messages
+        const newMessages = defineMessages({
           setMapPinLabel: {
             id: 'forms.setMapPinLabel',
             defaultMessage: 'Set Map Pin',
@@ -107,11 +108,11 @@ class ProfileEdit extends React.Component {
           },
         });
 
-        const label = formatMessage(messages.setMapPinLabel);
+        const label = formatMessage(newMessages.setMapPinLabel);
 
-        const required = formatMessage(messages.requiredLabel);
+        const required = formatMessage(newMessages.requiredLabel);
 
-        const placeholder = formatMessage(messages.setMapPinPlaceholder);
+        const placeholder = formatMessage(newMessages.setMapPinPlaceholder);
 
         $('<div></div>')
           .addClass('form-group form-group-depth-1 geographic-location-edit')

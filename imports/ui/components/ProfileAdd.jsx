@@ -1,6 +1,5 @@
-import React from 'react';
-
 import i18nES from 'tcomb-form/lib/i18n/es';
+import React from 'react';
 import t from 'tcomb-form';
 import { $ } from 'meteor/jquery';
 import { _ } from 'meteor/underscore';
@@ -38,7 +37,7 @@ class ProfileAdd extends React.Component {
         return newID;
       }
 
-      return null;
+      return false;
     }, 300);
 
     this.initGoogleMap = this.initGoogleMap.bind(this);

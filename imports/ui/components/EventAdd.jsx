@@ -1,22 +1,17 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
-// Utilities
-import classnames from 'classnames';
 import t from 'tcomb-form';
+import { $ } from 'meteor/jquery';
 import { _ } from 'meteor/underscore';
-import { clone, findKey, indexOf } from 'lodash';
+import { clone, findKey } from 'lodash';
 import { displayError } from '../helpers/errors.js';
 import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
 import { get } from 'lodash';
+import { GoogleMaps } from 'meteor/dburles:google-maps';
 
 // API
 import { insert } from '../../api/events/methods.js';
 import { eventSchema, defaultFormOptions } from '../../api/events/forms.js';
 import { allCountriesFactory } from '../../api/countries/countries.js';
-
-// Containers
-import RelatedShowTextboxContainer from '../../ui/containers/RelatedShowTextboxContainer.jsx';
 
 const Form = t.form.Form;
 
@@ -34,6 +29,8 @@ class EventAdd extends React.Component {
 
         return newID;
       }
+
+      return false;
     }, 300);
 
     this.initGoogleMap = this.initGoogleMap.bind(this);
@@ -45,74 +42,102 @@ class EventAdd extends React.Component {
     this.initGoogleMap();
   }
 
-  componentDidUpdate() {
-    this.initGoogleMap();
-  }
-
   componentWillReceiveProps(nextProps) {
     this.setState({
       show: {
         name: nextProps.showObject.name,
         _id: nextProps.showObject._id,
         author: nextProps.showObject.author,
-      }
+      },
     });
+  }
+
+  componentDidUpdate() {
+    this.initGoogleMap();
+  }
+
+  onChange(value) {
+    const { displayNewShowForm } = this.props;
+
+    if (get(value, 'show.selectNewShow')) {
+      this.setState(value.show.selectNewShow);
+      displayNewShowForm({
+        display: true,
+        newShow: value.show.selectNewShow,
+      });
+    } else {
+      this.setState(value);
+    }
   }
 
   initGoogleMap() {
     const { locale, messages } = this.props.intl;
     const savedMessages = clone(messages);
-    // @TODO: Find a way to unify with ProfileAdd.jsx, ProfileEdit.jsx, EventAdd.jsx, and EventEdit.jsx
+    // @TODO: Find a way to unify with ProfileAdd.jsx,
+    // ProfileEdit.jsx, EventAdd.jsx, and EventEdit.jsx
     if (GoogleMaps.loaded()) {
       const { formatMessage } = this.props.intl;
-      if ($('.form-group-lat.find-pin-processed').length == 0) {
-        let initMapLocation = [0, 0];
-        let initMapZoom = 2;
+      if ($('.form-group-lat.find-pin-processed').length === 0) {
+        const initMapLocation = [0, 0];
+        const initMapZoom = 2;
 
-        const messages = defineMessages({
+        // Used different name because of conflict with props.intl messages
+        const newMessages = defineMessages({
           setMapPinLabel: {
-            'id': 'forms.setMapPinLabel',
-            'defaultMessage': 'Set Map Pin',
-            'description': 'Label for the Set Map Pin field'
+            id: 'forms.setMapPinLabel',
+            defaultMessage: 'Set Map Pin',
+            description: 'Label for the Set Map Pin field',
           },
           requiredLabel: {
-            'id': 'forms.requiredLabel',
-            'defaultMessage': '(required)',
-            'description': 'Addition to label indicating a field is required'
+            id: 'forms.requiredLabel',
+            defaultMessage: '(required)',
+            description: 'Addition to label indicating a field is required',
           },
           setMapPinPlaceholder: {
-            'id': 'forms.setMapPinPlaceholder',
-            'defaultMessage': 'Enter a location',
-            'description': 'Placeholder for the Set Map Pin field'
+            id: 'forms.setMapPinPlaceholder',
+            defaultMessage: 'Enter a location',
+            description: 'Placeholder for the Set Map Pin field',
           },
         });
 
-        const label = formatMessage(messages.setMapPinLabel);
+        const label = formatMessage(newMessages.setMapPinLabel);
 
-        const required = formatMessage(messages.requiredLabel);
+        const required = formatMessage(newMessages.requiredLabel);
 
-        const placeholder = formatMessage(messages.setMapPinPlaceholder);
+        const placeholder = formatMessage(newMessages.setMapPinPlaceholder);
 
-        $('<div></div>').addClass('form-group form-group-depth-1 geographic-location-edit').insertBefore('.form-group-lat');
-        $('<div></div>').addClass('find-pin-map').prependTo('.geographic-location-edit').width('100%').height('300px');
-        $('<input></input>').addClass('find-pin').attr({'type': 'text', placeholder}).prependTo('.geographic-location-edit').geocomplete({
-          map: ".find-pin-map",
-          details: "form ",
-          detailsAttribute: "data-geo",
-          markerOptions: {
-            draggable: true
-          },
-          mapOptions: {
-            zoom: initMapZoom
-          },
-          location: initMapLocation
-        });
+        $('<div></div>')
+          .addClass('form-group form-group-depth-1 geographic-location-edit')
+          .insertBefore('.form-group-lat');
+        $('<div></div>')
+          .addClass('find-pin-map')
+          .prependTo('.geographic-location-edit')
+          .width('100%')
+          .height('300px');
+        $('<input></input>')
+          .addClass('find-pin')
+          .attr({ type: 'text', placeholder })
+          .prependTo('.geographic-location-edit')
+          .geocomplete({
+            map: '.find-pin-map',
+            details: 'form ',
+            detailsAttribute: 'data-geo',
+            markerOptions: {
+              draggable: true,
+            },
+            mapOptions: {
+              zoom: initMapZoom,
+            },
+            location: initMapLocation,
+          });
 
         $('.form-group-lat .help-block').prependTo('.geographic-location-edit');
-        $('<label></label>').html(label + ' <span class="field-label-modifier required">' + required + '</span>').prependTo('.geographic-location-edit');
+        $('<label></label>')
+          .html(`${label} <span class="field-label-modifier required">${required}</span>`)
+          .prependTo('.geographic-location-edit');
 
-        $('.find-pin').bind("geocode:dragged", (event, latLng) => {
-          let updatedDoc = _.extend({}, this.state);
+        $('.find-pin').bind('geocode:dragged', (event, latLng) => {
+          const updatedDoc = _.extend({}, this.state);
           const newLat = latLng.lat();
           const newLon = latLng.lng();
           updatedDoc.lat = newLat.toString();
@@ -120,8 +145,8 @@ class EventAdd extends React.Component {
           this.setState(updatedDoc);
         });
 
-        $('.find-pin').bind("geocode:result", (event, result) => {
-          let updatedDoc = _.extend({}, this.state);
+        $('.find-pin').bind('geocode:result', (event, result) => {
+          const updatedDoc = _.extend({}, this.state);
 
           _.each(result.address_components, (comp) => {
             updatedDoc[comp.types[0]] = comp.long_name;
@@ -167,7 +192,7 @@ class EventAdd extends React.Component {
           this.setState(updatedDoc);
         });
 
-        $('.find-pin').trigger("geocode");
+        $('.find-pin').trigger('geocode');
 
         // Don't process again
         $('.form-group-lat').addClass('find-pin-processed');
@@ -179,7 +204,7 @@ class EventAdd extends React.Component {
     event.preventDefault();
     const { locale } = this.props.intl;
     const formValues = this.refs.form.getValue();
-    let newEvent = this.state;
+    const newEvent = this.state;
 
     if (newEvent && formValues) {
       newEvent.about = formValues.about;
@@ -192,29 +217,14 @@ class EventAdd extends React.Component {
     }
   }
 
-  onChange(value, path) {
-    const { displayNewShowForm } = this.props;
-
-    if (get(value, 'show.selectNewShow')) {
-      this.setState(value.show.selectNewShow);
-      displayNewShowForm({
-        display: true,
-        newShow: value.show.selectNewShow,
-      });
-    } else {
-      this.setState(value);
-    }
-  }
-
   render() {
-    const { displayNewShowForm } = this.props;
     const { locale } = this.props.intl;
     const formOptions = defaultFormOptions();
 
     formOptions.fields.country.factory = allCountriesFactory(locale);
 
     return (
-      <form className="event-edit-form" onSubmit={this.handleSubmit.bind(this)} autoComplete="off" >
+      <form className="event-edit-form" onSubmit={this.handleSubmit} autoComplete="off" >
         <Form
           ref="form"
           type={eventSchema}
@@ -225,16 +235,17 @@ class EventAdd extends React.Component {
         <div className="form-group">
           <button
             type="submit"
-            className="edit-event-save">
+            className="edit-event-save"
+          >
             <FormattedMessage
-              id='buttons.save'
-              description='Generic save button'
-              defaultMessage='Save'
+              id="buttons.save"
+              description="Generic save button"
+              defaultMessage="Save"
             />
           </button>
         </div>
       </form>
-    )
+    );
   }
 }
 

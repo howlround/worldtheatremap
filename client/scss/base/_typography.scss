@@ -95,3 +95,12 @@ ol {
 th {
   text-align: left;
 }
+
+.text-page {
+  @extend .markdown-formatted;
+
+  li,
+  p {
+    line-height: 1.6em;
+  }
+}

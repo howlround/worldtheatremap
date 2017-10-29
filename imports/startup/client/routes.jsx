@@ -8,6 +8,7 @@ import { stringify, parse } from 'qs'
 
 // route components
 import AboutPage from '../../ui/pages/AboutPage.jsx';
+import AnnouncementEditContainer from '../../ui/containers/AnnouncementEditContainer.jsx';
 import AppContainer from '../../ui/containers/AppContainer.jsx';
 import AuthJoinContainer from '../../ui/containers/AuthJoinContainer.jsx';
 import AuthSignInPage from '../../ui/pages/AuthSignInPage.jsx';
@@ -21,15 +22,15 @@ import ProfileAddContainer from '../../ui/containers/ProfileAddContainer.jsx';
 import ProfileContainer from '../../ui/containers/ProfileContainer.jsx';
 import ProfileEditContainer from '../../ui/containers/ProfileEditContainer.jsx';
 import SearchEventsContainer from '../../ui/containers/SearchEventsContainer.jsx';
+import SearchFestivalsContainer from '../../ui/containers/SearchFestivalsContainer.jsx';
 import SearchProfilesContainer from '../../ui/containers/SearchProfilesContainer.jsx';
 import SearchShowsContainer from '../../ui/containers/SearchShowsContainer.jsx';
-import SearchFestivalsContainer from '../../ui/containers/SearchFestivalsContainer.jsx';
 import ShowAddContainer from '../../ui/containers/ShowAddContainer.jsx';
 import ShowContainer from '../../ui/containers/ShowContainer.jsx';
 import ShowEditContainer from '../../ui/containers/ShowEditContainer.jsx';
-import TermsOfUsePage from '../../ui/pages/TermsOfUsePage.jsx';
-import AnnouncementEditContainer from '../../ui/containers/AnnouncementEditContainer.jsx';
 import SiteStatisticsContainer from '../../ui/containers/SiteStatisticsContainer.jsx';
+import TermsOfUsePage from '../../ui/pages/TermsOfUsePage.jsx';
+import WelcomePage from '../../ui/pages/WelcomePage.jsx';
 
 // Use this to handle arrays in the query params
 // https://github.com/reactjs/react-router/issues/939#issuecomment-215988002
@@ -68,7 +69,7 @@ export const loadTranslation = ({ locale }) => {
 
 export const renderRoutes = ({ locale, messages }) => (
   <IntlProvider locale={locale} key={locale} messages={messages}>
-    <Router history={customHistory}>
+    <Router history={customHistory} onUpdate={() => window.scrollTo(0, 0)}>
       <Route path="/">
         <IndexRedirect to={`${locale}`} />
         <Route path="profiles">
@@ -164,6 +165,7 @@ export const renderRoutes = ({ locale, messages }) => (
         <Route path="signin" component={AuthSignInPage} />
         <Route path="join" component={AuthJoinContainer} />
         <Route path="about" component={AboutPage} />
+        <Route path="welcome" component={WelcomePage} />
         <Route path="terms-of-use" component={TermsOfUsePage} />
         <Route path="announcement" component={AnnouncementEditContainer} />
         <Route path="site-statistics" component={SiteStatisticsContainer} />

@@ -71,7 +71,7 @@ class AuthJoin extends React.Component {
             });
           }
           else {
-            this.context.router.push(`/${locale}`);
+            this.context.router.push(`/${locale}/welcome`);
           }
         });
       }

@@ -1,16 +1,19 @@
 import React from 'react';
 
-import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
-import { _ } from 'meteor/underscore';
-import t from 'tcomb-form';
 import i18nES from 'tcomb-form/lib/i18n/es';
+import t from 'tcomb-form';
+import { $ } from 'meteor/jquery';
+import { _ } from 'meteor/underscore';
+import { clone, findKey } from 'lodash';
 import { displayError } from '../helpers/errors.js';
+import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
+import { GoogleMaps } from 'meteor/dburles:google-maps';
 
 import { insert } from '../../api/profiles/methods.js';
 import {
   profileFormSchema,
   defaultFormOptions,
-  DuplicateProfileFactory
+  DuplicateProfileFactory,
 } from '../../api/profiles/profiles.js';
 import { allCountriesFactory } from '../../api/countries/countries.js';
 import { interestsCheckboxFactory } from '../../api/interests/interests.js';
@@ -59,8 +62,13 @@ class ProfileAdd extends React.Component {
       });
     }
 
-    // Any time Another identity is checked but there is nothing in the other field, get it to [ null ] to display an empty field
-    if (_.isEmpty(genderOther) && genderOther !== [null] && _.contains(gender, 'Another Identity')) {
+    // Any time Another identity is checked but there is nothing in the other field,
+    // get it to [ null ] to display an empty field
+    if (
+      _.isEmpty(genderOther) &&
+      genderOther !== [null] &&
+      _.contains(gender, 'Another Identity')
+    ) {
       this.setState({
         genderOther: [null],
       });
@@ -72,54 +80,70 @@ class ProfileAdd extends React.Component {
   }
 
   initGoogleMap() {
-    // @TODO: Find a way to unify with ProfileAdd.jsx, ProfileEdit.jsx, EventAdd.jsx, and EventEdit.jsx
+    const { locale, messages } = this.props.intl;
+    const savedMessages = clone(messages);
+    // @TODO: Find a way to unify with ProfileAdd.jsx,
+    // ProfileEdit.jsx, EventAdd.jsx, and EventEdit.jsx
     if (GoogleMaps.loaded()) {
       const { formatMessage } = this.props.intl;
       if ($('.form-group-lat.find-pin-processed').length === 0) {
         const initMapLocation = [0, 0];
         const initMapZoom = 2;
 
-        const messages = defineMessages({
+        // Used different name because of conflict with props.intl messages
+        const newMessages = defineMessages({
           setMapPinLabel: {
-            'id': 'forms.setMapPinLabel',
-            'defaultMessage': 'Set Map Pin',
-            'description': 'Label for the Set Map Pin field'
+            id: 'forms.setMapPinLabel',
+            defaultMessage: 'Set Map Pin',
+            description: 'Label for the Set Map Pin field',
           },
           requiredLabel: {
-            'id': 'forms.requiredLabel',
-            'defaultMessage': '(required)',
-            'description': 'Addition to label indicating a field is required'
+            id: 'forms.requiredLabel',
+            defaultMessage: '(required)',
+            description: 'Addition to label indicating a field is required',
           },
           setMapPinPlaceholder: {
-            'id': 'forms.setMapPinPlaceholder',
-            'defaultMessage': 'Enter a location',
-            'description': 'Placeholder for the Set Map Pin field'
+            id: 'forms.setMapPinPlaceholder',
+            defaultMessage: 'Enter a location',
+            description: 'Placeholder for the Set Map Pin field',
           },
         });
 
-        const label = formatMessage(messages.setMapPinLabel);
+        const label = formatMessage(newMessages.setMapPinLabel);
 
-        const required = formatMessage(messages.requiredLabel);
+        const required = formatMessage(newMessages.requiredLabel);
 
-        const placeholder = formatMessage(messages.setMapPinPlaceholder);
+        const placeholder = formatMessage(newMessages.setMapPinPlaceholder);
 
-        $('<div></div>').addClass('form-group form-group-depth-1 geographic-location-edit').insertBefore('.form-group-lat');
-        $('<div></div>').addClass('find-pin-map').prependTo('.geographic-location-edit').width('100%').height('300px');
-        $('<input></input>').addClass('find-pin').attr({ type: 'text', placeholder }).prependTo('.geographic-location-edit').geocomplete({
-          map: '.find-pin-map',
-          details: 'form ',
-          detailsAttribute: 'data-geo',
-          markerOptions: {
-            draggable: true,
-          },
-          mapOptions: {
-            zoom: initMapZoom,
-          },
-          location: initMapLocation,
-        });
+        $('<div></div>')
+          .addClass('form-group form-group-depth-1 geographic-location-edit')
+          .insertBefore('.form-group-lat');
+        $('<div></div>')
+          .addClass('find-pin-map')
+          .prependTo('.geographic-location-edit')
+          .width('100%')
+          .height('300px');
+        $('<input></input>')
+          .addClass('find-pin')
+          .attr({ type: 'text', placeholder })
+          .prependTo('.geographic-location-edit')
+          .geocomplete({
+            map: '.find-pin-map',
+            details: 'form ',
+            detailsAttribute: 'data-geo',
+            markerOptions: {
+              draggable: true,
+            },
+            mapOptions: {
+              zoom: initMapZoom,
+            },
+            location: initMapLocation,
+          });
 
         $('.form-group-lat .help-block').prependTo('.geographic-location-edit');
-        $('<label></label>').html(label + ' <span class="field-label-modifier required">' + required + '</span>').prependTo('.geographic-location-edit');
+        $('<label></label>')
+          .html(`${label} <span class="field-label-modifier required">${required}</span>`)
+          .prependTo('.geographic-location-edit');
 
         $('.find-pin').bind('geocode:dragged', (event, latLng) => {
           const updatedDoc = _.extend({}, this.state);
@@ -165,8 +189,14 @@ class ProfileAdd extends React.Component {
             delete updatedDoc.postal_code;
           }
 
-          // @TODO: If the google api has a locale that is not english then the country will not
-          // populate correctly. props.intl might have messages that could be used to translate
+          // Google sends back the country in the locale, use the react intl messages to translate
+          // so select can handle it (and will retranslate back)
+          if (locale && locale !== 'en') {
+            if (updatedDoc.country) {
+              const enCountry = findKey(savedMessages, (value) => (value === updatedDoc.country));
+              updatedDoc.country = enCountry.replace('country.', '');
+            }
+          }
 
           this.setState(updatedDoc);
         });
@@ -227,6 +257,8 @@ class ProfileAdd extends React.Component {
       case 'es':
         Form.i18n = i18nES;
         break;
+      default:
+        // No need to override Form
     }
 
     return (

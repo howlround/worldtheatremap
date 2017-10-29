@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
-import { _ } from 'meteor/underscore';
 import t from 'tcomb-form';
+import { _ } from 'meteor/underscore';
+import { clone, findKey, indexOf } from 'lodash';
 import { displayError } from '../helpers/errors.js';
+import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
 
 import { insert, update } from '../../api/events/methods.js';
 import { eventSchema, defaultFormOptions } from '../../api/events/forms.js';
@@ -42,6 +43,8 @@ class EventEdit extends React.Component {
   }
 
   initGoogleMap() {
+    const { locale, messages } = this.props.intl;
+    const savedMessages = clone(messages);
     // @TODO: Find a way to unify with ProfileAdd.jsx, ProfileEdit.jsx, EventAdd.jsx, and EventEdit.jsx
     if (GoogleMaps.loaded()) {
       const { formatMessage } = this.props.intl;
@@ -137,6 +140,15 @@ class EventEdit extends React.Component {
             updatedDoc.postalCode = updatedDoc.postal_code;
 
             delete updatedDoc.postal_code;
+          }
+
+          // Google sends back the country in the locale, use the react intl messages to translate
+          // so select can handle it (and will retranslate back)
+          if (locale && locale !== 'en') {
+            if (updatedDoc.country) {
+              const enCountry = findKey(savedMessages, (value) => (value === updatedDoc.country));
+              updatedDoc.country = enCountry.replace('country.', '');
+            }
           }
 
           this.setState(updatedDoc);

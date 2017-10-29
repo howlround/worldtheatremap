@@ -4,6 +4,7 @@ import i18nES from 'tcomb-form/lib/i18n/es';
 import t from 'tcomb-form';
 import { $ } from 'meteor/jquery';
 import { _ } from 'meteor/underscore';
+import { clone, findKey, indexOf } from 'lodash';
 import { defineMessages, FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import { displayError } from '../helpers/errors.js';
 
@@ -74,6 +75,8 @@ class ProfileEdit extends React.Component {
   }
 
   initGoogleMap() {
+    const { locale, messages } = this.props.intl;
+    const savedMessages = clone(messages);
     // @TODO: Find a way to unify with ProfileAdd.jsx,
     //        ProfileEdit.jsx, EventAdd.jsx, and EventEdit.jsx
     if (GoogleMaps.loaded()) {
@@ -182,6 +185,15 @@ class ProfileEdit extends React.Component {
             updatedDoc.postalCode = updatedDoc.postal_code;
 
             delete updatedDoc.postal_code;
+          }
+
+          // Google sends back the country in the locale, use the react intl messages to translate
+          // so select can handle it (and will retranslate back)
+          if (locale && locale !== 'en') {
+            if (updatedDoc.country) {
+              const enCountry = findKey(savedMessages, (value) => (value === updatedDoc.country));
+              updatedDoc.country = enCountry.replace('country.', '');
+            }
           }
 
           this.setState(updatedDoc);

@@ -165,6 +165,9 @@ class ProfileAdd extends React.Component {
             delete updatedDoc.postal_code;
           }
 
+          // @TODO: If the google api has a locale that is not english then the country will not
+          // populate correctly. props.intl might have messages that could be used to translate
+
           this.setState(updatedDoc);
         });
 

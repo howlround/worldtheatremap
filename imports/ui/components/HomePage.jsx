@@ -206,6 +206,7 @@ class HomePage extends React.Component {
             title={siteName}
             titleTemplate="%s"
           />
+          <ContentCountsContainer hideHeader />
           {this.renderSearchLinks()}
           {!loading ? this.displaySwitch() : ''}
         </div>

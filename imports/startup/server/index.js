@@ -17,9 +17,6 @@ import './browser-policy.js';
 // File restrictions
 import './file-restrictions.js';
 
-// Country prepopulate
-import './country-prepopulate.js';
-
 // Content prepopulate
 import './content-prepopulate.js';
 
@@ -40,3 +37,6 @@ import '../../api/eventTypes/eventTypes-options.js';
 
 // Languages prepopulate
 import '../../api/languages/languages-options.js';
+
+// Country prepopulate
+import '../../api/countries/countries-options.js';

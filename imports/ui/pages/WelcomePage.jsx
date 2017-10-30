@@ -121,8 +121,13 @@ class WelcomePage extends React.Component {
   }
 
   render() {
+    const { locale } = this.props.intl;
+
     return (
-      <TextPage renderFunction={this.switchLanguage} />
+      <TextPage
+        renderFunction={this.switchLanguage}
+        redirect={`/${locale}`}
+      />
     );
   }
 }

@@ -18,21 +18,31 @@ TAPi18n.publish('profiles.autocomplete', function profilesAutocomplete() {
 });
 
 TAPi18n.publish('profiles.autocompleteQuery', function profilesAutocompleteQuery(search, limitKey) {
-  const regex = new RegExp(`.*${escapeRegExp(search)}.*`, 'i');
+  const processedQuery = {};
 
-  const query = { name: { $regex: regex } };
+  if (search) {
+    const nameRegEx = escapeRegExp(removeDiacritics(search)).toUpperCase();
+
+    // Only use english for now. Locale isn't available from the container.
+    // if (!_.isEmpty(locale) && locale !== 'en') {
+    //   const i18nKey = `i18n.${locale}.nameSearch`;
+    //   processedQuery[i18nKey] = new RegExp(`.*${nameRegEx}.*`);
+    // } else {
+      processedQuery.nameSearch = new RegExp(`.*${nameRegEx}.*`);
+    // }
+  }
 
   switch (limitKey) {
     case 'networks':
-      query.orgTypes = { $in: ['Network / Association / Union'] };
+      processedQuery.orgTypes = { $in: ['Network / Association / Union'] };
       break;
     case 'notFestivals':
-      query.profileType = { $ne: 'Festival' };
+      processedQuery.profileType = { $ne: 'Festival' };
       break;
     default:
   }
 
-  return Profiles.i18nFind(query, {
+  return Profiles.i18nFind(processedQuery, {
     fields: Profiles.autocompleteFields,
     limit: 10,
   });

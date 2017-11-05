@@ -1314,6 +1314,7 @@ Profiles.publicFields = {
 
 Profiles.autocompleteFields = {
   name: 1,
+  nameSearch: 1,
   orgTypes: 1,
   locality: 1,
 };

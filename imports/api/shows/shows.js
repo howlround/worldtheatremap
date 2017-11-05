@@ -420,4 +420,5 @@ Shows.searchFields = {
 Shows.autocompleteFields = {
   name: 1,
   author: 1,
+  nameSearch: 1,
 };

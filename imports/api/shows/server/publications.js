@@ -18,8 +18,11 @@ TAPi18n.publish('shows.autocomplete', function showsAutocomplete() {
 });
 
 TAPi18n.publish('shows.autocompleteQuery', function showsAutocompleteQuery(search) {
-  const regex = new RegExp(`.*${escapeRegExp(search)}.*`, 'i');
-  return Shows.i18nFind({ name: { $regex: regex } }, {
+  const query = {
+    nameSearch: new RegExp(`.*${escapeRegExp(removeDiacritics(search)).toUpperCase()}.*`)
+  }
+
+  return Shows.i18nFind(query, {
     fields: Shows.autocompleteFields,
     limit: 10,
   });

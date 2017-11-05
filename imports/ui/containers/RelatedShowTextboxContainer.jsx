@@ -2,6 +2,7 @@ import { TAPi18n } from 'meteor/tap:i18n';
 import { createContainer } from 'meteor/react-meteor-data';
 import { clone, isEmpty, isNull, each } from 'lodash';
 import escapeRegExp from 'lodash.escaperegexp';
+import { remove as removeDiacritics } from 'diacritics';
 
 // Components
 import RelatedShowTextbox from '../components/RelatedShowTextbox.jsx';
@@ -28,10 +29,10 @@ const RelatedShowTextboxContainer = createContainer((props) => {
 
   if (search && search.length > 0) {
     const showsSubscribe = TAPi18n.subscribe('shows.autocompleteQuery', search);
-    const regex = new RegExp(`.*${escapeRegExp(search)}.*`, 'i');
+    const regex = new RegExp(`.*${escapeRegExp(removeDiacritics(search)).toUpperCase()}.*`)
     results = Shows.find(
       {
-        name: {
+        nameSearch: {
           $regex: regex,
         },
       },

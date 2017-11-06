@@ -74,7 +74,7 @@ class AddMenu extends React.Component {
               <FormattedMessage
                 id="navigation.addEvent"
                 description="Add menu item for an Event"
-                defaultMessage="Add Event"
+                defaultMessage="Add Show Event"
               />
             </Link>
           </div> : ''

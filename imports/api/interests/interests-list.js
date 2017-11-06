@@ -14,6 +14,10 @@ const messages = defineMessages({
     id: 'interest.Arab Diaspora',
     defaultMessage: 'Arab Diaspora',
   },
+  'interest.Artist Rights and Safety': {
+    id: 'interest.Artist Rights and Safety',
+    defaultMessage: 'Artist Rights and Safety',
+  },
   'interest.Asian Diaspora': {
     id: 'interest.Asian Diaspora',
     defaultMessage: 'Asian Diaspora',
@@ -122,6 +126,10 @@ const messages = defineMessages({
     id: 'interest.Opera',
     defaultMessage: 'Opera',
   },
+  'interest.Peacebuilding / Conflict Transformation': {
+    id: 'interest.Peacebuilding / Conflict Transformation',
+    defaultMessage: 'Peacebuilding / Conflict Transformation',
+  },
   'interest.Performance Art': {
     id: 'interest.Performance Art',
     defaultMessage: 'Performance Art',
@@ -161,6 +169,10 @@ const messages = defineMessages({
   'interest.Site-specific': {
     id: 'interest.Site-specific',
     defaultMessage: 'Site-specific',
+  },
+  'interest.Street Performance': {
+    id: 'Street Performance',
+    defaultMessage: 'Street Performance/Outdoor Theatre',
   },
   'interest.Theatre for or by Women': {
     id: 'interest.Theatre for or by Women',

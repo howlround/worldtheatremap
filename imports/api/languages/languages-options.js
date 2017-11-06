@@ -730,6 +730,10 @@ const messages = defineMessages({
     id: 'language.Newar',
     defaultMessage: 'Newar',
   },
+  'language.No words': {
+    id: 'language.No words',
+    defaultMessage: 'No words / No language',
+  },
   'language.Norfolk': {
     id: 'language.Norfolk',
     defaultMessage: 'Norfolk',

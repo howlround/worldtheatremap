@@ -59,7 +59,7 @@ class EventAddPage extends React.Component {
     const messages = defineMessages({
       addEvent: {
         'id': 'navigation.addEvent',
-        'defaultMessage': 'Add Event',
+        'defaultMessage': 'Add Show Event',
         'description': 'Add menu item for an Event',
       },
     });

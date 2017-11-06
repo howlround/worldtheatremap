@@ -285,7 +285,7 @@ class Event extends React.Component {
       const aboutLink = <a href={`http://${aboutText}`}>{aboutText}</a>;
 
       return (
-        <a href={`http://${aboutText}`}>
+        <a href={`http://${aboutText}`} target="_blank">
           <FormattedMessage
             id="event.moreInfoLinkText"
             description="Link text for event more info link"

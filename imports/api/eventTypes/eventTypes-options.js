@@ -16,7 +16,7 @@ const messages = defineMessages({
   },
   'eventType.Workshop': {
     id: 'eventType.Workshop',
-    defaultMessage: 'Workshop',
+    defaultMessage: 'Work-in-Progress',
   },
 });
 

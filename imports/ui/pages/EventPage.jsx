@@ -287,7 +287,7 @@ class EventPage extends React.Component {
             <div className="page-actions-share">
               <OutboundLink
                 eventLabel="twitter-share"
-                to={`https://twitter.com/intent/tweet?text=${event.organizations.name} — ${event.show.name} — ${siteName} ${baseUrl}${locale}/profiles/${event._id} @HowlRound`}
+                to={`https://twitter.com/intent/tweet?text=${event.organizations.name} — ${event.show.name} — ${siteName} ${baseUrl}${locale}/events/${event._id} @HowlRound`}
                 className="twitter-share"
               >
                 <FormattedMessage

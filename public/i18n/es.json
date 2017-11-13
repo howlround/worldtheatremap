@@ -61,6 +61,7 @@
   "forms.festivalOrganizerFormError": "Go to 'add person/organization' to make a profile for this profile.",
   "forms.festivalOrganizerFormLabel": "Organizador del Festival",
   "forms.festivalOrganizerFormHelp": "Si tu organizador de festivales no aparece aquí, todavía no tiene un perfil.",
+  "forms.profileNameError": "Perfile es requerido",
   "country.Afghanistan": "Afganistán",
   "country.Akrotiri": "Akrotiri",
   "country.Albania": "Albania",
@@ -791,6 +792,7 @@
   "footer.howlroundCredit": "Un proyecto de {howlround}",
   "navigation.searchFooter": "Buscar en el mapa",
   "navigation.aboutFooter": "Sobre el proyecto",
+  "navigation.ambassadorsFooter": "Embajadores del Mapa Mundial de Teatro",
   "navigation.termsFooter": "Términos de Uso",
   "navigation.creativeCommons": "Todo el contenido es obra cultural libre disponible en virtud de un {creativeCommons} Atribución 4.0 Licencia Internacional (CC BY 4.0). Atribuir al autor original y {howlround} cuando volver a publicar y remezcla!",
   "site.description": "El Teatro Mapa del Mundo es un directorio generado por sus usuarios de la comunidad teatral del mundo (fabricantes, trabajadores, empresas, instituciones) y un centro de medios en tiempo real de sus proyectos, eventos, presentaciones, conversaciones, ideas.",
@@ -882,5 +884,6 @@
   "profilePage.affiliationsHeader": "Afiliaciones",
   "search.filterByHeader": "Filtrar para",
   "searchShows.placeholder": "Buscar por Nombre de Presentación",
-  "searchProfiles.placeholder": "Buscar perfiles por nombre"
+  "searchProfiles.placeholder": "Buscar perfiles por nombre",
+  "loading.defaultText": "Cargando..."
 }

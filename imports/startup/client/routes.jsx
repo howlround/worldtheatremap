@@ -8,6 +8,7 @@ import { stringify, parse } from 'qs'
 
 // route components
 import AboutPage from '../../ui/pages/AboutPage.jsx';
+import AmbassadorPage from '../../ui/pages/AmbassadorPage.jsx';
 import AnnouncementEditContainer from '../../ui/containers/AnnouncementEditContainer.jsx';
 import AppContainer from '../../ui/containers/AppContainer.jsx';
 import AuthJoinContainer from '../../ui/containers/AuthJoinContainer.jsx';
@@ -117,6 +118,9 @@ export const renderRoutes = ({ locale, messages }) => (
         <Route path="about">
           <IndexRedirect to={`/${locale}/about`} />
         </Route>
+        <Route path="ambassadors">
+          <IndexRedirect to={`/${locale}/ambassadors`} />
+        </Route>
         <Route path="welcome">
           <IndexRedirect to={`/${locale}/welcome`} />
         </Route>
@@ -168,6 +172,7 @@ export const renderRoutes = ({ locale, messages }) => (
         <Route path="signin" component={AuthSignInPage} />
         <Route path="join" component={AuthJoinContainer} />
         <Route path="about" component={AboutPage} />
+        <Route path="ambassadors" component={AmbassadorPage} />
         <Route path="welcome" component={WelcomePage} />
         <Route path="terms-of-use" component={TermsOfUsePage} />
         <Route path="announcement" component={AnnouncementEditContainer} />

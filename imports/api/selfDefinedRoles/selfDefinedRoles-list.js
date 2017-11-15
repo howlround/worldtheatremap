@@ -30,6 +30,10 @@ const messages = defineMessages({
     id: 'role.Designer: Costume',
     defaultMessage: 'Designer: Costume',
   },
+  'role.Designer: Graphic': {
+    id: 'role.Designer: Graphic',
+    defaultMessage: 'Designer: Graphic',
+  },
   'role.Designer: Lighting': {
     id: 'role.Designer: Lighting',
     defaultMessage: 'Designer: Lighting',
@@ -73,6 +77,10 @@ const messages = defineMessages({
   'role.Journalist / Critic': {
     id: 'role.Journalist / Critic',
     defaultMessage: 'Journalist / Critic',
+  },
+  'role.Marketing / Communication': {
+    id: 'role.Marketing / Communication',
+    defaultMessage: 'Marketing / Communication',
   },
   'role.Music Composer': {
     id: 'role.Music Composer',

@@ -6,6 +6,10 @@ import { OrgTypes } from './orgTypes.js';
 import { TAPi18n } from 'meteor/tap:i18n';
 
 const messages = defineMessages({
+  'orgType.Artist agency': {
+    id: 'orgType.Artist agency',
+    defaultMessage: 'Artist agency',
+  },
   'orgType.Cultural / Sociocultural Service': {
     id: 'orgType.Cultural / Sociocultural Service',
     defaultMessage: 'Cultural / Sociocultural Service',

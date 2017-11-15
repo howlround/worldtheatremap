@@ -56,9 +56,9 @@ const Referrer = [
     />,
   },
   {
-    value: 'Google or other web search ',
+    value: 'Google or other web search',
     label: <FormattedMessage
-      id="referrer.Google or other web search "
+      id="referrer.Google or other web search"
       description="Referrer: Google or other web search "
       defaultMessage="Google or other web search "
     />,

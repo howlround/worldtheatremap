@@ -34,7 +34,11 @@ class Show extends React.Component {
         className="edit-link"
         activeClassName="active"
       >
-        Edit
+      <FormattedMessage
+        id="ui.edit"
+        description='Generic edit link'
+        defaultMessage='Edit'
+      />
       </Link>
     : '';
 

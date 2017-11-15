@@ -123,6 +123,7 @@
   "forms.streetLabel": "Adresse civique",
   "forms.twitterHelpText": "Svp, indiquez l’identifiant Twitter relié à ce profil (n’inscrivez PAS le @).",
   "forms.twitterLabel": "Twitter",
+  "forms.profileNameError": "Profil est requis",
   "home.introText": "La Carte mondiale du théâtre est un répertoire et une plateforme de la communauté théâtrale internationale.",
   "home.todayEventsMoreLink": "Voir toutes les représentations à venir",
   "home.todayGlobeHeader": "Activités du jour",
@@ -135,6 +136,7 @@
   "navigation.about": "À propos",
   "navigation.aboutFooter": "À propos du projet",
   "navigation.addEvent": "Ajouter une représentation",
+  "navigation.ambassadorsFooter": "Ambassadeurs de la Carte mondiale du théâtre",
   "navigation.addMenu": "Ajouter",
   "navigation.addProfile": "Ajouter une personne / une organisation / un festival",
   "navigation.creativeCommons": "Le contenu culturel de ce site est gratuit et vous est rendu accessible grâce à la licence « Attribution 4.0 International » (CC B 4.0) de {creativeCommons}. Créditez l’auteur/e original/e et {howlround} si vous le publiez ou le modifiez !",
@@ -895,5 +897,6 @@
   "country.Western Sahara": "Sahara Occidental",
   "country.Yemen": "Yémen",
   "country.Zambia": "Zambie",
-  "country.Zimbabwe": "Zimbabwe"
+  "country.Zimbabwe": "Zimbabwe",
+  "loading.defaultText": "Téléchargement en cours..."
 }

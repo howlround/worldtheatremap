@@ -132,6 +132,13 @@ const relatedShowTextboxTemplate = t.form.Form.templates.textbox.clone({
       </label>
     );
   },
+
+  renderVertical: (locals) => ([
+    relatedShowTextboxTemplate.renderLabel(locals),
+    relatedShowTextboxTemplate.renderHelp(locals),
+    relatedShowTextboxTemplate.renderError(locals),
+    relatedShowTextboxTemplate.renderTextbox(locals),
+  ]),
 });
 
 // here we are: the factory
@@ -266,6 +273,10 @@ export const defaultFormOptions = () => ({
             defaultMessage="Show name"
           />,
         }}
+      />,
+      help: <FormattedMessage
+        id="forms.nameHelpText"
+        defaultMessage="A Show stores key information about a work of theatre. Begin typing the name of a show to see if it exists on the World Theatre Map. If it does not yet exist in the directory, you can click “Add Show for <show name here>?” to contribute information about a Show to the World Theatre Map."
       />,
       attrs: {
         className: 'event-show-edit',

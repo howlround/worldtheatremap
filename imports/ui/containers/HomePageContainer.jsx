@@ -18,7 +18,7 @@ import HomePage from '../components/HomePage.jsx';
 const HomePageContainer = createContainer(() => {
   // Load what's on today data
   const startDate = moment().startOf('day').toDate();
-  const endDate = moment().add(1, 'month').endOf('day').toDate();
+  const endDate = moment().add(15, 'days').endOf('day').toDate();
   const eventsWithLocationsSub = Meteor.subscribe('events.dateRangeWithLocations', startDate, endDate); // eslint-disable-line max-len
   const eventsWithLocationsCursor = Events.find(
     {

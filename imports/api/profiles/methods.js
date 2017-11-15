@@ -78,7 +78,6 @@ export const insert = new ValidatedMethod({
         // English is handled on the base doc
         if (locale !== 'en') {
           translations[locale] = {
-            name: baseDoc.name,
             nameSearch: removeDiacritics(baseDoc.name).toUpperCase(),
           };
         }
@@ -95,7 +94,6 @@ export const insert = new ValidatedMethod({
       // fields for the other languages
       each(otherLanguages, (name, locale) => {
         translations[locale] = {
-          name: baseDoc.name,
           nameSearch: removeDiacritics(baseDoc.name).toUpperCase(),
         };
       });

@@ -225,6 +225,12 @@ class EventAdd extends React.Component {
 
     return (
       <form className="event-edit-form" onSubmit={this.handleSubmit} autoComplete="off" >
+        <p>
+          <FormattedMessage
+            id="events.pageHelp"
+            defaultMessage="An Event on the World Theatre Map represents one continuous performance, reading, or workshop of a particular Show."
+          />
+        </p>
         <Form
           ref="form"
           type={eventSchema}

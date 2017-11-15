@@ -793,6 +793,7 @@
   "event.participantsCountHeader": "{participantsCount, number} {participantsCount, plural, one {Participant} other {Participants}}",
   "forms.setMapPinLabel": "Set Map Pin",
   "forms.setMapPinPlaceholder": "Enter a location",
+  "events.pageHelp": "An Event on the World Theatre Map represents one continuous performance, reading, or workshop of a particular Show.",
   "animation.continue": "Continue",
   "animation.pause": "Pause",
   "eventTeaser.viewEventLink": "View Event",

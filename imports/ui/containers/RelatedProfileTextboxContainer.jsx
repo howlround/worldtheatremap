@@ -1,6 +1,7 @@
 import { TAPi18n } from 'meteor/tap:i18n';
 import { createContainer } from 'meteor/react-meteor-data';
 import escapeRegExp from 'lodash.escaperegexp';
+import { remove as removeDiacritics } from 'diacritics';
 
 // Components
 import RelatedProfileTextbox from '../components/RelatedProfileTextbox.jsx';
@@ -15,11 +16,11 @@ const RelatedProfileTextboxContainer = createContainer((props) => {
 
   if (search && search.length > 0) {
     const profilesSubscribe = TAPi18n.subscribe('profiles.autocompleteQuery', search, props.limit);
-    const regex = new RegExp(`.*${escapeRegExp(search)}.*`, 'i');
+    const nameRegEx = escapeRegExp(removeDiacritics(search)).toUpperCase();
 
     const query = {
-      name: {
-        $regex: regex,
+      nameSearch: {
+        $regex: new RegExp(`.*${nameRegEx}.*`),
       },
     };
 

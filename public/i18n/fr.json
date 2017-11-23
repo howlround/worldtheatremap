@@ -135,11 +135,11 @@
   "loading.defaultText": "Téléchargement en cours...",
   "navigation.about": "À propos",
   "navigation.aboutFooter": "À propos du projet",
-  "navigation.addEvent": "Ajouter une représentation",
+  "navigation.addEvent": "Ajouter un événement",
   "navigation.ambassadorsFooter": "Ambassadeurs de la Carte mondiale du théâtre",
   "navigation.addMenu": "Ajouter",
   "navigation.addProfile": "Ajouter une personne / une organisation / un festival",
-  "navigation.creativeCommons": "Le contenu culturel de ce site est gratuit et vous est rendu accessible grâce à la licence « Attribution 4.0 International » (CC B 4.0) de {creativeCommons}. Créditez l’auteur/e original/e et {howlround} si vous le publiez ou le modifiez !",
+  "navigation.creativeCommons": "Le contenu de ce site est un produit culturel gratuit qui vous est rendu accessible grâce à la licence « Attribution 4.0 International » (CC B 4.0) de {creativeCommons}. Créditez l’auteur/e original/e et {howlround} si vous le publiez ou le modifiez !",
   "navigation.directory": "Répertoire",
   "navigation.feedbackLink": "Donnez votre opinion",
   "navigation.logout": "Déconnexion",
@@ -214,7 +214,7 @@
   "show.eventAddCancel": "Laissez tomber, je ne veux pas ajouter de nouveau spectacle",
   "show.history": "Afficher l’historique",
   "show.participantDefaultHeader": "Participant/e",
-  "show.showAddPageTitle": "Ajouter un nouveau spectacle",
+  "show.showAddPageTitle": "Ajouter un nouveau titre de spectacle",
   "show.showAddSubmit": "Créer un spectacle",
   "singular.event": "Événement",
   "site.description": "La Carte mondiale du théâtre est un répertoire de la communauté théâtrale internationale (créateurs, travailleurs, compagnies, établissements d'enseignement) généré par ses utilisateurs ainsi qu’une plateforme en temps réel de ses projets, événements, conversations et idées.",
@@ -898,5 +898,8 @@
   "country.Yemen": "Yémen",
   "country.Zambia": "Zambie",
   "country.Zimbabwe": "Zimbabwe",
-  "loading.defaultText": "Téléchargement en cours..."
+  "loading.defaultText": "Téléchargement en cours...",
+  "profilePage.contactInfoHeader": "Coordonnées",
+  "forms.nameHelpText": "Commencez à saisir le titre d’un spectacle pour vérifier s’il se trouve déjà dans la Carte mondiale du théâtre. S’il n’est pas déjà répertorié, vous pouvez cliquer sur « Ajouter un spectacle pour {titre du spectacle ici}? » pour apporter plus d’informations à propos d’un spectacle sur la Carte mondiale du théâtre.",
+  "footer.repoLink": "Code {source} ouvert et {API} ouvertes sur GitHub"
 }

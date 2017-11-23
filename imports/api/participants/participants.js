@@ -115,7 +115,6 @@ export const defaultFormOptions = () => ({
       error: 'Role is required',
       attrs: {
         className: 'participant-role-edit',
-        placeholder: 'Enter the role you played. Create seperate entries for each role.',
       },
       label: <FormattedMessage
         id="forms.participantRoleLabel"

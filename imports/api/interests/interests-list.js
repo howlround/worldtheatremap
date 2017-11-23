@@ -171,7 +171,7 @@ const messages = defineMessages({
     defaultMessage: 'Site-specific',
   },
   'interest.Street Performance': {
-    id: 'Street Performance',
+    id: 'interest.Street Performance',
     defaultMessage: 'Street Performance/Outdoor Theatre',
   },
   'interest.Theatre for or by Women': {

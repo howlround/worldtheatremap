@@ -208,6 +208,7 @@ const allInterests = _.map(messages, interest => (
   {
     value: interest.defaultMessage,
     label: interest.defaultMessage,
+    messageId: interest.id,
     i18n: {},
   })
 );
@@ -218,7 +219,7 @@ allInterests.forEach(interest => {
   const thisInterest = interest;
   _.each(supportedLanguages, (name, locale) => {
     thisInterest.i18n[locale] = {
-      label: translations[locale][`interest.${thisInterest.value}`],
+      label: translations[locale][thisInterest.messageId],
     };
   });
 });

@@ -39,8 +39,10 @@ class Footer extends React.Component {
                 id='footer.repoLink'
                 defaultMessage="Open source {codebase} and {API} on GitHub"
                 values={{
-                  codebase: <a href="https://github.com/howlround/worldtheatremap">codebase</a>,
-                  API: <a href="https://github.com/howlround/worldtheatremap_api">API</a>,
+                  codebase: <a href="https://github.com/howlround/worldtheatremap" target="_blank">codebase</a>,
+                  código: <a href="https://github.com/howlround/worldtheatremap" target="_blank">código</a>,
+                  source: <a href="https://github.com/howlround/worldtheatremap" target="_blank">source</a>,
+                  API: <a href="https://github.com/howlround/worldtheatremap_api" target="_blank">API</a>,
                 }}
               />
             </div>

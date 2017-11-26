@@ -97,7 +97,7 @@ class WelcomePage extends React.Component {
           <ul>
             <li>Lisez la <a href="https://www.worldtheatremap.org/fr/about">page « À propos »</a>.
             </li>
-            <li>Regardez les <a href="https://www.youtube.com/playlist?list=PLKf2gbopdbvAa9PkxNZxdGOk7w-XFRpN4">vidéos didactiques</a> de la Carte mondiale du théâtre.</li>
+            <li>Regardez les <a href="https://www.youtube.com/playlist?list=PLKf2gbopdbvDUR6k1wZUauPoOPfm0-Hv5">vidéos didactiques</a> de la Carte mondiale du théâtre.</li>
             <li>Posez vos questions ou signalez un problème sur le forum <a href="https://worldtheatremap.useresponse.com/">des utilisateurs</a> ou par courriel <a href="mailto:map@howlround.com">map@howlround.com</a></li>
           </ul>
         </p>

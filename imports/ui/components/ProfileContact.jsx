@@ -71,7 +71,13 @@ class ProfileContact extends React.Component {
     if (profileContactArray.length > 0 || profileSocialArray.length > 0) {
       return (
         <section className="profile-contact">
-          <h2>Contact Info</h2>
+          <h2>
+            <FormattedMessage
+              id="profilePage.contactInfoHeader"
+              description="Header for contact info on the profile page sidebar"
+              defaultMessage="Contact Info"
+          />
+          </h2>
           {profileContactArray.length > 0 ?
             <div className="content">
               {profile.agent ?

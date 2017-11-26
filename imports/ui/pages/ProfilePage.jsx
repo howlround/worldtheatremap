@@ -544,7 +544,11 @@ class ProfilePage extends React.Component {
         className="page-subscribe"
         onClick={this.throttledSubscribe.bind(this, _id)}
       >
-        Subscribe
+      <FormattedMessage
+        id="ui.subscribe"
+        description="Subscribe Link"
+        defaultMessage="Subscribe"
+      />
       </a>
     );
 
@@ -555,7 +559,11 @@ class ProfilePage extends React.Component {
         className="page-subscribe"
         onClick={this.throttledUnsubscribe.bind(this, _id)}
       >
-        Unsubscribe
+      <FormattedMessage
+        id="ui.unsubscribe"
+        description="Unsubscribe Link"
+        defaultMessage="Unsubscribe"
+      />
       </a>
     );
 

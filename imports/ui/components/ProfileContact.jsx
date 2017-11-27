@@ -23,7 +23,7 @@ class ProfileContact extends React.Component {
       const stripHttpExp = RegExp('^(https?:|)\/\/');
       const aboutRaw = profile.website;
       const aboutText = aboutRaw.replace(stripHttpExp, '');
-      const aboutLink = <a href={`http://${aboutText}`}>{aboutText}</a>;
+      const aboutLink = <a href={`http://${aboutText}`} target="_blank">{aboutText}</a>;
 
       return aboutLink;
     }
@@ -109,7 +109,7 @@ class ProfileContact extends React.Component {
           {profileSocialArray.length > 0 ?
             <div className="content">
               {profile.facebook ?
-                <a href={`https://${profile.facebook}`} className="profile-facebook social-link">
+                <a href={`https://${profile.facebook}`} target="_blank" className="profile-facebook social-link">
                   <FormattedMessage
                     id="forms.facebookLabel"
                     description="Label for the facebook form field"
@@ -118,12 +118,12 @@ class ProfileContact extends React.Component {
                 </a>
                 : ''}
               {profile.twitter ?
-                <a href={`https://twitter.com/${profile.twitter}`} className="profile-twitter social-link">
+                <a href={`https://twitter.com/${profile.twitter}`} target="_blank" className="profile-twitter social-link">
                   @{profile.twitter}
                 </a>
                 : ''}
               {profile.instagram ?
-                <a href={`https://instagram.com/${profile.instagram}`} className="profile-instagram social-link">
+                <a href={`https://instagram.com/${profile.instagram}`} target="_blank" className="profile-instagram social-link">
                   @{profile.instagram}
                 </a>
                 : ''}

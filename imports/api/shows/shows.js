@@ -193,7 +193,7 @@ export const defaultFormOptions = () => ({
           labelText: <FormattedMessage
             id="forms.primaryAuthorLabel"
             description="Label for a Primary author form field"
-            defaultMessage="By… (Add the primary creator(s) name. One per line.)"
+            defaultMessage="By…"
           />,
         }}
       />,
@@ -202,6 +202,11 @@ export const defaultFormOptions = () => ({
         description="Error for show author field"
         defaultMessage="At least one author is required"
       />,
+      help: <FormattedMessage
+        id="forms.primaryCreatorHelpText"
+        description="Help text for creator"
+        defaultMessage="Add the primary creator(s) name. If there are multiple creators, click 'Add' to put each one on their own line"
+        />,
       item: {
         attrs: {
           className: 'show-author-name-edit',

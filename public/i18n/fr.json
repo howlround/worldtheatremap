@@ -101,7 +101,8 @@
   "forms.participantRoleLabel": "Fonction (metteur/se en scène, scénographe, dramaturge, interprète, coproducteur/trice, etc.)",
   "forms.phoneHelpText": "Format : {plus}[code de pays] [votre numéro]",
   "forms.postalCodeLabel": "Code postal",
-  "forms.primaryAuthorLabel": "Par… (indiquez le nom du/de la/des créateur(s)/trice(s) d’origine. Ajoutez tout ce qui est relié.)",
+  "forms.primaryAuthorLabel": "Par…",
+  "forms.primaryCreatorHelpText": "Indiquez le nom du/de la/des créateur(s)/trice(s) d’origine. Ajoutez tout ce qui est relié.",
   "forms.profileAboutLabel": "À propos",
   "forms.profileEthnicityRaceLabel": "S’il s’agit de votre profil, vous pouvez décider d’afficher votre identité ethnique/raciale/culturelle.",
   "forms.profileNameError": "Le nom est requis",
@@ -901,5 +902,6 @@
   "loading.defaultText": "Téléchargement en cours...",
   "profilePage.contactInfoHeader": "Coordonnées",
   "forms.nameHelpText": "Commencez à saisir le titre d’un spectacle pour vérifier s’il se trouve déjà dans la Carte mondiale du théâtre. S’il n’est pas déjà répertorié, vous pouvez cliquer sur « Ajouter un spectacle pour {titre du spectacle ici}? » pour apporter plus d’informations à propos d’un spectacle sur la Carte mondiale du théâtre.",
-  "footer.repoLink": "Code {source} ouvert et {API} ouvertes sur GitHub"
+  "footer.repoLink": "Code {source} ouvert et {API} ouvertes sur GitHub",
+  "events.pageHelp": "Sur la Carte mondiale du théâtre, le terme « événement » signifie une performance, une lecture ou le titre d’une pièce en particulier ou d’une œuvre théâtrale dont la création est en cours."
 }

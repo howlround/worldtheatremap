@@ -233,7 +233,7 @@ class ProfilePage extends React.Component {
 
     const deleteConfirmText = formatMessage(messages.deleteConfirmText);
 
-    const confirm = window.confirm(approveDeleteConfirmText);
+    const confirm = window.confirm(deleteConfirmText);
     if (confirm === true) {
       approveProfileRemoval.call({
         profileId: _id,

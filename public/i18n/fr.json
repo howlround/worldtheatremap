@@ -1,6 +1,6 @@
 {
-  "animation.continue": "Continuer",
-  "animation.pause": "Poursuivre l’animation",
+  "animation.continue": "Reprendre",
+  "animation.pause": "Mettre en pause",
   "auth.accessDeniedSubtitle": "Connectez-vous ou inscrivez-vous pour participer à la Carte mondiale du théâtre",
   "auth.accessDeniedTitle": "Accès refusé",
   "auth.countryError": "Le pays est requis",

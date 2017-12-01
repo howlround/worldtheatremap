@@ -206,7 +206,7 @@ class AboutPage extends React.Component {
         </p>
         <h3>J’aimerais inviter des gens à s’inscrire à la Carte mondiale du théâtre. Comment puis-je communiquer l’information ?</h3>
         <p>
-          !<a href="https://docs.google.com/document/d/1DV5EjPolQrw8H1gNnpaXon9pvQ3TyqG_gqHwcmUXkBA/edit" target="_blank">Téléchargez ce modèle de courriel</a> et modifiez-le comme bon vous semble ! Vous pouvez également partager votre profil sur les médias sociaux pour encourager vos amis à s’inscrire !
+          <a href="https://docs.google.com/document/d/1DV5EjPolQrw8H1gNnpaXon9pvQ3TyqG_gqHwcmUXkBA/edit" target="_blank">Téléchargez ce modèle de courriel</a> et modifiez-le comme bon vous semble ! Vous pouvez également partager votre profil sur les médias sociaux pour encourager vos amis à s’inscrire !
         </p>
         <h3>Le site est en anglais, en espagnol et en français. Comment fonctionne la traduction ?</h3>
         <p>

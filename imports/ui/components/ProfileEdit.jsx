@@ -1,4 +1,5 @@
 import i18nES from 'tcomb-form/lib/i18n/es';
+import i18nFR from 'tcomb-form/lib/i18n/fr';
 import React from 'react';
 import t from 'tcomb-form';
 import { $ } from 'meteor/jquery';
@@ -254,6 +255,9 @@ class ProfileEdit extends React.Component {
     switch (locale) {
       case 'es':
         Form.i18n = i18nES;
+        break;
+      case 'fr':
+        Form.i18n = i18nFR;
         break;
       default:
         // No need to override Form

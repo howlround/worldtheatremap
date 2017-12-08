@@ -5,6 +5,7 @@ import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { displayError } from '../helpers/errors.js';
 import t from 'tcomb-form';
 import i18nES from 'tcomb-form/lib/i18n/es';
+import i18nFR from 'tcomb-form/lib/i18n/fr';
 
 // API
 import { insert } from '../../api/shows/methods.js';
@@ -96,6 +97,9 @@ class ShowAdd extends React.Component {
     switch (locale) {
       case 'es':
         Form.i18n = i18nES;
+        break;
+      case 'fr':
+        Form.i18n = i18nFR;
         break;
       default:
         // Use default tcomb settings

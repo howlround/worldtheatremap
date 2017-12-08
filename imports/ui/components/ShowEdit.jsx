@@ -1,5 +1,6 @@
 import React from 'react';
 import i18nES from 'tcomb-form/lib/i18n/es';
+import i18nFR from 'tcomb-form/lib/i18n/fr';
 import t from 'tcomb-form';
 import { _ } from 'meteor/underscore';
 import { displayError } from '../helpers/errors.js';
@@ -65,6 +66,9 @@ class ShowEdit extends React.Component {
     switch (locale) {
       case 'es':
         Form.i18n = i18nES;
+        break;
+      case 'fr':
+        Form.i18n = i18nFR;
         break;
       default:
         // Use default tcomb settings

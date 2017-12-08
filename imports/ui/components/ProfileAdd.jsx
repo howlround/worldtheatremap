@@ -1,5 +1,5 @@
 import i18nES from 'tcomb-form/lib/i18n/es';
-import i18nFR from 'tcomb-form/lib/i18n/fr';
+import i18nFR from '/public/i18n/tcomb_form/fr';
 import React from 'react';
 import t from 'tcomb-form';
 import { $ } from 'meteor/jquery';

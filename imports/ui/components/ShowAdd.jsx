@@ -5,7 +5,7 @@ import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 import { displayError } from '../helpers/errors.js';
 import t from 'tcomb-form';
 import i18nES from 'tcomb-form/lib/i18n/es';
-import i18nFR from 'tcomb-form/lib/i18n/fr';
+import i18nFR from '/public/i18n/tcomb_form/fr';
 
 // API
 import { insert } from '../../api/shows/methods.js';

@@ -2,8 +2,10 @@ import { Meteor } from 'meteor/meteor';
 import { render, unmountComponentAtNode } from 'react-dom';
 
 import 'moment/locale/es';
-import en from 'react-intl/locale-data/en'
-import es from 'react-intl/locale-data/es'
+import 'moment/locale/fr';
+import en from 'react-intl/locale-data/en';
+import es from 'react-intl/locale-data/es';
+import fr from 'react-intl/locale-data/fr';
 import moment from 'moment';
 import ReactGA from 'react-ga';
 import { addLocaleData } from 'react-intl'
@@ -15,6 +17,7 @@ import '/imports/startup/client';
 
 addLocaleData(en);
 addLocaleData(es);
+addLocaleData(fr);
 
 const initiateRender = () => {
   window.AppState = {
@@ -70,7 +73,8 @@ Meteor.startup(() => {
 
   const localesMyAppSupports = [
       'en',
-      'es'
+      'es',
+      'fr',
   ];
 
   ReactGA.initialize(Meteor.settings.public.GoogleAnalytics);

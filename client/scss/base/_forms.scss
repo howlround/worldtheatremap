@@ -112,15 +112,22 @@ label {
 }
 
 .alert {
-  color: $red;
   font-size: 0.8em;
+}
 
-  & + legend {
-    color: $red;
-  }
+.alert-danger {
+  color: $red;
 }
 
 .has-error {
+  .alert {
+    color: $red;
+
+    & + legend {
+      color: $red;
+    }
+  }
+
   .error-block {
     color: $red;
     font-size: 0.8em;
@@ -219,5 +226,13 @@ button[type="submit"],
     padding: $spacing-unit;
     z-index: 1;
     opacity: 0.8;
+  }
+}
+
+.fieldset-author {
+  .form-group-depth-2 {
+    label {
+      display: none;
+    }
   }
 }

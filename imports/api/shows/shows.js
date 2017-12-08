@@ -206,7 +206,7 @@ export const defaultFormOptions = () => ({
         id="forms.primaryCreatorHelpText"
         description="Help text for creator"
         defaultMessage="Add the primary creator(s) name. If there are multiple creators, click 'Add' to put each one on their own line"
-        />,
+      />,
       item: {
         attrs: {
           className: 'show-author-name-edit',

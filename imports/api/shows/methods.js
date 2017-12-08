@@ -1,5 +1,4 @@
 /* eslint-disable new-cap */
-import Roles from 'meteor/alanning:roles';
 import t from 'tcomb-validation';
 import { _ } from 'meteor/underscore';
 import { check, Match } from 'meteor/check';
@@ -8,6 +7,7 @@ import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { HTTP } from 'meteor/http';
 import { Meteor } from 'meteor/meteor';
 import { remove as removeDiacritics } from 'diacritics';
+import { Roles } from 'meteor/alanning:roles';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { TAPi18n } from 'meteor/tap:i18n';
 import { ValidatedMethod, ValidationError } from 'meteor/mdg:validated-method';

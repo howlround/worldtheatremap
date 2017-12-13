@@ -4,9 +4,9 @@ exports.__esModule = true;
 exports['default'] = {
   optional: ' (optionnel)',
   required: '',
-  add: 'Ajouter',
-  remove: 'Suppression',
-  up: 'Vers le haut',
-  down: 'Vers le bas'
+  add: 'ajouter',
+  remove: 'Supprimer',
+  up: 'Haut',
+  down: 'Bas'
 };
 module.exports = exports['default'];

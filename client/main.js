@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { render, unmountComponentAtNode } from 'react-dom';
 
 import 'moment/locale/es';
-import 'moment/locale/fr';
+import '/public/i18n/moment_custom/fr';
 import en from 'react-intl/locale-data/en';
 import es from 'react-intl/locale-data/es';
 import fr from 'react-intl/locale-data/fr';

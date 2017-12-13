@@ -21,6 +21,8 @@ class EventTeaserWithShow extends React.Component {
       })
     ].filter(function (val) {return val;}).join(', ');
 
+    const seperator = (locale === 'fr') ? ' :' : ':';
+
     return (
       <article className="event-teaser event-teaser-with-show">
         <div className="event-main-info">
@@ -56,7 +58,7 @@ class EventTeaserWithShow extends React.Component {
                   'description': `Interests option: ${event.eventType}`
                 })
               }
-              <span className="event-type-seperator">:</span>
+              <span className="event-type-seperator">{seperator}</span>
             </div>
             {event.startDate && event.endDate ?
               <div className="event-date-range date">

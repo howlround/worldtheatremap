@@ -18,6 +18,8 @@ const EventTeaser = (props) => {
     }),
   ].filter(val => (val)).join(', ');
 
+  const seperator = (locale === 'fr') ? ' :' : ':';
+
   return (
     <article className="event-teaser">
       <div className="event-main-info">
@@ -38,7 +40,7 @@ const EventTeaser = (props) => {
                 defaultMessage: event.eventType,
               })
             }
-            <span className="event-type-seperator">:</span>
+            <span className="event-type-seperator">{seperator}</span>
           </div>
           {event.startDate && event.endDate ?
             <div className="event-date-range date">

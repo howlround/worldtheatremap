@@ -31,7 +31,7 @@
   "connection.title": "Tentative de connexion",
   "event.moreInfoLinkText": "Plus d’informations",
   "event.participantFormTitle": "Ajouter un/e participant/e",
-  "event.participantsCountHeader": "{participantsCount, number},{participantsCount, plural, one {Participant} other {Participants}}",
+  "event.participantsCountHeader": "{participantsCount, number} {participantsCount, plural, one {Participant/e} other {Participants/es}}",
   "event.roleHelpText": "Créez une nouvelle entrée pour chaque fonction.",
   "eventTeaser.viewEventLink": "Voir l’événement",
   "eventType.Performance": "Spectacle",

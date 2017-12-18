@@ -559,6 +559,7 @@ export const defaultFormOptions = () => ({
       },
     },
     streetAddress: {
+      disabled: true,
       label: <FormattedMessage
         id="forms.labelRequiredOrOptional"
         description="Label for a form field with required or optional specified"
@@ -577,10 +578,11 @@ export const defaultFormOptions = () => ({
         }}
       />,
       attrs: {
-        className: 'profile-street-address-edit',
+        className: 'profile-street-address-edit location-field-automated',
       },
     },
     locality: {
+      disabled: true,
       label: <FormattedMessage
         id="forms.labelRequiredOrOptional"
         description="Label for a form field with required or optional specified"
@@ -599,10 +601,11 @@ export const defaultFormOptions = () => ({
         }}
       />,
       attrs: {
-        className: 'profile-locality-edit',
+        className: 'profile-locality-edit location-field-automated',
       },
     },
     administrativeArea: {
+      disabled: true,
       label: <FormattedMessage
         id="forms.labelRequiredOrOptional"
         description="Label for a form field with required or optional specified"
@@ -621,7 +624,7 @@ export const defaultFormOptions = () => ({
         }}
       />,
       attrs: {
-        className: 'profile-administrative-area-edit',
+        className: 'profile-administrative-area-edit location-field-automated',
       },
     },
     country: {
@@ -646,6 +649,7 @@ export const defaultFormOptions = () => ({
       // factory: allCountriesFactory(),
     },
     postalCode: {
+      disabled: true,
       label: <FormattedMessage
         id="forms.labelRequiredOrOptional"
         description="Label for a form field with required or optional specified"
@@ -664,7 +668,7 @@ export const defaultFormOptions = () => ({
         }}
       />,
       attrs: {
-        className: 'profile-postal-code-edit',
+        className: 'profile-postal-code-edit location-field-automated',
       },
     },
     lat: {

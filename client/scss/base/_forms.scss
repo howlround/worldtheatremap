@@ -7,8 +7,16 @@ textarea {
   &:disabled {
     display: none;
     border-color: $white;
-    background-color: $off-white;
+    background-color: $white;
     color: $dark-tan;
+  }
+}
+
+input[type="text"],
+textarea {
+  &.location-field-automated:disabled {
+    display: block;
+    opacity: 0.8;
   }
 }
 

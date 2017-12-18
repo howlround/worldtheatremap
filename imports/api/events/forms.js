@@ -431,6 +431,7 @@ export const defaultFormOptions = () => ({
       },
     },
     streetAddress: {
+      disabled: true,
       label: <FormattedMessage
         id="forms.labelRequiredOrOptional"
         description="Label for a form field with required or optional specified"
@@ -449,10 +450,11 @@ export const defaultFormOptions = () => ({
         }}
       />,
       attrs: {
-        className: 'event-street-address-edit',
+        className: 'event-street-address-edit location-field-automated',
       },
     },
     locality: {
+      disabled: true,
       label: <FormattedMessage
         id="forms.labelRequiredOrOptional"
         description="Label for a form field with required or optional specified"
@@ -471,10 +473,11 @@ export const defaultFormOptions = () => ({
         }}
       />,
       attrs: {
-        className: 'event-locality-edit',
+        className: 'event-locality-edit location-field-automated',
       },
     },
     administrativeArea: {
+      disabled: true,
       label: <FormattedMessage
         id="forms.labelRequiredOrOptional"
         description="Label for a form field with required or optional specified"
@@ -493,7 +496,7 @@ export const defaultFormOptions = () => ({
         }}
       />,
       attrs: {
-        className: 'event-administrative-area-edit',
+        className: 'event-administrative-area-edit location-field-automated',
       },
     },
     country: {
@@ -525,6 +528,7 @@ export const defaultFormOptions = () => ({
       />,
     },
     postalCode: {
+      disabled: true,
       label: <FormattedMessage
         id="forms.labelRequiredOrOptional"
         description="Label for a form field with required or optional specified"
@@ -543,7 +547,7 @@ export const defaultFormOptions = () => ({
         }}
       />,
       attrs: {
-        className: 'event-postal-code-edit',
+        className: 'event-postal-code-edit location-field-automated',
       },
     },
     lat: {

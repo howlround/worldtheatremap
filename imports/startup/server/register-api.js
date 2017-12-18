@@ -37,10 +37,6 @@ import '../../api/localities/server/publications.js';
 import '../../api/languages/methods.js';
 import '../../api/languages/server/publications.js';
 
-// Ethnicities
-import '../../api/ethnicities/methods.js';
-import '../../api/ethnicities/server/publications.js';
-
 // Countries
 import '../../api/countries/methods.js';
 import '../../api/countries/server/publications.js';

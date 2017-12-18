@@ -337,7 +337,6 @@ export const profileSchema = t.struct({
   name: t.String, // Required
   gender: t.maybe(t.list(t.String)),
   genderOther: t.maybe(t.list(t.String)),
-  ethnicityRace: t.maybe(t.list(t.String)),
   selfDefinedRoles: t.maybe(t.list(t.String)),
   foundingYear: t.maybe(t.String),
   orgTypes: t.maybe(t.list(t.String)),
@@ -368,7 +367,6 @@ export const profileFormSchema = t.struct({
   name: t.String, // Required
   gender: t.maybe(t.list(t.String)),
   genderOther: t.maybe(t.list(t.String)),
-  ethnicityRace: t.maybe(t.list(t.String)),
   selfDefinedRoles: t.maybe(t.list(t.String)),
   foundingYear: t.maybe(t.String),
   orgTypes: t.maybe(t.list(t.String)),
@@ -403,7 +401,6 @@ export const profileFiltersSchema = t.struct({
   country: t.maybe(t.String),
   postalCode: t.maybe(t.String),
   gender: t.maybe(t.String),
-  ethnicityRace: t.maybe(t.list(t.String)),
 });
 
 export const profileFestivalsFiltersSchema = t.struct({
@@ -506,40 +503,6 @@ export const defaultFormOptions = () => ({
         description="Help text for profile type field"
         defaultMessage="Is this profile representing an individual or an organization? Can be both if applicable." // eslint-disable-line max-len
       />,
-    },
-    ethnicityRace: {
-      label: <FormattedMessage
-        id="forms.labelRequiredOrOptional"
-        description="Label for a form field with required or optional specified"
-        defaultMessage="{labelText} {optionalOrRequired}"
-        values={{
-          optionalOrRequired: <span className="field-label-modifier optional"><FormattedMessage
-            id="forms.optionalLabel"
-            description="Addition to label indicating a field is optional"
-            defaultMessage="(optional)"
-          /></span>,
-          labelText: <FormattedMessage
-            id="forms.profileEthnicityRaceLabel"
-            description="Label for a Ethnicity/Race form field"
-            defaultMessage="If this is your profile, you may choose to display your ethnicity/race/cultural identity" // eslint-disable-line max-len
-          />,
-        }}
-      />,
-      template: disabledListTemplate,
-      // factory: EthnicityRaceCheckboxesFactory,
-      help: <FormattedMessage
-        id="forms.DemographicHelpText"
-        description="Help text for demographic form fields instructing the user not to guess"
-        defaultMessage="We encourage you not to guess. If you are not sure, leave these blank."
-      />,
-      attrs: {
-        className: 'profile-ethnicity-group',
-      },
-      item: {
-        attrs: {
-          className: 'profile-ethnicity-edit',
-        },
-      },
     },
     startDate: {
       label: <FormattedMessage
@@ -1197,15 +1160,6 @@ export const filtersFormOptions = () => ({
       />,
       factory: rolesSelectFactory(),
     },
-    ethnicityRace: {
-      // The Factory function is applied later to allow reactive options
-      label: <FormattedMessage
-        id="forms.ethnicityRaceLabel"
-        description="Label for the Ethnicity/Race form field"
-        defaultMessage="How does this person identify their ethnicity/race/cultural identity?"
-      />,
-      // factory: RolesReactSelectFactory,
-    },
     gender: {
       label: <FormattedMessage
         id="forms.genderLabel"
@@ -1279,7 +1233,6 @@ Profiles.publicFields = {
   nameSearch: 1,
   about: 1,
   profileType: 1,
-  ethnicityRace: 1,
   image: 1,
   startDate: 1,
   endDate: 1,

@@ -19,7 +19,6 @@ import sanitizeHtml from 'sanitize-html';
 // Components
 import AdministrativeAreas from '../components/AdministrativeAreas.jsx';
 import Countries from '../components/Countries.jsx';
-import Ethnicities from '../components/Ethnicities.jsx';
 import Genders from '../components/Genders.jsx';
 import Interests from '../components/Interests.jsx';
 import Localities from '../components/Localities.jsx';
@@ -86,34 +85,6 @@ class SearchProfilesResultsSummary extends React.Component {
           </IntlProvider>
         );
         listVersion.push(sanitizeHtml(`${markup(genderLabel)}: ${genderMarkup}`));
-      }
-    }
-
-    if (!isNil(query.ethnicityRace)) {
-      const ethnicitiesReact = (
-        <IntlProvider locale={locale} messages={messages}>
-          <Ethnicities
-            ethnicities={query.ethnicityRace}
-            conjunction="or"
-          />
-        </IntlProvider>
-      );
-
-      const ethnicitiesMarkup = markup(ethnicitiesReact);
-
-      if (locale === 'en') {
-        prefixModifiersArray.push(sanitizeHtml(ethnicitiesMarkup));
-      } else {
-        const ethnicityLabel = (
-          <IntlProvider locale={locale} messages={messages}>
-            <FormattedMessage
-              id="forms.profileEthnicityRaceLabel"
-              description="Label for a Ethnicity/Race form field"
-              defaultMessage="If this is your profile, you may choose to display your ethnicity/race/cultural identity" // eslint-disable-line max-len
-            />
-          </IntlProvider>
-        );
-        listVersion.push(sanitizeHtml(`${markup(ethnicityLabel)}: ${ethnicitiesMarkup}`));
       }
     }
 

@@ -11,7 +11,6 @@ const SearchProfilesContainer = createContainer(() => {
   const gendersSubscribe = TAPi18n.subscribe('genders.public');
   const countriesSubscribe = TAPi18n.subscribe('countries.public');
   const administrativeAreasSubscribe = Meteor.subscribe('administrativeAreas.public');
-  const ethnicitiesSub = Meteor.subscribe('ethnicities.public');
 
   return {
     loading: !(
@@ -21,8 +20,7 @@ const SearchProfilesContainer = createContainer(() => {
       orgTypesSubscribe.ready() &&
       gendersSubscribe.ready() &&
       countriesSubscribe.ready() &&
-      administrativeAreasSubscribe.ready() &&
-      ethnicitiesSub.ready()
+      administrativeAreasSubscribe.ready()
     ),
   };
 }, SearchProfiles);

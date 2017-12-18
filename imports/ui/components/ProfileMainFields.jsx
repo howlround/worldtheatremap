@@ -3,7 +3,6 @@ import { _ } from 'meteor/underscore';
 import { FormattedMessage, intlShape, injectIntl } from 'react-intl';
 
 // Components
-import Ethnicities from '../components/Ethnicities.jsx';
 import Genders from '../components/Genders.jsx';
 import Interests from '../components/Interests.jsx';
 import OrgTypes from '../components/OrgTypes.jsx';
@@ -61,10 +60,6 @@ class ProfileMainFields extends React.Component {
       <Genders genders={gendersArray} />
       : false;
 
-    let ethnicityRaceDisplay = (profile.ethnicityRace && _.contains(profile.profileType, 'Individual')) ?
-      <Ethnicities ethnicities={profile.ethnicityRace} />
-      : false;
-
     const cityState = [
       profile.locality,
       profile.administrativeArea,
@@ -95,10 +90,6 @@ class ProfileMainFields extends React.Component {
             <div className="profile-roles" title="Roles">{selfDefinedRoles}</div> : ''}
           {(!_.isEmpty(profile.gender) && _.contains(profile.profileType, 'Individual')) ?
             <div className="profile-gender" title="Gender">{genders}</div> : ''}
-          {!_.isEmpty(ethnicityRaceDisplay) ?
-            <div className="profile-ethnicity-race-display" title="Ethnicity/Race">
-              {ethnicityRaceDisplay}
-            </div> : ''}
           {(!_.isEmpty(profile.orgTypes) && _.contains(profile.profileType, 'Organization')) ?
             <div
               className="profile-organization-types"

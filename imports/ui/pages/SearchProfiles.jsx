@@ -7,7 +7,6 @@ import Helmet from 'react-helmet';
 // API
 import { profileFiltersSchema, filtersFormOptions } from '../../api/profiles/profiles.js';
 import { factory as localitiesFactory } from '../../api/localities/localities.js';
-import { factory as ethnicitiesFactory } from '../../api/ethnicities/ethnicities.js';
 import { existingCountriesFactory } from '../../api/countries/countries.js';
 import { interestsSelectFactory } from '../../api/interests/interests.js';
 import {
@@ -144,7 +143,6 @@ class SearchProfiles extends React.Component {
     } else {
       let formOptions = filtersFormOptions();
       formOptions.fields.locality.factory = localitiesFactory();
-      formOptions.fields.ethnicityRace.factory = ethnicitiesFactory();
       formOptions.fields.country.factory = existingCountriesFactory(locale);
       formOptions.fields.interests.factory = interestsSelectFactory(locale, true);
       formOptions.fields.administrativeArea.factory = administrativeAreasFactory();

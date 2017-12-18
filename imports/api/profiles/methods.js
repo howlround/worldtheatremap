@@ -19,7 +19,6 @@ import { Profiles, profileSchema } from './profiles.js';
 
 // Methods
 import { upsert as upsertLocality } from '../localities/methods.js';
-import { upsert as upsertEthnicity } from '../ethnicities/methods.js';
 import { upsert as upsertAdministrativeArea } from '../administrativeAreas/methods.js';
 import { upsert as upsertCountry } from '../countries/methods.js';
 
@@ -47,11 +46,6 @@ export const insert = new ValidatedMethod({
 
     if (!isEmpty(newProfile.locality)) {
       upsertLocality.call({ locality: newProfile.locality });
-    }
-    if (!isEmpty(newProfile.ethnicityRace)) {
-      each(newProfile.ethnicityRace, ethnicity => {
-        upsertEthnicity.call({ ethnicity });
-      });
     }
     if (!isEmpty(newProfile.administrativeArea)) {
       upsertAdministrativeArea.call({ administrativeArea: newProfile.administrativeArea });
@@ -226,11 +220,6 @@ export const update = new ValidatedMethod({
 
     if (!isEmpty(newProfile.locality)) {
       upsertLocality.call({ locality: newProfile.locality });
-    }
-    if (!isEmpty(newProfile.ethnicityRace)) {
-      each(newProfile.ethnicityRace, ethnicity => {
-        upsertEthnicity.call({ ethnicity });
-      });
     }
     if (!isEmpty(newProfile.administrativeArea)) {
       upsertAdministrativeArea.call({ administrativeArea: newProfile.administrativeArea });

@@ -559,7 +559,6 @@ export const defaultFormOptions = () => ({
       },
     },
     streetAddress: {
-      disabled: true,
       label: <FormattedMessage
         id="forms.labelRequiredOrOptional"
         description="Label for a form field with required or optional specified"
@@ -578,7 +577,7 @@ export const defaultFormOptions = () => ({
         }}
       />,
       attrs: {
-        className: 'profile-street-address-edit location-field-automated',
+        className: 'profile-street-address-edit',
       },
     },
     locality: {

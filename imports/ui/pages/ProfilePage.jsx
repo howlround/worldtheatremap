@@ -645,8 +645,8 @@ class ProfilePage extends React.Component {
             <Helmet
               meta={[
                 { property: 'twitter:card', content: 'summary'},
-                { property: 'og:image', content: profile.image },
-                { property: 'twitter:image', content: profile.image },
+                { property: 'og:image', content: encodeURI(profile.image) },
+                { property: 'twitter:image', content: encodeURI(profile.image) },
               ]}
             /> : ''
           }

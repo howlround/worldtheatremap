@@ -65,7 +65,7 @@ livedata@1.0.18
 localstorage@1.0.12
 logging@1.1.16
 matb33:collection-hooks@0.8.4
-mdg:meteor-apm-agent@3.0.0
+mdg:meteor-apm-agent@3.1.1
 mdg:seo@1.0.1
 mdg:validated-method@1.1.0
 mdg:validation-error@0.5.1

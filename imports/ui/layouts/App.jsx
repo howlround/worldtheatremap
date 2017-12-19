@@ -1,12 +1,13 @@
 // Utilities
-import { Meteor } from 'meteor/meteor';
-import React from 'react';
 import Helmet from 'react-helmet';
 import marked from 'marked';
+import React from 'react';
 import sanitizeHtml from 'sanitize-html';
 import { _ } from 'meteor/underscore';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
+import { Meteor } from 'meteor/meteor';
+import { Roles } from 'meteor/alanning:roles';
 
 // Containers
 import HomePageContainer from '../containers/HomePageContainer.jsx';
@@ -35,6 +36,7 @@ class App extends React.Component {
       menuOpen: false,
       showConnectionIssue: false,
       forceCloseDropDown: { AddMenu: false, UserMenu: false },
+      showAuthRecover: false,
     };
 
     this.logout = this.logout.bind(this);
@@ -65,9 +67,10 @@ class App extends React.Component {
     const { announcement } = this.props;
     const { locale } = this.props.intl;
     const access = Roles.userIsInRole(Meteor.userId(), ['admin']);
+    let output = null;
 
     if (announcement && _.has(announcement, 'body') && announcement.body) {
-      return (
+      output = (
         <div className="announcement">
           {access ?
             <Link
@@ -79,11 +82,13 @@ class App extends React.Component {
           : ''}
           <div
             className="markdown-formatted"
-            dangerouslySetInnerHTML={{__html: sanitizeHtml(marked(announcement.body))}}
+            dangerouslySetInnerHTML={{ __html: sanitizeHtml(marked(announcement.body)) }}
           />
         </div>
       );
     }
+
+    return output;
   }
 
   render() {
@@ -109,15 +114,15 @@ class App extends React.Component {
 
     const messages = defineMessages({
       siteName: {
-        'id': 'navigation.siteName',
-        'defaultMessage': 'World Theatre Map',
-        'description': 'Site name',
+        id: 'navigation.siteName',
+        defaultMessage: 'World Theatre Map',
+        description: 'Site name',
       },
       description: {
-        'id': 'site.description',
-        'defaultMessage': 'The World Theatre Map is a user-generated directory of the world\'s theatre community (makers, workers, companies, institutions) and a real-time media hub of its projects, events, performances, conversations, ideas.',
-        'description': 'General description of the site',
-      }
+        id: 'site.description',
+        defaultMessage: 'The World Theatre Map is a user-generated directory of the world\'s theatre community (makers, workers, companies, institutions) and a real-time media hub of its projects, events, performances, conversations, ideas.', // eslint-disable-line max-len
+        description: 'General description of the site',
+      },
     });
 
     const siteName = formatMessage(messages.siteName);
@@ -134,17 +139,23 @@ class App extends React.Component {
             { name: 'description', content: siteDescription },
             { property: 'fb:app_id', content: '662843947226126' },
             { property: 'og:type', content: 'website' },
-            { property: 'og:url', content: `${Meteor.absoluteUrl(false, { secure: true })}${locale}` },
+            {
+              property: 'og:url',
+              content: `${Meteor.absoluteUrl(false, { secure: true })}${locale}`,
+            },
             { property: 'og:title', content: siteName },
             { property: 'og:image', content: `https://s3.amazonaws.com/wtm-static/wtm-share-fb-2016-12-13-${locale}.jpg` },
             { property: 'og:description', content: siteDescription },
-            { property: 'twitter:card', content: 'summary_large_image'},
+            { property: 'twitter:card', content: 'summary_large_image' },
             { property: 'twitter:site', content: '@WorldTheatreMap' },
             { property: 'twitter:title', content: siteName },
             { property: 'twitter:description', content: siteDescription },
             { property: 'twitter:creator', content: '@WorldTheatreMap' },
             { property: 'twitter:image', content: `https://s3.amazonaws.com/wtm-static/wtm-share-tw-2016-12-13-${locale}.jpg` },
-            { property: 'twitter:domain', content: `${Meteor.absoluteUrl(false, { secure: true })}` },
+            {
+              property: 'twitter:domain',
+              content: `${Meteor.absoluteUrl(false, { secure: true })}`,
+            },
           ]}
         />
         <a

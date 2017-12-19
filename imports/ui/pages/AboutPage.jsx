@@ -64,7 +64,7 @@ class AboutPage extends React.Component {
         </p>
         <h3>I’d like to invite people to join the World Theatre Map. How can I get the word out?</h3>
         <p>
-          <a href="https://docs.google.com/document/d/1DV5EjPolQrw8H1gNnpaXon9pvQ3TyqG_gqHwcmUXkBA/edit" target="_blank">Download this sample email template</a>, and modify as you see fit! You can also share your profile on social media and encourage folks to join that way!
+          <a href="http://mailchi.mp/fbcebb71dead/lets-discover-each-other-dcouvrons-nous-descubrmonos" target="_blank">Download this sample email template</a>, and modify as you see fit! You can also share your profile on social media and encourage folks to join that way!
         </p>
         <h3>The site is in English, Spanish, French. How does the translation work?</h3>
         <p>
@@ -135,7 +135,7 @@ class AboutPage extends React.Component {
         </p>
         <h3>Me gustaría invitar personas a unirse al Mapa Mundial de Teatro. ¿Cómo puedo comunicarlo?</h3>
         <p>
-          !<a href="https://docs.google.com/document/d/1DV5EjPolQrw8H1gNnpaXon9pvQ3TyqG_gqHwcmUXkBA/edit" target="_blank">Descargue esta plantilla de correo electrónico de ejemplo</a> y modifíquela como mejor le parezca! También puede compartir su perfil en las redes sociales y animar a la gente a unirse de esa manera.
+          !<a href="http://mailchi.mp/fbcebb71dead/lets-discover-each-other-dcouvrons-nous-descubrmonos">Descargue esta plantilla de correo electrónico de ejemplo</a> y modifíquela como mejor le parezca! También puede compartir su perfil en las redes sociales y animar a la gente a unirse de esa manera.
         </p>
         <h3>La página está en inglés, español, francés. ¿Cómo funciona la traducción?</h3>
         <p>
@@ -166,7 +166,7 @@ class AboutPage extends React.Component {
         <Helmet title="Qu’est-ce que la Carte mondiale du théâtre ?" />
         <h3>Qu’est-ce que la Carte mondiale du théâtre ?</h3>
         <p>
-          La Carte mondiale du théâtre est à la fois un répertoire et une carte géographique en temps réel générés par leurs utilisatrices et utilisateurs de la communauté théâtrale internationale. C’est une <a href="https://fr.wikipedia.org/wiki/Creative_Commons" target="_blank">agora</a> numérique, gratuite et ouverte à tous. La Carte mondiale du théâtre vise à créer une vitrine pour la sphère théâtrale en fournissant une infrastructure de propriété collective, alimentée par ses intervenants, afin de rompre l’isolement des artistes en les mettant en contact avec des connaissances et des ressources d’informations vitales.
+          La Carte mondiale du théâtre est à la fois un répertoire et une carte géographique en temps réel générés par leurs utilisatrices et utilisateurs de la communauté théâtrale internationale. C’est <a href="https://fr.wikipedia.org/wiki/Communs" target="_blank">un commun numérique</a> numérique, gratuite et ouverte à tous. La Carte mondiale du théâtre vise à créer une vitrine pour la sphère théâtrale en fournissant une infrastructure de propriété collective, alimentée par ses intervenants, afin de rompre l’isolement des artistes en les mettant en contact avec des connaissances et des ressources d’informations vitales.
         </p>
         <p>
           <a href="http://www.howlround.com/" target="_blank">HowlRound</a> a développé et lancé la <a href="http://www.worldtheatremap.org/fr" target="_blank">Carte mondiale du théâtre</a> en collaboration avec le Global Theater Initiative, un partenariat entre le <a href="http://www.tcg.org/" target="_blank">Theatre Communications Group</a> et le <a href="https://globallab.georgetown.edu/" target="_blank">Laboratory for Global Performance and Politics</a>.
@@ -206,7 +206,7 @@ class AboutPage extends React.Component {
         </p>
         <h3>J’aimerais inviter des gens à s’inscrire à la Carte mondiale du théâtre. Comment puis-je communiquer l’information ?</h3>
         <p>
-          <a href="https://docs.google.com/document/d/1DV5EjPolQrw8H1gNnpaXon9pvQ3TyqG_gqHwcmUXkBA/edit" target="_blank">Téléchargez ce modèle de courriel</a> et modifiez-le comme bon vous semble ! Vous pouvez également partager votre profil sur les médias sociaux pour encourager vos amis à s’inscrire !
+          <a http://mailchi.mp/fbcebb71dead/lets-discover-each-other-dcouvrons-nous-descubrmonos">Téléchargez ce modèle de courriel</a> et modifiez-le comme bon vous semble ! Vous pouvez également partager votre profil sur les médias sociaux pour encourager vos amis à s’inscrire !
         </p>
         <h3>Le site est en anglais, en espagnol et en français. Comment fonctionne la traduction ?</h3>
         <p>

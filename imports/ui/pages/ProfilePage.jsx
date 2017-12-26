@@ -614,6 +614,9 @@ class ProfilePage extends React.Component {
 
     const profileLinkText = formatMessage(messages.profileLinkText);
 
+    // Tell Prerender.io if we're ready
+    window.prerenderReady = !loading;
+
     if (loading) {
       output = <Loading key="loading" />;
     } else if (!loading && !profile) {

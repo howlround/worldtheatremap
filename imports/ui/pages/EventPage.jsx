@@ -149,6 +149,9 @@ class EventPage extends React.Component {
 
     const siteName = formatMessage(messages.siteName);
 
+    // Tell Prerender.io if we're ready
+    window.prerenderReady = !loading;
+
     if (editing && loading) {
       return (
         <div className="overlay-wrapper">

@@ -206,6 +206,9 @@ class ShowPage extends React.Component {
 
     const siteName = formatMessage(messages.siteName);
 
+    // Tell Prerender.io if we're ready
+    window.prerenderReady = !loading;
+
     if (loading) {
       return (
         <Loading key="loading" />

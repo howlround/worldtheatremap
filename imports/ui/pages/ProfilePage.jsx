@@ -6,12 +6,13 @@ import classnames from 'classnames';
 import Helmet from 'react-helmet';
 import topojson from 'topojson';
 import { _ } from 'meteor/underscore';
-import { get } from 'lodash';
 import { displayError } from '../helpers/errors.js';
 import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
 import { geoOrthographic, geoGraticule, geoPath, geoCentroid, geoInterpolate } from 'd3-geo';
+import { get } from 'lodash';
 import { Link } from 'react-router';
 import { OutboundLink } from 'react-ga';
+import { Roles } from 'meteor/alanning:roles';
 import { select, queue, json } from 'd3';
 
 // Forms
@@ -32,7 +33,7 @@ import NotFoundPage from '../pages/NotFoundPage.jsx';
 import { upsert, remove } from '../../api/affiliations/methods.js';
 import {
   upsert as upsertFestivalOrganizer,
-  remove as removeFestivalOrganizer
+  remove as removeFestivalOrganizer,
 } from '../../api/festivalOrganizers/methods.js';
 import { affiliationFormSchema, defaultFormOptions } from '../../api/affiliations/affiliations.js';
 import { festivalOrganizerFormSchema, defaultFormOptions as festivalOrganizerFormOptions } from '../../api/festivalOrganizers/festivalOrganizers.js';
@@ -206,9 +207,9 @@ class ProfilePage extends React.Component {
 
     const messages = defineMessages({
       deleteConfirmText: {
-        'id': 'ui.deleteConfirmText',
-        'defaultMessage': 'Are you sure you want to delete this content? This action can not be undone.',
-        'description': 'Text confirming deleting content',
+        id: 'ui.deleteConfirmText',
+        defaultMessage: 'Are you sure you want to delete this content? This action can not be undone.',
+        description: 'Text confirming deleting content',
       },
     });
 
@@ -225,9 +226,9 @@ class ProfilePage extends React.Component {
 
     const messages = defineMessages({
       deleteConfirmText: {
-        'id': 'ui.deleteConfirmText',
-        'defaultMessage': 'Are you sure you want to delete this content? This action can not be undone.',
-        'description': 'Text confirming deleting content',
+        id: 'ui.deleteConfirmText',
+        defaultMessage: 'Are you sure you want to delete this content? This action can not be undone.',
+        description: 'Text confirming deleting content',
       },
     });
 
@@ -248,9 +249,9 @@ class ProfilePage extends React.Component {
 
     const messages = defineMessages({
       denyDeleteConfirmText: {
-        'id': 'ui.denyDeleteConfirmText',
-        'defaultMessage': 'Deny the delete request. The content will remain in the system.',
-        'description': 'Text confirming deleting content',
+        id: 'ui.denyDeleteConfirmText',
+        defaultMessage: 'Deny the delete request. The content will remain in the system.',
+        description: 'Text confirming deleting content',
       },
     });
 
@@ -388,25 +389,8 @@ class ProfilePage extends React.Component {
     }
   }
 
-  renderRelatedProfiles() {
-    const { connections } = this.props;
-    const { locale } = this.props.intl;
-
-    let relatedProfilesList = connections.map(profile => (
-      <li key={profile._id}>
-        <ProfileNameContainer
-          profileId={profile._id}
-          defaultName={profile.name}
-        />
-      </li>
-    ));
-
-    return <ul className="related-profiles">{relatedProfilesList}</ul>;
-  }
-
   renderAffiliations() {
     const { affiliations, user } = this.props;
-    const { locale } = this.props.intl;
 
     let affiliatedProfiles = affiliations.map(affiliation => (
       <li key={affiliation.parentId}>
@@ -471,7 +455,6 @@ class ProfilePage extends React.Component {
 
   renderFestivalOrganizers() {
     const { festivalOrganizers, user } = this.props;
-    const { locale } = this.props.intl;
 
     let festivalProfiles = festivalOrganizers.map(festivalOrganizer => (
       <li key={festivalOrganizer.parentId}>
@@ -497,12 +480,15 @@ class ProfilePage extends React.Component {
     const { festivalOrganizer } = this.state;
 
     return (
-      <form className="festival-organizer-edit-form" onSubmit={this.festivalHandleSubmit.bind(this)} >
+      <form
+        className="festival-organizer-edit-form"
+        onSubmit={this.festivalHandleSubmit.bind(this)}
+      >
         <div className="help-block form-intro">
           <FormattedMessage
             id="forms.festivalOrganizerHelpText"
             description="Help text for festivalOrganizer form"
-            defaultMessage="Is this festival hosted or organized by other organizations? List them here."
+            defaultMessage="Is this festival hosted or organized by other organizations? List them here." // eslint-disable-line max-len
           />
         </div>
         <Form
@@ -534,13 +520,28 @@ class ProfilePage extends React.Component {
     }, displayError);
   }
 
+  renderRelatedProfiles() {
+    const { connections } = this.props;
+
+    let relatedProfilesList = connections.map(profile => (
+      <li key={profile._id}>
+        <ProfileNameContainer
+          profileId={profile._id}
+          defaultName={profile.name}
+        />
+      </li>
+    ));
+
+    return <ul className="related-profiles">{relatedProfilesList}</ul>;
+  }
+
   renderSubscribeLink(_id) {
     const { user } = this.props;
 
     const subscribeLink = (
       <a
         href="#"
-        title='Subscribe to content changes'
+        title="Subscribe to content changes"
         className="page-subscribe"
         onClick={this.throttledSubscribe.bind(this, _id)}
       >
@@ -555,7 +556,7 @@ class ProfilePage extends React.Component {
     const unsubscribeLink = (
       <a
         href="#"
-        title='Unsubscribe from content changes'
+        title="Unsubscribe from content changes"
         className="page-subscribe"
         onClick={this.throttledUnsubscribe.bind(this, _id)}
       >
@@ -588,6 +589,7 @@ class ProfilePage extends React.Component {
       loading,
     } = this.props;
     const { formatMessage, locale } = this.props.intl;
+    let output = '';
 
     const baseUrl = Meteor.absoluteUrl(false, { secure: true });
 
@@ -597,15 +599,15 @@ class ProfilePage extends React.Component {
 
     const messages = defineMessages({
       siteName: {
-        'id': 'navigation.siteName',
-        'defaultMessage': 'World Theatre Map',
-        'description': 'Site name',
+        id: 'navigation.siteName',
+        defaultMessage: 'World Theatre Map',
+        description: 'Site name',
       },
       profileLinkText: {
-        'id': 'share.profileLinkText',
-        'defaultMessage': 'on the',
-        'description': 'Linking text between the profile name and the site name',
-      }
+        id: 'share.profileLinkText',
+        defaultMessage: 'on the',
+        description: 'Linking text between the profile name and the site name',
+      },
     });
 
     const siteName = formatMessage(messages.siteName);
@@ -613,15 +615,11 @@ class ProfilePage extends React.Component {
     const profileLinkText = formatMessage(messages.profileLinkText);
 
     if (loading) {
-      return (
-        <Loading key="loading" />
-      );
+      output = <Loading key="loading" />;
     } else if (!loading && !profile) {
-      return (
-        <NotFoundPage />
-      );
+      output = <NotFoundPage />;
     } else {
-      return (
+      output = (
         <div className={profilePageClass}>
           <Helmet
             title={profile.name}
@@ -644,7 +642,7 @@ class ProfilePage extends React.Component {
           {profile.image ?
             <Helmet
               meta={[
-                { property: 'twitter:card', content: 'summary'},
+                { property: 'twitter:card', content: 'summary' },
                 { property: 'og:image', content: encodeURI(profile.image) },
                 { property: 'twitter:image', content: encodeURI(profile.image) },
               ]}
@@ -665,7 +663,7 @@ class ProfilePage extends React.Component {
                   defaultMessage="Edit details"
                 />
               </Link>
-              { user && !profile.requestRemoval ?
+              {user && !profile.requestRemoval ?
                 <a
                   href="#"
                   title={`Delete ${profile.name}`}
@@ -680,7 +678,7 @@ class ProfilePage extends React.Component {
                 </a>
                 : ''
               }
-              { user && profile.requestRemoval ?
+              {user && profile.requestRemoval ?
                 <FormattedMessage
                   id="ui.pageDeleteRequested"
                   description="Page delete requested message"
@@ -688,7 +686,7 @@ class ProfilePage extends React.Component {
                 />
                 : ''
               }
-              { (profile.requestRemoval && Roles.userIsInRole(Meteor.userId(), ['admin'])) ?
+              {(profile.requestRemoval && Roles.userIsInRole(Meteor.userId(), ['admin'])) ?
                 <div className="admin-actions">
                   <a
                     href="#"
@@ -767,7 +765,8 @@ class ProfilePage extends React.Component {
                 <div id="globe"></div>
               </section> : ''
             }
-            {_.contains(profile.profileType, 'Festival') && (user || festivalOrganizers.length > 0) ?
+            {_.contains(profile.profileType, 'Festival') &&
+              (user || festivalOrganizers.length > 0) ?
               <section>
                 <h2>
                   <FormattedMessage
@@ -813,6 +812,8 @@ class ProfilePage extends React.Component {
         </div>
       );
     }
+
+    return output;
   }
 }
 
@@ -827,7 +828,7 @@ ProfilePage.propTypes = {
   connections: React.PropTypes.array,
   affiliations: React.PropTypes.array,
   affiliatedProfiles: React.PropTypes.array,
-  feativalOrganizers: React.PropTypes.array,
+  festivalOrganizers: React.PropTypes.array,
   festivalProfiles: React.PropTypes.array,
   loading: React.PropTypes.bool,
   profileExists: React.PropTypes.bool,

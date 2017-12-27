@@ -16,6 +16,10 @@ const AuthResetPasswordPage = (props) => {
       id: 'auth.resetTitle',
       defaultMessage: 'Change Password',
     },
+    resetText: {
+      id: 'auth.resetText',
+      defaultMessage: 'Click on the link in your email to reset your password.',
+    }
   });
 
   const resetTitle = formatMessage(messages.resetTitle);
@@ -26,7 +30,10 @@ const AuthResetPasswordPage = (props) => {
       <div className="page auth">
         <div className="page-content">
           <Helmet title={resetTitle} />
-          <AuthResetPassword token={token} />
+          {token ?
+            <AuthResetPassword token={token} />
+            : <h3>{formatMessage(messages.resetText)}</h3>
+          }
         </div>
       </div>
     </div>

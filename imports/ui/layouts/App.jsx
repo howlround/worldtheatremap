@@ -42,6 +42,7 @@ class App extends React.Component {
     this.logout = this.logout.bind(this);
     this.hideDropDown = this.hideDropDown.bind(this);
     this.renderAnnouncement = this.renderAnnouncement.bind(this);
+    this.renderMainContent = this.renderMainContent.bind(this);
   }
 
   componentDidMount() {
@@ -91,19 +92,9 @@ class App extends React.Component {
     return output;
   }
 
-  render() {
-    // @TODO: Need tests for search on the home page
-    const { showConnectionIssue, forceCloseDropDown } = this.state;
-    const { formatMessage, locale } = this.props.intl;
-    const {
-      user,
-      connected,
-      loading,
-      menuOpen,
-      children,
-      location,
-      supportedLanguages,
-    } = this.props;
+  renderMainContent() {
+    const { user, loading, children, location } = this.props;
+    let output = '';
 
     // clone route components with keys so that they can
     // have transitions
@@ -111,6 +102,28 @@ class App extends React.Component {
       key: location.pathname,
       user,
     });
+
+    if (loading) {
+      output = <Loading key="loading" />;
+    } else if (clonedChildren) {
+      output = clonedChildren;
+    } else {
+      output = <HomePageContainer user={user} />;
+    }
+
+    return output;
+  }
+
+  render() {
+    // @TODO: Need tests for search on the home page
+    const { showConnectionIssue, forceCloseDropDown } = this.state;
+    const { formatMessage, locale } = this.props.intl;
+    const {
+      user,
+      connected,
+      menuOpen,
+      supportedLanguages,
+    } = this.props;
 
     const messages = defineMessages({
       siteName: {
@@ -225,13 +238,7 @@ class App extends React.Component {
           : null}
         <LanguageSwitcher locale={locale} supportedLanguages={supportedLanguages} />
         <section id="content-container">
-          {loading
-            ? <Loading key="loading" />
-            : clonedChildren}
-          {(!clonedChildren && !loading) ?
-            <HomePageContainer user={user} />
-            : ''
-          }
+          {this.renderMainContent()}
         </section>
         <FooterAddPitch />
         <ContentCountsContainer />

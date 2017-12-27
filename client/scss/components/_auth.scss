@@ -22,11 +22,16 @@
   }
 
   .link-auth-alt {
-    margin-top: $spacing-unit * 4;
+    margin-top: $spacing-unit * 3;
     text-align: center;
     width: 100%;
     display: inline-block;
     font-size: 0.8em;
+
+    a {
+      display: block;
+      margin-top: $spacing-unit;
+    }
   }
 }
 

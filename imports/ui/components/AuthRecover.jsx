@@ -1,10 +1,10 @@
-import { Meteor } from 'meteor/meteor';
 import React from 'react';
-import { Link } from 'react-router';
+import { Accounts } from 'meteor/accounts-base';
 import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
+import { Link } from 'react-router';
 
 
-class AuthSignIn extends React.Component {
+class AuthRecover extends React.Component {
   constructor(props) {
     super(props);
     this.state = { errors: {} };
@@ -15,7 +15,6 @@ class AuthSignIn extends React.Component {
     event.preventDefault();
     const { locale } = this.props.intl;
     const email = this.refs.email.value;
-    const password = this.refs.password.value;
     const errors = {};
 
     if (!email) {
@@ -25,20 +24,13 @@ class AuthSignIn extends React.Component {
         defaultMessage="Email required"
       />);
     }
-    if (!password) {
-      errors.password = (<FormattedMessage
-        id="auth.errorsPassword"
-        description="Field validation error when user does not enter a password on an auth form"
-        defaultMessage="Password required"
-      />);
-    }
 
     this.setState({ errors });
     if (Object.keys(errors).length) {
       return;
     }
 
-    Meteor.loginWithPassword(email, password, err => {
+    Accounts.forgotPassword({ email }, err => {
       if (err) {
         this.setState({
           errors: { none: err.reason },
@@ -46,7 +38,7 @@ class AuthSignIn extends React.Component {
       } else {
         // @TODO: If the path is /signin then redirect
         // otherwise let the person stay where they were
-        this.context.router.push(`/${locale}`);
+        this.context.router.push(`/${locale}/reset-password`);
       }
     });
   }
@@ -63,27 +55,20 @@ class AuthSignIn extends React.Component {
         defaultMessage: 'Your Email',
         description: 'Placeholder text for email field',
       },
-      passwordLabel: {
-        id: 'auth.passwordLabel',
-        defaultMessage: 'Password',
-        description: 'Placeholder text for password field',
-      },
     });
 
     return (
       <div className="wrapper-auth">
         <h1 className="title-auth">
           <FormattedMessage
-            id="auth.signInTitle"
-            description="Title for the Sign In screen"
-            defaultMessage="Sign In"
+            id="auth.recoverTitle"
+            defaultMessage="Recover Password"
           />
         </h1>
         <p className="subtitle-auth" >
           <FormattedMessage
-            id="auth.signInSubTitle"
-            description="Subtitle for the Sign In screen"
-            defaultMessage="Signing in allows you to add and edit profiles and events"
+            id="auth.recoverSubTitle"
+            defaultMessage="Enter your email to recover your password"
           />
         </p>
         <form onSubmit={this.onSubmit}>
@@ -101,20 +86,10 @@ class AuthSignIn extends React.Component {
             />
             <span className="icon-email" title="Your Email"></span>
           </div>
-          <div className={`input-symbol ${errorClass('password')}`}>
-            <input
-              type="password"
-              name="password"
-              ref="password"
-              placeholder={formatMessage(messages.passwordLabel)}
-            />
-            <span className="icon-lock" title="Password"></span>
-          </div>
           <button type="submit">
             <FormattedMessage
-              id="auth.signInButton"
-              description="Button on the Sign In form"
-              defaultMessage="Sign in"
+              id="auth.recoverButton"
+              defaultMessage="Submit"
             />
           </button>
         </form>
@@ -126,10 +101,11 @@ class AuthSignIn extends React.Component {
               defaultMessage="Need an account? Join Now"
             />
           </Link>
-          <Link to={`/${locale}/recover`}>
+          <Link to={`/${locale}/signin`}>
             <FormattedMessage
-              id="auth.linkToRecover"
-              defaultMessage="Forgot your password?"
+              id="auth.linkToSignIn"
+              description="Link to sign in instead of join"
+              defaultMessage="Have an account? Sign in"
             />
           </Link>
         </div>
@@ -138,12 +114,12 @@ class AuthSignIn extends React.Component {
   }
 }
 
-AuthSignIn.propTypes = {
+AuthRecover.propTypes = {
   intl: intlShape.isRequired,
 };
 
-AuthSignIn.contextTypes = {
+AuthRecover.contextTypes = {
   router: React.PropTypes.object,
 };
 
-export default injectIntl(AuthSignIn);
+export default injectIntl(AuthRecover);

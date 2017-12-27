@@ -12,6 +12,8 @@ import AmbassadorPage from '../../ui/pages/AmbassadorPage.jsx';
 import AnnouncementEditContainer from '../../ui/containers/AnnouncementEditContainer.jsx';
 import AppContainer from '../../ui/containers/AppContainer.jsx';
 import AuthJoinContainer from '../../ui/containers/AuthJoinContainer.jsx';
+import AuthRecoverPage from '../../ui/pages/AuthRecoverPage.jsx';
+import AuthResetPasswordPage from '../../ui/pages/AuthResetPasswordPage.jsx';
 import AuthSignInPage from '../../ui/pages/AuthSignInPage.jsx';
 import EventAddContainer from '../../ui/containers/EventAddContainer.jsx';
 import EventContainer from '../../ui/containers/EventContainer.jsx';
@@ -115,6 +117,15 @@ export const renderRoutes = ({ locale, messages }) => (
         <Route path="join">
           <IndexRedirect to={`/${locale}/join`} />
         </Route>
+        <Route path="recover">
+          <IndexRedirect to={`/${locale}/recover`} />
+        </Route>
+        <Route path="reset-password">
+          <IndexRedirect to={`/${locale}/reset-password`} />
+          <Route path=":token">
+            <IndexRedirect to={`/${locale}/reset-password/:token`} />
+          </Route>
+        </Route>
         <Route path="about">
           <IndexRedirect to={`/${locale}/about`} />
         </Route>
@@ -171,6 +182,9 @@ export const renderRoutes = ({ locale, messages }) => (
         </Route>
         <Route path="signin" component={AuthSignInPage} />
         <Route path="join" component={AuthJoinContainer} />
+        <Route path="recover" component={AuthRecoverPage} />
+        <Route path="reset-password" component={AuthResetPasswordPage} />
+        <Route path="reset-password/:token" component={AuthResetPasswordPage} />
         <Route path="about" component={AboutPage} />
         <Route path="ambassadors" component={AmbassadorPage} />
         <Route path="welcome" component={WelcomePage} />

@@ -1,36 +1,26 @@
 import { Accounts } from 'meteor/accounts-base';
+import { Meteor } from 'meteor/meteor';
 
+Accounts.urls.resetPassword = (token) => {
+  return Meteor.absoluteUrl('reset-password/' + token);
+}
 
-Accounts.emailTemplates.siteName = 'Meteor Guide Todos Example';
-Accounts.emailTemplates.from = 'Meteor Todos Accounts <accounts@example.com>';
+Accounts.emailTemplates.siteName = 'World Theatre Map';
+Accounts.emailTemplates.from = 'Map Support <map@howlround.com>';
+
 
 Accounts.emailTemplates.resetPassword = {
   subject() {
-    return 'Reset your password on Meteor Todos';
+    return 'Reset your password on The World Theatre Map';
   },
   text(user, url) {
     return `Hello!
 
-Click the link below to reset your password on Meteor Todos.
+Click the link below to reset your password.
 
 ${url}
 
 If you didn't request this email, please ignore it.
-
-Thanks,
-The Meteor Todos team
 `;
   },
-//   html(user, url) {
-//     return `
-//       XXX Generating HTML emails that work across different email clients is a very complicated
-//       business that we're not going to solve in this particular example app.
-//
-//       A good starting point for making an HTML email could be this responsive email boilerplate:
-//       https://github.com/leemunroe/responsive-html-email-template
-//
-//       Note that not all email clients support CSS, so you might need to use a tool to inline
-//       all of your CSS into style attributes on the individual elements.
-// `
-//   }
 };

@@ -138,9 +138,9 @@ const messages = defineMessages({
     id: 'interest.Physical Theatre',
     defaultMessage: 'Physical Theatre',
   },
-  'interest.Political / Social': {
-    id: 'interest.Political / Social',
-    defaultMessage: 'Political / Social',
+  'interest.Political / Social Engagement': {
+    id: 'interest.Political / Social Engagement',
+    defaultMessage: 'Political / Social Engagement',
   },
   'interest.Puppetry': {
     id: 'interest.Puppetry',

@@ -109,11 +109,19 @@ The World Theatre Map uses the Chimp testing framework for functional tests. Tes
 
 ## Scripts
 
-To lint:
+### To lint:
 
 ```bash
 npm run lint
 ```
+
+### To update taxonomy terms (example of interests)
+
+- Update interests-list.js
+- Update en.json, es.json, and fr.json (both the key and value)
+- Deploy
+- Run the updateTaxonomyTerm.js script to update existing database values
+- Remove old term from database directly
 
 ## Based on the Todo sample app from Meteor
 

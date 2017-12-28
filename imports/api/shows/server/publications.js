@@ -84,7 +84,8 @@ TAPi18n.publish('shows.search', function showsSearch(plainTextQuery, skip) {
     delete processedQuery.name;
   }
 
-  const limit = 20;
+  // const limit = 20;
+  const limit = 1000;
 
   return Shows.i18nFind(processedQuery, {
     fields: Shows.searchFields,

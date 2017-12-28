@@ -135,7 +135,8 @@ const SearchProfilesResultsContainer = createContainer((props) => {
           sort: {
             name: 1,
           },
-          limit: 20,
+          // limit: 20,
+          limit: 1000,
         }).fetch();
     }
 

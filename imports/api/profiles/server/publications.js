@@ -68,7 +68,8 @@ TAPi18n.publish('profiles.search', function profilesSearch(plainTextQuery, skip,
     processedQuery.postalCode = new RegExp(`.*${escapeRegExp(plainTextQuery.postalCode)}.*`, 'i');
   }
 
-  const limit = 20;
+  // const limit = 20;
+  const limit = 1000;
 
   return Profiles.i18nFind(processedQuery, {
     fields: Profiles.publicFields,

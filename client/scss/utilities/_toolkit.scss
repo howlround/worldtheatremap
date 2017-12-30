@@ -1,12 +1,15 @@
 @mixin retina-image($image, $width, $height) {
-  @media (-webkit-min-device-pixel-ratio: 1.5),
-         (min--moz-device-pixel-ratio: 1.5),
-         (-o-min-device-pixel-ratio: 3/2),
-         (min-device-pixel-ratio: 1.5),
-         (min-resolution: 144dpi) {
+  // This code works fine with non-retina images also,
+  // and since there is no current fallback to non-retina-specific
+  // images, just display for all with the background-size set.
+  // @media (-webkit-min-device-pixel-ratio: 1.5),
+  //        (min--moz-device-pixel-ratio: 1.5),
+  //        (-o-min-device-pixel-ratio: 3/2),
+  //        (min-device-pixel-ratio: 1.5),
+  //        (min-resolution: 144dpi) {
     background-image: url($image);
     background-size: $width $height;
-  }
+  // }
 }
 
 @mixin clearfix {

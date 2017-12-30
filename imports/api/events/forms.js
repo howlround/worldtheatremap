@@ -221,10 +221,10 @@ export const relatedDocumentSchema = t.struct({
 export const eventSchema = t.struct({
   show: relatedDocumentSchema,
   organizations: t.maybe(relatedDocumentSchema),
-  eventType: t.String,
-  about: t.maybe(t.String),
   startDate: t.Date,
   endDate: t.Date,
+  eventType: t.String,
+  about: t.maybe(t.String),
   lat: t.String,
   lon: t.String,
   country: t.String,

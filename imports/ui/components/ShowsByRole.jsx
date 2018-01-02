@@ -19,7 +19,7 @@ export default class ShowsByRole extends React.Component {
       return (
         <li key={showId}>
           <ShowTeaser
-            show={showEvents[index].show}
+            show={showEvents[0].show}
             eventsByShow={showEvents}
           />
         </li>

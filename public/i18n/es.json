@@ -899,9 +899,9 @@
   "profilePage.contactInfoHeader": "Información de contacto",
   "auth.recoverTitle": "Recuperar contraseña",
   "auth.recoverSubTitle": "Ingrese su correo electrónico para recuperar su contraseña",
-  "auth.recoverButton":	"Enviar",
-  "auth.resetTitle":	"Cambiar contraseña",
-  "auth.linkToRecover":	"¿Ha olvidado su contraseña?",
+  "auth.recoverButton": "Enviar",
+  "auth.resetTitle": "Cambiar contraseña",
+  "auth.linkToRecover": "¿Ha olvidado su contraseña?",
   "auth.resetText": "Oprima el enlace en su correo electrónico para cambiar su contraseña",
-  "auth.resetSubText":	"Ingrese su contraseña nueva y luego seleccione <enviar>"
+  "auth.resetSubText": "Ingrese su contraseña nueva y luego seleccione <enviar>"
 }

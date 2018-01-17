@@ -906,9 +906,9 @@
   "events.pageHelp": "Sur la Carte mondiale du théâtre, le terme « événement » signifie une performance, une lecture ou le titre d’une pièce en particulier ou d’une œuvre théâtrale dont la création est en cours.",
   "auth.recoverTitle": "Récupérez votre mot de passe",
   "auth.recoverSubTitle": "Entrez votre adresse mail pour récupérer votre mot de passe",
-  "auth.recoverButton":	"Cliquez sur soumettre",
-  "auth.resetTitle":	"Changez de mot de passe",
-  "auth.linkToRecover":	"Vous avez oublié votre mot de passe ?",
+  "auth.recoverButton": "Cliquez sur soumettre",
+  "auth.resetTitle": "Changez de mot de passe",
+  "auth.linkToRecover": "Vous avez oublié votre mot de passe ?",
   "auth.resetText": "Cliquez sur le lien reçu dans votre boîte mails pour réinitialiser votre mot de passe",
-  "auth.resetSubText":	"Entrez votre nouveau mot de passe, puis cliquez sur Soumettre"
+  "auth.resetSubText": "Entrez votre nouveau mot de passe, puis cliquez sur Soumettre"
 }

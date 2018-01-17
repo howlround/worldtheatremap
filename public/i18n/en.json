@@ -897,5 +897,6 @@
   "searchProfiles.pageTitle": "Search Profiles",
   "searchShows.placeholder": "Search for shows by name",
   "signup.acceptTerms": "I accept the World Theatre Map {Terms of Use}",
-  "profilePage.contactInfoHeader": "Contact Info"
+  "profilePage.contactInfoHeader": "Contact Info",
+  "auth.resetSubText": "Enter your new password, then select Submit"
 }

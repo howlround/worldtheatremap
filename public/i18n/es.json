@@ -896,5 +896,12 @@
   "loading.defaultText": "Cargando...",
   "events.pageHelp": "Un evento en el Mapa Mundial de Teatro representa una presentación, lectura o taller de un título de una presentación en particular.",
   "forms.nameHelpText": "Empiece por escribir el título de una presentación para ver si existe en el Mapa Mundial de Teatro. Si aún no existe en el directorio, puede oprimir “añadir presentación aquí” para contribuir la información al Mapa Mundial de Teatro.",
-  "profilePage.contactInfoHeader": "Información de contacto"
+  "profilePage.contactInfoHeader": "Información de contacto",
+  "auth.recoverTitle": "Recuperar contraseña",
+  "auth.recoverSubTitle": "Ingrese su correo electrónico para recuperar su contraseña",
+  "auth.recoverButton": "Enviar",
+  "auth.resetTitle": "Cambiar contraseña",
+  "auth.linkToRecover": "¿Ha olvidado su contraseña?",
+  "auth.resetText": "Oprima el enlace en su correo electrónico para cambiar su contraseña",
+  "auth.resetSubText": "Ingrese su contraseña nueva y luego seleccione <enviar>"
 }

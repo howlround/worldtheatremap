@@ -66,8 +66,8 @@ class AuthResetPassword extends React.Component {
         </h1>
         <p className="subtitle-auth" >
           <FormattedMessage
-            id="auth.recoverSubTitle"
-            defaultMessage="Enter your email to recover your password"
+            id="auth.resetSubText"
+            defaultMessage="Enter your new password, then select Submit"
           />
         </p>
         <form onSubmit={this.onSubmit}>

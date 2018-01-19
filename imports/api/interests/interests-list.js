@@ -90,9 +90,9 @@ const messages = defineMessages({
     id: 'interest.Jewish Diaspora',
     defaultMessage: 'Jewish Diaspora',
   },
-  'interest.Latino / Hispanic': {
-    id: 'interest.Latino / Hispanic',
-    defaultMessage: 'Latino / Hispanic',
+  'interest.Latinx / Hispanic': {
+    id: 'interest.Latinx / Hispanic',
+    defaultMessage: 'Latinx / Hispanic',
   },
   'interest.LGBTQIA*': {
     id: 'interest.LGBTQIA*',

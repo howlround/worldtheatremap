@@ -58,7 +58,7 @@ Events.after.insert((userId, doc) => {
       });
 
       if (!isEmpty(relevantChanges)) {
-        const userEmail = Meteor.users.findOne(userId).emails[0].address;
+        const userEmail = Meteor.users.findOne(userId).profile.email;
         const Subject = `An event for "${doc.show.name}" has been created by ${userEmail}`;
         // let HtmlBody = '';
         let TextBody = '';
@@ -138,7 +138,7 @@ Events.after.update(function (userId, doc) {
       }
 
       if (!isEmpty(relevantChanges)) {
-        const userEmail = Meteor.users.findOne(userId).emails[0].address;
+        const userEmail = Meteor.users.findOne(userId).profile.email;
         const Subject = `An event for "${doc.show.name}" has been updated by ${userEmail}`;
         // let HtmlBody = '';
         let TextBody = '';
@@ -199,7 +199,7 @@ Events.after.remove((userId, doc) => {
       });
 
       if (!isEmpty(relevantChanges)) {
-        const userEmail = Meteor.users.findOne(userId).emails[0].address;
+        const userEmail = Meteor.users.findOne(userId).profile.email;
         const Subject = `An event for "${doc.show.name}" has been deleted by ${userEmail}`;
         // let HtmlBody = '';
         let TextBody = '';

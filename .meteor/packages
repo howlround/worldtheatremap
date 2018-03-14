@@ -70,3 +70,4 @@ alanning:roles
 mdg:meteor-apm-agent
 matb33:collection-hooks
 reactive-var
+switch:accounts-oidc

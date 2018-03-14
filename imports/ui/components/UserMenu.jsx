@@ -39,6 +39,14 @@ class UserMenu extends React.Component {
     });
   }
 
+  login(e) {
+    e.stopPropagation();
+    Meteor.loginWithOidc();
+    this.setState({
+      open: false,
+    });
+  }
+
   renderLoggedIn() {
     const { open } = this.state;
     const { user, logout } = this.props;
@@ -70,13 +78,13 @@ class UserMenu extends React.Component {
 
     return (
       <div className="user-menu menu-container menu-right">
-        <Link to={`/${locale}/signin`} className="menu-parent" onClick={this.close}>
+        <div className="menu-parent" onClick={this.login.bind(this)}>
           <FormattedMessage
             id='navigation.signIn'
             description="Signup/In Text"
             defaultMessage="Signup/In"
           />
-        </Link>
+        </div>
       </div>
     );
   }

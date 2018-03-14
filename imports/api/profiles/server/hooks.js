@@ -66,7 +66,7 @@ Profiles.after.insert((userId, doc) => {
       });
 
       if (!isEmpty(relevantChanges)) {
-        const userEmail = Meteor.users.findOne(userId).emails[0].address;
+        const userEmail = Meteor.users.findOne(userId).profile.email;
         const Subject = `"${doc.name}" has been created by ${userEmail}`;
         let HtmlBody = '';
         let TextBody = '';
@@ -166,7 +166,7 @@ Profiles.after.update(function (userId, doc) {
       }
 
       if (!isEmpty(relevantChanges)) {
-        const userEmail = Meteor.users.findOne(userId).emails[0].address;
+        const userEmail = Meteor.users.findOne(userId).profile.email;
         const Subject = `"${doc.name}" has been updated by ${userEmail}`;
         let HtmlBody = '';
         let TextBody = '';
@@ -255,7 +255,7 @@ Profiles.after.remove((userId, doc) => {
       });
 
       if (!isEmpty(relevantChanges)) {
-        const Subject = `"${doc.name}" has been deleted by ${Meteor.users.findOne(userId).emails[0].address}`; // eslint-disable-line max-len
+        const Subject = `"${doc.name}" has been deleted by ${Meteor.users.findOne(userId).profile.email}`; // eslint-disable-line max-len
         let HtmlBody = '';
         let TextBody = '';
         const baseUrl = Meteor.absoluteUrl(false, { secure: true });

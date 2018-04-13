@@ -1,5 +1,11 @@
 /* generated with grunt-sass-globbing */
 
+@import "components/DatePicker";
+@import "components/HomePageDisplayToggle";
+@import "components/LanguageSwitcher";
+@import "components/ProfileTranslationPage";
+@import "components/SearchResultsSummary";
+@import "components/SearchResultsToggle";
 @import "components/announcement";
 @import "components/article";
 @import "components/aside";
@@ -8,17 +14,14 @@
 @import "components/content_counts";
 @import "components/content_form";
 @import "components/date";
-@import "components/DatePicker";
 @import "components/dropzone";
 @import "components/event";
 @import "components/feedback_link";
-@import "components/footer_add_pitch";
 @import "components/footer";
+@import "components/footer_add_pitch";
 @import "components/globe";
 @import "components/header";
-@import "components/HomePageDisplayToggle";
 @import "components/howlround_posts";
-@import "components/LanguageSwitcher";
 @import "components/loading";
 @import "components/machine_translation_warning";
 @import "components/menu";
@@ -26,21 +29,18 @@
 @import "components/metadata";
 @import "components/option_toggle";
 @import "components/page_actions";
+@import "components/profile";
 @import "components/profile_form";
 @import "components/profile_search_result";
 @import "components/profile_sidebar";
-@import "components/profile";
-@import "components/ProfileTranslationPage";
 @import "components/related_profile_field";
 @import "components/related_profile_list";
 @import "components/related_show_textbox";
 @import "components/search_filters";
 @import "components/search_page_actions_share";
 @import "components/search_results_pager";
-@import "components/SearchResultsSummary";
-@import "components/SearchResultsToggle";
-@import "components/show_form";
 @import "components/show";
+@import "components/show_form";
 @import "components/sidebar";
 @import "components/site_statistics";
 @import "components/skip_to_content";

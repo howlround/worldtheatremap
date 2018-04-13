@@ -6,6 +6,11 @@
   "AWSTargetBucket": "",
   "SendContentNotifications": false,
   "GoogleTranslateAPIKey": "",
+  "oidc": {
+    "clientId": "",
+    "serverUrl": "",
+    "secret": ""
+  },
   "public": {
     "AWSShareImageBucket": "",
     "WTMDataApi": "/graphql",

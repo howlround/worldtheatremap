@@ -2,9 +2,10 @@
     position: relative;
     display: inline-block;
 
-    a.menu-parent {
+    .menu-parent {
       line-height: $header-height;
       text-transform: uppercase;
+      cursor: pointer;
       display: block;
       padding: 0 18px;
       color: $white;

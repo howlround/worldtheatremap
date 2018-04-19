@@ -20,6 +20,9 @@ import './file-restrictions.js';
 // Content prepopulate
 import './content-prepopulate.js';
 
+// OpenID Connect
+import './openid-connect.js';
+
 // Interests prepopulate
 import '../../api/interests/interests-list.js';
 

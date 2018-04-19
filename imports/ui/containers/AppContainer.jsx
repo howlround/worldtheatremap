@@ -23,7 +23,7 @@ const AppContainer = createContainer(() => {
   });
 
   if (user) {
-    Session.set('userId', user.emails[0].address);
+    Session.set('userId', user.profile.email);
     ReactGA.ga('set', 'dimension1', true);
   } else {
     Session.set('userId', false);

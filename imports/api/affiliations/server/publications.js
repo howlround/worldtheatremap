@@ -9,7 +9,7 @@ Meteor.publish('affiliations.byParent', function affiliationsbyEvent(id) {
 
   return Affiliations.find({ parentId: id }, {
     fields: Affiliations.publicFields,
-    limit: 25,
+    limit: 100,
   });
 });
 
@@ -18,7 +18,7 @@ Meteor.publish('affiliations.byProfile', function affiliationsbyProfile(id) {
 
   return Affiliations.find({ 'profile._id': id }, {
     fields: Affiliations.publicFields,
-    limit: 25,
+    limit: 100,
   });
 });
 
@@ -33,7 +33,7 @@ Meteor.publish('affiliations.anyById', function affiliationsbyProfile(id) {
       ],
     }, {
       fields: Affiliations.publicFields,
-      limit: 25,
+      limit: 100,
     }
   );
 });

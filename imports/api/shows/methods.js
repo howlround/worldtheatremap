@@ -177,6 +177,10 @@ export const update = new ValidatedMethod({
       // edited seperately
     }
 
+    if (!isEmpty(baseDoc.name)) {
+      baseDoc.nameSearch = removeDiacritics(baseDoc.name).toUpperCase();
+    }
+
     translations.en = baseDoc;
 
     // Record that this user edited content

@@ -67,6 +67,14 @@ Feature: Search box on profile search
     When I fill in ".profile-search-text" with "Audyco"
     Then the ".search-results" element should contain "Åüdyçø"
 
+  Scenario: If a profile has an apostrophe it can be found searching without the apostrophe
+    When I go to the "profile" add page
+    And I fill in ".profile-name-edit" with "No, I'm Aadya"
+    And I click on ".edit-profile-save"
+    And I go to the "profiles" search page
+    When I fill in ".profile-search-text" with "Im Aa"
+    Then the ".search-results" element should contain "No, I'm Aadya"
+
   Scenario: After editing a show name the name search should correctly update
     When I go to the profile page for "Aadya"
     And I follow ".edit-link"

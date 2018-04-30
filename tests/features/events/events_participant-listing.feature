@@ -51,15 +51,13 @@ Feature: Participant listing on event pages
 
   @i18n
   Scenario: Users should be see all participants associated with an event
-    And a profile with the following fields:
-      | name | Il Regista |
     And I go to the show page for "Sofia"
     And I click on ".event-view-link"
     And I fill in ".participant-profile-edit" with "Il Regista"
-    And I click on ".autocomplete-results li"
+    And I click on ".autocomplete-results li.create-profile"
     And I fill in ".participant-role-edit" with "Director"
     And I click on ".edit-participant-save"
-    When I click on ".language-switcher [name=es]"
+    When I set the language to "Español"
     And I go to the profile page for "Il Regista"
     And I follow ".edit-link"
     And I fill in ".profile-name-edit" with "El director"
@@ -69,12 +67,10 @@ Feature: Participant listing on event pages
     Then the ".event-participant-name" element should contain "El director"
 
   Scenario: Number of participants should be displayed on the event page
-    And a profile with the following fields:
-      | name | Il Regista |
     And I go to the show page for "Sofia"
     And I click on ".event-view-link"
     And I fill in ".participant-profile-edit" with "Il Regista"
-    And I click on ".autocomplete-results li"
+    And I click on ".autocomplete-results li.create-profile"
     And I fill in ".participant-role-edit" with "Director"
     And I click on ".edit-participant-save"
     And I go to the show page for "Sofia"
@@ -83,34 +79,28 @@ Feature: Participant listing on event pages
     And the ".event-participants h2" element should not contain "1 Participants"
 
   Scenario: Role for participants should be optional
-    And a profile with the following fields:
-      | name | Il Regista |
     And I go to the show page for "Sofia"
     And I click on ".event-view-link"
     And I fill in ".participant-profile-edit" with "Il Regista"
-    And I click on ".autocomplete-results li"
+    And I click on ".autocomplete-results li.create-profile"
     And I click on ".edit-participant-save"
     Then the ".event-participant-name" element should contain "Il Regista"
 
   Scenario: If a participant is not assigned a role they should still be displayed on the user profile
-    And a profile with the following fields:
-      | name | Il Regista |
     And I go to the show page for "Sofia"
     And I click on ".event-view-link"
     And I fill in ".participant-profile-edit" with "Il Regista"
-    And I click on ".autocomplete-results li"
+    And I click on ".autocomplete-results li.create-profile"
     And I click on ".edit-participant-save"
     When I go to the profile page for "Il Regista"
     Then the ".shows-by-role h2" element should contain "Participant"
     And the ".show-teaser" element should contain "Sofia"
 
   Scenario: If a profile is edited after they are added as a participant to a show it should display the new name
-    And a profile with the following fields:
-      | name | Il Regista |
     And I go to the show page for "Sofia"
     And I click on ".event-view-link"
     And I fill in ".participant-profile-edit" with "Il Regista"
-    And I click on ".autocomplete-results li"
+    And I click on ".autocomplete-results li.create-profile"
     And I fill in ".participant-role-edit" with "Director"
     And I click on ".edit-participant-save"
     When I go to the profile page for "Il Regista"
@@ -122,12 +112,10 @@ Feature: Participant listing on event pages
     Then the ".event-participant-name" element should contain "La Regista"
 
   Scenario: If a show name is edited after a participant is added they show name should display correctly on the participants profile
-    And a profile with the following fields:
-      | name | Il Regista |
     And I go to the show page for "Sofia"
     And I click on ".event-view-link"
     And I fill in ".participant-profile-edit" with "Il Regista"
-    And I click on ".autocomplete-results li"
+    And I click on ".autocomplete-results li.create-profile"
     And I fill in ".participant-role-edit" with "Director"
     And I click on ".edit-participant-save"
     When I go to the show page for "Sofia"

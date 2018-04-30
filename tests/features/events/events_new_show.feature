@@ -36,16 +36,14 @@ Feature: Create events for a show that doesn't exist yet
   @i18n
   Scenario: Events should display the primary author and local organization for the related show in the current language of the user
     And I am logged in
-    And a profile with the following fields:
-      | name | My Favorite Playwright |
     When I go to the "event" add page
     And I fill in ".event-show-edit" with "Althea"
     And I click on ".autocomplete-results li"
     And I fill in ".show-author-name-edit" with "My Favorite Playwright"
-    And I click on ".autocomplete-results li"
+    And I click on ".autocomplete-results li.create-profile"
     And I click on ".edit-show-save"
     And I fill in ".event-organization-edit" with "Organization of the year"
-    And I click on ".autocomplete-results li"
+    And I click on ".autocomplete-results li.create-profile"
     And I select "Performance" from the ".event-type-edit" combobox
     And I click on ".form-group-startDate input"
     And I click on ".react-datepicker__day=1"
@@ -56,7 +54,7 @@ Feature: Create events for a show that doesn't exist yet
     And I fill in "[name=lat]" with "-36.03133177633187"
     And I fill in "[name=lon]" with "-72.0703125"
     And I click on ".edit-event-save"
-    When I click on ".language-switcher [name=es]"
+    When I set the language to "Español"
     And I go to the profile page for "My Favorite Playwright"
     And I follow ".edit-link"
     And I fill in ".profile-name-edit" with "Este es mi dramaturgo favorito"

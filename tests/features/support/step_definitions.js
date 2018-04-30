@@ -126,6 +126,12 @@ module.exports = function() {
     browser.click('.Select-option');
   });
 
+  this.When(/^I set the language to "([^"]*)"$/, function (locale) {
+    browser.waitForExist(".language-switcher", 5000);
+    browser.click('.Select-control');
+    browser.click(`.Select-option=${locale}`);
+  });
+
   this.When(/^I press the "([^"]*)" key$/, function (value) {
     client.keys(value);
   });

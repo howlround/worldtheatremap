@@ -5,6 +5,7 @@ import moment from 'moment';
 import qs from 'qs';
 import React from 'react';
 import sanitizeHtml from 'sanitize-html'
+import formatForSearch from '../../helpers/formatForSearch.js';
 import {
   clone,
   compact,
@@ -18,7 +19,6 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { IntlProvider, injectIntl } from 'react-intl';
 import { Meteor } from 'meteor/meteor';
 // import { ReactiveVar } from 'meteor/reactive-var';
-import { remove as removeDiacritics } from 'diacritics';
 import { renderToStaticMarkup as markup } from 'react-dom/server';
 import { TAPi18n } from 'meteor/tap:i18n';
 
@@ -106,7 +106,7 @@ const SearchShowsResultsContainer = createContainer((props) => {
     const plainTextQuery = clone(privateShowQuery);
 
     if (query.name) {
-      const nameRegex = escapeRegExp(removeDiacritics(query.name)).toUpperCase();
+      const nameRegex = formatForSearch(query.name);
       privateShowQuery.nameSearch = new RegExp(`.*${nameRegex}.*`);
       plainTextQuery.name = query.name;
     }

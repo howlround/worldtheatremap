@@ -215,10 +215,19 @@ export const relatedDocumentSchema = t.struct({
   _id: t.String,
 });
 
+const dateValidation = ({ startDate, endDate }) => {
+  if (endDate < startDate) {
+    return false;
+  }
+  else {
+    return true;
+  }
+}
+
 // @TODO: Refactor to look like this:
 // https://github.com/gcanti/tcomb-form/issues/311
 // Maybe that should be in eventProfile?
-export const eventSchema = t.struct({
+export const eventSchema = t.refinement(t.struct({
   show: relatedDocumentSchema,
   organizations: t.maybe(relatedDocumentSchema),
   startDate: t.Date,
@@ -232,7 +241,7 @@ export const eventSchema = t.struct({
   streetAddress: t.maybe(t.String),
   administrativeArea: t.maybe(t.String), // Province, Region, State
   postalCode: t.maybe(t.String),
-});
+}), dateValidation);
 
 export const eventFiltersSchema = t.struct({
   eventType: t.maybe(t.String),
@@ -244,11 +253,28 @@ export const eventFiltersSchema = t.struct({
 });
 
 export const defaultFormOptions = () => ({
-  error: <FormattedMessage
-    id="forms.pageError"
-    description="Generic page-level message for a form error"
-    defaultMessage="Please fill in all required fields."
-  />,
+  error: (v) => {
+    const result = t.validate(v, eventSchema);
+    if (!result.isValid()) {
+      if (v.endDate < v.startDate) {
+        return <FormattedMessage
+          id="forms.dateOrderError"
+          description="Error if dates are not in order"
+          defaultMessage="End date must be after the start date"
+        />;
+      }
+      else {
+        return <FormattedMessage
+          id="forms.pageError"
+          description="Generic page-level message for a form error"
+          defaultMessage="Please fill in all required fields."
+        />;
+      }
+    }
+    else {
+      return null;
+    }
+  },
   fields: {
     show: {
       factory: RelatedShowFactory,

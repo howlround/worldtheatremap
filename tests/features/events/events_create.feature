@@ -198,3 +198,52 @@ Feature: Create events
     And I go to the "event" add page
     And I fill in ".event-organization-edit" with "Organization of the year"
     Then the ".autocomplete-results li" element should contain "Muntinlupa"
+
+  Scenario: Start and end dates can be the same
+    And I am logged in
+    And a profile with the following fields:
+      | name | My Favorite Playwright |
+    When I go to the "event" add page
+    And I fill in ".event-show-edit" with "Althea"
+    And I click on ".autocomplete-results li"
+    And I fill in ".show-author-name-edit" with "My Favorite Playwright"
+    And I click on ".autocomplete-results li"
+    And I click on ".edit-show-save"
+    And I fill in ".event-organization-edit" with "Organization of the year"
+    And I click on ".autocomplete-results li"
+    And I select "Performance" from the ".event-type-edit" combobox
+    And I click on ".form-group-startDate input"
+    And I click on ".react-datepicker__day=15"
+    And I click on ".form-group-endDate input"
+    And I click on ".react-datepicker__day=15"
+    And I select "India" from the ".country-select-edit" combobox
+    And I fill in "[name=lat]" with "-36.03133177633187"
+    And I fill in "[name=lon]" with "-72.0703125"
+    And I click on ".edit-event-save"
+    Then the "h1.page-title" element should contain "Althea"
+
+  # This test isn't working but the functionality appears to be
+  @focus
+  Scenario: End dates can not be before start dates
+    And I am logged in
+    And a profile with the following fields:
+      | name | My Favorite Playwright |
+    When I go to the "event" add page
+    And I fill in ".event-show-edit" with "Althea"
+    And I click on ".autocomplete-results li"
+    And I fill in ".show-author-name-edit" with "My Favorite Playwright"
+    And I click on ".autocomplete-results li"
+    And I click on ".edit-show-save"
+    And I fill in ".event-organization-edit" with "Organization of the year"
+    And I click on ".autocomplete-results li"
+    And I select "Performance" from the ".event-type-edit" combobox
+    And I click on ".form-group-startDate input"
+    And I click on ".react-datepicker__day=14"
+    And I click on ".form-group-endDate input"
+    And I click on ".react-datepicker__day=13"
+    And I select "India" from the ".country-select-edit" combobox
+    And I fill in "[name=lat]" with "-36.03133177633187"
+    And I fill in "[name=lon]" with "-72.0703125"
+    And I click on ".edit-event-save"
+    Then I should not see "h1.page-title"
+    Then the ".error-block" element should contain "End date must be after the start date"

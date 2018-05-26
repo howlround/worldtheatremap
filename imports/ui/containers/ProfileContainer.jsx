@@ -129,8 +129,10 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
   ).fetch();
 
   _.each(participantRecords, record => {
-    if (!_.contains(roles, record.role)) {
-      roles.push(record.role);
+    // Normalize all role names to prevent duplicates appearing on profiles
+    const normRole = record.role.toUpperCase();
+    if (!_.contains(roles, normRole)) {
+      roles.push(normRole);
     }
     showsToSubscribeTo.push(record.event.show._id);
 
@@ -138,22 +140,22 @@ const ProfileContainer = createContainer(({ params: { id } }) => {
     eventIdsByProfile[record.event._id] = record.event._id;
 
     // Also store all events by role to display later
-    if (!_.has(eventsByShowByRole, record.role)) {
-      eventsByShowByRole[record.role] = [];
+    if (!_.has(eventsByShowByRole, normRole)) {
+      eventsByShowByRole[normRole] = [];
     }
 
-    if (!_.has(eventsByShowByRole[record.role], record.event.show._id)) {
-      eventsByShowByRole[record.role][record.event.show._id] = [];
+    if (!_.has(eventsByShowByRole[normRole], record.event.show._id)) {
+      eventsByShowByRole[normRole][record.event.show._id] = [];
     }
     // .push is ok here because there shouldn't be the same role on the same event
     // push or unshift depending on event date
     if (
-      eventsByShowByRole[record.role][record.event.show._id].length > 0 &&
-      record.event.endDate > eventsByShowByRole[record.role][record.event.show._id][0].endDate
+      eventsByShowByRole[normRole][record.event.show._id].length > 0 &&
+      record.event.endDate > eventsByShowByRole[normRole][record.event.show._id][0].endDate
     ) {
-      eventsByShowByRole[record.role][record.event.show._id].unshift(record.event);
+      eventsByShowByRole[normRole][record.event.show._id].unshift(record.event);
     } else {
-      eventsByShowByRole[record.role][record.event.show._id].push(record.event);
+      eventsByShowByRole[normRole][record.event.show._id].push(record.event);
     }
 
     // Add Show authors

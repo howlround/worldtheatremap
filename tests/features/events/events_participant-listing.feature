@@ -45,7 +45,7 @@ Feature: Participant listing on event pages
     And the ".event-participant-role" element should contain "Director"
 
   @i18n
-  Scenario: Users should be see all participants associated with an event
+  Scenario: Users should be see the language-specific name for all participants associated with an event
     And I go to the show page for "Sofia"
     And I click on ".event-view-link"
     And I fill in ".participant-profile-edit" with "Il Regista"

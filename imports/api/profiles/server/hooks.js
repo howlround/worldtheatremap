@@ -17,6 +17,7 @@ import YAML from 'yamljs';
 
 // AWS
 import AWS from 'aws-sdk';
+
 AWS.config.credentials = new AWS.Credentials({
   accessKeyId: Meteor.settings.AWSAccessKeyId,
   secretAccessKey: Meteor.settings.AWSSecretAccessKey,
@@ -25,6 +26,8 @@ AWS.config.region = Meteor.settings.AWSRegion;
 
 // API
 import { Profiles } from '../profiles.js';
+import { Participants } from '../../participants/participants.js';
+
 import ProfileAllFields from '../../../ui/components/ProfileAllFields.jsx';
 
 // Helper function to compare previous and current versions
@@ -117,6 +120,10 @@ Profiles.after.insert((userId, doc) => {
 
 // Update
 Profiles.after.update(function (userId, doc) {
+  if (doc.name !== this.previous.name) {
+    Participants.update({ 'event.show.author._id': doc._id }, { $set: { 'event.show.author.$.name': doc.name } }, { multi: true });
+  }
+
   if (Meteor.isServer && Meteor.settings.SendContentNotifications) {
     AWS.config.credentials.get((err) => {
       // attach event listener

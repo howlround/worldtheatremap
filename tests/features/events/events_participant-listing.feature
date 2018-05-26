@@ -8,21 +8,18 @@ Feature: Participant listing on event pages
   Background:
     Given I am on the English language home page
     And I am logged in
-    And a profile with the following fields:
-      | name | My Favorite Playwright |
     When I go to the "event" add page
     And I fill in ".event-show-edit" with "Sofia"
     And I click on ".autocomplete-results li"
     And I fill in ".show-author-name-edit" with "My Favorite Playwright"
-    And I click on ".autocomplete-results li"
+    And I click on ".autocomplete-results li.create-profile"
     And I click on ".edit-show-save"
     And I fill in ".event-organization-edit" with "Organization of the year"
-    And I click on ".autocomplete-results li"
+    And I click on ".autocomplete-results li.create-profile"
     And I select "Performance" from the ".event-type-edit" combobox
     And I click on ".form-group-startDate input"
     And I click on ".react-datepicker__day=1"
     And I click on ".form-group-endDate input"
-    And I click on ".react-datepicker__navigation--next"
     And I click on ".react-datepicker__day=15"
     And I select "India" from the ".country-select-edit" combobox
     And I fill in "[name=lat]" with "-36.03133177633187"
@@ -36,12 +33,10 @@ Feature: Participant listing on event pages
     Then I should not see ".participant-profile-edit"
 
   Scenario: Users should be see all participants associated with an event
-    And a profile with the following fields:
-      | name | Il Regista |
     And I go to the show page for "Sofia"
     And I click on ".event-view-link"
     And I fill in ".participant-profile-edit" with "Il Regista"
-    And I click on ".autocomplete-results li"
+    And I click on ".autocomplete-results li.create-profile"
     And I fill in ".participant-role-edit" with "Director"
     And I click on ".edit-participant-save"
     And I go to the show page for "Sofia"
@@ -111,7 +106,7 @@ Feature: Participant listing on event pages
     And I click on ".event-view-link"
     Then the ".event-participant-name" element should contain "La Regista"
 
-  Scenario: If a show name is edited after a participant is added they show name should display correctly on the participants profile
+  Scenario: If a show name is edited after a participant is added the show name should display correctly on the participant profile
     And I go to the show page for "Sofia"
     And I click on ".event-view-link"
     And I fill in ".participant-profile-edit" with "Il Regista"
@@ -124,3 +119,73 @@ Feature: Participant listing on event pages
     And I click on ".edit-show-save"
     When I go to the profile page for "Il Regista"
     Then the ".show-teaser" element should contain "Jessa"
+
+  Scenario: If event dates are editing after a participant is added it should display correctly on the participant profile
+    And I go to the show page for "Sofia"
+    And I click on ".event-view-link"
+    And I fill in ".participant-profile-edit" with "Il Regista"
+    And I click on ".autocomplete-results li.create-profile"
+    And I fill in ".participant-role-edit" with "Director"
+    And I click on ".edit-participant-save"
+    When I go to the show page for "Sofia"
+    And I click on ".event-view-link"
+    And I click on ".edit-link"
+    And I click on ".form-group-startDate input"
+    And I click on ".react-datepicker__day=2"
+    And I click on ".form-group-endDate input"
+    And I click on ".react-datepicker__day=18"
+    And I click on ".edit-event-save"
+    When I go to the profile page for "Il Regista"
+    And I click on ".show-events-toggle"
+    And the ".event-date-range" element should contain the date range for day "2" to day "18" of this month
+
+  Scenario: If an author name is changed after a participant is added it should display correctly on the participant profile
+    And I go to the show page for "Sofia"
+    And I click on ".event-view-link"
+    And I fill in ".participant-profile-edit" with "Il Regista"
+    And I click on ".autocomplete-results li.create-profile"
+    And I fill in ".participant-role-edit" with "Director"
+    And I click on ".edit-participant-save"
+    When I go to the profile page for "My Favorite Playwright"
+    And I follow ".edit-link"
+    And I fill in ".profile-name-edit" with "My Second Favorite Playwright"
+    And I press ".edit-profile-save"
+    When I go to the profile page for "Il Regista"
+    Then the ".show-authorship" element should contain "My Second Favorite Playwright"
+
+  Scenario: If an author name for a play with multiple authors is changed after a participant is added it should display correctly on the participant profile
+    When I go to the "event" add page
+    And I fill in ".event-show-edit" with "Masterpiece"
+    And I click on ".autocomplete-results li"
+    And I fill in ".show-author-name-edit" with "My Favorite"
+    And I click on "ul.autocomplete-results li.create-profile"
+    And I click on ".btn-add"
+    And I fill in ".form-group-author-1 .show-author-name-edit" with "The second"
+    And I click on "ul.autocomplete-results li.create-profile"
+    And I click on ".btn-add"
+    And I fill in ".form-group-author-2 .show-author-name-edit" with "The worst"
+    And I click on "ul.autocomplete-results li.create-profile"
+    And I click on ".edit-show-save"
+    And I fill in ".event-organization-edit" with "Organization of the year"
+    And I click on ".autocomplete-results li.create-profile"
+    And I select "Performance" from the ".event-type-edit" combobox
+    And I click on ".form-group-startDate input"
+    And I click on ".react-datepicker__day=1"
+    And I click on ".form-group-endDate input"
+    And I click on ".react-datepicker__day=15"
+    And I select "India" from the ".country-select-edit" combobox
+    And I fill in "[name=lat]" with "-36.03133177633187"
+    And I fill in "[name=lon]" with "-72.0703125"
+    And I click on ".edit-event-save"
+    And I go to the show page for "Masterpiece"
+    And I click on ".event-view-link"
+    And I fill in ".participant-profile-edit" with "Il Regista"
+    And I click on ".autocomplete-results li.create-profile"
+    And I fill in ".participant-role-edit" with "Director"
+    And I click on ".edit-participant-save"
+    When I go to the profile page for "The second"
+    And I follow ".edit-link"
+    And I fill in ".profile-name-edit" with "#2"
+    And I press ".edit-profile-save"
+    When I go to the profile page for "Il Regista"
+    Then the ".show-authorship" element should contain "My Favorite, #2 and The worst"

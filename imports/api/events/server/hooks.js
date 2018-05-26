@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+
 import { Meteor } from 'meteor/meteor';
 import {
   each,
@@ -12,11 +14,13 @@ import {
 } from 'lodash';
 import YAML from 'yamljs';
 
-// API
-import { Events } from '../events.js';
-
 // AWS
 import AWS from 'aws-sdk';
+
+// API
+import { Events } from '../events.js';
+import { Participants } from '../../participants/participants.js';
+
 AWS.config.credentials = new AWS.Credentials({
   accessKeyId: Meteor.settings.AWSAccessKeyId,
   secretAccessKey: Meteor.settings.AWSSecretAccessKey,
@@ -93,6 +97,10 @@ Events.after.insert((userId, doc) => {
 
 // Update
 Events.after.update(function (userId, doc) {
+  if (doc.startDate !== this.previous.startDate || doc.endDate !== this.previous.endDate) {
+    Participants.update({ 'event._id': doc._id }, { $set: { 'event.startDate': doc.startDate, 'event.endDate': doc.endDate } }, { multi: true });
+  }
+
   if (Meteor.isServer && Meteor.settings.SendContentNotifications) {
     AWS.config.credentials.get((err) => {
       // attach event listener
@@ -127,12 +135,12 @@ Events.after.update(function (userId, doc) {
 
           relevantChangesOrig.i18n[locale] = pick(
             relevantChangesOrig.i18n[locale],
-            relevantlocaleChangedKeys
+            relevantlocaleChangedKeys,
           );
 
           relevantChanges.i18n[locale] = pick(
             relevantChanges.i18n[locale],
-            relevantlocaleChangedKeys
+            relevantlocaleChangedKeys,
           );
         });
       }

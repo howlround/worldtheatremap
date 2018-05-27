@@ -6,7 +6,7 @@ import classnames from 'classnames';
 // Forms
 import React from 'react';
 import t from 'tcomb-form';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import DatePicker from 'react-datepicker';
 
 // API
@@ -45,7 +45,7 @@ const dateTemplate = t.form.Form.templates.date.clone({
       }
     };
 
-    const selected = locals.value ? moment(locals.value) : null;
+    const selected = locals.value ? moment.tz(locals.value, "America/New_York") : null;
 
     return (
       <DatePicker

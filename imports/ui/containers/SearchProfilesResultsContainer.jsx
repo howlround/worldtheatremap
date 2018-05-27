@@ -2,7 +2,7 @@ import escapeRegExp from 'lodash.escaperegexp';
 import formatForSearch from '../../helpers/formatForSearch.js';
 import gql from 'graphql-tag';
 import hash from 'string-hash';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import qs from 'qs';
 import React from 'react';
 import sanitizeHtml from 'sanitize-html';
@@ -89,13 +89,13 @@ const SearchProfilesResultsContainer = createContainer((props) => {
 
     if (query.startDate) {
       privateQuery.endDate = {
-        $gte: moment(query.startDate).startOf('day').toDate(),
+        $gte: moment(query.startDate, "America/New_York").startOf('day').toDate(),
       };
     }
 
     if (query.endDate) {
       privateQuery.startDate = {
-        $lte: moment(query.endDate).endOf('day').toDate(),
+        $lte: moment(query.endDate, "America/New_York").endOf('day').toDate(),
       };
     }
 

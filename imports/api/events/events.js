@@ -4,7 +4,7 @@ import { Factory } from 'meteor/factory';
 
 // Utilities
 import { _ } from 'meteor/underscore';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 // API
 import { relatedRecordReconcileEvent } from '../../api/relatedRecords/relatedRecords.js';
@@ -19,8 +19,8 @@ class EventsCollection extends Mongo.Collection {
     const ourEvent = event;
     if (ourEvent.startDate && ourEvent.endDate) {
       // Set all the dates to 8pm
-      const startMoment = moment(ourEvent.startDate);
-      const endMoment = moment(ourEvent.endDate);
+      const startMoment = moment.tz(ourEvent.startDate, "America/New_York");
+      const endMoment = moment.tz(ourEvent.endDate, "America/New_York");
       ourEvent.startDate = startMoment.hours(20).toDate();
       ourEvent.endDate = endMoment.hours(20).toDate();
     }
@@ -48,8 +48,8 @@ class EventsCollection extends Mongo.Collection {
     const ourEvent = event.$set;
     if (ourEvent.startDate && ourEvent.endDate) {
       // Set the dates to 8pm
-      const startMoment = moment(ourEvent.startDate);
-      const endMoment = moment(ourEvent.endDate);
+      const startMoment = moment(ourEvent.startDate, "America/New_York");
+      const endMoment = moment(ourEvent.endDate, "America/New_York");
       ourEvent.startDate = startMoment.hours(20).toDate();
       ourEvent.endDate = endMoment.hours(20).toDate();
     }

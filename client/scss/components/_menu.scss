@@ -4,6 +4,7 @@
 
     .menu-parent {
       line-height: $header-height;
+      text-decoration: none;
       text-transform: uppercase;
       cursor: pointer;
       display: block;
@@ -20,8 +21,8 @@
 
       &:hover,
       &:focus {
-        background-color: $dark-red;
-        color: $white;
+        background-color: $black;
+        color: $neon-green;
 
         & + .menu-children {
           display: block;
@@ -32,8 +33,8 @@
     &:hover,
     &:focus {
       a.menu-parent {
-        background-color: $dark-red;
-        color: $white;
+        background-color: $black;
+        color: $neon-green;
       }
       .menu-children {
         display: block;
@@ -76,10 +77,6 @@
     display: block;
     float: right;
   }
-
-  &.menu-with-divider {
-    border-right: 1px $background-red solid;
-  }
 }
 
 .user-menu {
@@ -91,9 +88,5 @@
     background-position: 50%;
 
     @include image-replace;
-  }
-
-  @include breakpoint($narrow) {
-    background-color: $light-red;
   }
 }

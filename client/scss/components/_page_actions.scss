@@ -22,6 +22,8 @@
   text-transform: uppercase;
 
   a {
+    background-color: $black;
+    text-decoration: none;
     float: left;
     display: block;
     padding: $spacing-unit;
@@ -30,7 +32,7 @@
 
     &:hover,
     &:focus {
-      background-color: $gray;
+      color: $neon-green;
     }
 
     span {
@@ -40,7 +42,7 @@
   }
 
   .facebook-share {
-    background-color: #3b5998;
+    // background-color: #3b5998;
 
     span {
       @include retina-image('/facebook-white.png', 4px, 11px);
@@ -49,7 +51,7 @@
   }
 
   .twitter-share {
-    background-color: #1da1f2;
+    // background-color: #1da1f2;
 
     span {
       @include retina-image('/twitter-white.png', 13px, 10px);

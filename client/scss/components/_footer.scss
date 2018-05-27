@@ -1,6 +1,6 @@
 section.footer {
   font-size: 13px;
-  background-color: $medium-gray;
+  background-color: $black;
   overflow: auto;
   padding-top: $spacing-unit;
   padding-bottom: $spacing-unit;
@@ -17,7 +17,7 @@ section.footer {
 
     &:hover,
     &:focus {
-      color: $dark-tan;
+      color: $neon-green;
     }
   }
 
@@ -48,7 +48,6 @@ section.footer {
   }
 
   .footer-credits {
-    color: $light-gray;
     margin-top: $spacing-unit;
     margin-bottom: $spacing-unit * 2;
 
@@ -70,16 +69,6 @@ section.footer {
         text-align: right;
       }
     }
-
-    a {
-      color: $light-gray;
-      text-decoration: underline;
-
-      &:hover,
-      &:focus {
-        color: $gray;
-      }
-    }
   }
 
   .footer-navigation {
@@ -94,10 +83,6 @@ section.footer {
     font-weight: 900;
     font-size: 20px;
     line-height: 1em;
-  }
-
-  .footer-meta {
-    color: $light-gray;
   }
 
   .footer-github {

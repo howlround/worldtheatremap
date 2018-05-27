@@ -189,10 +189,6 @@ class App extends React.Component {
                 description="Site name"
                 defaultMessage="World Theatre Map"
               />
-              &nbsp;
-              <sup className="beta-label">
-                beta
-              </sup>
             </Link>
             <UserMenu
               user={user}

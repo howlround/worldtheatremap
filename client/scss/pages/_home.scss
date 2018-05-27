@@ -54,17 +54,15 @@
       border: none;
 
       span {
-        background-color: $white;
-        border: solid 1px $dark-tan;
+        background-color: $yellow;
         padding: 14px $spacing-unit * 10;
         display: inline-block;
         width: 580px;
       }
     }
 
-    color: $white;
+    color: $yellow;
     font-size: 20px;
-    opacity: 0.8;
   }
 }
 

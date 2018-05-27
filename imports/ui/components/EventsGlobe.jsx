@@ -110,15 +110,15 @@ export default class EventsGlobe extends React.Component {
             c.clearRect(0, 0, containerWidth, conatinerHeight);
 
             // Globe background
-            c.fillStyle = '#fff8f5';
+            c.fillStyle = '#ffffff';
             c.beginPath();
             path(globe);
             c.fill();
 
             // Background Continents
             projection.clipAngle(180);
-            c.fillStyle = '#c8ece9';
-            c.strokeStyle = '#c8ece9';
+            c.fillStyle = '#e9e9e9';
+            c.strokeStyle = '#e9e9e9';
             c.lineWidth = 0.5;
             c.beginPath();
             path(land);
@@ -136,8 +136,8 @@ export default class EventsGlobe extends React.Component {
 
             // Background Grid
             projection.clipAngle(180);
-            // c.strokeStyle = '#deffff';
-            c.strokeStyle = '#68d3c84';
+            c.strokeStyle = '#deffff';
+            // c.strokeStyle = '#68d3c84';
             c.lineWidth = 0.25;
             c.beginPath();
             path(grid);
@@ -145,8 +145,8 @@ export default class EventsGlobe extends React.Component {
 
             // Foreground Grid
             projection.clipAngle(90);
-            // c.strokeStyle = '#ffffff';
-            c.strokeStyle = '#68d3c8';
+            c.strokeStyle = '#ffffff';
+            // c.strokeStyle = '#68d3c8';
             c.lineWidth = 0.75;
             c.beginPath();
             path(grid);
@@ -154,13 +154,13 @@ export default class EventsGlobe extends React.Component {
 
             // Continents
             projection.clipAngle(90);
-            c.fillStyle = '#50b2aa';
+            c.fillStyle = '#000000';
             c.beginPath();
             path(land);
             c.fill();
 
             // Foreground borders
-            c.strokeStyle = '#50b2aa';
+            c.strokeStyle = '#000000';
             c.lineWidth = 0.5;
             c.beginPath();
             path(borders);
@@ -169,15 +169,15 @@ export default class EventsGlobe extends React.Component {
             // Other dots
             projection.clipAngle(90);
             _.each(itemLocations, dot => {
-              c.fillStyle = '#1c3f53';
+              c.fillStyle = '#ffd700';
               c.beginPath();
               path(dot);
               c.fill();
             });
 
             // Dot
-            c.fillStyle = '#ef4606';
-            c.strokeStyle = '#ef4606';
+            c.fillStyle = '#90f0d2';
+            c.strokeStyle = '#90f0d2';
             c.lineWidth = 6;
             c.beginPath();
             path(itemLocations[i]);
@@ -185,7 +185,7 @@ export default class EventsGlobe extends React.Component {
             c.stroke();
 
             // Globe outline
-            c.strokeStyle = '#50b2aa';
+            c.strokeStyle = '#000000';
             c.lineWidth = 2;
             c.beginPath();
             path(globe);

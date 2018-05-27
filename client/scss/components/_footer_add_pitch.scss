@@ -1,8 +1,8 @@
 .footer-add-pitch {
-  background-color: $teal;
+  background-color: $yellow;
   padding-top: $spacing-unit;
   padding-bottom: $spacing-unit;
-  color: $white;
+  color: $black;
   font-size: 15px;
   text-align: center;
 
@@ -14,11 +14,14 @@
 }
 
 .footer-add-button {
+  text-decoration: none;
   display: block;
-  background-color: $white;
-  color: $teal;
-  width: 70%;
+  background-color: $black;
+  color: $white;
+  width: 60%;
   margin: $spacing-unit auto;
+  padding-top: $spacing-unit;
+  padding-bottom: $spacing-unit;
 
   @include breakpoint($narrow) {
     margin: $spacing-unit * 3 auto;

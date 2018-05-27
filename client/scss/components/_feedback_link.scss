@@ -5,14 +5,16 @@
   overflow: hidden;
 
   a {
-    background-color: $light-red;
+    text-decoration: none;
+    background-color: $black;
     color: $white;
     display: block;
     padding: $spacing-unit;
 
     &:focus,
     &:hover {
-      background-color: $dark-red;
+      background-color: $neon-green;
+      color: $black;
     }
   }
 
@@ -28,12 +30,5 @@
             transform: rotate(90deg) translate(0,100%);
     -webkit-transform-origin: 100% 100%;
             transform-origin: 100% 100%;
-
-    a {
-      &:focus,
-      &:hover {
-        padding-top: $spacing-unit + 3px;
-      }
-    }
   }
 }

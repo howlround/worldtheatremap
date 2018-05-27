@@ -5,9 +5,6 @@ import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-i
 import { Link } from 'react-router';
 import { _ } from 'meteor/underscore';
 
-// Containers
-import ContentCountsContainer from '../containers/ContentCountsContainer.jsx';
-
 // Components
 import EventsGlobe from '../components/EventsGlobe.jsx';
 import HowlRoundPostFeatured from '../components/HowlRoundPostFeatured.jsx';
@@ -206,7 +203,6 @@ class HomePage extends React.Component {
             title={siteName}
             titleTemplate="%s"
           />
-          <ContentCountsContainer hideHeader />
           {this.renderSearchLinks()}
           {!loading ? this.displaySwitch() : ''}
         </div>

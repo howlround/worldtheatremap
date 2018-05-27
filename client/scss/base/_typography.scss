@@ -12,7 +12,6 @@ h1 {
 h2 {
   font-family: $oswald-font-stack;
   font-weight: 400;
-  color: $teal;
   text-transform: uppercase;
   font-size: 25px;
   margin-bottom: $spacing-unit;
@@ -24,12 +23,11 @@ h3 {
 }
 
 a {
-  color: $red;
-  text-decoration: none;
+  color: $black;
 
   &:hover,
   &:focus {
-    color: $gray;
+    color: $dark-purple;
   }
 }
 

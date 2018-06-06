@@ -1,8 +1,8 @@
 .footer-add-pitch {
-  background-color: $teal;
+  background-color: $yellow;
   padding-top: $spacing-unit;
   padding-bottom: $spacing-unit;
-  color: $white;
+  color: $black;
   font-size: 15px;
   text-align: center;
 
@@ -15,8 +15,8 @@
 
 .footer-add-button {
   display: block;
-  background-color: $white;
-  color: $teal;
+  background-color: $black;
+  color: $white;
   width: 70%;
   margin: $spacing-unit auto;
 
@@ -27,6 +27,6 @@
   &:hover,
   &:focus {
     color: $black;
-    background-color: $background-teal;
+    background-color: $teal;
   }
 }

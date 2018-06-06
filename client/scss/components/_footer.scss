@@ -1,6 +1,6 @@
 section.footer {
   font-size: 13px;
-  background-color: $medium-gray;
+  background-color: $black;
   overflow: auto;
   padding-top: $spacing-unit;
   padding-bottom: $spacing-unit;
@@ -17,7 +17,7 @@ section.footer {
 
     &:hover,
     &:focus {
-      color: $dark-tan;
+      color: $light-gray;
     }
   }
 

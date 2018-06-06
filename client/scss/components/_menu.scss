@@ -19,8 +19,7 @@
 
       &:hover,
       &:focus {
-        background-color: $dark-red;
-        color: $white;
+        color: $neon-green;
 
         & + .menu-children {
           display: block;
@@ -31,8 +30,7 @@
     &:hover,
     &:focus {
       a.menu-parent {
-        background-color: $dark-red;
-        color: $white;
+        color: $neon-green;
       }
       .menu-children {
         display: block;
@@ -51,7 +49,7 @@
 
     a {
       display: block;
-      border-bottom: 1px solid $light-teal;
+      border-bottom: 1px solid $neon-green;
       padding: 12px 0;
 
       &:last-child {
@@ -67,17 +65,13 @@
 }
 
 .menu-container {
-  font-family: $oswald-font-stack;
-  font-weight: 400;
+  // font-family: $oswald-font-stack;
+  font-weight: 500;
   display: none;
 
   @include breakpoint($narrow) {
     display: block;
     float: right;
-  }
-
-  &.menu-with-divider {
-    border-right: 1px $background-red solid;
   }
 }
 
@@ -93,6 +87,8 @@
   }
 
   @include breakpoint($narrow) {
-    background-color: $light-red;
+    &:hover {
+      background-color: $neon-green;
+    }
   }
 }

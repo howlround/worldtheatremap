@@ -1,10 +1,6 @@
-$white: #ffffff;
 $off-white: #f6f6f6;
-$light-gray: #c2c2c2;
 $gray: #999999;
-$medium-gray: #363636;
-$dark-gray: #464646;
-$black: #080808;
+// $medium-gray: #363636;
 
 $tan: #f9f7f2;
 $medium-tan: #e8e6e1;
@@ -27,3 +23,28 @@ $color-secondary: #5db9ff; //cerulean blue (menu new list)
 $color-tertiary: #d2edf4; //muted teal (join/signin bg)
 $color-ancillary: #1c3f53; //deep navy (nav heading, menu icon)
 $color-complementary: #778b91; //muted navy (add item placeholder)
+
+// New HowlRound colors
+$white: #ffffff;
+// Used as a background color to highlight important pieces of information
+$yellow: #f0ea36;
+
+// Used as a background color like on forms and lists
+$light-gray: #e9e9e9;
+$medium-gray: #aaa;
+
+// Used as a font color
+$dark-gray: #6d6d6d;
+
+// Primary font color
+$black: #000000;
+
+// ??
+$light-purple: #e1bcff;
+
+// Hover (“Action”) Colors
+// Used as a text link hover color
+$dark-purple: #540094;
+
+// Used as a button link hover color
+$neon-green: #90f0d2;

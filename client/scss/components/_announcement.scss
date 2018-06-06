@@ -2,8 +2,8 @@
   font-size: 12px;
   text-align: center;
   padding: $spacing-unit;
-  color: $dark-gray;
-  background-color: $medium-tan;
+  color: $black;
+  background-color: $medium-gray;
   position: relative;
 
   @include breakpoint($narrow) {

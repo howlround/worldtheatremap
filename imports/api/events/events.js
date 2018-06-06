@@ -48,8 +48,8 @@ class EventsCollection extends Mongo.Collection {
     const ourEvent = event.$set;
     if (ourEvent.startDate && ourEvent.endDate) {
       // Set the dates to 8pm
-      const startMoment = moment(ourEvent.startDate, "America/New_York");
-      const endMoment = moment(ourEvent.endDate, "America/New_York");
+      const startMoment = moment.tz(ourEvent.startDate, "America/New_York");
+      const endMoment = moment.tz(ourEvent.endDate, "America/New_York");
       ourEvent.startDate = startMoment.hours(20).toDate();
       ourEvent.endDate = endMoment.hours(20).toDate();
     }

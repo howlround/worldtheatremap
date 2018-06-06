@@ -48,7 +48,7 @@
     "react-addons-pure-render-mixin": "^15.0.0",
     "react-autosuggest": "^3.7.3",
     "react-date-picker": "^5.3.28",
-    "react-datepicker": "https://registry.npmjs.org/react-datepicker/-/react-datepicker-0.29.0.tgz",
+    "react-datepicker": "^0.30.0",
     "react-dom": "https://registry.npmjs.org/react-dom/-/react-dom-15.0.1.tgz",
     "react-dropzone": "https://registry.npmjs.org/react-dropzone/-/react-dropzone-3.6.0.tgz",
     "react-ga": "^2.3.4",

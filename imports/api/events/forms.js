@@ -53,6 +53,7 @@ const dateTemplate = t.form.Form.templates.date.clone({
         selected={selected}
         onChange={onChange}
         isClearable
+        utcOffset={moment.tz("America/New_York").format('Z')}
       />
     );
   },

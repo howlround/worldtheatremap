@@ -4,8 +4,8 @@
   .option-toggle-item {
     display: inline;
     text-transform: uppercase;
-    background-color: $off-white;
-    color: $gray;
+    background-color: $light-gray;
+    color: $medium-gray;
     padding: $spacing-unit $spacing-unit * 3;
     font-weight: 700;
     font-size: 14px;
@@ -13,15 +13,16 @@
     &:hover,
     &:focus {
       background-color: $light-gray;
+      color: $black;
     }
 
     &.active {
-      background-color: $background-teal;
-      color: $black;
+      background-color: $black;
+      color: $white;
 
       &:hover,
       &:focus {
-        background-color: $light-teal;
+        color: $neon-green;
       }
     }
   }

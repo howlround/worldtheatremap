@@ -1,7 +1,7 @@
 .search {
   section {
     background-color: $white;
-    border: solid 1px $dark-tan;
+    border: solid 1px $medium-gray;
 
     @include breakpoint($narrow) {
       padding: $spacing-unit * 3;
@@ -11,7 +11,7 @@
 
 ul.search-type {
   overflow: auto;
-  border-bottom: solid 2px $teal;
+  border-bottom: solid 2px $neon-green;
   padding: $spacing-unit;
   padding-bottom: 0;
 
@@ -29,7 +29,7 @@ ul.search-type {
     font-size: 15px;
     text-transform: uppercase;
     padding: $spacing-unit;
-    background-color: $background-teal;
+    background-color: $background-neon-green;
     color: $black;
     display: block;
 
@@ -43,8 +43,7 @@ ul.search-type {
     }
 
     &.active {
-      background-color: $teal;
-      color: $white;
+      background-color: $neon-green;
 
       &:hover,
       &:focus {

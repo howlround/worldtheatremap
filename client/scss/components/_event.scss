@@ -102,16 +102,17 @@ article.event-teaser {
   }
 
   .event-view-link {
-    background-color: $red;
+    background-color: $black;
     padding: $spacing-unit;
     color: $white;
     float: right;
     margin-top: 15px;
+    font-weight: 500;
 
     &:hover,
     &:focus {
-      background-color: $teal;
-      color: $white;
+      background-color: $neon-green;
+      color: $black;
     }
 
     @include breakpoint($narrow) {

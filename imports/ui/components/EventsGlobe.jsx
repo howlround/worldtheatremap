@@ -3,6 +3,7 @@ import { $ } from 'meteor/jquery';
 import EventTeaserWithShow from '../components/EventTeaserWithShow.jsx';
 import topojson from 'topojson';
 import { _ } from 'meteor/underscore';
+import { each, isEmpty, isNull, get } from 'lodash';
 import { FormattedMessage } from 'react-intl';
 import { geoOrthographic, geoGraticule, geoPath, geoCentroid, geoInterpolate } from 'd3-geo';
 import { select, queue, json, transition } from 'd3';
@@ -63,7 +64,7 @@ export default class EventsGlobe extends React.Component {
       .attr('width', containerWidth)
       .attr('height', conatinerHeight);
 
-    if (_.isNull(canvas.node())) {
+    if (isNull(canvas.node())) {
       return;
     }
 
@@ -110,15 +111,15 @@ export default class EventsGlobe extends React.Component {
             c.clearRect(0, 0, containerWidth, conatinerHeight);
 
             // Globe background
-            c.fillStyle = '#fff8f5';
+            c.fillStyle = '#000000';
             c.beginPath();
             path(globe);
             c.fill();
 
             // Background Continents
             projection.clipAngle(180);
-            c.fillStyle = '#c8ece9';
-            c.strokeStyle = '#c8ece9';
+            c.fillStyle = '#2f2e06';
+            c.strokeStyle = '#2f2e06';
             c.lineWidth = 0.5;
             c.beginPath();
             path(land);
@@ -127,7 +128,7 @@ export default class EventsGlobe extends React.Component {
 
             // Background dots
             // projection.clipAngle(180);
-            // _.each(itemLocations, dot => {
+            // each(itemLocations, dot => {
             //   c.fillStyle = '#b3e6e4';
             //   c.beginPath();
             //   path(dot);
@@ -137,7 +138,7 @@ export default class EventsGlobe extends React.Component {
             // Background Grid
             projection.clipAngle(180);
             // c.strokeStyle = '#deffff';
-            c.strokeStyle = '#68d3c84';
+            c.strokeStyle = '#000000';
             c.lineWidth = 0.25;
             c.beginPath();
             path(grid);
@@ -146,7 +147,7 @@ export default class EventsGlobe extends React.Component {
             // Foreground Grid
             projection.clipAngle(90);
             // c.strokeStyle = '#ffffff';
-            c.strokeStyle = '#68d3c8';
+            c.strokeStyle = '#a7a216';
             c.lineWidth = 0.75;
             c.beginPath();
             path(grid);
@@ -154,13 +155,13 @@ export default class EventsGlobe extends React.Component {
 
             // Continents
             projection.clipAngle(90);
-            c.fillStyle = '#50b2aa';
+            c.fillStyle = '#f0ea36';
             c.beginPath();
             path(land);
             c.fill();
 
             // Foreground borders
-            c.strokeStyle = '#50b2aa';
+            c.strokeStyle = '#f0ea36';
             c.lineWidth = 0.5;
             c.beginPath();
             path(borders);
@@ -168,16 +169,23 @@ export default class EventsGlobe extends React.Component {
 
             // Other dots
             projection.clipAngle(90);
-            _.each(itemLocations, dot => {
+            each(itemLocations, dot => {
               c.fillStyle = '#1c3f53';
               c.beginPath();
               path(dot);
               c.fill();
             });
 
-            // Dot
-            c.fillStyle = '#ef4606';
-            c.strokeStyle = '#ef4606';
+            // Dot stroke
+            c.strokeStyle = '#000000';
+            c.lineWidth = 8;
+            c.beginPath();
+            path(itemLocations[i]);
+            c.stroke();
+
+            // Dot center
+            c.fillStyle = '#90f0d2';
+            c.strokeStyle = '#90f0d2';
             c.lineWidth = 6;
             c.beginPath();
             path(itemLocations[i]);
@@ -185,7 +193,7 @@ export default class EventsGlobe extends React.Component {
             c.stroke();
 
             // Globe outline
-            c.strokeStyle = '#50b2aa';
+            c.strokeStyle = '#f0ea36';
             c.lineWidth = 2;
             c.beginPath();
             path(globe);
@@ -221,20 +229,22 @@ export default class EventsGlobe extends React.Component {
     // D3 defer task
     function reformatItems(rawItems, callback) {
       const itemLocations = [];
-      _.map(rawItems, (item) => {
-        const geoJSON = {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [
-              item.lon,
-              item.lat,
-            ],
-          },
-          properties: item,
-        };
+      each(rawItems, (item) => {
+        if (!isEmpty(item.lon) && !isEmpty(item.lat)) {
+          const geoJSON = {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [
+                item.lon,
+                item.lat,
+              ],
+            },
+            properties: item,
+          };
 
-        itemLocations.push(geoJSON);
+          itemLocations.push(geoJSON);
+        }
       });
 
       callback(null, itemLocations);

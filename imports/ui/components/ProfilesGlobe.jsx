@@ -123,15 +123,15 @@ class ProfilesGlobe extends React.Component {
             c.clearRect(0, 0, containerWidth, conatinerHeight);
 
             // Globe background
-            c.fillStyle = '#fff8f5';
+            c.fillStyle = '#000000';
             c.beginPath();
             path(globe);
             c.fill();
 
             // Background Continents
             projection.clipAngle(180);
-            c.fillStyle = '#d9e5e8';
-            c.strokeStyle = '#d9e5e8';
+            c.fillStyle = '#2f2e06';
+            c.strokeStyle = '#2f2e06';
             c.lineWidth = 0.5;
             c.beginPath();
             path(land);
@@ -150,7 +150,7 @@ class ProfilesGlobe extends React.Component {
             // Background Grid
             projection.clipAngle(180);
             // c.strokeStyle = '#deffff';
-            c.strokeStyle = '#68d3c84';
+            c.strokeStyle = '#000000';
             c.lineWidth = 0.25;
             c.beginPath();
             path(grid);
@@ -159,7 +159,7 @@ class ProfilesGlobe extends React.Component {
             // Foreground Grid
             projection.clipAngle(90);
             // c.strokeStyle = '#ffffff';
-            c.strokeStyle = '#68d3c8';
+            c.strokeStyle = '#a7a216';
             c.lineWidth = 0.75;
             c.beginPath();
             path(grid);
@@ -167,13 +167,13 @@ class ProfilesGlobe extends React.Component {
 
             // Continents
             projection.clipAngle(90);
-            c.fillStyle = '#95c9d6';
+            c.fillStyle = '#f0ea36';
             c.beginPath();
             path(land);
             c.fill();
 
             // Foreground borders
-            c.strokeStyle = '#95c9d6';
+            c.strokeStyle = '#f0ea36';
             c.lineWidth = 0.5;
             c.beginPath();
             path(borders);
@@ -189,8 +189,8 @@ class ProfilesGlobe extends React.Component {
             });
 
             // Dot
-            c.fillStyle = '#ef4606';
-            c.strokeStyle = '#ef4606';
+            c.fillStyle = '#000000';
+            c.strokeStyle = '#000000';
             c.lineWidth = 6;
             c.beginPath();
             path(itemLocations[i]);
@@ -198,7 +198,7 @@ class ProfilesGlobe extends React.Component {
             c.stroke();
 
             // Globe outline
-            c.strokeStyle = '#95c9d6';
+            c.strokeStyle = '#f0ea36';
             c.lineWidth = 2;
             c.beginPath();
             path(globe);

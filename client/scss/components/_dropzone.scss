@@ -9,7 +9,7 @@
   }
 
   &.empty-image {
-    border: 1px dashed $red;
+    border: 1px dashed $dark-purple;
 
     &:hover,
     &.dropzone-target-active {
@@ -50,5 +50,5 @@
 .dropzone-help-text {
   margin: $spacing-unit * 2;
   text-align: center;
-  color: $red;
+  color: $dark-purple;
 }

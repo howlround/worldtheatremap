@@ -169,7 +169,7 @@ label {
 button[type="submit"],
 .button {
   width: 100%;
-  background-color: $red;
+  background-color: $black;
   color: $white;
   text-transform: uppercase;
   padding: $spacing-unit;
@@ -178,7 +178,7 @@ button[type="submit"],
 
   &:hover,
   &:focus {
-    background-color: $teal;
+    color: $neon-green;
   }
 }
 

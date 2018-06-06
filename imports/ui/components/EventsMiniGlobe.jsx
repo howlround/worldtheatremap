@@ -97,15 +97,15 @@ export default class EventsMiniGlobe extends React.Component {
             c.clearRect(0, 0, containerWidth, conatinerHeight);
 
             // Globe background
-            c.fillStyle = "#fff8f5";
+            c.fillStyle = "#000000";
             c.beginPath();
             path(globe);
             c.fill();
 
             // Background Continents
             projection.clipAngle(180);
-            c.fillStyle = "#c8ece9";
-            c.strokeStyle = "#c8ece9";
+            c.fillStyle = "#2f2e06";
+            c.strokeStyle = "#2f2e06";
             c.lineWidth = .5;
             c.beginPath();
             path(land);
@@ -115,7 +115,7 @@ export default class EventsMiniGlobe extends React.Component {
             // Background Grid
             projection.clipAngle(180);
             // c.strokeStyle = "#deffff";
-            c.strokeStyle = "#68d3c84";
+            c.strokeStyle = "#000000";
             c.lineWidth = .25;
             c.beginPath();
             path(grid);
@@ -124,7 +124,7 @@ export default class EventsMiniGlobe extends React.Component {
             // Foreground Grid
             projection.clipAngle(90);
             // c.strokeStyle = "#ffffff";
-            c.strokeStyle = "#68d3c8";
+            c.strokeStyle = "#f0ea36";
             c.lineWidth = 0.75;
             c.beginPath();
             path(grid);
@@ -132,13 +132,13 @@ export default class EventsMiniGlobe extends React.Component {
 
             // Continents
             projection.clipAngle(90);
-            c.fillStyle = "#50b2aa";
+            c.fillStyle = "#f0ea36";
             c.beginPath();
             path(land);
             c.fill();
 
             // Foreground borders
-            c.strokeStyle = "#50b2aa";
+            c.strokeStyle = "#f0ea36";
             c.lineWidth = .5;
             c.beginPath();
             path(borders);
@@ -146,19 +146,22 @@ export default class EventsMiniGlobe extends React.Component {
 
             // Other dots
             projection.clipAngle(90);
-            c.fillStyle = "#ef4606";
+            c.fillStyle = "#1c3f53";
             c.beginPath();
             path(eventLocations);
             c.fill();
 
             // Dot
-            c.fillStyle = "#ef4606";
+            c.fillStyle = "#90f0d2";
+            c.strokeStyle = "#000000";
+            c.lineWidth = .5;
             c.beginPath();
             path(eventLocations[i]);
             c.fill();
+            c.stroke();
 
             // Globe outline
-            c.strokeStyle = "#20A09";
+            c.strokeStyle = "#f0ea36";
             c.lineWidth = 2;
             c.beginPath();
             path(globe);

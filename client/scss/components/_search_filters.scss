@@ -31,12 +31,11 @@
   input[type="text"].show-search-text {
     border-bottom: $black solid 2px;
     font-weight: bold;
-    color: $teal;
 
     &::placeholder,
     &::-webkit-input-placeholder {
       font-weight: bold;
-      color: $light-teal;
+      color: $medium-gray;
     }
   }
 }

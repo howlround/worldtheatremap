@@ -5,15 +5,10 @@
   overflow: hidden;
 
   a {
-    background-color: $neon-green;
+    background-color: $black;
     color: $white;
     display: block;
     padding: $spacing-unit;
-
-    &:focus,
-    &:hover {
-      background-color: $dark-red;
-    }
   }
 
   @include breakpoint($narrow) {

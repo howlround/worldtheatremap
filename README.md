@@ -13,7 +13,7 @@ meteor
 
 - Dependencies: Git, Meteor
 - Fork and clone project
-- `meteor npm install` and `meteor` to start the app
+- `meteor npm install` and `meteor --settings settings-dev.json` to start the app
 
 ### 1. Install Git
 

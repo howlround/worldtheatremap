@@ -5,6 +5,7 @@ import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { _ } from 'meteor/underscore';
 import t from 'tcomb-validation';
 import { check } from 'meteor/check';
+import url from 'url';
 
 // API
 import { Profiles, profileSchema } from '../profiles/profiles.js';
@@ -29,16 +30,18 @@ export const howlroundSearchPosts = new ValidatedMethod({
     if (Meteor.isServer) {
       var result = HTTP.call(
         'GET',
-        'http://howlround.com/search',
+        Meteor.settings.public.HowlroundPostsURL,
         {
+          auth: Meteor.settings.HowlroundAuth,
           params: {
-            search_api_views_fulltext: searchText,
+            search_api_fulltext: searchText,
           }
         },
         (error, result) => {
           if (error) {
             console.log(error);
           } else if (result.statusCode === 200) {
+
             const posts = [];
 
             let $ = cheerio.load(result.content, {
@@ -50,20 +53,36 @@ export const howlroundSearchPosts = new ValidatedMethod({
             // Check if the search box on howlround contains the terms.
             // That's the only clue I could find, the drupal message
             // isn't in the markup for some reason
-            if ($('#edit-search-api-views-fulltext').val() === searchText) {
-              $('.views-field-title a').each((i, el) => {
+            if ($('#edit-search-api-fulltext').val() === searchText) {
+              $('.post-header a').each((i, el) => {
                 const relativeUrl = $(el).attr('href');
-                $(el).attr('href', `http://howlround.com${relativeUrl}`);
+                const newUrl = url.parse(Meteor.settings.public.HowlroundURL);
+                newUrl.pathname = relativeUrl;
+                console.log(url.format(newUrl));
+                $(el).attr('href', url.format(newUrl));
                 $(el).attr('target', '_blank');
               });
+
+              $('.post-header img').each((i, el) => {
+                const relativeSrc = $(el).attr('src');
+                const newSrc = url.parse(Meteor.settings.public.HowlroundURL);
+                newSrc.pathname = relativeSrc;
+                $(el).attr('src', url.format(newSrc));
+              });
+
               $('.views-row').slice(0, 3).each((i, el) => {
                 posts.push($(el).html());
               });
 
+              const postsUrl = url.parse(Meteor.settings.public.HowlroundPostsURL);
+              postsUrl.query = {
+                search_api_fulltext: searchText,
+              };
+
               Profiles.update(_id, {
                 $set: {
                   savedHowlroundPosts: posts,
-                  howlroundPostsUrl: `http://howlround.com/search?search_api_views_fulltext=${searchText}`,
+                  howlroundPostsUrl: url.format(postsUrl),
                 },
               });
             }
@@ -89,8 +108,10 @@ export const howlroundGetPosts = new ValidatedMethod({
     if (Meteor.isServer) {
       var result = HTTP.call(
         'GET',
-        'http://howlround.com/posts/json',
-        {},
+        Meteor.settings.public.HomepagePostsURL,
+        {
+          auth: Meteor.settings.HowlroundAuth,
+        },
         (error, result) => {
           if (error) {
             console.log(error);

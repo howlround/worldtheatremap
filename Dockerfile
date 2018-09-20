@@ -20,7 +20,7 @@ RUN set -ex \
 ENV NPM_CONFIG_LOGLEVEL info
 # Out current version of grutn requires node 7. Try updated grunt to use a newer version of node
 # Or seperate this grunt into it's own container and remove from main project
-ENV NODE_VERSION 7.10.1
+ENV NODE_VERSION 8.12.0
 ENV NODE_ENV dev
 
 RUN buildDeps='xz-utils curl ca-certificates' \
@@ -35,16 +35,16 @@ RUN buildDeps='xz-utils curl ca-certificates' \
     && rm "node-v$NODE_VERSION-linux-x64.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt \
     && apt-get purge -y --auto-remove $buildDeps
 
+# Install Git
+RUN apt-get update && apt-get -y install git
+
 # Install yarn and feathers-cli
 # RUN npm install -g yarn feathers-cli
 
 # Install grunt
 RUN npm install -g grunt-cli
+RUN npm install grunt grunt-contrib-watch grunt-sass@2.1.0 grunt-sass-globbing --no-save
 
-# Install Git
-RUN add-apt-repository -y ppa:git-core/ppa;\
-  apt-get update;\
-  apt-get -y install git
 
 # Install Zsh
 # RUN apt-get update && apt-get install zsh -y

@@ -48,7 +48,7 @@ Feature: Add new profile from the participant add form
     And I click on ".autocomplete-results li"
     And I fill in ".participant-role-edit" with "Director"
     And I click on ".edit-participant-save"
-    When I click on ".language-switcher [name=es]"
+    When I set the language to "Español"
     And I go to the profile page for "Unknown participant"
     And I follow ".edit-link"
     And I fill in ".profile-name-edit" with "Participante desconocido"

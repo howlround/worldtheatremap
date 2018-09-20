@@ -3,7 +3,7 @@ import { TAPi18n } from 'meteor/tap:i18n';
 import { Shows } from '../shows.js';
 import { _ } from 'meteor/underscore';
 import escapeRegExp from 'lodash.escaperegexp';
-import { remove as removeDiacritics } from 'diacritics';
+import formatForSearch from '../../../helpers/formatForSearch.js';
 
 TAPi18n.publish('shows.public', function showsPublic() {
   return Shows.i18nFind({}, {
@@ -19,7 +19,7 @@ TAPi18n.publish('shows.autocomplete', function showsAutocomplete() {
 
 TAPi18n.publish('shows.autocompleteQuery', function showsAutocompleteQuery(search) {
   const query = {
-    nameSearch: new RegExp(`.*${escapeRegExp(removeDiacritics(search)).toUpperCase()}.*`)
+    nameSearch: new RegExp(`.*${formatForSearch(search)}.*`)
   }
 
   return Shows.i18nFind(query, {
@@ -80,7 +80,7 @@ TAPi18n.publish('shows.search', function showsSearch(plainTextQuery, skip) {
   const processedQuery = _.clone(plainTextQuery);
 
   if (plainTextQuery.name) {
-    processedQuery.nameSearch = new RegExp(`.*${escapeRegExp(removeDiacritics(plainTextQuery.name)).toUpperCase()}.*`);
+    processedQuery.nameSearch = new RegExp(`.*${formatForSearch(plainTextQuery.name)}.*`);
     delete processedQuery.name;
   }
 

@@ -1,6 +1,6 @@
 // Utilities
 import { Meteor } from 'meteor/meteor';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { _ } from 'meteor/underscore';
 import { createContainer } from 'meteor/react-meteor-data';
 import { get, each } from 'lodash';
@@ -17,8 +17,8 @@ import HomePage from '../components/HomePage.jsx';
 
 const HomePageContainer = createContainer(() => {
   // Load what's on today data
-  const startDate = moment().startOf('day').toDate();
-  const endDate = moment().add(15, 'days').endOf('day').toDate();
+  const startDate = moment().tz("America/New_York").startOf('day').toDate();
+  const endDate = moment().tz("America/New_York").add(15, 'days').endOf('day').toDate();
   const eventsWithLocationsSub = Meteor.subscribe('events.dateRangeWithLocations', startDate, endDate); // eslint-disable-line max-len
   const eventsWithLocationsCursor = Events.find(
     {

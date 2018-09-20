@@ -26,6 +26,7 @@ AWS.config.region = Meteor.settings.AWSRegion;
 // API
 import { Shows } from '../shows.js';
 import Show from '../../../ui/components/Show.jsx';
+import { Participants } from '../../participants/participants.js';
 import { markUsed } from '../../languages/methods.js';
 
 // Helper function to compare previous and current versions
@@ -123,6 +124,18 @@ Shows.after.insert((userId, doc) => {
 
 // Update
 Shows.after.update(function (userId, doc) {
+  Participants.update({
+    'event.show._id': doc._id,
+  }, {
+    $set: {
+      'event.show.author': doc.author,
+      "name" : doc.name,
+      "nameSearch" : doc.nameSearch,
+    }
+  }, {
+    multi: true,
+  });
+
   // Update Language collection
   if (!isEmpty(doc.languages)) {
     each(doc.languages, language => {

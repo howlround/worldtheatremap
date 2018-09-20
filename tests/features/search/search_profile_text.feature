@@ -34,7 +34,7 @@ Feature: Search box on profile search
 
   @i18n
   Scenario: Users can search for profiles by their translated name
-    And I click on ".language-switcher [name=es]"
+    And I set the language to "Español"
     And I go to the profile page for "Fatima"
     And I follow ".edit-link"
     And I fill in ".profile-name-edit" with "Ximena"
@@ -46,7 +46,7 @@ Feature: Search box on profile search
 
   @i18n
   Scenario: If a profile does not have a translation then it should be searchable by it's original name when viewing in another language
-    And I click on ".language-switcher [name=es]"
+    And I set the language to "Español"
     And I go to the "profiles" search page
     When I fill in ".profile-search-text" with "fatima"
     Then the ".search-results" element should contain "Fatima"
@@ -56,7 +56,7 @@ Feature: Search box on profile search
     And I fill in ".profile-name-edit" with "Åüdyçø"
     And I click on ".edit-profile-save"
     And I go to the "profiles" search page
-    When I fill in ".profile-search-text" with "Audyco"
+    When I fill in ".profile-search-text" with "Åüdyçø"
     Then the ".search-results" element should contain "Åüdyçø"
 
   Scenario: If a profile has diacritics it can be found searching with romanized characters
@@ -64,5 +64,22 @@ Feature: Search box on profile search
     And I fill in ".profile-name-edit" with "Åüdyçø"
     And I click on ".edit-profile-save"
     And I go to the "profiles" search page
-    When I fill in ".profile-search-text" with "Åüdyçø"
+    When I fill in ".profile-search-text" with "Audyco"
     Then the ".search-results" element should contain "Åüdyçø"
+
+  Scenario: If a profile has an apostrophe it can be found searching without the apostrophe
+    When I go to the "profile" add page
+    And I fill in ".profile-name-edit" with "No, I'm Aadya"
+    And I click on ".edit-profile-save"
+    And I go to the "profiles" search page
+    When I fill in ".profile-search-text" with "Im Aa"
+    Then the ".search-results" element should contain "No, I'm Aadya"
+
+  Scenario: After editing a show name the name search should correctly update
+    When I go to the profile page for "Aadya"
+    And I follow ".edit-link"
+    And I fill in ".profile-name-edit" with "Madya"
+    And I press ".edit-profile-save"
+    And I go to the "profiles" search page
+    When I fill in ".profile-search-text" with "Mad"
+    Then the ".search-results" element should contain "Madya"

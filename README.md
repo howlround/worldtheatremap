@@ -13,7 +13,7 @@ meteor
 
 - Dependencies: Git, Meteor
 - Fork and clone project
-- `meteor npm install` and `meteor` to start the app
+- `meteor npm install` and `meteor --settings settings-dev.json` to start the app
 
 ### 1. Install Git
 
@@ -83,6 +83,9 @@ If you are editing scss files you will need to use Grunt to compile into css.
 - Grunt should already be installed when you ran `meteor npm install` above. You can run `which grunt` to verify it is installed.
 - In a new terminal window, make sure you are in the project root directory and run the command `grunt`.
 - Changes to the scss files will now be automatically compiled and the site should immediately update with the new styles.
+
+There is also a docker container that can be used to run grunt. I know it's overkill since it's not needed for meteor development but simplifies node differences and platform differences.
+- `docker exec worldtheatremap_meteor_1 grunt`
 
 ### 8. Profile image uploading
 

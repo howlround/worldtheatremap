@@ -1,10 +1,11 @@
 import escapeRegExp from 'lodash.escaperegexp';
 import gql from 'graphql-tag';
 import hash from 'string-hash';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import qs from 'qs';
 import React from 'react';
 import sanitizeHtml from 'sanitize-html'
+import formatForSearch from '../../helpers/formatForSearch.js';
 import {
   clone,
   compact,
@@ -18,7 +19,6 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { IntlProvider, injectIntl } from 'react-intl';
 import { Meteor } from 'meteor/meteor';
 // import { ReactiveVar } from 'meteor/reactive-var';
-import { remove as removeDiacritics } from 'diacritics';
 import { renderToStaticMarkup as markup } from 'react-dom/server';
 import { TAPi18n } from 'meteor/tap:i18n';
 
@@ -106,7 +106,7 @@ const SearchShowsResultsContainer = createContainer((props) => {
     const plainTextQuery = clone(privateShowQuery);
 
     if (query.name) {
-      const nameRegex = escapeRegExp(removeDiacritics(query.name)).toUpperCase();
+      const nameRegex = formatForSearch(query.name);
       privateShowQuery.nameSearch = new RegExp(`.*${nameRegex}.*`);
       plainTextQuery.name = query.name;
     }
@@ -160,13 +160,13 @@ const SearchShowsResultsContainer = createContainer((props) => {
 
     if (query.startDate) {
       privateEventQuery.endDate = {
-        $gte: moment(query.startDate).startOf('day').toDate(),
+        $gte: moment(query.startDate, "America/New_York").startOf('day').toDate(),
       };
     }
 
     if (query.endDate) {
       privateEventQuery.startDate = {
-        $lte: moment(query.endDate).endOf('day').toDate(),
+        $lte: moment(query.endDate, "America/New_York").endOf('day').toDate(),
       };
     }
 

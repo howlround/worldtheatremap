@@ -84,26 +84,20 @@ Feature: List shows on the playwright profile
     Then the "article.show-teaser" element should contain "A Play About Maryam"
 
   Scenario: When viewing a profile of an author if the show displayed has multiple authors all authors should be properly displayed
-    And a profile with the following fields:
-      | name | My Favorite Playwright |
-    And a profile with the following fields:
-      | name | The second best playwright |
-    And a profile with the following fields:
-      | name | The worst playwright |
     And I am logged in
     When I go to the "show" add page
     And I fill in ".show-name-edit" with "Sofía"
     And I fill in ".show-author-name-edit" with "My Favorite"
-    And I click on "ul.autocomplete-results li"
+    And I click on "ul.autocomplete-results li.create-profile"
     And I click on ".btn-add"
     And I fill in ".form-group-author-1 .show-author-name-edit" with "The second"
-    And I click on "ul.autocomplete-results li"
+    And I click on "ul.autocomplete-results li.create-profile"
     And I click on ".btn-add"
     And I fill in ".form-group-author-2 .show-author-name-edit" with "The worst"
-    And I click on "ul.autocomplete-results li"
+    And I click on "ul.autocomplete-results li.create-profile"
     And I click on ".edit-show-save"
     And I click on ".show-author"
-    Then the ".show-authorship" element should contain "My Favorite Playwright, The second best playwright and The worst playwright"
+    Then the ".show-authorship" element should contain "My Favorite, The second and The worst"
 
   Scenario: When viewing a profile shows should be displayed in chronological order of the latest event
     And a profile with the following fields:

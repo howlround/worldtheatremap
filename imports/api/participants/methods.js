@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
-import { _ } from 'meteor/underscore';
+import { includes, map, isNil } from 'lodash';
 import t from 'tcomb-validation';
 
 import { Participants, participantSchema } from './participants.js';
@@ -25,6 +25,11 @@ export const insert = new ValidatedMethod({
     if (!this.userId) {
       throw new Meteor.Error('participants.insert.accessDenied',
         'You must be logged in to complete this operation.');
+    }
+
+    // Normalize all role names to prevent duplicates appearing on profiles
+    if (!isNil(newParticipant.role)) {
+      newParticipant.role = newParticipant.role.toUpperCase();
     }
 
     return Participants.insert(newParticipant);
@@ -66,7 +71,7 @@ export const remove = new ValidatedMethod({
 });
 
 // Get list of all method names on Participant
-const PARTICIPANTS_METHODS = _.pluck([
+const PARTICIPANTS_METHODS = map([
   insert,
   update,
   remove,
@@ -76,7 +81,7 @@ if (Meteor.isServer) {
   // Only allow 5 participant operations per connection per second
   DDPRateLimiter.addRule({
     name(name) {
-      return _.contains(PARTICIPANTS_METHODS, name);
+      return includes(PARTICIPANTS_METHODS, name);
     },
 
     // Rate limit per connection ID

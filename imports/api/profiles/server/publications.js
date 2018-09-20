@@ -3,7 +3,7 @@ import { TAPi18n } from 'meteor/tap:i18n';
 import { Profiles } from '../profiles.js';
 import { _ } from 'meteor/underscore';
 import escapeRegExp from 'lodash.escaperegexp';
-import { remove as removeDiacritics } from 'diacritics';
+import formatForSearch from '../../../helpers/formatForSearch.js';
 
 TAPi18n.publish('profiles.public', function profilesPublic() {
   return Profiles.i18nFind({}, {
@@ -21,7 +21,7 @@ TAPi18n.publish('profiles.autocompleteQuery', function profilesAutocompleteQuery
   const processedQuery = {};
 
   if (search) {
-    const nameRegEx = escapeRegExp(removeDiacritics(search)).toUpperCase();
+    const nameRegEx = formatForSearch(search);
 
     // Only use english for now. Locale isn't available from the container.
     // if (!_.isEmpty(locale) && locale !== 'en') {
@@ -52,7 +52,7 @@ TAPi18n.publish('profiles.search', function profilesSearch(plainTextQuery, skip,
   const processedQuery = _.clone(plainTextQuery);
 
   if (plainTextQuery.name) {
-    const nameRegEx = escapeRegExp(removeDiacritics(plainTextQuery.name)).toUpperCase();
+    const nameRegEx = formatForSearch(plainTextQuery.name);
 
     if (!_.isEmpty(locale) && locale !== 'en') {
       const i18nKey = `i18n.${locale}.nameSearch`;

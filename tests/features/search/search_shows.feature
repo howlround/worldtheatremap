@@ -75,3 +75,12 @@ Feature: Filters on shows search
     And I go to the "shows" search page
     When I fill in ".show-search-text" with "Sozia"
     Then the ".search-results" element should contain "Söžía"
+
+  Scenario: After editing a show name the new name should be searchable
+    And I go to the show page for "Sofia"
+    And I click on ".edit-link"
+    And I fill in ".show-name-edit" with "Mofia"
+    And I click on ".edit-show-save"
+    And I go to the "shows" search page
+    When I fill in ".show-search-text" with "Mof"
+    Then the ".search-results" element should contain "Mofia"

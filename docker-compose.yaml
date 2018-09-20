@@ -1,0 +1,8 @@
+version: "3"
+services:
+  meteor:
+    build: .
+    volumes:
+      - .:/usr/src/app
+    stdin_open: true
+    tty: true

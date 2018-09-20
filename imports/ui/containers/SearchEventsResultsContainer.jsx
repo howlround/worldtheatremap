@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { TAPi18n } from 'meteor/tap:i18n';
 import { createContainer } from 'meteor/react-meteor-data';
 import { _ } from 'meteor/underscore';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import { Events } from '../../api/events/events.js';
 
@@ -43,13 +43,13 @@ const SearchEventsResultsContainer = createContainer((props) => {
 
     if (query.startDate) {
       privateQuery.endDate = {
-        $gte: moment(query.startDate).startOf('day').toDate(),
+        $gte: moment.tz(query.startDate, "America/New_York").startOf('day').toDate(),
       };
     }
 
     if (query.endDate) {
       privateQuery.startDate = {
-        $lte: moment(query.endDate).endOf('day').toDate(),
+        $lte: moment.tz(query.endDate, "America/New_York").endOf('day').toDate(),
       };
     }
 

@@ -2,13 +2,13 @@
 import { Meteor } from 'meteor/meteor';
 
 // Utilities
+import formatForSearch from '../../helpers/formatForSearch.js';
 import t from 'tcomb-validation';
 import { _ } from 'meteor/underscore';
-import { clone, each, isEmpty } from 'lodash';
 import { check, Match } from 'meteor/check';
+import { clone, each, isEmpty } from 'lodash';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
 import { HTTP } from 'meteor/http';
-import { remove as removeDiacritics } from 'diacritics';
 import { Roles } from 'meteor/alanning:roles';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { TAPi18n } from 'meteor/tap:i18n';
@@ -72,7 +72,7 @@ export const insert = new ValidatedMethod({
         // English is handled on the base doc
         if (locale !== 'en') {
           translations[locale] = {
-            nameSearch: removeDiacritics(baseDoc.name).toUpperCase(),
+            nameSearch: formatForSearch(baseDoc.name),
           };
         }
       });
@@ -80,7 +80,7 @@ export const insert = new ValidatedMethod({
       // The about text for the source language should be saved to the i18n fields directly
       translations[source] = {
         name: baseDoc.name,
-        nameSearch: removeDiacritics(baseDoc.name).toUpperCase(),
+        nameSearch: formatForSearch(baseDoc.name),
         about: baseDoc.about,
       };
     } else {
@@ -88,7 +88,7 @@ export const insert = new ValidatedMethod({
       // fields for the other languages
       each(otherLanguages, (name, locale) => {
         translations[locale] = {
-          nameSearch: removeDiacritics(baseDoc.name).toUpperCase(),
+          nameSearch: formatForSearch(baseDoc.name),
         };
       });
     }
@@ -111,7 +111,7 @@ export const insert = new ValidatedMethod({
       baseDoc.instagram = newProfile.instagram.replace(stripHttpExp, '').replace('@', '');
     }
     if (!isEmpty(newProfile.name)) {
-      baseDoc.nameSearch = removeDiacritics(newProfile.name).toUpperCase();
+      baseDoc.nameSearch = formatForSearch(newProfile.name);
     }
 
     const insertedProfileID = Profiles.insertTranslations(baseDoc, translations);
@@ -241,7 +241,7 @@ export const update = new ValidatedMethod({
       // Save name, nameSearch, and about in this language
       translations[source] = {
         name: baseDoc.name,
-        nameSearch: removeDiacritics(baseDoc.name).toUpperCase(),
+        nameSearch: formatForSearch(baseDoc.name),
         about: baseDoc.about,
       };
 
@@ -270,7 +270,7 @@ export const update = new ValidatedMethod({
       baseDoc.instagram = baseDoc.instagram.replace(stripHttpExp, '').replace('@', '');
     }
     if (!isEmpty(baseDoc.name)) {
-      baseDoc.nameSearch = removeDiacritics(baseDoc.name).toUpperCase();
+      baseDoc.nameSearch = formatForSearch(baseDoc.name);
     }
 
     translations.en = baseDoc;

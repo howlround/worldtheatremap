@@ -21,6 +21,6 @@ Meteor.publish('relatedRecords.byProfile', function relatedRecordsbyProfile(id) 
   check(id, String);
   return RelatedRecords.find({ profiles: id }, {
     fields: RelatedRecords.publicFields,
-    limit: 25,
+    limit: 100,
   });
 });

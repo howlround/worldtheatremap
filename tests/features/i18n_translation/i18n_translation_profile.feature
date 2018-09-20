@@ -15,7 +15,7 @@ Feature: Translate profile fields
     And I select "Individual" from the ".profile-type-edit" combobox
     And I fill in ".profile-about-edit" with "Most popular name in Mexico (2013)"
     And I click on ".edit-profile-save"
-    When I click on ".language-switcher [name=es]"
+    When I set the language to "Español"
     And I follow ".edit-link"
     And I fill in ".profile-name-edit" with "Ximena"
     And I fill in ".profile-about-edit" with "La mayoría nombre popular en México (2013)"
@@ -23,18 +23,18 @@ Feature: Translate profile fields
     Then the ".profile-name" element should contain "Ximena"
     And the ".profile-about" element should contain "La mayoría nombre popular en México (2013)"
     # Make sure it's not just overwriting base language
-    And I click on ".language-switcher [name=en]"
+    And I set the language to "English"
     And the ".profile-name" element should contain "Simona"
     And the ".profile-about" element should contain "Most popular name in Mexico (2013)"
 
   Scenario: Creating a profile in Spanish should automatically translate the about field into English
     And I am logged in
-    And I click on ".language-switcher [name=es]"
+    And I set the language to "Español"
     And I go to the "profile" add page
     And I fill in ".profile-name-edit" with "Ximena"
     And I fill in ".profile-about-edit" with "El nombre más popular en México"
     And I click on ".edit-profile-save"
-    And I click on ".language-switcher [name=en]"
+    And I set the language to "English"
     And the ".profile-about" element should contain "The most popular name in Mexico"
 
   Scenario: If the profile about field is blank it should not be translated
@@ -42,7 +42,7 @@ Feature: Translate profile fields
     And I go to the "profile" add page
     And I fill in ".profile-name-edit" with "Simona"
     And I click on ".edit-profile-save"
-    When I click on ".language-switcher [name=es]"
+    When I set the language to "Español"
     Then I should not see ".profile-about"
 
   Scenario: When creating a new profile the about field should be automatically translated
@@ -52,7 +52,7 @@ Feature: Translate profile fields
     And I select "Individual" from the ".profile-type-edit" combobox
     And I fill in ".profile-about-edit" with "The most popular name in Mexico"
     And I click on ".edit-profile-save"
-    And I click on ".language-switcher [name=es]"
+    And I set the language to "Español"
     And the ".profile-about" element should contain "El nombre más popular en México"
 
   Scenario: Profiles should record the source language
@@ -62,7 +62,7 @@ Feature: Translate profile fields
     And I select "Individual" from the ".profile-type-edit" combobox
     And I fill in ".profile-about-edit" with "The most popular name in Mexico"
     And I click on ".edit-profile-save"
-    And I click on ".language-switcher [name=es]"
+    And I set the language to "Español"
     Then I should see the ".machine-translation-warning" element
 
   Scenario: When saving a profile in English the country should be saved correctly
@@ -71,15 +71,15 @@ Feature: Translate profile fields
     And I fill in ".profile-name-edit" with "Simona"
     And I select "Mexico" from the ".country-select-edit" combobox
     And I click on ".edit-profile-save"
-    When I click on ".language-switcher [name=es]"
+    When I set the language to "Español"
     Then the ".profile-country" element should contain "México"
 
   Scenario: When saving a profile in Spanish the country should be saved correctly
     And I am logged in
-    And I click on ".language-switcher [name=es]"
+    And I set the language to "Español"
     And I go to the "profile" add page
     And I fill in ".profile-name-edit" with "Simona"
     And I select "México" from the ".country-select-edit" combobox
     And I click on ".edit-profile-save"
-    When I click on ".language-switcher [name=en]"
+    When I set the language to "English"
     Then the ".profile-country" element should contain "Mexico"

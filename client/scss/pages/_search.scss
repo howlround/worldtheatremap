@@ -11,7 +11,7 @@
 
 ul.search-type {
   overflow: auto;
-  border-bottom: solid 2px $teal;
+  border-bottom: solid 2px $neon-green;
   padding: $spacing-unit;
   padding-bottom: 0;
 
@@ -43,7 +43,7 @@ ul.search-type {
     }
 
     &.active {
-      background-color: $teal;
+      background-color: $neon-green;
       color: $white;
 
       &:hover,

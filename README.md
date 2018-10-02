@@ -85,7 +85,7 @@ If you are editing scss files you will need to use Grunt to compile into css.
 - Changes to the scss files will now be automatically compiled and the site should immediately update with the new styles.
 
 There is also a docker container that can be used to run grunt. I know it's overkill since it's not needed for meteor development but simplifies node differences and platform differences.
-- `docker exec worldtheatremap_meteor_1 grunt`
+- `docker exec -it worldtheatremap_grunt_1 grunt`
 
 ### 8. Profile image uploading
 

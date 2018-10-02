@@ -140,17 +140,17 @@ section.footer {
 }
 
 a.howlround-footer-logo {
-  width: 114px;
-  height: 17px;
-  background-image: url('/Howlround_Logo_Tag.png');
-  margin-bottom: $spacing-unit;
+  width: 160px;
+  height: 34px;
+  background-image: url('/HowlRound-logo-text.svg');
+  margin-bottom: $spacing-unit * 3;
   margin: auto;
   pointer: cursor;
 
   @include image-replace-link;
 
   @include breakpoint($narrow) {
-    margin: 0 0 $spacing-unit 0;
+    margin: 0 0 $spacing-unit 5px;
   }
 }
 

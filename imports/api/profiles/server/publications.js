@@ -48,7 +48,7 @@ TAPi18n.publish('profiles.autocompleteQuery', function profilesAutocompleteQuery
   });
 });
 
-TAPi18n.publish('profiles.search', function profilesSearch(plainTextQuery, skip, locale) {
+TAPi18n.publish('profiles.search', function profilesSearch(plainTextQuery, skip, limit, locale) {
   const processedQuery = _.clone(plainTextQuery);
 
   if (plainTextQuery.name) {
@@ -67,9 +67,6 @@ TAPi18n.publish('profiles.search', function profilesSearch(plainTextQuery, skip,
   if (plainTextQuery.postalCode) {
     processedQuery.postalCode = new RegExp(`.*${escapeRegExp(plainTextQuery.postalCode)}.*`, 'i');
   }
-
-  // const limit = 20;
-  const limit = 1000;
 
   return Profiles.i18nFind(processedQuery, {
     fields: Profiles.publicFields,

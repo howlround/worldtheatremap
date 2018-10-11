@@ -40,10 +40,11 @@ export default class SearchResultsPager extends React.Component {
 
   render() {
     const { count, skip } = this.props;
+    // There is no pager for the map so set the limit to match the list
     const limit = 20;
 
     const prev = (skip >= limit) ? <span className="prev" onClick={this.prev}>&larr; Previous</span> : '';
-    const next = (count === limit) ? <span className="next" onClick={this.next}>Next &rarr;</span> : '';
+    const next = (count >= limit + skip) ? <span className="next" onClick={this.next}>Next &rarr;</span> : '';
 
     const pager = (prev || next) ? <div className="search-results-pager">{prev}{next}</div> : null;
 

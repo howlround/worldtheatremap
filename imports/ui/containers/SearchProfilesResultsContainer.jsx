@@ -25,7 +25,7 @@ import SearchProfilesResults from '../components/SearchProfilesResults.jsx';
 const count = new ReactiveVar(0);
 
 const SearchProfilesResultsContainer = createContainer((props) => {
-  const { query, updateQuery, locale } = props;
+  const { query, updateQuery, updateResultsDisplay, resultsDisplay, locale } = props;
   let loading = false;
   let skip = 0;
   let results = [];
@@ -126,8 +126,10 @@ const SearchProfilesResultsContainer = createContainer((props) => {
       // Also, since there are only 20 results max no need to add the query here.
       // We are altering the query based on locale so better
       // to keep the complex switch in one place
-      const profilesSubscribe = TAPi18n.subscribe('profiles.search', plainTextQuery, skip, locale);
+      const limit = resultsDisplay === 'map' ? 1000 : 20;
+      const profilesSubscribe = TAPi18n.subscribe('profiles.search', plainTextQuery, skip, limit, locale);
       loading = !profilesSubscribe.ready();
+
       results = Profiles.find(
         {},
         // privateQuery,
@@ -135,8 +137,7 @@ const SearchProfilesResultsContainer = createContainer((props) => {
           sort: {
             name: 1,
           },
-          // limit: 20,
-          limit: 1000,
+          limit,
         }).fetch();
     }
 
@@ -217,6 +218,8 @@ const SearchProfilesResultsContainer = createContainer((props) => {
     skip,
     query,
     updateQuery,
+    updateResultsDisplay,
+    resultsDisplay,
     shareImageFilename,
   };
 }, SearchProfilesResults);

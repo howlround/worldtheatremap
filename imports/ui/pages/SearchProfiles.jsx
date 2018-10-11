@@ -47,14 +47,18 @@ class SearchProfiles extends React.Component {
 
       this.state = {
         query: cleanQuery,
+        resultsDisplay: 'list',
       };
     } else {
-      this.state = {};
+      this.state = {
+        resultsDisplay: 'list',
+      };
     }
 
 
     this.onChange = this.onChange.bind(this);
     this.updateQuery = this.updateQuery.bind(this);
+    this.updateResultsDisplay = this.updateResultsDisplay.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -104,9 +108,13 @@ class SearchProfiles extends React.Component {
     });
   }
 
+  updateResultsDisplay(value) {
+    this.setState({ resultsDisplay: value });
+  }
+
   renderProfiles() {
     const { locale } = this.props.intl;
-    const { query } = this.state;
+    const { query, resultsDisplay } = this.state;
 
     const cleanQuery = {};
     _.each(query, (val, key) => {
@@ -119,6 +127,8 @@ class SearchProfiles extends React.Component {
       <SearchProfilesResultsContainer
         query={cleanQuery}
         updateQuery={this.updateQuery}
+        updateResultsDisplay={this.updateResultsDisplay}
+        resultsDisplay={resultsDisplay}
         locale={locale}
       />
     );

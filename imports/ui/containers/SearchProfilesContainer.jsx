@@ -13,15 +13,14 @@ const SearchProfilesContainer = createContainer(() => {
   const administrativeAreasSubscribe = Meteor.subscribe('administrativeAreas.public');
 
   return {
-    loading: !(
-      localitiesSubscribe.ready() &&
-      interestsSubscribe.ready() &&
-      rolesSubscribe.ready() &&
-      orgTypesSubscribe.ready() &&
-      gendersSubscribe.ready() &&
-      countriesSubscribe.ready() &&
-      administrativeAreasSubscribe.ready()
-    ),
+    loading: false,
+    localitiesReady: localitiesSubscribe.ready(),
+    interestsReady: interestsSubscribe.ready(),
+    rolesReady: rolesSubscribe.ready(),
+    orgTypesReady: orgTypesSubscribe.ready(),
+    gendersReady: gendersSubscribe.ready(),
+    countriesReady: countriesSubscribe.ready(),
+    administrativeAreasReady: administrativeAreasSubscribe.ready(),
   };
 }, SearchProfiles);
 

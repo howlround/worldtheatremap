@@ -12,7 +12,7 @@ import { Roles } from 'meteor/alanning:roles';
 // Containers
 import HomePageContainer from '../containers/HomePageContainer.jsx';
 // Containers
-import ContentCountsContainer from '../containers/ContentCountsContainer.jsx';
+// import ContentCountsContainer from '../containers/ContentCountsContainer.jsx';
 
 // Components
 import Footer from '../components/Footer.jsx';
@@ -237,7 +237,7 @@ class App extends React.Component {
           {this.renderMainContent()}
         </section>
         <FooterAddPitch />
-        <ContentCountsContainer />
+        {/*<ContentCountsContainer />*/}
         <Footer />
         <div className="feedback-link">
           <a href="https://worldtheatremap.useresponse.com" target="_blank">

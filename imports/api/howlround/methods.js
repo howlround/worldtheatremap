@@ -58,15 +58,16 @@ export const howlroundSearchPosts = new ValidatedMethod({
                 const relativeUrl = $(el).attr('href');
                 const newUrl = url.parse(Meteor.settings.public.HowlroundURL);
                 newUrl.pathname = relativeUrl;
-                console.log(url.format(newUrl));
                 $(el).attr('href', url.format(newUrl));
                 $(el).attr('target', '_blank');
               });
 
               $('.post-header img').each((i, el) => {
-                const relativeSrc = $(el).attr('src');
+                const relativeSrc = url.parse($(el).attr('src'));
                 const newSrc = url.parse(Meteor.settings.public.HowlroundURL);
-                newSrc.pathname = relativeSrc;
+                newSrc.pathname = relativeSrc.pathname;
+                newSrc.search = relativeSrc.search;
+                newSrc.query = relativeSrc.query;
                 $(el).attr('src', url.format(newSrc));
               });
 

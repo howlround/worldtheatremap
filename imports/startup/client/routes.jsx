@@ -8,7 +8,6 @@ import { stringify, parse } from 'qs'
 
 // route components
 import AboutPage from '../../ui/pages/AboutPage.jsx';
-import AmbassadorPage from '../../ui/pages/AmbassadorPage.jsx';
 import AnnouncementEditContainer from '../../ui/containers/AnnouncementEditContainer.jsx';
 import AppContainer from '../../ui/containers/AppContainer.jsx';
 import AuthJoinContainer from '../../ui/containers/AuthJoinContainer.jsx';
@@ -186,7 +185,6 @@ export const renderRoutes = ({ locale, messages }) => (
         <Route path="reset-password" component={AuthResetPasswordPage} />
         <Route path="reset-password/:token" component={AuthResetPasswordPage} />
         <Route path="about" component={AboutPage} />
-        <Route path="ambassadors" component={AmbassadorPage} />
         <Route path="welcome" component={WelcomePage} />
         <Route path="terms-of-use" component={TermsOfUsePage} />
         <Route path="announcement" component={AnnouncementEditContainer} />

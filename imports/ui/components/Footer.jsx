@@ -73,17 +73,6 @@ class Footer extends React.Component {
               </li>
               <li>
                 <Link
-                  to={`/${locale}/ambassadors`}
-                >
-                  <FormattedMessage
-                    id='navigation.ambassadorsFooter'
-                    description="Ambassadors Page link"
-                    defaultMessage="World Theatre Map Ambassadors"
-                  />
-                </Link>
-              </li>
-              <li>
-                <Link
                   to={`/${locale}/terms-of-use`}
                 >
                   <FormattedMessage

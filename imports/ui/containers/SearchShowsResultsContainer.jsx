@@ -160,13 +160,13 @@ const SearchShowsResultsContainer = createContainer((props) => {
 
     if (query.startDate) {
       privateEventQuery.endDate = {
-        $gte: moment(query.startDate, "America/New_York").startOf('day').toDate(),
+        $gte: moment(query.startDate).tz("America/New_York").startOf('day').toDate(),
       };
     }
 
     if (query.endDate) {
       privateEventQuery.startDate = {
-        $lte: moment(query.endDate, "America/New_York").endOf('day').toDate(),
+        $lte: moment(query.endDate).tz("America/New_York").endOf('day').toDate(),
       };
     }
 

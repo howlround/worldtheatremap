@@ -35,6 +35,15 @@
     color: $light-gray;
   }
 
+  .field--name-field-title-wysiwyg {
+    float: left;
+    text-decoration: underline;
+  }
+
+  .field--name-field-subtitle-wysiwyg {
+
+  }
+
   .views-field-body-summary {
     margin-top: $spacing-unit / 2;
 

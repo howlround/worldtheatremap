@@ -41,30 +41,12 @@ class AboutPage extends React.Component {
         <p>
           Most importantly, right now, you can post comments in the user-forum about new ideas for how an online resource like the World Theatre Map can best serve urgent needs that you have.
         </p>
-        <h3>Why am I only finding it now?</h3>
-        <p>It’s brand new!</p>
-        <p>
-          We are conducting a public beta period of Version 1 of the World Theatre Map from 15 January 2017 - 30 June 2018. What we see in the public beta Version 1 is a “first draft” based on the field’s experience and recommendations. What we are seeking in this eighteen-month period is to have the field react and discover how we can get even more specific and effective in addressing a challenge that theatremakers are facing in their local and global contexts. This <a href="https://worldtheatremap.useresponse.com/" target="_blank">feedback</a> will shape Version 2 of the World Theatre Map.
-        </p>
-        <h3>What are the goals for this public beta period?</h3>
-        <p>
-          We aim to:
-          <ol>
-            <li>Achieve a rich diversity and large quantity of information about theatre organizations, theatremakers, and events.</li>
-            <li>Engage a diverse and large quantity of theatremakers who are accessing this knowledge resource.</li>
-            <li>Get participation in building and evolving the website’s features and utility.</li>
-          </ol>
-        </p>
         <h3>Development History</h3>
         <p>
           We began building The World Theatre Map in January 2016. You can read more about our development process <a href="http://howlround.com/search?f%5B0%5D=field_post_tags%3A464" target="_blank">here</a>. </p>
         <h3>I participated in The New Play Map. How does this project relate?</h3>
         <p>
           The World Theatre Map is an entirely new project. The New Play Map is now sunsetted. However, we have migrated all of the data that was in The New Play Map over to The World Theatre Map so you can see everything that was in The New Play Map here!
-        </p>
-        <h3>I’d like to invite people to join the World Theatre Map. How can I get the word out?</h3>
-        <p>
-          <a href="http://mailchi.mp/fbcebb71dead/lets-discover-each-other-dcouvrons-nous-descubrmonos" target="_blank">Download this sample email template</a>, and modify as you see fit! You can also share your profile on social media and encourage folks to join that way!
         </p>
         <h3>The site is in English, Spanish, French. How does the translation work?</h3>
         <p>
@@ -81,9 +63,6 @@ class AboutPage extends React.Component {
         <h3>I have a question you didn’t answer or want to talk to you about the World Theatre Map.</h3>
         <p>
           Email us at <a href="mailto:map@howlround.com" target="_blank">map@howlround.com</a>!
-        </p>
-        <p>
-          <a href="https://www.worldtheatremap.org/en/join">Create an account</a> in order to edit and add to the World Theatre Map.
         </p>
       </div>
     );
@@ -111,20 +90,6 @@ class AboutPage extends React.Component {
         <p>
           Más importante, ahora mismo, puede publicar comentarios en el foro de usuarios sobre nuevas ideas de cómo un recurso en línea como el Mapa Mundial de Teatro puede servir mejor las necesidades urgentes que tiene usted.
         </p>
-        <h3>¿Por qué sólo lo encuentro ahora?</h3>
-        <p>¡Es completamente nuevo!</p>
-        <p>
-          Estamos dirigiendo un período beta público de la Versión 1 del Mapa Mundial de Teatro desde el 15 de enero del 2017 hasta el 30 de junio del 2018. Lo que vemos en esta primera versión beta pública es el “primer borrador” que se basa en la experiencia y recomendaciones del campo profesional. Lo que estamos buscando en este período de dieciocho meses es hacer que el campo profesional reaccione y descubra cómo podemos ser aún más específicos y efectivos al enfrentar un desafío que los artistas de teatro están enfrentando en contextos locales y globales. Está información dará forma a la Versión 2 del Mapa Mundial de Teatro.
-        </p>
-        <h3>¿Cuáles son los objetivos de este período beta público?</h3>
-        <p>
-          Apuntamos a:
-          <ol>
-            <li>Lograr una gran diversidad y gran cantidad de información sobre organizaciones de teatro, teatros y eventos.</li>
-            <li>Involucrar una cantidad diversa y grande de teatros que están accediendo a este recurso de conocimiento.</li>
-            <li>Obtener participación en la construcción y evolución de las características y la utilidad de la página web.</li>
-          </ol>
-        </p>
         <h3>Historia del desarrollo</h3>
         <p>
           Empezamos a construir el Mapa Mundial de Teatro en enero del 2016. Puede leer más sobre nuestro proceso de desarrollo.
@@ -132,10 +97,6 @@ class AboutPage extends React.Component {
         <h3>Participé en The New Play Map. ¿Cómo se relaciona este proyecto?</h3>
         <p>
           El Mapa Mundial de Teatro es un proyecto totalmente nuevo. The New Play Map se ha cerrado. Sin embargo, hemos migrado todos los datos que estaban en The New Play Map al Mapa Mundial de Teatro para que pueda ver todo lo que estaba en The New Play Map aquí!
-        </p>
-        <h3>Me gustaría invitar personas a unirse al Mapa Mundial de Teatro. ¿Cómo puedo comunicarlo?</h3>
-        <p>
-          !<a href="http://mailchi.mp/fbcebb71dead/lets-discover-each-other-dcouvrons-nous-descubrmonos">Descargue esta plantilla de correo electrónico de ejemplo</a> y modifíquela como mejor le parezca! También puede compartir su perfil en las redes sociales y animar a la gente a unirse de esa manera.
         </p>
         <h3>La página está en inglés, español, francés. ¿Cómo funciona la traducción?</h3>
         <p>
@@ -152,9 +113,6 @@ class AboutPage extends React.Component {
         <h3>Tengo una pregunta que no se ha contestado o quisiera hablarte acerca del Mapa Mundial de Teatro.</h3>
         <p>
           ¡Envíenos un correo electrónico a <a href="mailto:map@howlround.com">map@howlround.com</a>!
-        </p>
-        <p>
-          <a href="https://www.worldtheatremap.org/en/join">Crea una cuenta</a> para poder editar y agregar al Mapa Mundial de Teatro.
         </p>
       </div>
     );
@@ -182,20 +140,6 @@ class AboutPage extends React.Component {
         <p>
           Mais avant tout, vous pouvez dès maintenant publier vos nouvelles idées dans le forum des utilisateurs, afin qu’une ressource en ligne comme la Carte mondiale du théâtre puisse mieux répondre à vos besoins immédiats.
         </p>
-        <h3>Pourquoi est-ce que je le découvre seulement aujourd’hui?</h3>
-        <p>C’est tout nouveau !</p>
-        <p>
-          Nous réalisons une période bêta publique de la version 1 de la Carte mondiale du théâtre, entre le 15 janvier 2017 et le 30 juin 2018. Nous considérons cette première version bêta publique comme une « ébauche » élaborée à partir d’expériences et de recommandations du milieu. Au cours de cette période de dix-huit mois, nous cherchons les réactions et la collaboration de la communauté pour nous aider à trouver une meilleure efficacité et une plus grande pertinence dans notre réponse aux difficultés rencontrées par les créateurs de théâtre, tant sur la scène locale qu’internationale. Cette rétroaction façonnera la deuxième version de la Carte mondiale du théâtre.
-        </p>
-        <h3>Quels sont les objectifs de cette période bêta publique ?</h3>
-        <p>
-          Nous visons à :
-          <ol>
-            <li>Atteindre une riche diversité et une grande quantité d’informations sur les organisations de théâtre, les créateurs de théâtre, les spectacles et les festivals ;</li>
-            <li>Encourager l’implication d’un nombre important et diversifié d’artistes ayant accès à cette ressource d’information ;</li>
-            <li>Susciter la participation à la construction et à l’évolution des fonctions et de l’utilité du site Web.</li>
-          </ol>
-        </p>
         <h3>Historique de réalisation</h3>
         <p>
           Nous avons commencé à mettre sur pied la Carte mondiale du théâtre en janvier 2016. Vous pouvez lire davantage d’informations sur notre <a href="http://howlround.com/search?f%5B0%5D=field_post_tags%3A464" target="_blank">processus de réalisation ici</a>.
@@ -203,10 +147,6 @@ class AboutPage extends React.Component {
         <h3>J’ai participé à « The New Play Map ». En quoi ce projet-ci y est-il relié ?</h3>
         <p>
           La Carte mondiale du théâtre est un tout nouveau projet. Bien que « The New Play Map » soit maintenant fermé, nous avons transféré toutes les informations qui y étaient enregistrées afin de les rendre accessibles dans la Carte mondiale du théâtre.
-        </p>
-        <h3>J’aimerais inviter des gens à s’inscrire à la Carte mondiale du théâtre. Comment puis-je communiquer l’information ?</h3>
-        <p>
-          <a href="http://mailchi.mp/fbcebb71dead/lets-discover-each-other-dcouvrons-nous-descubrmonos">Téléchargez ce modèle de courriel</a> et modifiez-le comme bon vous semble ! Vous pouvez également partager votre profil sur les médias sociaux pour encourager vos amis à s’inscrire !
         </p>
         <h3>Le site est en anglais, en espagnol et en français. Comment fonctionne la traduction ?</h3>
         <p>
@@ -223,9 +163,6 @@ class AboutPage extends React.Component {
         <h3>Si j’ai une question à laquelle vous n’avez pas répondu, ou si je veux discuter avec vous de la Carte mondiale du théâtre ?</h3>
         <p>
           Écrivez-nous à <a href="mailto:map@howlround.com">map@howlround.com</a>!
-        </p>
-        <p>
-          <a href="https://www.worldtheatremap.org/fr/join" target="_blank">Créez un compte</a> pour modifier et ajouter des éléments sur la Carte mondiale du théâtre.
         </p>
       </div>
     );

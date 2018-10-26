@@ -76,16 +76,13 @@ TAPi18n.publish('shows.singleNameById', function showsSingleNameById(id) {
   });
 });
 
-TAPi18n.publish('shows.search', function showsSearch(plainTextQuery, skip) {
+TAPi18n.publish('shows.search', function showsSearch(plainTextQuery, skip, limit) {
   const processedQuery = _.clone(plainTextQuery);
 
   if (plainTextQuery.name) {
     processedQuery.nameSearch = new RegExp(`.*${formatForSearch(plainTextQuery.name)}.*`);
     delete processedQuery.name;
   }
-
-  // const limit = 20;
-  const limit = 1000;
 
   return Shows.i18nFind(processedQuery, {
     fields: Shows.searchFields,

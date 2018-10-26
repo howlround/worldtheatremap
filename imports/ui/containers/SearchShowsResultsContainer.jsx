@@ -67,7 +67,13 @@ const getEventsFromShows = ({ showResults, privateEventQuery }) => {
 const count = new ReactiveVar(0);
 
 const SearchShowsResultsContainer = createContainer((props) => {
-  const { query, updateQuery, locale } = props;
+  const {
+    query,
+    updateQuery,
+    updateResultsDisplay,
+    resultsDisplay,
+    locale
+  } = props;
   let loading = false;
   let skip = 0;
   let showResults = [];
@@ -113,7 +119,8 @@ const SearchShowsResultsContainer = createContainer((props) => {
 
     // Make sure privateShowQuery is not empty otherwise all records are returned
     if (!isEmpty(privateShowQuery)) {
-      const showsSubscribe = TAPi18n.subscribe('shows.search', plainTextQuery, skip);
+      const limit = resultsDisplay === 'map' ? 1000 : 20;
+      const showsSubscribe = TAPi18n.subscribe('shows.search', plainTextQuery, skip, limit);
       loading = !showsSubscribe.ready();
       showResults = Shows.find(
         {},
@@ -121,8 +128,7 @@ const SearchShowsResultsContainer = createContainer((props) => {
           sort: {
             name: 1,
           },
-          // limit: 20,
-          limit: 1000,
+          limit,
         }
       ).fetch();
 
@@ -301,6 +307,8 @@ const SearchShowsResultsContainer = createContainer((props) => {
     skip,
     query,
     updateQuery,
+    updateResultsDisplay,
+    resultsDisplay,
     shareImageFilename,
   };
 }, SearchShowsResults);

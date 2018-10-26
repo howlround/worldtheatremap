@@ -18,16 +18,6 @@ import ShowTeaser from '../components/ShowTeaser.jsx';
 class SearchShowsResults extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      resultsDisplay: 'list',
-    };
-
-    this.updateResultsDisplay = this.updateResultsDisplay.bind(this);
-  }
-
-  updateResultsDisplay(display) {
-    this.setState({ resultsDisplay: display });
   }
 
   render() {
@@ -38,10 +28,11 @@ class SearchShowsResults extends React.Component {
       skip,
       query,
       updateQuery,
+      updateResultsDisplay,
+      resultsDisplay,
       shareImageFilename,
     } = this.props;
     const { locale } = this.props.intl;
-    const { resultsDisplay } = this.state;
 
     let output = null;
 
@@ -78,7 +69,7 @@ class SearchShowsResults extends React.Component {
                 ))}
               </ul>
               <SearchResultsPager
-                count={results.length}
+                count={count}
                 skip={skip}
                 query={query}
                 updateQuery={updateQuery}
@@ -152,7 +143,7 @@ class SearchShowsResults extends React.Component {
           count={count}
         />
         <SearchResultsToggle
-          toggle={this.updateResultsDisplay}
+          toggle={updateResultsDisplay}
           active={resultsDisplay}
         />
         {output}
@@ -172,6 +163,7 @@ SearchShowsResults.propTypes = {
   loading: React.PropTypes.bool,
   query: React.PropTypes.object,
   updateQuery: React.PropTypes.func,
+  resultsDisplay: React.PropTypes.string,
   skip: React.PropTypes.number,
   intl: intlShape.isRequired,
 };

@@ -41,13 +41,19 @@ class SearchShows extends React.Component {
         }
       });
 
-      this.state = cleanQuery;
+      this.state = {
+        query: cleanQuery,
+        resultsDisplay: 'list',
+      };
     } else {
-      this.state = {};
+      this.state = {
+        resultsDisplay: 'list',
+      };
     }
 
     this.onChange = this.onChange.bind(this);
     this.updateQuery = this.updateQuery.bind(this);
+    this.updateResultsDisplay = this.updateResultsDisplay.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -67,27 +73,33 @@ class SearchShows extends React.Component {
         }
       });
 
-      this.setState(cleanQuery);
+      this.setState({ query: cleanQuery});
     }
   }
 
   updateQuery(value) {
     const { locale } = this.props.intl;
 
-    this.setState(value);
+    this.setState({ query: value });
     this.context.router.push({
       pathname: `/${locale}/search/shows`,
       query: value,
     });
   }
 
+  updateResultsDisplay(value) {
+    this.setState({ resultsDisplay: value });
+  }
+
   onChange(value) {
     const { locale } = this.props.intl;
+    const changeValue = value;
+    // @TODO: Maybe pass this down in SearchProfilesResultsContainer to page faster
 
     // This function should always reset the pager because something changed
-    delete value.page;
+    delete changeValue.page;
 
-    this.setState(value);
+    this.setState({ query: changeValue });
     this.context.router.push({
       pathname: `/${locale}/search/shows`,
       query: value,
@@ -96,7 +108,7 @@ class SearchShows extends React.Component {
 
   renderShows() {
     const { locale } = this.props.intl;
-    const query = this.state;
+    const { query, resultsDisplay } = this.state;
 
     const cleanQuery = {};
     _.each(query, (val, key) => {
@@ -109,6 +121,8 @@ class SearchShows extends React.Component {
       <SearchShowsResultsContainer
         query={cleanQuery}
         updateQuery={this.updateQuery}
+        updateResultsDisplay={this.updateResultsDisplay}
+        resultsDisplay={resultsDisplay}
         locale={locale}
       />
     );
@@ -118,6 +132,7 @@ class SearchShows extends React.Component {
     // const { show, showExists, loading } = this.props;
     const { loading } = this.props;
     const { formatMessage, locale } = this.props.intl;
+    const { query } = this.state;
 
     if (loading) {
       // Tell Prerender.io that we're not ready
@@ -167,7 +182,7 @@ class SearchShows extends React.Component {
                     type={showFiltersSchema}
                     options={formOptions}
                     onChange={this.onChange}
-                    value={this.state}
+                    value={query}
                   />
                 </form>
               </div>

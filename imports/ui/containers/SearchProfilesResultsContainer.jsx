@@ -25,7 +25,13 @@ import SearchProfilesResults from '../components/SearchProfilesResults.jsx';
 const count = new ReactiveVar(0);
 
 const SearchProfilesResultsContainer = createContainer((props) => {
-  const { query, updateQuery, updateResultsDisplay, resultsDisplay, locale } = props;
+  const {
+    query,
+    updateQuery,
+    updateResultsDisplay,
+    resultsDisplay,
+    locale
+  } = props;
   let loading = false;
   let skip = 0;
   let results = [];

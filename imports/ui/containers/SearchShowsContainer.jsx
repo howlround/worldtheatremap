@@ -11,15 +11,13 @@ export default createContainer(() => {
   const administrativeAreasSubscribe = Meteor.subscribe('administrativeAreas.public');
   const eventTypesSubscribe = TAPi18n.subscribe('eventTypes.public');
 
-  const loading = !(
-    localitiesSubscribe.ready() &&
-    countriesSubscribe.ready() &&
-    interestsSubscribe.ready() &&
-    administrativeAreasSubscribe.ready() &&
-    eventTypesSubscribe.ready() &&
-    languagesSubscribe.ready()
-  );
   return {
-    loading,
+    loading: false,
+    localitiesReady: localitiesSubscribe.ready(),
+    countriesReady: countriesSubscribe.ready(),
+    interestsReady: interestsSubscribe.ready(),
+    administrativeAreasReady: administrativeAreasSubscribe.ready(),
+    eventTypesReady: eventTypesSubscribe.ready(),
+    languagesReady: languagesSubscribe.ready(),
   };
 }, SearchShows);

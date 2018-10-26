@@ -10,12 +10,11 @@ const SearchFestivalsContainer = createContainer(() => {
   const interestsSubscribe = TAPi18n.subscribe('interests.public');
 
   return {
-    loading: !(
-      localitiesSubscribe.ready() &&
-      countriesSubscribe.ready() &&
-      interestsSubscribe.ready() &&
-      administrativeAreasSubscribe.ready()
-    ),
+    loading: false,
+    localitiesReady: localitiesSubscribe.ready(),
+    countriesReady: countriesSubscribe.ready(),
+    interestsReady: interestsSubscribe.ready(),
+    administrativeAreasReady: administrativeAreasSubscribe.ready(),
   };
 }, SearchFestivals);
 

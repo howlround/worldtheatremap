@@ -10,11 +10,10 @@ export default createContainer(() => {
   const eventTypesSubscribe = TAPi18n.subscribe('eventTypes.public');
 
   return {
-    loading: !(
-      localitiesSubscribe.ready() &&
-      countriesSubscribe.ready() &&
-      eventTypesSubscribe.ready() &&
-      administrativeAreasSubscribe.ready()
-    ),
+    loading: false,
+    localitiesReady: localitiesSubscribe.ready(),
+    countriesReady: countriesSubscribe.ready(),
+    eventTypesReady: eventTypesSubscribe.ready(),
+    administrativeAreasReady: administrativeAreasSubscribe.ready(),
   };
 }, SearchEvents);

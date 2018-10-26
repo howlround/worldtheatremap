@@ -48,13 +48,19 @@ class SearchFestivals extends React.Component {
         cleanQuery['profileType'] = [ 'Festival' ];
       }
 
-      this.state = cleanQuery;
+      this.state = {
+        query: cleanQuery,
+        resultsDisplay: 'list',
+      };
     } else {
-      this.state = {};
+      this.state = {
+        resultsDisplay: 'list',
+      };
     }
 
     this.onChange = this.onChange.bind(this);
     this.updateQuery = this.updateQuery.bind(this);
+    this.updateResultsDisplay = this.updateResultsDisplay.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -79,13 +85,13 @@ class SearchFestivals extends React.Component {
         cleanQuery['profileType'] = [ 'Festival' ];
       }
 
-      this.setState(cleanQuery);
+      this.setState({ query: cleanQuery});
     }
   }
 
   renderProfiles() {
     const { locale } = this.props.intl;
-    const query = this.state;
+    const { query, resultsDisplay } = this.state;
 
     const cleanQuery = {};
     _.each(query, (val, key) => {
@@ -98,29 +104,37 @@ class SearchFestivals extends React.Component {
       <SearchProfilesResultsContainer
         query={cleanQuery}
         updateQuery={this.updateQuery}
+        updateResultsDisplay={this.updateResultsDisplay}
+        resultsDisplay={resultsDisplay}
         locale={locale}
       />
     );
   }
 
   updateQuery(value) {
+    // Similar to onChange except it's coming from the pager so it shouldn't reset the pager value
     const { locale } = this.props.intl;
 
-    this.setState(value);
+    this.setState({ query: value });
     this.context.router.push({
       pathname: `/${locale}/search/festivals`,
       query: value
     });
   }
 
+  updateResultsDisplay(value) {
+    this.setState({ resultsDisplay: value });
+  }
+
   onChange(value) {
     const { locale } = this.props.intl;
+    const changeValue = value;
     // @TODO: Maybe pass this down in SearchProfilesResultsContainer to page faster
 
     // This function should always reset the pager because something changed
-    delete value.page;
+    delete changeValue.page;
 
-    this.setState(value);
+    this.setState({ query: changeValue });
     this.context.router.push({
       pathname: `/${locale}/search/festivals`,
       query: value
@@ -130,6 +144,7 @@ class SearchFestivals extends React.Component {
   render() {
     const { loading, dummyForm } = this.props;
     const { formatMessage, locale } = this.props.intl;
+    const { query } = this.state;
 
     if (loading) {
       // Don't display loading screen if using the form away from the directory page
@@ -178,7 +193,7 @@ class SearchFestivals extends React.Component {
                     type={profileFestivalsFiltersSchema}
                     options={formOptions}
                     onChange={this.onChange}
-                    value={this.state}
+                    value={query}
                   />
                 </form>
               </div>

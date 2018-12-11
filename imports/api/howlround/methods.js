@@ -75,9 +75,9 @@ export const howlroundSearchPosts = new ValidatedMethod({
                 posts.push($(el).html());
               });
 
-              const postsUrl = url.parse(Meteor.settings.public.HowlroundPostsURL);
+              const postsUrl = url.parse(Meteor.settings.public.HowlroundPostsSeeAllURL);
               postsUrl.query = {
-                search_api_fulltext: searchText,
+                keys: searchText,
               };
 
               Profiles.update(_id, {

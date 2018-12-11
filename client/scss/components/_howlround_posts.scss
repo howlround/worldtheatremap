@@ -32,11 +32,17 @@
   }
 
   .field--name-field-authors {
-    color: $light-gray;
+    color: $gray;
+    clear: both;
+
+    .field__item {
+      display: inline-block;
+    }
   }
 
   .field--name-field-title-wysiwyg {
     float: left;
+    margin-right: 5px;
     text-decoration: underline;
   }
 

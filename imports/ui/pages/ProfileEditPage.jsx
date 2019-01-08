@@ -10,7 +10,7 @@ import ProfileEdit from '../components/ProfileEdit.jsx';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
 import AccessDeniedMessage from '../components/AccessDeniedMessage.jsx';
 import Modal from '../components/Modal.jsx';
-import AuthSignIn from '../components/AuthSignIn.jsx';
+import AuthHowlRound from '../components/AuthHowlRound.jsx';
 import Loading from '../components/Loading.jsx';
 
 class ProfileEditPage extends React.Component {
@@ -60,7 +60,7 @@ class ProfileEditPage extends React.Component {
             <AccessDeniedMessage />
             <div className="page-content">
               <Helmet title="Sign in to edit this profile" />
-              <AuthSignIn />
+              <AuthHowlRound />
             </div>
           </div>
         </div>

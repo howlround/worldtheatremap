@@ -7,7 +7,7 @@ import Helmet from 'react-helmet';
 import ShowAdd from '../components/ShowAdd.jsx';
 import AccessDeniedMessage from '../components/AccessDeniedMessage.jsx';
 import Modal from '../components/Modal.jsx';
-import AuthSignIn from '../components/AuthSignIn.jsx';
+import AuthHowlRound from '../components/AuthHowlRound.jsx';
 import Loading from '../components/Loading.jsx';
 
 export default class ShowAddPage extends React.Component {
@@ -52,7 +52,7 @@ export default class ShowAddPage extends React.Component {
             <AccessDeniedMessage />
             <div className="page-content">
               <Helmet title="Sign in to add a show" />
-              <AuthSignIn />
+              <AuthHowlRound />
             </div>
           </div>
         </div>

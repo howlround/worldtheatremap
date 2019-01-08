@@ -5,7 +5,7 @@ import { defineMessages, intlShape, injectIntl } from 'react-intl';
 
 // Components
 import Modal from '../components/Modal.jsx';
-import AuthRecover from '../components/AuthRecover.jsx';
+import AuthHowlRound from '../components/AuthHowlRound.jsx';
 
 const AuthRecoverPage = (props) => {
   const { formatMessage } = props.intl;
@@ -25,7 +25,7 @@ const AuthRecoverPage = (props) => {
       <div className="page auth">
         <div className="page-content">
           <Helmet title={recoverTitle} />
-          <AuthRecover />
+          <AuthHowlRound />
         </div>
       </div>
     </div>

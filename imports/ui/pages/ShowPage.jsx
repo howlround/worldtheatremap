@@ -17,7 +17,7 @@ import ShowEdit from '../components/ShowEdit.jsx';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
 import AccessDeniedMessage from '../components/AccessDeniedMessage.jsx';
 import Modal from '../components/Modal.jsx';
-import AuthSignIn from '../components/AuthSignIn.jsx';
+import AuthHowlRound from '../components/AuthHowlRound.jsx';
 import Loading from '../components/Loading.jsx';
 
 // API
@@ -262,7 +262,7 @@ class ShowPage extends React.Component {
             <AccessDeniedMessage />
             <div className="page-content">
               <Helmet title="Sign in to edit this show" />
-              <AuthSignIn />
+              <AuthHowlRound />
             </div>
           </div>
         </div>

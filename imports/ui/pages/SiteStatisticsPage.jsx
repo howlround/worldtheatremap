@@ -10,7 +10,7 @@ import { TAPi18n } from 'meteor/tap:i18n';
 // Components
 import AccessDeniedMessage from '../components/AccessDeniedMessage.jsx';
 import Modal from '../components/Modal.jsx';
-import AuthSignIn from '../components/AuthSignIn.jsx';
+import AuthHowlRound from '../components/AuthHowlRound.jsx';
 
 class SiteStatisticsPage extends React.Component {
   constructor(props) {
@@ -140,7 +140,7 @@ class SiteStatisticsPage extends React.Component {
             <AccessDeniedMessage />
             <div className="page-content">
               <Helmet title="Sign in to edit this content" />
-              <AuthSignIn />
+              <AuthHowlRound />
             </div>
           </div>
         </div>

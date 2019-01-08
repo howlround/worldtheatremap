@@ -12,7 +12,7 @@ import ProfileAdd from '../components/ProfileAdd.jsx';
 import AccessDeniedMessage from '../components/AccessDeniedMessage.jsx';
 import Modal from '../components/Modal.jsx';
 import Loading from '../components/Loading.jsx';
-import AuthSignIn from '../components/AuthSignIn.jsx';
+import AuthHowlRound from '../components/AuthHowlRound.jsx';
 
 class ProfileAddPage extends React.Component {
   constructor(props) {
@@ -60,7 +60,7 @@ class ProfileAddPage extends React.Component {
             <AccessDeniedMessage />
             <div className="page-content">
               <Helmet title="Sign in to add a profile" />
-              <AuthSignIn />
+              <AuthHowlRound />
             </div>
           </div>
         </div>

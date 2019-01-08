@@ -10,7 +10,7 @@ import EventAdd from '../components/EventAdd.jsx';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
 import AccessDeniedMessage from '../components/AccessDeniedMessage.jsx';
 import Modal from '../components/Modal.jsx';
-import AuthSignIn from '../components/AuthSignIn.jsx';
+import AuthHowlRound from '../components/AuthHowlRound.jsx';
 import Loading from '../components/Loading.jsx';
 import ShowAdd from '../components/ShowAdd.jsx';
 
@@ -128,7 +128,7 @@ class EventAddPage extends React.Component {
             <AccessDeniedMessage />
             <div className="page-content">
               <Helmet title="Sign in to add an event" />
-              <AuthSignIn/>
+              <AuthHowlRound/>
             </div>
           </div>
         </div>

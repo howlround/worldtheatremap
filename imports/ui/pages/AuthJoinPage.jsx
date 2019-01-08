@@ -7,7 +7,7 @@ import { Link } from 'react-router';
 
 // Components
 import Modal from '../components/Modal.jsx';
-import AuthJoin from '../components/AuthJoin.jsx';
+import AuthHowlRound from '../components/AuthHowlRound.jsx';
 import Loading from '../components/Loading.jsx';
 
 class AuthJoinPage extends React.Component {
@@ -39,7 +39,7 @@ class AuthJoinPage extends React.Component {
           <div className="page auth">
             <div className="page-content">
               <Helmet title={joinTitle} />
-              <AuthJoin />
+              <AuthHowlRound />
             </div>
           </div>
         </div>

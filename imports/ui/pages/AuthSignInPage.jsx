@@ -7,7 +7,7 @@ import { Link } from 'react-router';
 
 // Components
 import Modal from '../components/Modal.jsx';
-import AuthSignIn from '../components/AuthSignIn.jsx';
+import AuthHowlRound from '../components/AuthHowlRound.jsx';
 
 class AuthSignInPage extends React.Component {
   render() {
@@ -29,7 +29,7 @@ class AuthSignInPage extends React.Component {
         <div className="page auth">
           <div className="page-content">
             <Helmet title={signInTitle} />
-            <AuthSignIn/>
+            <AuthHowlRound/>
           </div>
         </div>
       </div>

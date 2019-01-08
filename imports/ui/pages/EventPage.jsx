@@ -15,7 +15,7 @@ import EventEdit from '../components/EventEdit.jsx';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
 import AccessDeniedMessage from '../components/AccessDeniedMessage.jsx';
 import Modal from '../components/Modal.jsx';
-import AuthSignIn from '../components/AuthSignIn.jsx';
+import AuthHowlRound from '../components/AuthHowlRound.jsx';
 import Loading from '../components/Loading.jsx';
 
 // API
@@ -199,7 +199,7 @@ class EventPage extends React.Component {
           <div className="page auth">
             <AccessDeniedMessage />
             <div className="page-content">
-              <AuthSignIn/>
+              <AuthHowlRound/>
             </div>
           </div>
         </div>

@@ -24,7 +24,7 @@
   }
 
   @include breakpoint($narrow) {
-    @include gallery(1 of 5);
+    @include gallery(1 of 4);
 
     &::after {
       content: none;

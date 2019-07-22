@@ -158,7 +158,7 @@ class App extends React.Component {
             },
             { property: 'og:title', content: siteName },
             // { property: 'og:image', content: `https://s3.amazonaws.com/wtm-static/wtm-share-fb-2016-12-13-${locale}.jpg` },
-            { property: 'og:image', content: `https://s3.amazonaws.com/wtm-static/wtm-share-single-2019-06-22.png` },
+            { property: 'og:image', content: `https://s3.amazonaws.com/wtm-static/wtm-share-fb-2019-06-22-all.png` },
             { property: 'og:description', content: siteDescription },
             { property: 'twitter:card', content: 'summary_large_image' },
             { property: 'twitter:site', content: '@WorldTheatreMap' },
@@ -166,7 +166,7 @@ class App extends React.Component {
             { property: 'twitter:description', content: siteDescription },
             { property: 'twitter:creator', content: '@WorldTheatreMap' },
             // { property: 'twitter:image', content: `https://s3.amazonaws.com/wtm-static/wtm-share-tw-2016-12-13-${locale}.jpg` },
-            { property: 'twitter:image', content: `https://s3.amazonaws.com/wtm-static/wtm-share-single-2019-06-22.png` },
+            { property: 'twitter:image', content: `https://s3.amazonaws.com/wtm-static/wtm-share-tw-2019-06-22-all.png` },
             {
               property: 'twitter:domain',
               content: `${Meteor.absoluteUrl(false, { secure: true })}`,

@@ -24,11 +24,12 @@ class AuthHowlRound extends React.Component {
     return (
       <div className="wrapper-auth">
         <h1 className="title-auth">
-          <FormattedMessage
+          Login and registration has been disabled
+          {/*<FormattedMessage
             id="auth.signInTitle"
             description="Title for the Sign In screen"
             defaultMessage="Sign In"
-          />
+          />*/}
         </h1>
         <p className="subtitle-auth" >
           <FormattedMessage
@@ -37,12 +38,12 @@ class AuthHowlRound extends React.Component {
             defaultMessage="Signing in allows you to add and edit profiles and events"
           />
         </p>
-        <button
+        {/*<button
           className="footer-add-button button"
           onClick={this.login.bind(this)}
         >
           Sign in
-        </button>
+        </button>*/}
       </div>
     );
   }

@@ -12,7 +12,9 @@ import { Content } from '../../api/content/content.js';
 
 const AppContainer = createContainer(() => {
   const supportedLanguages = TAPi18n.getLanguages();
-  const user = Meteor.user();
+  // Disable all logged in functionality
+  // const user = Meteor.user();
+  const user = null;
   // announcementSubscription
   TAPi18n.subscribe('content.singleByTitle', 'Announcement');
   const announcement = Content.findOne({

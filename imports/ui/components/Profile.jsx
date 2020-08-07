@@ -143,14 +143,14 @@ class Profile extends React.Component {
 
   renderPhotoAndUploader() {
     const { progress, uploading, newImageLoaded, uploadError } = this.state;
-    const { profile } = this.props;
+    const { profile, user } = this.props;
     const DropzoneStyleOverride = {};
     const targetClasses = classNames('dropzone-target', {
       'existing-image': profile.imageWide,
       'empty-image': !profile.imageWide,
     });
 
-    if (Meteor.user()) {
+    if (user) {
       return (
         <div className="profile-image-wrapper">
           <Dropzone

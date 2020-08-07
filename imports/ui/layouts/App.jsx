@@ -192,16 +192,16 @@ class App extends React.Component {
                 defaultMessage="World Theatre Map"
               />
             </Link>
-            <UserMenu
+            {/*<UserMenu
               user={user}
               logout={this.logout}
               hideDropDown={this.hideDropDown}
               forceCloseDropDown={forceCloseDropDown}
-            />
-            <AddMenu
+            />*/}
+            {/*<AddMenu
               hideDropDown={this.hideDropDown}
               forceCloseDropDown={forceCloseDropDown}
-            />
+            />*/}
             <div className="menu-right menu-container menu-with-divider">
               <Link
                 to={`/${locale}/search`}
@@ -241,7 +241,7 @@ class App extends React.Component {
         <FooterAddPitch />
         <ContentCountsContainer />
         <Footer />
-        <div className="feedback-link">
+        {/*<div className="feedback-link">
           <a href="https://worldtheatremap.useresponse.com" target="_blank">
             <FormattedMessage
               id="navigation.feedbackLink"
@@ -249,7 +249,7 @@ class App extends React.Component {
               defaultMessage="Give feedback"
             />
           </a>
-        </div>
+        </div>*/}
       </div>
     );
   }

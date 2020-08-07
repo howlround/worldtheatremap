@@ -14,7 +14,9 @@ export default class HomePageDisplayToggle extends React.Component {
 
     event.preventDefault();
 
-    const nextDisplay = (active === 'events') ? 'people' : 'events';
+    // Disable curent event tab and hard code
+    // const nextDisplay = (active === 'events') ? 'people' : 'events';
+    const nextDisplay = 'people';
 
     updateDisplay(nextDisplay);
   }

@@ -17,7 +17,7 @@ class HomePage extends React.Component {
     super(props);
 
     this.state = {
-      display: 'events',
+      display: 'people',
     };
 
     this.updateDisplay = this.updateDisplay.bind(this);

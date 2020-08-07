@@ -31,6 +31,7 @@ import ShowAddContainer from '../../ui/containers/ShowAddContainer.jsx';
 import ShowContainer from '../../ui/containers/ShowContainer.jsx';
 import ShowEditContainer from '../../ui/containers/ShowEditContainer.jsx';
 import SiteStatisticsContainer from '../../ui/containers/SiteStatisticsContainer.jsx';
+import SunsetPage from '../../ui/pages/SunsetPage.jsx';
 import TermsOfUsePage from '../../ui/pages/TermsOfUsePage.jsx';
 import WelcomePage from '../../ui/pages/WelcomePage.jsx';
 
@@ -185,6 +186,7 @@ export const renderRoutes = ({ locale, messages }) => (
         <Route path="reset-password" component={AuthResetPasswordPage} />
         <Route path="reset-password/:token" component={AuthResetPasswordPage} />
         <Route path="about" component={AboutPage} />
+        <Route path="sunset" component={SunsetPage} />
         <Route path="welcome" component={WelcomePage} />
         <Route path="terms-of-use" component={TermsOfUsePage} />
         <Route path="announcement" component={AnnouncementEditContainer} />

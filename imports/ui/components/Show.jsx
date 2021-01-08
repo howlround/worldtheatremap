@@ -28,7 +28,12 @@ class Show extends React.Component {
 
     const editLink = user ?
       <Link
-        to={`/${locale}/shows/${ show._id }/edit`}
+        to={{
+          pathname: `/${locale}/shows/${ show._id }/edit`,
+          query: {
+            '_escaped_fragment_': '',
+          },
+        }}
         key={show._id}
         title={show.name}
         className="edit-link"

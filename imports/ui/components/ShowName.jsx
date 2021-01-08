@@ -15,7 +15,12 @@ class ShowName extends React.Component {
       output = defaultName;
     } else {
       output = <Link
-        to={`/${locale}/shows/${ showId }`}
+        to={{
+          pathname: `/${locale}/shows/${ showId }`,
+          query: {
+            '_escaped_fragment_': '',
+          },
+        }}
         title={showName.name}
       >
         {showName.name}

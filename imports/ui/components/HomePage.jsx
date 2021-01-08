@@ -7,7 +7,7 @@ import { _ } from 'meteor/underscore';
 
 // Components
 import EventsGlobe from '../components/EventsGlobe.jsx';
-import HowlRoundPostFeatured from '../components/HowlRoundPostFeatured.jsx';
+// import HowlRoundPostFeatured from '../components/HowlRoundPostFeatured.jsx';
 import HomePageDisplayToggle from '../components/HomePageDisplayToggle.jsx';
 import Loading from '../components/Loading.jsx';
 import ProfilesGlobe from '../components/ProfilesGlobe.jsx';
@@ -87,7 +87,14 @@ class HomePage extends React.Component {
       <div className="homepage-globe-label">
         <h2>
           <Link
-            to={{ pathname: `/${locale}/search/shows`, query: { startDate, endDate } }}
+            to={{
+              pathname: `/${locale}/search/shows`,
+              query: {
+                startDate,
+                endDate,
+                '_escaped_fragment_': '',
+              },
+            }}
             className="events-today-view-all"
           >
             <FormattedMessage
@@ -111,7 +118,13 @@ class HomePage extends React.Component {
       <div className="homepage-globe-label">
         <h2>
           <Link
-            to={{ pathname: `/${locale}/search/profiles`, query: { 'gender[]': "Female" } }}
+            to={{
+              pathname: `/${locale}/search/profiles`,
+              query: {
+                'gender[]': "Female",
+                '_escaped_fragment_': '',
+              },
+            }}
             className="people-view-all"
           >
             <FormattedMessage
@@ -135,28 +148,28 @@ class HomePage extends React.Component {
           description="Links to search by various types"
           defaultMessage={'Search by {people}, {organizations}, {shows}, or {festivals}'}
           values={{
-            people: <Link to={{ pathname: `/${locale}/search/profiles`, query: {} }}>
+            people: <Link to={{ pathname: `/${locale}/search/profiles`, query: { '_escaped_fragment_': '' } }}>
               <FormattedMessage
                 id="searchNav.people"
                 description="Alternate Profile Search Tab"
                 defaultMessage="People"
               />
             </Link>,
-            organizations: <Link to={{ pathname: `/${locale}/search/profiles`, query: {} }}>
+            organizations: <Link to={{ pathname: `/${locale}/search/profiles`, query: { '_escaped_fragment_': '' } }}>
               <FormattedMessage
                 id="searchNav.organizations"
                 description="Alternate Profile Search Tab"
                 defaultMessage="Organizations"
               />
             </Link>,
-            shows: <Link to={{ pathname: `/${locale}/search/shows`, query: {} }}>
+            shows: <Link to={{ pathname: `/${locale}/search/shows`, query: { '_escaped_fragment_': '' } }}>
               <FormattedMessage
                 id="searchNav.shows"
                 description="Show Search Tab"
                 defaultMessage="Shows"
               />
             </Link>,
-            festivals: <Link to={{ pathname: `/${locale}/search/festivals`, query: {} }}>
+            festivals: <Link to={{ pathname: `/${locale}/search/festivals`, query: { '_escaped_fragment_': '' } }}>
               <FormattedMessage
                 id="searchNav.festivals"
                 description="Festival Search Tab"
@@ -217,7 +230,7 @@ class HomePage extends React.Component {
                 />
               </h2>
             </div>
-            {renderedHowlroundPosts}
+            {/*renderedHowlroundPosts*/}
           </div>
         </div>
       </div>

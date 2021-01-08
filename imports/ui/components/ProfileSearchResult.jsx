@@ -65,7 +65,12 @@ class ProfileSearchResult extends React.Component {
         {profile.imageWide ? this.renderImage() : ''}
         <div className={classNames}>
           <Link
-            to={`/${locale}/profiles/${profile._id}`}
+            to={{
+              pathname: `/${locale}/profiles/${profile._id}`,
+              query: {
+                '_escaped_fragment_': '',
+              },
+            }}
             title={profile.name}
             className="profile-name"
             activeClassName="active"

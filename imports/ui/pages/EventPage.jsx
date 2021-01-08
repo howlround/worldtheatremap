@@ -177,7 +177,12 @@ class EventPage extends React.Component {
               title={`Edit Event: ${event.organizations.name} presents ${event.show.name}`}
             />
             <Link
-              to={`/${locale}/events/${ event._id }`}
+              to={{
+                pathname: `/${locale}/events/${ event._id }`,
+                query: {
+                  '_escaped_fragment_': '',
+                },
+              }}
               title='Back'
               className="overlay-close"
             >
@@ -220,7 +225,12 @@ class EventPage extends React.Component {
           <div className="page-actions">
             <div className="page-actions-edit">
               <Link
-                to={`/${locale}/events/${ event._id }/edit`}
+                to={{
+                  pathname: `/${locale}/events/${ event._id }/edit`,
+                  query: {
+                    '_escaped_fragment_': '',
+                  },
+                }}
                 key={event._id}
                 title={event.name}
                 className="edit-link"

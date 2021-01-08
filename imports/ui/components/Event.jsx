@@ -302,7 +302,12 @@ class Event extends React.Component {
 
     const editLink = user ?
       <Link
-        to={`/${locale}/events/${ event._id }/edit`}
+        to={{
+          pathname: `/${locale}/events/${ event._id }/edit`,
+          query: {
+            '_escaped_fragment_': '',
+          },
+        }}
         key={event._id}
         title={event.name}
         className="edit-link"

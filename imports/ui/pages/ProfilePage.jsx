@@ -655,7 +655,12 @@ class ProfilePage extends React.Component {
             <div className="page-actions-edit">
               {user ? this.renderSubscribeLink(profile._id) : ''}
               <Link
-                to={`/${locale}/profiles/${profile._id}/edit`}
+                to={{
+                  pathname: `/${locale}/profiles/${profile._id}/edit`,
+                  query: {
+                    '_escaped_fragment_': '',
+                  },
+                }}
                 key={`${profile._id}-edit`}
                 title={`Edit ${profile.name}`}
                 className="page-edit-link"

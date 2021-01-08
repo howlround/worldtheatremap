@@ -9,7 +9,15 @@ class SearchTypeNav extends React.Component {
     return (
       <ul className="search-type">
         <li>
-          <Link to={`/${locale}/search/profiles`} activeClassName="active">
+          <Link
+            to={{
+              pathname: `/${locale}/search/profiles`,
+              query: {
+                '_escaped_fragment_': '',
+              },
+            }}
+            activeClassName="active"
+          >
             <FormattedMessage
               id="searchNav.profiles"
               description="Profile Search Tab"
@@ -18,7 +26,15 @@ class SearchTypeNav extends React.Component {
           </Link>
         </li>
         <li>
-          <Link to={`/${locale}/search/shows`} activeClassName="active">
+          <Link
+            to={{
+              pathname: `/${locale}/search/shows`,
+              query: {
+                '_escaped_fragment_': '',
+              },
+            }}
+            activeClassName="active"
+          >
             <FormattedMessage
               id="searchNav.shows"
               description="Show Search Tab"
@@ -27,7 +43,15 @@ class SearchTypeNav extends React.Component {
           </Link>
         </li>
         <li>
-          <Link to={`/${locale}/search/festivals`} activeClassName="active">
+          <Link
+            to={{
+              pathname: `/${locale}/search/festivals`,
+              query: {
+                '_escaped_fragment_': '',
+              },
+            }}
+            activeClassName="active"
+          >
             <FormattedMessage
               id="searchNav.festivals"
               description="Festival Search Tab"

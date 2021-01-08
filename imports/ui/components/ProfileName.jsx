@@ -19,9 +19,14 @@ class ProfileName extends React.Component {
     } else if (noLinks) {
       output = profileName.name;
     } else {
-      output = <Link to={`/${locale}/profiles/${ profileId }`} className="show-author">
+      output = (<Link to={{
+        pathname: `/${locale}/profiles/${ profileId }`,
+        query: {
+          '_escaped_fragment_': '',
+        },
+      }} className="show-author">
         {profileName.name}
-      </Link>;
+      </Link>);
     }
 
     return (

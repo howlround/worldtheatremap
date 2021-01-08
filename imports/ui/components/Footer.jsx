@@ -37,12 +37,12 @@ class Footer extends React.Component {
             <div className="footer-github footer-meta">
               <FormattedMessage
                 id='footer.repoLink'
-                defaultMessage="Open source {codebase} and {API} on GitHub"
+                defaultMessage="Open source {codebase} and {data} on GitHub"
                 values={{
                   codebase: <a href="https://github.com/howlround/worldtheatremap" target="_blank">codebase</a>,
                   código: <a href="https://github.com/howlround/worldtheatremap" target="_blank">código</a>,
                   source: <a href="https://github.com/howlround/worldtheatremap" target="_blank">source</a>,
-                  API: <a href="https://github.com/howlround/worldtheatremap_api" target="_blank">API</a>,
+                  data: <a href="https://github.com/howlround/wtm_data_archive" target="_blank">data</a>,
                 }}
               />
             </div>
@@ -51,7 +51,12 @@ class Footer extends React.Component {
             <ul className="footer-navigation">
               <li>
                 <Link
-                  to={`/${locale}/search`}
+                  to={{
+                    pathname: `/${locale}/search`,
+                    query: {
+                      '_escaped_fragment_': '',
+                    },
+                  }}
                 >
                   <FormattedMessage
                     id='navigation.searchFooter'
@@ -62,7 +67,12 @@ class Footer extends React.Component {
               </li>
               <li>
                 <Link
-                  to={`/${locale}/about`}
+                  to={{
+                    pathname: `/${locale}/about`,
+                    query: {
+                      '_escaped_fragment_': '',
+                    },
+                  }}
                 >
                   <FormattedMessage
                     id='navigation.aboutFooter'
@@ -73,7 +83,12 @@ class Footer extends React.Component {
               </li>
               <li>
                 <Link
-                  to={`/${locale}/terms-of-use`}
+                  to={{
+                    pathname: `/${locale}/terms-of-use`,
+                    query: {
+                      '_escaped_fragment_': '',
+                    },
+                  }}
                 >
                   <FormattedMessage
                     id='navigation.termsFooter'
@@ -104,7 +119,7 @@ class Footer extends React.Component {
                 <a className="twitter" href="http://twitter.com/HowlRound">Twitter</a>
               </li>
               <li>
-                <a className="instagram" href="http://instagram.com/howlroundtheatrecommons">Instagram</a>
+                <a className="instagram" href="http://instagram.com/howlround">Instagram</a>
               </li>
             </ul>
           </div>

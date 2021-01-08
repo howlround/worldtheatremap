@@ -63,7 +63,16 @@ class AddMenu extends React.Component {
         </a>
         { open ?
           <div className="add-options menu-children">
-            <Link to={`/${locale}/profiles/add`} className="add-profile" onClick={this.close}>
+            <Link
+              to={{
+                pathname: `/${locale}/profiles/add`,
+                query: {
+                  '_escaped_fragment_': '',
+                },
+              }}
+              className="add-profile"
+              onClick={this.close}
+            >
               <FormattedMessage
                 id="navigation.addProfile"
                 description="Add menu item for a Profile"

@@ -276,7 +276,12 @@ class Profile extends React.Component {
 
     const editLink = (user) ?
       <Link
-        to={`/${locale}/profiles/${profile._id}/edit`}
+        to={{
+          pathname: `/${locale}/profiles/${profile._id}/edit`,
+          query: {
+            '_escaped_fragment_': '',
+          },
+        }}
         key={`${profile._id}-edit`}
         title={`Edit ${profile.name}`}
         className="edit-link"

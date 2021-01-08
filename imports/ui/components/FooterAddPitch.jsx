@@ -30,14 +30,6 @@ class FooterAddPitch extends React.Component {
               </strong>
             }}
           />
-
-          <Link to={`/${locale}/profiles/add`} className="footer-add-button button">
-            <FormattedMessage
-              id="footer.addPitchButton"
-              description="Footer text prompting the user to add more content"
-              defaultMessage="Add to the Map"
-            />
-          </Link>
         </div>
       </section>
     );

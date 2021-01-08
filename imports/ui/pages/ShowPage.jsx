@@ -241,7 +241,12 @@ class ShowPage extends React.Component {
               /> : ''
             }
             <Link
-              to={`/${locale}/shows/${show._id}`}
+              to={{
+                pathname: `/${locale}/shows/${show._id}`,
+                query: {
+                  '_escaped_fragment_': '',
+                },
+              }}
               title="Back"
               className="overlay-close"
             >

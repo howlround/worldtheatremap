@@ -78,7 +78,12 @@ class EventTeaserWithShow extends React.Component {
               </div> : ''}
           </div>
           <Link
-            to={`/${locale}/events/${ event._id }`}
+            to={{
+              pathname: `/${locale}/events/${ event._id }`,
+              query: {
+                '_escaped_fragment_': '',
+              },
+            }}
             className="event-view-link"
             key={event._id}
           >

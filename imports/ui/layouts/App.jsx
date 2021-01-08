@@ -75,7 +75,12 @@ class App extends React.Component {
         <div className="announcement">
           {access ?
             <Link
-              to={`/${locale}/announcement`}
+              to={{
+                pathname: `/${locale}/announcement`,
+                query: {
+                  '_escaped_fragment_': '',
+                },
+              }}
               className="edit-announcement"
             >
               Edit
@@ -183,7 +188,12 @@ class App extends React.Component {
         <header id="header">
           <section id="menu">
             <Link
-              to={`/${locale}`}
+              to={{
+                pathname: `/${locale}`,
+                query: {
+                  '_escaped_fragment_': '',
+                },
+              }}
               className="home"
             >
               <FormattedMessage
@@ -204,7 +214,12 @@ class App extends React.Component {
             />*/}
             <div className="menu-right menu-container menu-with-divider">
               <Link
-                to={`/${locale}/search`}
+                to={{
+                  pathname: `/${locale}/search`,
+                  query: {
+                    '_escaped_fragment_': '',
+                  },
+                }}
                 className="menu-parent"
               >
                 <FormattedMessage

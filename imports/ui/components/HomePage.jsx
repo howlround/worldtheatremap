@@ -7,7 +7,7 @@ import { _ } from 'meteor/underscore';
 
 // Components
 import EventsGlobe from '../components/EventsGlobe.jsx';
-// import HowlRoundPostFeatured from '../components/HowlRoundPostFeatured.jsx';
+import HowlRoundPostFeatured from '../components/HowlRoundPostFeatured.jsx';
 import HomePageDisplayToggle from '../components/HomePageDisplayToggle.jsx';
 import Loading from '../components/Loading.jsx';
 import ProfilesGlobe from '../components/ProfilesGlobe.jsx';

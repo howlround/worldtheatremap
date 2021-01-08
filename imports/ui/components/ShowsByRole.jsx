@@ -21,6 +21,7 @@ export default class ShowsByRole extends React.Component {
           <ShowTeaser
             show={showEvents[0].show}
             eventsByShow={showEvents}
+            defaultOpen
           />
         </li>
       );

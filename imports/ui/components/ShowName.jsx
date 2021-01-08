@@ -14,7 +14,7 @@ class ShowName extends React.Component {
       // Show has been deleted
       output = defaultName;
     } else {
-      output = <Link
+      output = (<Link
         to={{
           pathname: `/${locale}/shows/${ showId }`,
           query: {
@@ -24,7 +24,7 @@ class ShowName extends React.Component {
         title={showName.name}
       >
         {showName.name}
-      </Link>;
+      </Link>);
     }
 
     return (

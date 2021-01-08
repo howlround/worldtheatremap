@@ -304,6 +304,7 @@ class Profile extends React.Component {
           <li key={show._id} className={classNames('profile-show', showOrderClass)}>
             <ShowTeaser
               show={show}
+              defaultOpen
             />
           </li>
         );
@@ -322,6 +323,7 @@ class Profile extends React.Component {
             <ShowTeaser
               show={show}
               eventsByShow={showsForOrg[key].events}
+              defaultOpen
             />
           </li>
         );
